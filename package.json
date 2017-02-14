@@ -1,5 +1,5 @@
 {
-  "name": "lp-components",
+  "name": "@launchpadlab/lp-components",
   "version": "1.0.0",
   "description": "Our Components",
   "main": "src/index.js",
@@ -7,27 +7,29 @@
   "author": "Dave Corwin",
   "license": "",
   "scripts": {
+    "build": "babel src --out-dir lib",
+    "clean": "rimraf lib",
     "lint": "eslint src",
+    "prepublish": "npm run lint && npm run clean && npm run build",
     "test": "ava"
   },
   "devDependencies": {
     "ava": "^0.18.1",
+    "babel-cli": "^6.22.2",
     "babel-eslint": "^7.1.1",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.22.0",
     "babel-preset-stage-1": "^6.22.0",
     "enzyme": "^2.7.1",
     "eslint": "^3.15.0",
-    "react": "^15.4.2",
     "react-addons-test-utils": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react-dom": "^15.4.2",
+    "rimraf": "^2.5.4"
   },
   "dependencies": {
     "classnames": "^2.2.5",
-    "lodash": "^4.17.4"
-  },
-  "peerDependencies": {
-    "react": "^15.0.0"
+    "lodash": "^4.17.4",
+    "react": "^15.4.2"
   },
   "ava": {
     "concurrency": 5,
