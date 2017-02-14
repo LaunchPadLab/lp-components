@@ -1,0 +1,7 @@
+lib
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+npm-debug.log*
+node_modules
