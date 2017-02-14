@@ -2,7 +2,7 @@
   "name": "@launchpadlab/lp-components",
   "version": "1.0.0",
   "description": "Our Components",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "repository": "launchpadlab/lp-components",
   "author": "Dave Corwin",
   "license": "",
