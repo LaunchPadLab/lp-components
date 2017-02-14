@@ -2,32 +2,29 @@
   "name": "lp-components",
   "version": "1.0.0",
   "description": "Our Components",
-  "main": "lib/lp-components.min.js",
+  "main": "lib/index.js",
   "repository": "launchpadlab/lp-components",
   "author": "Dave Corwin",
   "license": "",
   "scripts": {
-    "build": "webpack --env build",
-    "dev": "webpack --progress --colors --watch --env dev",
-    "lint": "eslint src"
+    "build": "babel src --out-dir lib",
+    "clean": "rimraf lib",
+    "lint": "eslint src",
+    "prepublish": "npm run lint && npm run clean && npm run build"
   },
   "devDependencies": {
-    "babel-core": "^6.22.1",
+    "babel-cli": "^6.23.0",
     "babel-eslint": "^7.1.1",
-    "babel-loader": "^6.2.10",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.22.0",
     "babel-preset-stage-1": "^6.22.0",
     "eslint": "^3.15.0",
-    "eslint-loader": "^1.6.1",
-    "lodash": "^4.17.4",
     "react": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "webpack": "^2.2.1",
-    "yargs": "^6.6.0"
+    "rimraf": "^2.5.4"
   },
   "dependencies": {
-    "classnames": "^2.2.5"
+    "classnames": "^2.2.5",
+    "lodash": "^4.17.4"
   },
   "peerDependencies": {
     "react": "^15.0.0"
