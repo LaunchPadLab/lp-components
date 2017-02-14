@@ -1,6 +1,6 @@
 {
   "name": "@launchpadlab/lp-components",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Our Components",
   "main": "lib/index.js",
   "repository": "launchpadlab/lp-components",
@@ -19,7 +19,6 @@
   },
   "files": [
     "README.md",
-    "LICENSE.md",
     "lib/"
   ],
   "devDependencies": {
