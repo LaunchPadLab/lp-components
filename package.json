@@ -4,8 +4,12 @@
   "description": "Our Components",
   "main": "lib/index.js",
   "repository": "launchpadlab/lp-components",
-  "author": "Dave Corwin",
-  "license": "",
+  "homepage": "https://github.com/launchpadlab/lp-redux-api",
+  "author": {
+    "name": "Dave Corwin",
+    "email": "dave@launchpadlab.com"
+  },
+  "license": "MIT",
   "scripts": {
     "build": "babel src --out-dir lib",
     "clean": "rimraf lib",
@@ -13,6 +17,11 @@
     "prepublish": "npm run lint && npm run clean && npm run build",
     "test": "ava"
   },
+  "files": [
+    "README.md",
+    "LICENSE.md",
+    "lib/"
+  ],
   "devDependencies": {
     "ava": "^0.18.1",
     "babel-cli": "^6.22.2",
