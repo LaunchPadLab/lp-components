@@ -11,8 +11,9 @@ export default function (...toggles) {
 
       static DecoratedComponent = DecoratedComponent
 
-      constructor () {
-        super()
+      constructor (props) {
+        super(props)
+        
         this.state = toggles.reduce((state, toggle) =>
           ({ ...state, [toggleStateName(toggle)]: false }),
           {}

@@ -4,7 +4,7 @@
   "description": "Our Components",
   "main": "lib/index.js",
   "repository": "launchpadlab/lp-components",
-  "homepage": "https://github.com/launchpadlab/lp-redux-api",
+  "homepage": "https://github.com/launchpadlab/lp-components",
   "author": {
     "name": "Dave Corwin",
     "email": "dave@launchpadlab.com"

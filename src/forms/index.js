@@ -1,7 +1,7 @@
 export { default as Button } from './button'
 export { default as ButtonArea } from './button-area'
 export { default as Checkbox } from './checkbox'
-export { default as FileUpload } from './file-upload'
+export { default as FileInput } from './file-input'
 export { default as InputError } from './input-error'
 export { default as InputLabel } from './input-label'
 export { default as Input } from './input'
