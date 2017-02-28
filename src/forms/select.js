@@ -8,7 +8,16 @@ const propTypes = {
   ...fieldPropTypes,
   ...InputLabel.propTypes,
   ...InputError.propTypes,
-  options: PropTypes.arrayOf(PropTypes.string),
+  options: PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape({
+      key: PropTypes.string.isRequired,
+      value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+      ]).isRequired
+    })
+  ])),
 }
 
 const defaultProps = {
@@ -25,6 +34,7 @@ function Select ({
   tooltip,
   ...rest
 }) {
+  const optionObjects = options.map(objectify)
   return (
     <fieldset className={ classes({ className, touched, invalid }) }>
 
@@ -32,14 +42,19 @@ function Select ({
 
       <select id={ name } { ...{ name, value, onBlur, onChange, ...rest } }>
 
-        { options.map(option =>
-          <option key={ option } value={ option }>{ option }</option>
+        { optionObjects.map(({ key, value }) =>
+          <option key={ key } value={ value }>{ key }</option>
         ) }
       </select>
 
       <InputError { ...{ error, invalid, touched } } />
     </fieldset>
   )
+}
+
+// Tranform string option into object option
+function objectify (option) {
+  return (typeof option === 'string') ? { key: option, value: option } : option
 }
 
 function classes ({ className, touched, invalid }) {

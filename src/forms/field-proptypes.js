@@ -5,7 +5,10 @@ export default {
     name: PropTypes.string.isRequired,
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ])
   }).isRequired,
   meta: PropTypes.shape({
     dirty: PropTypes.bool,
