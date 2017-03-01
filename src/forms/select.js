@@ -37,11 +37,13 @@ function Select ({
   ...rest
 }) {
   const optionObjects = options.map(objectify)
+  const classes = classnames(className, { error: touched && invalid })
   return (
-    <fieldset className={ classes({ className, touched, invalid }) }>
+    <fieldset className={ classes }>
 
       <InputLabel { ...{ hint, label, name, tooltip } } />
 
+<<<<<<< HEAD
       <select id={ name } className={classnames({ unselected: value === '' })} { ...{ name, value, onBlur, onChange, ...rest } }>
         { 
           placeholder &&
@@ -52,6 +54,13 @@ function Select ({
             <option key={ key } value={ value }>{ key }</option>
           )
         }
+=======
+      <select { ...{ id: name, name, value, onBlur, onChange, ...rest } }>
+
+        { optionObjects.map(({ key, value }) =>
+          <option key={ key } value={ value }>{ key }</option>
+        ) }
+>>>>>>> 9a7a1f667fe434fc2db34859dbcee81093978b5d
       </select>
 
       <InputError { ...{ error, invalid, touched } } />
@@ -62,13 +71,6 @@ function Select ({
 // Tranform string option into object option
 function objectify (option) {
   return (typeof option === 'string') ? { key: option, value: option } : option
-}
-
-function classes ({ className, touched, invalid }) {
-  return classnames(
-    className,
-    { error: touched && invalid }
-  )
 }
 
 Select.propTypes = propTypes
