@@ -8,6 +8,7 @@ const propTypes = {
   ...fieldPropTypes,
   ...InputLabel.propTypes,
   ...InputError.propTypes,
+  placeholder: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.shape({
@@ -32,6 +33,7 @@ function Select ({
   label,
   options,
   tooltip,
+  placeholder,
   ...rest
 }) {
   const optionObjects = options.map(objectify)
@@ -41,14 +43,20 @@ function Select ({
 
       <InputLabel { ...{ hint, label, name, tooltip } } />
 
-      <select { ...{ id: name, name, value, onBlur, onChange, ...rest } }>
-
-        { optionObjects.map(({ key, value }) =>
-          <option key={ key } value={ value }>{ key }</option>
-        ) }
+      <select { ...{ id: name, name, value, onBlur, onChange, ...rest } } className={classnames({ unselected: value === '' })}>
+        { 
+          placeholder &&
+          <option value='' disabled>{ placeholder }</option>
+        }
+        { 
+          optionObjects.map(({ key, value }) =>
+            <option key={ key } value={ value }>{ key }</option>
+          )
+        }
       </select>
 
       <InputError { ...{ error, invalid, touched } } />
+      
     </fieldset>
   )
 }
