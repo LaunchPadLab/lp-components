@@ -43,8 +43,7 @@ function Select ({
 
       <InputLabel { ...{ hint, label, name, tooltip } } />
 
-<<<<<<< HEAD
-      <select id={ name } className={classnames({ unselected: value === '' })} { ...{ name, value, onBlur, onChange, ...rest } }>
+      <select { ...{ id: name, name, value, onBlur, onChange, ...rest } } className={classnames({ unselected: value === '' })}>
         { 
           placeholder &&
           <option value='' disabled>{ placeholder }</option>
@@ -54,16 +53,10 @@ function Select ({
             <option key={ key } value={ value }>{ key }</option>
           )
         }
-=======
-      <select { ...{ id: name, name, value, onBlur, onChange, ...rest } }>
-
-        { optionObjects.map(({ key, value }) =>
-          <option key={ key } value={ value }>{ key }</option>
-        ) }
->>>>>>> 9a7a1f667fe434fc2db34859dbcee81093978b5d
       </select>
 
       <InputError { ...{ error, invalid, touched } } />
+      
     </fieldset>
   )
 }
