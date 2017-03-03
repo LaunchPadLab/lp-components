@@ -56,7 +56,10 @@ class FileInput extends React.Component {
           onChange: this.loadFile,
         } }/>
 
-        { children }
+        { children ?
+          children :
+          value && <img { ...{ src: value, ...rest } }/>
+        }
 
         <InputError { ...{ error, invalid, touched } } />
       </fieldset>
