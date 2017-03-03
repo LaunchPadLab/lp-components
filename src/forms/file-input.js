@@ -40,6 +40,7 @@ class FileInput extends React.Component {
       label,
       onLoad,
       tooltip,
+      children,
       ...rest
     } = this.props
 
@@ -55,7 +56,10 @@ class FileInput extends React.Component {
           onChange: this.loadFile,
         } }/>
 
-        { value && <img { ...{ src: value, ...rest } }/> }
+        { children ?
+          children :
+          value && <img { ...{ src: value, ...rest } }/>
+        }
 
         <InputError { ...{ error, invalid, touched } } />
       </fieldset>
