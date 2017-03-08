@@ -9,15 +9,14 @@ const propTypes = {
   ...InputLabel.propTypes,
   ...InputError.propTypes,
   type: PropTypes.string,
-  afterInput: PropTypes.any,
-  wrapperClass: PropTypes.string,
+  icon: PropTypes.string,
 }
 
 const defaultProps = {
   type: 'text',
 }
 
-function Input ({
+function IconInput ({
   input: { name, value, onBlur, onChange },
   meta: { error, touched, invalid },
   className,
@@ -25,17 +24,16 @@ function Input ({
   label,
   tooltip,
   type,
-  wrapperClass,
-  afterInput,
+  icon,
   ...rest
 }) {
   return (
     <fieldset className={ classes({ className, touched, invalid }) }>
       <InputLabel { ...{ hint, label, name, tooltip } } />
-      <span className={classnames('input-wrapper', wrapperClass)}>
+      <div className="icon-label">
         <input { ...{ id: name, name, type, value, onBlur, onChange, ...rest } }/>
-        { afterInput }
-      </span>
+        <i className={ `${icon}-icon` } />
+      </div>
       <InputError { ...{ error, invalid, touched } } />
     </fieldset>
   )
@@ -45,7 +43,7 @@ function classes ({ className, touched, invalid }) {
   return classnames(className, { error: touched && invalid })
 }
 
-Input.defaultProps = defaultProps
-Input.propTypes = propTypes
+IconInput.defaultProps = defaultProps
+IconInput.propTypes = propTypes
 
-export default Input
+export default IconInput
