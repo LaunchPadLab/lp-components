@@ -9,8 +9,6 @@ const propTypes = {
   ...InputLabel.propTypes,
   ...InputError.propTypes,
   type: PropTypes.string,
-  afterInput: PropTypes.any,
-  wrapperClass: PropTypes.string,
 }
 
 const defaultProps = {
@@ -25,17 +23,12 @@ function Input ({
   label,
   tooltip,
   type,
-  wrapperClass,
-  afterInput,
   ...rest
 }) {
   return (
     <fieldset className={ classes({ className, touched, invalid }) }>
       <InputLabel { ...{ hint, label, name, tooltip } } />
-      <span className={classnames('input-wrapper', wrapperClass)}>
-        <input { ...{ id: name, name, type, value, onBlur, onChange, ...rest } }/>
-        { afterInput }
-      </span>
+      <input { ...{ id: name, name, type, value, onBlur, onChange, ...rest } }/>
       <InputError { ...{ error, invalid, touched } } />
     </fieldset>
   )
