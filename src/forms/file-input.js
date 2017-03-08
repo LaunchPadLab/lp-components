@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import fieldPropTypes from './field-proptypes'
 import InputError from './input-error'
 import InputLabel from './input-label'
+import Button from './button'
 
 class FileInput extends React.Component {
 
@@ -11,6 +12,7 @@ class FileInput extends React.Component {
     ...InputError.propTypes,
     onLoad: PropTypes.func,
     className: PropTypes.string,
+    thumbnail: PropTypes.string,
   }
 
   constructor (props) {
@@ -41,6 +43,8 @@ class FileInput extends React.Component {
       onLoad,
       tooltip,
       children,
+      submitting,
+      thumbnail,
       ...rest
     } = this.props
 
@@ -49,17 +53,24 @@ class FileInput extends React.Component {
 
         <InputLabel { ...{ hint, label, name, tooltip } } />
 
-        <input { ...{
-          id: name,
-          name,
-          type: 'file',
-          onChange: this.loadFile,
-        } }/>
-
-        { children ?
-          children :
-          value && <img { ...{ src: value, ...rest } }/>
-        }
+        <div className="fileupload fileupload-exists">
+          
+          { children ||
+            <div className="thumbnail">
+              <img { ...{ src: value || thumbnail, ...rest } } />
+            </div>
+          }
+          
+          <Button style="secondary-light" submitting={ submitting }>
+            <span className="fileupload-exists">Select File</span>
+              <input { ...{
+                id: name,
+                name,
+                type: 'file',
+                onChange: this.loadFile,
+              } }/>
+          </Button>
+        </div>
 
         <InputError { ...{ error, invalid, touched } } />
       </fieldset>
