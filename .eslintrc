@@ -1,6 +1,9 @@
 {
   "parser": "babel-eslint",
-  "plugins": [],
+  "plugins": [
+    "react",
+    "import"
+  ],
   "env": {
     "browser": true,
     "es6": true,
@@ -11,7 +14,11 @@
     "jsx": true,
     "modules": true
   },
-  "extends": "eslint:recommended",
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:import/recommended"
+  ],
   "rules": {
     "no-unused-vars": 0
   }
