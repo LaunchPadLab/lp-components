@@ -1,4 +1,8 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
+
+const propTypes = {
+  children: PropTypes.node
+}
 
 function ButtonArea ({ children }) {
   return (
@@ -7,5 +11,7 @@ function ButtonArea ({ children }) {
     </div>
   )
 }
+
+ButtonArea.propTypes = propTypes
 
 export default ButtonArea
