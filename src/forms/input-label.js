@@ -8,10 +8,10 @@ const propTypes = {
   name: PropTypes.string.isRequired,
   tooltip: PropTypes.node,
   tooltipActive: PropTypes.bool,
-  toggletooltip: PropTypes.func,
+  toggleToolip: PropTypes.func,
 }
 
-function InputLabel ({ hint, label, name, tooltip, tooltipActive, toggletooltip }) {
+function InputLabel ({ hint, label, name, tooltip, tooltipActive, toggleToolip }) {
   const labelText = label || startCase(stripNamespace(name))
   return (
     <span>
@@ -20,7 +20,7 @@ function InputLabel ({ hint, label, name, tooltip, tooltipActive, toggletooltip 
           { labelText }
 
           { tooltip &&
-            <span className="tooltip-trigger" onClick={ toggletooltip }/>
+            <span className="tooltip-trigger" onClick={ toggleToolip }/>
           }
 
           { hint &&
