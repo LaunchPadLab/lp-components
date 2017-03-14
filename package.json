@@ -12,6 +12,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "babel src --out-dir lib",
+    "build:development": "babel src --watch --out-dir lib",
     "clean": "rimraf lib",
     "lint": "eslint src",
     "prepublish": "npm run lint && npm run clean && npm run build",
