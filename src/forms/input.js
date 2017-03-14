@@ -19,6 +19,7 @@ function Input ({
   input: { name, value, onBlur, onChange },
   meta: { error, touched, invalid },
   className,
+  hideLabel,
   hint,
   label,
   tooltip,
@@ -27,7 +28,9 @@ function Input ({
 }) {
   return (
     <fieldset className={ classes({ className, touched, invalid }) }>
-      <InputLabel { ...{ hint, label, name, tooltip } } />
+      { !hideLabel &&
+        <InputLabel { ...{ hint, label, name, tooltip } } />
+      }
       <input { ...{ id: name, name, type, value, onBlur, onChange, ...rest } }/>
       <InputError { ...{ error, invalid, touched } } />
     </fieldset>
