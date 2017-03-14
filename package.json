@@ -11,6 +11,7 @@
   },
   "license": "UNLICENSED",
   "scripts": {
+    "start": "yarn run build:development",
     "build": "babel src --out-dir lib",
     "build:development": "babel src --watch --out-dir lib",
     "clean": "rimraf lib",
