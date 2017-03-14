@@ -7,7 +7,7 @@ const propTypes = {
   label: PropTypes.node,
   name: PropTypes.string.isRequired,
   tooltip: PropTypes.node,
-  toolTipActive: PropTypes.bool,
+  tooltipActive: PropTypes.bool,
   toggletooltip: PropTypes.func,
 }
 

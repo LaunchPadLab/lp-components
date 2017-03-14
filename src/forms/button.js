@@ -7,6 +7,7 @@ const propTypes = {
   style:      PropTypes.string,
   submitting: PropTypes.bool,
   type:       PropTypes.string.isRequired,
+  children:   PropTypes.node
 }
 
 const defaultProps = {
