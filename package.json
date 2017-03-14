@@ -1,6 +1,6 @@
 {
   "name": "@launchpadlab/lp-components",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "description": "Our Components",
   "main": "lib/index.js",
   "repository": "launchpadlab/lp-components",
@@ -11,10 +11,12 @@
   },
   "license": "UNLICENSED",
   "scripts": {
+    "start": "yarn run build:development",
     "build": "babel src --out-dir lib",
+    "build:development": "babel src --watch --out-dir lib",
     "clean": "rimraf lib",
     "lint": "eslint src ; exit 0",
-    "prepublish": "npm run lint && npm run clean && npm run build",
+    "prepublish": "yarn run lint && yarn run clean && yarn run build",
     "test": "ava"
   },
   "files": [
