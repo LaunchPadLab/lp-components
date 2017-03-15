@@ -13,7 +13,7 @@ const propTypes = {
 
 function Checkbox ({
   input: { name, value, onBlur, onChange },
-  meta: { error, touched, invalid },
+  meta: { error, pristine, touched, invalid },
   hint,
   label,
   tooltip,
@@ -25,7 +25,8 @@ function Checkbox ({
       <input
         id={ name }
         type="checkbox"
-        { ...{ name, value, onBlur, onChange, ...rest } }
+        onBlur={ pristine ? null : onBlur } 
+        { ...{ name, value, onChange, ...rest } }
       />
 
       <InputLabel { ...{ hint, label, name, tooltip } } />

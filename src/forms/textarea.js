@@ -33,7 +33,7 @@ class Textarea extends React.Component {
   render () {
     const {
       input: { name, value, onBlur, onChange },
-      meta: { error, touched, invalid },
+      meta: { error, pristine, touched, invalid },
       showCharacterCount,
       className,
       hint,
@@ -61,15 +61,17 @@ class Textarea extends React.Component {
             </span>
         }
 
-        <textarea { ...{
-          id: name,
-          maxLength,
-          name,
-          value,
-          onBlur,
-          onChange,
-          ...rest,
-        } }/>
+        <textarea 
+          onBlur={ pristine ? null : onBlur } 
+          { ...{
+            id: name,
+            maxLength,
+            name,
+            value,
+            onChange,
+            ...rest,
+          } }
+        />
 
         <InputError { ...{ error, invalid, touched } } />
       </fieldset>
