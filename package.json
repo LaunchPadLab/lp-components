@@ -15,7 +15,7 @@
     "build": "babel src --out-dir lib",
     "build:development": "babel src --watch --out-dir lib",
     "clean": "rimraf lib",
-    "lint": "eslint src ; exit 0",
+    "lint": "eslint src",
     "prepublish": "yarn run lint && yarn run clean && yarn run build",
     "test": "ava"
   },
