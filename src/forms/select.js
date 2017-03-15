@@ -27,7 +27,7 @@ const defaultProps = {
 
 function Select ({
   input: { name, value, onBlur, onChange },
-  meta: { error, touched, invalid },
+  meta: { error, pristine, touched, invalid },
   className,
   hint,
   label,
@@ -43,7 +43,11 @@ function Select ({
 
       <InputLabel { ...{ hint, label, name, tooltip } } />
 
-      <select { ...{ id: name, name, value, onBlur, onChange, ...rest } } className={classnames({ unselected: value === '' })}>
+      <select 
+        onBlur={ pristine ? null : onBlur }
+        className={classnames({ unselected: value === '' })}
+        { ...{ id: name, name, value, onBlur, onChange, ...rest } }
+      >
         { 
           placeholder &&
           <option value='' disabled>{ placeholder }</option>

@@ -18,7 +18,7 @@ const defaultProps = {
 
 function IconInput ({
   input: { name, value, onBlur, onChange },
-  meta: { error, touched, invalid },
+  meta: { error, pristine, touched, invalid },
   className,
   hint,
   label,
@@ -31,7 +31,10 @@ function IconInput ({
     <fieldset className={ classes({ className, touched, invalid }) }>
       <InputLabel { ...{ hint, label, name, tooltip } } />
       <div className="icon-label">
-        <input { ...{ id: name, name, type, value, onBlur, onChange, ...rest } }/>
+        <input 
+          onBlur={ pristine ? null : onBlur } 
+          { ...{ id: name, name, type, value, onChange, ...rest } }
+        />
         <i className={ `${icon}-icon` } />
       </div>
       <InputError { ...{ error, invalid, touched } } />
