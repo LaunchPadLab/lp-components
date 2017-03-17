@@ -35,12 +35,11 @@ class FileInput extends React.Component {
 
   render () {
     const {
-      input: { name, value, onChange },
+      input: { name, value },
       meta: { error, touched, invalid },
       className,
       hint,
       label,
-      onLoad,
       tooltip,
       children,
       submitting,
