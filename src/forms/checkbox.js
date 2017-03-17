@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react'
 import classnames from 'classnames'
-import fieldPropTypes from './field-proptypes'
+import { fieldPropTypesWithValue } from './field-proptypes'
 import InputError from './input-error'
 import InputLabel from './input-label'
 
 const propTypes = {
-  ...fieldPropTypes,
+  ...fieldPropTypesWithValue(PropTypes.bool),
   ...InputError.propTypes,
   ...InputLabel.propTypes,
   label: PropTypes.node.isRequired,
