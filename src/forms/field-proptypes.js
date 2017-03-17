@@ -7,7 +7,8 @@ export default {
     onChange: PropTypes.func,
     value: PropTypes.oneOfType([
       PropTypes.string,
-      PropTypes.number
+      PropTypes.number,
+      PropTypes.bool
     ])
   }).isRequired,
   meta: PropTypes.shape({
