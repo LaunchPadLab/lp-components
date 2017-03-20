@@ -8,7 +8,6 @@ const propTypes = {
   ...fieldPropTypes,
   ...InputLabel.propTypes,
   ...InputError.propTypes,
-  type: PropTypes.string,
   min: PropTypes.number,
   max: PropTypes.number,
   step: PropTypes.number
