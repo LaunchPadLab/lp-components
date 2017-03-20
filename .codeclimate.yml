@@ -1,13 +1,9 @@
----
 engines:
   duplication:
     enabled: false
     config:
       languages:
-      - ruby
       - javascript
-      - python
-      - php
   eslint:
     enabled: true
     channel: "eslint-3"
