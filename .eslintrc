@@ -13,7 +13,6 @@
       jsx: true
   plugins:
     - react
-    - import
   extends:
     - eslint:recommended
     - plugin:react/recommended
