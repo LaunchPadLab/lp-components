@@ -1,7 +1,7 @@
 ---
 engines:
   duplication:
-    enabled: true
+    enabled: false
     config:
       languages:
       - ruby
@@ -10,16 +10,10 @@ engines:
       - php
   eslint:
     enabled: true
-  fixme:
-    enabled: true
 ratings:
   paths:
-  - "**.inc"
-  - "**.js"
-  - "**.jsx"
-  - "**.module"
-  - "**.php"
-  - "**.py"
-  - "**.rb"
+  - src/**
 exclude_paths:
 - test/
+- lib/
+- node_modules/
