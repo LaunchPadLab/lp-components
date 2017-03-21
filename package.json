@@ -1,6 +1,6 @@
 {
   "name": "@launchpadlab/lp-components",
-  "version": "1.9.0",
+  "version": "1.9.1",
   "description": "Our Components",
   "main": "lib/index.js",
   "repository": "launchpadlab/lp-components",
@@ -38,6 +38,7 @@
     "rimraf": "^2.5.4"
   },
   "dependencies": {
+    "@launchpadlab/lp-utils": "^2.3.0",
     "classnames": "^2.2.5",
     "jest": "^19.0.2",
     "lodash": "^4.17.4",
