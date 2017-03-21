@@ -69,7 +69,7 @@ function Checklist ({
                 }}
                 { ...rest }
               />
-              <InputLabel label={optionKey} />
+              <InputLabel name={optionKey} label={optionKey} />
             </div>
           )
         })
