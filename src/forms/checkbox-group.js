@@ -3,6 +3,7 @@ import classnames from 'classnames'
 import { fieldPropTypesWithValue } from './field-proptypes'
 import InputError from './input-error'
 import InputLabel from './input-label'
+import Checkbox from './checkbox'
 import { union, difference } from '../utils'
 
 const propTypes = {
@@ -35,9 +36,9 @@ const defaultProps = {
   options: []
 }
 
-function Checklist ({
+function CheckboxGroup ({
   input: { name, value, onBlur, onChange },
-  meta: { error, pristine, touched, invalid },
+  meta: { error, touched, invalid },
   hint,
   label,
   tooltip,
@@ -50,27 +51,25 @@ function Checklist ({
       <InputLabel { ...{ hint, label, name, tooltip } } />
       { 
         optionObjects.map((option) => {
-          const [ optionKey, optionValue ] = [ option.key, option.value ]
-          const checked = value.includes(optionValue)
+          const checked = value.includes(option.value)
           return (
-            <div key={optionKey}>
-              <input
-                id={optionKey}
-                type="checkbox"
-                checked={checked}
-                name={optionKey}
-                onBlur={ pristine ? null : () => onBlur() }
-                onChange={ () => {
+            <Checkbox
+              key={ option.key }
+              input={{
+                name: option.key,
+                value: checked,
+                onBlur: () => onBlur(),
+                onChange: () => {
                   // Toggle checked
                   const isSelected = !checked
                   // Add or remove value from array
-                  const newValue = isSelected ? union([optionValue], value) : difference([optionValue], value)
+                  const newValue = isSelected ? union([option.value], value) : difference([option.value], value)
                   return onChange(newValue)
-                }}
-                { ...rest }
-              />
-              <InputLabel name={optionKey} label={optionKey} />
-            </div>
+                }
+              }}
+              meta={{}}
+              { ...rest }
+            />
           )
         })
       }
@@ -87,12 +86,12 @@ function objectify (option) {
 
 function classes ({ touched, invalid }) {
   return classnames(
-    'checklist',
+    'CheckboxGroup',
     { error: touched && invalid }
   )
 }
 
-Checklist.propTypes = propTypes
-Checklist.defaultProps = defaultProps
+CheckboxGroup.propTypes = propTypes
+CheckboxGroup.defaultProps = defaultProps
 
-export default Checklist
+export default CheckboxGroup

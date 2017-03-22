@@ -8,7 +8,7 @@ const propTypes = {
   ...fieldPropTypesWithValue(PropTypes.bool),
   ...InputError.propTypes,
   ...InputLabel.propTypes,
-  label: PropTypes.node.isRequired,
+  label: PropTypes.node,
 }
 
 function Checkbox ({
@@ -25,7 +25,8 @@ function Checkbox ({
       <input
         id={ name }
         type="checkbox"
-        onBlur={ pristine ? null : onBlur } 
+        onBlur={ pristine ? null : onBlur }
+        checked={ value } 
         { ...{ name, value, onChange, ...rest } }
       />
 
