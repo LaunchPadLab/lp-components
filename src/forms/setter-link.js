@@ -5,14 +5,14 @@ const propTypes = {
   ...fieldPropTypes,
   label: PropTypes.node.isRequired,
   className: PropTypes.string,
-  valueToSet: PropTypes.bool,
+  valueToSet: PropTypes.any,
 }
 
 const defaultProps = {
   valueToSet: true,
 }
 
-function BooleanLink ({
+function SetterLink ({
   input: { name, onChange },
   label,
   valueToSet,
@@ -27,7 +27,7 @@ function BooleanLink ({
   )
 }
 
-BooleanLink.propTypes = propTypes
-BooleanLink.defaultProps = defaultProps
+SetterLink.propTypes = propTypes
+SetterLink.defaultProps = defaultProps
 
-export default BooleanLink
+export default SetterLink
