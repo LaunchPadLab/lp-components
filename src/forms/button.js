@@ -15,12 +15,14 @@ const defaultProps = {
   type: 'button',
 }
 
-function Button ({ children, type, ...rest }) {
+// eslint-disable-next-line no-unused-vars
+function Button ({ children, type, style, ...rest }) {
   return (
     <button
       type={ type }
       className={ classes(rest) }
       disabled={ rest.pristine || rest.invalid }
+      { ...rest }
     >
       { children }
     </button>
