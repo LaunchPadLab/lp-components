@@ -29,7 +29,7 @@ storiesOf('Input', module)
       label={false}
     />
   ))
-  .add('with invalid input', () => (
+  .add('with error', () => (
     <Input 
       input={inputProps}
       meta={{ 

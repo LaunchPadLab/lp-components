@@ -1,0 +1,332 @@
+/*-----------------------
+Fieldset
+-----------------------*/
+fieldset{
+  display: inline-block;
+  @include rem(margin-top, 15px);
+  position: relative;
+  width: 100%;
+  vertical-align: top;
+  max-width: 300px;
+  @include rem(margin-right, 20px);
+}
+
+/*-----------------------
+Labels
+-----------------------*/
+label{
+  color: $black-base;
+  display: inline-block;
+  font-size: $s-small;
+  @include rem(margin-bottom, 6px);
+
+  i{
+    font-style: italic;
+    font-weight: $light;
+  }
+}
+
+/*-----------------------
+Inputs
+-----------------------*/
+#{$all-text-inputs},
+select,
+textarea{
+  background-color: $white-base;
+  border: none;
+  border-bottom: 3px solid $grey-light;
+  box-sizing: border-box;
+  @include appearance(none);
+  @include transition (all 0.3s ease-in-out);
+  @include font-type($primary-sans-serif, normal, 400);
+  @include s-base;
+  width: 100%;
+  -webkit-font-smoothing: antialiased;
+  border-radius: 0;
+
+  @include placeholder{
+    color: $white-med;
+    font-style: italic;
+  }
+
+  &:focus{
+    border-color: $green-base;
+    outline: none;
+  }
+}
+
+/*-----------------------
+Input Icon
+-----------------------*/
+.icon-label{
+  position: relative;
+  input{
+    @include rem(padding-left, 30px);
+  }
+
+  i{
+    @include position(absolute, 1px null null 10px);
+    background-repeat: no-repeat;
+    background-size: 15px;
+    height: 20px;
+    width: 20px;
+  }
+
+  .mail-icon{
+    background-image: asset-url("mail.svg");
+  }
+  .phone-icon{
+    background-image: asset-url("phone.svg");
+  }
+  .linkedin-icon{
+    background-image: asset-url("linkedin.svg");
+  }
+  .web-icon{
+    background-image: asset-url("web.svg");
+  }
+}
+
+/*-----------------------
+Textarea
+-----------------------*/
+textarea,
+textarea[type="text"]{
+  height: 100px;
+  resize: none;
+  border: 1px solid $grey-light;
+  @include rem(padding, 8px);
+}
+
+textarea:focus {
+  border-color: $black-base;
+}
+
+.with-character-count{
+  label{
+    @include rem(padding-right, 108px);
+  }
+
+  .character-count{
+    color: $grey-base;
+    float: right;
+    @include position(absolute, 0px 0px null null);
+    @include s-small;
+  }
+}
+
+
+/*-----------------------
+Select
+-----------------------*/
+select{
+  background-image: asset-url("down-arrow.svg");
+  background-position: right 0px top 50%;
+  background-repeat: no-repeat;
+  background-size: 15px;
+  cursor: pointer;
+  //@include rem(padding, 8px 32px 8px 8px);
+  text-overflow: ellipsis;
+  width: 100%;
+  &.unselected {
+    color: gray
+  }
+}
+
+
+/*-----------------------
+Checkbox
+-----------------------*/
+.checkbox{
+  @include rem(margin-top, 15px);
+  width: 100%;
+
+  label{
+    cursor: pointer;
+    float: right;
+    @include rem(margin-top, 4px);
+    line-height: normal;
+    width: calc(100% - 32px);
+  }
+}
+
+input[type="checkbox"]{
+  @include appearance(none);
+  @include transition (all 0.3s ease-in-out);
+  background-color: $white-base;
+  border: 1px solid $white-med;
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+  @include rem(height, 20px);
+  @include rem(width, 20px);
+  outline: none;
+  display: inline-block;
+  @include rem(margin, 0px 8px 0px 0px);
+
+  &:focus{
+    outline: none;
+  }
+
+  &:checked{
+    &:after{
+      background-image: asset-url("checkmark.svg");
+      background-size: 17px;
+      color: $green-base;
+      content: '';
+      display: block;
+      font-size: 17px;
+      font-weight: $bold;
+      height: 12px;
+      @include transition(all 0.2s ease-in);
+      margin-left: 1px;
+      @include position(absolute, 5px null null 1px);
+      text-align: center;
+      width: 17px;
+      -webkit-position: absolute;
+      -webkit-z-index: 3;
+    }
+  }
+}
+
+
+/*-----------------------
+Error
+-----------------------*/
+.error{
+  input, textarea, select{
+    border: none;
+    border-bottom: 3px solid $red-base;
+
+    &:focus{
+      border-color: $black-base;
+      outline: none;
+    }
+  }
+}
+
+textarea.textarea-error {
+  border: none;
+  border: 1px solid $red-base;
+}
+
+.error-message{
+  color: $red-base;
+  display: inline-block;
+  @include rem(margin-top, 4px);
+  @include s-tiny;
+  @include transition (all 0.3s ease-in-out);
+}
+
+
+/*-----------------------
+Input Tooltip
+-----------------------*/
+.tooltip-trigger:after{
+  background-color: $grey-light;
+  border: 1px solid $white-med;
+  border-radius: 50%;
+  color: $grey-base;
+  content:"?";
+  cursor: pointer;
+  display: inline-block;
+  height: 18px;
+  font-size: 12px;
+  margin-left: 10px;
+  text-align: center;
+  line-height: 1.4;
+  vertical-align: text-top;
+  width: 18px;
+}
+
+.tooltip-content{
+  display: none;
+  @include rem(margin-bottom, 8px);
+
+  p{
+    line-height: 1.5;
+  }
+
+  &.is-active{ display: block; }
+}
+
+
+/*-----------------------
+Uploader
+-----------------------*/
+.fileupload{
+  .button-secondary-light{
+    overflow: hidden;
+    position: relative;
+    vertical-align: middle;
+    //background-color: $white-med;
+    box-shadow: none;
+    border: none;
+    cursor: pointer;
+
+    &:hover{
+      //background-color: $grey-base;
+    }
+  }
+
+  .button-secondary-light>input{
+    position:absolute;
+    top:0;
+    right:0;
+    margin:0;
+    opacity:0;
+    filter:alpha(opacity=0);
+    transform:translate(-300px, 0) scale(4);
+    cursor: pointer;
+  }
+}
+
+.fileupload-exists .fileupload-new,.fileupload-new .fileupload-exists{
+  display: none;
+}
+
+.fileupload-preview{
+  @include rem(margin, 0px 10px);
+  @include s-tiny;
+  //color: $grey-base
+}
+
+.close{
+  text-decoration: none;
+  vertical-align: text-bottom;
+  border: none;
+}
+
+
+/*-----------------------
+Button Area
+-----------------------*/
+.button-area{
+  @include rem(margin-top, 20px);
+
+  button{
+    width: 100%;
+
+    @include media($tablet){
+      //width: inherit;
+    }
+  }
+
+  a{
+    display: inline-block;
+    @include rem(margin-top, 20px);
+    text-align: center;
+    width: 100%;
+
+    @include media($tablet){
+      @include rem(margin-top, 10px);
+      float: right;
+      width: inherit;
+    }
+  }
+}
+
+// SHORT INPUTS
+
+.short-input {
+  width: 135px;
+}

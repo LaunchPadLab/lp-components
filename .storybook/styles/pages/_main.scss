@@ -1,0 +1,92 @@
+[class*=-container]{
+  @include base-padding;
+  //@include outer-container;
+  display: inline-block;
+  width: 100%;
+  @include media($tablet-landscape) {
+  width: calc(100% - 245px);
+  }
+}
+
+@keyframes fade-in{
+  0%{ opacity:0;  }
+  100%{ opacity:1; }
+}
+
+hr{
+  border: none;
+  border-bottom: 1px solid $white-med;
+}
+
+
+/*-----------------------
+Card
+-----------------------*/
+.card{
+  background-color: $white-base;
+  border-radius: 2px;
+  box-shadow: 0 0 18px 0 rgba(232,232,232,0.50);
+  @include rem(padding, 20px);
+  @include rem(margin-bottom, 20px);
+
+  @include media($tablet) {
+    //@include rem(padding, 40px);
+  }
+
+  p:last-child{
+
+  }
+}
+
+
+/*-----------------------
+Content
+-----------------------*/
+.content{
+  display: inline-block;
+  @include animation(fade-in 0.5s ease-in);
+  margin-top: $desktop-nav-height;
+  position: relative;
+  width: 100%;
+
+  &.with-sidebar{
+    @include media($tablet-landscape) {
+      margin-left: $side-navigation;
+      width: calc(100% - $side-navigation);
+
+      .content-container{
+        .card{
+          @include media($tablet-landscape){
+            @include span-columns(8 of 12);
+          }
+        }
+      }
+    }
+  }
+
+  &.centered{
+    @include rem(margin, 30px 10px);
+    margin-top: $desktop-nav-height;
+
+    .card{
+      @include center;
+      max-width: 800px;
+      @include rem(margin, 30px auto 20px);
+    }
+  }
+}
+
+.content-right {
+  @include rem(margin-top, 0);
+  @include media($tablet) {
+    @include rem(margin-top, 61px);
+  }
+}
+
+
+/*-----------------------
+Centered Block
+-----------------------*/
+.centered-block{
+  text-align: center;
+}

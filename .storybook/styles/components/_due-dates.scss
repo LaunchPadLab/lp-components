@@ -1,0 +1,56 @@
+/*-----------------------
+Due Dates
+-----------------------*/
+.due-dates{
+
+  .date-block{
+    @include rem(margin-bottom, 10px);
+
+    span{
+      border: 1px solid $grey-base;
+      border-radius: 50%;
+      display: inline-block;
+      height: 25px;
+      @include rem(margin-right, 5px);
+      width: 25px;
+      vertical-align: 16px;
+    }
+
+    .is-complete{
+      border-color: $green-base;
+      position: relative;
+
+      &:before{
+        content: "";
+        color: $green-base;
+        background-image: asset-url("checkmark-success.svg");
+        background-repeat: no-repeat;
+        background-size: 14px;
+        height: 14px;
+        width: 14px;
+        display: block;
+        @include vertical-horizontal-center;
+      }
+    }
+
+    .text-block{
+      display: inline-block;
+
+      h6{
+        color: $grey-base;
+      }
+
+      a{
+        text-decoration: none;
+        margin: 0px;
+        text-transform: uppercase;
+        @include font-type($primary-sans-serif, normal, $bold);
+        @include s-small;
+      }
+
+      p{
+        @include s-small;
+      }
+    }
+  }
+}
