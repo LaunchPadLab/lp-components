@@ -1,1 +1,1 @@
-<?php header( Location: /storybook-static/index.html ); ?>
+<?php header( 'Location: /storybook-static/index.html' ); ?>
