@@ -1,0 +1,19 @@
+{
+  "name": "lp-components",
+  "description": "",
+  "scripts": {
+    "postdeploy": "deploy-storybook.sh"
+  },
+  "env": {
+    "BUILDPACK_URL": {
+      "required": true
+    }
+  },
+  "formation": {},
+  "addons": [],
+  "buildpacks": [
+    {
+      "url": "heroku/php"
+    }
+  ]
+}
