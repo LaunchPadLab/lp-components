@@ -5,3 +5,6 @@ lib
 !/tmp/.keep
 npm-debug.log*
 node_modules
+
+# compiled storybook dir
+www

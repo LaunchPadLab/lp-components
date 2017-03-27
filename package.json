@@ -19,7 +19,7 @@
     "prepublish": "yarn run lint && yarn run clean && yarn run build",
     "test": "jest",
     "storybook": "start-storybook -p 6006",
-    "storybook:build": "build-storybook"
+    "storybook:build": "build-storybook -o www && echo \"<?php header( 'Location: index.html' ); ?>\" > www/index.php"
   },
   "files": [
     "README.md",
