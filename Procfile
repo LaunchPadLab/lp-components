@@ -1,1 +1,1 @@
-web: vendor/bin/heroku-php-nginx stories/static/
+web: vendor/bin/heroku-php-nginx .storybook/static/
