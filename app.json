@@ -2,7 +2,7 @@
   "name": "lp-components",
   "description": "",
   "scripts": {
-    "postdeploy": "deploy-storybook.sh"
+    "postdeploy": "yarn run storybook:build"
   },
   "env": {
     "BUILDPACK_URL": {
