@@ -19,7 +19,7 @@
     "prepublish": "yarn run lint && yarn run clean && yarn run build && yarn run storybook:build",
     "test": "jest",
     "storybook": "start-storybook -p 6006",
-    "storybook:build": "build-storybook -o www/compiled"
+    "storybook:build": "build-storybook -o stories/static/compiled"
   },
   "files": [
     "README.md",
