@@ -4,6 +4,11 @@
   "scripts": {
     "postdeploy": "npm run storybook:build"
   },
+  "env": {
+    "NPM_TOKEN": {
+      "required": true
+    }
+  },
   "formation": {},
   "addons": [],
   "buildpacks": [
