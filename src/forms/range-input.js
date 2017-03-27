@@ -10,13 +10,15 @@ const propTypes = {
   ...InputError.propTypes,
   min: PropTypes.number,
   max: PropTypes.number,
-  step: PropTypes.number
+  step: PropTypes.number,
+  hideLabel: PropTypes.bool
 }
 
 const defaultProps = {
   min: 0,
   max: 100,
-  step: 1
+  step: 1,
+  hideLabel: false
 }
 
 function RangeInput ({
@@ -29,13 +31,17 @@ function RangeInput ({
   min,
   max,
   step,
+  hideLabel,
   ...rest
 }) {
   return (
     <fieldset className={ classes({ className, touched, invalid }) }>
       <InputLabel { ...{ hint, label, name, tooltip } } />
       <div>
+      {
+        !hideLabel &&
         <label className="range-value">{value}</label>
+      }
       </div>
       <input 
         type="range"
