@@ -17,7 +17,9 @@
     "clean": "rimraf lib",
     "lint": "eslint src",
     "prepublish": "yarn run lint && yarn run clean && yarn run build",
-    "test": "jest"
+    "test": "jest",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "files": [
     "README.md",
@@ -35,7 +37,8 @@
     "eslint-plugin-react": "^6.10.0",
     "react-addons-test-utils": "^15.4.2",
     "react-dom": "^15.4.2",
-    "rimraf": "^2.5.4"
+    "rimraf": "^2.5.4",
+    "@kadira/storybook": "^2.21.0"
   },
   "dependencies": {
     "@launchpadlab/lp-utils": "^2.3.0",
