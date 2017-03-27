@@ -4,11 +4,6 @@
   "scripts": {
     "postdeploy": "npm run storybook:build"
   },
-  "env": {
-    "BUILDPACK_URL": {
-      "required": true
-    }
-  },
   "formation": {},
   "addons": [],
   "buildpacks": [
