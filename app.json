@@ -1,9 +1,6 @@
 {
   "name": "lp-components",
   "description": "",
-  "scripts": {
-    "postdeploy": "yarn run storybook:build"
-  },
   "env": {
     "NPM_TOKEN": {
       "required": true
