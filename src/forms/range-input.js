@@ -34,6 +34,9 @@ function RangeInput ({
   return (
     <fieldset className={ classes({ className, touched, invalid }) }>
       <InputLabel { ...{ hint, label, name, tooltip } } />
+      <div>
+        <label className="range-value">{value}</label>
+      </div>
       <input 
         type="range"
         onBlur={ pristine ? null : onBlur } 
