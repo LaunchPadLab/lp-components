@@ -25,9 +25,10 @@ function Checkbox ({
       <input
         id={ name }
         type="checkbox"
-        onBlur={ pristine ? null : onBlur }
-        checked={ value } 
-        { ...{ name, value, onChange, ...rest } }
+        checked={value}
+        onBlur={ pristine ? null : onBlur } 
+        onChange={ () => onChange(!value) }
+        { ...{ name, value, ...rest } }
       />
 
       <InputLabel { ...{ hint, label, name, tooltip } } />
