@@ -1,24 +1,16 @@
 import React, { PropTypes } from 'react'
 import classnames from 'classnames'
-import fieldPropTypes from './field-proptypes'
+import fieldPropTypes, { fieldOptionsType } from './field-proptypes'
 import InputError from './input-error'
 import InputLabel from './input-label'
+import { objectify } from '../utils'
 
 const propTypes = {
   ...fieldPropTypes,
   ...InputLabel.propTypes,
   ...InputError.propTypes,
   placeholder: PropTypes.string,
-  options: PropTypes.arrayOf(PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.shape({
-      key: PropTypes.string.isRequired,
-      value: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-      ]).isRequired
-    })
-  ])),
+  options: fieldOptionsType
 }
 
 const defaultProps = {
@@ -36,7 +28,7 @@ function Select ({
   placeholder,
   ...rest
 }) {
-  const optionObjects = options.map(objectify)
+  const optionObjects = objectify(options)
   const classes = classnames(className, { error: touched && invalid })
   return (
     <fieldset className={ classes }>
@@ -63,11 +55,6 @@ function Select ({
       
     </fieldset>
   )
-}
-
-// Tranform string option into object option
-function objectify (option) {
-  return (typeof option === 'string') ? { key: option, value: option } : option
 }
 
 Select.propTypes = propTypes
