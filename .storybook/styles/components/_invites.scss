@@ -1,0 +1,67 @@
+.content-center {
+  text-align: center;
+  img {
+    height: 20px;
+    @include rem(margin-bottom, 20px);
+  }
+
+  h3 {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    @include rem(margin-bottom, 20px);
+  }
+
+  p {
+    max-width: 500px;
+    margin: 0 auto;
+    @include rem(margin-bottom, 20px);
+  }
+
+  fieldset {
+    width: 300px;
+    label {
+      float: left;
+    }
+  }
+
+}
+
+
+.invites-accepted {
+  span {
+    background-color: $blue-light;
+    height: 40px;
+    display: block;
+    @include rem(padding, 9px);
+    p, h2 {
+      display: inline-block;
+    }
+
+    p {
+      float: left;
+      text-transform: uppercase;
+      color: $blue-base;
+      font-weight: $bold;
+    }
+
+    h3 {
+      float: right;
+      color: $white-base;
+      font-size: 19px;
+    }
+  }
+
+  table {
+    @include rem(margin-bottom, 20px);
+  }
+}
+
+.slush-fund {
+    border: 1px solid $green-base;
+    background-color: $green-light;
+
+    h1 {
+      color: $green-base;
+      padding-bottom: 20px;
+    }
+  }

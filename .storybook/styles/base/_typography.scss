@@ -1,0 +1,128 @@
+// Base Typography
+// ========================================
+
+html{
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: $grey-lighter;
+  @include font-type($primary-sans-serif, normal, normal);
+  font: 100%/1.618;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6
+ {
+  color: $black-base;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: 1.75;
+  line-height: 1.1;
+
+  a{
+    @include transition(all 0.3s ease-in-out);
+
+    &:hover{
+      text-decoration: underline;
+    }
+  }
+}
+
+h1 {
+  font-size: $s-bigger;
+  @include media($tablet) {
+    font-size: $s-large;
+  }
+}
+
+h2 {
+  font-size: $s-medium;
+  @include media($tablet-landscape) {
+    font-size: $s-bigger;
+    font-weight: 500;
+  }
+}
+
+h3 {
+  font-size: $s-base;
+  @include media($tablet) {
+    font-size: $s-big;
+    @include rem(margin-bottom, 20px);
+  }
+}
+
+h4 { font-size: $s-bigger; }
+h5 { font-size: $s-big; }
+h6 { font-size: $s-big; }
+
+h4 {
+  text-transform: uppercase;
+  font-weight: $bold;
+}
+
+p {
+  font-size: $s-small;
+  //@include rem(margin-bottom, 12px);
+  line-height: 22px;
+  color: $black-base;
+  @include media($tablet) {
+    font-size: $s-base;
+  }
+
+
+  &:last-child { @include rem(margin-bottom, 0); }
+}
+
+li,
+dd{
+  color: $black-base;
+  @include font-type($primary-sans-serif, normal, normal);
+  line-height: $base-line-height;
+  list-style: none;
+}
+
+a {
+  color: $black-base;
+  cursor: pointer;
+  @include transition(all 0.3s ease-in-out);
+  text-decoration: none;
+  border-bottom: 2px solid $blue-light;
+  font-size: $s-small;
+
+  &:hover, &:focus  {
+    border-bottom: 2px solid $blue-base;
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+  }
+}
+
+.edit-link {
+  display: inline-block;
+  cursor: pointer;
+  border-bottom: 2px solid $blue-light;
+}
+
+strong, b { font-weight: $bold; }
+i, em { font-style: italic; }
+
+
+b, i {
+  color: $black-base;
+}
+
+b, i {
+  font-size: $s-base;
+}

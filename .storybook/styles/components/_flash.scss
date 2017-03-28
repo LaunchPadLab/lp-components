@@ -1,0 +1,38 @@
+/*-----------------------
+Flash
+-----------------------*/
+.flash-message{
+  @include rem(padding, 10px 20px);
+  @include animation(fade-in 0.5s ease-in);
+  @include position(absolute, 0px 0px null 0px);
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+
+  p{
+    text-align: center;
+  }
+
+  &.success{
+    background-color: $green-light;
+    border: 1px solid $green-base;
+
+    p{
+      color: $green-base;
+    }
+  }
+
+  &.failure{
+    background-color: $red-light;
+    border: 1px solid $red-base;
+
+    p{
+      color: $red-base;
+    }
+  }
+}
+
+.styleguide-flash{
+  position: relative;
+  height: 50px;
+}

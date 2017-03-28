@@ -1,0 +1,50 @@
+/*-----------------------
+Expander
+-----------------------*/
+.expander {
+  .expander-trigger {
+    border: none;
+    display: block;
+    @include rem(padding, 10px 20px);
+    text-decoration: none;
+    @include rem(margin, 0px -20px);
+
+    @include media($tablet){
+      @include rem(margin, 0px -40px);
+      @include rem(padding, 10px 40px);
+    }
+
+    &:before {
+      content: "+";
+      color: $grey-light;
+      height: 34px;
+      display: inline-block;
+      text-align: center;
+      line-height: 2;
+      @include rem(margin-right, 10px);
+      font-size: 22px;
+      font-weight: $bold;
+    }
+  }
+
+  .expander-content{
+    display: none;
+  }
+
+  .is-active {
+    &:before {
+      content: "–";
+      color: $green-base;
+      font-weight: $bold;
+    }
+  }
+
+  .is-active + .expander-content {
+    display: block;
+  }
+
+  hr.dotted-line {
+    border-top: 1px dotted $grey-light;
+    border-bottom: 1px dotted $grey-lighter;
+  }
+}

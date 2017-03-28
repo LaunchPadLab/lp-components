@@ -1,0 +1,20 @@
+// Misc. Stylesheet
+// ========================================
+
+
+//Background Image
+  @mixin background-size($size: cover){
+    -webkit-background-size: cover;
+    -moz-background-size:    cover;
+    -o-background-size:      cover;
+    background-size:         cover;
+  }
+
+
+  //Box Shadow
+  @mixin box-shadow($dim: 0 0 0 0, $color: $black-base){
+    -webkit-box-shadow: $dim $color;
+    -moz-box-shadow:    $dim $color;
+    -o-box-shadow:      $dim $color;
+    box-shadow:         $dim $color;
+  }

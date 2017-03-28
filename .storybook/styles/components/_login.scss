@@ -1,0 +1,38 @@
+.choose-login {
+background:
+-webkit-linear-gradient(-45deg, rgba(126, 217, 122, 1.0), rgba(195, 228, 255, 1.0));
+  text-align: center;
+  height: 100vh;
+
+  .button-login {
+    border-radius: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 1px solid $white-base;
+    background-color: transparent;
+    color: $white-base;
+    @include rem(padding, 15px 20px);
+    font-weight: $bold;
+    outline: none;
+
+    a {
+      border-bottom: none;
+    }
+  }
+
+  .button-login:hover {
+    background-color: $white-base;
+    color: $green-base;
+    transition: all 0.5s ease;
+  }
+
+  img {
+    max-width: 300px;
+    @include rem(margin-bottom, 20px);
+  }
+
+  ul {
+    @include rem(margin, 50px 30px 30px);
+    display: inline-block;
+  }
+}

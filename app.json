@@ -1,19 +1,20 @@
 {
   "name": "lp-components",
-  "scripts": {
-    "postdeploy": "deploy-storybook.sh"
-  },
+  "description": "",
   "env": {
-    "BUILDPACK_URL": {
+    "NPM_TOKEN": {
+      "required": true
+    },
+    "NPM_CONFIG_PRODUCTION": {
       "required": true
     }
   },
-  "formation": {
-  },
-  "addons": [
-
-  ],
+  "formation": {},
+  "addons": [],
   "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    },
     {
       "url": "heroku/php"
     }
