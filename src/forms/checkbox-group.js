@@ -37,7 +37,7 @@ const defaultProps = {
 }
 
 function CheckboxGroup ({
-  input: { name, value, onBlur, onChange },
+  input: { name, value, onChange },
   meta: { error, touched, invalid },
   hint,
   label,
@@ -51,19 +51,15 @@ function CheckboxGroup ({
       <InputLabel { ...{ hint, label, name, tooltip } } />
       { 
         optionObjects.map((option) => {
-          const checked = value.includes(option.value)
           return (
             <Checkbox
               key={ option.key }
               input={{
                 name: option.key,
-                value: checked,
-                onBlur: () => onBlur(),
-                onChange: () => {
-                  // Toggle checked
-                  const isSelected = !checked
+                value: value.includes(option.value),
+                onChange: (checked) => {
                   // Add or remove value from array
-                  const newValue = isSelected ? union([option.value], value) : difference([option.value], value)
+                  const newValue = checked ? union([option.value], value) : difference([option.value], value)
                   return onChange(newValue)
                 }
               }}
