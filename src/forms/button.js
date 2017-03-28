@@ -20,7 +20,7 @@ function Button ({ children, type, style, ...rest }) {
   return (
     <button
       type={ type }
-      className={ classes(rest) }
+      className={ classes(style, rest) }
       disabled={ rest.pristine || rest.invalid }
       { ...rest }
     >
@@ -29,7 +29,7 @@ function Button ({ children, type, style, ...rest }) {
   )
 }
 
-function classes ({ pristine, invalid, style, submitting }) {
+function classes (style, { pristine, invalid, submitting }) {
   return classnames(
     `button-${style}`,
     {
