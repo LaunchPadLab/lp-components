@@ -44,6 +44,7 @@ class FileInput extends React.Component {
       children,
       submitting,
       thumbnail,
+      onLoad,       // eslint-disable-line no-unused-vars
       ...rest
     } = this.props
 
