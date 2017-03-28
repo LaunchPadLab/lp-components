@@ -18,6 +18,8 @@
  @import "bourbon";
  @import "neat";
 
+ $output-bourbon-deprecation-warnings: false;
+
 // Settings
  @import "settings/settings";
 
