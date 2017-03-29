@@ -1,0 +1,24 @@
+.activity {
+
+  h3 {
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .activity-increase {
+    color: $green-base;
+  }
+
+  .activity-decrease {
+    color: $red-base;
+  }
+
+  img {
+    height: 10px;
+    width: inherit;
+    @include rem(margin-right, 5px);
+  }
+
+  img, p {
+    display: inline-block;
+  }
+}

@@ -5,4 +5,8 @@ lib
 !/tmp/.keep
 npm-debug.log*
 node_modules
-.npmrc
+
+# compiled storybook dir
+.storybook/static/storybook
+.storybook/static/.sass-cache
+.storybook/styles/.sass-cache
