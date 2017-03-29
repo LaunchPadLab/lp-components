@@ -5,6 +5,7 @@ lib
 !/tmp/.keep
 npm-debug.log*
 node_modules
+yarn-error.log
 
 # compiled storybook dir
 .storybook/static/storybook
