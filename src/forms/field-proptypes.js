@@ -1,5 +1,22 @@
 import { PropTypes } from 'react'
 
+// Option types for selects - e.g. Select and CheckboxGroup
+
+export const fieldOptionsType = PropTypes.arrayOf(
+  PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape({
+      key: PropTypes.string.isRequired,
+      value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+      ]).isRequired
+    })
+  ])
+)
+
+// Proptypes for redux-form field components
+
 export function fieldPropTypesWithValue (value) {
   return {
     input: PropTypes.shape({
@@ -17,6 +34,8 @@ export function fieldPropTypesWithValue (value) {
     }).isRequired
   }
 }
+
+// By default, field values should be strings or numbers
 
 const defaultValueTypes = PropTypes.oneOfType([
   PropTypes.string,
