@@ -1,6 +1,7 @@
 import React from 'react'
 import { storiesOf, action } from '@kadira/storybook'
 import { Input } from '../src'
+import fieldWithValue from './field-with-value'
 
 const inputProps = {
   name: 'person.firstName',
@@ -8,9 +9,11 @@ const inputProps = {
   onChange: action('field changed')
 }
 
+const DynamicInput = fieldWithValue('hey')(Input)
+
 storiesOf('Input', module)
   .add('with default label', () => (
-    <Input 
+    <DynamicInput 
       input={inputProps} 
       meta={{}}
     />
