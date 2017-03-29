@@ -46,12 +46,12 @@ function CheckboxGroup ({
   return (
     <fieldset className={ classes({ touched, invalid }) }>
       <InputLabel { ...{ hint, label, name, tooltip } } />
-      { 
+      {
         optionObjects.map((option) => {
           return (
-            <Checkbox 
+            <Checkbox
               {...{
-                key: options.key,
+                key: option.key,
                 input: {
                   name: option.key,
                   value: value.includes(option.value),
