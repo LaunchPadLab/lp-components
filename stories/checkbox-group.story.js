@@ -47,6 +47,7 @@ storiesOf('CheckboxGroup', module)
         error: 'Invalid input'
       }}
       value="0000"
+      options={options}
     />
   ))
   .add('with empty options', () => (
