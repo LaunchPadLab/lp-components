@@ -11,7 +11,7 @@ const checkboxProps = {
 const options = [
   { key: 'First Option', value: '1' },
   { key: 'Second Option', value: '2' },
-  { key: 'Third Option', value: '2' }
+  { key: 'Third Option', value: '3' }
 ]
 
 storiesOf('CheckboxGroup', module)
