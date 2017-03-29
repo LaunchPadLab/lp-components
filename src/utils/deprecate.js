@@ -6,7 +6,7 @@ function displayWarning (warning) {
 }
 
 function defaultMessage (component) {
-  return `${getDisplayName(component)} is deprecated and will be removed in the next version of lp-utils.`
+  return `${getDisplayName(component)} is deprecated and will be removed in the next version of lp-components.`
 }
 
 export default function (message) {
