@@ -16,12 +16,12 @@ const defaultProps = {
 }
 
 // eslint-disable-next-line no-unused-vars
-function Button ({ children, type, style, ...rest }) {
+function Button ({ children, type, style, pristine, invalid, submitting, ...rest }) {
   return (
     <button
       type={ type }
-      className={ classes(style, rest) }
-      disabled={ rest.pristine || rest.invalid }
+      className={ classes(style, pristine, invalid, submitting) }
+      disabled={ pristine || invalid }
       { ...rest }
     >
       { children }
@@ -29,7 +29,7 @@ function Button ({ children, type, style, ...rest }) {
   )
 }
 
-function classes (style, { pristine, invalid, submitting }) {
+function classes (style, pristine, invalid, submitting) {
   return classnames(
     `button-${style}`,
     {
