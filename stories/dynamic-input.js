@@ -8,6 +8,9 @@ import compose from 'lodash/fp/compose'
 // From redux-forms 
 const isEvent = obj => !!(obj && obj.stopPropagation && obj.preventDefault)
 
+// A HOC that provides a value and onChange to its wrapped component
+// To make our stories more interactive.
+
 export default function dynamicInput (options={}) {
   const { initialValue, valuePath='value', onChangePath='onChange' } = options
   return function (WrappedComponent) {

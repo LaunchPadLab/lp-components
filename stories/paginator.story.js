@@ -1,6 +1,11 @@
 import React from 'react'
 import { storiesOf, action } from '@kadira/storybook'
-import { Paginator } from '../src'
+import { Paginator as StaticPaginator } from '../src'
+import dynamicInput from './dynamic-input'
+
+const Paginator = dynamicInput({
+  initialValue: 1
+})(StaticPaginator)
 
 storiesOf('Paginator', module)
   .add('with no hidden pages', () => (
