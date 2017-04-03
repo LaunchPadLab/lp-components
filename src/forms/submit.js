@@ -1,10 +1,9 @@
-import React from 'react'
-import Button from './button'
+import { default as SubmitButton } from './submit-button'
+import { deprecate } from '../utils'
 
-function Submit (props) {
-  return (
-    <Button { ...props } type="submit"/>  
-  )
-}
+const warning = 
+`Submit is deprecated and will be removed 
+in the next major version of lp-components. 
+Use SubmitButton instead.`
 
-export default Submit
+export default deprecate(warning)(SubmitButton)
