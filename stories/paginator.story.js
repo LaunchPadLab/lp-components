@@ -18,3 +18,12 @@ storiesOf('Paginator', module)
       onChange={action('clicked on page')}
     />
   ))
+  .add('with custom labels', () => (
+    <Paginator 
+      value={2} 
+      max={5}
+      previousLabel={'<'}
+      nextLabel={'>'}
+      onChange={action('clicked on page')}
+    />
+  ))
