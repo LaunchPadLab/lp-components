@@ -86,12 +86,15 @@ function Paginator ({ value, onChange, min, max, pagesShown, previousLabel, next
         {/* Last page */}
 
 
-        <PageLink
-          active={(value === max)}
-          onClick={() => onChange(max)}
-        >
-          {max}
-        </PageLink>
+        {
+          (max !== min) &&
+          <PageLink
+            active={(value === max)}
+            onClick={() => onChange(max)}
+          >
+            {max}
+          </PageLink>
+        }
 
         {/* Next link */}
 

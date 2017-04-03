@@ -2,6 +2,8 @@ import { range } from '../../utils'
 
 // Returns a range of "middle" page numbers to show
 export default function calculateMiddlePages (currentPage, min, max, numPagesShown) {
+  // If no middle pages required, return empty array
+  if (max === min) return []
   // Default to showing all pages
   if (!numPagesShown) return range(min + 1, max)
   // Calculate num pages to put to left and right of current page
