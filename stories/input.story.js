@@ -1,19 +1,22 @@
 import React from 'react'
 import { storiesOf, action } from '@kadira/storybook'
-import { Input } from '../src'
-import fieldWithValue from './field-with-value'
+import { Input as RawInput } from '../src'
+import dynamicInput from './dynamic-input'
 
 const inputProps = {
   name: 'person.firstName',
-  value: '',
+  value: 'test',
   onChange: action('field changed')
 }
 
-const DynamicInput = fieldWithValue('hey')(Input)
+const Input = dynamicInput({
+  valuePath: 'input.value',
+  onChangePath: 'input.onChange'
+})(RawInput)
 
 storiesOf('Input', module)
   .add('with default label', () => (
-    <DynamicInput 
+    <Input 
       input={inputProps} 
       meta={{}}
     />
