@@ -1,4 +1,6 @@
 export { default as startCase } from 'lodash/startCase'
+export { default as range } from 'lodash/range'
+export { default as noop } from 'lodash/noop'
 
 // Alias these to make them easier to understand in context
 export { default as addToArray } from 'lodash/union'

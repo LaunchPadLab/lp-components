@@ -1,10 +1,15 @@
 import React from 'react'
 import { storiesOf, action } from '@kadira/storybook'
-import { Input } from '../src'
+import { Input as StaticInput } from '../src'
+import dynamicInput from './dynamic-input'
+
+const Input = dynamicInput({
+  valuePath: 'input.value',
+  onChangePath: 'input.onChange'
+})(StaticInput)
 
 const inputProps = {
   name: 'person.firstName',
-  value: '',
   onChange: action('field changed')
 }
 
