@@ -1,6 +1,6 @@
 {
   "name": "@launchpadlab/lp-components",
-  "version": "1.15.1",
+  "version": "1.15.2",
   "description": "Our Components",
   "main": "lib/index.js",
   "repository": "launchpadlab/lp-components",
@@ -15,6 +15,7 @@
     "build": "babel src --out-dir lib",
     "build:development": "babel src --watch --out-dir lib",
     "clean": "rimraf lib",
+    "docs": "documentation build src/index.js -f md -o docs.md",
     "lint": "eslint src",
     "prepublish": "yarn run lint && yarn run clean && yarn run build && yarn run storybook:build",
     "test": "jest",
@@ -49,6 +50,7 @@
   "dependencies": {
     "@launchpadlab/lp-utils": "^2.3.0",
     "classnames": "^2.2.5",
+    "documentation": "^4.0.0-beta.18",
     "jest": "^19.0.2",
     "lodash": "^4.17.4",
     "react": "^15.4.2",
