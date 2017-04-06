@@ -4,6 +4,36 @@ import calculateMiddlePages from './calculate-middle-pages'
 import Delimiter from './delimiter'
 import PageLink from './page-link'
 
+/**
+ * 
+ * @name Paginator
+ * @type Function
+ * @description A control component for navigating between multiple numbered pages.
+ * @param {Number} [value=1] - The number of the current page
+ * @param {Function} [onChange] - A function called with the new value when a page is clicked.
+ * @param {Number} [min=1] The number of the first page
+ * @param {Number} [max=1] The number of the last page.
+ * @param {Number} [pagesShown=3] The number of pages to display around (and including) the current page
+ * @param {String} [previousLabel='Prev'] The text of the "previous page" button
+ * @param {String} [nextLabel='Next'] The text of the "next page" button
+ * @example
+ * 
+ * function ShowPages ({ pages, currentPage, changeCurrentPage }) {
+ *   return (
+ *     <div>
+ *       <Page 
+ *         page={pages[currentPage]} 
+ *       />
+ *       <Paginator 
+ *         value={currentPage}
+ *         onChange={changeCurrentPage}
+ *         max={pages.length}
+ *       />
+ *     </div>
+ *   )
+ * }
+**/
+
 const propTypes = {
   value: PropTypes.number,
   onChange: PropTypes.func,
