@@ -1,6 +1,6 @@
 {
   "name": "@launchpadlab/lp-components",
-  "version": "1.15.2",
+  "version": "1.15.3",
   "description": "Our Components",
   "main": "lib/index.js",
   "repository": "launchpadlab/lp-components",
@@ -17,10 +17,12 @@
     "clean": "rimraf lib",
     "docs": "documentation build src/index.js -f md -o docs.md",
     "lint": "eslint src",
-    "prepublish": "yarn run lint && yarn run clean && yarn run build && yarn run storybook:build",
+    "prepublish": "yarn run clean && yarn run build",
     "test": "jest",
     "storybook": "start-storybook -p 6006",
-    "storybook:build": "build-storybook -o .storybook/static/storybook"
+    "storybook:build": "build-storybook -o .storybook/static/storybook",
+    "heroku-prebuild": "yarn remove node-sass",
+    "heroku-postbuild": "yarn run storybook:build"
   },
   "files": [
     "README.md",
@@ -36,10 +38,12 @@
     "bourbon": "^4.3.3",
     "bourbon-neat": "^1.8.0",
     "css-loader": "^0.27.3",
+    "documentation": "^4.0.0-beta.18",
     "enzyme": "^2.7.1",
     "eslint": "^3.15.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-react": "^6.10.0",
+    "jest": "^19.0.2",
     "node-sass": "^4.5.1",
     "react-addons-test-utils": "^15.4.2",
     "react-dom": "^15.4.2",
@@ -50,10 +54,7 @@
   "dependencies": {
     "@launchpadlab/lp-utils": "^2.3.0",
     "classnames": "^2.2.5",
-    "documentation": "^4.0.0-beta.18",
-    "jest": "^19.0.2",
     "lodash": "^4.17.4",
-    "react": "^15.4.2",
-    "sass": "^0.5.0"
+    "react": "^15.4.2"
   }
 }
