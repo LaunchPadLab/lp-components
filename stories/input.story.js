@@ -34,6 +34,24 @@ storiesOf('Input', module)
       label={false}
     />
   ))
+  .add('with mask', () => (
+    <Input 
+      input={inputProps}
+      meta={{}}
+      mask="9999-9999-9999-9999"
+      label="Credit Card"
+    />
+  ))
+  .add('with mask and placeholder', () => (
+    <Input 
+      input={inputProps}
+      meta={{}}
+      mask="9999-9999-9999-9999"
+      placeholder="____-____-____-____"
+      showMaskPlaceholder={true}
+      label="Credit Card"
+    />
+  ))
   .add('with error', () => (
     <Input 
       input={inputProps}
