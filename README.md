@@ -38,4 +38,4 @@ This library uses [React Storybook](https://getstorybook.io/) to render componen
 
 **Every new component added to this library should be accompanied by a new story in the storybook.**
 
-When pull requests are submitted, a Heroku review app will be deployed containing the revised storybook so that reviewers can view the changes made.
+When pull requests are submitted, a Heroku review app will be deployed containing the revised storybook so that reviewers can view the changes made. When these changes are merged into `master`, the new storybook will be automatically deployed to http://lp-components.herokuapp.com.
