@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import fieldPropTypes from '../src/forms/field-proptypes'
+import { getDisplayName } from '@launchpadlab/lp-utils'
 import set from 'lodash/fp/set'
 import get from 'lodash/fp/get'
 import noop from 'lodash/noop'
@@ -39,9 +39,7 @@ export default function dynamicInput (options={}) {
         )
       }
     }
-    Wrapper.propTypes = {
-      ...fieldPropTypes
-    }
+    Wrapper.displayName = `Dynamic${getDisplayName(WrappedComponent)}`
     return Wrapper
   }
 }
