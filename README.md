@@ -15,6 +15,7 @@ Pull requests MUST be approved by someone on the team before merging into master
 ## Development
 * `git clone git@github.com:LaunchPadLab/lp-components.git`
 * `yarn install`
+* `yarn run storybook` to view [storybook](#storybook)
 
 If you are developing and want to see the results in a local client application:
 * Link the local library:
@@ -31,3 +32,10 @@ This library uses [Jest](https://facebook.github.io/jest/) for unit testing, run
 
 ## Linting
 This library uses [ESLint](http://eslint.org/) for linting, run with `yarn run lint`.
+
+## Storybook
+This library uses [React Storybook](https://getstorybook.io/) to render components in a development sandbox. In order to view the storybook, run `yarn run storybook` and navigate to the localhost port indicated. 
+
+**Every new component added to this library should be accompanied by a new story in the storybook.**
+
+When pull requests are submitted, a Heroku review app will be deployed containing the revised storybook so that reviewers can view the changes made. When these changes are merged into `master`, the new storybook will be automatically deployed to http://lp-components.herokuapp.com.
