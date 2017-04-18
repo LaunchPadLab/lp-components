@@ -1,8 +1,15 @@
 import React from 'react'
 import { storiesOf, action } from '@kadira/storybook'
-import { CheckboxGroup } from '../src'
+import { CheckboxGroup as StaticCheckboxGroup } from '../src'
+import dynamicInput from './dynamic-input'
 
-const checkboxProps = {
+const CheckboxGroup = dynamicInput({
+  initialValue: [],
+  valuePath: 'input.value',
+  onChangePath: 'input.onChange'
+})(StaticCheckboxGroup)
+
+const inputProps = {
   name: 'person.checkboxOptions',
   value: '',
   onChange: action('field changed')
@@ -17,14 +24,14 @@ const options = [
 storiesOf('CheckboxGroup', module)
   .add('with default label', () => (
     <CheckboxGroup
-      input={checkboxProps}
+      input={inputProps}
       meta={{}}
       options={options}
     />
   ))
   .add('with custom label', () => (
     <CheckboxGroup
-      input={checkboxProps}
+      input={inputProps}
       meta={{}}
       label="Custom Label"
       options={options}
@@ -32,7 +39,7 @@ storiesOf('CheckboxGroup', module)
   ))
   .add('with no label', () => (
     <CheckboxGroup
-      input={checkboxProps}
+      input={inputProps}
       meta={{}}
       label={false}
       options={options}
@@ -40,7 +47,7 @@ storiesOf('CheckboxGroup', module)
   ))
   .add('with error', () => (
     <CheckboxGroup
-      input={checkboxProps}
+      input={inputProps}
       meta={{
         invalid: true,
         touched: true,
@@ -52,7 +59,7 @@ storiesOf('CheckboxGroup', module)
   ))
   .add('with empty options', () => (
     <CheckboxGroup
-      input={checkboxProps}
+      input={inputProps}
       meta={{}}
     />
   ))
