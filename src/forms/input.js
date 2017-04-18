@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import MaskedInput from 'react-input-mask'
 import classnames from 'classnames'
 import fieldPropTypes from './field-proptypes'
 import InputError from './input-error'
@@ -9,6 +10,8 @@ const propTypes = {
   ...InputLabel.propTypes,
   ...InputError.propTypes,
   type: PropTypes.string,
+  mask: PropTypes.string,
+  showMaskPlaceholder: PropTypes.bool
 }
 
 const defaultProps = {
@@ -23,12 +26,16 @@ function Input ({
   label,
   tooltip,
   type,
+  mask,
+  showMaskPlaceholder,
   ...rest
 }) {
   return (
     <fieldset className={ classes({ className, touched, invalid }) }>
       <InputLabel { ...{ hint, label, name, tooltip } } />
-      <input 
+      <MaskedInput 
+        mask={mask}
+        maskChar={ showMaskPlaceholder ? '_' : null }
         onBlur={ pristine ? null : onBlur } 
         { ...{ id: name, name, type, value, onChange, ...rest } }
       />
