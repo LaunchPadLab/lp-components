@@ -169,17 +169,16 @@ input[type="checkbox"]{
 
   &:checked{
     &:after{
-      background-image: asset-url("checkmark.svg");
       background-size: 17px;
       color: $green-base;
-      content: '';
+      content: '✓';
       display: block;
       font-size: 17px;
       font-weight: $bold;
       height: 12px;
       @include transition(all 0.2s ease-in);
       margin-left: 1px;
-      @include position(absolute, 5px null null 1px);
+      @include position(absolute, 1px null null 1px);
       text-align: center;
       width: 17px;
       -webkit-position: absolute;
