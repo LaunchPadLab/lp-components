@@ -1,13 +1,11 @@
 import React, { PropTypes } from 'react'
-import classnames from 'classnames'
+import { compose } from '../utils'
 import fieldPropTypes from './field-proptypes'
-import InputError from './input-error'
-import InputLabel from './input-label'
+import validatedField from './validated-field'
+import blurDirty from './blur-dirty'
 
 const propTypes = {
   ...fieldPropTypes,
-  ...InputLabel.propTypes,
-  ...InputError.propTypes,
   type: PropTypes.string,
 }
 
@@ -17,31 +15,19 @@ const defaultProps = {
 
 function Input ({
   input: { name, value, onBlur, onChange },
-  meta: { error, pristine, touched, invalid },
-  className,
-  hint,
-  label,
-  tooltip,
+  meta, // eslint-disable-line no-unused-vars
   type,
   ...rest
 }) {
   return (
-    <fieldset className={ classes({ className, touched, invalid }) }>
-      <InputLabel { ...{ hint, label, name, tooltip } } />
-      <input 
-        onBlur={ pristine ? null : onBlur } 
-        { ...{ id: name, name, type, value, onChange, ...rest } }
-      />
-      <InputError { ...{ error, invalid, touched } } />
-    </fieldset>
+    <input { ...{ id: name, name, type, value, onBlur, onChange, ...rest } } />
   )
-}
-
-function classes ({ className, touched, invalid }) {
-  return classnames(className, { error: touched && invalid })
 }
 
 Input.defaultProps = defaultProps
 Input.propTypes = propTypes
 
-export default Input
+export default compose(
+  validatedField(),
+  blurDirty()
+)(Input)
