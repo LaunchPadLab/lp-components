@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { compose } from '../utils'
 import fieldPropTypes from './field-proptypes'
-import validatedField from './validated-field'
+import LabeledField from './labeled-field'
 import blurDirty from './blur-dirty'
 
 const propTypes = {
@@ -13,14 +13,17 @@ const defaultProps = {
   type: 'text',
 }
 
-function Input ({
-  input: { name, value, onBlur, onChange },
-  meta, // eslint-disable-line no-unused-vars
-  type,
-  ...rest
-}) {
+function Input (props) {
+  const {
+    input: { name, value, onBlur, onChange },
+    meta, // eslint-disable-line no-unused-vars
+    type,
+    ...rest
+  } = props
   return (
-    <input { ...{ id: name, name, type, value, onBlur, onChange, ...rest } } />
+    <LabeledField { ...props }>
+      <input { ...{ id: name, name, type, value, onBlur, onChange, ...rest } } />
+    </LabeledField>
   )
 }
 
@@ -28,6 +31,5 @@ Input.defaultProps = defaultProps
 Input.propTypes = propTypes
 
 export default compose(
-  validatedField(),
   blurDirty()
 )(Input)
