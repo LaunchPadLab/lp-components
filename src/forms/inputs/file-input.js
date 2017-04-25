@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import fieldPropTypes from './field-proptypes'
 import InputError from './input-error'
 import InputLabel from './input-label'

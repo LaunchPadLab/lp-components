@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import fieldPropTypes from './field-proptypes'
 import InputError from './input-error'
@@ -8,35 +9,46 @@ const propTypes = {
   ...fieldPropTypes,
   ...InputLabel.propTypes,
   ...InputError.propTypes,
-  type: PropTypes.string,
-  icon: PropTypes.string,
+  min: PropTypes.number,
+  max: PropTypes.number,
+  step: PropTypes.number,
+  hideLabel: PropTypes.bool
 }
 
 const defaultProps = {
-  type: 'text',
+  min: 0,
+  max: 100,
+  step: 1,
+  hideLabel: false
 }
 
-function IconInput ({
+function RangeInput ({
   input: { name, value, onBlur, onChange },
   meta: { error, pristine, touched, invalid },
   className,
   hint,
   label,
   tooltip,
-  type,
-  icon,
+  min,
+  max,
+  step,
+  hideLabel,
   ...rest
 }) {
   return (
     <fieldset className={ classes({ className, touched, invalid }) }>
       <InputLabel { ...{ hint, label, name, tooltip } } />
-      <div className="icon-label">
-        <input 
-          onBlur={ pristine ? null : onBlur } 
-          { ...{ id: name, name, type, value, onChange, ...rest } }
-        />
-        <i className={ `${icon}-icon` } />
+      <div>
+      {
+        !hideLabel &&
+        <label className="range-value">{value}</label>
+      }
       </div>
+      <input 
+        type="range"
+        onBlur={ pristine ? null : onBlur } 
+        { ...{ id: name, name, value, onChange, min, max, step, ...rest } }
+      />
       <InputError { ...{ error, invalid, touched } } />
     </fieldset>
   )
@@ -46,7 +58,7 @@ function classes ({ className, touched, invalid }) {
   return classnames(className, { error: touched && invalid })
 }
 
-IconInput.defaultProps = defaultProps
-IconInput.propTypes = propTypes
+RangeInput.defaultProps = defaultProps
+RangeInput.propTypes = propTypes
 
-export default IconInput
+export default RangeInput
