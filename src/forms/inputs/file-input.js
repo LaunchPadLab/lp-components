@@ -1,15 +1,13 @@
-import React, { PropTypes } from 'react'
-import fieldPropTypes from './field-proptypes'
-import InputError from './input-error'
-import InputLabel from './input-label'
-import Button from './button'
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Button } from '../buttons'
+import { fieldPropTypes } from '../helpers'
+import { LabeledField } from '../labels'
 
 class FileInput extends React.Component {
 
   static propTypes = {
     ...fieldPropTypes,
-    ...InputLabel.propTypes,
-    ...InputError.propTypes,
     onLoad: PropTypes.func,
     className: PropTypes.string,
     thumbnail: PropTypes.string,
@@ -36,44 +34,35 @@ class FileInput extends React.Component {
   render () {
     const {
       input: { name, value },
-      meta: { error, touched, invalid },
-      className,
-      hint,
-      label,
-      tooltip,
+      meta,   // eslint-disable-line no-unused-vars
+      onLoad, // eslint-disable-line no-unused-vars
       children,
       submitting,
       thumbnail,
-      onLoad,       // eslint-disable-line no-unused-vars
       ...rest
     } = this.props
 
     return (
-      <fieldset className={ className }>
-
-        <InputLabel { ...{ hint, label, name, tooltip } } />
-
+      <LabeledField { ...this.props }>
         <div className="fileupload fileupload-exists">
-          
           { children ||
             <div className="thumbnail">
               <img { ...{ src: value || thumbnail, ...rest } } />
             </div>
           }
-          
           <Button style="secondary-light" submitting={ submitting }>
-            <span className="fileupload-exists">Select File</span>
-              <input { ...{
-                id: name,
-                name,
-                type: 'file',
-                onChange: this.loadFile,
-              } }/>
+            <span className="fileupload-exists"> Select File </span>
+              <input 
+                {...{
+                  id: name,
+                  name,
+                  type: 'file',
+                  onChange: this.loadFile,
+                }}
+              />
           </Button>
         </div>
-
-        <InputError { ...{ error, invalid, touched } } />
-      </fieldset>
+      </LabeledField>
     )
   }
 }

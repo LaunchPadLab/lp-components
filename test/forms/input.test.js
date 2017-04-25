@@ -55,7 +55,7 @@ test('if input is touched but not invalid - does not add error class to containe
 test('if input is touched and invalid - adds the error class to container', () => {
   const props = { input, meta: { invalid: true, touched: true } }
   const wrapper = shallow(<Input { ...props }/>)
-  expect(wrapper.find('.error').exists()).toBe(true)
+  expect(wrapper.dive().find('.error').exists()).toBe(true)
 })
 
 test('when error is provided - renders the error message containing the error', () => {
