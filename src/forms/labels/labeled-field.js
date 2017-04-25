@@ -1,12 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import fieldPropTypes from './field-proptypes'
 import InputError from './input-error'
 import InputLabel from './input-label'
 
 const propTypes = {
-  ...fieldPropTypes,
   ...InputLabel.propTypes,
   ...InputError.propTypes,
   children: PropTypes.node

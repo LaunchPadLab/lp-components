@@ -1,51 +1,39 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
-import { fieldPropTypesWithValue } from './field-proptypes'
-import InputError from './input-error'
-import InputLabel from './input-label'
+import { blurDirty, fieldPropTypesWithValue } from '../helpers'
+import { LabeledField } from '../labels'
+import { compose } from '../../utils'
 
 const propTypes = {
   ...fieldPropTypesWithValue(PropTypes.bool),
-  ...InputError.propTypes,
-  ...InputLabel.propTypes,
   label: PropTypes.node,
 }
 
-function Checkbox ({
-  input: { name, value, onBlur, onChange },
-  meta: { error, pristine, touched, invalid },
-  hint,
-  label,
-  tooltip,
-  ...rest
-}) {
+function Checkbox (props) {
+  const {
+    input: { name, value, onBlur, onChange },
+    meta, // eslint-disable-line no-unused-vars
+    ...rest
+  } = props
   return (
-    <fieldset className={ classes({ touched, invalid }) }>
-
-      <input
-        id={ name }
-        type="checkbox"
-        checked={value}
-        onBlur={ pristine ? null : onBlur } 
-        onChange={ () => onChange(!value) }
-        { ...{ name, value, ...rest } }
-      />
-
-      <InputLabel { ...{ hint, label, name, tooltip } } />
-
-      <InputError { ...{ error, invalid, touched } } />
-    </fieldset>
-  )
-}
-
-function classes ({ touched, invalid }) {
-  return classnames(
-    'checkbox',
-    { error: touched && invalid }
+    <LabeledField className="checkbox" { ...props }>
+      <input {...{ 
+        id: name,
+        name,
+        value,
+        type: 'checkbox', 
+        checked: value,
+        onBlur,
+        onChange: () => onChange(!value),
+        ...rest 
+      }} 
+    />
+    </LabeledField>
   )
 }
 
 Checkbox.propTypes = propTypes
 
-export default Checkbox
+export default compose(
+  blurDirty()
+)(Checkbox)

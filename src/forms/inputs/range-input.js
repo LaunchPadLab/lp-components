@@ -1,14 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
-import fieldPropTypes from './field-proptypes'
-import InputError from './input-error'
-import InputLabel from './input-label'
+import { blurDirty, fieldPropTypes } from '../helpers'
+import { LabeledField } from '../labels'
+import { compose } from '../../utils'
 
 const propTypes = {
   ...fieldPropTypes,
-  ...InputLabel.propTypes,
-  ...InputError.propTypes,
   min: PropTypes.number,
   max: PropTypes.number,
   step: PropTypes.number,
@@ -22,22 +19,18 @@ const defaultProps = {
   hideLabel: false
 }
 
-function RangeInput ({
-  input: { name, value, onBlur, onChange },
-  meta: { error, pristine, touched, invalid },
-  className,
-  hint,
-  label,
-  tooltip,
-  min,
-  max,
-  step,
-  hideLabel,
-  ...rest
-}) {
+function RangeInput (props) {
+  const {
+    input: { name, value, onBlur, onChange },
+    meta, // eslint-disable-line no-unused-vars
+    min,
+    max,
+    step,
+    hideLabel,
+    ...rest
+  } = props
   return (
-    <fieldset className={ classes({ className, touched, invalid }) }>
-      <InputLabel { ...{ hint, label, name, tooltip } } />
+    <LabeledField { ...props }>
       <div>
       {
         !hideLabel &&
@@ -45,20 +38,26 @@ function RangeInput ({
       }
       </div>
       <input 
-        type="range"
-        onBlur={ pristine ? null : onBlur } 
-        { ...{ id: name, name, value, onChange, min, max, step, ...rest } }
+        {...{
+          id: name,
+          name,
+          type: 'range',
+          value,
+          onBlur,
+          onChange,
+          min,
+          max,
+          step,
+          ...rest 
+        }} 
       />
-      <InputError { ...{ error, invalid, touched } } />
-    </fieldset>
+    </LabeledField>
   )
-}
-
-function classes ({ className, touched, invalid }) {
-  return classnames(className, { error: touched && invalid })
 }
 
 RangeInput.defaultProps = defaultProps
 RangeInput.propTypes = propTypes
 
-export default RangeInput
+export default compose(
+  blurDirty()
+)(RangeInput)

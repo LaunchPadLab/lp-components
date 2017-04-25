@@ -1,16 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import fieldPropTypes from './field-proptypes'
-import InputError from './input-error'
-import InputLabel from './input-label'
+import { blurDirty, fieldPropTypes } from '../helpers'
+import { LabeledField } from '../labels'
+import { compose } from '../../utils'
 
 class Textarea extends React.Component {
 
   static propTypes = {
     ...fieldPropTypes,
-    ...InputLabel.propTypes,
-    ...InputError.propTypes,
     showCharacterCount: PropTypes.bool,
     maxLength: PropTypes.number,
   }
@@ -34,50 +32,39 @@ class Textarea extends React.Component {
   render () {
     const {
       input: { name, value, onBlur, onChange },
-      meta: { error, pristine, touched, invalid },
+      meta, // eslint-disable-line no-unused-vars
       showCharacterCount,
       className,
-      hint,
-      label,
       maxLength,
-      tooltip,
       ...rest
     } = this.props
-
     const { numChars } = this.state
-
-    const classes = classnames(className, {
-      'with-character-count': showCharacterCount,
-      error: touched && invalid,
-    })
-
     return (
-      <fieldset className={ classes }>
-
-        <InputLabel { ...{ hint, label, name, tooltip } } />
-
+      <LabeledField 
+        className={classnames(className, 'with-character-count': showCharacterCount)} 
+        { ...this.props }
+      >
         { showCharacterCount &&
             <span className="character-count">
               { `${numChars}/${maxLength} characters` }
             </span>
         }
-
         <textarea 
-          onBlur={ pristine ? null : onBlur } 
-          { ...{
+          {...{
             id: name,
             maxLength,
             name,
             value,
+            onBlur,
             onChange,
             ...rest,
-          } }
+          }}
         />
-
-        <InputError { ...{ error, invalid, touched } } />
-      </fieldset>
+      </LabeledField>
     )
   }
 }
 
-export default Textarea
+export default compose(
+  blurDirty()
+)(Textarea)

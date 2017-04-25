@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { startCase, stripNamespace, toggle } from '../utils'
+import { startCase, stripNamespace, toggle } from '../../utils'
 
 const propTypes = {
   hint: PropTypes.node,

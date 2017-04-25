@@ -1,12 +1,13 @@
 import React from 'react'
-import { getDisplayName } from '../utils'
+import { getDisplayName } from '../../utils'
 import fieldPropTypes from './field-proptypes'
 
 const propTypes = {
   ...fieldPropTypes
 }
 
-// A function that returns an HOC that nullifies the onBlur if the input is pristine
+// A function that returns an HOC to wrap an input -
+// nullifies the onBlur if the input is pristine
 
 function BlurDirty () {
   return function (WrappedComponent) {

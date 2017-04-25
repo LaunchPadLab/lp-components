@@ -1,9 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { compose } from '../utils'
-import fieldPropTypes from './field-proptypes'
-import LabeledField from './labeled-field'
-import blurDirty from './blur-dirty'
+import { blurDirty, fieldPropTypes } from '../helpers'
+import { LabeledField } from '../labels'
+import { compose } from '../../utils'
 
 const propTypes = {
   ...fieldPropTypes,
@@ -23,7 +22,17 @@ function Input (props) {
   } = props
   return (
     <LabeledField { ...props }>
-      <input { ...{ id: name, name, type, value, onBlur, onChange, ...rest } } />
+      <input 
+        {...{ 
+          id: name,
+          name,
+          type,
+          value,
+          onBlur,
+          onChange,
+          ...rest
+        }} 
+      />
     </LabeledField>
   )
 }

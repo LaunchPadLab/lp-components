@@ -1,14 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
-import fieldPropTypes from './field-proptypes'
-import InputError from './input-error'
-import InputLabel from './input-label'
+import { blurDirty, fieldPropTypes } from '../helpers'
+import { LabeledField } from '../labels'
+import { compose } from '../../utils'
 
 const propTypes = {
   ...fieldPropTypes,
-  ...InputLabel.propTypes,
-  ...InputError.propTypes,
   type: PropTypes.string,
   icon: PropTypes.string,
 }
@@ -17,37 +14,37 @@ const defaultProps = {
   type: 'text',
 }
 
-function IconInput ({
-  input: { name, value, onBlur, onChange },
-  meta: { error, pristine, touched, invalid },
-  className,
-  hint,
-  label,
-  tooltip,
-  type,
-  icon,
-  ...rest
-}) {
+function IconInput (props) {
+  const {
+    input: { name, value, onBlur, onChange },
+    meta, // eslint-disable-line no-unused-vars
+    type,
+    icon,
+    ...rest
+  } = props
   return (
-    <fieldset className={ classes({ className, touched, invalid }) }>
-      <InputLabel { ...{ hint, label, name, tooltip } } />
+    <LabeledField { ...props }>
       <div className="icon-label">
         <input 
-          onBlur={ pristine ? null : onBlur } 
-          { ...{ id: name, name, type, value, onChange, ...rest } }
+          {...{ 
+            id: name,
+            name,
+            type,
+            value,
+            onBlur,
+            onChange,
+            ...rest 
+          }} 
         />
         <i className={ `${icon}-icon` } />
       </div>
-      <InputError { ...{ error, invalid, touched } } />
-    </fieldset>
+    </LabeledField>
   )
-}
-
-function classes ({ className, touched, invalid }) {
-  return classnames(className, { error: touched && invalid })
 }
 
 IconInput.defaultProps = defaultProps
 IconInput.propTypes = propTypes
 
-export default IconInput
+export default compose(
+  blurDirty()
+)(IconInput)

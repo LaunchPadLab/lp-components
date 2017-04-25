@@ -1,11 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
-import { fieldPropTypesWithValue, fieldOptionsType } from './field-proptypes'
-import InputError from './input-error'
-import InputLabel from './input-label'
 import Checkbox from './checkbox'
-import { addToArray, removeFromArray, objectify } from '../utils'
+import { fieldPropTypesWithValue, fieldOptionsType } from '../helpers'
+import { LabeledField } from '../labels'
+import { addToArray, removeFromArray, objectify } from '../../utils'
 
 const propTypes = {
   ...fieldPropTypesWithValue(
@@ -16,9 +14,6 @@ const propTypes = {
       ])
     )
   ),
-  ...InputError.propTypes,
-  ...InputLabel.propTypes,
-  label: PropTypes.node,
   options: fieldOptionsType
 }
 
@@ -26,15 +21,13 @@ const defaultProps = {
   options: []
 }
 
-function CheckboxGroup ({
-  input: { name, value, onChange },
-  meta: { error, touched, invalid },
-  hint,
-  label,
-  tooltip,
-  options,
-  ...rest
-}) {
+function CheckboxGroup (props) {
+  const {
+    input: { value, onChange },
+    options,
+    ...rest
+  } = props
+
   const optionObjects = objectify(options)
   // Build change handler
   const handleChange = function (option) {
@@ -45,8 +38,7 @@ function CheckboxGroup ({
     }
   }
   return (
-    <fieldset className={ classes({ touched, invalid }) }>
-      <InputLabel { ...{ hint, label, name, tooltip } } />
+    <LabeledField className="CheckboxGroup" { ...props }>
       {
         optionObjects.map((option) => {
           return (
@@ -65,16 +57,7 @@ function CheckboxGroup ({
           )
         })
       }
-
-      <InputError { ...{ error, invalid, touched } } />
-    </fieldset>
-  )
-}
-
-function classes ({ touched, invalid }) {
-  return classnames(
-    'CheckboxGroup',
-    { error: touched && invalid }
+    </LabeledField>
   )
 }
 
