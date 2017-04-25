@@ -17,6 +17,7 @@
     "clean": "rimraf lib",
     "docs": "documentation build src/index.js -f md -o docs.md",
     "lint": "eslint src",
+    "precommit": "yarn run docs && git add docs.md",
     "prepublish": "yarn run clean && yarn run build",
     "test": "jest",
     "storybook": "start-storybook -p 6006",
@@ -54,6 +55,7 @@
   "dependencies": {
     "@launchpadlab/lp-utils": "^2.6.0",
     "classnames": "^2.2.5",
+    "husky": "^0.13.3",
     "lodash": "^4.17.4",
     "react": "^15.4.2"
   }
