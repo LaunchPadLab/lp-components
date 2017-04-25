@@ -24,10 +24,10 @@ const defaultProps = {
 function CheckboxGroup (props) {
   const {
     input: { value, onChange },
+    meta, // eslint-disable-line no-unused-vars
     options,
     ...rest
   } = props
-
   const optionObjects = objectify(options)
   // Build change handler
   const handleChange = function (option) {
