@@ -46,18 +46,21 @@
     "eslint-plugin-react": "^6.10.0",
     "jest": "^19.0.2",
     "node-sass": "^4.5.1",
+    "react": "^15.5.0",
     "react-addons-test-utils": "^15.4.2",
     "react-dom": "^15.4.2",
     "rimraf": "^2.5.4",
     "sass-loader": "^6.0.3",
     "style-loader": "^0.16.0"
   },
+  "peerDependencies": {
+    "react": "^15.5.0"
+  },
   "dependencies": {
     "@launchpadlab/lp-utils": "^2.6.0",
     "classnames": "^2.2.5",
     "husky": "^0.13.3",
     "lodash": "^4.17.4",
-    "prop-types": "^15.5.8",
-    "react": "^15.5.0"
+    "prop-types": "^15.5.8"
   }
 }
