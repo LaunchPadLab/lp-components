@@ -6,7 +6,7 @@
 
 ## Paginator
 
-A controller for navigating between multiple numbered pages.
+A control component for navigating between multiple numbered pages.
 
 **Parameters**
 
@@ -14,6 +14,7 @@ A controller for navigating between multiple numbered pages.
 -   `onChange` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)?** A function called with the new value when a page is clicked.
 -   `min` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The number of the first page (optional, default `1`)
 -   `max` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The number of the last page. (optional, default `1`)
+-   `alwaysShow` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Always show the component, even when there's only one page visible. (optional, default `false`)
 -   `pagesShown` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The number of pages to display around (and including) the current page (optional, default `3`)
 -   `previousLabel` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** The text of the "previous page" button (optional, default `'Prev'`)
 -   `nextLabel` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** The text of the "next page" button (optional, default `'Next'`)
