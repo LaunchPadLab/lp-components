@@ -3,6 +3,7 @@
 ### Table of Contents
 
 -   [Paginator](#paginator)
+-   [SetterLink](#setterlink)
 
 ## Paginator
 
@@ -24,10 +25,10 @@ A controller for navigating between multiple numbered pages.
 function ShowPages ({ pages, currentPage, changeCurrentPage }) {
   return (
     <div>
-      <Page 
-        page={pages[currentPage]} 
+      <Page
+        page={pages[currentPage]}
       />
-      <Paginator 
+      <Paginator
         value={currentPage}
         onChange={changeCurrentPage}
         max={pages.length}
@@ -35,4 +36,54 @@ function ShowPages ({ pages, currentPage, changeCurrentPage }) {
     </div>
   )
 }
+```
+
+## SetterLink
+
+When clicked, this link will set a value on an input. Here is the use case that spawned the development of this component:
+
+A user should be able to click an 'x' next to an element in a list to remove it from the list. Upon submitting the form, the element should be destroyed.
+
+In order to implement this, we want the value for `user._destroy` to be set to `true`.
+
+```javascript
+<FormSection name="user">
+  <Field
+    name="_destroy"
+    component={ SetterLink }
+    label="x" />
+</FormSection>
+```
+
+**Parameters**
+
+-   `valueToSet` **Any** The value that the input should be set to when the link is clicked
+-   `label` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** The text of the link
+-   `input` **see src/forms/input.js**
+-   `className` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** The className that the link should use
+
+**Other Examples**
+
+Set to false when link is clicked:
+
+```javascript
+<FormSection name="user">
+  <Field
+    name="active"
+    valueToSet={ false }
+    component={ SetterLink }
+    label="Pause Account" />
+</FormSection>
+```
+
+Set a string value when link is clicked:
+
+```javascript
+<FormSection name="user">
+  <Field
+    name="status"
+    valueToSet="finished"
+    component={ SetterLink }
+    label="Finish Editing" />
+</FormSection>
 ```
