@@ -14,6 +14,7 @@ import PageLink from './page-link'
  * @param {Function} [onChange] - A function called with the new value when a page is clicked.
  * @param {Number} [min=1] The number of the first page
  * @param {Number} [max=1] The number of the last page.
+ * @param {Boolean} [alwaysShow=false] Always show the component, even when there's only one page visible.
  * @param {Number} [pagesShown=3] The number of pages to display around (and including) the current page
  * @param {String} [previousLabel='Prev'] The text of the "previous page" button
  * @param {String} [nextLabel='Next'] The text of the "next page" button
@@ -40,6 +41,7 @@ const propTypes = {
   onChange: PropTypes.func,
   min: PropTypes.number,
   max: PropTypes.number,
+  alwaysShow: PropTypes.bool,
   pagesShown: PropTypes.number,
   previousLabel: PropTypes.string,
   nextLabel: PropTypes.string
@@ -50,13 +52,28 @@ const defaultProps = {
   onChange: noop,
   min: 1,
   max: 1,
+  alwaysShow: false,
   pagesShown: 3,
   previousLabel: 'Prev',
   nextLabel: 'Next'
 }
 
-function Paginator ({ value, onChange, min, max, pagesShown, previousLabel, nextLabel }) {
+function Paginator ({ 
+  value,
+  onChange,
+  min,
+  max,
+  alwaysShow,
+  pagesShown,
+  previousLabel,
+  nextLabel 
+}) {
+  // Hide if there's only one page
+  const totalPages = (max - min) + 1
+  if (totalPages === 1 && !alwaysShow) return EmptyState
+
   const middlePages = calculateMiddlePages(value, min, max, pagesShown)
+
   return (
     <div className="pagination">
       <ul>
@@ -142,6 +159,8 @@ function Paginator ({ value, onChange, min, max, pagesShown, previousLabel, next
     </div>
   )
 }
+
+const EmptyState = <div className="pagination"><ul/></div>
 
 Paginator.propTypes = propTypes
 Paginator.defaultProps = defaultProps

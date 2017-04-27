@@ -29,3 +29,8 @@ storiesOf('Paginator', module)
       onChange={action('clicked on page')}
     />
   ))
+  .add('with one page (hidden)', () => (
+    <Paginator 
+      max={1}
+    />
+  ))
