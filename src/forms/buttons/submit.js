@@ -1,5 +1,5 @@
 import { default as SubmitButton } from './submit-button'
-import { deprecateComponent } from '../utils'
+import { deprecateComponent } from '../../utils'
 
 const warning = 
 `Submit is deprecated and will be removed 

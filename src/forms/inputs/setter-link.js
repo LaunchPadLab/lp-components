@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react'
-import fieldPropTypes from './field-proptypes'
+import React from 'react'
+import PropTypes from 'prop-types'
+import { fieldPropTypes } from '../helpers'
 
 const propTypes = {
   ...fieldPropTypes,

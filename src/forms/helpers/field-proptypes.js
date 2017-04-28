@@ -1,4 +1,4 @@
-import { PropTypes } from 'react'
+import PropTypes from 'prop-types'
 
 // Option types for selects - e.g. Select and CheckboxGroup
 
