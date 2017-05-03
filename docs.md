@@ -2,7 +2,36 @@
 
 ### Table of Contents
 
+-   [ButtonArea](#buttonarea)
 -   [Paginator](#paginator)
+
+## ButtonArea
+
+A layout component that wraps its children in a `div` with class `button-area`. This component may be used to help style forms.
+
+If a `className` is provided to the component, it will be appended to the default class (see example).
+
+**Parameters**
+
+-   `className` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** A class to add to the wrapper
+-   `children` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)?** The React component(s) being wrapped
+
+**Examples**
+
+```javascript
+function ButtonForm ({ handleSubmit }) {
+  return (
+    <form onSubmit={ handleSubmit }>
+      <ButtonArea className="my-area">
+        <Button> Cancel </Button>
+        <Button> Submit </Button>
+      </ButtonArea>
+    </form>
+  )
+}
+
+// Buttons will be wrapped in a div with class: "button-area my-area"
+```
 
 ## Paginator
 
