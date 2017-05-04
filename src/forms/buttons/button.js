@@ -2,6 +2,38 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
+/**
+ *
+ * A simple button component that can be used independently, or as part of a form.
+ *
+ * Conditionally adds classes and/or becomes disabled depending on passed props.
+ * In addition to the props below, any extra props will be passed directly to the inner `<button>` element.
+ * 
+ * @name Button
+ * @type Function
+ * @param {Boolean} [invalid] - Whether or not a related form is invalid (will disable when `true`)
+ * @param {Boolean} [pristine] - Whether or not a related form is pristine (will disable when `true`)
+ * @param {String} [style="primary"] - A descriptive string that will be appended to the button's class with format `button-<type>`
+ * @param {Boolean} [submitting] - Whether or not a related form is submitting (will give button class `'in-progress` when `true`)
+ * @param {Boolean} [type="button"] - The [type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type) attribute of the button element
+ * @param {Function} [children] - Any React component(s) being wrapped by the button
+ * @example
+ * 
+ * function MessageButton ({ message }) {
+ *   return (
+ *      <Button
+ *        style="secondary"
+ *        onClick={ () => console.log(message) }
+ *      > 
+ *        Print Message
+ *      </Button>
+ *   )
+ * }
+ *
+ * // For a more in-depth example of using buttons with forms, see the docs for SubmitButton.
+ *
+**/
+
 const propTypes = {
   invalid:    PropTypes.bool,
   pristine:   PropTypes.bool,
