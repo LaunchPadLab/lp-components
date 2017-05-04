@@ -3,10 +3,7 @@ import { storiesOf, action } from '@kadira/storybook'
 import { DateInput as StaticDateInput } from '../src'
 import dynamicInput from './dynamic-input'
 
-const dateValue = new Date()
-
 const DateInput = dynamicInput({
-  initialValue: dateValue,
   valuePath: 'input.value',
   onChangePath: 'input.onChange',
 })(StaticDateInput)
@@ -17,9 +14,16 @@ const inputProps = {
 }
 
 storiesOf('DateInput', module)
-  .add('with default label', () => (
+  .add('default', () => (
     <DateInput 
       input={inputProps} 
       meta={{}}
+    />
+  ))
+  .add('custom placeholder', () => (
+    <DateInput 
+      input={inputProps} 
+      meta={{}}
+      placeholderText={'custom'}
     />
   ))
