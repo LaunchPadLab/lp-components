@@ -61,6 +61,7 @@
     "classnames": "^2.2.5",
     "husky": "^0.13.3",
     "lodash": "^4.17.4",
-    "prop-types": "^15.5.8"
+    "prop-types": "^15.5.8",
+    "react-datepicker": "^0.46.0"
   }
 }
