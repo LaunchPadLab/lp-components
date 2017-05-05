@@ -2,9 +2,43 @@
 
 ### Table of Contents
 
+-   [Button](#button)
 -   [ButtonArea](#buttonarea)
 -   [DateInput](#dateinput)
 -   [Paginator](#paginator)
+
+## Button
+
+A simple button component that can be used independently, or as part of a form.
+
+Conditionally adds classes and/or becomes disabled depending on passed props.
+In addition to the props below, any extra props will be passed directly to the inner `<button>` element.
+
+**Parameters**
+
+-   `invalid` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Whether or not a related form is invalid (will disable when `true`)
+-   `pristine` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Whether or not a related form is pristine (will disable when `true`)
+-   `style` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** A descriptive string that will be appended to the button's class with format `button-<type>` (optional, default `"primary"`)
+-   `submitting` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Whether or not a related form is submitting (will give button class `'in-progress` when `true`)
+-   `type` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** The [type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type) attribute of the button element (optional, default `"button"`)
+-   `children` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)?** Any React component(s) being wrapped by the button
+
+**Examples**
+
+```javascript
+function MessageButton ({ message }) {
+  return (
+     <Button
+       style="secondary"
+       onClick={ () => console.log(message) }
+     > 
+       Print Message
+     </Button>
+  )
+}
+
+// For a more in-depth example of using buttons with forms, see the docs for SubmitButton.
+```
 
 ## ButtonArea
 
