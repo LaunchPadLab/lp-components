@@ -4,6 +4,7 @@
 
 -   [Button](#button)
 -   [ButtonArea](#buttonarea)
+-   [DateInput](#dateinput)
 -   [Paginator](#paginator)
 
 ## Button
@@ -65,6 +66,43 @@ function ButtonForm ({ handleSubmit }) {
 }
 
 // Buttons will be wrapped in a div with class: "button-area my-area"
+```
+
+## DateInput
+
+An input component that wraps a `DatePicker` component from the [react-datepicker](https://github.com/Hacker0x01/react-datepicker) library.
+This wrapper adds the following functionality to `DatePicker`:
+
+-   Adapts it to receive `redux-forms`-style input props.
+-   Converts value type from [moment](https://github.com/moment/moment) to [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date).
+-   Adds name and error labels.
+
+With the exception of the `input` and `meta` props, all props are passed down to the `DatePicker` component. 
+A full list of props supported by this component can be found [here](https://github.com/Hacker0x01/react-datepicker/blob/master/docs/datepicker.md).
+
+_Note: this component requires special styles in order to render correctly. To include these styles in your project, follow the directions in the main [README](README.md#dateinput-styles) file._
+
+**Parameters**
+
+-   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
+-   `meta` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+
+**Examples**
+
+```javascript
+function BirthdayForm ({ handleSubmit }) {
+  return (
+    <form onSubmit={ handleSubmit }>
+      <Field
+         name="birthday"
+         component={DateInput}
+         placeholderText="mm/dd/yyyy" 
+       />
+    </form>
+  )
+}
+
+// Will render datepicker with label "Birthday" and placeholder "mm/dd/yyyy"
 ```
 
 ## Paginator
