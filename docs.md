@@ -4,6 +4,7 @@
 
 -   [Button](#button)
 -   [ButtonArea](#buttonarea)
+-   [SubmitButton](#submitbutton)
 -   [DateInput](#dateinput)
 -   [Paginator](#paginator)
 
@@ -66,6 +67,30 @@ function ButtonForm ({ handleSubmit }) {
 }
 
 // Buttons will be wrapped in a div with class: "button-area my-area"
+```
+
+## SubmitButton
+
+A wrapper around the [Button](#button) component that adds `type="submit"`. Generally used in the context of forms. 
+
+With the exception of `type`, this component shares the same props as [Button](#button).
+
+**Examples**
+
+```javascript
+function PersonForm ({ handleSubmit, pristine, invalid, submitting }) {
+  return (
+    <form onSubmit={ handleSubmit }>
+      <Field name="name" component={ Input } />
+      <Field name="age" component={ Input } type="number" />
+      <SubmitButton {...{ pristine, invalid, submitting }}>
+        Submit
+      </SubmitButton>
+    </form>
+  )
+}
+
+// When SubmitButton is pressed, form will submit and handleSubmit() will be called.
 ```
 
 ## DateInput
