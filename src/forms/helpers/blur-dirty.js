@@ -3,6 +3,7 @@ import { getDisplayName } from '../../utils'
 
 // A function that returns an HOC to wrap an input -
 // nullifies the onBlur if the input is pristine
+/* eslint react/prop-types: off */
 
 function BlurDirty () {
   return function (WrappedComponent) {
@@ -17,7 +18,6 @@ function BlurDirty () {
       )
     }
     Wrapper.displayName = `BlurDirty${getDisplayName(WrappedComponent)}`
-    Wrapper.propTypes = WrappedComponent.propTypes
     return Wrapper
   }
 }
