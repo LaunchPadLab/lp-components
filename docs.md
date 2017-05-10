@@ -162,6 +162,7 @@ function TodoForm ({ handleSubmit, pristine, invalid, submitting }) {
     <form onSubmit={ handleSubmit }>
       <Field 
          name="completedTodos"
+         component={ CheckboxGroup }
          options={[
            'Eat breakfast',
            'Respond to emails',
