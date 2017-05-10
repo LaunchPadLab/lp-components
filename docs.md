@@ -6,6 +6,7 @@
 -   [ButtonArea](#buttonarea)
 -   [SubmitButton](#submitbutton)
 -   [Checkbox](#checkbox)
+-   [CheckboxGroup](#checkboxgroup)
 -   [DateInput](#dateinput)
 -   [Paginator](#paginator)
 
@@ -131,6 +132,60 @@ function mapStateToProps () {
 export default compose(
    connect(mapStateToProps)
 )(CoolPersonForm)
+```
+
+## CheckboxGroup
+
+A group of checkboxes that can be used in a `redux-forms`-controlled form. 
+
+The value of each checkbox is specified via the `options` prop. This prop can either be:
+
+-   An array of strings 
+-   An array of key-value pairs: `{ key, value }`
+
+The value of the entire `CheckboxGroup` component is an ARRAY containing the values of the selected checkboxes.
+Clicking an unselected checkbox adds its value to this array, and clicking a selected checkbox removes its value from this array.
+
+Since the default `redux-forms` initial value is an empty string, you may need to set it to an empty array explicity in `mapStateToProps` using the [initalValues](http://redux-form.com/6.0.0-alpha.4/examples/initializeFromState) key.
+
+**Parameters**
+
+-   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
+-   `meta` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+-   `options` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** An array of checkbox values (strings or key-value pairs)
+
+**Examples**
+
+```javascript
+function TodoForm ({ handleSubmit, pristine, invalid, submitting }) {
+  return (
+    <form onSubmit={ handleSubmit }>
+      <Field 
+         name="completedTodos"
+         options={[
+           'Eat breakfast',
+           'Respond to emails',
+           'Take out the trash',
+         ]}
+      />
+      <SubmitButton {...{ pristine, invalid, submitting }}>
+        Submit
+      </SubmitButton>
+    </form>
+  )
+}
+
+function mapStateToProps () {
+   return {
+     initialValues: {
+       completedTodos: []
+     }
+   }
+}
+
+export default compose(
+   connect(mapStateToProps)
+)(TodoForm)
 ```
 
 ## DateInput
