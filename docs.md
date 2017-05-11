@@ -4,6 +4,7 @@
 
 -   [Button](#button)
 -   [ButtonArea](#buttonarea)
+-   [stripNamespace](#stripnamespace)
 -   [SubmitButton](#submitbutton)
 -   [Checkbox](#checkbox)
 -   [CheckboxGroup](#checkboxgroup)
@@ -71,6 +72,16 @@ function ButtonForm ({ handleSubmit }) {
 
 // Buttons will be wrapped in a div with class: "button-area my-area"
 ```
+
+## stripNamespace
+
+A utility function to remove the namespace from a string.
+
+This function returns the last half separated string.
+
+**Parameters**
+
+-   `str` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ## SubmitButton
 
