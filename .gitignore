@@ -6,6 +6,7 @@ lib
 npm-debug.log*
 node_modules
 yarn-error.log
+coverage
 
 # compiled storybook dir
 .storybook/static/storybook

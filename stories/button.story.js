@@ -2,10 +2,45 @@ import React from 'react'
 import { storiesOf, action } from '@kadira/storybook'
 import { Button } from '../src'
 
+const onClick = action('clicked')
+
 storiesOf('Button', module)
-  .add('with text', () => (
-    <Button onClick={action('clicked')}>Hello Button</Button>
+  .add('default', () => (
+    <Button
+      {...{
+        onClick
+      }}
+    >
+      Click Me
+    </Button>
   ))
-  .add('with emoji', () => (
-    <Button onClick={action('clicked')}>😎</Button>
+  .add('style: small', () => (
+    <Button
+      {...{
+        onClick,
+        style: 'small'
+      }}
+    >
+      Click Me
+    </Button>
+  ))
+  .add('disabled', () => (
+    <Button
+      {...{
+        onClick,
+        pristine: true
+      }}
+    >
+      Click Me
+    </Button>
+  ))
+  .add('submitting', () => (
+    <Button
+      {...{
+        onClick,
+        submitting: true
+      }}
+    >
+      Click Me
+    </Button>
   ))

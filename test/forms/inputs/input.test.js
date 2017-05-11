@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'enzyme'
-import { Input } from '../../src/'
+import { Input } from '../../../src/'
 
 const name = 'name.of.field'
 const value = 'value of field'

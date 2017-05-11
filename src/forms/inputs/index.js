@@ -1,5 +1,6 @@
 export { default as Checkbox } from './checkbox'
 export { default as CheckboxGroup } from './checkbox-group'
+export { default as DateInput } from './date-input'
 export { default as FileInput } from './file-input'
 export { default as HiddenInput } from './hidden-input'
 export { default as Input } from './input'

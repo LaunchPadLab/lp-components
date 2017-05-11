@@ -1,6 +1,6 @@
 {
   "name": "@launchpadlab/lp-components",
-  "version": "1.15.7",
+  "version": "1.16.3",
   "description": "Our Components",
   "main": "lib/index.js",
   "repository": "launchpadlab/lp-components",
@@ -20,6 +20,8 @@
     "precommit": "yarn run docs && git add docs.md",
     "prepublish": "yarn run clean && yarn run build",
     "test": "jest",
+    "test:coverage": "jest --coverage",
+    "report-coverage": "codeclimate-test-reporter < coverage/lcov.info",
     "storybook": "start-storybook -p 6006",
     "storybook:build": "build-storybook -o .storybook/static/storybook",
     "heroku-prebuild": "yarn remove node-sass",
@@ -59,8 +61,10 @@
   "dependencies": {
     "@launchpadlab/lp-utils": "^2.6.0",
     "classnames": "^2.2.5",
+    "codeclimate-test-reporter": "^0.4.1",
     "husky": "^0.13.3",
     "lodash": "^4.17.4",
-    "prop-types": "^15.5.8"
+    "prop-types": "^15.5.8",
+    "react-datepicker": "^0.46.0"
   }
 }

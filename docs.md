@@ -2,8 +2,230 @@
 
 ### Table of Contents
 
+-   [Button](#button)
+-   [ButtonArea](#buttonarea)
+-   [SubmitButton](#submitbutton)
+-   [Checkbox](#checkbox)
+-   [CheckboxGroup](#checkboxgroup)
+-   [DateInput](#dateinput)
 -   [HiddenInput](#hiddeninput)
 -   [Paginator](#paginator)
+
+## Button
+
+A simple button component that can be used independently, or as part of a form.
+
+Conditionally adds classes and/or becomes disabled depending on passed props.
+In addition to the props below, any extra props will be passed directly to the inner `<button>` element.
+
+**Parameters**
+
+-   `invalid` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Whether or not a related form is invalid (will disable when `true`)
+-   `pristine` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Whether or not a related form is pristine (will disable when `true`)
+-   `style` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** A descriptive string that will be appended to the button's class with format `button-<type>` (optional, default `"primary"`)
+-   `submitting` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Whether or not a related form is submitting (will give button class `'in-progress` when `true`)
+-   `type` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** The [type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type) attribute of the button element (optional, default `"button"`)
+-   `children` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)?** Any React component(s) being wrapped by the button
+
+**Examples**
+
+```javascript
+function MessageButton ({ message }) {
+  return (
+     <Button
+       style="secondary"
+       onClick={ () => console.log(message) }
+     > 
+       Print Message
+     </Button>
+  )
+}
+
+// For a more in-depth example of using buttons with forms, see the docs for SubmitButton.
+```
+
+## ButtonArea
+
+A layout component that wraps its children in a `div` with class `button-area`. This component may be used to help style forms.
+
+If a `className` is provided to the component, it will be appended to the default class (see example).
+
+**Parameters**
+
+-   `className` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** A class to add to the wrapper
+-   `children` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)?** The React component(s) being wrapped
+
+**Examples**
+
+```javascript
+function ButtonForm ({ handleSubmit }) {
+  return (
+    <form onSubmit={ handleSubmit }>
+      <ButtonArea className="my-area">
+        <Button> Cancel </Button>
+        <Button> Submit </Button>
+      </ButtonArea>
+    </form>
+  )
+}
+
+// Buttons will be wrapped in a div with class: "button-area my-area"
+```
+
+## SubmitButton
+
+A wrapper around the [Button](#button) component that adds `type="submit"`. Generally used in the context of forms. 
+
+With the exception of `type`, this component shares the same props as [Button](#button).
+
+**Examples**
+
+```javascript
+function PersonForm ({ handleSubmit, pristine, invalid, submitting }) {
+  return (
+    <form onSubmit={ handleSubmit }>
+      <Field name="name" component={ Input } />
+      <Field name="age" component={ Input } type="number" />
+      <SubmitButton {...{ pristine, invalid, submitting }}>
+        Submit
+      </SubmitButton>
+    </form>
+  )
+}
+
+// When SubmitButton is pressed, form will submit and handleSubmit() will be called.
+```
+
+## Checkbox
+
+A checkbox input that can be used in a `redux-forms`-controlled form. 
+
+This input only accepts and stores boolean values. 
+Since the default `redux-forms` initial value is an empty string, you may need to set it to a boolean explicity in `mapStateToProps` using the [initalValues](http://redux-form.com/6.0.0-alpha.4/examples/initializeFromState) key.
+
+**Parameters**
+
+-   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
+-   `meta` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+
+**Examples**
+
+```javascript
+function CoolPersonForm ({ handleSubmit, pristine, invalid, submitting }) {
+  return (
+    <form onSubmit={ handleSubmit }>
+      <Field name="isCool" component={ Checkbox } />
+      <SubmitButton {...{ pristine, invalid, submitting }}>
+        Submit
+      </SubmitButton>
+    </form>
+  )
+}
+
+function mapStateToProps () {
+   return {
+     initialValues: {
+       isCool: false
+     }
+   }
+}
+
+export default compose(
+   connect(mapStateToProps)
+)(CoolPersonForm)
+```
+
+## CheckboxGroup
+
+A group of checkboxes that can be used in a `redux-forms`-controlled form. 
+
+The value of each checkbox is specified via the `options` prop. This prop can either be:
+
+-   An array of strings 
+-   An array of key-value pairs: `{ key, value }`
+
+The value of the entire `CheckboxGroup` component is an ARRAY containing the values of the selected checkboxes.
+Clicking an unselected checkbox adds its value to this array, and clicking a selected checkbox removes its value from this array.
+
+Since the default `redux-forms` initial value is an empty string, you may need to set it to an empty array explicity in `mapStateToProps` using the [initalValues](http://redux-form.com/6.0.0-alpha.4/examples/initializeFromState) key.
+
+**Parameters**
+
+-   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
+-   `meta` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+-   `options` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** An array of checkbox values (strings or key-value pairs)
+
+**Examples**
+
+```javascript
+function TodoForm ({ handleSubmit, pristine, invalid, submitting }) {
+  return (
+    <form onSubmit={ handleSubmit }>
+      <Field 
+         name="completedTodos"
+         component={ CheckboxGroup }
+         options={[
+           'Eat breakfast',
+           'Respond to emails',
+           'Take out the trash',
+         ]}
+      />
+      <SubmitButton {...{ pristine, invalid, submitting }}>
+        Submit
+      </SubmitButton>
+    </form>
+  )
+}
+
+function mapStateToProps () {
+   return {
+     initialValues: {
+       completedTodos: []
+     }
+   }
+}
+
+export default compose(
+   connect(mapStateToProps)
+)(TodoForm)
+```
+
+## DateInput
+
+An input component that wraps a `DatePicker` component from the [react-datepicker](https://github.com/Hacker0x01/react-datepicker) library.
+This wrapper adds the following functionality to `DatePicker`:
+
+-   Adapts it to receive `redux-forms`-style input props.
+-   Converts value type from [moment](https://github.com/moment/moment) to [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date).
+-   Adds name and error labels.
+
+With the exception of the `input` and `meta` props, all props are passed down to the `DatePicker` component. 
+A full list of props supported by this component can be found [here](https://github.com/Hacker0x01/react-datepicker/blob/master/docs/datepicker.md).
+
+_Note: this component requires special styles in order to render correctly. To include these styles in your project, follow the directions in the main [README](README.md#dateinput-styles) file._
+
+**Parameters**
+
+-   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
+-   `meta` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+
+**Examples**
+
+```javascript
+function BirthdayForm ({ handleSubmit }) {
+  return (
+    <form onSubmit={ handleSubmit }>
+      <Field
+         name="birthday"
+         component={DateInput}
+         placeholderText="mm/dd/yyyy" 
+       />
+    </form>
+  )
+}
+
+// Will render datepicker with label "Birthday" and placeholder "mm/dd/yyyy"
+```
 
 ## HiddenInput
 
