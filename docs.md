@@ -77,11 +77,29 @@ function ButtonForm ({ handleSubmit }) {
 
 A utility function to remove the namespace from a string.
 
-This function returns the last half separated string.
+This function returns the root string after the final period if the string 
+contains a namespace.
+
+This function returns the argument if the argument is undefined, not a string,
+or a string without a namespace.
 
 **Parameters**
 
 -   `str` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+**Examples**
+
+```javascript
+stripNamespace(undefined) // undefined
+
+stripNamespace(1) // 1
+
+stripNamespace('foo') // 'foo'
+
+stripNamespace('foo.bar') // 'bar'
+
+stripNamespace('foo.bar.baz') // 'baz'
+```
 
 ## SubmitButton
 
