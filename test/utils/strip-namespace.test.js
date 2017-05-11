@@ -10,6 +10,11 @@ test('when the argument is undefined - returns the argument', () => {
   expect(stripNamespace(str)).toBe(str)
 })
 
+test('when the argument is a string without a namespace - returns the argument', () => {
+  const str = 'foo'
+  expect(stripNamespace(str)).toBe(str)
+})
+
 test('when the argument is a string with one namespace - returns the string with the namespace removed', () => {
   const str = 'foo.bar'
   expect(stripNamespace(str)).toBe('bar')
