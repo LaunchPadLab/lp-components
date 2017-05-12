@@ -16,7 +16,7 @@ import { startCase, stripNamespace, toggle } from '../../utils'
  *
  * If `name` is used to set the text, it will be stripped of its prefixes and converted to [start case](https://en.wikipedia.org/wiki/Letter_case#Stylistic_or_specialised_usage).
  *
- * For instance: `'person.firstName'` becomes `'First name'`
+ * For instance: `'person.firstName'` becomes `'First Name'`
  * 
  * @name InputLabel
  * @type Function

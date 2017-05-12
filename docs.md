@@ -266,7 +266,7 @@ The text of the label is set using the following rules:
 
 If `name` is used to set the text, it will be stripped of its prefixes and converted to [start case](https://en.wikipedia.org/wiki/Letter_case#Stylistic_or_specialised_usage).
 
-For instance: `'person.firstName'` becomes `'First name'`
+For instance: `'person.firstName'` becomes `'First Name'`
 
 **Parameters**
 
