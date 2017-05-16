@@ -1,0 +1,142 @@
+/*-----------------------
+Slider
+-----------------------*/
+.slider{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+}
+
+/*-----------------------
+Slider Fill
+-----------------------*/
+.rangeslider,
+.rangeslider__fill {
+  display: block;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+.rangeslider {
+  background: $white-med;
+  margin: 70px 0px 20px;
+  position: relative;
+}
+
+.rangeslider--horizontal {
+  height: 12px;
+  width: 100%;
+}
+
+.rangeslider--disabled {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
+  opacity: 0.4;
+}
+
+.rangeslider__fill {
+  background: $primary-color;
+  position: absolute;
+}
+.rangeslider--horizontal .rangeslider__fill {
+  top: 0;
+  height: 100%;
+}
+
+/*-----------------------
+Handle
+-----------------------*/
+.rangeslider__handle {
+  background: $primary-color;
+  border: 2px solid $white-base;
+  cursor: pointer;
+  display: inline-block;
+  height: 40px;
+  position: absolute;
+  width: 40px;
+  -moz-box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.rangeslider__handle:active, .rangeslider--active .rangeslider__handle {
+  background: darken($primary-color, 10%);
+}
+
+.rangeslider--horizontal .rangeslider__handle {
+  top: -13px;
+  touch-action: pan-y;
+  -ms-touch-action: pan-y;
+}
+
+input[type="range"]:focus + .rangeslider .rangeslider__handle {
+  -moz-box-shadow: 0 0 8px rgba(255, 0, 255, 0.9);
+  -webkit-box-shadow: 0 0 8px rgba(255, 0, 255, 0.9);
+  box-shadow: 0 0 8px rgba(255, 0, 255, 0.9);
+}
+
+/*-----------------------
+Value Bubble
+-----------------------*/
+.rangeslider__value-bubble {
+  background-color: $black-base;
+  border-radius: 5px;
+  bottom: 100%;
+  color: $white-base;
+  display: block;
+  font-weight: bold;
+  margin-bottom: 25px;
+  margin-left: -50px;
+  padding: 10px;
+  position: absolute;
+  text-align: center;
+  width: 100px;
+
+  &:before,
+  &:after {
+    border-width: 11px;
+    border-style: solid;
+    border-color: transparent;
+    content: "";
+    display: block;
+    @include position(absolute, null 0px null 0px);
+    margin: auto;
+    width: 10px;
+  }
+
+  &:before {
+    border-top-color: $black-base;
+    border-bottom-width: 0;
+    bottom: -11px;
+  }
+
+  &:after {
+    border-top-color: $black-base;
+    border-bottom-width: 0;
+    bottom: -10px;
+  }
+}
+
+/*-----------------------
+Slider Text
+-----------------------*/
+.three-range {
+  @include rem(margin-bottom, 50px);
+
+  li{
+    @include span-columns(4 of 12);
+    @include s-tiny;
+
+    &:nth-child(2){
+      text-align: center;
+    }
+    &:last-child{
+      text-align: right;
+    }
+  }
+}
