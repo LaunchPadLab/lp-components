@@ -3,7 +3,7 @@
 // Returns the argument if it is undefined or not a string.
 
 
-export default function stripNamespace (str) {
+export default function (str) {
   if (!str || typeof str !== 'string') return str
   return str.split('.').pop()
 }
