@@ -22,17 +22,19 @@ function Input (props) {
   } = props
   return (
     <LabeledField { ...props }>
-      <input 
-        {...{ 
-          id: name,
-          name,
-          type,
-          value,
-          onBlur,
-          onChange,
-          ...rest
-        }} 
-      />
+      <div className="input-wrapper">
+        <input
+          {...{
+            id: name,
+            name,
+            type,
+            value,
+            onBlur,
+            onChange,
+            ...rest
+          }}
+        />
+      </div>
     </LabeledField>
   )
 }
