@@ -9,6 +9,7 @@
 -   [CheckboxGroup](#checkboxgroup)
 -   [DateInput](#dateinput)
 -   [HiddenInput](#hiddeninput)
+-   [Textarea](#textarea)
 -   [InputLabel](#inputlabel)
 -   [Paginator](#paginator)
 
@@ -247,6 +248,37 @@ function UserForm ({ handleSubmit }) {
     <form onSubmit={ handleSubmit }>
        <Field name="user.name" component={ Input } />
        <Field name="user.id" component={ HiddenInput } />
+    </form>
+  )
+}
+```
+
+## Textarea
+
+A textarea input that can be used in a `redux-forms`-controlled form. Optionally displays a character count.
+
+**Parameters**
+
+-   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
+-   `meta` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+-   `maxLength` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The maximum allowed length of the input (optional, default `500`)
+-   `showCharacterCount` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Whether or not to display a character count (optional, default `true`)
+
+**Examples**
+
+```javascript
+function BiographyForm ({ handleSubmit, pristine, invalid, submitting }) {
+  return (
+    <form onSubmit={ handleSubmit }>
+      <Field 
+         name="biography"
+         component={ Textarea }
+         maxLength={ 1000 }
+         showCharacterCount={ false }
+      />
+      <SubmitButton {...{ pristine, invalid, submitting }}>
+        Submit
+      </SubmitButton>
     </form>
   )
 }
