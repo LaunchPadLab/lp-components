@@ -4,7 +4,6 @@
 
 -   [Button](#button)
 -   [ButtonArea](#buttonarea)
--   [stripNamespace](#stripnamespace)
 -   [SubmitButton](#submitbutton)
 -   [Checkbox](#checkbox)
 -   [CheckboxGroup](#checkboxgroup)
@@ -71,31 +70,6 @@ function ButtonForm ({ handleSubmit }) {
 }
 
 // Buttons will be wrapped in a div with class: "button-area my-area"
-```
-
-## stripNamespace
-
-A utility function to remove the leading namespace from a string.
-
-This function returns the root string after the final period in a period-delineated string.
-
-This function returns the argument if the argument is undefined, not a string,
-or a string without a namespace.
-
-**Parameters**
-
--   `str` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-**Examples**
-
-```javascript
-stripNamespace(1) // 1
-
-stripNamespace('foo') // 'foo'
-
-stripNamespace('foo.bar') // 'bar'
-
-stripNamespace('foo.bar.baz') // 'baz'
 ```
 
 ## SubmitButton
