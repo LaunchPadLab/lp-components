@@ -10,6 +10,7 @@
 -   [DateInput](#dateinput)
 -   [HiddenInput](#hiddeninput)
 -   [Textarea](#textarea)
+-   [InputLabel](#inputlabel)
 -   [Paginator](#paginator)
 
 ## Button
@@ -279,6 +280,53 @@ function BiographyForm ({ handleSubmit, pristine, invalid, submitting }) {
         Submit
       </SubmitButton>
     </form>
+  )
+}
+```
+
+## InputLabel
+
+A dynamic label associated with an input component.
+
+This component is used within [labeledField](labeledField), and therefore is incorporated into most `lp-components` input components by default.
+
+The text of the label is set using the following rules:
+
+-   If the `label` prop is set to `false`, the label is hidden completely
+-   If the `label` prop is set to a string, the label will display that text
+-   Otherwise, the label will be set using the `name` prop.
+
+If `name` is used to set the text, it will be stripped of its prefixes and converted to [start case](https://en.wikipedia.org/wiki/Letter_case#Stylistic_or_specialised_usage).
+
+For instance: `'person.firstName'` becomes `'First Name'`
+
+**Parameters**
+
+-   `name` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the associated input
+-   `hint` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** A usage hint for the associated input
+-   `label` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** Custom text for the label
+-   `tooltip` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** A message to display in a tooltip
+
+**Examples**
+
+```javascript
+// A custom input to use with redux-forms
+
+function EmailInput ({  
+  input: { name, value, onBlur, onChange },
+  label,
+}) {
+  return (
+     <div>
+      <InputLabel name={name} label={label} />
+      <input {...{
+         type: 'email',
+         name,
+         value,
+         onBlur,
+         onChange,   
+      }}
+    </div>
   )
 }
 ```
