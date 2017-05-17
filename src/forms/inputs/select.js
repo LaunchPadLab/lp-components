@@ -22,6 +22,8 @@ import { compose, objectify } from '../../utils'
  * @param {Array} options - An array of option values (strings or key-value pairs)
  * @param {String} [placeholder] - A string to display as a placeholder option
  * @example
+ *
+ * // With string options
  * 
  * function PaintColorForm ({ handleSubmit, pristine, invalid, submitting }) {
  *   return (
@@ -33,6 +35,26 @@ import { compose, objectify } from '../../utils'
  *            'Purple',
  *            'Green',
  *            'Magenta',
+ *          ]}
+ *       />
+ *       <SubmitButton {...{ pristine, invalid, submitting }}>
+ *         Submit
+ *       </SubmitButton>
+ *     </form>
+ *   )
+ * }
+ *
+ * // With object options
+ *
+ * function EmployeeForm ({ handleSubmit, pristine, invalid, submitting }) {
+ *   return (
+ *     <form onSubmit={ handleSubmit }>
+ *       <Field 
+ *          name="employeeId"
+ *          component={ Select }
+ *          options={[
+ *            { key: 'Janet', value: 100 },
+ *            { key: 'Bob', value: 101 },
  *          ]}
  *       />
  *       <SubmitButton {...{ pristine, invalid, submitting }}>

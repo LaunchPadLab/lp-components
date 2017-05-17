@@ -147,7 +147,7 @@ The value of each checkbox is specified via the `options` prop. This prop can ei
 -   An array of strings 
 -   An array of key-value pairs: `{ key, value }`
 
-The value of the entire `CheckboxGroup` component is an ARRAY containing the values of the selected checkboxes.
+The value of the entire `CheckboxGroup` component is an **array** containing the values of the selected checkboxes.
 Clicking an unselected checkbox adds its value to this array, and clicking a selected checkbox removes its value from this array.
 
 Since the default `redux-forms` initial value is an empty string, you may need to set it to an empty array explicity in `mapStateToProps` using the [initalValues](http://redux-form.com/6.0.0-alpha.4/examples/initializeFromState) key.
@@ -275,6 +275,8 @@ The value of the `Select` component will be the same as the value of the selecte
 **Examples**
 
 ```javascript
+// With string options
+
 function PaintColorForm ({ handleSubmit, pristine, invalid, submitting }) {
   return (
     <form onSubmit={ handleSubmit }>
@@ -285,6 +287,26 @@ function PaintColorForm ({ handleSubmit, pristine, invalid, submitting }) {
            'Purple',
            'Green',
            'Magenta',
+         ]}
+      />
+      <SubmitButton {...{ pristine, invalid, submitting }}>
+        Submit
+      </SubmitButton>
+    </form>
+  )
+}
+
+// With object options
+
+function EmployeeForm ({ handleSubmit, pristine, invalid, submitting }) {
+  return (
+    <form onSubmit={ handleSubmit }>
+      <Field 
+         name="employeeId"
+         component={ Select }
+         options={[
+           { key: 'Janet', value: 100 },
+           { key: 'Bob', value: 101 },
          ]}
       />
       <SubmitButton {...{ pristine, invalid, submitting }}>
