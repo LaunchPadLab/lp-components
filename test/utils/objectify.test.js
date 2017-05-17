@@ -1,6 +1,6 @@
 import { objectify } from '../../src/utils'
 
-test('when the argument is not an array - returns the argument', () => {
+test('when the argument is not an array - throws an error', () => {
   const optionArray = ''
   expect(() => objectify(optionArray)).toThrow(TypeError)
 })
