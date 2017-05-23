@@ -10,6 +10,7 @@ class FileInput extends React.Component {
     ...fieldPropTypes,
     onLoad: PropTypes.func,
     className: PropTypes.string,
+    hidePreview: PropTypes.bool,
     thumbnail: PropTypes.string,
   }
 
@@ -38,6 +39,7 @@ class FileInput extends React.Component {
       onLoad, // eslint-disable-line no-unused-vars
       children,
       submitting,
+      hidePreview,
       thumbnail,
       ...rest
     } = this.props
@@ -45,10 +47,12 @@ class FileInput extends React.Component {
     return (
       <LabeledField { ...this.props }>
         <div className="fileupload fileupload-exists">
-          { children ||
-            <div className="thumbnail">
-              <img { ...{ src: value || thumbnail, ...rest } } />
-            </div>
+          { !hidePreview &&
+            ( children ||
+              <div className="thumbnail">
+                <img { ...{ src: value || thumbnail, ...rest } } />
+              </div>
+            )
           }
           <Button style="secondary-light" submitting={ submitting }>
             <span className="fileupload-exists"> Select File </span>
