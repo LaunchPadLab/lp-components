@@ -10,7 +10,7 @@ function BlurDirty () {
     function Wrapper (props) {
       const { 
         input,
-        meta 
+        meta
       } = props
       const onBlur = meta.pristine ? null : input.onBlur
       return (

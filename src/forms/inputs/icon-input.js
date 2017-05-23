@@ -20,6 +20,7 @@ function IconInput (props) {
     meta, // eslint-disable-line no-unused-vars
     type,
     icon,
+    className, // eslint-disable-line no-unused-vars
     ...rest
   } = props
   return (
