@@ -55,7 +55,8 @@ const defaultProps = {
 function DateInput (props) {
   const {
     input: { name, value, onBlur, onChange },
-    meta, // eslint-disable-line no-unused-vars
+    meta, // eslint-disable-line no-unused-vars,
+    className, // eslint-disable-line no-unused-vars
     ...rest
   } = props
   const momentValue = value ? moment(value) : null

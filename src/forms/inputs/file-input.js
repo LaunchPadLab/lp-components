@@ -37,6 +37,7 @@ class FileInput extends React.Component {
       input: { name, value },
       meta,   // eslint-disable-line no-unused-vars
       onLoad, // eslint-disable-line no-unused-vars
+      className, // eslint-disable-line no-unused-vars
       children,
       submitting,
       hidePreview,
