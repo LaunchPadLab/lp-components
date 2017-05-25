@@ -81,6 +81,7 @@ function Select (props) {
     meta, // eslint-disable-line no-unused-vars
     options,
     placeholder,
+    className, // eslint-disable-line no-unused-vars
     ...rest
   } = props
   const optionObjects = objectify(options)

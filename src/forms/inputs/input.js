@@ -17,6 +17,7 @@ function Input (props) {
   const {
     input: { name, value, onBlur, onChange },
     meta, // eslint-disable-line no-unused-vars
+    className, // eslint-disable-line no-unused-vars
     type,
     ...rest
   } = props
