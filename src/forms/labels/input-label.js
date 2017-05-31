@@ -7,7 +7,7 @@ import { startCase, stripNamespace, toggle } from '../../utils'
  *
  * A dynamic label associated with an input component.
  * 
- * This component is used within {@link labeledField}, and therefore is incorporated into most `lp-components` input components by default.
+ * This component is used within {@link LabeledField}, and therefore is incorporated into most `lp-components` input components by default.
  *
  * The text of the label is set using the following rules:
  * - If the `label` prop is set to `false`, the label is hidden completely
