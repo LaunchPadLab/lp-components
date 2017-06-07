@@ -18,9 +18,9 @@ const defaultProps = {
 
 function PageLink ({ className, active, onClick, children }) {
   return (
-    <li className={classnames(className, {'active': active})}>
-      <a onClick={onClick}>
-        {children}
+    <li className={classnames(className, { 'active': active })}>
+      <a onClick={ onClick }>
+        { children }
       </a>
     </li>
   )

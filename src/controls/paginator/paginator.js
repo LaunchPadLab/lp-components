@@ -86,7 +86,7 @@ function Paginator ({
             className="prev"
             onClick={() => onChange(value - 1)}
           >
-            {previousLabel}
+            { previousLabel }
           </PageLink>
         }
 
@@ -96,7 +96,7 @@ function Paginator ({
           active={(value === min)}
           onClick={() => onChange(min)}
         >
-          {min}
+          { min }
         </PageLink>
 
         {/* First delimiter */}
@@ -113,11 +113,11 @@ function Paginator ({
           middlePages.map((page) => {
             return (
               <PageLink 
-                key={page}
+                key={ page }
                 active={(value === page)}
                 onClick={() => onChange(page)}
               >
-                {page}
+                { page }
               </PageLink>
             )
           })
@@ -140,7 +140,7 @@ function Paginator ({
             active={(value === max)}
             onClick={() => onChange(max)}
           >
-            {max}
+            { max }
           </PageLink>
         }
 
@@ -152,7 +152,7 @@ function Paginator ({
             className="next"
             onClick={() => onChange(value + 1)}
           >
-            {nextLabel}
+            { nextLabel } 
           </PageLink>
         }
       </ul>
