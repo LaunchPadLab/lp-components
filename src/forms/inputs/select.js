@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { blurDirty, fieldPropTypes, fieldOptionsType } from '../helpers'
+import { blurDirty, fieldPropTypes, fieldOptionsType, omitLabelProps } from '../helpers'
 import { LabeledField } from '../labels'
 import { compose, objectify } from '../../utils'
 
@@ -79,11 +79,11 @@ function Select (props) {
   const {
     input: { name, value, onBlur, onChange },
     meta, // eslint-disable-line no-unused-vars
+    className, // eslint-disable-line no-unused-vars
     options,
     placeholder,
-    className, // eslint-disable-line no-unused-vars
     ...rest
-  } = props
+  } = omitLabelProps(props)
   const optionObjects = objectify(options)
   return (
     <LabeledField { ...props }>

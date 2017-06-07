@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { blurDirty, fieldPropTypes } from '../helpers'
+import { blurDirty, fieldPropTypes, omitLabelProps } from '../helpers'
 import { LabeledField } from '../labels'
 import { compose } from '../../utils'
 
@@ -66,7 +66,7 @@ class Textarea extends React.Component {
       className,
       maxLength,
       ...rest
-    } = this.props
+    } = omitLabelProps(this.props)
     const { numChars } = this.state
     return (
       <LabeledField 
