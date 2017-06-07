@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { blurDirty, fieldPropTypes } from '../helpers'
+import { blurDirty, fieldPropTypes, omitLabelProps } from '../helpers'
 import { LabeledField } from '../labels'
 import { compose } from '../../utils'
 
@@ -22,7 +22,7 @@ function IconInput (props) {
     type,
     icon,
     ...rest
-  } = props
+  } = omitLabelProps(props)
   return (
     <LabeledField { ...props }>
       <div className="icon-label">

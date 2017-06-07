@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
-import { blurDirty, fieldPropTypesWithValue } from '../helpers'
+import { blurDirty, fieldPropTypesWithValue, omitLabelProps } from '../helpers'
 import { LabeledField } from '../labels'
 import { compose } from '../../utils'
 
@@ -58,7 +58,7 @@ function DateInput (props) {
     meta, // eslint-disable-line no-unused-vars,
     className, // eslint-disable-line no-unused-vars
     ...rest
-  } = props
+  } = omitLabelProps(props)
   const momentValue = value ? moment(value) : null
   return (
     <LabeledField { ...props }>

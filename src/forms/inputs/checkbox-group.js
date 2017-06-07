@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Checkbox from './checkbox'
-import { fieldPropTypesWithValue, fieldOptionsType } from '../helpers'
+import { fieldPropTypesWithValue, fieldOptionsType, omitLabelProps } from '../helpers'
 import { LabeledField } from '../labels'
 import { addToArray, removeFromArray, objectify } from '../../utils'
 
@@ -79,7 +79,7 @@ function CheckboxGroup (props) {
     meta, // eslint-disable-line no-unused-vars
     options,
     ...rest
-  } = props
+  } = omitLabelProps(props)
   const optionObjects = objectify(options)
   // Build change handler
   const handleChange = function (option) {

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { blurDirty, fieldPropTypesWithValue } from '../helpers'
+import { blurDirty, fieldPropTypesWithValue, omitLabelProps } from '../helpers'
 import { LabeledField } from '../labels'
 import { compose } from '../../utils'
 
@@ -51,7 +51,7 @@ function Checkbox (props) {
     input: { name, value, onBlur, onChange },
     meta, // eslint-disable-line no-unused-vars
     ...rest
-  } = props
+  } = omitLabelProps(props)
   return (
     <LabeledField className="checkbox" { ...props }>
       <input {...{ 

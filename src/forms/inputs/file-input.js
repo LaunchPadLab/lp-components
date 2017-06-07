@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Button } from '../buttons'
-import { fieldPropTypes } from '../helpers'
+import { fieldPropTypes, omitLabelProps } from '../helpers'
 import { LabeledField } from '../labels'
 
 class FileInput extends React.Component {
@@ -43,7 +43,7 @@ class FileInput extends React.Component {
       hidePreview,
       thumbnail,
       ...rest
-    } = this.props
+    } = omitLabelProps(this.props)
 
     return (
       <LabeledField { ...this.props }>
