@@ -5,7 +5,8 @@ import { omit } from '../../utils'
 function omitLabelProps (props) {
   return omit([
     'hint',
-    'tooltip'
+    'tooltip',
+    'label'
   ], props)
 }
 
