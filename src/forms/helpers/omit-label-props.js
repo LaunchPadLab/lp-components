@@ -1,12 +1,12 @@
 import { omit } from '../../utils'
 
-const inputLabelProps = [
-  'hint',
-  'tooltip'
-]
+// A function that omits the `InputLabel` props from form component props
 
 function omitLabelProps (props) {
-  return omit(inputLabelProps, props)
+  return omit([
+    'hint',
+    'tooltip'
+  ], props)
 }
 
 export default omitLabelProps
