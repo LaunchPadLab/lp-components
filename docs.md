@@ -13,6 +13,7 @@
 -   [Textarea](#textarea)
 -   [InputError](#inputerror)
 -   [InputLabel](#inputlabel)
+-   [LabeledField](#labeledfield)
 -   [Paginator](#paginator)
 
 ## Button
@@ -353,7 +354,7 @@ function BiographyForm ({ handleSubmit, pristine, invalid, submitting }) {
 
 A dynamic error label associated with an input component.
 
-This component is used within [LabeledField](LabeledField), and therefore is incorporated into most `lp-components` input components by default.
+This component is used within [LabeledField](#labeledfield), and therefore is incorporated into most `lp-components` input components by default.
 
 The error label uses the following rules to determine how it will be displayed:
 
@@ -394,7 +395,7 @@ function ValidatedInput ({
 
 A dynamic label associated with an input component.
 
-This component is used within [LabeledField](LabeledField), and therefore is incorporated into most `lp-components` input components by default.
+This component is used within [LabeledField](#labeledfield), and therefore is incorporated into most `lp-components` input components by default.
 
 The text of the label is set using the following rules:
 
@@ -433,6 +434,41 @@ function EmailInput ({
          onChange,   
       }}
     </div>
+  )
+}
+```
+
+## LabeledField
+
+A fieldset wrapper for redux-form controlled inputs. This wrapper adds an [InputLabel](#inputlabel) 
+above the wrapped component and an [InputError](#inputerror) below. Additionally, it adds the class `"error"`
+to the fieldset if the input is touched and invalid.
+
+In order to populate the `InputLabel` and `InputError` correctly, you should pass all the props of the corresponding input
+to this component. To prevent label-specific props from being passed to the input itself,
+use the [omitLabelProps](omitLabelProps) helper.
+
+**Examples**
+
+```javascript
+// A custom input to use with redux-forms
+
+function LabeledPhoneInput (props) {
+  const {  
+     input: { name, value, onBlur, onChange },
+     ...rest,
+  } = omitLabelProps(props)
+  return (
+     <LabeledField { ...props }>
+       <input {...{
+         type: 'phone',
+         name,
+         value,
+         onBlur,
+         onChange,   
+         ...rest,
+       }}
+    </LabeledField>
   )
 }
 ```
