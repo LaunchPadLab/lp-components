@@ -23,6 +23,6 @@ test('adds InputLabel and InputError', () => {
   const wrapper = mount(<LabeledField { ...props } ><Wrapped /></LabeledField>)
   // InputLabel
   expect(wrapper.find('label').text()).toEqual('Foo')
-  // // InputError
+  // InputError
   expect(wrapper.find('.error-message').exists()).toEqual(true)
 })
