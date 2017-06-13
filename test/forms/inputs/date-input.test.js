@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, mount } from 'enzyme'
+import { mount } from 'enzyme'
 import { DateInput } from '../../../src/'
 
 const name = 'name.of.field'
@@ -8,15 +8,9 @@ const onChange = jest.fn()
 const input = { name, value, onChange }
 const error = 'input error'
 
-/* 
-  Note: when using render(), we have to use length instead of exists() 
-  because it's implemented using the Cheerio API.
-  https://github.com/cheeriojs/cheerio/issues/798
-*/
-
 test('DateInput renders the error message when provided', () => {
   const props = { input, meta: { invalid: true, touched: true, error } }
-  const wrapper = render(<DateInput { ...props }/>)
+  const wrapper = mount(<DateInput { ...props }/>)
   expect(wrapper.find('.error-message').text()).toBe(error)
 })
 
