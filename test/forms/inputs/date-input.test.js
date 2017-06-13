@@ -1,7 +1,6 @@
 import React from 'react'
 import { render, mount } from 'enzyme'
 import { DateInput } from '../../../src/'
-import moment from 'moment'
 
 const name = 'name.of.field'
 const value = '2020-01-01'
