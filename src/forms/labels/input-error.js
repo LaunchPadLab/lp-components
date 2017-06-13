@@ -57,7 +57,7 @@ function InputError ({ error, invalid, touched }) {
 }
 
 function formatError (error) {
-  return (Array.isArray(error)) ? error.join(', ') : error
+  return Array.isArray(error) ? error.join(', ') : error
 }
 
 InputError.propTypes = propTypes
