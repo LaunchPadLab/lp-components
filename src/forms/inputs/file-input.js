@@ -16,20 +16,27 @@ class FileInput extends React.Component {
 
   constructor (props) {
     super(props)
-
     this.loadFile = this.loadFile.bind(this)
-
-    const { onLoad, onChange } = this.props
-
+    this.callChangeHandler = this.callChangeHandler.bind(this)
     this.reader = new FileReader()
-    this.reader.onload = onLoad
-      ? event => onLoad(event.target.result)
-      : onChange
   }
 
-  loadFile (event) {
-    const file = event.target.files[0]
+  loadFile (e) {
+    const file = e.target.files[0]
+    // Add callback to FileReader
+    const handleFileRead = (readEvent) => {
+      const fileData = readEvent.target.result
+      this.callChangeHandler(fileData, file)
+    }
+    this.reader.onload = handleFileRead
     this.reader.readAsDataURL(file)
+  }
+
+  callChangeHandler (fileData, file) {
+    // Alias onChange with onLoad
+    const { onLoad, input: { onChange } } = this.props
+    if (onLoad) onLoad(fileData, file)
+    if (onChange) onChange(fileData, file)
   }
 
   render () {
