@@ -9,6 +9,7 @@
 -   [CheckboxGroup](#checkboxgroup)
 -   [DateInput](#dateinput)
 -   [HiddenInput](#hiddeninput)
+-   [Input](#input)
 -   [Select](#select)
 -   [Textarea](#textarea)
 -   [InputError](#inputerror)
@@ -237,7 +238,7 @@ function BirthdayForm ({ handleSubmit }) {
 An Input component that is hidden from the page. The input element is hidden with CSS instead 
 of using `type="hidden` so that Cypress can still access its value.
 
-Aside from being hidden, this component is identical to [Input](Input),
+Aside from being hidden, this component is identical to [Input](#input),
 and will take the same props.
 
 **Examples**
@@ -251,6 +252,35 @@ function UserForm ({ handleSubmit }) {
     <form onSubmit={ handleSubmit }>
        <Field name="user.name" component={ Input } />
        <Field name="user.id" component={ HiddenInput } />
+    </form>
+  )
+}
+```
+
+## Input
+
+An input element that can be used in a `redux-forms`-controlled form.
+
+**Parameters**
+
+-   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
+-   `meta` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+-   `type` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** A string to specify the type of input element (defaults to `text`)
+
+**Examples**
+
+```javascript
+function UserForm ({ handleSubmit, pristine, invalid, submitting }) {
+  return (
+    <form onSubmit={ handleSubmit }>
+      <Field 
+         name="firstName"
+         component={ Input }
+         placeholder="Your first name"
+      />
+      <SubmitButton {...{ pristine, invalid, submitting }}>
+        Submit
+      </SubmitButton>
     </form>
   )
 }
