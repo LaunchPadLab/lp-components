@@ -24,7 +24,9 @@ function SetterLink ({
       id={ name }
       onClick={() => onChange(valueToSet)}
       className={ className }
-    >{label}</a>
+    >
+      { label }
+    </a>
   )
 }
 
