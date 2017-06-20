@@ -14,6 +14,7 @@
 -   [InputError](#inputerror)
 -   [InputLabel](#inputlabel)
 -   [LabeledField](#labeledfield)
+-   [omitLabelProps](#omitlabelprops)
 -   [Paginator](#paginator)
 
 ## Button
@@ -446,7 +447,7 @@ to the fieldset if the input is touched and invalid.
 
 In order to populate the `InputLabel` and `InputError` correctly, you should pass all the props of the corresponding input
 to this component. To prevent label-specific props from being passed to the input itself,
-use the [omitLabelProps](omitLabelProps) helper.
+use the [omitLabelProps](#omitlabelprops) helper.
 
 **Examples**
 
@@ -472,6 +473,53 @@ function LabeledPhoneInput (props) {
   )
 }
 ```
+
+## omitLabelProps
+
+A function that takes a form component `props` object and returns the `props` object with [InputLabel](#inputlabel) props omitted.
+Created in order to prevent these props from being passed down to the input component through `...rest`.
+
+Omits the following props:
+
+-   `hint`
+-   `tooltip`
+-   `label`
+
+**Parameters**
+
+-   `props` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A props object
+
+**Examples**
+
+```javascript
+const props = {
+   label: 'Biography',
+   hint: 'A short biography',
+   tooltip: 'Help us learn more about you!',
+   maxLength: 1000
+}
+
+omitLabelProps(props)
+
+// {
+//   maxLength: 1000
+// } 
+
+// Use in a form input component
+
+function Input (props) {
+   const {
+     input: { name, value, onBlur, onChange },
+     type,
+     ...rest
+   } = omitLabelProps(props)
+   return ( 
+     ... 
+   )
+}
+```
+
+Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** `props` object with [InputLabel](#inputlabel) props omitted
 
 ## Paginator
 
