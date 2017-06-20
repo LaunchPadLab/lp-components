@@ -31,7 +31,6 @@ import { compose } from '../../utils'
  * }
 **/
 
-
 const propTypes = {
   ...fieldPropTypes,
   type: PropTypes.string,
