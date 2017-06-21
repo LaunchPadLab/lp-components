@@ -296,9 +296,9 @@ A range input that can be used in a `redux-forms`-controlled form.
 
 -   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
 -   `meta` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
--   `min` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** An integer value representing the minumum attribute of the slider control (optional, default `0`)
--   `max` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** An integer value representing the maximum attribute of the slider control (optional, default `100`)
--   `step` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** An integer value representing the step attribute of the slider control (optional, default `1`)
+-   `min` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The minumum attribute of the slider control (optional, default `0`)
+-   `max` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The maximum attribute of the slider control (optional, default `100`)
+-   `step` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The step attribute of the slider control (optional, default `1`)
 -   `hideLabel` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** A boolean representing whether or not to display the range value label element (optional, default `false`)
 
 **Examples**

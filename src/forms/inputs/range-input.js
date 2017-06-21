@@ -12,9 +12,9 @@ import { compose } from '../../utils'
  * @type Function
  * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
  * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
- * @param {Number} [min=0] - An integer value representing the minumum attribute of the slider control
- * @param {Number} [max=100] - An integer value representing the maximum attribute of the slider control
- * @param {Number} [step=1] - An integer value representing the step attribute of the slider control
+ * @param {Number} [min=0] - The minumum attribute of the slider control
+ * @param {Number} [max=100] - The maximum attribute of the slider control
+ * @param {Number} [step=1] - The step attribute of the slider control
  * @param {Boolean} [hideLabel=false] - A boolean representing whether or not to display the range value label element
  * @example
  * 
