@@ -1,6 +1,13 @@
 import PropTypes from 'prop-types'
 
-// Option types for selects - e.g. Select and CheckboxGroup
+/**
+ *
+ * A constant representing option `PropTypes` for select elements, e.g., {@link Select} and {@link CheckboxGroup}
+ * 
+ * @name fieldOptionsType
+ * @const
+ * 
+**/
 
 export const fieldOptionsType = PropTypes.arrayOf(
   PropTypes.oneOfType([
@@ -16,6 +23,18 @@ export const fieldOptionsType = PropTypes.arrayOf(
 )
 
 // Proptypes for redux-form field components
+
+/**
+ *
+ * A function that returns the PropTypes for `redux-forms` [Field](http://redux-form.com/6.5.0/docs/api/Field.md/) components
+ * 
+ * @name fieldPropTypesWithValue
+ * @type Function
+ * @param {String|Number} value - The input value
+ * @returns {Object} with input and meta `PropTypes`
+ * @example
+ *
+**/
 
 export function fieldPropTypesWithValue (value) {
   return {
@@ -35,7 +54,7 @@ export function fieldPropTypesWithValue (value) {
   }
 }
 
-// By default, field values should be strings or numbers
+/** @const {PropTypes} default field values should be strings or numbers */
 
 const defaultValueTypes = PropTypes.oneOfType([
   PropTypes.string,

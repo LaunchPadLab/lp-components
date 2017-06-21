@@ -16,6 +16,9 @@
 -   [InputError](#inputerror)
 -   [InputLabel](#inputlabel)
 -   [LabeledField](#labeledfield)
+-   [fieldOptionsType](#fieldoptionstype)
+-   [fieldPropTypesWithValue](#fieldproptypeswithvalue)
+-   [default](#default)
 -   [omitLabelProps](#omitlabelprops)
 -   [Paginator](#paginator)
 
@@ -538,6 +541,24 @@ function LabeledPhoneInput (props) {
   )
 }
 ```
+
+## fieldOptionsType
+
+A constant representing option `PropTypes` for select elements, e.g., [Select](#select) and [CheckboxGroup](#checkboxgroup)
+
+## fieldPropTypesWithValue
+
+A function that returns the PropTypes for `redux-forms` [Field](http://redux-form.com/6.5.0/docs/api/Field.md/) components
+
+**Parameters**
+
+-   `value` **([String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number))** The input value
+
+Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** with input and meta `PropTypes`
+
+## default
+
+Type: PropTypes
 
 ## omitLabelProps
 
