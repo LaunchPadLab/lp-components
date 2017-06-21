@@ -18,7 +18,7 @@
 -   [LabeledField](#labeledfield)
 -   [fieldOptionsType](#fieldoptionstype)
 -   [fieldPropTypesWithValue](#fieldproptypeswithvalue)
--   [default](#default)
+-   [defaultValueTypes](#defaultvaluetypes)
 -   [omitLabelProps](#omitlabelprops)
 -   [Paginator](#paginator)
 
@@ -556,7 +556,7 @@ A function that returns the PropTypes for `redux-forms` [Field](http://redux-for
 
 Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** with input and meta `PropTypes`
 
-## default
+## defaultValueTypes
 
 Type: PropTypes
 

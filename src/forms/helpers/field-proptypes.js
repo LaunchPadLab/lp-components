@@ -54,7 +54,7 @@ export function fieldPropTypesWithValue (value) {
   }
 }
 
-/** @const {PropTypes} default field values should be strings or numbers */
+/** @const {PropTypes} defaultValueTypes default field values should be strings or numbers */
 
 const defaultValueTypes = PropTypes.oneOfType([
   PropTypes.string,
