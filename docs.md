@@ -19,6 +19,7 @@
 -   [fieldOptionsType](#fieldoptionstype)
 -   [fieldPropTypesWithValue](#fieldproptypeswithvalue)
 -   [defaultValueTypes](#defaultvaluetypes)
+-   [fieldPropTypes](#fieldproptypes)
 -   [omitLabelProps](#omitlabelprops)
 -   [Paginator](#paginator)
 
@@ -544,21 +545,54 @@ function LabeledPhoneInput (props) {
 
 ## fieldOptionsType
 
-A constant representing option `PropTypes` for select elements, e.g., [Select](#select) and [CheckboxGroup](#checkboxgroup)
+A constant representing the `PropTypes` of the `options` prop for select components, e.g., [Select](#select) and [CheckboxGroup](#checkboxgroup)
 
 ## fieldPropTypesWithValue
 
-A function that returns the PropTypes for `redux-forms` [Field](http://redux-form.com/6.5.0/docs/api/Field.md/) components
+A function that takes `PropTypes` for a `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object.
+Returns an object containing the `PropTypes` for `redux-forms` [Field](http://redux-form.com/6.5.0/docs/api/Field.md/) components.
 
 **Parameters**
 
--   `value` **([String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number))** The input value
+-   `value` **PropTypes** `PropTypes` object
 
-Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** with input and meta `PropTypes`
+**Examples**
+
+```javascript
+const valuePropType = PropTypes.string
+
+fieldPropTypesWithValue(valuePropType)
+
+// {
+//   input: PropTypes.shape({
+//     value: PropTypes.string.isRequired,
+//     name: PropTypes.string.isRequired,
+//     onBlur: PropTypes.func,
+//     onChange: PropTypes.func
+//   }),
+//   meta: PropTypes.shape({
+//     dirty: PropTypes.bool,
+//     invalid: PropTypes.bool,
+//     pristine: PropTypes.bool,
+//     touched: PropTypes.bool,
+//     valid: PropTypes.bool,
+//   }).isRequired
+// }
+```
+
+Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** `PropTypes` for `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) and [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) objects
 
 ## defaultValueTypes
 
+A constant representing default `PropTypes` for `redux-forms` [Field](http://redux-form.com/6.5.0/docs/api/Field.md/) values.
+
 Type: PropTypes
+
+## fieldPropTypes
+
+An object containing the default `PropTypes` for `redux-forms` [Field](http://redux-form.com/6.5.0/docs/api/Field.md/) components.
+
+Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
 
 ## omitLabelProps
 
