@@ -8,37 +8,32 @@ import { compose } from '../../utils'
  *
  * A range input that can be used in a `redux-forms`-controlled form. 
  * 
- * This input only accepts and stores boolean values. 
- * Since the default `redux-forms` initial value is an empty string, you may need to set it to a boolean explicity in `mapStateToProps` using the [initalValues](http://redux-form.com/6.0.0-alpha.4/examples/initializeFromState) key.
- * 
  * @name RangeInput
  * @type Function
  * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
  * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+ * @param {Object} [min=0] - An integer value representing the minumum attribute of the slider control
+ * @param {Object} [max=100] - An integer value representing the maximum attribute of the slider control
+ * @param {Object} [step=1] - An integer value representing the step attribute of the slider control
+ * @param {Object} [hideLabel=false] - A boolean representing whether or not to display the range value label element
  * @example
  * 
- * function CoolPersonForm ({ handleSubmit, pristine, invalid, submitting }) {
+ * function StudentForm ({ handleSubmit, pristine, invalid, submitting }) {
  *   return (
  *     <form onSubmit={ handleSubmit }>
- *       <Field name="isCool" component={ Checkbox } />
+ *       <Field 
+            name="minGPA" 
+            component={ RangeInput } 
+            step={ 0.5 }
+            min={ 2.0 }
+            max={ 4.0 }
+         />
  *       <SubmitButton {...{ pristine, invalid, submitting }}>
  *         Submit
  *       </SubmitButton>
  *     </form>
  *   )
  * }
- *
- * function mapStateToProps () {
- *    return {
- *      initialValues: {
- *        isCool: false
- *      }
- *    }
- * }
- *
- * export default compose(
- *    connect(mapStateToProps)
- * )(CoolPersonForm)
 **/
 
 const propTypes = {
