@@ -22,12 +22,12 @@ import { compose } from '../../utils'
  *   return (
  *     <form onSubmit={ handleSubmit }>
  *       <Field 
-            name="minGPA" 
-            component={ RangeInput } 
-            step={ 0.5 }
-            min={ 2.0 }
-            max={ 4.0 }
-         />
+ *          name="minGPA" 
+ *          component={ RangeInput } 
+ *          step={ 0.5 }
+ *          min={ 2.0 }
+ *          max={ 4.0 }
+ *       />
  *       <SubmitButton {...{ pristine, invalid, submitting }}>
  *         Submit
  *       </SubmitButton>
