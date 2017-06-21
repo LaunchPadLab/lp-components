@@ -547,10 +547,12 @@ function LabeledPhoneInput (props) {
 
 A constant representing the `PropTypes` of the `options` prop for select components, e.g., [Select](#select) and [CheckboxGroup](#checkboxgroup)
 
+Type: PropTypes
+
 ## fieldPropTypesWithValue
 
 A function that takes `PropTypes` for a `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object.
-Returns an object containing the `PropTypes` for `redux-forms` [Field](http://redux-form.com/6.5.0/docs/api/Field.md/) components.
+Returns an object containing all `PropTypes` for `redux-forms` [Field](http://redux-form.com/6.5.0/docs/api/Field.md/) components.
 
 **Parameters**
 
@@ -585,6 +587,7 @@ Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 ## defaultValueTypes
 
 A constant representing default `PropTypes` for `redux-forms` [Field](http://redux-form.com/6.5.0/docs/api/Field.md/) values.
+Default types are either `number` or `string`.
 
 Type: PropTypes
 

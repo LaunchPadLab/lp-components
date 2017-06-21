@@ -4,8 +4,7 @@ import PropTypes from 'prop-types'
  *
  * A constant representing the `PropTypes` of the `options` prop for select components, e.g., {@link Select} and {@link CheckboxGroup}
  * 
- * @name fieldOptionsType
- * @const
+ * @constant {PropTypes} fieldOptionsType
  * 
 **/
 
@@ -25,7 +24,7 @@ export const fieldOptionsType = PropTypes.arrayOf(
 /**
  *
  * A function that takes `PropTypes` for a `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object.
- * Returns an object containing the `PropTypes` for `redux-forms` [Field](http://redux-form.com/6.5.0/docs/api/Field.md/) components.
+ * Returns an object containing all `PropTypes` for `redux-forms` [Field](http://redux-form.com/6.5.0/docs/api/Field.md/) components.
  * 
  * @name fieldPropTypesWithValue
  * @type Function
@@ -76,9 +75,9 @@ export function fieldPropTypesWithValue (value) {
 /** 
  *
  * A constant representing default `PropTypes` for `redux-forms` [Field](http://redux-form.com/6.5.0/docs/api/Field.md/) values.
+ * Default types are either `number` or `string`.
  * 
- * @name defaultValueTypes
- * @const {PropTypes}
+ * @constant {PropTypes} defaultValueTypes
  *
 **/
 
@@ -91,8 +90,7 @@ const defaultValueTypes = PropTypes.oneOfType([
  *
  * An object containing the default `PropTypes` for `redux-forms` [Field](http://redux-form.com/6.5.0/docs/api/Field.md/) components.
  * 
- * @name fieldPropTypes
- * @const {Object}
+ * @constant {Object} fieldPropTypes
  *
 **/
 
