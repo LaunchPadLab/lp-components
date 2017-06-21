@@ -10,6 +10,7 @@
 -   [DateInput](#dateinput)
 -   [HiddenInput](#hiddeninput)
 -   [Input](#input)
+-   [RangeInput](#rangeinput)
 -   [Select](#select)
 -   [Textarea](#textarea)
 -   [InputError](#inputerror)
@@ -278,6 +279,40 @@ function UserForm ({ handleSubmit, pristine, invalid, submitting }) {
          name="firstName"
          component={ Input }
          placeholder="Your first name"
+      />
+      <SubmitButton {...{ pristine, invalid, submitting }}>
+        Submit
+      </SubmitButton>
+    </form>
+  )
+}
+```
+
+## RangeInput
+
+A range input that can be used in a `redux-forms`-controlled form.
+
+**Parameters**
+
+-   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
+-   `meta` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+-   `min` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The minumum attribute of the slider control (optional, default `0`)
+-   `max` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The maximum attribute of the slider control (optional, default `100`)
+-   `step` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The step attribute of the slider control (optional, default `1`)
+-   `hideLabel` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** A boolean representing whether or not to display the range value label element (optional, default `false`)
+
+**Examples**
+
+```javascript
+function StudentForm ({ handleSubmit, pristine, invalid, submitting }) {
+  return (
+    <form onSubmit={ handleSubmit }>
+      <Field 
+         name="minGPA" 
+         component={ RangeInput } 
+         step={ 0.5 }
+         min={ 2.0 }
+         max={ 4.0 }
       />
       <SubmitButton {...{ pristine, invalid, submitting }}>
         Submit
