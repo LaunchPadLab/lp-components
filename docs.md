@@ -16,6 +16,7 @@
 -   [InputError](#inputerror)
 -   [InputLabel](#inputlabel)
 -   [LabeledField](#labeledfield)
+-   [blurDirty](#blurdirty)
 -   [fieldOptionsType](#fieldoptionstype)
 -   [fieldPropTypesWithValue](#fieldproptypeswithvalue)
 -   [defaultValueTypes](#defaultvaluetypes)
@@ -541,6 +542,39 @@ function LabeledPhoneInput (props) {
     </LabeledField>
   )
 }
+```
+
+## blurDirty
+
+A function that returns an HOC to wrap a `redux-forms`-controlled input. 
+
+If the input is pristine, this HOC replaces the passed `onBlur` with an empty function.
+This prevents the form from being re-validated unless its value has changed.
+This behavior can be overridden by passing an `alwaysBlur` prop with the value `true`.
+
+Note: every input in lp-components has been wrapped in this HOC.
+
+**Parameters**
+
+-   `alwaysBlur` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** A flag to disable the HOC's behavior
+
+**Examples**
+
+```javascript
+function TextForm ({ handleSubmit, pristine, invalid, submitting }) {
+  return (
+    <form onSubmit={ handleSubmit }>
+      <Field name="text" component={ Input } />
+      <SubmitButton {...{ pristine, invalid, submitting }}>
+        Submit
+      </SubmitButton>
+    </form>
+  )
+}
+
+export default compose(
+   blurDirty()
+)(TextForm)
 ```
 
 ## fieldOptionsType

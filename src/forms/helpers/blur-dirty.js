@@ -1,25 +1,59 @@
 import React from 'react'
-import { getDisplayName } from '../../utils'
+import PropTypes from 'prop-types'
+import { getDisplayName, noop, set } from '../../utils'
 
-// A function that returns an HOC to wrap an input -
-// nullifies the onBlur if the input is pristine
+/**
+ *
+ * A function that returns an HOC to wrap a `redux-forms`-controlled input. 
+ * 
+ * If the input is pristine, this HOC replaces the passed `onBlur` with an empty function.
+ * This prevents the form from being re-validated unless its value has changed.
+ * This behavior can be overridden by passing an `alwaysBlur` prop with the value `true`.
+ * 
+ * Note: every input in lp-components has been wrapped in this HOC.
+ * 
+ * @name blurDirty
+ * @param {Boolean} [alwaysBlur] - A flag to disable the HOC's behavior
+ * @type Function
+ * @example
+ * 
+ * function TextForm ({ handleSubmit, pristine, invalid, submitting }) {
+ *   return (
+ *     <form onSubmit={ handleSubmit }>
+ *       <Field name="text" component={ Input } />
+ *       <SubmitButton {...{ pristine, invalid, submitting }}>
+ *         Submit
+ *       </SubmitButton>
+ *     </form>
+ *   )
+ * }
+ *
+ * export default compose(
+ *    blurDirty()
+ * )(TextForm)
+**/
+
 /* eslint react/prop-types: off */
 
-function BlurDirty () {
+function blurDirty () {
   return function (WrappedComponent) {
     function Wrapper (props) {
-      const { 
-        input,
-        meta 
+      const {
+        meta: { pristine },
+        alwaysBlur,
       } = props
-      const onBlur = meta.pristine ? null : input.onBlur
+      const disableBlur = (pristine && !alwaysBlur)
+      const passedProps = disableBlur ? set('input.onBlur', noop, props) : props
       return (
-        <WrappedComponent { ...{ ...props, input: { ...input, onBlur } } } />
+        <WrappedComponent { ...passedProps } />
       )
     }
     Wrapper.displayName = `BlurDirty${getDisplayName(WrappedComponent)}`
+    Wrapper.propTypes = {
+      alwaysBlur: PropTypes.bool,
+    }
     return Wrapper
   }
 }
 
-export default BlurDirty
+export default blurDirty
