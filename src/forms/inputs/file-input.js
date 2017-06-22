@@ -3,40 +3,44 @@ import PropTypes from 'prop-types'
 import { Button } from '../buttons'
 import { fieldPropTypes, omitLabelProps } from '../helpers'
 import { LabeledField } from '../labels'
+import { noop } from '../../utils'
+
+const propTypes = {
+  ...fieldPropTypes,
+  onLoad: PropTypes.func,
+  className: PropTypes.string,
+  hidePreview: PropTypes.bool,
+  thumbnail: PropTypes.string,
+}
+
+const defaultProps = {
+  onLoad: noop,
+}
 
 class FileInput extends React.Component {
-
-  static propTypes = {
-    ...fieldPropTypes,
-    onLoad: PropTypes.func,
-    className: PropTypes.string,
-    hidePreview: PropTypes.bool,
-    thumbnail: PropTypes.string,
-  }
 
   constructor (props) {
     super(props)
     this.loadFile = this.loadFile.bind(this)
-    this.callChangeHandler = this.callChangeHandler.bind(this)
+    this.onChange = this.onChange.bind(this)
     this.reader = new FileReader()
   }
 
   loadFile (e) {
     const file = e.target.files[0]
     // Add callback to FileReader
-    const handleFileRead = (readEvent) => {
+    this.reader.onload = (readEvent) => {
       const fileData = readEvent.target.result
-      this.callChangeHandler(fileData, file)
+      this.onChange(fileData, file)
     }
-    this.reader.onload = handleFileRead
     this.reader.readAsDataURL(file)
   }
 
-  callChangeHandler (fileData, file) {
-    // Alias onChange with onLoad
-    const { onLoad, input: { onChange } } = this.props
-    if (onLoad) onLoad(fileData, file)
-    if (onChange) onChange(fileData, file)
+  onChange (fileData, file) {
+    // Call redux forms onChange and given onLoad
+    const { input: { onChange }, onLoad } = this.props
+    onChange(fileData)
+    onLoad(fileData, file)
   }
 
   render () {
@@ -55,8 +59,10 @@ class FileInput extends React.Component {
     return (
       <LabeledField { ...this.props }>
         <div className="fileupload fileupload-exists">
-          { !hidePreview &&
-            ( children ||
+          { 
+            !hidePreview &&
+            ( 
+              children ||
               <div className="thumbnail">
                 <img { ...{ src: value || thumbnail, ...rest } } />
               </div>
@@ -78,5 +84,8 @@ class FileInput extends React.Component {
     )
   }
 }
+
+FileInput.propTypes = propTypes
+FileInput.defaultProps = defaultProps
 
 export default FileInput
