@@ -13,6 +13,7 @@
 -   [Input](#input)
 -   [RangeInput](#rangeinput)
 -   [Select](#select)
+-   [SetterLink](#setterlink)
 -   [Textarea](#textarea)
 -   [InputError](#inputerror)
 -   [InputLabel](#inputlabel)
@@ -421,6 +422,36 @@ function EmployeeForm ({ handleSubmit, pristine, invalid, submitting }) {
            { key: 'Bob', value: 101 },
          ]}
       />
+      <SubmitButton {...{ pristine, invalid, submitting }}>
+        Submit
+      </SubmitButton>
+    </form>
+  )
+}
+```
+
+## SetterLink
+
+A component that returns an `<a>` element that can be used to change the value of an input in a `redux-forms`-controlled form.
+
+**Parameters**
+
+-   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
+-   `label` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The link text
+-   `valueToSet` **Any?** The value to set the input when clicked (optional, default `true`)
+
+**Examples**
+
+```javascript
+function FilterForm ({ handleSubmit, pristine, invalid, submitting }) {
+  return (
+    <form onSubmit={ handleSubmit }>
+      <Field 
+         name="searchFilter"
+         component={ SetterLink } 
+         label="Clear Search Filters" 
+         valueToSet={ [] }
+       />
       <SubmitButton {...{ pristine, invalid, submitting }}>
         Submit
       </SubmitButton>
