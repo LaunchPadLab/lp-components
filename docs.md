@@ -550,13 +550,9 @@ A function that returns an HOC to wrap a `redux-forms`-controlled input.
 
 If the input is pristine, this HOC replaces the passed `onBlur` with an empty function.
 This prevents the form from being re-validated unless its value has changed.
-This behavior can be overridden by passing an `alwaysBlur` prop with the value `true`.
+This behavior can be overridden by passing the wrapped component an `alwaysBlur` prop with the value `true`.
 
 Note: every input in lp-components has been wrapped in this HOC.
-
-**Parameters**
-
--   `alwaysBlur` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** A flag to disable the HOC's behavior
 
 **Examples**
 

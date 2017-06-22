@@ -8,12 +8,11 @@ import { getDisplayName, noop, set } from '../../utils'
  * 
  * If the input is pristine, this HOC replaces the passed `onBlur` with an empty function.
  * This prevents the form from being re-validated unless its value has changed.
- * This behavior can be overridden by passing an `alwaysBlur` prop with the value `true`.
+ * This behavior can be overridden by passing the wrapped component an `alwaysBlur` prop with the value `true`.
  * 
  * Note: every input in lp-components has been wrapped in this HOC.
  * 
  * @name blurDirty
- * @param {Boolean} [alwaysBlur] - A flag to disable the HOC's behavior
  * @type Function
  * @example
  * 
