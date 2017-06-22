@@ -8,6 +8,7 @@
 -   [Checkbox](#checkbox)
 -   [CheckboxGroup](#checkboxgroup)
 -   [DateInput](#dateinput)
+-   [FileInput](#fileinput)
 -   [HiddenInput](#hiddeninput)
 -   [Input](#input)
 -   [RangeInput](#rangeinput)
@@ -237,6 +238,44 @@ function BirthdayForm ({ handleSubmit }) {
 }
 
 // Will render datepicker with label "Birthday" and placeholder "mm/dd/yyyy"
+```
+
+## FileInput
+
+A file input that can be used in a `redux-forms`-controlled form. 
+The value of this input is the data URL of the loaded file. 
+
+An optional callback can be fired when the file is loaded: `onLoad(fileData, file)`. 
+This callback will be passed the data URL of the file, as well as the `File` object itself.
+
+By default, this component displays a thumbnail preview of the loaded file. This preview can be customized
+by using the `thumbnail` or `hidePreview` props, as well as by passing a custom preview via `children`.
+
+**Parameters**
+
+-   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
+-   `meta` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+-   `onLoad` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)?** A callback fired when the file is loaded
+-   `thumbnail` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** A placeholder image to display before the file is loaded
+-   `hidePreview` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** A flag indicating whether or not to hide the file preview
+
+**Examples**
+
+```javascript
+function HeadshotForm ({ handleSubmit, pristine, invalid, submitting }) {
+  return (
+    <form onSubmit={ handleSubmit }>
+      <Field 
+         name="headshot" 
+         component={ FileInput } 
+         onLoad={ (fileData, file) => console.log('Loaded file!', file) }
+      />
+      <SubmitButton {...{ pristine, invalid, submitting }}>
+        Submit
+      </SubmitButton>
+    </form>
+  )
+}
 ```
 
 ## HiddenInput
