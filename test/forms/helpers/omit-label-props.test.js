@@ -1,4 +1,4 @@
-import { omitLabelProps } from '../../src/forms/helpers'
+import { omitLabelProps } from '../../../src/'
 
 test('when props is empty - returns the empty object', () => {
   const props = {}
