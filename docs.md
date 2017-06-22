@@ -446,15 +446,16 @@ A component that returns an `<a>` element that can be used to change the value o
 function FilterForm ({ handleSubmit, pristine, invalid, submitting }) {
   return (
     <form onSubmit={ handleSubmit }>
-      <Field 
-         name="searchFilters"
-         component={ SetterLink } 
-         label="Clear Search Filters" 
-         valueToSet={ [] }
-       />
-      <SubmitButton {...{ pristine, invalid, submitting }}>
-        Submit
-      </SubmitButton>
+     { ... }
+     <Field 
+        name="searchFilters"
+        component={ SetterLink } 
+        label="Clear Search Filters" 
+        valueToSet={ [] }
+      />
+     <SubmitButton {...{ pristine, invalid, submitting }}>
+       Submit
+     </SubmitButton>
     </form>
   )
 }
