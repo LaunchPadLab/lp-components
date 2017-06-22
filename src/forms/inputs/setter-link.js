@@ -17,7 +17,7 @@ import { fieldPropTypes } from '../helpers'
  *   return (
  *     <form onSubmit={ handleSubmit }>
  *       <Field 
- *          name="searchFilter"
+ *          name="searchFilters"
  *          component={ SetterLink } 
  *          label="Clear Search Filters" 
  *          valueToSet={ [] }
