@@ -9,11 +9,18 @@
 -   [CheckboxGroup](#checkboxgroup)
 -   [DateInput](#dateinput)
 -   [HiddenInput](#hiddeninput)
+-   [Input](#input)
+-   [RangeInput](#rangeinput)
 -   [Select](#select)
 -   [Textarea](#textarea)
 -   [InputError](#inputerror)
 -   [InputLabel](#inputlabel)
 -   [LabeledField](#labeledfield)
+-   [fieldOptionsType](#fieldoptionstype)
+-   [fieldPropTypesWithValue](#fieldproptypeswithvalue)
+-   [defaultValueTypes](#defaultvaluetypes)
+-   [fieldPropTypes](#fieldproptypes)
+-   [omitLabelProps](#omitlabelprops)
 -   [Paginator](#paginator)
 
 ## Button
@@ -237,7 +244,7 @@ function BirthdayForm ({ handleSubmit }) {
 An Input component that is hidden from the page. The input element is hidden with CSS instead 
 of using `type="hidden` so that Cypress can still access its value.
 
-Aside from being hidden, this component is identical to [Input](Input),
+Aside from being hidden, this component is identical to [Input](#input),
 and will take the same props.
 
 **Examples**
@@ -251,6 +258,69 @@ function UserForm ({ handleSubmit }) {
     <form onSubmit={ handleSubmit }>
        <Field name="user.name" component={ Input } />
        <Field name="user.id" component={ HiddenInput } />
+    </form>
+  )
+}
+```
+
+## Input
+
+An input element that can be used in a `redux-forms`-controlled form.
+
+**Parameters**
+
+-   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
+-   `meta` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+-   `type` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** A string to specify the type of input element (defaults to `text`)
+
+**Examples**
+
+```javascript
+function UserForm ({ handleSubmit, pristine, invalid, submitting }) {
+  return (
+    <form onSubmit={ handleSubmit }>
+      <Field 
+         name="firstName"
+         component={ Input }
+         placeholder="Your first name"
+      />
+      <SubmitButton {...{ pristine, invalid, submitting }}>
+        Submit
+      </SubmitButton>
+    </form>
+  )
+}
+```
+
+## RangeInput
+
+A range input that can be used in a `redux-forms`-controlled form.
+
+**Parameters**
+
+-   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
+-   `meta` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+-   `min` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The minumum attribute of the slider control (optional, default `0`)
+-   `max` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The maximum attribute of the slider control (optional, default `100`)
+-   `step` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The step attribute of the slider control (optional, default `1`)
+-   `hideLabel` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** A boolean representing whether or not to display the range value label element (optional, default `false`)
+
+**Examples**
+
+```javascript
+function StudentForm ({ handleSubmit, pristine, invalid, submitting }) {
+  return (
+    <form onSubmit={ handleSubmit }>
+      <Field 
+         name="minGPA" 
+         component={ RangeInput } 
+         step={ 0.5 }
+         min={ 2.0 }
+         max={ 4.0 }
+      />
+      <SubmitButton {...{ pristine, invalid, submitting }}>
+        Submit
+      </SubmitButton>
     </form>
   )
 }
@@ -446,7 +516,7 @@ to the fieldset if the input is touched and invalid.
 
 In order to populate the `InputLabel` and `InputError` correctly, you should pass all the props of the corresponding input
 to this component. To prevent label-specific props from being passed to the input itself,
-use the [omitLabelProps](omitLabelProps) helper.
+use the [omitLabelProps](#omitlabelprops) helper.
 
 **Examples**
 
@@ -472,6 +542,107 @@ function LabeledPhoneInput (props) {
   )
 }
 ```
+
+## fieldOptionsType
+
+A constant representing the `PropTypes` of the `options` prop for select components, e.g., [Select](#select) and [CheckboxGroup](#checkboxgroup)
+
+Type: PropTypes
+
+## fieldPropTypesWithValue
+
+A function that takes `PropTypes` for a `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object.
+Returns an object containing all `PropTypes` for `redux-forms` [Field](http://redux-form.com/6.5.0/docs/api/Field.md/) components.
+
+**Parameters**
+
+-   `value` **PropTypes** `PropTypes` object
+
+**Examples**
+
+```javascript
+const valuePropType = PropTypes.string
+
+fieldPropTypesWithValue(valuePropType)
+
+// {
+//   input: PropTypes.shape({
+//     value: PropTypes.string.isRequired,
+//     name: PropTypes.string.isRequired,
+//     onBlur: PropTypes.func,
+//     onChange: PropTypes.func
+//   }),
+//   meta: PropTypes.shape({
+//     dirty: PropTypes.bool,
+//     invalid: PropTypes.bool,
+//     pristine: PropTypes.bool,
+//     touched: PropTypes.bool,
+//     valid: PropTypes.bool,
+//   }).isRequired
+// }
+```
+
+Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** `PropTypes` for `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) and [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) objects
+
+## defaultValueTypes
+
+A constant representing default `PropTypes` for `redux-forms` [Field](http://redux-form.com/6.5.0/docs/api/Field.md/) values.
+Default types are either `number` or `string`.
+
+Type: PropTypes
+
+## fieldPropTypes
+
+An object containing the default `PropTypes` for `redux-forms` [Field](http://redux-form.com/6.5.0/docs/api/Field.md/) components.
+
+Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+## omitLabelProps
+
+A function that takes a form component `props` object and returns the `props` object with [InputLabel](#inputlabel) props omitted.
+Created in order to prevent these props from being passed down to the input component through `...rest`.
+
+Omits the following props:
+
+-   `hint`
+-   `tooltip`
+-   `label`
+
+**Parameters**
+
+-   `props` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A props object
+
+**Examples**
+
+```javascript
+const props = {
+   label: 'Biography',
+   hint: 'A short biography',
+   tooltip: 'Help us learn more about you!',
+   maxLength: 1000
+}
+
+omitLabelProps(props)
+
+// {
+//   maxLength: 1000
+// } 
+
+// Use in a form input component
+
+function Input (props) {
+   const {
+     input: { name, value, onBlur, onChange },
+     type,
+     ...rest
+   } = omitLabelProps(props)
+   return ( 
+     ... 
+   )
+}
+```
+
+Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** `props` object with [InputLabel](#inputlabel) props omitted
 
 ## Paginator
 
