@@ -308,6 +308,9 @@ function UserForm ({ handleSubmit }) {
 
 An input element that can be used in a `redux-forms`-controlled form.
 
+The `input` element is surrounded by a `div` with class `"input-wrapper"`. 
+Any children passed to this component will be rendered within this wrapper.
+
 **Parameters**
 
 -   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
