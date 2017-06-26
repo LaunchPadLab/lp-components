@@ -12,8 +12,7 @@ test('SetterLink sets the value to true when `valueToSet` is not provided', () =
   const wrapper = mount(<div><input { ...inputProps }/><SetterLink { ...props }/></div>)
   
   wrapper.find('a').simulate('click')
-  const newValue = onChange.mock.calls[0][0]
-  expect(newValue).toEqual(true)
+  expect(onChange).toHaveBeenCalledWith(true)
 })
 
 test('SetterLink sets the value correctly when `valueToSet` is provided', () => {
@@ -24,6 +23,5 @@ test('SetterLink sets the value correctly when `valueToSet` is provided', () => 
   const wrapper = mount(<div><input { ...inputProps }/><SetterLink { ...props }/></div>)
   
   wrapper.find('a').simulate('click')
-  const newValue = onChange.mock.calls[0][0]
-  expect(newValue).toEqual([])
+  expect(onChange).toHaveBeenCalledWith([])
 })
