@@ -21,6 +21,7 @@ import { compose, objectify } from '../../utils'
  * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @param {Array} options - An array of option values (strings or key-value pairs)
  * @param {String} [placeholder] - A string to display as a placeholder option
+ * @param {Boolean} [emptyOption=false] - 
  * @example
  *
  * // With string options
@@ -67,11 +68,13 @@ import { compose, objectify } from '../../utils'
 
 const propTypes = {
   ...fieldPropTypes,
+  emptyOption: PropTypes.bool,
   placeholder: PropTypes.string,
-  options: fieldOptionsType
+  options: fieldOptionsType,
 }
 
 const defaultProps = {
+  emptyOption: false,
   options: [],
 }
 
@@ -80,6 +83,7 @@ function Select (props) {
     input: { name, value, onBlur, onChange },
     meta, // eslint-disable-line no-unused-vars
     className, // eslint-disable-line no-unused-vars
+    emptyOption,
     options,
     placeholder,
     ...rest
@@ -103,6 +107,10 @@ function Select (props) {
           <option value='' disabled>
             { placeholder }
           </option>
+        }
+        {
+          emptyOption &&
+          <option value='' />
         }
         { 
           optionObjects.map(({ key, value }) =>
