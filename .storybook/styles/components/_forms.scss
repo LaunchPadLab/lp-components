@@ -72,8 +72,9 @@ Input Icon
     width: 20px;
   }
 
-  .mail-icon{
-    background-image: asset-url("mail.svg");
+  .mail-icon:after{
+    content: '📧';
+    // background-image: asset-url("mail.svg");
   }
   .phone-icon{
     background-image: asset-url("phone.svg");

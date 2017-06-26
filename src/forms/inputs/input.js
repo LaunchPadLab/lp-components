@@ -8,7 +8,7 @@ import { compose } from '../../utils'
  *
  * An input element that can be used in a `redux-forms`-controlled form.
  *
- * The `input` element is surrounded by a `div` with class `"input-wrapper"`. 
+ * Note: The `input` tag is surrounded by a `div` with class `"input-wrapper"`. 
  * Any children passed to this component will be rendered within this wrapper.
  * 
  * @name Input
