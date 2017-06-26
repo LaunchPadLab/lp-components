@@ -7,6 +7,9 @@ import { compose } from '../../utils'
 /**
  *
  * An input element that can be used in a `redux-forms`-controlled form.
+ *
+ * Note: The `input` tag is surrounded by a `div` with class `"input-wrapper"`. 
+ * Any children passed to this component will be rendered within this wrapper.
  * 
  * @name Input
  * @type Function
@@ -34,6 +37,7 @@ import { compose } from '../../utils'
 const propTypes = {
   ...fieldPropTypes,
   type: PropTypes.string,
+  children: PropTypes.node,
 }
 
 const defaultProps = {
@@ -46,6 +50,7 @@ function Input (props) {
     meta, // eslint-disable-line no-unused-vars
     className, // eslint-disable-line no-unused-vars
     type,
+    children,
     ...rest
   } = omitLabelProps(props)
   return (
@@ -62,6 +67,7 @@ function Input (props) {
             ...rest
           }}
         />
+        { children }
       </div>
     </LabeledField>
   )
