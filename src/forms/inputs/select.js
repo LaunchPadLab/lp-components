@@ -21,7 +21,7 @@ import { compose, objectify } from '../../utils'
  * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @param {Array} options - An array of option values (strings or key-value pairs)
  * @param {String} [placeholder] - A string to display as a placeholder option
- * @param {Boolean} [emptyOption=false] - A flag indicating whether or not to include an option with a value of `''`
+ * @param {Boolean} [emptyOption=false] - A flag indicating that the placeholder option should not be `disabled`
  * @example
  *
  * // With string options
@@ -104,13 +104,9 @@ function Select (props) {
       >
         { 
           placeholder &&
-          <option value='' disabled>
+          <option value='' disabled={ !emptyOption }>
             { placeholder }
           </option>
-        }
-        {
-          emptyOption &&
-          <option value='' />
         }
         { 
           optionObjects.map(({ key, value }) =>
