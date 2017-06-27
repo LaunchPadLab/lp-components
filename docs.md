@@ -11,6 +11,7 @@
 -   [FileInput](#fileinput)
 -   [HiddenInput](#hiddeninput)
 -   [Input](#input)
+-   [IconInput](#iconinput)
 -   [RangeInput](#rangeinput)
 -   [Select](#select)
 -   [SetterLink](#setterlink)
@@ -308,6 +309,9 @@ function UserForm ({ handleSubmit }) {
 
 An input element that can be used in a `redux-forms`-controlled form.
 
+Note: The `input` tag is surrounded by a `div` with class `"input-wrapper"`. 
+Any children passed to this component will be rendered within this wrapper.
+
 **Parameters**
 
 -   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
@@ -324,6 +328,39 @@ function UserForm ({ handleSubmit, pristine, invalid, submitting }) {
          name="firstName"
          component={ Input }
          placeholder="Your first name"
+      />
+      <SubmitButton {...{ pristine, invalid, submitting }}>
+        Submit
+      </SubmitButton>
+    </form>
+  )
+}
+```
+
+## IconInput
+
+A wrapper around the [Input](#input) component that adds an icon to the input.
+
+This icon is rendered as an `<i>` tag, with a dynamic class based on the `icon` prop. 
+For example, given an `icon` prop of `"twitter"`, the component will render an [Input](#input) with child `<i className="twitter-icon"/>`.
+
+Additionally, the fieldset of this [Input](#input) will be given the class `"icon-label"` for styling purposes.
+
+**Parameters**
+
+-   `icon` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the icon associated with the input
+
+**Examples**
+
+```javascript
+function TwitterForm ({ handleSubmit, pristine, invalid, submitting }) {
+  return (
+    <form onSubmit={ handleSubmit }>
+      <Field 
+         name="handle"
+         component={ IconInput }
+         icon="twitter"
+         placeholder="Your twitter handle"
       />
       <SubmitButton {...{ pristine, invalid, submitting }}>
         Submit
