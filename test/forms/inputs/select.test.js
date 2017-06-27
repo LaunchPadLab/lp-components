@@ -50,6 +50,7 @@ test('Select adds placeholder option to select tag', () => {
 })
 
 test('Select adds empty option select tag', () => {
+  const PLACEHOLDER = 'MY PLACEHOLDER'
   const props = { 
     input: {
       name: 'test',
@@ -57,8 +58,10 @@ test('Select adds empty option select tag', () => {
     }, 
     meta: {},
     options: [],
+    placeholder: PLACEHOLDER,
     emptyOption: true,
   }
   const wrapper = shallow(<Select { ...props }/>)
   expect(wrapper.dive().find('option').first().prop('value')).toEqual('')
+  expect(wrapper.dive().find('option').first().prop('disabled')).toEqual(false)
 })
