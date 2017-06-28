@@ -44,3 +44,12 @@ storiesOf('Select', module)
       placeholder=" "
     />
   ))
+  .add('with enabled placeholder option', () => (
+    <Select
+      input={inputProps}
+      meta={{}}
+      options={options}
+      placeholder="Placeholder"
+      enablePlaceholderOption={true}
+    />
+  ))
