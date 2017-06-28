@@ -421,7 +421,7 @@ The value of the `Select` component will be the same as the value of the selecte
 -   `meta` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
 -   `options` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** An array of option values (strings or key-value pairs)
 -   `placeholder` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** A string to display as a placeholder option
--   `emptyOption` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** A flag indicating that the placeholder option should not be `disabled` (optional, default `false`)
+-   `enablePlaceholderOption` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** A flag indicating that the placeholder option should not be `disabled` (optional, default `false`)
 
 **Examples**
 
