@@ -48,3 +48,20 @@ test('Select adds placeholder option to select tag', () => {
   expect(wrapper.dive().find('option').contains(PLACEHOLDER)).toEqual(true)
   expect(wrapper.dive().find('option').prop('value')).toEqual('')
 })
+
+test('Select enables the placeholder option to be selected correctly', () => {
+  const PLACEHOLDER = 'MY PLACEHOLDER'
+  const props = { 
+    input: {
+      name: 'test',
+      value: '',
+    }, 
+    meta: {},
+    options: [],
+    placeholder: PLACEHOLDER,
+    enablePlaceholderOption: true,
+  }
+  const wrapper = shallow(<Select { ...props }/>)
+  expect(wrapper.dive().find('option').first().prop('value')).toEqual('')
+  expect(wrapper.dive().find('option').first().prop('disabled')).toEqual(false)
+})
