@@ -24,8 +24,8 @@ test('Button with current value is marked as active', () => {
 test('Button click sets value', () => {
   const onChange = jest.fn()
   const wrapper = mount(<Paginator value={ 5 } min={ 1 } max={ 10 } onChange={ onChange } />)
-  wrapper.find('li > a').at(1).simulate('click')
-  expect(onChange).toHaveBeenCalledWith(1)
+  wrapper.find('li > a').at(2).simulate('click')
+  expect(onChange).toHaveBeenCalledWith(4)
 })
 
 test('Previous button decrements value', () => {
@@ -40,5 +40,19 @@ test('Next button increments value', () => {
   const wrapper = mount(<Paginator value={ 5 } min={ 1 } max={ 10 } onChange={ onChange } />)
   wrapper.find('li > a').last().simulate('click')
   expect(onChange).toHaveBeenCalledWith(6)
+})
+
+test('Min button sets value to min', () => {
+  const onChange = jest.fn()
+  const wrapper = mount(<Paginator value={ 5 } min={ 1 } max={ 10 } onChange={ onChange } />)
+  wrapper.find('li > a').at(1).simulate('click')
+  expect(onChange).toHaveBeenCalledWith(1)
+})
+
+test('Max button sets value to max', () => {
+  const onChange = jest.fn()
+  const wrapper = mount(<Paginator value={ 5 } min={ 1 } max={ 10 } onChange={ onChange } />)
+  wrapper.find('li > a').at(5).simulate('click')
+  expect(onChange).toHaveBeenCalledWith(10)
 })
 
