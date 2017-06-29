@@ -30,3 +30,25 @@ test('Fileinput sets custom preview correctly', () => {
   const wrapper = mount(<FileInput { ...props }><Preview/></FileInput>)
   expect(wrapper.find('blink').exists()).toEqual(true)
 })
+
+test('FileInput reads files and calls change handlers correctly', () => {
+  const FILE = 'my file'
+  const FILEDATA = 'my file data'
+  window.FileReader = createMockFileReader(FILEDATA)
+  const onLoad = jest.fn()
+  const onChange = jest.fn()
+  const props = { input: { name, value: '', onChange }, meta: {}, onLoad }
+  const wrapper = mount(<FileInput { ...props }/>)
+  wrapper.find('input').simulate('change', { target: { files: [FILE] }})
+  expect(onChange).toHaveBeenCalledWith(FILEDATA)
+  expect(onLoad).toHaveBeenCalledWith(FILEDATA, FILE)
+})
+
+// Creates a mock FileReader that passes the given file data to its onload() handler
+function createMockFileReader (fileData) {
+  return class MockFileReader {
+    readAsDataURL () {
+      this.onload({ target: { result: fileData } })
+    }
+  }
+}
