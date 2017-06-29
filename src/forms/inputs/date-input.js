@@ -52,6 +52,9 @@ const defaultProps = {
   placeholderText: 'MM/DD/YY'
 }
 
+/* Ignore test coverage: */
+/* istanbul ignore next */
+
 function DateInput (props) {
   const {
     input: { name, value, onBlur, onChange },
