@@ -1,6 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@kadira/storybook'
-import { HiddenInput } from '../src'
+import { HiddenInput } from 'src'
 
 const inputProps = {
   name: 'person.firstName'

@@ -1,6 +1,6 @@
 import React from 'react'
 import { storiesOf, action } from '@kadira/storybook'
-import { SetterLink } from '../src'
+import { SetterLink } from 'src'
 
 const inputProps = {
   onChange: action('field changed')

@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf, action } from '@kadira/storybook'
-import { CheckboxGroup as StaticCheckboxGroup } from '../src'
-import dynamicInput from './dynamic-input'
+import { CheckboxGroup as StaticCheckboxGroup } from 'src'
+import dynamicInput from '../../dynamic-input'
 
 const CheckboxGroup = dynamicInput({
   initialValue: [],
