@@ -1,6 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@kadira/storybook'
-import { InputError } from '../src'
+import { InputError } from 'src'
 
 storiesOf('InputError', module)
   .add('with a single error', () => (

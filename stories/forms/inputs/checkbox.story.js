@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf, action } from '@kadira/storybook'
-import { Checkbox as StaticCheckbox } from '../src'
-import dynamicInput from './dynamic-input'
+import { Checkbox as StaticCheckbox } from 'src'
+import dynamicInput from '../../dynamic-input'
 
 const Checkbox = dynamicInput({
   initialValue: false,

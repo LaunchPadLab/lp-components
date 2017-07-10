@@ -1,6 +1,6 @@
 import React from 'react'
 import { storiesOf, action } from '@kadira/storybook'
-import { Button } from '../src'
+import { Button } from 'src'
 
 const onClick = action('clicked')
 

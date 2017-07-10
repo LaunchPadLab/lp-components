@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf, action } from '@kadira/storybook'
-import { DateInput as StaticDateInput } from '../src'
-import dynamicInput from './dynamic-input'
+import { DateInput as StaticDateInput } from 'src'
+import dynamicInput from '../../dynamic-input'
 
 const DateInput = dynamicInput({
   valuePath: 'input.value',

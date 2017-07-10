@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { storiesOf, action } from '@kadira/storybook'
-import { FileInput as StaticFileInput } from '../src'
-import dynamicInput from './dynamic-input'
+import { FileInput as StaticFileInput } from 'src'
+import dynamicInput from '../../dynamic-input'
 
 const FileInput = dynamicInput({
   valuePath: 'input.value',
