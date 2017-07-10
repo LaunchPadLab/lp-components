@@ -1,6 +1,6 @@
 import React from 'react'
 import { storiesOf, action } from '@kadira/storybook'
-import { Button, SubmitButton, Submit } from '../src'
+import { Button, SubmitButton, Submit } from 'src'
 
 function submit (e) {
   e.preventDefault()

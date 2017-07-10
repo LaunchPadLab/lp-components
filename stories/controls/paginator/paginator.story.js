@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf, action } from '@kadira/storybook'
-import { Paginator as StaticPaginator } from '../src'
-import dynamicInput from './dynamic-input'
+import { Paginator as StaticPaginator } from 'src'
+import dynamicInput from '../../dynamic-input'
 
 const Paginator = dynamicInput({
   initialValue: 1

@@ -16,5 +16,11 @@ module.exports = {
         query: { includePaths: [path.resolve(__dirname, '../'), ...Bourbon, ...Neat, datePickerPath ] }
       }
     ]
+  },
+  
+  resolve: {
+    alias: {
+      'src': path.resolve(__dirname, '../src')
+    }
   }
 }

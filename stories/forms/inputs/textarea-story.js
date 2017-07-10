@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf, action } from '@kadira/storybook'
-import { Textarea as StaticTextarea } from '../src'
-import dynamicInput from './dynamic-input'
+import { Textarea as StaticTextarea } from 'src'
+import dynamicInput from '../../dynamic-input'
 
 const Textarea = dynamicInput({
   valuePath: 'input.value',

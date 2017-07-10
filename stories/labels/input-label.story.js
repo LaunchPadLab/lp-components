@@ -1,6 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@kadira/storybook'
-import { InputLabel } from '../src'
+import { InputLabel } from 'src'
 
 storiesOf('InputLabel', module)
   .add('with default label', () => (

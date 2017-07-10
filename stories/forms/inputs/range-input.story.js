@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf, action } from '@kadira/storybook'
-import { RangeInput as StaticRangeInput } from '../src'
-import dynamicInput from './dynamic-input'
+import { RangeInput as StaticRangeInput } from 'src'
+import dynamicInput from '../../dynamic-input'
 
 const RangeInput = dynamicInput({
   valuePath: 'input.value',
