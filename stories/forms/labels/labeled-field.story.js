@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@kadira/storybook'
 import { LabeledField } from 'src'
-import dynamicInput from '../dynamic-input'
+import dynamicInput from '../../dynamic-input'
 
 const StaticInput = (props) => <input { ...props } />
 const Input = dynamicInput()(StaticInput)

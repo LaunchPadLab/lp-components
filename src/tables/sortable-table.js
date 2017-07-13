@@ -9,7 +9,7 @@ import classnames from 'classnames'
 const propTypes = {
   ...sortablePropTypes,
   data: PropTypes.arrayOf(PropTypes.object),
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
   disableSort: PropTypes.bool,
 }
 
