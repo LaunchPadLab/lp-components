@@ -1,45 +1,41 @@
 import React from 'react'
 import { storiesOf, action } from '@kadira/storybook'
-import { IconInput as StaticIconInput } from '../src'
-import dynamicInput from './dynamic-input'
+import { Input as StaticInput } from 'src'
+import dynamicInput from '../../dynamic-input'
 
-const IconInput = dynamicInput({
+const Input = dynamicInput({
   valuePath: 'input.value',
   onChangePath: 'input.onChange'
-})(StaticIconInput)
+})(StaticInput)
 
 const inputProps = {
-  name: 'person.emailAddress',
-  onChange: action('field changed'),
+  name: 'person.firstName',
+  onChange: action('field changed')
 }
 
-storiesOf('IconInput', module)
+storiesOf('Input', module)
   .add('with default label', () => (
-    <IconInput 
-      icon="mail"
+    <Input 
       input={inputProps} 
       meta={{}}
     />
   ))
   .add('with custom label', () => (
-    <IconInput 
-      icon="mail"
+    <Input 
       input={inputProps}
       meta={{}}
       label="Custom Label"
     />
   ))
   .add('with no label', () => (
-    <IconInput 
-      icon="mail"
+    <Input 
       input={inputProps}
       meta={{}}
       label={false}
     />
   ))
   .add('with error', () => (
-    <IconInput 
-      icon="mail"
+    <Input 
       input={inputProps}
       meta={{ 
         invalid: true,

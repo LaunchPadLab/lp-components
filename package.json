@@ -1,6 +1,6 @@
 {
   "name": "@launchpadlab/lp-components",
-  "version": "1.22.7",
+  "version": "1.22.10",
   "description": "Our Components",
   "main": "lib/index.js",
   "repository": "launchpadlab/lp-components",
@@ -9,7 +9,7 @@
     "name": "Dave Corwin",
     "email": "dave@launchpadlab.com"
   },
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
     "start": "yarn run build:development",
     "build": "babel src --out-dir lib",
@@ -29,6 +29,7 @@
   },
   "files": [
     "README.md",
+    "LICENSE.md",
     "lib/"
   ],
   "devDependencies": {

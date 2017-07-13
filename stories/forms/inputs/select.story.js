@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf, action } from '@kadira/storybook'
-import { Select as StaticSelect } from '../src'
-import dynamicInput from './dynamic-input'
+import { Select as StaticSelect } from 'src'
+import dynamicInput from '../../dynamic-input'
 
 const Select = dynamicInput({
   valuePath: 'input.value',
