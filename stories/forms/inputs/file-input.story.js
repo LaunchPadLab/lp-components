@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { storiesOf, action } from '@kadira/storybook'
 import { FileInput as StaticFileInput } from 'src'
 import dynamicInput from '../../dynamic-input'
@@ -13,22 +13,10 @@ const inputProps = {
   onChange: action('field changed')
 }
 
-// Component with filename preview
-class CustomInput extends Component {
-  onLoad (fileData, file) {
-    this.setState({ filename: file.name })
-  }
-  render () {
-    const filename = (this.state || {}).filename
-    return (
-      <FileInput {...{ 
-        onLoad: this.onLoad.bind(this), 
-        ...this.props,
-      }}>
-        <p>{ filename || 'Filename will appear here' }</p>
-      </FileInput>
-    )
-  } 
+// eslint-disable-next-line react/prop-types
+function FilenamePreview ({ file }) {
+  if (!file) return null
+  return <p>{ file.name }</p>
 }
 
 storiesOf('FileInput', module)
@@ -46,8 +34,9 @@ storiesOf('FileInput', module)
     />
   ))
   .add('with custom preview', () => (
-    <CustomInput
+    <FileInput
       input={inputProps}
       meta={{}}
+      previewComponent={FilenamePreview}
     />
   ))

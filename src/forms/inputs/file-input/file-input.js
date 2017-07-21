@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Button } from '../buttons'
-import { fieldPropTypes, omitLabelProps } from '../helpers'
-import { LabeledField } from '../labels'
-import { noop } from '../../utils'
+import { Button } from '../../buttons'
+import { fieldPropTypes, omitLabelProps } from '../../helpers'
+import { LabeledField } from '../../labels'
+import ImagePreview from './image-preview'
+import { noop } from '../../../utils'
 
 /**
  *
@@ -47,6 +48,7 @@ const propTypes = {
   thumbnail: PropTypes.string,
   hidePreview: PropTypes.bool,
   className: PropTypes.string,
+  previewComponent: PropTypes.node,
   children: PropTypes.node,
 }
 
@@ -58,9 +60,10 @@ class FileInput extends React.Component {
 
   constructor (props) {
     super(props)
+    this.state = { file: null }
+    this.reader = new FileReader()
     this.loadFile = this.loadFile.bind(this)
     this.onChange = this.onChange.bind(this)
-    this.reader = new FileReader()
   }
 
   loadFile (e) {
@@ -78,6 +81,7 @@ class FileInput extends React.Component {
     const { input: { onChange }, onLoad } = this.props
     onChange(fileData)
     onLoad(fileData, file)
+    this.setState({ file })
   }
 
   render () {
@@ -86,24 +90,15 @@ class FileInput extends React.Component {
       meta,   // eslint-disable-line no-unused-vars
       onLoad, // eslint-disable-line no-unused-vars
       className, // eslint-disable-line no-unused-vars
-      children,
       submitting,
-      hidePreview,
-      thumbnail,
-      ...rest
+      ...rest,
     } = omitLabelProps(this.props)
-
+    const { file } = this.state
     return (
       <LabeledField { ...this.props }>
         <div className="fileupload fileupload-exists">
           { 
-            !hidePreview &&
-            ( 
-              children ||
-              <div className="thumbnail">
-                <img { ...{ src: value || thumbnail, ...rest } } />
-              </div>
-            )
+            renderPreview({ file, value, ...rest })
           }
           <Button style="secondary-light" submitting={ submitting }>
             <span className="fileupload-exists"> Select File </span>
@@ -122,7 +117,15 @@ class FileInput extends React.Component {
   }
 }
 
+// eslint-disable-next-line react/prop-types
+function renderPreview ({ file, value, thumbnail, previewComponent: Component, children }) {
+  if (Component) return <Component file={ file } />
+  if (children) return children
+  return <ImagePreview image={ value || thumbnail } />
+}
+
 FileInput.propTypes = propTypes
+
 FileInput.defaultProps = defaultProps
 
 export default FileInput
