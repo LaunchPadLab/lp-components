@@ -48,7 +48,7 @@ const propTypes = {
   thumbnail: PropTypes.string,
   hidePreview: PropTypes.bool,
   className: PropTypes.string,
-  previewComponent: PropTypes.node,
+  previewComponent: PropTypes.func,
   children: PropTypes.node,
 }
 
@@ -118,7 +118,8 @@ class FileInput extends React.Component {
 }
 
 // eslint-disable-next-line react/prop-types
-function renderPreview ({ file, value, thumbnail, previewComponent: Component, children }) {
+function renderPreview ({ file, value, thumbnail, hidePreview, previewComponent: Component, children }) {
+  if (hidePreview) return null
   if (Component) return <Component file={ file } />
   if (children) return children
   return <ImagePreview image={ value || thumbnail } />
