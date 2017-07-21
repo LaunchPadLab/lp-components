@@ -15,7 +15,8 @@ import { noop } from '../../../utils'
  * This callback will be passed the data URL of the file, as well as the `File` object itself.
  *
  * By default, this component displays a thumbnail preview of the loaded file. This preview can be customized
- * by using the `thumbnail` or `hidePreview` props, as well as by passing a custom preview via `children`.
+ * by using the `thumbnail` or `hidePreview` props, as well as by passing a custom preview via `previewComponent` or `children`.
+ * A component passed using `previewComponent` will receive a `file` prop containing the uploaded file object or `null`.
  * 
  * @name FileInput
  * @type Function
