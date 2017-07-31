@@ -24,11 +24,20 @@ test('Fileinput hides preview correctly', () => {
   expect(wrapper.find('img').exists()).toEqual(false)
 })
 
-test('Fileinput sets custom preview correctly', () => {
+test('Fileinput sets custom preview from children', () => {
   const Preview = () => <blink> My preview </blink>
   const props = { input: { name, value: '' }, meta: {} }
   const wrapper = mount(<FileInput { ...props }><Preview/></FileInput>)
   expect(wrapper.find('blink').exists()).toEqual(true)
+})
+
+test('Fileinput sets custom preview from props', () => {
+  const Preview = ({ file }) => <blink>{ file && file.name }</blink> // eslint-disable-line react/prop-types
+  const props = { input: { name, value: '' }, meta: {} }
+  const wrapper = mount(<FileInput previewComponent={ Preview } { ...props }/>)
+  expect(wrapper.find('blink').exists()).toEqual(true)
+  wrapper.setState({ file: { name: 'fileName' } })
+  expect(wrapper.find('blink').text()).toEqual('fileName')
 })
 
 test('FileInput reads files and calls change handlers correctly', () => {
