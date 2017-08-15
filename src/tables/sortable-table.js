@@ -67,16 +67,16 @@ function SortableTable ({
 SortableTable.propTypes = propTypes
 SortableTable.defaultProps = defaultProps
 
-function SortableTableWrapper ({ sortPath, ...rest }) {
+function SortableTableWrapper ({ initialSortPath, ...rest }) {
   // Add initial sortPath
   const WrappedTable = compose(
-    sortable({ sortPath })
+    sortable({ sortPath: initialSortPath })
   )(SortableTable)
   return <WrappedTable { ...rest } />
 }
 
 SortableTableWrapper.propTypes = {
-  sortPath: PropTypes.string,
+  initialSortPath: PropTypes.string,
 }
 
 export default SortableTableWrapper

@@ -27,7 +27,7 @@ storiesOf('SortableTable', module)
   .add('with initial sortPath', () => (
     <div>
       <h2> Table is sorted by "age" by default. </h2>
-      <SortableTable data={ tableData } sortPath="age">
+      <SortableTable data={ tableData } initialSortPath="age">
         <Column name="name" />
         <Column name="age"/>
         <Column name="active" />
