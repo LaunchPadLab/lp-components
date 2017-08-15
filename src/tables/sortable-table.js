@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { compose } from 'redux'
 import { sortable, sortablePropTypes } from '../utils'
 import { getColumnData } from './helpers'
 import { TableHeader as Header, TableRow as Row } from './components' 
@@ -67,16 +66,10 @@ function SortableTable ({
 SortableTable.propTypes = propTypes
 SortableTable.defaultProps = defaultProps
 
+// eslint-disable-next-line react/prop-types
 function SortableTableWrapper ({ initialSortPath, ...rest }) {
-  // Add initial sortPath
-  const WrappedTable = compose(
-    sortable({ sortPath: initialSortPath })
-  )(SortableTable)
+  const WrappedTable = sortable({ sortPath: initialSortPath })(SortableTable)
   return <WrappedTable { ...rest } />
-}
-
-SortableTableWrapper.propTypes = {
-  initialSortPath: PropTypes.string,
 }
 
 export default SortableTableWrapper

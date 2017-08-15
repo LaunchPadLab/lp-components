@@ -16,10 +16,10 @@ function TableRow ({
     <tr>
       {
         columns.map((column, key ) => {
-          const { name, component: CustomComponent } = column
+          const { name, component: CustomComponent, ...rest } = column
           const value = get(name, rowData)
           return CustomComponent ?
-            <CustomComponent { ...{ key, value } } />
+            <CustomComponent { ...{ key, value, data: rowData, ...rest } } />
           :
             <td { ...{ key } }>{ value }</td>
         })

@@ -12,11 +12,11 @@ export { default as removeFromArray } from 'lodash/xor'
 
 // LP Utils
 export { 
-  toggle, 
   deprecateComponent, 
   getDisplayName,
   sortable,
   sortablePropTypes,
+  toggle, 
 } from '@launchpadlab/lp-utils'
 
 // Local
