@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { startCase } from '../../utils'
-import * as Types from '../types'
+import { Types } from '../helpers'
 import classnames from 'classnames'
 
 const propTypes = {

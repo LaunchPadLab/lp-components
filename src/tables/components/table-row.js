@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { get } from '../../utils'
-import * as Types from '../types'
+import { Types } from '../helpers'
 
 const propTypes = {
   rowData: PropTypes.any,

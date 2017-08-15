@@ -1,4 +1,3 @@
-// Table helpers
 
 // Get column info from children via props
 export function getColumnData (children=[], doDisable) {
@@ -9,3 +8,5 @@ export function getColumnData (children=[], doDisable) {
     return { ...props, disabled }
   })
 }
+
+export default getColumnData

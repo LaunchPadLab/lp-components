@@ -1,4 +1,4 @@
-import { columnPropTypes } from './types'
+import { columnPropTypes } from './helpers'
 
 const propTypes = {
   ...columnPropTypes

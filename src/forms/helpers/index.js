@@ -3,5 +3,5 @@ export {
   default as fieldPropTypes,
   fieldPropTypesWithValue,
   fieldOptionsType 
-} from './field-proptypes'
+} from './field-prop-types'
 export { default as omitLabelProps } from './omit-label-props'

@@ -8,4 +8,6 @@ export const columnPropTypes = {
   disabled: PropTypes.bool,
 }
 
-export const column = PropTypes.shape(columnPropTypes)
+export const Types = {
+  column: PropTypes.shape(columnPropTypes),
+}
