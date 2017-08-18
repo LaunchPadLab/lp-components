@@ -1,6 +1,6 @@
 {
   "name": "@launchpadlab/lp-components",
-  "version": "1.22.10",
+  "version": "1.23.0",
   "description": "Our Components",
   "main": "lib/index.js",
   "repository": "launchpadlab/lp-components",
