@@ -92,11 +92,11 @@ function CheckboxGroup (props) {
   return (
     <LabeledField className="CheckboxGroup" { ...props }>
       {
-        optionObjects.map((option) => {
+        optionObjects.map((option, i) => {
           return (
             <Checkbox
               {...{
-                key: option.key,
+                key: i,
                 input: {
                   name: `${ name }.${ option.key }`,
                   label: option.key,
