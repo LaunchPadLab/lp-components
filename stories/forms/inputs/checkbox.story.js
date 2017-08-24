@@ -17,32 +17,39 @@ const inputProps = {
 storiesOf('Checkbox', module)
   .add('with default label', () => (
     <Checkbox
-      input={inputProps}
+      input={ inputProps }
       meta={{}}
     />
   ))
   .add('with custom label', () => (
     <Checkbox
-      input={inputProps}
+      input={ inputProps }
       meta={{}}
       label="Custom Label"
     />
   ))
   .add('with no label', () => (
     <Checkbox
-      input={inputProps}
+      input={ inputProps }
       meta={{}}
       label={false}
     />
   ))
   .add('with error', () => (
     <Checkbox
-      input={inputProps}
+      input={ inputProps }
       meta={{
         invalid: true,
         touched: true,
         error: 'Invalid input'
       }}
       value="0000"
+    />
+  ))
+  .add('with a tooltip', () => (
+    <Checkbox
+      input={ inputProps }
+      meta={{}}
+      tooltip="I am a tooltip"
     />
   ))
