@@ -75,7 +75,7 @@ const defaultProps = {
 
 function CheckboxGroup (props) {
   const {
-    input: { value, onChange },
+    input: { value, onChange, name },
     meta, // eslint-disable-line no-unused-vars
     options,
     ...rest
@@ -98,7 +98,8 @@ function CheckboxGroup (props) {
               {...{
                 key: option.key,
                 input: {
-                  name: option.key,
+                  name: `${ name }.${ option.key }`,
+                  label: option.key,
                   value: value.includes(option.value),
                   onChange: handleChange(option)
                 },
