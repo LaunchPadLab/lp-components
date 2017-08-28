@@ -5,6 +5,28 @@ import { getColumnData, Types } from './helpers'
 import { TableHeader as Header, TableRow as Row } from './components' 
 import classnames from 'classnames'
 
+/**
+ * A component for displaying sortable data in a table.
+ * This component's behavior is largely determined by the {@link TableColumn} components that are passed to it.
+ * 
+ * @name SortableTable
+ * @type Function
+ * @param {Array} [data=[]] - An array of objects to display in the table- one object per row
+ * @param {Number} [initialColumn=''] - The name of the column that's initially selected
+ * @param {Boolean} [disableSort=false] - A flag to disable sorting on all columns
+ * @example
+ * 
+ * function PersonTable ({ people }) {
+ *   return (
+ *     <SortableTable data={ people } initialColumn="name">
+ *       <TableColumn name="name" />
+ *       <TableColumn name="age" label="Years alive" />
+ *       <TableColumn name="status" component={ StatusCell } />
+ *     </SortableTable>
+ *   )
+ * }
+**/
+
 const propTypes = {
   columns: PropTypes.arrayOf(Types.column).isRequired,
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
