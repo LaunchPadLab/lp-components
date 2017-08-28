@@ -1,4 +1,4 @@
-import { objectify } from '../../src/utils'
+import { objectify } from '../../src/'
 
 test('when the argument is not an array - throws an error', () => {
   const optionArray = ''

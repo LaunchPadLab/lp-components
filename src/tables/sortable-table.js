@@ -67,8 +67,11 @@ SortableTable.propTypes = propTypes
 SortableTable.defaultProps = defaultProps
 
 // eslint-disable-next-line react/prop-types
-function SortableTableWrapper ({ initialSortPath, ...rest }) {
-  const WrappedTable = sortable({ sortPath: initialSortPath })(SortableTable)
+function SortableTableWrapper ({ initialSortPath, initialSortFunc, ...rest }) {
+  const WrappedTable = sortable({ 
+    sortPath: initialSortPath,
+    sortFunc: initialSortFunc,
+  })(SortableTable)
   return <WrappedTable { ...rest } />
 }
 

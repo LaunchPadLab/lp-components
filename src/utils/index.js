@@ -20,5 +20,6 @@ export {
 } from '@launchpadlab/lp-utils'
 
 // Local
-export { default as stripNamespace } from './strip-namespace'
+export { default as compareAtPath } from './compare-at-path'
 export { default as objectify } from './objectify'
+export { default as stripNamespace } from './strip-namespace'
