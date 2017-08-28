@@ -24,10 +24,10 @@ storiesOf('SortableTable', module)
       <Column name="active" />
     </SortableTable>
   ))
-  .add('with initial sortPath', () => (
+  .add('with initial column', () => (
     <div>
       <h2> Table is sorted by "age" by default. </h2>
-      <SortableTable data={ tableData } initialSortPath="age">
+      <SortableTable data={ tableData } initialColumn="age">
         <Column name="name" />
         <Column name="age"/>
         <Column name="active" />

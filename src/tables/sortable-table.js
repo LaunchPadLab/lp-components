@@ -1,33 +1,29 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { sortable, sortablePropTypes } from '../utils'
-import { getColumnData } from './helpers'
+import { getColumnData, Types } from './helpers'
 import { TableHeader as Header, TableRow as Row } from './components' 
 import classnames from 'classnames'
 
 const propTypes = {
+  columns: PropTypes.arrayOf(Types.column).isRequired,
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  disableSort: PropTypes.bool.isRequired,
   ...sortablePropTypes,
-  data: PropTypes.arrayOf(PropTypes.object),
-  children: PropTypes.node.isRequired,
-  disableSort: PropTypes.bool,
 }
 
-const defaultProps = {
-  data: [],
-  disableSort: false,
-}
+const defaultProps = {}
 
 function SortableTable ({ 
+  columns,
   data: unsortedData, 
+  disableSort,
   sort, 
   ascending, 
   sortPath, 
   setSortPath, 
   setSortFunc, 
-  children, 
-  disableSort,
 }) {
-  const columns = getColumnData(children, disableSort)
   const data = disableSort ? unsortedData : sort(unsortedData)
   return (
     <table className={ classnames({ 'sortable-table': !disableSort }) }>
@@ -66,13 +62,28 @@ function SortableTable ({
 SortableTable.propTypes = propTypes
 SortableTable.defaultProps = defaultProps
 
-// eslint-disable-next-line react/prop-types
-function SortableTableWrapper ({ initialSortPath, initialSortFunc, ...rest }) {
+// Wraps component in sortable HOC
+function SortableTableWrapper ({ initialColumn, children, disableSort, data }) {
+  const columns = getColumnData(children, disableSort)
+  const initialProps = columns.filter(col => col.name === initialColumn).pop()
   const WrappedTable = sortable({ 
-    sortPath: initialSortPath,
-    sortFunc: initialSortFunc,
+    sortPath: initialProps ? initialProps.name : null,
+    sortFunc: initialProps ? initialProps.sortFunc : null,
   })(SortableTable)
-  return <WrappedTable { ...rest } />
+  return <WrappedTable {...{ columns, data, disableSort }} />
+}
+
+SortableTableWrapper.propTypes = {
+  initialColumn: PropTypes.string,
+  children: PropTypes.node.isRequired,
+  data: PropTypes.arrayOf(PropTypes.object),
+  disableSort: PropTypes.bool,
+}
+
+SortableTableWrapper.propTypes = {
+  initialColumn: '',
+  disableSort: false,
+  data: [],
 }
 
 export default SortableTableWrapper
