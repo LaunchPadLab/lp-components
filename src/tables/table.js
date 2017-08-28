@@ -2,7 +2,7 @@ import React from 'react'
 import SortableTable from './sortable-table'
 
 function Table (props) {
- return <SortableTable { ...props } disableSort />
+ return <SortableTable {...{ ...props, disableSort: true }} />
 }
 
 export default Table

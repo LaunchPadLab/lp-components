@@ -62,7 +62,7 @@ function SortableTable ({
 SortableTable.propTypes = propTypes
 SortableTable.defaultProps = defaultProps
 
-// Wraps component in sortable HOC
+// Wraps SortableTable in sortable HOC
 function SortableTableWrapper ({ initialColumn, children, disableSort, data }) {
   const columns = getColumnData(children, disableSort)
   const initialProps = columns.filter(col => col.name === initialColumn).pop()
@@ -80,7 +80,7 @@ SortableTableWrapper.propTypes = {
   disableSort: PropTypes.bool,
 }
 
-SortableTableWrapper.propTypes = {
+SortableTableWrapper.defaultProps = {
   initialColumn: '',
   disableSort: false,
   data: [],
