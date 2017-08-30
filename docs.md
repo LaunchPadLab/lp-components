@@ -2,6 +2,7 @@
 
 ### Table of Contents
 
+-   [Paginator](#paginator)
 -   [Button](#button)
 -   [ButtonArea](#buttonarea)
 -   [SubmitButton](#submitbutton)
@@ -25,7 +26,43 @@
 -   [defaultValueTypes](#defaultvaluetypes)
 -   [fieldPropTypes](#fieldproptypes)
 -   [omitLabelProps](#omitlabelprops)
--   [Paginator](#paginator)
+-   [Table](#table)
+-   [SortableTable](#sortabletable)
+-   [TableColumn](#tablecolumn)
+
+## Paginator
+
+A control component for navigating between multiple numbered pages.
+
+**Parameters**
+
+-   `value` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The number of the current page (optional, default `1`)
+-   `onChange` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)?** A function called with the new value when a page is clicked.
+-   `min` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The number of the first page (optional, default `1`)
+-   `max` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The number of the last page. (optional, default `1`)
+-   `alwaysShow` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Always show the component, even when there's only one page visible. (optional, default `false`)
+-   `pagesShown` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The number of pages to display around (and including) the current page (optional, default `3`)
+-   `previousLabel` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** The text of the "previous page" button (optional, default `'Prev'`)
+-   `nextLabel` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** The text of the "next page" button (optional, default `'Next'`)
+
+**Examples**
+
+```javascript
+function ShowPages ({ pages, currentPage, changeCurrentPage }) {
+  return (
+    <div>
+      <Page 
+        page={pages[currentPage]} 
+      />
+      <Paginator 
+        value={currentPage}
+        onChange={changeCurrentPage}
+        max={pages.length}
+      />
+    </div>
+  )
+}
+```
 
 ## Button
 
@@ -784,36 +821,76 @@ function Input (props) {
 
 Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** `props` object with [InputLabel](#inputlabel) props omitted
 
-## Paginator
+## Table
 
-A control component for navigating between multiple numbered pages.
+A component for displaying data in a table.
+This component's behavior is largely determined by the [TableColumn](#tablecolumn) components that are passed to it.
 
 **Parameters**
 
--   `value` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The number of the current page (optional, default `1`)
--   `onChange` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)?** A function called with the new value when a page is clicked.
--   `min` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The number of the first page (optional, default `1`)
--   `max` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The number of the last page. (optional, default `1`)
--   `alwaysShow` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Always show the component, even when there's only one page visible. (optional, default `false`)
--   `pagesShown` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The number of pages to display around (and including) the current page (optional, default `3`)
--   `previousLabel` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** The text of the "previous page" button (optional, default `'Prev'`)
--   `nextLabel` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** The text of the "next page" button (optional, default `'Next'`)
+-   `data` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)?** An array of objects to display in the table- one object per row (optional, default `[]`)
 
 **Examples**
 
 ```javascript
-function ShowPages ({ pages, currentPage, changeCurrentPage }) {
+function PersonTable ({ people }) {
   return (
-    <div>
-      <Page 
-        page={pages[currentPage]} 
-      />
-      <Paginator 
-        value={currentPage}
-        onChange={changeCurrentPage}
-        max={pages.length}
-      />
-    </div>
+    <Table data={ people }>
+      <TableColumn name="name" />
+      <TableColumn name="age" label="Years alive" />
+      <TableColumn name="status" component={ StatusCell } />
+    </Table>
+  )
+}
+```
+
+## SortableTable
+
+A component for displaying sortable data in a table.
+This component's behavior is largely determined by the [TableColumn](#tablecolumn) components that are passed to it.
+
+**Parameters**
+
+-   `data` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)?** An array of objects to display in the table- one object per row (optional, default `[]`)
+-   `initialColumn` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The name of the column that's initially selected (optional, default `''`)
+-   `disableSort` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** A flag to disable sorting on all columns (optional, default `false`)
+
+**Examples**
+
+```javascript
+function PersonTable ({ people }) {
+  return (
+    <SortableTable data={ people } initialColumn="name">
+      <TableColumn name="name" />
+      <TableColumn name="age" label="Years alive" />
+      <TableColumn name="status" component={ StatusCell } />
+    </SortableTable>
+  )
+}
+```
+
+## TableColumn
+
+A component used to pass column information to a [Table](#table) or [SortableTable](#sortabletable).
+
+**Parameters**
+
+-   `name` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The key of the value to display in the column from each data object
+-   `label` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** The text that will be displayed in the column header. Defaults to `name`.
+-   `sortFunc` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)?** The function that will be used to sort the table data when the column is selected
+-   `component` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)?** A custom cell component for the column. Will be passed the `key`, `value` and `data` for the row.
+-   `disabled` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** A flag that disables sorting for the column
+
+**Examples**
+
+```javascript
+function PersonTable ({ people }) {
+  return (
+    <SortableTable data={ people } initialColumn="name">
+      <TableColumn name="name" />
+      <TableColumn name="age" label="Years alive" disabled />
+      <TableColumn name="status" component={ StatusCell } />
+    </SortableTable>
   )
 }
 ```

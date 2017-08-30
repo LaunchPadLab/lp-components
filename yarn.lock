@@ -99,11 +99,13 @@
     webpack-dev-middleware "^1.6.0"
     webpack-hot-middleware "^2.13.2"
 
-"@launchpadlab/lp-utils@^2.6.0":
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/@launchpadlab/lp-utils/-/lp-utils-2.6.0.tgz#e4de0f5e7fab0371b3566d05b80f3db489e210ac"
+"@launchpadlab/lp-utils@^2.12.1":
+  version "2.12.1"
+  resolved "https://registry.yarnpkg.com/@launchpadlab/lp-utils/-/lp-utils-2.12.1.tgz#ea7b33597b77c3c25650e9e03046bd8b10f14a5c"
   dependencies:
+    classnames "^2.2.5"
     lodash "^4.17.4"
+    prop-types "^15.5.8"
     validate.js "^0.11.1"
 
 JSONStream@^1.0.3:
@@ -5831,7 +5833,7 @@ replace-ext@1.0.0, replace-ext@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/replace-ext/-/replace-ext-1.0.0.tgz#de63128373fcbf7c3ccfa4de5a480c45a67958eb"
 
-request@2, request@^2.61.0, request@^2.74.0, request@^2.79.0:
+request@2, request@^2.61.0, request@^2.79.0:
   version "2.79.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.79.0.tgz#4dfe5bf6be8b8cdc37fcf93e04b65577722710de"
   dependencies:
@@ -5856,7 +5858,7 @@ request@2, request@^2.61.0, request@^2.74.0, request@^2.79.0:
     tunnel-agent "~0.4.1"
     uuid "^3.0.0"
 
-request@~2.74.0:
+request@^2.74.0, request@~2.74.0:
   version "2.74.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.74.0.tgz#7693ca768bbb0ea5c8ce08c084a45efa05b892ab"
   dependencies:

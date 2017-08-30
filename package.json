@@ -1,6 +1,6 @@
 {
   "name": "@launchpadlab/lp-components",
-  "version": "1.23.2",
+  "version": "1.24.0",
   "description": "Our Components",
   "main": "lib/index.js",
   "repository": "launchpadlab/lp-components",
@@ -60,7 +60,7 @@
     "react": "^15.5.0"
   },
   "dependencies": {
-    "@launchpadlab/lp-utils": "^2.6.0",
+    "@launchpadlab/lp-utils": "^2.12.1",
     "classnames": "^2.2.5",
     "codeclimate-test-reporter": "^0.4.1",
     "husky": "^0.13.3",

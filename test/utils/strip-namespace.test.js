@@ -1,4 +1,4 @@
-import { stripNamespace } from '../../src/utils'
+import { stripNamespace } from '../../src/'
 
 test('when the argument is not a string - returns the argument', () => {
   const str = 2
