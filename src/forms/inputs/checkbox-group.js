@@ -75,7 +75,7 @@ const defaultProps = {
 
 function CheckboxGroup (props) {
   const {
-    input: { value, onChange },
+    input: { value, onChange, name },
     meta, // eslint-disable-line no-unused-vars
     options,
     ...rest
@@ -92,13 +92,14 @@ function CheckboxGroup (props) {
   return (
     <LabeledField className="CheckboxGroup" { ...props }>
       {
-        optionObjects.map((option) => {
+        optionObjects.map((option, i) => {
           return (
             <Checkbox
               {...{
-                key: option.key,
+                key: i,
                 input: {
-                  name: option.key,
+                  name: `${ name }.${ option.key }`,
+                  label: option.key,
                   value: value.includes(option.value),
                   onChange: handleChange(option)
                 },

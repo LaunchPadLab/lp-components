@@ -66,14 +66,14 @@ function InputLabel ({ hint, label, name, tooltip, tooltipActive, toggleTooltip 
         <label htmlFor={ name }>
           { labelText }
 
-          { tooltip &&
-            <span className="tooltip-trigger" onClick={ toggleTooltip }/>
-          }
-
           { hint &&
             <i> { hint }</i>
           }
         </label>
+      }
+      
+      { tooltip &&
+        <span className="tooltip-trigger" onClick={ toggleTooltip }/>
       }
 
       { tooltip &&
