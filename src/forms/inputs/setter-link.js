@@ -5,22 +5,22 @@ import { fieldPropTypes } from '../helpers'
 /**
  *
  * A component that returns an `<a>` element that can be used to change the value of an input in a `redux-forms`-controlled form.
- * 
+ *
  * @name SetterLink
  * @type Function
  * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
  * @param {String} label - The link text
  * @param {Any} [valueToSet=true] - The value to set the input when clicked
  * @example
- * 
+ *
  * function FilterForm ({ handleSubmit, pristine, invalid, submitting }) {
  *   return (
  *     <form onSubmit={ handleSubmit }>
  *      { ... }
- *      <Field 
+ *      <Field
  *         name="searchFilters"
- *         component={ SetterLink } 
- *         label="Clear Search Filters" 
+ *         component={ SetterLink }
+ *         label="Clear Search Filters"
  *         valueToSet={ [] }
  *       />
  *      <SubmitButton {...{ pristine, invalid, submitting }}>
@@ -44,7 +44,7 @@ const defaultProps = {
 }
 
 function SetterLink ({
-  input: { name, onChange },
+  input: { name, onChange, onBlur },
   label,
   valueToSet,
   className
@@ -52,7 +52,10 @@ function SetterLink ({
   return (
     <a
       id={ name }
-      onClick={() => onChange(valueToSet)}
+      onClick={() => {
+        onChange(valueToSet)
+        onBlur()
+      }}
       className={ className }
     >
       { label }
