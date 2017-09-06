@@ -523,10 +523,10 @@ function FilterForm ({ handleSubmit, pristine, invalid, submitting }) {
   return (
     <form onSubmit={ handleSubmit }>
      { ... }
-     <Field 
+     <Field
         name="searchFilters"
-        component={ SetterLink } 
-        label="Clear Search Filters" 
+        component={ SetterLink }
+        label="Clear Search Filters"
         valueToSet={ [] }
       />
      <SubmitButton {...{ pristine, invalid, submitting }}>
