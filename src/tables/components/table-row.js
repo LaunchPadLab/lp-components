@@ -19,7 +19,7 @@ function TableRow ({
           const { name, component: CustomComponent, ...rest } = column
           const value = get(name, rowData)
           return CustomComponent ?
-            <CustomComponent { ...{ key, value, data: rowData, ...rest } } />
+            <CustomComponent { ...{ key, name, value, data: rowData, ...rest } } />
           :
             <td { ...{ key } }>{ value }</td>
         })
