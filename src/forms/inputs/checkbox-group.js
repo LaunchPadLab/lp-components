@@ -99,11 +99,11 @@ function CheckboxGroup (props) {
                 key: i,
                 input: {
                   name: `${ name }.${ option.key }`,
-                  label: option.key,
                   value: value.includes(option.value),
                   onChange: handleChange(option)
                 },
                 meta: {},
+                label: option.key,
                 ...rest
               }}
             />
