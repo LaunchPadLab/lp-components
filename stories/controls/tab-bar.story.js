@@ -9,12 +9,12 @@ const TabBar = dynamicInput({
 storiesOf('TabBar', module)
   .add('static', () => (
     <TabBar
-      options={['Home', 'Account']}
+      options={['Tab 1', 'Tab 2']}
     />
   ))
   .add('dynamic', () => (
     <TabBar
-      options={['Home', 'Account']}
+      options={['Tab 1', 'Tab 2']}
       onChange={action('tabbed over')}
     />
   ))

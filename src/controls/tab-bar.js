@@ -42,7 +42,7 @@ const defaultProps = {
 function TabBar ({ options, value, onChange }) {
   const optionObjects = objectify(options)
   return (
-    <ul>
+    <ul className="tabs horizontal-tabs">
       {
         optionObjects.map(({ key, value: optionValue }) =>
           <li
