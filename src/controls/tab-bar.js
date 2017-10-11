@@ -9,20 +9,19 @@ import { objectify, noop } from '../utils'
  * @name TabBar
  * @type Function
  * @description A control component for navigating among multiple tabs
- * @param {Boolean} [vertical] A boolean to determine whether the tabs should be aligned vertically or horizontally (optional, default `false`)
+ * @param {Boolean} [vertical] A boolean setting the `className` of the `ul` to 'horizontal' (default), or 'vertical', which determines the alignment of the tabs (optional, default `false`)
  * @param {Array} [options] An array of tab values (strings or key-value pairs)
  * @param {String|Number} [value] - The value of the current tab
  * @param {Function} [onChange] - A function called with the new value when a tab is clicked
  * @example
  *
- * function ShowTabs ({ tabs, currentTab, changeCurrentTab }) {
+ * function ShowTabs ({ currentTab, setCurrentTab }) {
  *   return (
  *     <div>
  *       <TabBar
- *         vertical={false}
- *         options={tabs}
+ *         options={['Tab 1', 'Tab 2']}
  *         value={currentTab}
- *         onChange={changeCurrentTab}
+ *         onChange={setCurrentTab}
  *       />
  *     </div>
  *   )
@@ -51,7 +50,7 @@ function TabBar ({ vertical, options, value, onChange }) {
       {
         optionObjects.map(({ key, value: optionValue }) =>
           <li
-            className={classnames({ 'active': optionValue == value })}
+            className={classnames({ 'active': optionValue === value })}
             key={key}
             onClick={() => { onChange(optionValue) }}
           >

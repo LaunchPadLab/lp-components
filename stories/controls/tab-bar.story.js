@@ -7,21 +7,17 @@ const TabBar = dynamicInput({
 })(StaticTabBar)
 
 storiesOf('TabBar', module)
-  .add('static', () => (
+  .add('horizontal', () => (
     <TabBar
       options={['Tab 1', 'Tab 2']}
-    />
-  ))
-  .add('dynamic', () => (
-    <TabBar
-      options={['Tab 1', 'Tab 2']}
-      onChange={action('tabbed over')}
+      onChange={action('tabbed horizontally')}
     />
   ))
   .add('vertical', () => (
     <TabBar
       options={['Tab 1', 'Tab 2']}
-      vertical={true}
+      vertical
+      onChange={action('tabbed vertically')}
     />
   ))
 

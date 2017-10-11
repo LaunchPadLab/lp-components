@@ -71,7 +71,7 @@ A control component for navigating among multiple tabs
 
 **Parameters**
 
--   `vertical` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** A boolean to determine whether the tabs should be aligned vertically or horizontally (optional, default `false`)
+-   `vertical` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** A boolean setting the `className` of the `ul` to 'horizontal' (default), or 'vertical', which determines the alignment of the tabs (optional, default `false`)
 -   `options` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)?** An array of tab values (strings or key-value pairs)
 -   `value` **([String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number))?** The value of the current tab
 -   `onChange` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)?** A function called with the new value when a tab is clicked
@@ -79,14 +79,13 @@ A control component for navigating among multiple tabs
 **Examples**
 
 ```javascript
-function ShowTabs ({ tabs, currentTab, changeCurrentTab }) {
+function ShowTabs ({ currentTab, setCurrentTab }) {
   return (
     <div>
       <TabBar
-        vertical={false}
-        options={tabs}
+        options={['Tab 1', 'Tab 2']}
         value={currentTab}
-        onChange={changeCurrentTab}
+        onChange={setCurrentTab}
       />
     </div>
   )
