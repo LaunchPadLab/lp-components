@@ -5,6 +5,16 @@ import { TabBar } from '../../src/'
 const defaultOptions = ['Home', 'Account']
 const objectOptions = [{key: 'Home', value: 'home'}, {key: 'Account', value: 4}]
 
+test('TabBar defaults to horizontal alignment', () => {
+  const wrapper = mount(<TabBar options={defaultOptions} />)
+  expect(wrapper.find('ul').hasClass('horizontal-tabs')).toEqual(true)
+})
+
+test('TabBar aligns vertically with vertical option', () => {
+  const wrapper = mount(<TabBar options={defaultOptions} vertical={true} />)
+  expect(wrapper.find('ul').hasClass('vertical-tabs')).toEqual(true)
+})
+
 test('TabBar renders defaultOptions', () => {
   const wrapper = mount(<TabBar options={defaultOptions} />)
   expect(wrapper.find('li').first().text()).toEqual('Home')
