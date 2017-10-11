@@ -21,7 +21,7 @@ storiesOf('TabBar', module)
   .add('vertical', () => (
     <TabBar
       options={['Tab 1', 'Tab 2']}
-      alignment='vertical'
+      vertical={true}
     />
   ))
 

@@ -9,9 +9,10 @@ import { objectify, noop } from '../utils'
  * @name TabBar
  * @type Function
  * @description A control component for navigating among multiple tabs
+ * @param {Boolean} [vertical] A boolean to determine whether the tabs should be aligned vertically or horizontally. Default is false (horizontal).
+ * @param {Array} [options] An array of tab values (strings or key-value pairs)
  * @param {String|Number} [value] - The value of the current tab
  * @param {Function} [onChange] - A function called with the new value when a tab is clicked
- * @param {Array} [options] An array of tab values (strings or key-value pairs)
  * @example
  *
  * function ShowTabs ({ tabs, currentTab, changeCurrentTab }) {
@@ -21,6 +22,7 @@ import { objectify, noop } from '../utils'
  *         options={tabs}
  *         value={currentTab}
  *         onChange={changeCurrentTab}
+ *         vertical={false}
  *       />
  *     </div>
  *   )
@@ -28,21 +30,22 @@ import { objectify, noop } from '../utils'
 **/
 
 const propTypes = {
-  alignment: PropTypes.string,
+  vertical: PropTypes.bool,
   options: fieldOptionsType,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onChange: PropTypes.func,
 }
 
 const defaultProps = {
-  alignment: 'horizontal',
+  vertical: false,
   options: [],
   value: '',
   onChange: noop,
 }
 
-function TabBar ({ alignment, options, value, onChange }) {
+function TabBar ({ vertical, options, value, onChange }) {
   const optionObjects = objectify(options)
+  const alignment = vertical ? 'vertical' : 'horizontal'
   return (
     <ul className={`tabs ${alignment}-tabs`}>
       {
