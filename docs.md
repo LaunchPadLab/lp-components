@@ -907,7 +907,7 @@ A component used to pass column information to a [Table](#table) or [SortableTab
 -   `name` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The key of the value to display in the column from each data object
 -   `label` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** The text that will be displayed in the column header. Defaults to `name`.
 -   `sortFunc` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)?** The function that will be used to sort the table data when the column is selected
--   `component` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)?** A custom cell component for the column. Will be passed the `key`, `value` and `data` for the row.
+-   `component` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)?** A custom cell component for the column. Will be passed the `key`, `name`, `value` and `data` for the row.
 -   `disabled` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** A flag that disables sorting for the column
 
 **Examples**

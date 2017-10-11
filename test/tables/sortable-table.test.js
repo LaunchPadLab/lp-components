@@ -3,7 +3,7 @@ import { mount } from 'enzyme'
 import { SortableTable, TableColumn as Column, compareAtPath } from '../../src/'
 
 const tableData = [
-  { name: 'Kim' },
+  { name: 'Kim', test: true },
   { name: 'Tommy' },
   { name: 'Lorax' },
 ]
@@ -90,13 +90,20 @@ test('column can have custom sort function', () => {
 })
 
 test('column can have custom component', () => {
-  const MyCell = () => <td> hi! </td>
+  const MyCell = () => <td> Hi! </td> 
   const wrapper = mount(
     <SortableTable data={ tableData }>
       <Column name="name" component={ MyCell }/>
     </SortableTable>
   )
   expect(wrapper.find(MyCell).exists()).toEqual(true)
+  const expectedProps = {
+    name: 'name',
+    value: 'Kim',
+    data: { name: 'Kim', test: true },
+    disabled: false,
+  }
+  expect(wrapper.find(MyCell).first().props()).toEqual(expectedProps)
 })
 
 test('initialColumn determines inital sortPath and sortFunc', () => {
