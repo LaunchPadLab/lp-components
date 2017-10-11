@@ -11,7 +11,7 @@ import { objectify, noop } from '../utils'
  * @description A control component for navigating among multiple tabs
  * @param {String|Number} [value] - The value of the current tab
  * @param {Function} [onChange] - A function called with the new value when a tab is clicked
- * @param {Array} [options] An array of checkbox values (strings or key-value pairs)
+ * @param {Array} [options] An array of tab values (strings or key-value pairs)
  * @example
  *
  * function ShowTabs ({ tabs, currentTab, changeCurrentTab }) {
@@ -28,21 +28,23 @@ import { objectify, noop } from '../utils'
 **/
 
 const propTypes = {
+  alignment: PropTypes.string,
   options: fieldOptionsType,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onChange: PropTypes.func,
 }
 
 const defaultProps = {
+  alignment: 'horizontal',
   options: [],
   value: '',
   onChange: noop,
 }
 
-function TabBar ({ options, value, onChange }) {
+function TabBar ({ alignment, options, value, onChange }) {
   const optionObjects = objectify(options)
   return (
-    <ul className="tabs horizontal-tabs">
+    <ul className={`tabs ${alignment}-tabs`}>
       {
         optionObjects.map(({ key, value: optionValue }) =>
           <li
