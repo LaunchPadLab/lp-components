@@ -53,6 +53,12 @@ test('FileInput reads files and calls change handlers correctly', () => {
   expect(onLoad).toHaveBeenCalledWith(FILEDATA, FILE)
 })
 
+test('FileInput passes accept attribute to input component', () => {
+  const props = { input: { name, value: '' }, meta: {}, accept: 'image/*' }
+  const wrapper = mount(<FileInput { ...props }/>)
+  expect(wrapper.find('input').prop('accept')).toEqual('image/*')
+})
+
 // Creates a mock FileReader that passes the given file data to its onload() handler
 function createMockFileReader (fileData) {
   return class MockFileReader {
