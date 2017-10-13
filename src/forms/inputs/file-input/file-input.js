@@ -92,6 +92,7 @@ class FileInput extends React.Component {
       onLoad, // eslint-disable-line no-unused-vars
       className, // eslint-disable-line no-unused-vars
       submitting,
+      accept,
       ...rest,
     } = omitLabelProps(this.props)
     const { file } = this.state
@@ -109,6 +110,7 @@ class FileInput extends React.Component {
                   name,
                   type: 'file',
                   onChange: this.loadFile,
+                  accept,
                 }}
               />
           </Button>
