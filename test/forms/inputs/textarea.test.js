@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 import { Textarea } from '../../../src/'
 
 test('Textarea passes down max length correctly', () => {
-  const props = { 
+  const props = {
     input: {
       name: 'test',
       value: '',
@@ -16,7 +16,7 @@ test('Textarea passes down max length correctly', () => {
 })
 
 test('Textarea hides character count correctly', () => {
-  const props = { 
+  const props = {
     input: {
       name: 'test',
       value: '',
@@ -27,3 +27,18 @@ test('Textarea hides character count correctly', () => {
   const wrapper = shallow(<Textarea { ...props }/>)
   expect(wrapper.dive().find('.character-count').exists()).toEqual(false)
 })
+
+test('Textarea passes down max length and hides character count correctly', () => {
+  const props = {
+    input: {
+      name: 'test',
+      value: '',
+    },
+    meta: {},
+    maxLength: false,
+  }
+  const wrapper = shallow(<Textarea { ...props }/>)
+  expect(wrapper.dive().find('textarea').prop('maxLength')).toEqual(false)
+  expect(wrapper.dive().find('.character-count').exists()).toEqual(false)
+})
+
