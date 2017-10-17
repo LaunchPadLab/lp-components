@@ -222,7 +222,7 @@ textarea.textarea-error {
 Input Tooltip
 -----------------------*/
 .tooltip-trigger:after{
-  background-color: $grey-light;
+  background-color: $white-light;
   border: 1px solid $white-med;
   border-radius: 50%;
   color: $grey-base;
@@ -329,4 +329,29 @@ Button Area
 
 .short-input {
   width: 135px;
+}
+
+
+
+/*-----------------------
+Input Icon
+-----------------------*/
+.icon-label{
+  position: relative;
+  input{
+    @include rem(padding-left, 30px);
+  }
+
+  .input-wrapper{
+    position: relative;
+
+    i{
+      @include position(absolute, 3px null null 10px);
+      background-repeat: no-repeat;
+      background-size: 15px;
+      display: inline-block;
+      height: 20px;
+      width: 20px;
+    }
+  }
 }
