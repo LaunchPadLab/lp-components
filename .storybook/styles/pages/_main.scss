@@ -1,4 +1,4 @@
-[class*=-container]{
+[class*=-block-container]{
   @include base-padding;
   //@include outer-container;
   display: inline-block;
