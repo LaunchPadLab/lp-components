@@ -13,7 +13,7 @@ import { compose } from '../../utils'
  * @type Function
  * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
  * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
- * @param {Number} [maxLength=500] - The maximum allowed length of the input. Accepts a boolean, e.g., `false` for the option to not set a max length.
+ * @param {Number} [maxLength=500] - The maximum allowed length of the input. Accepts `false` for the option to not set a max length.
  * @param {Boolean} [showCharacterCount=true] - Whether or not to display a character count
  * @example
  *
@@ -60,7 +60,7 @@ function Textarea (props) {
       { ...props }
     >
       {
-        maxLength && showCharacterCount &&
+        !!maxLength && showCharacterCount &&
         <span className="character-count">
           { `${ value.length }/${ maxLength } characters` }
         </span>
