@@ -15,7 +15,7 @@ const inputProps = {
 
 storiesOf('Textarea', module)
   .add('default', () => (
-    <Textarea 
+    <Textarea
       input={inputProps}
       meta={{}}
     />
@@ -32,5 +32,12 @@ storiesOf('Textarea', module)
       input={inputProps}
       meta={{}}
       showCharacterCount={false}
+    />
+  ))
+  .add('with no maxLength', () => (
+    <Textarea
+      input={inputProps}
+      meta={{}}
+      maxLength={0}
     />
   ))
