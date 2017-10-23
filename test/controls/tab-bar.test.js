@@ -35,6 +35,11 @@ test('TabBar adds Active class', () => {
 test('TabBar calls onChange', () => {
   const onChange = jest.fn()
   const wrapper = mount(<TabBar options={objectOptions} onChange={ onChange } />)
-  wrapper.find('li').first().simulate('click')
+  wrapper.find('li > a').first().simulate('click')
   expect(onChange).toHaveBeenCalledWith('home')
+})
+
+test('TabBar passes down custom className to ul', () => {
+  const wrapper = mount(<TabBar className="custom" />)
+  expect(wrapper.find('ul').hasClass('custom')).toEqual(true)
 })
