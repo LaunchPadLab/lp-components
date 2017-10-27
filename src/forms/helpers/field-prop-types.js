@@ -94,7 +94,4 @@ const defaultValueTypes = PropTypes.oneOfType([
  *
 **/
 
-const fieldPropTypes = fieldPropTypesWithValue(defaultValueTypes)
-
-export default fieldPropTypes
-  
+export const fieldPropTypes = fieldPropTypesWithValue(defaultValueTypes)

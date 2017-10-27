@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { startCase, stripNamespace, toggle } from '../../utils'
+import { convertNameToLabel } from '../helpers'
+import { toggle, togglePropTypes } from '../../utils'
 
 /**
  *
@@ -22,7 +23,7 @@ import { startCase, stripNamespace, toggle } from '../../utils'
  * @type Function
  * @param {String} name - The name of the associated input
  * @param {String} [hint] - A usage hint for the associated input
- * @param {String} [label] - Custom text for the label
+ * @param {String|Boolean} [label] - Custom text for the label
  * @param {String} [tooltip] - A message to display in a tooltip
 
  * @example
@@ -50,42 +51,49 @@ import { startCase, stripNamespace, toggle } from '../../utils'
 **/
 
 const propTypes = {
-  hint: PropTypes.node,
-  label: PropTypes.node,
+  hint: PropTypes.string,
+  label: PropTypes.oneOfType([ PropTypes.string, PropTypes.bool ]),
   name: PropTypes.string.isRequired,
-  tooltip: PropTypes.node,
-  tooltipActive: PropTypes.bool,
-  toggleTooltip: PropTypes.func,
+  tooltip: PropTypes.string,
+  ...togglePropTypes('tooltipShown')
 }
 
-function InputLabel ({ hint, label, name, tooltip, tooltipActive, toggleTooltip }) {
-  const labelText = label || startCase(stripNamespace(name))
+const defaultProps = {
+  hint: '',
+  label: '',
+  tooltip: '',
+}
+
+function InputLabel ({ hint, label, name, tooltip, tooltipShown, toggleTooltipShown }) {
+  const labelText = label || convertNameToLabel(name)
   return (
     <span>
-      { label !== false &&
+      {  
+        label !== false &&
         <label htmlFor={ name }>
           { labelText }
-
-          { hint &&
-            <i> { hint }</i>
+          { 
+            hint &&
+            <i>{ hint }</i>
           }
         </label>
       }
-      
-      { tooltip &&
-        <span className="tooltip-trigger" onClick={ toggleTooltip }/>
+      { 
+        tooltip &&
+        <span className="tooltip-trigger" onClick={ toggleTooltipShown }/>
       }
-
-      { tooltip &&
-        <div className={ classnames('tooltip-content', { 'is-active': tooltipActive }) }>
+      { 
+        tooltip &&
+        <div className={ classnames('tooltip-content', { 'is-active': tooltipShown }) }>
           { tooltip }
-       </div>
+        </div>
       }
     </span>
-
   )
 }
 
 InputLabel.propTypes = propTypes
 
-export default toggle('tooltip')(InputLabel)
+InputLabel.defaultProps = defaultProps
+
+export default toggle('tooltipShown')(InputLabel)

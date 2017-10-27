@@ -1,25 +1,30 @@
-export { default as startCase } from 'lodash/startCase'
-export { default as range } from 'lodash/range'
-export { default as noop } from 'lodash/noop'
-export { default as compose } from 'lodash/fp/compose'
-export { default as omit } from 'lodash/fp/omit'
-export { default as set } from 'lodash/fp/set'
-export { default as get } from 'lodash/fp/get'
+export {
+  startCase,
+  range,
+  noop,
+  union as addToArray,
+  xor as removeFromArray,
+} from 'lodash'
 
-// Alias these to make them easier to understand in context
-export { default as addToArray } from 'lodash/union'
-export { default as removeFromArray } from 'lodash/xor'
+export {
+  compose,
+  omit,
+  set,
+  get,
+} from 'lodash/fp'
+
+export wrapDisplayName from 'recompose/wrapDisplayName'
 
 // LP Utils
 export { 
-  deprecateComponent, 
-  getDisplayName,
+  deprecate,
   sortable,
   sortablePropTypes,
-  toggle, 
-} from '@launchpadlab/lp-utils'
+  toggle,
+  togglePropTypes, 
+} from '@launchpadlab/lp-hoc'
 
 // Local
-export { default as compareAtPath } from './compare-at-path'
-export { default as objectify } from './objectify'
-export { default as stripNamespace } from './strip-namespace'
+export compareAtPath from './compare-at-path'
+export objectify from './objectify'
+export stripNamespace from './strip-namespace'

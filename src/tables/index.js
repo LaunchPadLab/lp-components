@@ -1,3 +1,3 @@
-export { default as Table } from './table'
-export { default as SortableTable } from './sortable-table'
-export { default as TableColumn } from './table-column'
+export Table from './table'
+export SortableTable from './sortable-table'
+export TableColumn from './table-column'

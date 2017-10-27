@@ -1,7 +1,8 @@
-export { default as blurDirty } from './blur-dirty'
+export blurDirty from './blur-dirty'
 export { 
-  default as fieldPropTypes,
+  fieldPropTypes,
   fieldPropTypesWithValue,
   fieldOptionsType 
 } from './field-prop-types'
-export { default as omitLabelProps } from './omit-label-props'
+export omitLabelProps from './omit-label-props'
+export convertNameToLabel from './convert-name-to-label'
