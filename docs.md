@@ -27,6 +27,7 @@
 -   [LabeledField](#labeledfield)
 -   [blurDirty](#blurdirty)
 -   [omitLabelProps](#omitlabelprops)
+-   [ConvertNameToLabel](#convertnametolabel)
 -   [Table](#table)
 -   [SortableTable](#sortabletable)
 -   [TableColumn](#tablecolumn)
@@ -711,7 +712,7 @@ For instance: `'person.firstName'` becomes `'First Name'`
 
 -   `name` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the associated input
 -   `hint` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** A usage hint for the associated input
--   `label` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** Custom text for the label
+-   `label` **([String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean))?** Custom text for the label
 -   `tooltip` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** A message to display in a tooltip
 
 **Examples**
@@ -848,6 +849,24 @@ function Input (props) {
 ```
 
 Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** `props` object with [InputLabel](#inputlabel) props omitted
+
+## ConvertNameToLabel
+
+A helper function to transform a redux-form field name into a label string 
+by stripping its namespace and converting it to start case.
+
+**Parameters**
+
+-   `name` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** A redux-form field name
+
+**Examples**
+
+```javascript
+convertNameToLabel('example') // -> 'Example'
+convertNameToLabel('person.firstName') // -> 'First Name'
+```
+
+Returns **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** A user-friendly field label
 
 ## Table
 

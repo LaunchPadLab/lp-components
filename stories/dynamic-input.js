@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { getDisplayName } from '@launchpadlab/lp-utils'
+import wrapDisplayName from 'recompose/wrapDisplayName'
 import set from 'lodash/fp/set'
 import get from 'lodash/fp/get'
 import noop from 'lodash/noop'
@@ -13,7 +13,7 @@ const isEvent = obj => !!(obj && obj.stopPropagation && obj.preventDefault)
 
 export default function dynamicInput (options={}) {
   const { initialValue, valuePath='value', onChangePath='onChange' } = options
-  return function (WrappedComponent) {
+  return Wrapped => {
     class Wrapper extends Component {
       constructor (props) {
         super()
@@ -35,11 +35,11 @@ export default function dynamicInput (options={}) {
           set(onChangePath, compose(givenOnChange, this.onChange))
         )(this.props)
         return (
-          <WrappedComponent { ...props }/>
+          <Wrapped { ...props }/>
         )
       }
     }
-    Wrapper.displayName = `Dynamic${getDisplayName(WrappedComponent)}`
+    Wrapper.displayName = wrapDisplayName(Wrapped, 'dynamicInput')
     return Wrapper
   }
 }

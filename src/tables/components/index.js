@@ -1,2 +1,2 @@
-export { default as TableHeader } from './table-header'
-export { default as TableRow } from './table-row'
+export TableHeader from './table-header'
+export TableRow from './table-row'

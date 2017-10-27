@@ -3,6 +3,12 @@ import { noop } from '../../../src/utils'
 import React from 'react'
 import { mount } from 'enzyme'
 
+test('has correct displayName', () => {
+  const MyInput = () => <input />
+  const WrappedInput = blurDirty()(MyInput)
+  expect(WrappedInput.displayName).toEqual('blurDirty(MyInput)')
+})
+
 test('when input is pristine, blurDirty replaces onBlur with empty function', () => {
   const MyInput = () => <input />
   const WrappedInput = blurDirty()(MyInput)
