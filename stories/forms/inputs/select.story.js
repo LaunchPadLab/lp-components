@@ -4,6 +4,7 @@ import { Select as StaticSelect } from 'src'
 import dynamicInput from '../../dynamic-input'
 
 const Select = dynamicInput({
+  initialValue: '',
   valuePath: 'input.value',
   onChangePath: 'input.onChange'
 })(StaticSelect)

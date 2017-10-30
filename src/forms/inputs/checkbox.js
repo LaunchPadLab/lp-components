@@ -1,6 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { blurDirty, fieldPropTypesWithValue, omitLabelProps } from '../helpers'
+import { 
+  blurDirty,
+  fieldPropTypesWithValue,
+  omitLabelProps,
+  replaceEmptyStringValue,
+} from '../helpers'
 import { LabeledField } from '../labels'
 import { compose } from '../../utils'
 
@@ -72,5 +77,6 @@ function Checkbox (props) {
 Checkbox.propTypes = propTypes
 
 export default compose(
-  blurDirty()
+  blurDirty(),
+  replaceEmptyStringValue(false),
 )(Checkbox)

@@ -26,8 +26,9 @@
 -   [InputLabel](#inputlabel)
 -   [LabeledField](#labeledfield)
 -   [blurDirty](#blurdirty)
--   [omitLabelProps](#omitlabelprops)
 -   [ConvertNameToLabel](#convertnametolabel)
+-   [omitLabelProps](#omitlabelprops)
+-   [replaceEmptyStringValue](#replaceemptystringvalue)
 -   [Table](#table)
 -   [SortableTable](#sortabletable)
 -   [TableColumn](#tablecolumn)
@@ -803,6 +804,24 @@ export default compose(
 )(TextForm)
 ```
 
+## ConvertNameToLabel
+
+A helper function to transform a redux-form field name into a label string 
+by stripping its namespace and converting it to start case.
+
+**Parameters**
+
+-   `name` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** A redux-form field name
+
+**Examples**
+
+```javascript
+convertNameToLabel('example') // -> 'Example'
+convertNameToLabel('person.firstName') // -> 'First Name'
+```
+
+Returns **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** A user-friendly field label
+
 ## omitLabelProps
 
 A function that takes a form component `props` object and returns the `props` object with [InputLabel](#inputlabel) props omitted.
@@ -850,23 +869,37 @@ function Input (props) {
 
 Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** `props` object with [InputLabel](#inputlabel) props omitted
 
-## ConvertNameToLabel
+## replaceEmptyStringValue
 
-A helper function to transform a redux-form field name into a label string 
-by stripping its namespace and converting it to start case.
+A function that returns an HOC to wrap a `redux-forms`-controlled input. 
+
+This HOC transforms empty string values into a different specified value.
+This helps inputs with non-string values avoid PropType errors when provided with 
+the default redux-form initial value (an empty string).
 
 **Parameters**
 
--   `name` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** A redux-form field name
+-   `replacement` **any?** The value that will replace an empty string value (optional, default `''`)
 
 **Examples**
 
 ```javascript
-convertNameToLabel('example') // -> 'Example'
-convertNameToLabel('person.firstName') // -> 'First Name'
-```
+function Checkbox ({ input: { value } }) {
+  return (
+    <input type="checkbox" value={ value }>
+  )
+}
 
-Returns **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** A user-friendly field label
+Checkbox.propTypes = PropTypes.shape({
+   input: PropTypes.shape({
+     value: PropTypes.bool,
+   })
+})
+
+export default compose(
+   replaceEmptyStringValue(false)
+)(Checkbox)
+```
 
 ## Table
 
