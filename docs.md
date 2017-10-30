@@ -26,7 +26,7 @@
 -   [InputLabel](#inputlabel)
 -   [LabeledField](#labeledfield)
 -   [blurDirty](#blurdirty)
--   [ConvertNameToLabel](#convertnametolabel)
+-   [convertNameToLabel](#convertnametolabel)
 -   [omitLabelProps](#omitlabelprops)
 -   [replaceEmptyStringValue](#replaceemptystringvalue)
 -   [Table](#table)
@@ -804,7 +804,7 @@ export default compose(
 )(TextForm)
 ```
 
-## ConvertNameToLabel
+## convertNameToLabel
 
 A helper function to transform a redux-form field name into a label string 
 by stripping its namespace and converting it to start case.
