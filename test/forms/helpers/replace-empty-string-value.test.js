@@ -21,13 +21,3 @@ test("doesn't replace other values", () => {
   const wrapper = mount(<WrappedInput {...{ input: { value: 'other' }, meta: {} }} />)
   expect(wrapper.find(MyInput).props().input.value).toEqual('other')
 })
-
-// test('when alwaysBlur is set to true, replaceEmptyStringValue does not replace onBlur', () => {
-//   const MyInput = () => <input />
-//   const WrappedInput = replaceEmptyStringValue()(MyInput)
-//   const onBlur = () => console.log('I blurred!')
-//   const wrapper = mount(<WrappedInput {...{ input: { onBlur }, meta: { pristine: true }, alwaysBlur: true }} />)
-//   expect(wrapper.find(MyInput).props().input.onBlur).toEqual(onBlur)
-//   wrapper.setProps({ meta: { pristine: false } })
-//   expect(wrapper.find(MyInput).props().input.onBlur).toEqual(onBlur)
-// })
