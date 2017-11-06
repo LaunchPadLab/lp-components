@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
 import { Checkbox } from '../../../src/'
 
 test('Checkbox toggles value when clicked', () => {
@@ -12,8 +12,8 @@ test('Checkbox toggles value when clicked', () => {
     }, 
     meta: {} 
   }
-  const wrapper = shallow(<Checkbox { ...props }/>)
-  wrapper.dive().find('input').simulate('change')
+  const wrapper = mount(<Checkbox { ...props }/>)
+  wrapper.find('input').simulate('change')
   const newValue = onChange.mock.calls[0][0]
   expect(newValue).toEqual(true)
 })

@@ -4,7 +4,7 @@ import { CheckboxGroup as StaticCheckboxGroup } from 'src'
 import dynamicInput from '../../dynamic-input'
 
 const CheckboxGroup = dynamicInput({
-  initialValue: [],
+  initialValue: '',
   valuePath: 'input.value',
   onChangePath: 'input.onChange'
 })(StaticCheckboxGroup)

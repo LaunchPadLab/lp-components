@@ -1,6 +1,6 @@
 {
   "name": "@launchpadlab/lp-components",
-  "version": "1.27.0",
+  "version": "1.28.0",
   "description": "Our Components",
   "main": "lib/index.js",
   "repository": "launchpadlab/lp-components",
@@ -59,7 +59,7 @@
     "style-loader": "^0.16.0"
   },
   "peerDependencies": {
-    "react": "^15.5.0"
+    "react": ">=15.5.0"
   },
   "dependencies": {
     "@launchpadlab/lp-hoc": "^1.0.1",

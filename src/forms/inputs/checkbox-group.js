@@ -1,9 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Checkbox from './checkbox'
-import { fieldPropTypesWithValue, fieldOptionsType, omitLabelProps } from '../helpers'
+import { 
+  fieldPropTypesWithValue,
+  fieldOptionsType,
+  omitLabelProps,
+  replaceEmptyStringValue,
+} from '../helpers'
 import { LabeledField } from '../labels'
-import { addToArray, removeFromArray, objectify } from '../../utils'
+import { addToArray, removeFromArray, objectify, compose } from '../../utils'
 
 /**
  *
@@ -117,4 +122,6 @@ function CheckboxGroup (props) {
 CheckboxGroup.propTypes = propTypes
 CheckboxGroup.defaultProps = defaultProps
 
-export default CheckboxGroup
+export default compose(
+  replaceEmptyStringValue([]),
+)(CheckboxGroup)
