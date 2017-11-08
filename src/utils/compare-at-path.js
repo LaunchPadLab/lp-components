@@ -3,8 +3,8 @@ import curry from 'lodash/fp/curry'
 
 /**
  *
- * Function that a comparison function that extracts values at a certain path, 
- * and runs given comparison function on those values
+ * A function which returns a comparison function that extracts values at a 
+ * certain path, and runs given comparison function on those values.
  *
  * @name compareAtPath
  * @type Function

@@ -34,6 +34,7 @@
 -   [TableColumn](#tablecolumn)
 -   [compareAtPath](#compareatpath)
 -   [objectify](#objectify)
+-   [stripNamespace](#stripnamespace)
 
 ## Paginator
 
@@ -979,8 +980,8 @@ function PersonTable ({ people }) {
 
 ## compareAtPath
 
-Function that a comparison function that extracts values at a certain path, 
-and runs given comparison function on those values
+A function which returns a comparison function that extracts values at a 
+certain path, and runs given comparison function on those values.
 
 **Parameters**
 
@@ -1029,3 +1030,25 @@ objectify(options)
 ```
 
 Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** Array of object options
+
+## stripNamespace
+
+A utility function to remove the leading namespace from a string.
+Returns the root string after the final period in a period-delineated string.
+Returns the argument if it is undefined or not a string.
+
+**Parameters**
+
+-   `str` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Namespaced string
+
+**Examples**
+
+```javascript
+const namespace = 'user.profile.name'
+
+stripNamespace(namespace)
+
+// 'name'
+```
+
+Returns **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** String with namespace removed
