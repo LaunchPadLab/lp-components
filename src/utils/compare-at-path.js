@@ -1,46 +1,34 @@
 import get from 'lodash/fp/get'
 import curry from 'lodash/fp/curry'
 
-// Returs a comparison function that extracts values at a certain path 
-// and runs given comparison function on those values.
-
 /**
  *
- * A dynamic error label associated with an input component.
- * 
- * This component is used within {@link LabeledField}, and therefore is incorporated into most `lp-components` input components by default.
+ * Function that a comparison function that extracts values at a certain path, 
+ * and runs given comparison function on those values
  *
- * The error label uses the following rules to determine how it will be displayed:
- * - If the input is `invalid` and `touched`, the label will be shown
- * - If the `error` prop is set to a string, the label will display that text
- * - If the `error` prop is set to an array of strings, the label will display those errors separated by commas
- *
- * @name InputError
+ * @name compareAtPath
  * @type Function
- * @param {String|Array} error - An error message or array of error messages to display
- * @param {Boolean} invalid - Whether the associated input has an invalid value
- * @param {String} touched - Whether the associated input has been touched
+ * @param {String} path - Name of the path to values
+ * @param {Function} func - Comparison function to run on values at specified path
+ * @returns {Function} Comparison function
  *
  * @example
  * 
- * // A custom input to use with redux-forms
+ * const people = [
+ *  { name: 'Brad', age: 66 },
+ *  { name: 'Georgina', age: 35 }
+ * ]
  * 
- * function ValidatedInput ({  
- *   input: { name, value, onBlur, onChange },
- *   meta: { error, touched, invalid },
- * }) {
- *   return (
- *      <div>
- *       <input {...{
- *          name,
- *          value,
- *          onBlur,
- *          onChange,   
- *       }}
- *       <InputError { ...{ error, invalid, touched } } />
- *     </div>
- *   )
- * }
+ * const sortAscending = (a, b) => a - b
+ *
+ * const ageComparator = compareAtPath('age', sortAscending)
+ *
+ * people.sort(ageComparator)
+ * 
+ * // [
+ * //   { name: 'Georgina', age: 35 },
+ * //   { name: 'Brad', age: 66 },
+ * // ]
  *
 **/
 

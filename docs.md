@@ -23,7 +23,6 @@
 -   [SetterLink](#setterlink)
 -   [Textarea](#textarea)
 -   [InputError](#inputerror)
--   [InputError](#inputerror-1)
 -   [InputLabel](#inputlabel)
 -   [LabeledField](#labeledfield)
 -   [blurDirty](#blurdirty)
@@ -33,6 +32,8 @@
 -   [Table](#table)
 -   [SortableTable](#sortabletable)
 -   [TableColumn](#tablecolumn)
+-   [compareAtPath](#compareatpath)
+-   [objectify](#objectify)
 
 ## Paginator
 
@@ -694,47 +695,6 @@ function ValidatedInput ({
 }
 ```
 
-## InputError
-
-A dynamic error label associated with an input component.
-
-This component is used within [LabeledField](#labeledfield), and therefore is incorporated into most `lp-components` input components by default.
-
-The error label uses the following rules to determine how it will be displayed:
-
--   If the input is `invalid` and `touched`, the label will be shown
--   If the `error` prop is set to a string, the label will display that text
--   If the `error` prop is set to an array of strings, the label will display those errors separated by commas
-
-**Parameters**
-
--   `error` **([String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array))** An error message or array of error messages to display
--   `invalid` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Whether the associated input has an invalid value
--   `touched` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Whether the associated input has been touched
-
-**Examples**
-
-```javascript
-// A custom input to use with redux-forms
-
-function ValidatedInput ({  
-  input: { name, value, onBlur, onChange },
-  meta: { error, touched, invalid },
-}) {
-  return (
-     <div>
-      <input {...{
-         name,
-         value,
-         onBlur,
-         onChange,   
-      }}
-      <InputError { ...{ error, invalid, touched } } />
-    </div>
-  )
-}
-```
-
 ## InputLabel
 
 A dynamic label associated with an input component.
@@ -1016,3 +976,56 @@ function PersonTable ({ people }) {
   )
 }
 ```
+
+## compareAtPath
+
+Function that a comparison function that extracts values at a certain path, 
+and runs given comparison function on those values
+
+**Parameters**
+
+-   `path` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Name of the path to values
+-   `func` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** Comparison function to run on values at specified path
+
+**Examples**
+
+```javascript
+const people = [
+ { name: 'Brad', age: 66 },
+ { name: 'Georgina', age: 35 }
+]
+
+const sortAscending = (a, b) => a - b
+
+const ageComparator = compareAtPath('age', sortAscending)
+
+people.sort(ageComparator)
+
+// [
+//   { name: 'Georgina', age: 35 },
+//   { name: 'Brad', age: 66 },
+// ]
+```
+
+Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** Comparison function
+
+## objectify
+
+Function that transforms string options into object options with keys of
+`key` and `value`
+
+**Parameters**
+
+-   `optionArray` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** Array of option values
+
+**Examples**
+
+```javascript
+const options = ['apple', 'banana']
+
+objectify(options)
+
+// [{ key: 'apple', value: 'apple' }, { key: 'banana', value: 'banana' }]
+```
+
+Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** Array of object options
