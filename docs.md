@@ -32,6 +32,9 @@
 -   [Table](#table)
 -   [SortableTable](#sortabletable)
 -   [TableColumn](#tablecolumn)
+-   [compareAtPath](#compareatpath)
+-   [objectify](#objectify)
+-   [stripNamespace](#stripnamespace)
 
 ## Paginator
 
@@ -974,3 +977,78 @@ function PersonTable ({ people }) {
   )
 }
 ```
+
+## compareAtPath
+
+A function which returns a comparison function that extracts values at a 
+certain path, and runs given comparison function on those values.
+
+**Parameters**
+
+-   `path` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Name of the path to values
+-   `func` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** Comparison function to run on values at specified path
+
+**Examples**
+
+```javascript
+const people = [
+ { name: 'Brad', age: 66 },
+ { name: 'Georgina', age: 35 }
+]
+
+const sortAscending = (a, b) => a - b
+
+const ageComparator = compareAtPath('age', sortAscending)
+
+people.sort(ageComparator)
+
+// [
+//   { name: 'Georgina', age: 35 },
+//   { name: 'Brad', age: 66 },
+// ]
+```
+
+Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** Comparison function
+
+## objectify
+
+Function that transforms string options into object options with keys of
+`key` and `value`
+
+**Parameters**
+
+-   `optionArray` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** Array of option values
+
+**Examples**
+
+```javascript
+const options = ['apple', 'banana']
+
+objectify(options)
+
+// [{ key: 'apple', value: 'apple' }, { key: 'banana', value: 'banana' }]
+```
+
+Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** Array of object options
+
+## stripNamespace
+
+A utility function to remove the leading namespace from a string.
+Returns the root string after the final period in a period-delineated string.
+Returns the argument if it is undefined or not a string.
+
+**Parameters**
+
+-   `str` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Namespaced string
+
+**Examples**
+
+```javascript
+const namespace = 'user.profile.name'
+
+stripNamespace(namespace)
+
+// 'name'
+```
+
+Returns **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** String with namespace removed
