@@ -23,6 +23,7 @@
 -   [SetterLink](#setterlink)
 -   [Textarea](#textarea)
 -   [InputError](#inputerror)
+-   [InputError](#inputerror-1)
 -   [InputLabel](#inputlabel)
 -   [LabeledField](#labeledfield)
 -   [blurDirty](#blurdirty)
@@ -648,6 +649,47 @@ function BiographyForm ({ handleSubmit, pristine, invalid, submitting }) {
         Submit
       </SubmitButton>
     </form>
+  )
+}
+```
+
+## InputError
+
+A dynamic error label associated with an input component.
+
+This component is used within [LabeledField](#labeledfield), and therefore is incorporated into most `lp-components` input components by default.
+
+The error label uses the following rules to determine how it will be displayed:
+
+-   If the input is `invalid` and `touched`, the label will be shown
+-   If the `error` prop is set to a string, the label will display that text
+-   If the `error` prop is set to an array of strings, the label will display those errors separated by commas
+
+**Parameters**
+
+-   `error` **([String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array))** An error message or array of error messages to display
+-   `invalid` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Whether the associated input has an invalid value
+-   `touched` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Whether the associated input has been touched
+
+**Examples**
+
+```javascript
+// A custom input to use with redux-forms
+
+function ValidatedInput ({  
+  input: { name, value, onBlur, onChange },
+  meta: { error, touched, invalid },
+}) {
+  return (
+     <div>
+      <input {...{
+         name,
+         value,
+         onBlur,
+         onChange,   
+      }}
+      <InputError { ...{ error, invalid, touched } } />
+    </div>
   )
 }
 ```
