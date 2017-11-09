@@ -776,7 +776,7 @@ use the [omitLabelProps](#omitlabelprops) helper.
 
 **Parameters**
 
--   `hideErrorLabel` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** A boolean determining whether the error label should appear on input error (optional, default `false`)
+-   `hideErrorLabel` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** A boolean determining whether to hide the error label on input error (optional, default `false`)
 
 **Examples**
 

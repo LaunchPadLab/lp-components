@@ -16,7 +16,7 @@ import InputLabel from './input-label'
  *
  * @name LabeledField
  * @type Function
- * @param {Boolean} [hideErrorLabel] A boolean determining whether the error label should appear on input error (optional, default `false`)
+ * @param {Boolean} [hideErrorLabel] A boolean determining whether to hide the error label on input error (optional, default `false`)
  *
  * @example
  *
