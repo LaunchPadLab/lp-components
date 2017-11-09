@@ -765,7 +765,7 @@ function EmailInput ({
 
 ## LabeledField
 
-A fieldset wrapper for redux-form controlled inputs. This wrapper adds an [InputLabel](#inputlabel) 
+A fieldset wrapper for redux-form controlled inputs. This wrapper adds an [InputLabel](#inputlabel)
 above the wrapped component and an [InputError](#inputerror) below. Additionally, it adds the class `"error"`
 to the fieldset if the input is touched and invalid.
 
@@ -773,13 +773,17 @@ In order to populate the `InputLabel` and `InputError` correctly, you should pas
 to this component. To prevent label-specific props from being passed to the input itself,
 use the [omitLabelProps](#omitlabelprops) helper.
 
+**Parameters**
+
+-   `hideErrorLabel` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** A boolean determining whether the error label should appear on input error (optional, default `false`)
+
 **Examples**
 
 ```javascript
 // A custom input to use with redux-forms
 
 function LabeledPhoneInput (props) {
-  const {  
+  const {
      input: { name, value, onBlur, onChange },
      ...rest,
   } = omitLabelProps(props)
@@ -790,7 +794,7 @@ function LabeledPhoneInput (props) {
          name,
          value,
          onBlur,
-         onChange,   
+         onChange,
          ...rest,
        }}
     </LabeledField>
