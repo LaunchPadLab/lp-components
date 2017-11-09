@@ -33,7 +33,8 @@ const propTypes = {
   options: fieldOptionsType,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onChange: PropTypes.func,
-  className: PropTypes.string,
+  tabbarClassName: PropTypes.string,
+  activeClassName: PropTypes.string,
 }
 
 const defaultProps = {
@@ -41,18 +42,19 @@ const defaultProps = {
   options: [],
   value: '',
   onChange: noop,
-  className: '',
+  tabbarClassName: '',
+  activeClassName: 'active',
 }
 
-function TabBar ({ vertical, options, value, onChange, className }) {
+function TabBar ({ vertical, options, value, onChange, tabbarClassName, activeClassName }) {
   const optionObjects = objectify(options)
   const alignment = vertical ? 'vertical' : 'horizontal'
   return (
-    <ul className={ classnames('tabs', `${alignment}-tabs`, className) }>
+    <ul className={ classnames('tabs', `${alignment}-tabs`, tabbarClassName) }>
       {
         optionObjects.map(({ key, value: optionValue }) =>
           <li
-            className={ classnames({ 'active': optionValue === value }) }
+            className={ classnames({ [`${activeClassName}`]: optionValue === value }) }
             key={ key }
           >
             <a onClick={() => { onChange(optionValue) }}>

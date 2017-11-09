@@ -39,7 +39,12 @@ test('TabBar calls onChange', () => {
   expect(onChange).toHaveBeenCalledWith('home')
 })
 
-test('TabBar passes down custom className to ul', () => {
-  const wrapper = mount(<TabBar className="custom" />)
+test('TabBar passes down custom tabbarClassName to ul', () => {
+  const wrapper = mount(<TabBar tabbarClassName="custom" />)
   expect(wrapper.find('ul').hasClass('custom')).toEqual(true)
+})
+
+test('TabBar passes down custom activeClassName to li', () => {
+  const wrapper = mount(<TabBar options={objectOptions} value='home' activeClassName="custom" />)
+  expect(wrapper.find('li').first().hasClass('custom')).toEqual(true)
 })
