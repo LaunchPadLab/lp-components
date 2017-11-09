@@ -55,7 +55,7 @@ function TabBar ({ vertical, options, value, onChange, className, activeClassNam
       {
         optionObjects.map(({ key, value: optionValue }) =>
           <li
-            className={ classnames({ [`${activeClassName}`]: optionValue === value }) }
+            className={ classnames({ [activeClassName]: optionValue === value }) }
             key={ key }
           >
             <a onClick={() => { onChange(optionValue) }}>
