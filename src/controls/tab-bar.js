@@ -13,6 +13,8 @@ import { objectify, noop } from '../utils'
  * @param {Array} [options] An array of tab values (strings or key-value pairs)
  * @param {String|Number} [value] - The value of the current tab
  * @param {Function} [onChange] - A function called with the new value when a tab is clicked
+ * @param {String} [tabbarClassName] - The class of the tab bar
+ * @param {String} [activeClassName] - The class of the active tab
  * @example
  *
  * function ShowTabs ({ currentTab, setCurrentTab }) {
