@@ -14,7 +14,7 @@ import { objectify, noop } from '../utils'
  * @param {String|Number} [value] - The value of the current tab
  * @param {Function} [onChange] - A function called with the new value when a tab is clicked
  * @param {String} [tabbarClassName] - The class of the tab bar
- * @param {String} [activeClassName] - The class of the active tab
+ * @param {String} [activeClassName] - The class of the active tab, (optional, default `active`)
  * @example
  *
  * function ShowTabs ({ currentTab, setCurrentTab }) {
