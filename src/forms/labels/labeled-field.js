@@ -6,23 +6,24 @@ import InputLabel from './input-label'
 
 /**
  *
- * A fieldset wrapper for redux-form controlled inputs. This wrapper adds an {@link InputLabel} 
+ * A fieldset wrapper for redux-form controlled inputs. This wrapper adds an {@link InputLabel}
  * above the wrapped component and an {@link InputError} below. Additionally, it adds the class `"error"`
  * to the fieldset if the input is touched and invalid.
- * 
+ *
  * In order to populate the `InputLabel` and `InputError` correctly, you should pass all the props of the corresponding input
  * to this component. To prevent label-specific props from being passed to the input itself,
  * use the {@link omitLabelProps} helper.
  *
  * @name LabeledField
  * @type Function
+ * @param {Boolean} [hideErrorLabel] A boolean determining whether to hide the error label on input error (optional, default `false`)
  *
  * @example
- * 
+ *
  * // A custom input to use with redux-forms
- * 
+ *
  * function LabeledPhoneInput (props) {
- *   const {  
+ *   const {
  *      input: { name, value, onBlur, onChange },
  *      ...rest,
  *   } = omitLabelProps(props)
@@ -33,7 +34,7 @@ import InputLabel from './input-label'
  *          name,
  *          value,
  *          onBlur,
- *          onChange,   
+ *          onChange,
  *          ...rest,
  *        }}
  *     </LabeledField>
@@ -45,7 +46,12 @@ import InputLabel from './input-label'
 const propTypes = {
   ...InputLabel.propTypes,
   ...InputError.propTypes,
-  children: PropTypes.node
+  children: PropTypes.node,
+  hideErrorLabel: PropTypes.bool,
+}
+
+const defaultProps = {
+  hideErrorLabel: false,
 }
 
 function LabeledField ({
@@ -55,17 +61,20 @@ function LabeledField ({
     hint,
     label,
     tooltip,
-    children
+    children,
+    hideErrorLabel,
   }) {
   return (
     <fieldset className={ classnames(className, { 'error': touched && invalid }) }>
       <InputLabel { ...{ hint, label, name, tooltip } } />
         { children }
-      <InputError { ...{ error, invalid, touched } } />
+      { !hideErrorLabel && <InputError { ...{ error, invalid, touched } } /> }
     </fieldset>
   )
 }
 
 LabeledField.propTypes = propTypes
+
+LabeledField.defaultProps = defaultProps
 
 export default LabeledField

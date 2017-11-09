@@ -26,3 +26,11 @@ test('adds InputLabel and InputError', () => {
   // InputError
   expect(wrapper.find('.error-message').exists()).toEqual(true)
 })
+
+test('hides error label with hideErrorLabel option', () => {
+  const Wrapped = () => <input name="test"/>
+  const props = { input: { name: 'foo' }, meta: { touched: true, invalid: true }, hideErrorLabel: true }
+  const wrapper = mount(<LabeledField { ...props } ><Wrapped /></LabeledField>)
+  // InputError
+  expect(wrapper.find('.error-message').exists()).toEqual(false)
+})

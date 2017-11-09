@@ -31,4 +31,19 @@ storiesOf('LabeledField', module)
       <Input />
     </LabeledField>
   ))
+  .add('hide error', () => (
+    <LabeledField {...{
+      input: {
+        name: 'input name'
+      },
+      meta: {
+        touched: true,
+        invalid: true,
+        error: 'Error message',
+      },
+      hideErrorLabel: true,
+    }}>
+      <Input />
+    </LabeledField>
+  ))
 
