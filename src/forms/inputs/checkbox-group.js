@@ -20,8 +20,6 @@ import { addToArray, removeFromArray, objectify, compose } from '../../utils'
  * 
  * The value of the entire `CheckboxGroup` component is an **array** containing the values of the selected checkboxes.
  * Clicking an unselected checkbox adds its value to this array, and clicking a selected checkbox removes its value from this array.
- *
- * Since the default `redux-forms` initial value is an empty string, you may need to set it to an empty array explicity in `mapStateToProps` using the [initalValues](http://redux-form.com/6.0.0-alpha.4/examples/initializeFromState) key.
  * 
  * @name CheckboxGroup
  * @type Function
@@ -49,17 +47,7 @@ import { addToArray, removeFromArray, objectify, compose } from '../../utils'
  *   )
  * }
  *
- * function mapStateToProps () {
- *    return {
- *      initialValues: {
- *        completedTodos: []
- *      }
- *    }
- * }
- *
- * export default compose(
- *    connect(mapStateToProps)
- * )(TodoForm)
+ * export default TodoForm
 **/
 
 const propTypes = {

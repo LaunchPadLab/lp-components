@@ -19,6 +19,7 @@
 -   [Input](#input)
 -   [IconInput](#iconinput)
 -   [RangeInput](#rangeinput)
+-   [RadioGroup](#radiogroup)
 -   [Select](#select)
 -   [SetterLink](#setterlink)
 -   [Textarea](#textarea)
@@ -240,8 +241,7 @@ function PersonForm ({ handleSubmit, pristine, invalid, submitting }) {
 
 A checkbox input that can be used in a `redux-forms`-controlled form. 
 
-This input only accepts and stores boolean values. 
-Since the default `redux-forms` initial value is an empty string, you may need to set it to a boolean explicity in `mapStateToProps` using the [initalValues](http://redux-form.com/6.0.0-alpha.4/examples/initializeFromState) key.
+This input only accepts and stores boolean values.
 
 **Parameters**
 
@@ -262,17 +262,7 @@ function CoolPersonForm ({ handleSubmit, pristine, invalid, submitting }) {
   )
 }
 
-function mapStateToProps () {
-   return {
-     initialValues: {
-       isCool: false
-     }
-   }
-}
-
-export default compose(
-   connect(mapStateToProps)
-)(CoolPersonForm)
+export default CoolPersonForm
 ```
 
 ## CheckboxGroup
@@ -286,8 +276,6 @@ The value of each checkbox is specified via the `options` prop. This prop can ei
 
 The value of the entire `CheckboxGroup` component is an **array** containing the values of the selected checkboxes.
 Clicking an unselected checkbox adds its value to this array, and clicking a selected checkbox removes its value from this array.
-
-Since the default `redux-forms` initial value is an empty string, you may need to set it to an empty array explicity in `mapStateToProps` using the [initalValues](http://redux-form.com/6.0.0-alpha.4/examples/initializeFromState) key.
 
 **Parameters**
 
@@ -317,17 +305,7 @@ function TodoForm ({ handleSubmit, pristine, invalid, submitting }) {
   )
 }
 
-function mapStateToProps () {
-   return {
-     initialValues: {
-       completedTodos: []
-     }
-   }
-}
-
-export default compose(
-   connect(mapStateToProps)
-)(TodoForm)
+export default TodoForm
 ```
 
 ## DateInput
@@ -527,6 +505,48 @@ function StudentForm ({ handleSubmit, pristine, invalid, submitting }) {
     </form>
   )
 }
+```
+
+## RadioGroup
+
+A group of radio buttons that can be used in a `redux-forms`-controlled form. 
+
+The value of each button is specified via the `options` prop. This prop can either be:
+
+-   An array of strings 
+-   An array of key-value pairs: `{ key, value }`
+
+The value of the entire `RadioGroup` component is the value of the currently selected button.
+
+**Parameters**
+
+-   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
+-   `meta` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+-   `options` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** An array of button values (strings or key-value pairs)
+
+**Examples**
+
+```javascript
+function FavoriteFoodForm ({ handleSubmit, pristine, invalid, submitting }) {
+  return (
+    <form onSubmit={ handleSubmit }>
+      <Field 
+         name="favoriteFood"
+         component={ RadioGroup }
+         options={[
+           'Bananas',
+           'Pineapples',
+           'Potatoes',
+         ]}
+      />
+      <SubmitButton {...{ pristine, invalid, submitting }}>
+        Submit
+      </SubmitButton>
+    </form>
+  )
+}
+
+export default FavoriteFoodForm
 ```
 
 ## Select
