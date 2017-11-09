@@ -43,3 +43,8 @@ test('TabBar passes down custom className to ul', () => {
   const wrapper = mount(<TabBar className="custom" />)
   expect(wrapper.find('ul').hasClass('custom')).toEqual(true)
 })
+
+test('TabBar passes down custom activeClassName to li', () => {
+  const wrapper = mount(<TabBar options={objectOptions} value='home' activeClassName="custom" />)
+  expect(wrapper.find('li').first().hasClass('custom')).toEqual(true)
+})

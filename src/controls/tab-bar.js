@@ -13,6 +13,7 @@ import { objectify, noop } from '../utils'
  * @param {Array} [options] An array of tab values (strings or key-value pairs)
  * @param {String|Number} [value] - The value of the current tab
  * @param {Function} [onChange] - A function called with the new value when a tab is clicked
+ * @param {String} [activeClassName] - The class of the active tab, (optional, default `active`)
  * @example
  *
  * function ShowTabs ({ currentTab, setCurrentTab }) {
@@ -34,6 +35,7 @@ const propTypes = {
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onChange: PropTypes.func,
   className: PropTypes.string,
+  activeClassName: PropTypes.string,
 }
 
 const defaultProps = {
@@ -42,9 +44,10 @@ const defaultProps = {
   value: '',
   onChange: noop,
   className: '',
+  activeClassName: 'active',
 }
 
-function TabBar ({ vertical, options, value, onChange, className }) {
+function TabBar ({ vertical, options, value, onChange, className, activeClassName }) {
   const optionObjects = objectify(options)
   const alignment = vertical ? 'vertical' : 'horizontal'
   return (
@@ -52,7 +55,7 @@ function TabBar ({ vertical, options, value, onChange, className }) {
       {
         optionObjects.map(({ key, value: optionValue }) =>
           <li
-            className={ classnames({ 'active': optionValue === value }) }
+            className={ classnames({ [activeClassName]: optionValue === value }) }
             key={ key }
           >
             <a onClick={() => { onChange(optionValue) }}>
