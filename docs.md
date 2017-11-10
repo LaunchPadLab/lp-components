@@ -34,7 +34,7 @@
 -   [SortableTable](#sortabletable)
 -   [TableColumn](#tablecolumn)
 -   [compareAtPath](#compareatpath)
--   [objectify](#objectify)
+-   [serializeOptions](#serializeoptions)
 -   [stripNamespace](#stripnamespace)
 
 ## Paginator
@@ -268,11 +268,11 @@ export default CoolPersonForm
 
 ## CheckboxGroup
 
-A group of checkboxes that can be used in a `redux-forms`-controlled form. 
+A group of checkboxes that can be used in a `redux-forms`-controlled form.
 
 The value of each checkbox is specified via the `options` prop. This prop can either be:
 
--   An array of strings 
+-   An array of strings
 -   An array of key-value pairs: `{ key, value }`
 
 The value of the entire `CheckboxGroup` component is an **array** containing the values of the selected checkboxes.
@@ -290,7 +290,7 @@ Clicking an unselected checkbox adds its value to this array, and clicking a sel
 function TodoForm ({ handleSubmit, pristine, invalid, submitting }) {
   return (
     <form onSubmit={ handleSubmit }>
-      <Field 
+      <Field
          name="completedTodos"
          component={ CheckboxGroup }
          options={[
@@ -510,11 +510,11 @@ function StudentForm ({ handleSubmit, pristine, invalid, submitting }) {
 
 ## RadioGroup
 
-A group of radio buttons that can be used in a `redux-forms`-controlled form. 
+A group of radio buttons that can be used in a `redux-forms`-controlled form.
 
 The value of each button is specified via the `options` prop. This prop can either be:
 
--   An array of strings 
+-   An array of strings
 -   An array of key-value pairs: `{ key, value }`
 
 The value of the entire `RadioGroup` component is the value of the currently selected button.
@@ -531,7 +531,7 @@ The value of the entire `RadioGroup` component is the value of the currently sel
 function FavoriteFoodForm ({ handleSubmit, pristine, invalid, submitting }) {
   return (
     <form onSubmit={ handleSubmit }>
-      <Field 
+      <Field
          name="favoriteFood"
          component={ RadioGroup }
          options={[
@@ -552,11 +552,11 @@ export default FavoriteFoodForm
 
 ## Select
 
-A select input that can be used in a `redux-forms`-controlled form. 
+A select input that can be used in a `redux-forms`-controlled form.
 
 The value of each option is specified via the `options` prop. This prop can either be:
 
--   An array of strings 
+-   An array of strings
 -   An array of key-value pairs: `{ key, value }`
 
 The value of the `Select` component will be the same as the value of the selected option.
@@ -577,7 +577,7 @@ The value of the `Select` component will be the same as the value of the selecte
 function PaintColorForm ({ handleSubmit, pristine, invalid, submitting }) {
   return (
     <form onSubmit={ handleSubmit }>
-      <Field 
+      <Field
          name="paintColor"
          component={ Select }
          options={[
@@ -598,7 +598,7 @@ function PaintColorForm ({ handleSubmit, pristine, invalid, submitting }) {
 function EmployeeForm ({ handleSubmit, pristine, invalid, submitting }) {
   return (
     <form onSubmit={ handleSubmit }>
-      <Field 
+      <Field
          name="employeeId"
          component={ Select }
          options={[
@@ -1035,7 +1035,7 @@ people.sort(ageComparator)
 
 Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** Comparison function
 
-## objectify
+## serializeOptions
 
 Function that transforms string options into object options with keys of
 `key` and `value`
@@ -1049,7 +1049,7 @@ Function that transforms string options into object options with keys of
 ```javascript
 const options = ['apple', 'banana']
 
-objectify(options)
+serializeOptions(options)
 
 // [{ key: 'apple', value: 'apple' }, { key: 'banana', value: 'banana' }]
 ```
