@@ -3,6 +3,6 @@ export * from './forms'
 export * from './tables'
 export {
   compareAtPath,
-  objectify,
+  serializeOptions,
   stripNamespace,
 } from './utils'

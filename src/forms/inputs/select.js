@@ -3,18 +3,18 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { blurDirty, fieldPropTypes, fieldOptionsType, omitLabelProps } from '../helpers'
 import { LabeledField } from '../labels'
-import { compose, objectify } from '../../utils'
+import { compose, serializeOptions } from '../../utils'
 
 /**
  *
- * A select input that can be used in a `redux-forms`-controlled form. 
- * 
+ * A select input that can be used in a `redux-forms`-controlled form.
+ *
  * The value of each option is specified via the `options` prop. This prop can either be:
- * - An array of strings 
+ * - An array of strings
  * - An array of key-value pairs: `{ key, value }`
- * 
+ *
  * The value of the `Select` component will be the same as the value of the selected option.
- * 
+ *
  * @name Select
  * @type Function
  * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
@@ -25,11 +25,11 @@ import { compose, objectify } from '../../utils'
  * @example
  *
  * // With string options
- * 
+ *
  * function PaintColorForm ({ handleSubmit, pristine, invalid, submitting }) {
  *   return (
  *     <form onSubmit={ handleSubmit }>
- *       <Field 
+ *       <Field
  *          name="paintColor"
  *          component={ Select }
  *          options={[
@@ -50,7 +50,7 @@ import { compose, objectify } from '../../utils'
  * function EmployeeForm ({ handleSubmit, pristine, invalid, submitting }) {
  *   return (
  *     <form onSubmit={ handleSubmit }>
- *       <Field 
+ *       <Field
  *          name="employeeId"
  *          component={ Select }
  *          options={[
@@ -88,10 +88,10 @@ function Select (props) {
     placeholder,
     ...rest
   } = omitLabelProps(props)
-  const optionObjects = objectify(options)
+  const optionObjects = serializeOptions(options)
   return (
     <LabeledField { ...props }>
-      <select 
+      <select
         {...{
           id: name,
           className: classnames({ 'unselected': value === '' }),
@@ -99,16 +99,16 @@ function Select (props) {
           value,
           onBlur,
           onChange,
-          ...rest 
+          ...rest
         }}
       >
-        { 
+        {
           placeholder &&
           <option value='' disabled={ !enablePlaceholderOption }>
             { placeholder }
           </option>
         }
-        { 
+        {
           optionObjects.map(({ key, value }) =>
             <option key={ key } value={ value }>
               { key }
