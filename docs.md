@@ -653,7 +653,7 @@ A textarea input that can be used in a `redux-forms`-controlled form. Optionally
 
 -   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
 -   `meta` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
--   `maxLength` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The maximum allowed length of the input. Accepts `false` for the option to not set a max length. (optional, default `500`)
+-   `maxLength` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The maximum allowed length of the input. Accepts `false` for the option to not set a max length (optional, default `false`)
 -   `showCharacterCount` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Whether or not to display a character count (optional, default `true`)
 
 **Examples**

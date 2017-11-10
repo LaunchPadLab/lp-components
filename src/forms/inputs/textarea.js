@@ -13,7 +13,7 @@ import { compose } from '../../utils'
  * @type Function
  * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
  * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
- * @param {Number} [maxLength=500] - The maximum allowed length of the input. Accepts `false` for the option to not set a max length.
+ * @param {Number} [maxLength=false] - The maximum allowed length of the input. Accepts `false` for the option to not set a max length
  * @param {Boolean} [showCharacterCount=true] - Whether or not to display a character count
  * @example
  *
@@ -41,7 +41,7 @@ const propTypes = {
 }
 
 const defaultProps = {
-  maxLength: 500,
+  maxLength: false,
   showCharacterCount: true,
 }
 

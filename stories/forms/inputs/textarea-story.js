@@ -32,12 +32,6 @@ storiesOf('Textarea', module)
       input={inputProps}
       meta={{}}
       showCharacterCount={false}
-    />
-  ))
-  .add('with no maxLength', () => (
-    <Textarea
-      input={inputProps}
-      meta={{}}
-      maxLength={0}
+      maxLength={50}
     />
   ))
