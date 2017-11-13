@@ -14,7 +14,7 @@ import { compose } from '../../utils'
  * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
  * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @param {Number} [maxLength=false] - The maximum allowed length of the input. Accepts `false` for the option to not set a max length
- * @param {Boolean} [showCharacterCount=true] - Whether or not to display a character count
+ * @param {Boolean} [hideCharacterCount=false] - Whether to hide the character count if given a maxLength
  * @example
  *
  * function BiographyForm ({ handleSubmit, pristine, invalid, submitting }) {
@@ -24,7 +24,6 @@ import { compose } from '../../utils'
  *          name="biography"
  *          component={ Textarea }
  *          maxLength={ 1000 }
- *          showCharacterCount={ false }
  *       />
  *       <SubmitButton {...{ pristine, invalid, submitting }}>
  *         Submit
@@ -36,31 +35,31 @@ import { compose } from '../../utils'
 
 const propTypes = {
   ...fieldPropTypes,
-  showCharacterCount: PropTypes.bool,
+  hideCharacterCount: PropTypes.bool,
   maxLength: PropTypes.oneOfType([PropTypes.number, PropTypes.bool])
 }
 
 const defaultProps = {
   maxLength: false,
-  showCharacterCount: true,
+  hideCharacterCount: false,
 }
 
 function Textarea (props) {
   const {
     input: { name, value, onBlur, onChange },
     meta, // eslint-disable-line no-unused-vars
-    showCharacterCount,
+    hideCharacterCount,
     className,
     maxLength,
     ...rest
   } = omitLabelProps(props)
   return (
     <LabeledField
-      className={ classnames(className, { 'with-character-count': showCharacterCount }) }
+      className={ classnames(className, { 'with-character-count': !hideCharacterCount }) }
       { ...props }
     >
       {
-        !!maxLength && showCharacterCount &&
+        !!maxLength && !hideCharacterCount &&
         <span className="character-count">
           { `${ value.length }/${ maxLength } characters` }
         </span>

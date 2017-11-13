@@ -31,7 +31,7 @@ storiesOf('Textarea', module)
     <Textarea
       input={inputProps}
       meta={{}}
-      showCharacterCount={false}
       maxLength={50}
+      hideCharacterCount={true}
     />
   ))
