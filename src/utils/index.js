@@ -16,15 +16,15 @@ export {
 export wrapDisplayName from 'recompose/wrapDisplayName'
 
 // LP Utils
-export { 
+export {
   deprecate,
   sortable,
   sortablePropTypes,
   toggle,
-  togglePropTypes, 
+  togglePropTypes,
 } from '@launchpadlab/lp-hoc'
 
 // Local
 export compareAtPath from './compare-at-path'
-export objectify from './objectify'
+export serializeOptions from './serialize-options'
 export stripNamespace from './strip-namespace'

@@ -1,37 +1,37 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Checkbox from './checkbox'
-import { 
+import {
   fieldPropTypesWithValue,
   fieldOptionsType,
   omitLabelProps,
   replaceEmptyStringValue,
 } from '../helpers'
 import { LabeledField } from '../labels'
-import { addToArray, removeFromArray, objectify, compose } from '../../utils'
+import { addToArray, removeFromArray, serializeOptions, compose } from '../../utils'
 
 /**
  *
- * A group of checkboxes that can be used in a `redux-forms`-controlled form. 
- * 
+ * A group of checkboxes that can be used in a `redux-forms`-controlled form.
+ *
  * The value of each checkbox is specified via the `options` prop. This prop can either be:
- * - An array of strings 
+ * - An array of strings
  * - An array of key-value pairs: `{ key, value }`
- * 
+ *
  * The value of the entire `CheckboxGroup` component is an **array** containing the values of the selected checkboxes.
  * Clicking an unselected checkbox adds its value to this array, and clicking a selected checkbox removes its value from this array.
- * 
+ *
  * @name CheckboxGroup
  * @type Function
  * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
  * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @param {Array} options - An array of checkbox values (strings or key-value pairs)
  * @example
- * 
+ *
  * function TodoForm ({ handleSubmit, pristine, invalid, submitting }) {
  *   return (
  *     <form onSubmit={ handleSubmit }>
- *       <Field 
+ *       <Field
  *          name="completedTodos"
  *          component={ CheckboxGroup }
  *          options={[
@@ -73,7 +73,7 @@ function CheckboxGroup (props) {
     options,
     ...rest
   } = omitLabelProps(props)
-  const optionObjects = objectify(options)
+  const optionObjects = serializeOptions(options)
   // Build change handler
   const handleChange = function (option) {
     return function (checked) {

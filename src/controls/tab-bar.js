@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { fieldOptionsType } from '../forms/helpers/field-prop-types'
-import { objectify, noop } from '../utils'
+import { serializeOptions, noop } from '../utils'
 
 /**
  *
@@ -48,7 +48,7 @@ const defaultProps = {
 }
 
 function TabBar ({ vertical, options, value, onChange, className, activeClassName }) {
-  const optionObjects = objectify(options)
+  const optionObjects = serializeOptions(options)
   const alignment = vertical ? 'vertical' : 'horizontal'
   return (
     <ul className={ classnames('tabs', `${alignment}-tabs`, className) }>
