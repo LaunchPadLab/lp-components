@@ -3,8 +3,11 @@
 # lp-components
 Reusable UI components for React apps.
 
-## Documentation 
+## Documentation
 Documentation and usage info can be found in [docs.md](docs.md).
+
+## Migration Guides
+- [v2.0.0](migration-guides/v2.0.0.md)
 
 ## Contribution
 This package follows the Opex [NPM package guidelines](https://github.com/LaunchPadLab/opex/blob/master/gists/npm-package-guidelines.md). Please refer to the linked document for information on contributing, testing and versioning.
@@ -12,7 +15,7 @@ This package follows the Opex [NPM package guidelines](https://github.com/Launch
 ## Additional info
 
 #### React Storybook
-This library uses [React Storybook](https://getstorybook.io/) to render components in a development sandbox. In order to view the storybook, run `yarn run storybook` and navigate to the localhost port indicated. 
+This library uses [React Storybook](https://getstorybook.io/) to render components in a development sandbox. In order to view the storybook, run `yarn run storybook` and navigate to the localhost port indicated.
 
 *Every new component added to this library should be accompanied by a new story in the storybook.*
 
@@ -24,7 +27,7 @@ The `DateInput` component requires special styles in order to render correctly. 
 
 #### `webpack.config.js`:
 
-Add a line near the top of the file specifying the path to the `react-datepicker` styles: 
+Add a line near the top of the file specifying the path to the `react-datepicker` styles:
 
 `const datePickerPath = path.resolve(__dirname, '../node_modules/react-datepicker/src/stylesheets')`
 
@@ -35,7 +38,7 @@ Then, add this path to the `includePaths` array of the sass loader:
     loader: "sass",
     query: { includePaths: [ ... , datePickerPath ] }
 }
-``` 
+```
 
 #### `application.scss`:
 
