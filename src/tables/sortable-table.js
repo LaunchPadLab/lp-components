@@ -27,6 +27,8 @@ import classnames from 'classnames'
  * }
 **/
 
+/* eslint react/jsx-key: 0 */
+
 const propTypes = {
   columns: PropTypes.arrayOf(Types.column).isRequired,
   data: PropTypes.arrayOf(PropTypes.object).isRequired,

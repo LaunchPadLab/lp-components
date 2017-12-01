@@ -1,4 +1,3 @@
 {
-  "presets": [ "es2015", "stage-1", "react" ],
-  "plugins": [ "lodash", "transform-export-default" ]
+  "presets": ["@launchpadlab/babel-preset/react"]
 }

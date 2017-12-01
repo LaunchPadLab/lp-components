@@ -70,7 +70,7 @@ function RadioGroup (props) {
       {
         optionObjects.map((option, i) => {
           return (
-            <Input
+            <Input // eslint-disable-line react/jsx-key
               {...{
                 key: i,
                 type: 'radio',
