@@ -43,14 +43,14 @@ A control component for navigating between multiple numbered pages.
 
 **Parameters**
 
--   `value` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The number of the current page (optional, default `1`)
+-   `value` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** The number of the current page (optional, default `1`)
 -   `onChange` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)?** A function called with the new value when a page is clicked.
--   `min` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The number of the first page (optional, default `1`)
--   `max` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The number of the last page. (optional, default `1`)
--   `alwaysShow` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Always show the component, even when there's only one page visible. (optional, default `false`)
--   `pagesShown` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The number of pages to display around (and including) the current page (optional, default `3`)
--   `previousLabel` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** The text of the "previous page" button (optional, default `'Prev'`)
--   `nextLabel` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** The text of the "next page" button (optional, default `'Next'`)
+-   `min` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** The number of the first page (optional, default `1`)
+-   `max` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** The number of the last page. (optional, default `1`)
+-   `alwaysShow` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Always show the component, even when there's only one page visible. (optional, default `false`)
+-   `pagesShown` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** The number of pages to display around (and including) the current page (optional, default `3`)
+-   `previousLabel` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The text of the "previous page" button (optional, default `'Prev'`)
+-   `nextLabel` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The text of the "next page" button (optional, default `'Next'`)
 
 **Examples**
 
@@ -164,9 +164,9 @@ In addition to the props below, any extra props will be passed directly to the i
 
 -   `invalid` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Whether or not a related form is invalid (will disable when `true`)
 -   `pristine` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Whether or not a related form is pristine (will disable when `true`)
--   `style` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** A descriptive string that will be appended to the button's class with format `button-<type>` (optional, default `"primary"`)
+-   `style` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** A descriptive string that will be appended to the button's class with format `button-<type>` (optional, default `"primary"`)
 -   `submitting` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Whether or not a related form is submitting (will give button class `'in-progress` when `true`)
--   `type` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** The [type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type) attribute of the button element (optional, default `"button"`)
+-   `type` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** The [type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type) attribute of the button element (optional, default `"button"`)
 -   `children` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)?** Any React component(s) being wrapped by the button
 
 **Examples**
@@ -482,10 +482,10 @@ A range input that can be used in a `redux-forms`-controlled form.
 
 -   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
 -   `meta` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
--   `min` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The minumum attribute of the slider control (optional, default `0`)
--   `max` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The maximum attribute of the slider control (optional, default `100`)
--   `step` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The step attribute of the slider control (optional, default `1`)
--   `hideLabel` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** A boolean representing whether or not to display the range value label element (optional, default `false`)
+-   `min` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** The minumum attribute of the slider control (optional, default `0`)
+-   `max` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** The maximum attribute of the slider control (optional, default `100`)
+-   `step` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** The step attribute of the slider control (optional, default `1`)
+-   `hideLabel` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** A boolean representing whether or not to display the range value label element (optional, default `false`)
 
 **Examples**
 
@@ -567,7 +567,7 @@ The value of the `Select` component will be the same as the value of the selecte
 -   `meta` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
 -   `options` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** An array of option values (strings or key-value pairs)
 -   `placeholder` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** A string to display as a placeholder option
--   `enablePlaceholderOption` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** A flag indicating that the placeholder option should not be `disabled` (optional, default `false`)
+-   `enablePlaceholderOption` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** A flag indicating that the placeholder option should not be `disabled` (optional, default `false`)
 
 **Examples**
 
@@ -622,7 +622,7 @@ A component that returns an `<a>` element that can be used to change the value o
 
 -   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
 -   `label` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The link text
--   `valueToSet` **Any?** The value to set the input when clicked (optional, default `true`)
+-   `valueToSet` **Any** The value to set the input when clicked (optional, default `true`)
 
 **Examples**
 
@@ -654,7 +654,7 @@ A textarea input that can be used in a `redux-forms`-controlled form. Optionally
 -   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
 -   `meta` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
 -   `maxLength` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The maximum allowed length of the input
--   `hideCharacterCount` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Whether to hide the character count if given a maxLength (optional, default `false`)
+-   `hideCharacterCount` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Whether to hide the character count if given a maxLength (optional, default `false`)
 
 **Examples**
 
@@ -906,7 +906,7 @@ the default redux-form initial value (an empty string).
 
 **Parameters**
 
--   `replacement` **any?** The value that will replace an empty string value (optional, default `''`)
+-   `replacement` **any** The value that will replace an empty string value (optional, default `''`)
 
 **Examples**
 
@@ -935,7 +935,7 @@ This component's behavior is largely determined by the [TableColumn](#tablecolum
 
 **Parameters**
 
--   `data` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)?** An array of objects to display in the table- one object per row (optional, default `[]`)
+-   `data` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** An array of objects to display in the table- one object per row (optional, default `[]`)
 
 **Examples**
 
@@ -958,9 +958,9 @@ This component's behavior is largely determined by the [TableColumn](#tablecolum
 
 **Parameters**
 
--   `data` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)?** An array of objects to display in the table- one object per row (optional, default `[]`)
--   `initialColumn` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The name of the column that's initially selected (optional, default `''`)
--   `disableSort` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** A flag to disable sorting on all columns (optional, default `false`)
+-   `data` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** An array of objects to display in the table- one object per row (optional, default `[]`)
+-   `initialColumn` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** The name of the column that's initially selected (optional, default `''`)
+-   `disableSort` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** A flag to disable sorting on all columns (optional, default `false`)
 
 **Examples**
 

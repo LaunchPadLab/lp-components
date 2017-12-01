@@ -87,7 +87,7 @@ function CheckboxGroup (props) {
       {
         optionObjects.map((option, i) => {
           return (
-            <Checkbox
+            <Checkbox // eslint-disable-line react/jsx-key
               {...{
                 key: i,
                 input: {

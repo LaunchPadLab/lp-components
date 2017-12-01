@@ -2,7 +2,7 @@ import { range } from '../../utils'
 
 // Returns a range of "middle" page numbers to show
 export default function calculateMiddlePages (currentPage, min, max, numPagesShown) {
-  if (min > max) throw 'Paginator: min must be <= max'
+  if (min > max) throw new Error('Paginator: min must be <= max')
   // If no middle pages required, return empty array
   if (max === min) return []
   // Get indices of first and last pages

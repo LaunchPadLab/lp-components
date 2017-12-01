@@ -93,7 +93,7 @@ class FileInput extends React.Component {
       className, // eslint-disable-line no-unused-vars
       submitting,
       accept,
-      ...rest,
+      ...rest
     } = omitLabelProps(this.props)
     const { file } = this.state
     return (

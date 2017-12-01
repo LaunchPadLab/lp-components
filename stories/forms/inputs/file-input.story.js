@@ -1,5 +1,5 @@
 import React from 'react'
-import { storiesOf, action } from '@kadira/storybook'
+import { storiesOf, action } from '@storybook/react'
 import { FileInput as StaticFileInput } from 'src'
 import dynamicInput from '../../dynamic-input'
 

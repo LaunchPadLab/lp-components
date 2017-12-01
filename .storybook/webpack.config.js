@@ -1,23 +1,30 @@
 const path = require('path')
-const Bourbon = require('bourbon').includePaths
-const Neat = require('bourbon-neat').includePaths
-const datePickerPath = path.resolve(__dirname, '../node_modules/react-datepicker/src/stylesheets')
+const bourbonIncludePaths = require('bourbon').includePaths
+const neatIncludePaths = require('bourbon-neat').includePaths
+const datePickerIncludePaths = [ path.resolve(__dirname, '../node_modules/react-datepicker/src/stylesheets') ]
 
 module.exports = {
   module: {
-    loaders: [
+    rules: [
       {
-        test: /.scss$/,
-        loaders: ["style", "css"]
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              includePaths: [
+                datePickerIncludePaths,
+                bourbonIncludePaths,
+                neatIncludePaths,
+              ]
+            }
+          }
+        ]
       },
-      {
-        test: /.scss$/,
-        loader: "sass",
-        query: { includePaths: [path.resolve(__dirname, '../'), ...Bourbon, ...Neat, datePickerPath ] }
-      }
     ]
   },
-  
   resolve: {
     alias: {
       'src': path.resolve(__dirname, '../src')
