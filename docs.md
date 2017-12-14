@@ -33,6 +33,7 @@
 -   [Table](#table)
 -   [SortableTable](#sortabletable)
 -   [TableColumn](#tablecolumn)
+-   [Spinner](#spinner)
 -   [compareAtPath](#compareatpath)
 -   [serializeOptions](#serializeoptions)
 -   [stripNamespace](#stripnamespace)
@@ -1000,6 +1001,27 @@ function PersonTable ({ people }) {
     </SortableTable>
   )
 }
+```
+
+## Spinner
+
+A UI component that displays a 'spinner'.
+
+**Examples**
+
+```javascript
+function Image ({ imgUrl }) {
+  return (
+   <div>
+    { imgUrl
+      ? <img src={ imgUrl } alt=""/>
+      : <Spinner/>
+    }
+   </div>
+  )
+}
+
+// Spinner is rendered when there is no content to display
 ```
 
 ## compareAtPath
