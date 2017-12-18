@@ -1,6 +1,6 @@
 {
   "name": "@launchpadlab/lp-components",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Our Components",
   "main": "lib/index.js",
   "repository": "launchpadlab/lp-components",
@@ -54,7 +54,7 @@
     "enzyme-adapter-react-16": "^1.1.0",
     "eslint": "^4.12.1",
     "husky": "^0.14.3",
-    "jest": "^21.2.1",
+    "jest": "^22.0.0",
     "node-sass": "^4.5.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
