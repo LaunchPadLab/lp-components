@@ -34,6 +34,7 @@
 -   [SortableTable](#sortabletable)
 -   [TableColumn](#tablecolumn)
 -   [Spinner](#spinner)
+-   [LoadingContainer](#loadingcontainer)
 -   [compareAtPath](#compareatpath)
 -   [serializeOptions](#serializeoptions)
 -   [stripNamespace](#stripnamespace)
@@ -1022,6 +1023,32 @@ function Image ({ imgUrl }) {
 }
 
 // Spinner is rendered when there is no content to display
+```
+
+## LoadingContainer
+
+A wrapper component that visually indicates whether a child component
+is loading, or loaded.
+
+**Examples**
+
+```javascript
+function PatientIndex ({ patientProfiles }) {
+  return (
+   <div>
+    {
+     <div className="card-inner">
+        <LoadingContainer isLoading={ !patientProfiles }>
+          <div> Render Child Component </div>
+        </LoadingContainer>
+      </div>
+     }
+   </div>
+  )
+}
+
+// LoadingContainer renders child components with modified opacity
+depending on if the value passed to isLoading evaluates to truthy or * falsey
 ```
 
 ## compareAtPath
