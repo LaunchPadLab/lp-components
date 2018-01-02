@@ -78,6 +78,5 @@ test('Select renders option groups correctly', () => {
   }
   const wrapper = shallow(<Select { ...props }/>)
   expect(wrapper.dive().find('optgroup').first().prop('label')).toEqual('groupName')
-  console.log(wrapper.dive().find('option').first().props())
   expect(wrapper.dive().find('option').first().prop('value')).toEqual('testOption')
 })

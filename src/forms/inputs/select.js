@@ -78,11 +78,6 @@ const defaultProps = {
   options: [],
 }
 
-// eslint-disable-next-line react/prop-types
-function Option ({ id, value }) { 
-  return <option key={ id } value={ value }>{ id }</option>
-}
-
 function Select (props) {
   const {
     input: { name, value, onBlur, onChange },
