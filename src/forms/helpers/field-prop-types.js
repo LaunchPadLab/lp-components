@@ -17,7 +17,22 @@ export const fieldOptionsType = PropTypes.arrayOf(
         PropTypes.string,
         PropTypes.number
       ]).isRequired
-    })
+    }),
+    PropTypes.shape({
+      optionGroup: PropTypes.string.isRequired,
+      optionGroupData: PropTypes.arrayOf(
+        PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.shape({
+            key: PropTypes.string.isRequired,
+            value: PropTypes.oneOfType([
+              PropTypes.string,
+              PropTypes.number
+            ]).isRequired
+          }),
+        ])
+      )
+    }),
   ])
 )
 

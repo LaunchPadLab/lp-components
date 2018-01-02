@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { blurDirty, fieldPropTypes, fieldOptionsType, omitLabelProps } from '../helpers'
 import { LabeledField } from '../labels'
-import { compose, serializeOptions } from '../../utils'
+import { compose, first, has, serializeOptions } from '../../utils'
 
 /**
  *
@@ -78,6 +78,11 @@ const defaultProps = {
   options: [],
 }
 
+// eslint-disable-next-line react/prop-types
+function Option ({ id, value }) { 
+  return <option key={ id } value={ value }>{ id }</option>
+}
+
 function Select (props) {
   const {
     input: { name, value, onBlur, onChange },
@@ -88,7 +93,10 @@ function Select (props) {
     placeholder,
     ...rest
   } = omitLabelProps(props)
-  const optionObjects = serializeOptions(options)
+  const isGrouped = has(first(options), 'optionGroup')
+  const optionObjects = isGrouped 
+    ? options.map(group => ({ ...group, optionGroupData: serializeOptions(group.optionGroupData) })) 
+    : serializeOptions(options)
   return (
     <LabeledField { ...props }>
       <select
@@ -109,11 +117,15 @@ function Select (props) {
           </option>
         }
         {
-          optionObjects.map(({ key, value }) =>
-            <option key={ key } value={ value }>
-              { key }
-            </option>
-          )
+          isGrouped 
+          ? optionObjects.map(({ optionGroup, optionGroupData }, idx) => 
+              <optgroup key={ idx } label={ optionGroup }>
+                {
+                  optionGroupData.map(({ key, value }) => <option key={ key } value={ value }>{ key }</option>)
+                }
+              </optgroup>
+            )
+          : optionObjects.map(({ key, value }) => <option key={ key } value={ value }>{ key }</option>)
         }
       </select>
      </LabeledField>

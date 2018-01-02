@@ -65,3 +65,19 @@ test('Select enables the placeholder option to be selected correctly', () => {
   expect(wrapper.dive().find('option').first().prop('value')).toEqual('')
   expect(wrapper.dive().find('option').first().prop('disabled')).toEqual(false)
 })
+
+test('Select renders option groups correctly', () => {
+  const options = { optionGroup: 'groupName', optionGroupData: ['testOption'] }
+  const props = { 
+    input: {
+      name: 'test',
+      value: '',
+    }, 
+    meta: {},
+    options: [options],
+  }
+  const wrapper = shallow(<Select { ...props }/>)
+  expect(wrapper.dive().find('optgroup').first().prop('label')).toEqual('groupName')
+  console.log(wrapper.dive().find('option').first().props())
+  expect(wrapper.dive().find('option').first().prop('value')).toEqual('testOption')
+})
