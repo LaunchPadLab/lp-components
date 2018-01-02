@@ -98,7 +98,7 @@ function SortableTableWrapper ({ initialColumn, children, disableSort, data, onC
     sortFunc: initialProps ? initialProps.sortFunc : null,
     onChange,
   })(SortableTable)
-  return <WrappedTable {...{ columns, data, disableSort, onChange }} />
+  return <WrappedTable {...{ columns, data, disableSort }} />
 }
 
 SortableTableWrapper.propTypes = {
