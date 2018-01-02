@@ -32,6 +32,18 @@ test('Clicking on column header changes sortPath', () => {
   expect(wrapper.find('tr > td').last().text()).toEqual('Tommy')
 })
 
+test('onChange is fired when sorting state changes', () => {
+  const onChange = jest.fn()
+  const wrapper = mount(
+    <SortableTable data={ tableData } onChange={ onChange }>
+      <Column name="name"/>
+    </SortableTable>
+  )
+  wrapper.find('th').first().simulate('click')
+  expect(onChange).toHaveBeenCalledWith({ ascending: true, sortPath: 'name', sortFunc: null })
+})
+
+
 test('Clicking on column header twice toggles ascending', () => {
   const wrapper = mount(
     <SortableTable data={ tableData }>

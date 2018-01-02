@@ -963,6 +963,7 @@ This component's behavior is largely determined by the [TableColumn](#tablecolum
 -   `data` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** An array of objects to display in the table- one object per row (optional, default `[]`)
 -   `initialColumn` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** The name of the column that's initially selected (optional, default `''`)
 -   `disableSort` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** A flag to disable sorting on all columns (optional, default `false`)
+-   `onChange` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)?** A callback that will be fired when the sorting state changes
 
 **Examples**
 
