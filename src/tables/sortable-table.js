@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { sortable, sortablePropTypes } from '../utils'
+import { sortable, sortablePropTypes, noop } from '../utils'
 import { getColumnData, Types } from './helpers'
 import { TableHeader as Header, TableRow as Row } from './components' 
 import classnames from 'classnames'
@@ -14,6 +14,7 @@ import classnames from 'classnames'
  * @param {Array} [data=[]] - An array of objects to display in the table- one object per row
  * @param {Number} [initialColumn=''] - The name of the column that's initially selected
  * @param {Boolean} [disableSort=false] - A flag to disable sorting on all columns
+ * @param {Function} [onChange] - A callback that will be fired when the sorting state changes
  * @example
  * 
  * function PersonTable ({ people }) {
@@ -46,7 +47,7 @@ function SortableTable ({
   ascending, 
   sortPath, 
   setSortPath, 
-  setSortFunc, 
+  setSortFunc,
 }) {
   const data = disableSort ? unsortedData : sort(unsortedData)
   return (
@@ -61,8 +62,10 @@ function SortableTable ({
               ascending,
               onClick: () => {
                 if (column.disabled) return
-                setSortPath(column.name)
-                setSortFunc(column.sortFunc || null)
+                const newSortPath = column.name
+                const newSortFunc = column.sortFunc || null
+                setSortPath(newSortPath)
+                setSortFunc(newSortFunc)
               }
             }} />
           )
@@ -87,12 +90,13 @@ SortableTable.propTypes = propTypes
 SortableTable.defaultProps = defaultProps
 
 // Wraps SortableTable in sortable HOC
-function SortableTableWrapper ({ initialColumn, children, disableSort, data }) {
+function SortableTableWrapper ({ initialColumn, children, disableSort, data, onChange }) {
   const columns = getColumnData(children, disableSort)
   const initialProps = columns.filter(col => col.name === initialColumn).pop()
   const WrappedTable = sortable({ 
-    sortPath: initialProps ? initialProps.name : null,
+    sortPath: initialProps ? initialProps.name : '',
     sortFunc: initialProps ? initialProps.sortFunc : null,
+    onChange,
   })(SortableTable)
   return <WrappedTable {...{ columns, data, disableSort }} />
 }
@@ -102,12 +106,14 @@ SortableTableWrapper.propTypes = {
   children: PropTypes.node.isRequired,
   data: PropTypes.arrayOf(PropTypes.object),
   disableSort: PropTypes.bool,
+  onChange: PropTypes.func,
 }
 
 SortableTableWrapper.defaultProps = {
   initialColumn: '',
   disableSort: false,
   data: [],
+  onChange: noop,
 }
 
 export default SortableTableWrapper
