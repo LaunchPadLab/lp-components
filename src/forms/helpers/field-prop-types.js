@@ -32,7 +32,7 @@ export const fieldOptionsType = PropTypes.arrayOf(
 export const fieldGroupOptionsType = PropTypes.arrayOf(
   PropTypes.shape({
     name: PropTypes.string.isRequired,
-    options: PropTypes.arrayOf(fieldOptionsType).isRequired,
+    options: fieldOptionsType.isRequired,
   })
 )
 
