@@ -5,6 +5,7 @@
 -   [Paginator](#paginator)
 -   [TabBar](#tabbar)
 -   [fieldOptionsType](#fieldoptionstype)
+-   [fieldGroupOptionsType](#fieldgroupoptionstype)
 -   [fieldPropTypesWithValue](#fieldproptypeswithvalue)
 -   [defaultValueTypes](#defaultvaluetypes)
 -   [fieldPropTypes](#fieldproptypes)
@@ -104,6 +105,12 @@ function ShowTabs ({ currentTab, setCurrentTab }) {
 ## fieldOptionsType
 
 A constant representing the `PropTypes` of the `options` prop for select components, e.g., [Select](#select) and [CheckboxGroup](#checkboxgroup)
+
+Type: PropTypes
+
+## fieldGroupOptionsType
+
+A constant representing the `PropTypes` of the `groupOptions` prop for select components, e.g., [Select](#select) and [CheckboxGroup](#checkboxgroup)
 
 Type: PropTypes
 
@@ -556,10 +563,18 @@ export default FavoriteFoodForm
 
 A select input that can be used in a `redux-forms`-controlled form.
 
-The value of each option is specified via the `options` prop. This prop can either be:
+The value of each option is specified via the `options` or the `optionGroups` prop. 
+The `options` prop will be ignored if `optionGroups` is present.
+
+The `options` prop can either be:
 
 -   An array of strings
 -   An array of key-value pairs: `{ key, value }`
+
+The `optionGroups` props must be an array of objects with the following keys:
+
+-   `name`: The name of the option group
+-   `options`: As above, an array of strings or key-value pairs.
 
 The value of the `Select` component will be the same as the value of the selected option.
 
@@ -567,7 +582,8 @@ The value of the `Select` component will be the same as the value of the selecte
 
 -   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
 -   `meta` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
--   `options` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** An array of option values (strings or key-value pairs)
+-   `options` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** An array of option values (strings or key-value pairs). This prop will be ignored if `optionGroups` is present.
+-   `optionGroups` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** An array of option group objects
 -   `placeholder` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** A string to display as a placeholder option
 -   `enablePlaceholderOption` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** A flag indicating that the placeholder option should not be `disabled` (optional, default `false`)
 

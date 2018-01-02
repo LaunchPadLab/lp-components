@@ -1,6 +1,4 @@
 export {
-  first,
-  has,
   startCase,
   range,
   noop,

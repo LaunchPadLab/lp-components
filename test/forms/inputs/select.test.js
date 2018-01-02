@@ -67,14 +67,14 @@ test('Select enables the placeholder option to be selected correctly', () => {
 })
 
 test('Select renders option groups correctly', () => {
-  const options = { optionGroup: 'groupName', optionGroupData: ['testOption'] }
+  const options = { name: 'groupName', options: ['testOption'] }
   const props = { 
     input: {
       name: 'test',
       value: '',
     }, 
     meta: {},
-    options: [options],
+    optionGroups: [options],
   }
   const wrapper = shallow(<Select { ...props }/>)
   expect(wrapper.dive().find('optgroup').first().prop('label')).toEqual('groupName')
