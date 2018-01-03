@@ -23,6 +23,21 @@ export const fieldOptionsType = PropTypes.arrayOf(
 
 /**
  *
+ * A constant representing the `PropTypes` of the `optionGroups` prop for select components, e.g., {@link Select}
+ * 
+ * @constant {PropTypes} fieldOptionGroupsType
+ * 
+**/
+
+export const fieldOptionGroupsType = PropTypes.arrayOf(
+  PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    options: fieldOptionsType.isRequired,
+  })
+)
+
+/**
+ *
  * A function that takes `PropTypes` for a `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object.
  * Returns an object containing all `PropTypes` for `redux-forms` [Field](http://redux-form.com/6.5.0/docs/api/Field.md/) components.
  * 

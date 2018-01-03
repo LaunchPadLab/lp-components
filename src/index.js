@@ -5,5 +5,6 @@ export * from './indicators'
 export {
   compareAtPath,
   serializeOptions,
+  serializeOptionGroups,
   stripNamespace,
 } from './utils'
