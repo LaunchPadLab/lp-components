@@ -1135,20 +1135,20 @@ object options with keys of `key` and `value`
 
 ```javascript
 const optionGroups = [ 
- { name: 'group1', options: ['apple', 'banana'] },
- { name: 'group2', options: ['orange', 'blueberry'] },
+ { name: 'fruits', options: ['apple', 'banana'] },
+ { name: 'veggies', options: ['lettuce', 'pepper'] },
 ]
 
 serializeOptionGroups(optionGroups)
 
 // [
 //   { 
-//     name: 'group1', 
+//     name: 'fruits', 
 //     options: [{ key: 'apple', value: 'apple' }, { key: 'banana', value: 'banana' }] 
 //   }, 
 //   { 
-//     name: 'group2', 
-//     options: [{ key: 'orange', value: 'orange' }, { key: 'blueberry', value: 'blueberry' }] 
+//     name: 'veggies', 
+//     options: [{ key: 'lettuce', value: 'lettuce' }, { key: 'pepper', value: 'pepper' }] 
 //   },
 // ]
 ```
