@@ -23,13 +23,13 @@ export const fieldOptionsType = PropTypes.arrayOf(
 
 /**
  *
- * A constant representing the `PropTypes` of the `groupOptions` prop for select components, e.g., {@link Select} and {@link CheckboxGroup}
+ * A constant representing the `PropTypes` of the `optionGroups` prop for select components, e.g., {@link Select} and {@link CheckboxGroup}
  * 
- * @constant {PropTypes} fieldGroupOptionsType
+ * @constant {PropTypes} fieldOptionGroupsType
  * 
 **/
 
-export const fieldGroupOptionsType = PropTypes.arrayOf(
+export const fieldOptionGroupsType = PropTypes.arrayOf(
   PropTypes.shape({
     name: PropTypes.string.isRequired,
     options: fieldOptionsType.isRequired,

@@ -5,7 +5,7 @@
 -   [Paginator](#paginator)
 -   [TabBar](#tabbar)
 -   [fieldOptionsType](#fieldoptionstype)
--   [fieldGroupOptionsType](#fieldgroupoptionstype)
+-   [fieldOptionGroupsType](#fieldoptiongroupstype)
 -   [fieldPropTypesWithValue](#fieldproptypeswithvalue)
 -   [defaultValueTypes](#defaultvaluetypes)
 -   [fieldPropTypes](#fieldproptypes)
@@ -108,9 +108,9 @@ A constant representing the `PropTypes` of the `options` prop for select compone
 
 Type: PropTypes
 
-## fieldGroupOptionsType
+## fieldOptionGroupsType
 
-A constant representing the `PropTypes` of the `groupOptions` prop for select components, e.g., [Select](#select) and [CheckboxGroup](#checkboxgroup)
+A constant representing the `PropTypes` of the `optionGroups` prop for select components, e.g., [Select](#select) and [CheckboxGroup](#checkboxgroup)
 
 Type: PropTypes
 

@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import { 
   blurDirty, 
   fieldPropTypes, 
-  fieldGroupOptionsType,
+  fieldOptionGroupsType,
   fieldOptionsType, 
   omitLabelProps 
 } from '../helpers'
@@ -85,7 +85,7 @@ const propTypes = {
   enablePlaceholderOption: PropTypes.bool,
   placeholder: PropTypes.string,
   options: fieldOptionsType,
-  optionGroups: fieldGroupOptionsType,
+  optionGroups: fieldOptionGroupsType,
 }
 
 const defaultProps = {
@@ -132,8 +132,7 @@ function Select (props) {
           ? optionObjects.map(({ name, options }, idx) => 
               <optgroup key={ idx } label={ name }>
                 {
-                  options
-                    .map(({ key, value }) => <option key={ key } value={ value }>{ key }</option>)
+                  options.map(({ key, value }) => <option key={ key } value={ value }>{ key }</option>)
                 }
               </optgroup>
             )
