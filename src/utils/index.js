@@ -27,4 +27,5 @@ export {
 // Local
 export compareAtPath from './compare-at-path'
 export serializeOptions from './serialize-options'
+export serializeOptionGroups from './serialize-option-groups'
 export stripNamespace from './strip-namespace'

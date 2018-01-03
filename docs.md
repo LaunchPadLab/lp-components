@@ -38,6 +38,7 @@
 -   [LoadingContainer](#loadingcontainer)
 -   [compareAtPath](#compareatpath)
 -   [serializeOptions](#serializeoptions)
+-   [serializeOptionGroups](#serializeoptiongroups)
 -   [stripNamespace](#stripnamespace)
 
 ## Paginator
@@ -110,7 +111,7 @@ Type: PropTypes
 
 ## fieldOptionGroupsType
 
-A constant representing the `PropTypes` of the `optionGroups` prop for select components, e.g., [Select](#select) and [CheckboxGroup](#checkboxgroup)
+A constant representing the `PropTypes` of the `optionGroups` prop for select components, e.g., [Select](#select)
 
 Type: PropTypes
 
@@ -1120,6 +1121,39 @@ serializeOptions(options)
 ```
 
 Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** Array of object options
+
+## serializeOptionGroups
+
+Function that transforms options within an option group array into 
+object options with keys of `key` and `value`
+
+**Parameters**
+
+-   `optionGroupArray` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** Array of option values
+
+**Examples**
+
+```javascript
+const optionGroups = [ 
+ { name: 'group1', options: ['apple', 'banana'] },
+ { name: 'group2', options: ['orange', 'blueberry'] },
+]
+
+serializeOptionGroups(optionGroups)
+
+// [
+//   { 
+//     name: 'group1', 
+//     options: [{ key: 'apple', value: 'apple' }, { key: 'banana', value: 'banana' }] 
+//   }, 
+//   { 
+//     name: 'group2', 
+//     options: [{ key: 'orange', value: 'orange' }, { key: 'blueberry', value: 'blueberry' }] 
+//   },
+// ]
+```
+
+Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** Array of object group options
 
 ## stripNamespace
 

@@ -9,7 +9,7 @@ import {
   omitLabelProps 
 } from '../helpers'
 import { LabeledField } from '../labels'
-import { compose, serializeOptions } from '../../utils'
+import { compose, serializeOptions, serializeOptionGroups } from '../../utils'
 
 /**
  *
@@ -105,9 +105,8 @@ function Select (props) {
     placeholder,
     ...rest
   } = omitLabelProps(props)
-  const optionObjects = optionGroups.length
-    ? optionGroups.map(group => ({ ...group, options: serializeOptions(group.options) })) 
-    : serializeOptions(options)
+  const optionObjects = serializeOptions(options)
+  const optionGroupObjects = serializeOptionGroups(optionGroups)
   return (
     <LabeledField { ...props }>
       <select
@@ -128,8 +127,8 @@ function Select (props) {
           </option>
         }
         {
-          optionGroups.length
-          ? optionObjects.map(({ name, options }, idx) => 
+          optionGroupObjects.length
+          ? optionGroupObjects.map(({ name, options }, idx) => 
               <optgroup key={ idx } label={ name }>
                 {
                   options.map(({ key, value }) => <option key={ key } value={ value }>{ key }</option>)
