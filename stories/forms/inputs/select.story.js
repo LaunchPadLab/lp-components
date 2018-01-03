@@ -21,6 +21,12 @@ const options = [
   { key: 'Third Option', value: '3' }
 ]
 
+const optionGroups = [
+  { name: 'Fruit Group', options: ['apple', 'banana'] },
+  { name: 'Veggie Group', options: ['lettuce', 'green pepper'] },
+  { name: 'Ice Cream Group', options: ['mint chocolate chip', 'cookie dough'] },
+]
+
 storiesOf('Select', module)
   .add('default', () => (
     <Select
@@ -52,5 +58,12 @@ storiesOf('Select', module)
       options={options}
       placeholder="Placeholder"
       enablePlaceholderOption={true}
+    />
+  ))
+  .add('with option groups', () => (
+    <Select
+      input={inputProps}
+      meta={{}}
+      optionGroups={optionGroups}
     />
   ))
