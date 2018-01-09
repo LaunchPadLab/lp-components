@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Button } from '../../buttons'
-import { fieldPropTypes, omitLabelProps } from '../../helpers'
+import { buttonClasses, fieldPropTypes, omitLabelProps } from '../../helpers'
 import { LabeledField } from '../../labels'
 import ImagePreview from './image-preview'
 import { noop } from '../../../utils'
@@ -96,13 +95,14 @@ class FileInput extends React.Component {
       ...rest
     } = omitLabelProps(this.props)
     const { file } = this.state
+    const wrapperClass = buttonClasses({ style: 'secondary-light', submitting })
     return (
       <LabeledField { ...this.props }>
         <div className="fileupload fileupload-exists">
           { 
             renderPreview({ file, value, ...rest })
           }
-          <Button style="secondary-light" submitting={ submitting }>
+          <div className={ wrapperClass }>
             <span className="fileupload-exists"> Select File </span>
               <input 
                 {...{
@@ -113,7 +113,7 @@ class FileInput extends React.Component {
                   accept,
                 }}
               />
-          </Button>
+          </div>
         </div>
       </LabeledField>
     )

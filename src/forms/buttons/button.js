@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
+import { buttonClasses } from '../helpers'
 
 /**
  *
@@ -53,22 +53,12 @@ function Button ({ children, type, style, pristine, invalid, submitting, ...rest
   return (
     <button
       type={ type }
-      className={ classes(style, pristine, invalid, submitting) }
+      className={ buttonClasses({ style, pristine, invalid, submitting }) }
       disabled={ pristine || invalid }
       { ...rest }
     >
       { children }
     </button>
-  )
-}
-
-function classes (style, pristine, invalid, submitting) {
-  return classnames(
-    `button-${style}`,
-    {
-      'is-disabled': pristine || invalid,
-      'in-progress': submitting,
-    }
   )
 }
 
