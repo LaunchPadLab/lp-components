@@ -254,17 +254,50 @@ Input Tooltip
 Uploader
 -----------------------*/
 .fileupload{
+
+  .thumbnail{
+    display: inline-block;
+    @include rem(margin-right, 15px);
+    width: 70px;
+    vertical-align: middle;
+
+    img{
+      border-radius: 50%;
+      height: 70px;
+    }
+  }
+
   .button-secondary-light{
     overflow: hidden;
     position: relative;
     vertical-align: middle;
-    //background-color: $white-med;
+    background-color: $grey-base;
     box-shadow: none;
     border: none;
     cursor: pointer;
+    color: $white-base;
+    text-align: center;
 
     &:hover{
-      //background-color: $grey-base;
+      background-color: darken($grey-base, 8%);
+    }
+
+    .fileupload-exists{
+      color: $white-base;
+    }
+  }
+
+  &.fileupload-exists{
+    div{
+      padding: 0px !important;
+
+      span{
+        //border: 1px solid $grey-base;
+        display: inline-block;
+        //@include rem(padding, 15px);
+        @include rem(margin, 20px 0px);
+        color: $black-base;
+      }
     }
   }
 
@@ -293,7 +326,7 @@ Uploader
 .close{
   text-decoration: none;
   vertical-align: text-bottom;
-  border: none;
+  // border: none;
 }
 
 
