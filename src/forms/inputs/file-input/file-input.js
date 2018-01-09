@@ -97,7 +97,7 @@ class FileInput extends React.Component {
       ...rest
     } = omitLabelProps(this.props)
     const { file } = this.state
-    const wrapperClass = buttonClasses('secondary-light', pristine, invalid, submitting)
+    const wrapperClass = buttonClasses({ style: 'secondary-light', pristine, invalid, submitting })
     return (
       <LabeledField { ...this.props }>
         <div className="fileupload fileupload-exists">

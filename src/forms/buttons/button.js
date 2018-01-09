@@ -53,7 +53,7 @@ function Button ({ children, type, style, pristine, invalid, submitting, ...rest
   return (
     <button
       type={ type }
-      className={ buttonClasses(style, pristine, invalid, submitting) }
+      className={ buttonClasses({ style, pristine, invalid, submitting }) }
       disabled={ pristine || invalid }
       { ...rest }
     >

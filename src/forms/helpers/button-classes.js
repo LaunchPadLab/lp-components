@@ -1,6 +1,6 @@
 import classnames from 'classnames'
 
-export default function buttonClasses (style, pristine, invalid, submitting) {
+export default function buttonClasses ({ style, pristine, invalid, submitting }) {
   return classnames(
     `button-${style}`,
     {
