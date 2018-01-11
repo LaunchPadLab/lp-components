@@ -13,6 +13,7 @@ import classnames from 'classnames'
  * @type Function
  * @param {Array} [data=[]] - An array of objects to display in the table- one object per row
  * @param {Number} [initialColumn=''] - The name of the column that's initially selected
+ * @param {Boolean} [disableReverse=false] - Disables automatic reversing of descending sorts
  * @param {Boolean} [disableSort=false] - A flag to disable sorting on all columns
  * @param {Function} [onChange] - A callback that will be fired when the sorting state changes
  * @example
@@ -89,16 +90,23 @@ function SortableTable ({
 SortableTable.propTypes = propTypes
 SortableTable.defaultProps = defaultProps
 
-// Wraps SortableTable in sortable HOC
-function SortableTableWrapper ({ initialColumn, children, disableSort, data, onChange }) {
+const WrappedTable = sortable()(SortableTable)
+
+// Passes relevant sortable props
+function SortableTableWrapper ({ initialColumn, children, disableSort, disableReverse, data, onChange }) {
   const columns = getColumnData(children, disableSort)
   const initialProps = columns.filter(col => col.name === initialColumn).pop()
-  const WrappedTable = sortable({ 
-    sortPath: initialProps ? initialProps.name : '',
-    sortFunc: initialProps ? initialProps.sortFunc : null,
+  return <WrappedTable {...{
+    // Sortable props
+    initialSortPath: initialProps ? initialProps.name : '',
+    initialSortFunc: initialProps ? initialProps.sortFunc : null,
     onChange,
-  })(SortableTable)
-  return <WrappedTable {...{ columns, data, disableSort }} />
+    disableReverse,
+    // Local props
+    columns, 
+    data,
+    disableSort,
+  }} />
 }
 
 SortableTableWrapper.propTypes = {
@@ -106,12 +114,14 @@ SortableTableWrapper.propTypes = {
   children: PropTypes.node.isRequired,
   data: PropTypes.arrayOf(PropTypes.object),
   disableSort: PropTypes.bool,
+  disableReverse: PropTypes.bool,
   onChange: PropTypes.func,
 }
 
 SortableTableWrapper.defaultProps = {
   initialColumn: '',
   disableSort: false,
+  disableReverse: false,
   data: [],
   onChange: noop,
 }
