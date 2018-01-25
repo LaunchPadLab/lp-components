@@ -1,5 +1,6 @@
 import React from 'react'
 // import PropTypes from 'prop-types'
+import filterInvalidProps from 'filter-invalid-dom-props'
 
 /**
  *
@@ -27,8 +28,8 @@ import React from 'react'
 
 const propTypes = {}
 
-function Spinner () {
-  return <div id="spinner" />
+function Spinner (props) {
+  return <div id="spinner" { ...filterInvalidProps(props) } />
 }
 
 Spinner.propTypes = propTypes

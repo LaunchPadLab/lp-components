@@ -36,6 +36,7 @@
     "@launchpadlab/lp-hoc": "^2.0.0",
     "classnames": "^2.2.5",
     "codeclimate-test-reporter": "^0.5.0",
+    "filter-invalid-dom-props": "^2.0.0",
     "lodash": "^4.17.4",
     "moment": "^2.19.3",
     "prop-types": "^15.5.8",

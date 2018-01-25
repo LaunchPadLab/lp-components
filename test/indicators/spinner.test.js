@@ -9,3 +9,17 @@ test('Spinner creates div with id "spinner"', () => {
   )
   expect(wrapper.find('div#spinner').exists()).toBe(true)
 })
+
+test('Spinner passes props', () => {
+  const wrapper = mount(
+    <Spinner name="Bob" />
+  )
+  expect(wrapper.find('div#spinner').props().name).toEqual('Bob')
+})
+
+test('Spinner filters invalid props', () => {
+  const wrapper = mount(
+    <Spinner name="Bob" someInvalidProp="I am not a valid DOM prop" />
+  )
+  expect(wrapper.find('div#spinner').props().someInvalidProp).not.toBeDefined()
+})
