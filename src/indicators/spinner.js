@@ -1,5 +1,6 @@
 import React from 'react'
 // import PropTypes from 'prop-types'
+import { filterInvalidProps } from '../utils'
 
 /**
  *
@@ -12,12 +13,12 @@ import React from 'react'
  * 
  * function Image ({ imgUrl }) {
  *   return (
- *    <div>
- *     { imgUrl
- *       ? <img src={ imgUrl } alt=""/>
- *       : <Spinner/>
- *     }
- *    </div>
+ *      <div>
+ *       { imgUrl
+ *         ? <img src={ imgUrl } alt=""/>
+ *         : <Spinner/>
+ *       }
+ *      </div>
  *   )
  * }
  *
@@ -25,14 +26,12 @@ import React from 'react'
  *
 **/
 
-const propTypes = {
-}
+const propTypes = {}
 
 function Spinner (props) {
-  return (
-    <div id="spinner" {...props}/>
-  )
+  return <div id="spinner" { ...filterInvalidProps(props) } />
 }
 
 Spinner.propTypes = propTypes
+
 export default Spinner

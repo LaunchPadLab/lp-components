@@ -1032,12 +1032,12 @@ A UI component that displays a 'spinner'.
 ```javascript
 function Image ({ imgUrl }) {
   return (
-   <div>
-    { imgUrl
-      ? <img src={ imgUrl } alt=""/>
-      : <Spinner/>
-    }
-   </div>
+     <div>
+      { imgUrl
+        ? <img src={ imgUrl } alt=""/>
+        : <Spinner/>
+      }
+     </div>
   )
 }
 

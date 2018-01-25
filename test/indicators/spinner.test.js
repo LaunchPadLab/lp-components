@@ -16,3 +16,10 @@ test('Spinner passes props', () => {
   )
   expect(wrapper.find('div#spinner').props().name).toEqual('Bob')
 })
+
+test('Spinner filters invalid props', () => {
+  const wrapper = mount(
+    <Spinner name="Bob" someInvalidProp="I am not a valid DOM prop" />
+  )
+  expect(wrapper.find('div#spinner').props().someInvalidProp).not.toBeDefined()
+})
