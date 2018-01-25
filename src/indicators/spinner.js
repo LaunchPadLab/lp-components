@@ -1,6 +1,6 @@
 import React from 'react'
 // import PropTypes from 'prop-types'
-import filterInvalidProps from 'filter-invalid-dom-props'
+import { filterInvalidProps } from '../utils'
 
 /**
  *
