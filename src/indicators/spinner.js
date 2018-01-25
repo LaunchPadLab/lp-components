@@ -12,12 +12,12 @@ import React from 'react'
  * 
  * function Image ({ imgUrl }) {
  *   return (
- *    <div>
- *     { imgUrl
- *       ? <img src={ imgUrl } alt=""/>
- *       : <Spinner/>
- *     }
- *    </div>
+ *      <div>
+ *       { imgUrl
+ *         ? <img src={ imgUrl } alt=""/>
+ *         : <Spinner/>
+ *       }
+ *      </div>
  *   )
  * }
  *
@@ -25,14 +25,12 @@ import React from 'react'
  *
 **/
 
-const propTypes = {
-}
+const propTypes = {}
 
 function Spinner () {
-  return (
-    <div id="spinner" />
-  )
+  return <div id="spinner" />
 }
 
 Spinner.propTypes = propTypes
+
 export default Spinner
