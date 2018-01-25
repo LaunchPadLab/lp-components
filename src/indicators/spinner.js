@@ -28,9 +28,9 @@ import React from 'react'
 const propTypes = {
 }
 
-function Spinner (props) {
+function Spinner () {
   return (
-    <div id="spinner" {...props}/>
+    <div id="spinner" />
   )
 }
 
