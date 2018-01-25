@@ -86,9 +86,9 @@
     eslint-plugin-jsx-a11y "^6.0.2"
     eslint-plugin-react "^7.4.0"
 
-"@launchpadlab/lp-hoc@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@launchpadlab/lp-hoc/-/lp-hoc-1.2.0.tgz#ac446a5e5f2400cc03b6f5791519523bf890bfdb"
+"@launchpadlab/lp-hoc@^2.0.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@launchpadlab/lp-hoc/-/lp-hoc-2.3.0.tgz#ea634cb4ef688f37a4d685a4927ff74eab3d8e42"
   dependencies:
     "@launchpadlab/lp-redux-api" "^5.0.2"
     "@launchpadlab/lp-requests" "^3.0.0"
@@ -99,6 +99,7 @@
     react-redux "^5.0.6"
     recompose "^0.26.0"
     redux "^3.7.2"
+    redux-modal "^1.7.0"
 
 "@launchpadlab/lp-redux-api@^5.0.2":
   version "5.0.2"
@@ -7785,6 +7786,13 @@ reduce-function-call@^1.0.1:
   resolved "https://registry.yarnpkg.com/reduce-function-call/-/reduce-function-call-1.0.2.tgz#5a200bf92e0e37751752fe45b0ab330fd4b6be99"
   dependencies:
     balanced-match "^0.4.2"
+
+redux-modal@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/redux-modal/-/redux-modal-1.7.0.tgz#423551dcf2eafae5e739952211be490647df3e92"
+  dependencies:
+    hoist-non-react-statics "^2.3.1"
+    prop-types "^15.5.10"
 
 redux@^3.7.2:
   version "3.7.2"
