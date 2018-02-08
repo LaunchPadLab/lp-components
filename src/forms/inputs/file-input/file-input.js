@@ -66,14 +66,20 @@ class FileInput extends React.Component {
     this.onChange = this.onChange.bind(this)
   }
 
-  loadFile (e) {
+  loadFile (e, limit) {
     // Read file as data URL and call change handlers
     const file = e.target.files[0]
-    this.reader.onload = (readEvent) => {
-      const fileData = readEvent.target.result
-      this.onChange(fileData, file)
+    const fileSize = file.size
+    const fizeSizeMB = bytetoMB(fileSize)
+    if (fizeSizeMB > limit) {
+      new Error(`This file exceeds the size limit of: ${limit}mb` )
+    } else {
+      this.reader.onload = (readEvent) => {
+        const fileData = readEvent.target.result
+        this.onChange(fileData, file)
+      }
+      this.reader.readAsDataURL(file)
     }
-    this.reader.readAsDataURL(file)
   }
 
   onChange (fileData, file) {
@@ -118,6 +124,12 @@ class FileInput extends React.Component {
       </LabeledField>
     )
   }
+}
+
+function bytetoMB (integer) {
+  const kb = integer * .001
+  const mb = kb * .001
+  return mb
 }
 
 // eslint-disable-next-line react/prop-types
