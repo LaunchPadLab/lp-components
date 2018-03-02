@@ -50,7 +50,7 @@
     "bourbon": "^4.3.3",
     "bourbon-neat": "^1.8.0",
     "css-loader": "^0.28.7",
-    "documentation": "^5.3.3",
+    "documentation": "^6.0.0",
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.0",
     "eslint": "^4.12.1",
