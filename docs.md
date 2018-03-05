@@ -2,44 +2,44 @@
 
 ### Table of Contents
 
--   [Paginator](#paginator)
--   [TabBar](#tabbar)
--   [fieldOptionsType](#fieldoptionstype)
--   [fieldOptionGroupsType](#fieldoptiongroupstype)
--   [fieldPropTypesWithValue](#fieldproptypeswithvalue)
--   [defaultValueTypes](#defaultvaluetypes)
--   [fieldPropTypes](#fieldproptypes)
--   [Button](#button)
--   [ButtonArea](#buttonarea)
--   [SubmitButton](#submitbutton)
--   [Checkbox](#checkbox)
--   [CheckboxGroup](#checkboxgroup)
--   [DateInput](#dateinput)
--   [FileInput](#fileinput)
--   [HiddenInput](#hiddeninput)
--   [Input](#input)
--   [IconInput](#iconinput)
--   [RangeInput](#rangeinput)
--   [RadioGroup](#radiogroup)
--   [Select](#select)
--   [SetterLink](#setterlink)
--   [Textarea](#textarea)
--   [InputError](#inputerror)
--   [InputLabel](#inputlabel)
--   [LabeledField](#labeledfield)
--   [blurDirty](#blurdirty)
--   [convertNameToLabel](#convertnametolabel)
--   [omitLabelProps](#omitlabelprops)
--   [replaceEmptyStringValue](#replaceemptystringvalue)
--   [Table](#table)
--   [SortableTable](#sortabletable)
--   [TableColumn](#tablecolumn)
--   [Spinner](#spinner)
--   [LoadingContainer](#loadingcontainer)
--   [compareAtPath](#compareatpath)
--   [serializeOptions](#serializeoptions)
--   [serializeOptionGroups](#serializeoptiongroups)
--   [stripNamespace](#stripnamespace)
+-   [Paginator][1]
+-   [TabBar][2]
+-   [fieldOptionsType][3]
+-   [fieldOptionGroupsType][4]
+-   [fieldPropTypesWithValue][5]
+-   [defaultValueTypes][6]
+-   [fieldPropTypes][7]
+-   [Button][8]
+-   [ButtonArea][9]
+-   [SubmitButton][10]
+-   [Checkbox][11]
+-   [CheckboxGroup][12]
+-   [DateInput][13]
+-   [FileInput][14]
+-   [HiddenInput][15]
+-   [Input][16]
+-   [IconInput][17]
+-   [RangeInput][18]
+-   [RadioGroup][19]
+-   [Select][20]
+-   [SetterLink][21]
+-   [Textarea][22]
+-   [InputError][23]
+-   [InputLabel][24]
+-   [LabeledField][25]
+-   [blurDirty][26]
+-   [convertNameToLabel][27]
+-   [omitLabelProps][28]
+-   [replaceEmptyStringValue][29]
+-   [Table][30]
+-   [SortableTable][31]
+-   [TableColumn][32]
+-   [Spinner][33]
+-   [LoadingContainer][34]
+-   [compareAtPath][35]
+-   [serializeOptions][36]
+-   [serializeOptionGroups][37]
+-   [stripNamespace][38]
 
 ## Paginator
 
@@ -47,14 +47,14 @@ A control component for navigating between multiple numbered pages.
 
 **Parameters**
 
--   `value` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** The number of the current page (optional, default `1`)
--   `onChange` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)?** A function called with the new value when a page is clicked.
--   `min` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** The number of the first page (optional, default `1`)
--   `max` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** The number of the last page. (optional, default `1`)
--   `alwaysShow` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Always show the component, even when there's only one page visible. (optional, default `false`)
--   `pagesShown` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** The number of pages to display around (and including) the current page (optional, default `3`)
--   `previousLabel` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The text of the "previous page" button (optional, default `'Prev'`)
--   `nextLabel` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The text of the "next page" button (optional, default `'Next'`)
+-   `value` **[Number][39]** The number of the current page (optional, default `1`)
+-   `onChange` **[Function][40]?** A function called with the new value when a page is clicked.
+-   `min` **[Number][39]** The number of the first page (optional, default `1`)
+-   `max` **[Number][39]** The number of the last page. (optional, default `1`)
+-   `alwaysShow` **[Boolean][41]** Always show the component, even when there's only one page visible. (optional, default `false`)
+-   `pagesShown` **[Number][39]** The number of pages to display around (and including) the current page (optional, default `3`)
+-   `previousLabel` **[String][42]** The text of the "previous page" button (optional, default `'Prev'`)
+-   `nextLabel` **[String][42]** The text of the "next page" button (optional, default `'Next'`)
 
 **Examples**
 
@@ -81,11 +81,11 @@ A control component for navigating among multiple tabs
 
 **Parameters**
 
--   `vertical` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** A boolean setting the `className` of the `ul` to 'horizontal' (default), or 'vertical', which determines the alignment of the tabs (optional, default `false`)
--   `options` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)?** An array of tab values (strings or key-value pairs)
--   `value` **([String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number))?** The value of the current tab
--   `onChange` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)?** A function called with the new value when a tab is clicked
--   `activeClassName` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** The class of the active tab, (optional, default `active`)
+-   `vertical` **[Boolean][41]?** A boolean setting the `className` of the `ul` to 'horizontal' (default), or 'vertical', which determines the alignment of the tabs (optional, default `false`)
+-   `options` **[Array][43]?** An array of tab values (strings or key-value pairs)
+-   `value` **([String][42] \| [Number][39])?** The value of the current tab
+-   `onChange` **[Function][40]?** A function called with the new value when a tab is clicked
+-   `activeClassName` **[String][42]?** The class of the active tab, (optional, default `active`)
 
 **Examples**
 
@@ -105,20 +105,20 @@ function ShowTabs ({ currentTab, setCurrentTab }) {
 
 ## fieldOptionsType
 
-A constant representing the `PropTypes` of the `options` prop for select components, e.g., [Select](#select) and [CheckboxGroup](#checkboxgroup)
+A constant representing the `PropTypes` of the `options` prop for select components, e.g., [Select][20] and [CheckboxGroup][12]
 
 Type: PropTypes
 
 ## fieldOptionGroupsType
 
-A constant representing the `PropTypes` of the `optionGroups` prop for select components, e.g., [Select](#select)
+A constant representing the `PropTypes` of the `optionGroups` prop for select components, e.g., [Select][20]
 
 Type: PropTypes
 
 ## fieldPropTypesWithValue
 
-A function that takes `PropTypes` for a `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object.
-Returns an object containing all `PropTypes` for `redux-forms` [Field](http://redux-form.com/6.5.0/docs/api/Field.md/) components.
+A function that takes `PropTypes` for a `redux-forms` [input][44] object.
+Returns an object containing all `PropTypes` for `redux-forms` [Field][45] components.
 
 **Parameters**
 
@@ -148,20 +148,20 @@ fieldPropTypesWithValue(valuePropType)
 // }
 ```
 
-Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** `PropTypes` for `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) and [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) objects
+Returns **[Object][46]** `PropTypes` for `redux-forms` [input][44] and [meta][47] objects
 
 ## defaultValueTypes
 
-A constant representing default `PropTypes` for `redux-forms` [Field](http://redux-form.com/6.5.0/docs/api/Field.md/) values.
+A constant representing default `PropTypes` for `redux-forms` [Field][45] values.
 Default types are either `number` or `string`.
 
 Type: PropTypes
 
 ## fieldPropTypes
 
-An object containing the default `PropTypes` for `redux-forms` [Field](http://redux-form.com/6.5.0/docs/api/Field.md/) components.
+An object containing the default `PropTypes` for `redux-forms` [Field][45] components.
 
-Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
+Type: [Object][46]
 
 ## Button
 
@@ -172,12 +172,12 @@ In addition to the props below, any extra props will be passed directly to the i
 
 **Parameters**
 
--   `invalid` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Whether or not a related form is invalid (will disable when `true`)
--   `pristine` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Whether or not a related form is pristine (will disable when `true`)
--   `style` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** A descriptive string that will be appended to the button's class with format `button-<type>` (optional, default `"primary"`)
--   `submitting` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Whether or not a related form is submitting (will give button class `'in-progress` when `true`)
--   `type` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** The [type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type) attribute of the button element (optional, default `"button"`)
--   `children` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)?** Any React component(s) being wrapped by the button
+-   `invalid` **[Boolean][41]?** Whether or not a related form is invalid (will disable when `true`)
+-   `pristine` **[Boolean][41]?** Whether or not a related form is pristine (will disable when `true`)
+-   `style` **[String][42]** A descriptive string that will be appended to the button's class with format `button-<type>` (optional, default `"primary"`)
+-   `submitting` **[Boolean][41]?** Whether or not a related form is submitting (will give button class `'in-progress` when `true`)
+-   `type` **[Boolean][41]** The [type][48] attribute of the button element (optional, default `"button"`)
+-   `children` **[Function][40]?** Any React component(s) being wrapped by the button
 
 **Examples**
 
@@ -204,8 +204,8 @@ If a `className` is provided to the component, it will be appended to the defaul
 
 **Parameters**
 
--   `className` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** A class to add to the wrapper
--   `children` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)?** The React component(s) being wrapped
+-   `className` **[String][42]?** A class to add to the wrapper
+-   `children` **[Function][40]?** The React component(s) being wrapped
 
 **Examples**
 
@@ -226,9 +226,9 @@ function ButtonForm ({ handleSubmit }) {
 
 ## SubmitButton
 
-A wrapper around the [Button](#button) component that adds `type="submit"`. Generally used in the context of forms. 
+A wrapper around the [Button][8] component that adds `type="submit"`. Generally used in the context of forms. 
 
-With the exception of `type`, this component shares the same props as [Button](#button).
+With the exception of `type`, this component shares the same props as [Button][8].
 
 **Examples**
 
@@ -256,8 +256,8 @@ This input only accepts and stores boolean values.
 
 **Parameters**
 
--   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
--   `meta` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+-   `input` **[Object][46]** A `redux-forms` [input][44] object
+-   `meta` **[Object][46]** A `redux-forms` [meta][47] object
 
 **Examples**
 
@@ -290,9 +290,9 @@ Clicking an unselected checkbox adds its value to this array, and clicking a sel
 
 **Parameters**
 
--   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
--   `meta` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
--   `options` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** An array of checkbox values (strings or key-value pairs)
+-   `input` **[Object][46]** A `redux-forms` [input][44] object
+-   `meta` **[Object][46]** A `redux-forms` [meta][47] object
+-   `options` **[Array][43]** An array of checkbox values (strings or key-value pairs)
 
 **Examples**
 
@@ -321,22 +321,22 @@ export default TodoForm
 
 ## DateInput
 
-An input component that wraps a `DatePicker` component from the [react-datepicker](https://github.com/Hacker0x01/react-datepicker) library.
+An input component that wraps a `DatePicker` component from the [react-datepicker][49] library.
 This wrapper adds the following functionality to `DatePicker`:
 
 -   Adapts it to receive `redux-forms`-style input props.
--   Converts value type from [moment](https://github.com/moment/moment) to [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date).
+-   Converts value type from [moment][50] to [Date][51].
 -   Adds name and error labels.
 
 With the exception of the `input` and `meta` props, all props are passed down to the `DatePicker` component. 
-A full list of props supported by this component can be found [here](https://github.com/Hacker0x01/react-datepicker/blob/master/docs/datepicker.md).
+A full list of props supported by this component can be found [here][52].
 
-_Note: this component requires special styles in order to render correctly. To include these styles in your project, follow the directions in the main [README](README.md#dateinput-styles) file._
+_Note: this component requires special styles in order to render correctly. To include these styles in your project, follow the directions in the main [README][53] file._
 
 **Parameters**
 
--   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
--   `meta` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+-   `input` **[Object][46]** A `redux-forms` [input][44] object
+-   `meta` **[Object][46]** A `redux-forms` [meta][47] object
 
 **Examples**
 
@@ -370,11 +370,11 @@ A component passed using `previewComponent` will receive a `file` prop containin
 
 **Parameters**
 
--   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
--   `meta` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
--   `onLoad` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)?** A callback fired when the file is loaded
--   `thumbnail` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** A placeholder image to display before the file is loaded
--   `hidePreview` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** A flag indicating whether or not to hide the file preview
+-   `input` **[Object][46]** A `redux-forms` [input][44] object
+-   `meta` **[Object][46]** A `redux-forms` [meta][47] object
+-   `onLoad` **[Function][40]?** A callback fired when the file is loaded
+-   `thumbnail` **[String][42]?** A placeholder image to display before the file is loaded
+-   `hidePreview` **[Boolean][41]?** A flag indicating whether or not to hide the file preview
 
 **Examples**
 
@@ -400,7 +400,7 @@ function HeadshotForm ({ handleSubmit, pristine, invalid, submitting }) {
 An Input component that is hidden from the page. The input element is hidden with CSS instead 
 of using `type="hidden` so that Cypress can still access its value.
 
-Aside from being hidden, this component is identical to [Input](#input),
+Aside from being hidden, this component is identical to [Input][16],
 and will take the same props.
 
 **Examples**
@@ -428,9 +428,9 @@ Any children passed to this component will be rendered within this wrapper.
 
 **Parameters**
 
--   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
--   `meta` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
--   `type` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** A string to specify the type of input element (defaults to `text`)
+-   `input` **[Object][46]** A `redux-forms` [input][44] object
+-   `meta` **[Object][46]** A `redux-forms` [meta][47] object
+-   `type` **[String][42]?** A string to specify the type of input element (defaults to `text`)
 
 **Examples**
 
@@ -453,16 +453,16 @@ function UserForm ({ handleSubmit, pristine, invalid, submitting }) {
 
 ## IconInput
 
-A wrapper around the [Input](#input) component that adds an icon to the input.
+A wrapper around the [Input][16] component that adds an icon to the input.
 
 This icon is rendered as an `<i>` tag, with a dynamic class based on the `icon` prop. 
-For example, given an `icon` prop of `"twitter"`, the component will render an [Input](#input) with child `<i className="twitter-icon"/>`.
+For example, given an `icon` prop of `"twitter"`, the component will render an [Input][16] with child `<i className="twitter-icon"/>`.
 
-Additionally, the fieldset of this [Input](#input) will be given the class `"icon-label"` for styling purposes.
+Additionally, the fieldset of this [Input][16] will be given the class `"icon-label"` for styling purposes.
 
 **Parameters**
 
--   `icon` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the icon associated with the input
+-   `icon` **[String][42]** The name of the icon associated with the input
 
 **Examples**
 
@@ -490,12 +490,12 @@ A range input that can be used in a `redux-forms`-controlled form.
 
 **Parameters**
 
--   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
--   `meta` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
--   `min` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** The minumum attribute of the slider control (optional, default `0`)
--   `max` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** The maximum attribute of the slider control (optional, default `100`)
--   `step` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** The step attribute of the slider control (optional, default `1`)
--   `hideLabel` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** A boolean representing whether or not to display the range value label element (optional, default `false`)
+-   `input` **[Object][46]** A `redux-forms` [input][44] object
+-   `meta` **[Object][46]** A `redux-forms` [meta][47] object
+-   `min` **[Number][39]** The minumum attribute of the slider control (optional, default `0`)
+-   `max` **[Number][39]** The maximum attribute of the slider control (optional, default `100`)
+-   `step` **[Number][39]** The step attribute of the slider control (optional, default `1`)
+-   `hideLabel` **[Boolean][41]** A boolean representing whether or not to display the range value label element (optional, default `false`)
 
 **Examples**
 
@@ -531,9 +531,9 @@ The value of the entire `RadioGroup` component is the value of the currently sel
 
 **Parameters**
 
--   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
--   `meta` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
--   `options` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** An array of button values (strings or key-value pairs)
+-   `input` **[Object][46]** A `redux-forms` [input][44] object
+-   `meta` **[Object][46]** A `redux-forms` [meta][47] object
+-   `options` **[Array][43]** An array of button values (strings or key-value pairs)
 
 **Examples**
 
@@ -581,12 +581,12 @@ The value of the `Select` component will be the same as the value of the selecte
 
 **Parameters**
 
--   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
--   `meta` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
--   `options` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** An array of option values (strings or key-value pairs). This prop will be ignored if `optionGroups` is present.
--   `optionGroups` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** An array of option group objects
--   `placeholder` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** A string to display as a placeholder option
--   `enablePlaceholderOption` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** A flag indicating that the placeholder option should not be `disabled` (optional, default `false`)
+-   `input` **[Object][46]** A `redux-forms` [input][44] object
+-   `meta` **[Object][46]** A `redux-forms` [meta][47] object
+-   `options` **[Array][43]** An array of option values (strings or key-value pairs). This prop will be ignored if `optionGroups` is present.
+-   `optionGroups` **[Array][43]** An array of option group objects
+-   `placeholder` **[String][42]?** A string to display as a placeholder option
+-   `enablePlaceholderOption` **[Boolean][41]** A flag indicating that the placeholder option should not be `disabled` (optional, default `false`)
 
 **Examples**
 
@@ -639,8 +639,8 @@ A component that returns an `<a>` element that can be used to change the value o
 
 **Parameters**
 
--   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
--   `label` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The link text
+-   `input` **[Object][46]** A `redux-forms` [input][44] object
+-   `label` **[String][42]** The link text
 -   `valueToSet` **Any** The value to set the input when clicked (optional, default `true`)
 
 **Examples**
@@ -670,10 +670,10 @@ A textarea input that can be used in a `redux-forms`-controlled form. Optionally
 
 **Parameters**
 
--   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
--   `meta` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
--   `maxLength` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The maximum allowed length of the input
--   `hideCharacterCount` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Whether to hide the character count if given a maxLength (optional, default `false`)
+-   `input` **[Object][46]** A `redux-forms` [input][44] object
+-   `meta` **[Object][46]** A `redux-forms` [meta][47] object
+-   `maxLength` **[Number][39]?** The maximum allowed length of the input
+-   `hideCharacterCount` **[Boolean][41]** Whether to hide the character count if given a maxLength (optional, default `false`)
 
 **Examples**
 
@@ -698,7 +698,7 @@ function BiographyForm ({ handleSubmit, pristine, invalid, submitting }) {
 
 A dynamic error label associated with an input component.
 
-This component is used within [LabeledField](#labeledfield), and therefore is incorporated into most `lp-components` input components by default.
+This component is used within [LabeledField][25], and therefore is incorporated into most `lp-components` input components by default.
 
 The error label uses the following rules to determine how it will be displayed:
 
@@ -708,9 +708,9 @@ The error label uses the following rules to determine how it will be displayed:
 
 **Parameters**
 
--   `error` **([String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array))** An error message or array of error messages to display
--   `invalid` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Whether the associated input has an invalid value
--   `touched` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Whether the associated input has been touched
+-   `error` **([String][42] \| [Array][43])** An error message or array of error messages to display
+-   `invalid` **[Boolean][41]** Whether the associated input has an invalid value
+-   `touched` **[String][42]** Whether the associated input has been touched
 
 **Examples**
 
@@ -739,7 +739,7 @@ function ValidatedInput ({
 
 A dynamic label associated with an input component.
 
-This component is used within [LabeledField](#labeledfield), and therefore is incorporated into most `lp-components` input components by default.
+This component is used within [LabeledField][25], and therefore is incorporated into most `lp-components` input components by default.
 
 The text of the label is set using the following rules:
 
@@ -747,16 +747,16 @@ The text of the label is set using the following rules:
 -   If the `label` prop is set to a string, the label will display that text
 -   Otherwise, the label will be set using the `name` prop.
 
-If `name` is used to set the text, it will be stripped of its prefixes and converted to [start case](https://en.wikipedia.org/wiki/Letter_case#Stylistic_or_specialised_usage).
+If `name` is used to set the text, it will be stripped of its prefixes and converted to [start case][54].
 
 For instance: `'person.firstName'` becomes `'First Name'`
 
 **Parameters**
 
--   `name` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the associated input
--   `hint` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** A usage hint for the associated input
--   `label` **([String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean))?** Custom text for the label
--   `tooltip` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** A message to display in a tooltip
+-   `name` **[String][42]** The name of the associated input
+-   `hint` **[String][42]?** A usage hint for the associated input
+-   `label` **([String][42] \| [Boolean][41])?** Custom text for the label
+-   `tooltip` **[String][42]?** A message to display in a tooltip
 
 **Examples**
 
@@ -784,17 +784,17 @@ function EmailInput ({
 
 ## LabeledField
 
-A fieldset wrapper for redux-form controlled inputs. This wrapper adds an [InputLabel](#inputlabel)
-above the wrapped component and an [InputError](#inputerror) below. Additionally, it adds the class `"error"`
+A fieldset wrapper for redux-form controlled inputs. This wrapper adds an [InputLabel][24]
+above the wrapped component and an [InputError][23] below. Additionally, it adds the class `"error"`
 to the fieldset if the input is touched and invalid.
 
 In order to populate the `InputLabel` and `InputError` correctly, you should pass all the props of the corresponding input
 to this component. To prevent label-specific props from being passed to the input itself,
-use the [omitLabelProps](#omitlabelprops) helper.
+use the [omitLabelProps][28] helper.
 
 **Parameters**
 
--   `hideErrorLabel` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** A boolean determining whether to hide the error label on input error (optional, default `false`)
+-   `hideErrorLabel` **[Boolean][41]?** A boolean determining whether to hide the error label on input error (optional, default `false`)
 
 **Examples**
 
@@ -857,7 +857,7 @@ by stripping its namespace and converting it to start case.
 
 **Parameters**
 
--   `name` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** A redux-form field name
+-   `name` **[String][42]** A redux-form field name
 
 **Examples**
 
@@ -866,11 +866,11 @@ convertNameToLabel('example') // -> 'Example'
 convertNameToLabel('person.firstName') // -> 'First Name'
 ```
 
-Returns **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** A user-friendly field label
+Returns **[String][42]** A user-friendly field label
 
 ## omitLabelProps
 
-A function that takes a form component `props` object and returns the `props` object with [InputLabel](#inputlabel) props omitted.
+A function that takes a form component `props` object and returns the `props` object with [InputLabel][24] props omitted.
 Created in order to prevent these props from being passed down to the input component through `...rest`.
 
 Omits the following props:
@@ -881,7 +881,7 @@ Omits the following props:
 
 **Parameters**
 
--   `props` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A props object
+-   `props` **[Object][46]** A props object
 
 **Examples**
 
@@ -913,7 +913,7 @@ function Input (props) {
 }
 ```
 
-Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** `props` object with [InputLabel](#inputlabel) props omitted
+Returns **[Object][46]** `props` object with [InputLabel][24] props omitted
 
 ## replaceEmptyStringValue
 
@@ -950,11 +950,11 @@ export default compose(
 ## Table
 
 A component for displaying data in a table.
-This component's behavior is largely determined by the [TableColumn](#tablecolumn) components that are passed to it.
+This component's behavior is largely determined by the [TableColumn][32] components that are passed to it.
 
 **Parameters**
 
--   `data` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** An array of objects to display in the table- one object per row (optional, default `[]`)
+-   `data` **[Array][43]** An array of objects to display in the table- one object per row (optional, default `[]`)
 
 **Examples**
 
@@ -973,15 +973,15 @@ function PersonTable ({ people }) {
 ## SortableTable
 
 A component for displaying sortable data in a table.
-This component's behavior is largely determined by the [TableColumn](#tablecolumn) components that are passed to it.
+This component's behavior is largely determined by the [TableColumn][32] components that are passed to it.
 
 **Parameters**
 
--   `data` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** An array of objects to display in the table- one object per row (optional, default `[]`)
--   `initialColumn` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** The name of the column that's initially selected (optional, default `''`)
--   `disableReverse` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Disables automatic reversing of descending sorts (optional, default `false`)
--   `disableSort` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** A flag to disable sorting on all columns (optional, default `false`)
--   `onChange` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)?** A callback that will be fired when the sorting state changes
+-   `data` **[Array][43]** An array of objects to display in the table- one object per row (optional, default `[]`)
+-   `initialColumn` **[Number][39]** The name of the column that's initially selected (optional, default `''`)
+-   `disableReverse` **[Boolean][41]** Disables automatic reversing of descending sorts (optional, default `false`)
+-   `disableSort` **[Boolean][41]** A flag to disable sorting on all columns (optional, default `false`)
+-   `onChange` **[Function][40]?** A callback that will be fired when the sorting state changes
 
 **Examples**
 
@@ -999,15 +999,15 @@ function PersonTable ({ people }) {
 
 ## TableColumn
 
-A component used to pass column information to a [Table](#table) or [SortableTable](#sortabletable).
+A component used to pass column information to a [Table][30] or [SortableTable][31].
 
 **Parameters**
 
--   `name` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The key of the value to display in the column from each data object
--   `label` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** The text that will be displayed in the column header. Defaults to `name`.
--   `sortFunc` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)?** The function that will be used to sort the table data when the column is selected
--   `component` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)?** A custom cell component for the column. Will be passed the `key`, `name`, `value` and `data` for the row.
--   `disabled` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** A flag that disables sorting for the column
+-   `name` **[String][42]** The key of the value to display in the column from each data object
+-   `label` **[String][42]?** The text that will be displayed in the column header. Defaults to `name`.
+-   `sortFunc` **[Function][40]?** The function that will be used to sort the table data when the column is selected
+-   `component` **[Function][40]?** A custom cell component for the column. Will be passed the `key`, `name`, `value` and `data` for the row.
+-   `disabled` **[Boolean][41]?** A flag that disables sorting for the column
 
 **Examples**
 
@@ -1077,8 +1077,8 @@ certain path, and runs given comparison function on those values.
 
 **Parameters**
 
--   `path` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Name of the path to values
--   `func` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** Comparison function to run on values at specified path
+-   `path` **[String][42]** Name of the path to values
+-   `func` **[Function][40]** Comparison function to run on values at specified path
 
 **Examples**
 
@@ -1100,7 +1100,7 @@ people.sort(ageComparator)
 // ]
 ```
 
-Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** Comparison function
+Returns **[Function][40]** Comparison function
 
 ## serializeOptions
 
@@ -1109,7 +1109,7 @@ Function that transforms string options into object options with keys of
 
 **Parameters**
 
--   `optionArray` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** Array of option values
+-   `optionArray` **[Array][43]** Array of option values
 
 **Examples**
 
@@ -1121,7 +1121,7 @@ serializeOptions(options)
 // [{ key: 'apple', value: 'apple' }, { key: 'banana', value: 'banana' }]
 ```
 
-Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** Array of object options
+Returns **[Array][43]** Array of object options
 
 ## serializeOptionGroups
 
@@ -1130,7 +1130,7 @@ object options with keys of `key` and `value`
 
 **Parameters**
 
--   `optionGroupArray` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** Array of option values
+-   `optionGroupArray` **[Array][43]** Array of option values
 
 **Examples**
 
@@ -1154,7 +1154,7 @@ serializeOptionGroups(optionGroups)
 // ]
 ```
 
-Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** Array of object group options
+Returns **[Array][43]** Array of object group options
 
 ## stripNamespace
 
@@ -1164,7 +1164,7 @@ Returns the argument if it is undefined or not a string.
 
 **Parameters**
 
--   `str` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Namespaced string
+-   `str` **[String][42]** Namespaced string
 
 **Examples**
 
@@ -1176,4 +1176,112 @@ stripNamespace(namespace)
 // 'name'
 ```
 
-Returns **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** String with namespace removed
+Returns **[String][42]** String with namespace removed
+
+[1]: #paginator
+
+[2]: #tabbar
+
+[3]: #fieldoptionstype
+
+[4]: #fieldoptiongroupstype
+
+[5]: #fieldproptypeswithvalue
+
+[6]: #defaultvaluetypes
+
+[7]: #fieldproptypes
+
+[8]: #button
+
+[9]: #buttonarea
+
+[10]: #submitbutton
+
+[11]: #checkbox
+
+[12]: #checkboxgroup
+
+[13]: #dateinput
+
+[14]: #fileinput
+
+[15]: #hiddeninput
+
+[16]: #input
+
+[17]: #iconinput
+
+[18]: #rangeinput
+
+[19]: #radiogroup
+
+[20]: #select
+
+[21]: #setterlink
+
+[22]: #textarea
+
+[23]: #inputerror
+
+[24]: #inputlabel
+
+[25]: #labeledfield
+
+[26]: #blurdirty
+
+[27]: #convertnametolabel
+
+[28]: #omitlabelprops
+
+[29]: #replaceemptystringvalue
+
+[30]: #table
+
+[31]: #sortabletable
+
+[32]: #tablecolumn
+
+[33]: #spinner
+
+[34]: #loadingcontainer
+
+[35]: #compareatpath
+
+[36]: #serializeoptions
+
+[37]: #serializeoptiongroups
+
+[38]: #stripnamespace
+
+[39]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+
+[40]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+
+[41]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+
+[42]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[43]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+[44]: http://redux-form.com/6.5.0/docs/api/Field.md/#input-props
+
+[45]: http://redux-form.com/6.5.0/docs/api/Field.md/
+
+[46]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+
+[47]: http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props
+
+[48]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type
+
+[49]: https://github.com/Hacker0x01/react-datepicker
+
+[50]: https://github.com/moment/moment
+
+[51]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
+
+[52]: https://github.com/Hacker0x01/react-datepicker/blob/master/docs/datepicker.md
+
+[53]: README.md#dateinput-styles
+
+[54]: https://en.wikipedia.org/wiki/Letter_case#Stylistic_or_specialised_usage
