@@ -10,7 +10,6 @@ storiesOf('LoadingContainer', module)
       </LoadingContainer>
     </div>
   ))
-storiesOf('LoadingContainer', module)
   .add('is not loading', () => (
     <div>
       <LoadingContainer isLoading={false}>
