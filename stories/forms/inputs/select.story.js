@@ -12,7 +12,7 @@ const Select = dynamicInput({
 const inputProps = {
   name: 'person.selectOptions',
   value: '',
-  onChange: action('field changed')
+  onChange: e => console.log(e.target.value), // action('field changed')
 }
 
 const options = [
@@ -32,7 +32,7 @@ storiesOf('Select', module)
     <Select
       input={inputProps}
       meta={{}}
-      options={options}
+      options={[ 1, 2, 3, 4 ]}
     />
   ))
   .add('with custom placeholder', () => (
