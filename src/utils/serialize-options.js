@@ -20,6 +20,6 @@
 
 export default function serializeOptions (optionArray) {
   return optionArray.map((option) => {
-    return (typeof option === 'string') ? { key: option, value: option } : option
+    return (typeof option === 'object') ? option : { key: option, value: option }
   })
 }

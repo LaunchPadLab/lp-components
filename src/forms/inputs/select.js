@@ -20,19 +20,20 @@ import { compose, serializeOptions, serializeOptionGroups } from '../../utils'
  * 
  * The `options` prop can either be:
  * - An array of strings
+ * - An array of numbers
  * - An array of key-value pairs: `{ key, value }`
  * 
  * The `optionGroups` props must be an array of objects with the following keys:
  * - `name`: The name of the option group
  * - `options`: As above, an array of strings or key-value pairs.
  *
- * The value of the `Select` component will be the same as the value of the selected option.
+ * The value of the `Select` component will be the same as the value of the selected option (converted to a string).
  *
  * @name Select
  * @type Function
  * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
  * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
- * @param {Array} options - An array of option values (strings or key-value pairs). This prop will be ignored if `optionGroups` is present.
+ * @param {Array} options - An array of option values (strings, numbers, or key-value pairs). This prop will be ignored if `optionGroups` is present.
  * @param {Array} optionGroups - An array of option group objects
  * @param {String} [placeholder] - A string to display as a placeholder option
  * @param {Boolean} [enablePlaceholderOption=false] - A flag indicating that the placeholder option should not be `disabled`
