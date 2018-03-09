@@ -1,71 +1,65 @@
 import React from 'react'
-import { compose } from 'redux'
-import classnames from 'classnames'
-import { fieldPropTypes, InputError, InputLabel } from 'lp-components'
-import { toggle, togglePropTypes } from 'lp-hoc'
+import { 
+  blurDirty,
+  fieldPropTypes,
+  omitLabelProps,
+  toHex,
+  fromHex,
+} from '../helpers'
+import { LabeledField } from '../labels'
 import { ColorPicker } from '../../controls'
+import { 
+  compose, 
+  toggle, 
+  togglePropTypes, 
+  filterInvalidProps 
+} from '../../utils'
 
 const propTypes = {
   ...fieldPropTypes,
-  ...InputError.propTypes,
-  ...InputLabel.propTypes,
-  ...togglePropTypes('shown')
+  ...togglePropTypes('showDropdown')
 }
 
-const toHex = (value) => value ? `#${value}` : ''
-const fromHex = (value) => value ? value.substring(1) : ''
+const defaultProps = {}
 
-function ColorInput ({
-  input: { name, value, onBlur, onChange },
-  meta: { error, pristine, touched, invalid },
-  shown,
-  toggleShown,
-  hint,
-  label,
-  tooltip,
-  className,
-  ...rest
-}) {
-  const blurIfChanged = () => { if (!pristine) onBlur() }
+function ColorInput (props) {
+  const {
+    input: { value, onBlur, onChange },
+    showDropdown,
+    setShowDropdown,
+    ...rest
+  } = omitLabelProps(props)
   return (
-    <fieldset className={ classes({ className, touched, invalid }) }>
-      <InputLabel { ...{ hint, label, name, tooltip } } />
-
+    <LabeledField className="color-input" { ...props }>
       <ColorPicker
         value={ value }
         onChange={ onChange }
-        shown={shown}
-        toggleShown={toggleShown}
-        onBlur={blurIfChanged}
-        {...rest} 
+        active={ showDropdown }
+        onOpen={ () => setShowDropdown(true) }
+        onClose={() => {
+          setShowDropdown(false)
+          onBlur()
+        }}
       />
-
       <input
         type="text"
-        className="color-input"
+        className="hex-input"
         placeholder="6 digit hex value"
-        value={fromHex(value)}
-        onChange={(e) => onChange(toHex(e.target.value))}
-        onFocus={ shown ? null : toggleShown }
-        onBlur={blurIfChanged}
+        value={ fromHex(value) }
+        onChange={ (e) => onChange(toHex(e.target.value)) }
+        onFocus={ () => setShowDropdown(true) }
+        onBlur={ onBlur }
+        { ...filterInvalidProps(rest) }
       />
-
       <span className="hex"> # </span>
-      <InputError { ...{ error, invalid, touched } } />
-    </fieldset>
-  )
-}
-
-function classes ({ className, touched, invalid }) {
-  return classnames(
-    'color-picker',
-    className,
-    { error: touched && invalid }
+    </LabeledField>
   )
 }
 
 ColorInput.propTypes = propTypes
+ColorInput.defaultProps = defaultProps
 
 export default compose(
-  toggle('shown')
+  toggle('showDropdown'),
+  blurDirty(),
 )(ColorInput)

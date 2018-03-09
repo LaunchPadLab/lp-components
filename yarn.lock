@@ -86,9 +86,9 @@
     eslint-plugin-jsx-a11y "^6.0.2"
     eslint-plugin-react "^7.4.0"
 
-"@launchpadlab/lp-hoc@^2.0.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@launchpadlab/lp-hoc/-/lp-hoc-2.3.0.tgz#ea634cb4ef688f37a4d685a4927ff74eab3d8e42"
+"@launchpadlab/lp-hoc@^2.4.1":
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/@launchpadlab/lp-hoc/-/lp-hoc-2.4.1.tgz#6eb29eba721d7a60d3f7030775b27e3670f102f6"
   dependencies:
     "@launchpadlab/lp-redux-api" "^5.0.2"
     "@launchpadlab/lp-requests" "^3.0.0"

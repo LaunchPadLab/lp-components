@@ -414,13 +414,13 @@ Color Picker
     top: 80px;
     z-index: 2;
   }
+}
 
+.color-input{
+  .hex-input{
+    @include rem(padding-left, 50px);
+  }
   .hex{
     @include position(absolute, 35px null null 38px);
   }
-
-  .color-input{
-    @include rem(padding-left, 50px);
-  }
-
 }

@@ -19,6 +19,7 @@ export wrapDisplayName from 'recompose/wrapDisplayName'
 // LP Utils
 export {
   deprecate,
+  modifyProps,
   sortable,
   sortablePropTypes,
   toggle,
