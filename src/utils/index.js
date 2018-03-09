@@ -18,6 +18,7 @@ export wrapDisplayName from 'recompose/wrapDisplayName'
 
 // LP Utils
 export {
+  adaptToReactRouter,
   deprecate,
   sortable,
   sortablePropTypes,
