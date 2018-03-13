@@ -1,6 +1,6 @@
 {
   "name": "@launchpadlab/lp-components",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "description": "Our Components",
   "main": "lib/index.js",
   "repository": "launchpadlab/lp-components",
@@ -40,7 +40,8 @@
     "lodash": "^4.17.4",
     "moment": "^2.19.3",
     "prop-types": "^15.5.8",
-    "react-datepicker": "^1.0.3"
+    "react-datepicker": "^1.0.3",
+    "redux-flash": "^1.2.0"
   },
   "devDependencies": {
     "@launchpadlab/babel-preset": "^1.0.0",

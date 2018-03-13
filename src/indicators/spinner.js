@@ -1,6 +1,6 @@
 import React from 'react'
 // import PropTypes from 'prop-types'
-import { filterInvalidProps } from '../utils'
+import { filterInvalidDOMProps } from '../utils'
 
 /**
  *
@@ -28,10 +28,13 @@ import { filterInvalidProps } from '../utils'
 
 const propTypes = {}
 
+const defaultProps = {}
+
 function Spinner (props) {
-  return <div id="spinner" { ...filterInvalidProps(props) } />
+  return <div id="spinner" { ...filterInvalidDOMProps(props) } />
 }
 
 Spinner.propTypes = propTypes
+Spinner.defaultProps = defaultProps
 
 export default Spinner
