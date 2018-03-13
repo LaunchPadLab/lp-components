@@ -285,16 +285,17 @@ A group of checkboxes that can be used in a `redux-forms`-controlled form.
 The value of each checkbox is specified via the `options` prop. This prop can either be:
 
 -   An array of strings
+-   An array of numbers
 -   An array of key-value pairs: `{ key, value }`
 
-The value of the entire `CheckboxGroup` component is an **array** containing the values of the selected checkboxes.
+The value of the entire `CheckboxGroup` component is an **array** containing the values of the selected checkboxes (converted to strings).
 Clicking an unselected checkbox adds its value to this array, and clicking a selected checkbox removes its value from this array.
 
 **Parameters**
 
 -   `input` **[Object][48]** A `redux-forms` [input][46] object
 -   `meta` **[Object][48]** A `redux-forms` [meta][49] object
--   `options` **[Array][45]** An array of checkbox values (strings or key-value pairs)
+-   `options` **[Array][45]** An array of checkbox values (strings, numbers, or key-value pairs)
 
 **Examples**
 
@@ -527,15 +528,16 @@ A group of radio buttons that can be used in a `redux-forms`-controlled form.
 The value of each button is specified via the `options` prop. This prop can either be:
 
 -   An array of strings
+-   An array of numbers
 -   An array of key-value pairs: `{ key, value }`
 
-The value of the entire `RadioGroup` component is the value of the currently selected button.
+The value of the entire `RadioGroup` component is the value of the currently selected button (converted to a string).
 
 **Parameters**
 
 -   `input` **[Object][48]** A `redux-forms` [input][46] object
 -   `meta` **[Object][48]** A `redux-forms` [meta][49] object
--   `options` **[Array][45]** An array of button values (strings or key-value pairs)
+-   `options` **[Array][45]** An array of button values (strings, numbers, or key-value pairs)
 
 **Examples**
 
@@ -572,6 +574,7 @@ The `options` prop will be ignored if `optionGroups` is present.
 The `options` prop can either be:
 
 -   An array of strings
+-   An array of numbers
 -   An array of key-value pairs: `{ key, value }`
 
 The `optionGroups` props must be an array of objects with the following keys:
@@ -579,13 +582,13 @@ The `optionGroups` props must be an array of objects with the following keys:
 -   `name`: The name of the option group
 -   `options`: As above, an array of strings or key-value pairs.
 
-The value of the `Select` component will be the same as the value of the selected option.
+The value of the `Select` component will be the same as the value of the selected option (converted to a string).
 
 **Parameters**
 
 -   `input` **[Object][48]** A `redux-forms` [input][46] object
 -   `meta` **[Object][48]** A `redux-forms` [meta][49] object
--   `options` **[Array][45]** An array of option values (strings or key-value pairs). This prop will be ignored if `optionGroups` is present.
+-   `options` **[Array][45]** An array of option values (strings, numbers, or key-value pairs). This prop will be ignored if `optionGroups` is present.
 -   `optionGroups` **[Array][45]** An array of option group objects
 -   `placeholder` **[String][44]?** A string to display as a placeholder option
 -   `enablePlaceholderOption` **[Boolean][43]** A flag indicating that the placeholder option should not be `disabled` (optional, default `false`)
