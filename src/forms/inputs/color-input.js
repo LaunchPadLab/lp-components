@@ -12,7 +12,7 @@ import {
   compose, 
   toggle, 
   togglePropTypes, 
-  filterInvalidProps 
+  filterInvalidDOMProps 
 } from '../../utils'
 
 const propTypes = {
@@ -49,7 +49,7 @@ function ColorInput (props) {
         onChange={ (e) => onChange(toHex(e.target.value)) }
         onFocus={ () => setShowDropdown(true) }
         onBlur={ onBlur }
-        { ...filterInvalidProps(rest) }
+        { ...filterInvalidDOMProps(rest) }
       />
       <span className="hex"> # </span>
     </LabeledField>
@@ -60,6 +60,6 @@ ColorInput.propTypes = propTypes
 ColorInput.defaultProps = defaultProps
 
 export default compose(
-  toggle('showDropdown'),
   blurDirty(),
+  toggle('showDropdown'),
 )(ColorInput)
