@@ -1,6 +1,6 @@
 {
   "name": "@launchpadlab/lp-components",
-  "version": "3.2.0",
+  "version": "3.4.0",
   "description": "Our Components",
   "main": "lib/index.js",
   "repository": "launchpadlab/lp-components",
@@ -33,7 +33,7 @@
     "lib/"
   ],
   "dependencies": {
-    "@launchpadlab/lp-hoc": "^2.4.1",
+    "@launchpadlab/lp-hoc": "^2.5.1",
     "classnames": "^2.2.5",
     "codeclimate-test-reporter": "^0.5.0",
     "filter-invalid-dom-props": "^2.0.0",
@@ -41,7 +41,9 @@
     "moment": "^2.19.3",
     "prop-types": "^15.5.8",
     "react-color": "^2.14.0",
-    "react-datepicker": "^1.0.3"
+    "react-datepicker": "^1.0.3",
+    "react-router": "3.2.1",
+    "redux-flash": "^1.2.0"
   },
   "devDependencies": {
     "@launchpadlab/babel-preset": "^1.0.0",

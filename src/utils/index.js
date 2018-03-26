@@ -13,11 +13,12 @@ export {
   get,
 } from 'lodash/fp'
 
-export filterInvalidProps from 'filter-invalid-dom-props'
+export filterInvalidDOMProps from 'filter-invalid-dom-props'
 export wrapDisplayName from 'recompose/wrapDisplayName'
 
 // LP Utils
 export {
+  adaptToReactRouter,
   deprecate,
   modifyProps,
   sortable,
