@@ -1,10 +1,13 @@
 /*-----------------------
 Flash
 -----------------------*/
+.flash-message-container{
+  @include position(absolute, 0px 0px null 0px);
+}
+
 .flash-message{
   @include rem(padding, 10px 20px);
   @include animation(fade-in 0.5s ease-in);
-  @include position(absolute, 0px 0px null 0px);
   width: 50%;
   margin: 0 auto;
   text-align: center;
