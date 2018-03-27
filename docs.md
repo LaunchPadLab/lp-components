@@ -2,48 +2,78 @@
 
 ### Table of Contents
 
--   [Paginator][1]
--   [TabBar][2]
--   [fieldOptionsType][3]
--   [fieldOptionGroupsType][4]
--   [fieldPropTypesWithValue][5]
--   [defaultValueTypes][6]
--   [fieldPropTypes][7]
--   [Button][8]
--   [ButtonArea][9]
--   [SubmitButton][10]
--   [Checkbox][11]
--   [CheckboxGroup][12]
--   [DateInput][13]
--   [FileInput][14]
--   [HiddenInput][15]
--   [Input][16]
--   [IconInput][17]
--   [RangeInput][18]
--   [RadioGroup][19]
--   [Select][20]
--   [SetterLink][21]
--   [Textarea][22]
--   [InputError][23]
--   [InputLabel][24]
--   [LabeledField][25]
--   [blurDirty][26]
--   [convertNameToLabel][27]
--   [omitLabelProps][28]
--   [replaceEmptyStringValue][29]
--   [Table][30]
--   [SortableTable][31]
--   [TableColumn][32]
--   [FlashMessage][33]
--   [FlashMessageContainer][34]
--   [Spinner][35]
--   [LoadingContainer][36]
--   [AuthorizedRoute][37]
--   [UnauthorizedRoute][38]
--   [compareAtPath][39]
--   [serializeOptions][40]
--   [serializeOptionGroups][41]
--   [stripNamespace][42]
+-   [ColorPicker][1]
+-   [Paginator][2]
+-   [TabBar][3]
+-   [fieldOptionsType][4]
+-   [fieldOptionGroupsType][5]
+-   [fieldPropTypesWithValue][6]
+-   [defaultValueTypes][7]
+-   [fieldPropTypes][8]
+-   [Button][9]
+-   [ButtonArea][10]
+-   [SubmitButton][11]
+-   [Checkbox][12]
+-   [CheckboxGroup][13]
+-   [ColorInput][14]
+-   [DateInput][15]
+-   [FileInput][16]
+-   [HiddenInput][17]
+-   [Input][18]
+-   [IconInput][19]
+-   [RangeInput][20]
+-   [RadioGroup][21]
+-   [Select][22]
+-   [SetterLink][23]
+-   [Textarea][24]
+-   [InputError][25]
+-   [InputLabel][26]
+-   [LabeledField][27]
+-   [blurDirty][28]
+-   [convertNameToLabel][29]
+-   [omitLabelProps][30]
+-   [replaceEmptyStringValue][31]
+-   [Table][32]
+-   [SortableTable][33]
+-   [TableColumn][34]
+-   [FlashMessage][35]
+-   [FlashMessageContainer][36]
+-   [Spinner][37]
+-   [LoadingContainer][38]
+-   [AuthorizedRoute][39]
+-   [UnauthorizedRoute][40]
+-   [compareAtPath][41]
+-   [serializeOptions][42]
+-   [serializeOptionGroups][43]
+-   [stripNamespace][44]
+
+## ColorPicker
+
+A control component for picking a hex color value. Built using the [react-color][45] `ChromePicker`.
+
+**Parameters**
+
+-   `value` **[String][46]?** The hex value of the selected color
+-   `onChange` **[Function][47]?** A function called with the new hex value when a color is selected
+-   `onOpen` **[Function][47]?** A function called when the picker is expanded
+-   `onClose` **[Function][47]?** A function called when the picker is closed
+-   `active` **[Boolean][48]?** A boolean that controls whether the picker is expanded or not.
+
+**Examples**
+
+```javascript
+function BackgroundSetter ({ backgroundColor, setBackgroundColor }) {
+  return (
+    <div>
+      <h1> Set background color </h1>
+      <ColorPicker
+        value={ backgroundColor }
+        onChange={ setBackgroundColor }
+      />
+    </div>
+  )
+}
+```
 
 ## Paginator
 
@@ -51,12 +81,12 @@ A control component for navigating between multiple numbered pages.
 
 **Parameters**
 
--   `value` **[Number][43]** The number of the current page (optional, default `1`)
--   `onChange` **[Function][44]?** A function called with the new value when a page is clicked.
--   `min` **[Number][43]** The number of the first page (optional, default `1`)
--   `max` **[Number][43]** The number of the last page. (optional, default `1`)
--   `alwaysShow` **[Boolean][45]** Always show the component, even when there's only one page visible. (optional, default `false`)
--   `pagesShown` **[Number][43]** The number of pages to display around (and including) the current page (optional, default `3`)
+-   `value` **[Number][49]** The number of the current page (optional, default `1`)
+-   `onChange` **[Function][47]?** A function called with the new value when a page is clicked.
+-   `min` **[Number][49]** The number of the first page (optional, default `1`)
+-   `max` **[Number][49]** The number of the last page. (optional, default `1`)
+-   `alwaysShow` **[Boolean][48]** Always show the component, even when there's only one page visible. (optional, default `false`)
+-   `pagesShown` **[Number][49]** The number of pages to display around (and including) the current page (optional, default `3`)
 -   `previousLabel` **[String][46]** The text of the "previous page" button (optional, default `'Prev'`)
 -   `nextLabel` **[String][46]** The text of the "next page" button (optional, default `'Next'`)
 
@@ -85,10 +115,10 @@ A control component for navigating among multiple tabs
 
 **Parameters**
 
--   `vertical` **[Boolean][45]?** A boolean setting the `className` of the `ul` to 'horizontal' (default), or 'vertical', which determines the alignment of the tabs (optional, default `false`)
--   `options` **[Array][47]?** An array of tab values (strings or key-value pairs)
--   `value` **([String][46] \| [Number][43])?** The value of the current tab
--   `onChange` **[Function][44]?** A function called with the new value when a tab is clicked
+-   `vertical` **[Boolean][48]?** A boolean setting the `className` of the `ul` to 'horizontal' (default), or 'vertical', which determines the alignment of the tabs (optional, default `false`)
+-   `options` **[Array][50]?** An array of tab values (strings or key-value pairs)
+-   `value` **([String][46] \| [Number][49])?** The value of the current tab
+-   `onChange` **[Function][47]?** A function called with the new value when a tab is clicked
 -   `activeClassName` **[String][46]?** The class of the active tab, (optional, default `active`)
 
 **Examples**
@@ -109,20 +139,20 @@ function ShowTabs ({ currentTab, setCurrentTab }) {
 
 ## fieldOptionsType
 
-A constant representing the `PropTypes` of the `options` prop for select components, e.g., [Select][20] and [CheckboxGroup][12]
+A constant representing the `PropTypes` of the `options` prop for select components, e.g., [Select][22] and [CheckboxGroup][13]
 
 Type: PropTypes
 
 ## fieldOptionGroupsType
 
-A constant representing the `PropTypes` of the `optionGroups` prop for select components, e.g., [Select][20]
+A constant representing the `PropTypes` of the `optionGroups` prop for select components, e.g., [Select][22]
 
 Type: PropTypes
 
 ## fieldPropTypesWithValue
 
-A function that takes `PropTypes` for a `redux-forms` [input][48] object.
-Returns an object containing all `PropTypes` for `redux-forms` [Field][49] components.
+A function that takes `PropTypes` for a `redux-forms` [input][51] object.
+Returns an object containing all `PropTypes` for `redux-forms` [Field][52] components.
 
 **Parameters**
 
@@ -152,20 +182,20 @@ fieldPropTypesWithValue(valuePropType)
 // }
 ```
 
-Returns **[Object][50]** `PropTypes` for `redux-forms` [input][48] and [meta][51] objects
+Returns **[Object][53]** `PropTypes` for `redux-forms` [input][51] and [meta][54] objects
 
 ## defaultValueTypes
 
-A constant representing default `PropTypes` for `redux-forms` [Field][49] values.
+A constant representing default `PropTypes` for `redux-forms` [Field][52] values.
 Default types are either `number` or `string`.
 
 Type: PropTypes
 
 ## fieldPropTypes
 
-An object containing the default `PropTypes` for `redux-forms` [Field][49] components.
+An object containing the default `PropTypes` for `redux-forms` [Field][52] components.
 
-Type: [Object][50]
+Type: [Object][53]
 
 ## Button
 
@@ -176,12 +206,12 @@ In addition to the props below, any extra props will be passed directly to the i
 
 **Parameters**
 
--   `invalid` **[Boolean][45]?** Whether or not a related form is invalid (will disable when `true`)
--   `pristine` **[Boolean][45]?** Whether or not a related form is pristine (will disable when `true`)
+-   `invalid` **[Boolean][48]?** Whether or not a related form is invalid (will disable when `true`)
+-   `pristine` **[Boolean][48]?** Whether or not a related form is pristine (will disable when `true`)
 -   `style` **[String][46]** A descriptive string that will be appended to the button's class with format `button-<type>` (optional, default `"primary"`)
--   `submitting` **[Boolean][45]?** Whether or not a related form is submitting (will give button class `'in-progress` when `true`)
--   `type` **[Boolean][45]** The [type][52] attribute of the button element (optional, default `"button"`)
--   `children` **[Function][44]?** Any React component(s) being wrapped by the button
+-   `submitting` **[Boolean][48]?** Whether or not a related form is submitting (will give button class `'in-progress` when `true`)
+-   `type` **[Boolean][48]** The [type][55] attribute of the button element (optional, default `"button"`)
+-   `children` **[Function][47]?** Any React component(s) being wrapped by the button
 
 **Examples**
 
@@ -209,7 +239,7 @@ If a `className` is provided to the component, it will be appended to the defaul
 **Parameters**
 
 -   `className` **[String][46]?** A class to add to the wrapper
--   `children` **[Function][44]?** The React component(s) being wrapped
+-   `children` **[Function][47]?** The React component(s) being wrapped
 
 **Examples**
 
@@ -230,9 +260,9 @@ function ButtonForm ({ handleSubmit }) {
 
 ## SubmitButton
 
-A wrapper around the [Button][8] component that adds `type="submit"`. Generally used in the context of forms. 
+A wrapper around the [Button][9] component that adds `type="submit"`. Generally used in the context of forms. 
 
-With the exception of `type`, this component shares the same props as [Button][8].
+With the exception of `type`, this component shares the same props as [Button][9].
 
 **Examples**
 
@@ -260,8 +290,8 @@ This input only accepts and stores boolean values.
 
 **Parameters**
 
--   `input` **[Object][50]** A `redux-forms` [input][48] object
--   `meta` **[Object][50]** A `redux-forms` [meta][51] object
+-   `input` **[Object][53]** A `redux-forms` [input][51] object
+-   `meta` **[Object][53]** A `redux-forms` [meta][54] object
 
 **Examples**
 
@@ -295,9 +325,9 @@ Clicking an unselected checkbox adds its value to this array, and clicking a sel
 
 **Parameters**
 
--   `input` **[Object][50]** A `redux-forms` [input][48] object
--   `meta` **[Object][50]** A `redux-forms` [meta][51] object
--   `options` **[Array][47]** An array of checkbox values (strings, numbers, or key-value pairs)
+-   `input` **[Object][53]** A `redux-forms` [input][51] object
+-   `meta` **[Object][53]** A `redux-forms` [meta][54] object
+-   `options` **[Array][50]** An array of checkbox values (strings, numbers, or key-value pairs)
 
 **Examples**
 
@@ -324,24 +354,52 @@ function TodoForm ({ handleSubmit, pristine, invalid, submitting }) {
 export default TodoForm
 ```
 
-## DateInput
+## ColorInput
 
-An input component that wraps a `DatePicker` component from the [react-datepicker][53] library.
-This wrapper adds the following functionality to `DatePicker`:
-
--   Adapts it to receive `redux-forms`-style input props.
--   Converts value type from [moment][54] to [Date][55].
--   Adds name and error labels.
-
-With the exception of the `input` and `meta` props, all props are passed down to the `DatePicker` component. 
-A full list of props supported by this component can be found [here][56].
-
-_Note: this component requires special styles in order to render correctly. To include these styles in your project, follow the directions in the main [README][57] file._
+An color input that can be used in a `redux-forms`-controlled form.
+The value of this input is a hex color string.
 
 **Parameters**
 
--   `input` **[Object][50]** A `redux-forms` [input][48] object
--   `meta` **[Object][50]** A `redux-forms` [meta][51] object
+-   `input` **[Object][53]** A `redux-forms` [input][51] object
+-   `meta` **[Object][53]** A `redux-forms` [meta][54] object
+
+**Examples**
+
+```javascript
+function UserForm ({ handleSubmit, pristine, invalid, submitting }) {
+  return (
+    <form onSubmit={ handleSubmit }>
+      <Field 
+         name="favoriteColor"
+         component={ ColorInput }
+      />
+      <SubmitButton {...{ pristine, invalid, submitting }}>
+        Submit
+      </SubmitButton>
+    </form>
+  )
+}
+```
+
+## DateInput
+
+An input component that wraps a `DatePicker` component from the [react-datepicker][56] library.
+This wrapper adds the following functionality to `DatePicker`:
+
+-   Adapts it to receive `redux-forms`-style input props.
+-   Converts value type from [moment][57] to [Date][58].
+-   Adds name and error labels.
+
+With the exception of the `input` and `meta` props, all props are passed down to the `DatePicker` component. 
+A full list of props supported by this component can be found [here][59].
+
+_Note: this component requires special styles in order to render correctly. To include these styles in your project, follow the directions in the main [README][60] file._
+
+**Parameters**
+
+-   `input` **[Object][53]** A `redux-forms` [input][51] object
+-   `meta` **[Object][53]** A `redux-forms` [meta][54] object
 
 **Examples**
 
@@ -375,11 +433,11 @@ A component passed using `previewComponent` will receive a `file` prop containin
 
 **Parameters**
 
--   `input` **[Object][50]** A `redux-forms` [input][48] object
--   `meta` **[Object][50]** A `redux-forms` [meta][51] object
--   `onLoad` **[Function][44]?** A callback fired when the file is loaded
+-   `input` **[Object][53]** A `redux-forms` [input][51] object
+-   `meta` **[Object][53]** A `redux-forms` [meta][54] object
+-   `onLoad` **[Function][47]?** A callback fired when the file is loaded
 -   `thumbnail` **[String][46]?** A placeholder image to display before the file is loaded
--   `hidePreview` **[Boolean][45]?** A flag indicating whether or not to hide the file preview
+-   `hidePreview` **[Boolean][48]?** A flag indicating whether or not to hide the file preview
 
 **Examples**
 
@@ -405,7 +463,7 @@ function HeadshotForm ({ handleSubmit, pristine, invalid, submitting }) {
 An Input component that is hidden from the page. The input element is hidden with CSS instead 
 of using `type="hidden` so that Cypress can still access its value.
 
-Aside from being hidden, this component is identical to [Input][16],
+Aside from being hidden, this component is identical to [Input][18],
 and will take the same props.
 
 **Examples**
@@ -433,8 +491,8 @@ Any children passed to this component will be rendered within this wrapper.
 
 **Parameters**
 
--   `input` **[Object][50]** A `redux-forms` [input][48] object
--   `meta` **[Object][50]** A `redux-forms` [meta][51] object
+-   `input` **[Object][53]** A `redux-forms` [input][51] object
+-   `meta` **[Object][53]** A `redux-forms` [meta][54] object
 -   `type` **[String][46]?** A string to specify the type of input element (defaults to `text`)
 
 **Examples**
@@ -458,12 +516,12 @@ function UserForm ({ handleSubmit, pristine, invalid, submitting }) {
 
 ## IconInput
 
-A wrapper around the [Input][16] component that adds an icon to the input.
+A wrapper around the [Input][18] component that adds an icon to the input.
 
 This icon is rendered as an `<i>` tag, with a dynamic class based on the `icon` prop. 
-For example, given an `icon` prop of `"twitter"`, the component will render an [Input][16] with child `<i className="twitter-icon"/>`.
+For example, given an `icon` prop of `"twitter"`, the component will render an [Input][18] with child `<i className="twitter-icon"/>`.
 
-Additionally, the fieldset of this [Input][16] will be given the class `"icon-label"` for styling purposes.
+Additionally, the fieldset of this [Input][18] will be given the class `"icon-label"` for styling purposes.
 
 **Parameters**
 
@@ -495,12 +553,12 @@ A range input that can be used in a `redux-forms`-controlled form.
 
 **Parameters**
 
--   `input` **[Object][50]** A `redux-forms` [input][48] object
--   `meta` **[Object][50]** A `redux-forms` [meta][51] object
--   `min` **[Number][43]** The minumum attribute of the slider control (optional, default `0`)
--   `max` **[Number][43]** The maximum attribute of the slider control (optional, default `100`)
--   `step` **[Number][43]** The step attribute of the slider control (optional, default `1`)
--   `hideLabel` **[Boolean][45]** A boolean representing whether or not to display the range value label element (optional, default `false`)
+-   `input` **[Object][53]** A `redux-forms` [input][51] object
+-   `meta` **[Object][53]** A `redux-forms` [meta][54] object
+-   `min` **[Number][49]** The minumum attribute of the slider control (optional, default `0`)
+-   `max` **[Number][49]** The maximum attribute of the slider control (optional, default `100`)
+-   `step` **[Number][49]** The step attribute of the slider control (optional, default `1`)
+-   `hideLabel` **[Boolean][48]** A boolean representing whether or not to display the range value label element (optional, default `false`)
 
 **Examples**
 
@@ -537,9 +595,9 @@ The value of the entire `RadioGroup` component is the value of the currently sel
 
 **Parameters**
 
--   `input` **[Object][50]** A `redux-forms` [input][48] object
--   `meta` **[Object][50]** A `redux-forms` [meta][51] object
--   `options` **[Array][47]** An array of button values (strings, numbers, or key-value pairs)
+-   `input` **[Object][53]** A `redux-forms` [input][51] object
+-   `meta` **[Object][53]** A `redux-forms` [meta][54] object
+-   `options` **[Array][50]** An array of button values (strings, numbers, or key-value pairs)
 
 **Examples**
 
@@ -588,12 +646,12 @@ The value of the `Select` component will be the same as the value of the selecte
 
 **Parameters**
 
--   `input` **[Object][50]** A `redux-forms` [input][48] object
--   `meta` **[Object][50]** A `redux-forms` [meta][51] object
--   `options` **[Array][47]** An array of option values (strings, numbers, or key-value pairs). This prop will be ignored if `optionGroups` is present.
--   `optionGroups` **[Array][47]** An array of option group objects
+-   `input` **[Object][53]** A `redux-forms` [input][51] object
+-   `meta` **[Object][53]** A `redux-forms` [meta][54] object
+-   `options` **[Array][50]** An array of option values (strings, numbers, or key-value pairs). This prop will be ignored if `optionGroups` is present.
+-   `optionGroups` **[Array][50]** An array of option group objects
 -   `placeholder` **[String][46]?** A string to display as a placeholder option
--   `enablePlaceholderOption` **[Boolean][45]** A flag indicating that the placeholder option should not be `disabled` (optional, default `false`)
+-   `enablePlaceholderOption` **[Boolean][48]** A flag indicating that the placeholder option should not be `disabled` (optional, default `false`)
 
 **Examples**
 
@@ -646,7 +704,7 @@ A component that returns an `<a>` element that can be used to change the value o
 
 **Parameters**
 
--   `input` **[Object][50]** A `redux-forms` [input][48] object
+-   `input` **[Object][53]** A `redux-forms` [input][51] object
 -   `label` **[String][46]** The link text
 -   `valueToSet` **Any** The value to set the input when clicked (optional, default `true`)
 
@@ -677,10 +735,10 @@ A textarea input that can be used in a `redux-forms`-controlled form. Optionally
 
 **Parameters**
 
--   `input` **[Object][50]** A `redux-forms` [input][48] object
--   `meta` **[Object][50]** A `redux-forms` [meta][51] object
--   `maxLength` **[Number][43]?** The maximum allowed length of the input
--   `hideCharacterCount` **[Boolean][45]** Whether to hide the character count if given a maxLength (optional, default `false`)
+-   `input` **[Object][53]** A `redux-forms` [input][51] object
+-   `meta` **[Object][53]** A `redux-forms` [meta][54] object
+-   `maxLength` **[Number][49]?** The maximum allowed length of the input
+-   `hideCharacterCount` **[Boolean][48]** Whether to hide the character count if given a maxLength (optional, default `false`)
 
 **Examples**
 
@@ -705,7 +763,7 @@ function BiographyForm ({ handleSubmit, pristine, invalid, submitting }) {
 
 A dynamic error label associated with an input component.
 
-This component is used within [LabeledField][25], and therefore is incorporated into most `lp-components` input components by default.
+This component is used within [LabeledField][27], and therefore is incorporated into most `lp-components` input components by default.
 
 The error label uses the following rules to determine how it will be displayed:
 
@@ -715,8 +773,8 @@ The error label uses the following rules to determine how it will be displayed:
 
 **Parameters**
 
--   `error` **([String][46] \| [Array][47])** An error message or array of error messages to display
--   `invalid` **[Boolean][45]** Whether the associated input has an invalid value
+-   `error` **([String][46] \| [Array][50])** An error message or array of error messages to display
+-   `invalid` **[Boolean][48]** Whether the associated input has an invalid value
 -   `touched` **[String][46]** Whether the associated input has been touched
 
 **Examples**
@@ -746,7 +804,7 @@ function ValidatedInput ({
 
 A dynamic label associated with an input component.
 
-This component is used within [LabeledField][25], and therefore is incorporated into most `lp-components` input components by default.
+This component is used within [LabeledField][27], and therefore is incorporated into most `lp-components` input components by default.
 
 The text of the label is set using the following rules:
 
@@ -754,7 +812,7 @@ The text of the label is set using the following rules:
 -   If the `label` prop is set to a string, the label will display that text
 -   Otherwise, the label will be set using the `name` prop.
 
-If `name` is used to set the text, it will be stripped of its prefixes and converted to [start case][58].
+If `name` is used to set the text, it will be stripped of its prefixes and converted to [start case][61].
 
 For instance: `'person.firstName'` becomes `'First Name'`
 
@@ -762,7 +820,7 @@ For instance: `'person.firstName'` becomes `'First Name'`
 
 -   `name` **[String][46]** The name of the associated input
 -   `hint` **[String][46]?** A usage hint for the associated input
--   `label` **([String][46] \| [Boolean][45])?** Custom text for the label
+-   `label` **([String][46] \| [Boolean][48])?** Custom text for the label
 -   `tooltip` **[String][46]?** A message to display in a tooltip
 
 **Examples**
@@ -791,17 +849,17 @@ function EmailInput ({
 
 ## LabeledField
 
-A fieldset wrapper for redux-form controlled inputs. This wrapper adds an [InputLabel][24]
-above the wrapped component and an [InputError][23] below. Additionally, it adds the class `"error"`
+A fieldset wrapper for redux-form controlled inputs. This wrapper adds an [InputLabel][26]
+above the wrapped component and an [InputError][25] below. Additionally, it adds the class `"error"`
 to the fieldset if the input is touched and invalid.
 
 In order to populate the `InputLabel` and `InputError` correctly, you should pass all the props of the corresponding input
 to this component. To prevent label-specific props from being passed to the input itself,
-use the [omitLabelProps][28] helper.
+use the [omitLabelProps][30] helper.
 
 **Parameters**
 
--   `hideErrorLabel` **[Boolean][45]?** A boolean determining whether to hide the error label on input error (optional, default `false`)
+-   `hideErrorLabel` **[Boolean][48]?** A boolean determining whether to hide the error label on input error (optional, default `false`)
 
 **Examples**
 
@@ -877,7 +935,7 @@ Returns **[String][46]** A user-friendly field label
 
 ## omitLabelProps
 
-A function that takes a form component `props` object and returns the `props` object with [InputLabel][24] props omitted.
+A function that takes a form component `props` object and returns the `props` object with [InputLabel][26] props omitted.
 Created in order to prevent these props from being passed down to the input component through `...rest`.
 
 Omits the following props:
@@ -888,7 +946,7 @@ Omits the following props:
 
 **Parameters**
 
--   `props` **[Object][50]** A props object
+-   `props` **[Object][53]** A props object
 
 **Examples**
 
@@ -920,7 +978,7 @@ function Input (props) {
 }
 ```
 
-Returns **[Object][50]** `props` object with [InputLabel][24] props omitted
+Returns **[Object][53]** `props` object with [InputLabel][26] props omitted
 
 ## replaceEmptyStringValue
 
@@ -957,11 +1015,11 @@ export default compose(
 ## Table
 
 A component for displaying data in a table.
-This component's behavior is largely determined by the [TableColumn][32] components that are passed to it.
+This component's behavior is largely determined by the [TableColumn][34] components that are passed to it.
 
 **Parameters**
 
--   `data` **[Array][47]** An array of objects to display in the table- one object per row (optional, default `[]`)
+-   `data` **[Array][50]** An array of objects to display in the table- one object per row (optional, default `[]`)
 
 **Examples**
 
@@ -980,15 +1038,15 @@ function PersonTable ({ people }) {
 ## SortableTable
 
 A component for displaying sortable data in a table.
-This component's behavior is largely determined by the [TableColumn][32] components that are passed to it.
+This component's behavior is largely determined by the [TableColumn][34] components that are passed to it.
 
 **Parameters**
 
--   `data` **[Array][47]** An array of objects to display in the table- one object per row (optional, default `[]`)
--   `initialColumn` **[Number][43]** The name of the column that's initially selected (optional, default `''`)
--   `disableReverse` **[Boolean][45]** Disables automatic reversing of descending sorts (optional, default `false`)
--   `disableSort` **[Boolean][45]** A flag to disable sorting on all columns (optional, default `false`)
--   `onChange` **[Function][44]?** A callback that will be fired when the sorting state changes
+-   `data` **[Array][50]** An array of objects to display in the table- one object per row (optional, default `[]`)
+-   `initialColumn` **[Number][49]** The name of the column that's initially selected (optional, default `''`)
+-   `disableReverse` **[Boolean][48]** Disables automatic reversing of descending sorts (optional, default `false`)
+-   `disableSort` **[Boolean][48]** A flag to disable sorting on all columns (optional, default `false`)
+-   `onChange` **[Function][47]?** A callback that will be fired when the sorting state changes
 
 **Examples**
 
@@ -1006,15 +1064,15 @@ function PersonTable ({ people }) {
 
 ## TableColumn
 
-A component used to pass column information to a [Table][30] or [SortableTable][31].
+A component used to pass column information to a [Table][32] or [SortableTable][33].
 
 **Parameters**
 
 -   `name` **[String][46]** The key of the value to display in the column from each data object
 -   `label` **[String][46]?** The text that will be displayed in the column header. Defaults to `name`.
--   `sortFunc` **[Function][44]?** The function that will be used to sort the table data when the column is selected
--   `component` **[Function][44]?** A custom cell component for the column. Will be passed the `key`, `name`, `value` and `data` for the row.
--   `disabled` **[Boolean][45]?** A flag that disables sorting for the column
+-   `sortFunc` **[Function][47]?** The function that will be used to sort the table data when the column is selected
+-   `component` **[Function][47]?** A custom cell component for the column. Will be passed the `key`, `name`, `value` and `data` for the row.
+-   `disabled` **[Boolean][48]?** A flag that disables sorting for the column
 
 **Examples**
 
@@ -1032,11 +1090,11 @@ function PersonTable ({ people }) {
 
 ## FlashMessage
 
-A component that displays a flash message generated by [redux-flash][59].
+A component that displays a flash message generated by [redux-flash][62].
 
 **Parameters**
 
--   `message` **[Object][50]** The flash message that will be displayed.
+-   `message` **[Object][53]** The flash message that will be displayed.
 
 **Examples**
 
@@ -1054,13 +1112,13 @@ function ManyMessages ({ messages }) {
 
 ## FlashMessageContainer
 
-A component that displays multiple flash messages generated by [redux-flash][59].
+A component that displays multiple flash messages generated by [redux-flash][62].
 Most apps will need only one of these containers at the top level.
 
 **Parameters**
 
--   `messages` **[Object][50]** The flash messages that will be displayed.
--   `limit` **[Number][43]?** Maximum number of concurrent messages to display
+-   `messages` **[Object][53]** The flash messages that will be displayed.
+-   `limit` **[Number][49]?** Maximum number of concurrent messages to display
 
 **Examples**
 
@@ -1106,7 +1164,7 @@ depending on whether `isLoading` is true or false
 
 **Parameters**
 
--   `isLoading` **[Boolean][45]** Whether the inner component should be indicated as loading (optional, default `false`)
+-   `isLoading` **[Boolean][48]** Whether the inner component should be indicated as loading (optional, default `false`)
 
 **Examples**
 
@@ -1124,13 +1182,13 @@ function PatientIndex ({ patientProfiles }) {
 
 ## AuthorizedRoute
 
-A [react-router][60] `Route` component that requires an auth function to return `true` before it can be entered.
+A [react-router][63] `Route` component that requires an auth function to return `true` before it can be entered.
 
 Note: this component is only compatible with react-router ^3.0.0.
 
 **Parameters**
 
--   `authFunction` **[Function][44]** A function that returns true or false, indicating whether the current user is authenticated
+-   `authFunction` **[Function][47]** A function that returns true or false, indicating whether the current user is authenticated
 -   `redirect` **[String][46]** A redirect path if the user is not authenticated (optional, default `'/sign-in'`)
 
 **Examples**
@@ -1159,7 +1217,7 @@ A react-router `Route` component that requires an auth function to return `false
 
 **Parameters**
 
--   `authFunction` **[Function][44]** A function that returns true or false, indicating whether the current user is authenticated
+-   `authFunction` **[Function][47]** A function that returns true or false, indicating whether the current user is authenticated
 -   `redirect` **[String][46]** A redirect path if the user is authenticated (optional, default `'/'`)
 
 **Examples**
@@ -1190,7 +1248,7 @@ certain path, and runs given comparison function on those values.
 **Parameters**
 
 -   `path` **[String][46]** Name of the path to values
--   `func` **[Function][44]** Comparison function to run on values at specified path
+-   `func` **[Function][47]** Comparison function to run on values at specified path
 
 **Examples**
 
@@ -1212,7 +1270,7 @@ people.sort(ageComparator)
 // ]
 ```
 
-Returns **[Function][44]** Comparison function
+Returns **[Function][47]** Comparison function
 
 ## serializeOptions
 
@@ -1221,7 +1279,7 @@ Function that transforms string options into object options with keys of
 
 **Parameters**
 
--   `optionArray` **[Array][47]** Array of option values
+-   `optionArray` **[Array][50]** Array of option values
 
 **Examples**
 
@@ -1233,7 +1291,7 @@ serializeOptions(options)
 // [{ key: 'apple', value: 'apple' }, { key: 'banana', value: 'banana' }]
 ```
 
-Returns **[Array][47]** Array of object options
+Returns **[Array][50]** Array of object options
 
 ## serializeOptionGroups
 
@@ -1242,7 +1300,7 @@ object options with keys of `key` and `value`
 
 **Parameters**
 
--   `optionGroupArray` **[Array][47]** Array of option values
+-   `optionGroupArray` **[Array][50]** Array of option values
 
 **Examples**
 
@@ -1266,7 +1324,7 @@ serializeOptionGroups(optionGroups)
 // ]
 ```
 
-Returns **[Array][47]** Array of object group options
+Returns **[Array][50]** Array of object group options
 
 ## stripNamespace
 
@@ -1290,122 +1348,128 @@ stripNamespace(namespace)
 
 Returns **[String][46]** String with namespace removed
 
-[1]: #paginator
+[1]: #colorpicker
 
-[2]: #tabbar
+[2]: #paginator
 
-[3]: #fieldoptionstype
+[3]: #tabbar
 
-[4]: #fieldoptiongroupstype
+[4]: #fieldoptionstype
 
-[5]: #fieldproptypeswithvalue
+[5]: #fieldoptiongroupstype
 
-[6]: #defaultvaluetypes
+[6]: #fieldproptypeswithvalue
 
-[7]: #fieldproptypes
+[7]: #defaultvaluetypes
 
-[8]: #button
+[8]: #fieldproptypes
 
-[9]: #buttonarea
+[9]: #button
 
-[10]: #submitbutton
+[10]: #buttonarea
 
-[11]: #checkbox
+[11]: #submitbutton
 
-[12]: #checkboxgroup
+[12]: #checkbox
 
-[13]: #dateinput
+[13]: #checkboxgroup
 
-[14]: #fileinput
+[14]: #colorinput
 
-[15]: #hiddeninput
+[15]: #dateinput
 
-[16]: #input
+[16]: #fileinput
 
-[17]: #iconinput
+[17]: #hiddeninput
 
-[18]: #rangeinput
+[18]: #input
 
-[19]: #radiogroup
+[19]: #iconinput
 
-[20]: #select
+[20]: #rangeinput
 
-[21]: #setterlink
+[21]: #radiogroup
 
-[22]: #textarea
+[22]: #select
 
-[23]: #inputerror
+[23]: #setterlink
 
-[24]: #inputlabel
+[24]: #textarea
 
-[25]: #labeledfield
+[25]: #inputerror
 
-[26]: #blurdirty
+[26]: #inputlabel
 
-[27]: #convertnametolabel
+[27]: #labeledfield
 
-[28]: #omitlabelprops
+[28]: #blurdirty
 
-[29]: #replaceemptystringvalue
+[29]: #convertnametolabel
 
-[30]: #table
+[30]: #omitlabelprops
 
-[31]: #sortabletable
+[31]: #replaceemptystringvalue
 
-[32]: #tablecolumn
+[32]: #table
 
-[33]: #flashmessage
+[33]: #sortabletable
 
-[34]: #flashmessagecontainer
+[34]: #tablecolumn
 
-[35]: #spinner
+[35]: #flashmessage
 
-[36]: #loadingcontainer
+[36]: #flashmessagecontainer
 
-[37]: #authorizedroute
+[37]: #spinner
 
-[38]: #unauthorizedroute
+[38]: #loadingcontainer
 
-[39]: #compareatpath
+[39]: #authorizedroute
 
-[40]: #serializeoptions
+[40]: #unauthorizedroute
 
-[41]: #serializeoptiongroups
+[41]: #compareatpath
 
-[42]: #stripnamespace
+[42]: #serializeoptions
 
-[43]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[43]: #serializeoptiongroups
 
-[44]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+[44]: #stripnamespace
 
-[45]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+[45]: https://casesandberg.github.io/react-color/
 
 [46]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
-[47]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[47]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
 
-[48]: http://redux-form.com/6.5.0/docs/api/Field.md/#input-props
+[48]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
 
-[49]: http://redux-form.com/6.5.0/docs/api/Field.md/
+[49]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
 
-[50]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[50]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 
-[51]: http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props
+[51]: http://redux-form.com/6.5.0/docs/api/Field.md/#input-props
 
-[52]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type
+[52]: http://redux-form.com/6.5.0/docs/api/Field.md/
 
-[53]: https://github.com/Hacker0x01/react-datepicker
+[53]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[54]: https://github.com/moment/moment
+[54]: http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props
 
-[55]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
+[55]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type
 
-[56]: https://github.com/Hacker0x01/react-datepicker/blob/master/docs/datepicker.md
+[56]: https://github.com/Hacker0x01/react-datepicker
 
-[57]: README.md#dateinput-styles
+[57]: https://github.com/moment/moment
 
-[58]: https://en.wikipedia.org/wiki/Letter_case#Stylistic_or_specialised_usage
+[58]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
 
-[59]: https://github.com/LaunchPadLab/redux-flash
+[59]: https://github.com/Hacker0x01/react-datepicker/blob/master/docs/datepicker.md
 
-[60]: https://github.com/ReactTraining/react-router
+[60]: README.md#dateinput-styles
+
+[61]: https://en.wikipedia.org/wiki/Letter_case#Stylistic_or_specialised_usage
+
+[62]: https://github.com/LaunchPadLab/redux-flash
+
+[63]: https://github.com/ReactTraining/react-router

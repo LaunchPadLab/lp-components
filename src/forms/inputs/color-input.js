@@ -15,6 +15,32 @@ import {
   filterInvalidDOMProps 
 } from '../../utils'
 
+/**
+ *
+ * An color input that can be used in a `redux-forms`-controlled form.
+ * The value of this input is a hex color string.
+ * 
+ * @name ColorInput
+ * @type Function
+ * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
+ * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+ * @example
+ * 
+ * function UserForm ({ handleSubmit, pristine, invalid, submitting }) {
+ *   return (
+ *     <form onSubmit={ handleSubmit }>
+ *       <Field 
+ *          name="favoriteColor"
+ *          component={ ColorInput }
+ *       />
+ *       <SubmitButton {...{ pristine, invalid, submitting }}>
+ *         Submit
+ *       </SubmitButton>
+ *     </form>
+ *   )
+ * }
+**/
+
 const propTypes = {
   ...fieldPropTypes,
   ...togglePropTypes('showDropdown')
