@@ -11,7 +11,7 @@ test('Textarea passes down defaults and does not show character count', () => {
     meta: {},
   }
   const wrapper = shallow(<Textarea { ...props }/>)
-  expect(wrapper.dive().find('textarea').prop('maxLength')).toEqual(false)
+  expect(wrapper.dive().find('textarea').prop('maxLength')).toEqual(null)
   expect(wrapper.dive().find('.character-count').exists()).toEqual(false)
 })
 
