@@ -388,3 +388,39 @@ Input Icon
     }
   }
 }
+
+/*-----------------------
+Color Picker
+-----------------------*/
+.color-picker{
+  .swatch{
+    cursor: pointer;
+    border: 1px solid $white-med;
+    height: 20px;
+    @include position(absolute, 32px null null 10px);
+    width: 20px;
+  }
+
+  .cover {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  .popover {
+    position: absolute;
+    top: 80px;
+    z-index: 2;
+  }
+}
+
+.color-input{
+  .hex-input{
+    @include rem(padding-left, 50px);
+  }
+  .hex{
+    @include position(absolute, 35px null null 38px);
+  }
+}

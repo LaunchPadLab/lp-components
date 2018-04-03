@@ -1,5 +1,6 @@
 export Checkbox from './checkbox'
 export CheckboxGroup from './checkbox-group'
+export ColorInput from './color-input'
 export DateInput from './date-input'
 export FileInput from './file-input'
 export HiddenInput from './hidden-input'

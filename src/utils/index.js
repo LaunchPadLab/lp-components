@@ -20,6 +20,7 @@ export wrapDisplayName from 'recompose/wrapDisplayName'
 export {
   adaptToReactRouter,
   deprecate,
+  modifyProps,
   sortable,
   sortablePropTypes,
   toggle,
