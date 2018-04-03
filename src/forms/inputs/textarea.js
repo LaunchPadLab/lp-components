@@ -40,7 +40,7 @@ const propTypes = {
 }
 
 const defaultProps = {
-  maxLength: false,
+  maxLength: null,
   hideCharacterCount: false,
 }
 
@@ -59,7 +59,7 @@ function Textarea (props) {
       { ...props }
     >
       {
-        maxLength !== false && !hideCharacterCount &&
+        maxLength !== null && !hideCharacterCount &&
         <span className="character-count">
           { `${ value.length }/${ maxLength } characters` }
         </span>
