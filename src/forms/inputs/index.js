@@ -1,5 +1,6 @@
 export Checkbox from './checkbox'
 export CheckboxGroup from './checkbox-group'
+export CloudinaryFileInput from './cloudinary-file-input'
 export ColorInput from './color-input'
 export DateInput from './date-input'
 export FileInput from './file-input'
