@@ -3,7 +3,6 @@ import CheckboxGroup from './checkbox-group'
 import {
   checkboxGroupPropTypes,
   fieldOptionsType,
-  omitLabelProps,
 } from '../helpers'
 import { InputLabel }from '../labels'
 import DropdownSelect from './dropdown-select'
@@ -56,7 +55,7 @@ const propTypes = {
 }
 
 function DropdownCheckboxGroup (props) {
-  const { input: { name, value }, label } = omitLabelProps(props)
+  const { input: { name, value }, label } = props
   return (
     <fieldset>
       <InputLabel { ...{ label, name } } />
