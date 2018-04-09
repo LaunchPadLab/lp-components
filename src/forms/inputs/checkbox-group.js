@@ -15,16 +15,17 @@ import { addToArray, removeFromArray, serializeOptions, compose } from '../../ut
  *
  * The value of each checkbox is specified via the `options` prop. This prop can either be:
  * - An array of strings
+ * - An array of numbers
  * - An array of key-value pairs: `{ key, value }`
  *
- * The value of the entire `CheckboxGroup` component is an **array** containing the values of the selected checkboxes.
+ * The value of the entire `CheckboxGroup` component is an **array** containing the values of the selected checkboxes (converted to strings).
  * Clicking an unselected checkbox adds its value to this array, and clicking a selected checkbox removes its value from this array.
  *
  * @name CheckboxGroup
  * @type Function
  * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
  * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
- * @param {Array} options - An array of checkbox values (strings or key-value pairs)
+ * @param {Array} options - An array of checkbox values (strings, numbers, or key-value pairs)
  * @example
  *
  * function TodoForm ({ handleSubmit, pristine, invalid, submitting }) {

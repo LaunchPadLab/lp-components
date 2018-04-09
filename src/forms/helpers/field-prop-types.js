@@ -11,6 +11,7 @@ import PropTypes from 'prop-types'
 export const fieldOptionsType = PropTypes.arrayOf(
   PropTypes.oneOfType([
     PropTypes.string,
+    PropTypes.number,
     PropTypes.shape({
       key: PropTypes.string.isRequired,
       value: PropTypes.oneOfType([

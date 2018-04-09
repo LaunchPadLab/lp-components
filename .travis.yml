@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+- '8'
+notifications:
+  email: false
+deploy:
+  provider: npm
+  email: dev@launchpadlab.com
+  api_key:
+    secure: JWQsalgEd1X2xXhfOwwH6XA+T7FsdIJwH0R2ot2KQIMC4FJ8BS2WqeBMjhxgfzOmoYFjK0CZe1+gnVmZVqERBGDmXf1M32xHuK9cxTOT7T/qhj/jvdUD08c3yUGrF9HOAL4tgprMiOlEu3yukQZJM1Tn1C34zD1gW5JJmNXVSNxVK4hE/vXC8YKX9aT+O2MKX93gJqWcwfI0ty0vj2eNr3mUpccACDjQNyLlmYKdAwLNa+DcUfiKodGGkCMH5CY5uK8klrwRNDO4benY2KT7vbqYnz5o6pAaLDO/YGbi6PGJNbio4qXroWg+Fc2I/TQj8wwZqss1Y06ChWWNKZapNWW51H/6w2XGDGTwNMwAdj+bFLH9Pi8CVY+OmEjSJGTO71GQXworO4EEeN84/cgW1ukti8PtsaPVFR5NvpziHZ4Z4RRD6GdSZS/v4C2wgNtO8sH8SOIxPnlW6swYHYnr4Qcl4pP+g+zPTznZwDtwE3GqWAmpKUeAvNXl9GpxWqXRmO5lJcFN9d7hjAm2GSctIJVeLnC5j/YybAHZqGfN5kOjMemNM7BlsNrczLiHl7gMKr4NQbKRfUhVkgyPw9d1UO5J83GcWkpeHnjIch17CyGlOZkjQFavb/KTzMbwdzUoawC1WnEuuy0kMBbj/zhMdcRcJLMsNyWKt3/rhBuaBbQ=
+  on:
+    branch: master
+  skip_cleanup: true
