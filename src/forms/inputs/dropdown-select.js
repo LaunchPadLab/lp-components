@@ -15,6 +15,8 @@ const defaultProps = {
   selectedValues: [],
 }
 
+// Wraps the `DropdownCheckboxGroup` component
+
 function DropdownSelect ({ 
   children,
   expanded, 
