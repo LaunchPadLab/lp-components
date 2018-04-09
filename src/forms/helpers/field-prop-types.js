@@ -110,3 +110,20 @@ const defaultValueTypes = PropTypes.oneOfType([
 **/
 
 export const fieldPropTypes = fieldPropTypesWithValue(defaultValueTypes)
+
+/** 
+ *
+ * A constant representing the `PropTypes` of the `input` prop for checkbox group components, e.g., {@link CheckboxGroup} and {@link DropdownCheckboxGroup}
+ * 
+ * @constant {PropTypes} checkboxGroupPropTypes
+ *
+**/
+
+export const checkboxGroupPropTypes = fieldPropTypesWithValue(
+  PropTypes.arrayOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ])
+  )
+)

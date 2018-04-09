@@ -9,12 +9,14 @@
 -   [fieldPropTypesWithValue](#fieldproptypeswithvalue)
 -   [defaultValueTypes](#defaultvaluetypes)
 -   [fieldPropTypes](#fieldproptypes)
+-   [checkboxGroupPropTypes](#checkboxgroupproptypes)
 -   [Button](#button)
 -   [ButtonArea](#buttonarea)
 -   [SubmitButton](#submitbutton)
 -   [Checkbox](#checkbox)
 -   [CheckboxGroup](#checkboxgroup)
 -   [DateInput](#dateinput)
+-   [DropdownCheckboxGroup](#dropdowncheckboxgroup)
 -   [FileInput](#fileinput)
 -   [HiddenInput](#hiddeninput)
 -   [Input](#input)
@@ -162,6 +164,12 @@ Type: PropTypes
 An object containing the default `PropTypes` for `redux-forms` [Field](http://redux-form.com/6.5.0/docs/api/Field.md/) components.
 
 Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+## checkboxGroupPropTypes
+
+A constant representing the `PropTypes` of the `input` prop for checkbox group components, e.g., [CheckboxGroup](#checkboxgroup) and [DropdownCheckboxGroup](#dropdowncheckboxgroup)
+
+Type: PropTypes
 
 ## Button
 
@@ -354,6 +362,51 @@ function BirthdayForm ({ handleSubmit }) {
 }
 
 // Will render datepicker with label "Birthday" and placeholder "mm/dd/yyyy"
+```
+
+## DropdownCheckboxGroup
+
+A group of checkboxes that can be used in a `redux-forms`-controlled form. 
+Wraps the [CheckboxGroup](#checkboxgroup) component in a [DropdownSelect](DropdownSelect) component, which displays the selected values as a list.
+Options are displayed in a scrollable `Select`-style dropdown container.
+
+The value of each checkbox is specified via the `options` prop. This prop can either be:
+
+-   An array of strings
+-   An array of key-value pairs: `{ key, value }`
+
+The value of the entire `DropdownCheckboxGroup` component is an **array** containing the values of the selected checkboxes.
+Clicking an unselected checkbox adds its value to this array, and clicking a selected checkbox removes its value from this array.
+
+**Parameters**
+
+-   `input` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
+-   `meta` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+-   `options` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** An array of checkbox values (strings or key-value pairs)
+
+**Examples**
+
+```javascript
+function InterestsForm ({ handleSubmit, pristine, invalid, submitting }) {
+  return (
+    <form onSubmit={ handleSubmit }>
+      <Field
+         name="interests"
+         component={ DropdownCheckboxGroup }
+         options={[
+           'Art',
+           'Computer Science',
+           'Dance'
+         ]}
+      />
+      <SubmitButton {...{ pristine, invalid, submitting }}>
+        Submit
+      </SubmitButton>
+    </form>
+  )
+}
+
+export default TodoForm
 ```
 
 ## FileInput
