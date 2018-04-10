@@ -2,10 +2,10 @@ import React from 'react'
 import CheckboxGroup from './checkbox-group'
 import {
   checkboxGroupPropTypes,
+  DropdownSelect,
   fieldOptionsType,
 } from '../helpers'
 import { InputLabel }from '../labels'
-import DropdownSelect from './dropdown-select'
 
 /**
  *
@@ -59,7 +59,7 @@ function DropdownCheckboxGroup (props) {
   return (
     <fieldset>
       <InputLabel { ...{ label, name } } />
-      <DropdownSelect selectedValues={ value }>
+      <DropdownSelect selectedValues={ value } className="checkboxes">
         <CheckboxGroup { ...props } label={ false } />
       </DropdownSelect>
     </fieldset>

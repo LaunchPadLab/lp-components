@@ -5,10 +5,11 @@ import { onOutsideClick, toggle, togglePropTypes } from '@launchpadlab/lp-hoc'
 import classnames from 'classnames'
 
 const propTypes = {
-  ...togglePropTypes('expanded'),
-  text: PropTypes.string,
-  selectedValues: PropTypes.arrayOf(PropTypes.string),
   children: PropTypes.node,
+  className: PropTypes.string.isRequired,
+  selectedValues: PropTypes.arrayOf(PropTypes.string),
+  text: PropTypes.string,
+  ...togglePropTypes('expanded'),
 }
 
 const defaultProps = {
@@ -19,6 +20,7 @@ const defaultProps = {
 
 function DropdownSelect ({ 
   children,
+  className,
   expanded, 
   selectedValues, 
   toggleExpanded, 
@@ -30,8 +32,8 @@ function DropdownSelect ({
       </div>
       <div 
         className={ classnames(
+          className,
           'options', 
-          'checkboxes', 
           { 
             'is-active': expanded,
           }
