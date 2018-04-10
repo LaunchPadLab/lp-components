@@ -6,13 +6,14 @@ import classnames from 'classnames'
 
 const propTypes = {
   children: PropTypes.node,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   selectedValues: PropTypes.arrayOf(PropTypes.string),
   text: PropTypes.string,
   ...togglePropTypes('expanded'),
 }
 
 const defaultProps = {
+  className: '',
   selectedValues: [],
 }
 
