@@ -1,6 +1,7 @@
 export blurDirty from './blur-dirty'
 export buttonClasses from './button-classes'
 export convertNameToLabel from './convert-name-to-label'
+export DropdownSelect from './dropdown-select'
 export fromHex from './from-hex'
 export * from './field-prop-types'
 export omitLabelProps from './omit-label-props'

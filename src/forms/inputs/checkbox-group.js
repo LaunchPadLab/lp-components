@@ -1,8 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import Checkbox from './checkbox'
 import {
-  fieldPropTypesWithValue,
+  checkboxGroupPropTypes,
   fieldOptionsType,
   omitLabelProps,
   replaceEmptyStringValue,
@@ -52,14 +51,7 @@ import { addToArray, removeFromArray, serializeOptions, compose } from '../../ut
 **/
 
 const propTypes = {
-  ...fieldPropTypesWithValue(
-    PropTypes.arrayOf(
-      PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-      ])
-    )
-  ),
+  ...checkboxGroupPropTypes,
   options: fieldOptionsType
 }
 

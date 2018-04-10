@@ -390,6 +390,155 @@ Input Icon
 }
 
 /*-----------------------
+Custom Dropdown Select
+-----------------------*/
+.dropdown-select, .dropdown{
+  position: relative;
+
+  .select-input{
+    background-color: $white-base;
+    border: 1px solid $white-med;
+    border-radius: 5px;
+    box-sizing: border-box;
+    cursor: pointer;
+    @include appearance(none);
+    @include transition (all 0.3s ease-in-out);
+    @include font-type($primary-sans-serif, normal, 400);
+    @include s-base;
+    @include rem(padding, 7px 13px);
+
+    &:after{
+      background-image: asset-url('dropdown.svg');
+      background-position: right 10px top 50%;
+      background-repeat: no-repeat;
+      background-size: 15px;
+      content: "";
+      @include position(absolute, 15px 5px null null);
+      @include rem(padding, 8px 32px 8px 8px);
+      width: 100%;
+    }
+
+    p{
+      margin: 0px;
+    }
+  }
+
+  a{
+    text-decoration: none;
+  }
+
+  label, a{
+    font-weight: normal;
+  }
+
+  .options{
+    display: none;
+
+    &.is-active{
+      display: inline-block;
+
+      .scroll-box{
+        max-height: 150px;
+        overflow: scroll;
+      }
+    }
+  }
+
+  .scroll-box{
+    background-color: $white-base;
+    border: 1px solid $white-med;
+    @include position(absolute, 41px 0px null 0px);
+    z-index: 2;
+
+    & > * {
+      @include rem(padding, 2px 10px);
+    }
+
+    .checkbox {
+      margin-bottom: 0;
+    }
+
+    .expander{
+      padding: 0px;
+    }
+
+    .expander-trigger{
+      @include rem(padding, 5px);
+      border: none;
+    }
+
+    .expander .is-active + .expander-content{
+      padding: 5px;
+      display: inline-block;
+        width: 100%;
+    }
+  }
+
+  .checkboxes{
+    li{
+      display: inline-block;
+      @include rem(padding, 0px 15px);
+      width: 100%;
+
+      .checkbox{
+        @include rem(margin, 5px 0px 0px);
+
+        label{
+          font-weight: normal;
+        }
+
+        span{
+          float: none;
+        }
+
+      }
+    }
+
+  }
+}
+
+.dropdown{
+  @include rem(margin-bottom, 10px);
+
+  @include media($tablet){
+    @include rem(margin-bottom, 0px);
+  }
+
+  .select-input{
+    background-color: $white-light;
+    height: 56px;
+    @include rem(padding, 18px);
+
+    &:after{
+      @include position(absolute, 22px 15px null null);
+    }
+  }
+}
+
+.scroll-box{
+  .toggle{
+    display: block;
+    height: 27px;
+    @include rem(margin, 10px 10px 0px);
+    @include s-small;
+    padding: 0px;
+
+    .is-active, li, li:hover{
+      height: 25px;
+      line-height: 2;
+    }
+  }
+
+  fieldset.checkbox, fieldset.CheckboxGroup{
+    width: 100% !important;
+
+    input{
+      border: 1px solid $white-med;
+    }
+  }
+}
+
+/*-----------------------
 Color Picker
 -----------------------*/
 .color-picker{
