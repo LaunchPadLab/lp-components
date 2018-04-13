@@ -872,6 +872,7 @@ For instance: `'person.firstName'` becomes `'First Name'`
 **Parameters**
 
 -   `name` **[String][48]** The name of the associated input
+-   `hideLabel` **[Boolean][50]** A boolean representing hiding or showing the label element (optional, default `false`)
 -   `hint` **[String][48]?** A usage hint for the associated input
 -   `label` **([String][48] \| [Boolean][50])?** Custom text for the label
 -   `tooltip` **[String][48]?** A message to display in a tooltip
@@ -993,6 +994,7 @@ Created in order to prevent these props from being passed down to the input comp
 
 Omits the following props:
 
+-   `hideLabel`
 -   `hint`
 -   `tooltip`
 -   `label`
@@ -1006,6 +1008,7 @@ Omits the following props:
 ```javascript
 const props = {
    label: 'Biography',
+   hideLabel: true,
    hint: 'A short biography',
    tooltip: 'Help us learn more about you!',
    maxLength: 1000

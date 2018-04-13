@@ -31,7 +31,7 @@ storiesOf('Input', module)
     <Input 
       input={inputProps}
       meta={{}}
-      label={false}
+      hideLabel
     />
   ))
   .add('with error', () => (

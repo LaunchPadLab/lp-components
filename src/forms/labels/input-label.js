@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { convertNameToLabel } from '../helpers'
 import { toggle, togglePropTypes } from '../../utils'
+import { hide } from 'redux-modal';
 
 /**
  *
@@ -22,6 +23,7 @@ import { toggle, togglePropTypes } from '../../utils'
  * @name InputLabel
  * @type Function
  * @param {String} name - The name of the associated input
+ * @param {Boolean} [hideLabel=false] - A boolean representing hiding or showing the label element
  * @param {String} [hint] - A usage hint for the associated input
  * @param {String|Boolean} [label] - Custom text for the label
  * @param {String} [tooltip] - A message to display in a tooltip
@@ -51,6 +53,7 @@ import { toggle, togglePropTypes } from '../../utils'
 **/
 
 const propTypes = {
+  hideLabel: PropTypes.bool,
   hint: PropTypes.string,
   label: PropTypes.oneOfType([ PropTypes.string, PropTypes.bool ]),
   name: PropTypes.string.isRequired,
@@ -59,13 +62,24 @@ const propTypes = {
 }
 
 const defaultProps = {
+  hideLabel: false,
   hint: '',
   label: '',
   tooltip: '',
 }
 
-function InputLabel ({ hint, label, name, tooltip, tooltipShown, toggleTooltipShown }) {
-  const labelText = label || convertNameToLabel(name)
+function InputLabel ({ 
+  hideLabel, 
+  hint, 
+  label, 
+  name, 
+  tooltip, 
+  tooltipShown, 
+  toggleTooltipShown,
+}) {
+  const showLabel = (hideLabel !== true) || (label !== false)
+  console.log(label !== false)
+  const labelText = showLabel || convertNameToLabel(name)
   return (
     <span>
       {  
