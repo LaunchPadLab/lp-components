@@ -15,7 +15,7 @@ test('Fileinput sets thumbnail placeholder', () => {
   const thumbnail = 'thumb'
   const props = { input: { name, value: '' }, meta: {}, thumbnail }
   const wrapper = mount(<FileInput { ...props }/>)
-  expect(wrapper.find('img').props().src).toEqual(thumbnail)
+  expect(wrapper.find('p').props().src).toEqual(thumbnail)
 })
 
 test('Fileinput hides preview correctly', () => {
