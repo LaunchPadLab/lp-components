@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { convertNameToLabel } from '../helpers'
 import { toggle, togglePropTypes } from '../../utils'
-import { hide } from 'redux-modal';
 
 /**
  *
