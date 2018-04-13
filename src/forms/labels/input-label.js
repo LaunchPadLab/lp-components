@@ -23,7 +23,7 @@ import { hide } from 'redux-modal';
  * @name InputLabel
  * @type Function
  * @param {String} name - The name of the associated input
- * @param {Boolean} [hideLabel=false] - A boolean representing hiding or showing the label element
+ * @param {Boolean} [hideLabel=false] - A boolean representing whether or not to display the label element
  * @param {String} [hint] - A usage hint for the associated input
  * @param {String|Boolean} [label] - Custom text for the label
  * @param {String} [tooltip] - A message to display in a tooltip
@@ -77,13 +77,12 @@ function InputLabel ({
   tooltipShown, 
   toggleTooltipShown,
 }) {
-  const showLabel = (hideLabel !== true) || (label !== false)
-  console.log(label !== false)
-  const labelText = showLabel || convertNameToLabel(name)
+  const showLabel = !(hideLabel === true || label === false)
+  const labelText = !showLabel || convertNameToLabel(name)
   return (
     <span>
       {  
-        label !== false &&
+        showLabel &&
         <label htmlFor={ name }>
           { labelText }
           { 

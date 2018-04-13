@@ -31,6 +31,13 @@ storiesOf('Input', module)
     <Input 
       input={inputProps}
       meta={{}}
+      label={false}
+    />
+  ))
+  .add('with no label, using `hideLabel` prop', () => (
+    <Input
+      input={ inputProps }
+      meta={ {} }
       hideLabel
     />
   ))

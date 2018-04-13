@@ -872,7 +872,7 @@ For instance: `'person.firstName'` becomes `'First Name'`
 **Parameters**
 
 -   `name` **[String][48]** The name of the associated input
--   `hideLabel` **[Boolean][50]** A boolean representing hiding or showing the label element (optional, default `false`)
+-   `hideLabel` **[Boolean][50]** A boolean representing whether or not to display the label element (optional, default `false`)
 -   `hint` **[String][48]?** A usage hint for the associated input
 -   `label` **([String][48] \| [Boolean][50])?** Custom text for the label
 -   `tooltip` **[String][48]?** A message to display in a tooltip
