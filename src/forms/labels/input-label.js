@@ -78,7 +78,6 @@ function InputLabel ({
 }) {
   const showLabel = !(hideLabel === true || label === false)
   const labelText = label || convertNameToLabel(name)
-  console.log(labelText)
   return (
     <span>
       {  
