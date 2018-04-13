@@ -77,7 +77,8 @@ function InputLabel ({
   toggleTooltipShown,
 }) {
   const showLabel = !(hideLabel === true || label === false)
-  const labelText = !showLabel || convertNameToLabel(name)
+  const labelText = label || convertNameToLabel(name)
+  console.log(labelText)
   return (
     <span>
       {  

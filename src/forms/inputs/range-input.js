@@ -52,6 +52,7 @@ const defaultProps = {
 }
 
 function RangeInput (props) {
+  const { hideLabel } = props
   const {
     input: { name, value, onBlur, onChange },
     meta, // eslint-disable-line no-unused-vars
@@ -59,7 +60,6 @@ function RangeInput (props) {
     min,
     max,
     step,
-    hideLabel,
     ...rest
   } = omitLabelProps(props)
   return (
