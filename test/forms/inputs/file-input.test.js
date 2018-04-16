@@ -4,10 +4,12 @@ import { FileInput } from '../../../src/'
 
 const name = 'my.file.input'
 
-test('Fileinput renders thumbnail with value as src', () => {
+test('Fileinput renders thumbnail with value as src when file is an image', () => {
   const value = 'foo'
+  const file = { name: 'fileName', type: 'image/png' }
   const props = { input: { name, value }, meta: {} }
   const wrapper = mount(<FileInput { ...props }/>)
+  wrapper.setState({ file })
   expect(wrapper.find('img').props().src).toEqual(value)
 })
 

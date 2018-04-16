@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { buttonClasses, fieldPropTypes, omitLabelProps } from '../../helpers'
+import { buttonClasses, fieldPropTypes, isImageType, omitLabelProps } from '../../helpers'
 import { LabeledField } from '../../labels'
 import FilePreview from './file-preview'
+import ImagePreview from './image-preview';
 import { noop } from '../../../utils'
 
 /**
@@ -125,7 +126,9 @@ function renderPreview ({ file, value, thumbnail, hidePreview, previewComponent:
   if (hidePreview) return null
   if (Component) return <Component file={ file } />
   if (children) return children
-  return <FilePreview image={ value || thumbnail } file={ file } />
+  const renderImagePreview = isImageType(file) || thumbnail
+  if (renderImagePreview) return <ImagePreview image={ value || thumbnail } />
+  return <FilePreview file={ file } />
 }
 
 FileInput.propTypes = propTypes

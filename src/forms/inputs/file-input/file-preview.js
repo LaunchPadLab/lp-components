@@ -1,29 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { isImageType } from '../../helpers'
 
-// Default FileInput preview component
+// Default FileInput preview component for non-image files
 
 const propTypes = {
   file: PropTypes.object,
-  image: PropTypes.string,
 }
 
 const defaultProps = {
   file: {},
-  image: '',
 }
 
-function FilePreview ({ file, image }) {
-  if (!file && !image) return null
-  const renderImage = isImageType(image) || image
-  return (
-    renderImage
-      ? <div className="thumbnail">
-          <img src={ image } />
-        </div>
-      : <p>{ file.name }</p>
-  )
+function FilePreview ({ file }) {
+  if (!file) return null
+  return <p>{ file.name }</p>
 }
 
 FilePreview.propTypes = propTypes
