@@ -611,7 +611,7 @@ A range input that can be used in a `redux-forms`-controlled form.
 -   `min` **[Number][51]** The minumum attribute of the slider control (optional, default `0`)
 -   `max` **[Number][51]** The maximum attribute of the slider control (optional, default `100`)
 -   `step` **[Number][51]** The step attribute of the slider control (optional, default `1`)
--   `hideLabel` **[Boolean][50]** A boolean representing whether or not to display the range value label element (optional, default `false`)
+-   `hideRangeLabel` **[Boolean][50]** A boolean representing whether or not to display the range value label element (optional, default `false`)
 
 **Examples**
 

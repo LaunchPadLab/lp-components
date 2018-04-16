@@ -33,7 +33,7 @@ storiesOf('RangeInput', module)
     <RangeInput 
       input={ rangeInputProps }
       meta={ {} }
-      hideLabel={ true }
+      hideRangeLabel
     />
   ))
   .add('with error', () => (

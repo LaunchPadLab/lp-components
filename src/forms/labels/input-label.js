@@ -76,12 +76,12 @@ function InputLabel ({
   tooltipShown, 
   toggleTooltipShown,
 }) {
-  const showLabel = !(hideLabel === true || label === false)
+  const labelHidden = hideLabel || label === false
   const labelText = label || convertNameToLabel(name)
   return (
     <span>
       {  
-        showLabel &&
+        !labelHidden &&
         <label htmlFor={ name }>
           { labelText }
           { 

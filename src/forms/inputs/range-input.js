@@ -15,7 +15,7 @@ import { compose } from '../../utils'
  * @param {Number} [min=0] - The minumum attribute of the slider control
  * @param {Number} [max=100] - The maximum attribute of the slider control
  * @param {Number} [step=1] - The step attribute of the slider control
- * @param {Boolean} [hideLabel=false] - A boolean representing whether or not to display the range value label element
+ * @param {Boolean} [hideRangeLabel=false] - A boolean representing whether or not to display the range value label element
  * @example
  * 
  * function StudentForm ({ handleSubmit, pristine, invalid, submitting }) {
@@ -41,22 +41,22 @@ const propTypes = {
   min: PropTypes.number,
   max: PropTypes.number,
   step: PropTypes.number,
-  hideLabel: PropTypes.bool
+  hideRangeLabel: PropTypes.bool
 }
 
 const defaultProps = {
   min: 0,
   max: 100,
   step: 1,
-  hideLabel: false
+  hideRangeLabel: false
 }
 
 function RangeInput (props) {
-  const { hideLabel } = props
   const {
     input: { name, value, onBlur, onChange },
     meta, // eslint-disable-line no-unused-vars
     className, // eslint-disable-line no-unused-vars
+    hideRangeLabel,
     min,
     max,
     step,
@@ -66,7 +66,7 @@ function RangeInput (props) {
     <LabeledField { ...props }>
       <div>
       {
-        !hideLabel &&
+        !hideRangeLabel &&
         <label className="range-value">{value}</label>
       }
       </div>
