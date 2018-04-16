@@ -15,13 +15,17 @@ const defaultProps = {
 }
 
 function FilePreview ({ file, image }) {
-  return (
-    isImageType(file.type)
-      ? <div className="thumbnail">
-          <img src={ image } />
-        </div>
-      : <p>{ file.name }</p>
-  )
+  if (!file && !image) {
+    return null
+  } else {
+    return (
+      (isImageType(file) || image)
+        ? <div className="thumbnail">
+            <img src={ image } />
+          </div>
+        : <p>{ file.name }</p>
+    )
+  }
 }
 
 FilePreview.propTypes = propTypes
