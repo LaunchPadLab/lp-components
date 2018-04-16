@@ -93,6 +93,7 @@ class FileInput extends React.Component {
       className, // eslint-disable-line no-unused-vars
       submitting,
       accept,
+      hidePreview,
       ...rest
     } = omitLabelProps(this.props)
     const { file } = this.state
@@ -101,6 +102,7 @@ class FileInput extends React.Component {
       <LabeledField { ...this.props }>
         <div className="fileupload fileupload-exists">
           { 
+            !hidePreview &&
             renderPreview({ file, value, ...rest })
           }
           <div className={ wrapperClass }>
@@ -122,8 +124,7 @@ class FileInput extends React.Component {
 }
 
 // eslint-disable-next-line react/prop-types
-function renderPreview ({ file, value, thumbnail, hidePreview, previewComponent: Component, children }) {
-  if (hidePreview) return null
+function renderPreview ({ file, value, thumbnail, previewComponent: Component, children }) {
   if (Component) return <Component file={ file } />
   if (children) return children
   const renderImagePreview = isImageType(file) || thumbnail
