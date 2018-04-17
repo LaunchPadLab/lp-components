@@ -4,11 +4,21 @@ import { FileInput } from '../../../src/'
 
 const name = 'my.file.input'
 
-test('Fileinput renders thumbnail with value as src', () => {
+test('Fileinput renders thumbnail with value as src when file is an image', () => {
   const value = 'foo'
+  const file = { name: 'fileName', type: 'image/png' }
   const props = { input: { name, value }, meta: {} }
   const wrapper = mount(<FileInput { ...props }/>)
+  wrapper.setState({ file })
   expect(wrapper.find('img').props().src).toEqual(value)
+})
+
+test('Fileinput renders file name when file is non-image type or value is empty', () => {
+  const file = { name: 'fileName', type: 'application/pdf' }
+  const props = { input: { name, value: '' }, meta: {} }
+  const wrapper = mount(<FileInput { ...props } />)
+  wrapper.setState({ file })
+  expect(wrapper.find('p').text()).toEqual('fileName')
 })
 
 test('Fileinput sets thumbnail placeholder', () => {
@@ -36,7 +46,7 @@ test('Fileinput sets custom preview from props', () => {
   const props = { input: { name, value: '' }, meta: {} }
   const wrapper = mount(<FileInput previewComponent={ Preview } { ...props }/>)
   expect(wrapper.find('blink').exists()).toEqual(true)
-  wrapper.setState({ file: { name: 'fileName' } })
+  wrapper.setState({ file: { name: 'fileName', type: 'image/png' } })
   expect(wrapper.find('blink').text()).toEqual('fileName')
 })
 
