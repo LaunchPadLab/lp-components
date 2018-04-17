@@ -75,6 +75,7 @@
   "greenkeeper": {
     "ignore": [
       "bourbon",
+      "sass-loader",
       "webpack"
     ]
   }
