@@ -81,6 +81,18 @@ test('disableSort disables all columns', () => {
   expect(wrapper.find('tr > td').last().text()).toEqual('Lorax')
 })
 
+test('controlled disables all columns', () => {
+  const wrapper = mount(
+    <SortableTable data={ tableData } controlled>
+      <Column name="name"/>
+    </SortableTable>
+  )
+  wrapper.find('th').first().simulate('click')
+  // Data remains unsorted
+  expect(wrapper.find('tr > td').first().text()).toEqual('Kim')
+  expect(wrapper.find('tr > td').last().text()).toEqual('Lorax')
+})
+
 test('column can have custom label', () => {
   const wrapper = mount(
     <SortableTable data={ tableData }>
