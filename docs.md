@@ -1098,7 +1098,8 @@ This component's behavior is largely determined by the [TableColumn][36] compone
 -   `data` **[Array][52]** An array of objects to display in the table- one object per row (optional, default `[]`)
 -   `initialColumn` **[Number][51]** The name of the column that's initially selected (optional, default `''`)
 -   `disableReverse` **[Boolean][50]** Disables automatic reversing of descending sorts (optional, default `false`)
--   `disableSort` **[Boolean][50]** A flag to disable sorting on all columns (optional, default `false`)
+-   `disableSort` **[Boolean][50]** A flag to disable sorting on all columns and hide sorting arrows. (optional, default `false`)
+-   `controlled` **[Boolean][50]** A flag to disable sorting on all columns, while keeping the sorting arrows. Used when sorting is controlled by an external source. (optional, default `false`)
 -   `onChange` **[Function][49]?** A callback that will be fired when the sorting state changes
 
 **Examples**
