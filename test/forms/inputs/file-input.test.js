@@ -35,23 +35,32 @@ test('Fileinput hides preview correctly', () => {
 })
 
 test('Fileinput sets custom preview from children', () => {
-  const Preview = () => <blink> My preview </blink>
+  const Preview = () => <p> My preview </p>
   const props = { input: { name, value: '' }, meta: {} }
   const wrapper = mount(<FileInput { ...props }><Preview/></FileInput>)
-  expect(wrapper.find('blink').exists()).toEqual(true)
+  expect(wrapper.find('p').exists()).toEqual(true)
 })
 
 test('Fileinput sets custom preview from props', () => {
-  const Preview = ({ file }) => <blink>{ file && file.name }</blink> // eslint-disable-line react/prop-types
+  const Preview = ({ file }) => <p>{ file && file.name }</p> // eslint-disable-line react/prop-types
   const props = { input: { name, value: '' }, meta: {} }
   const wrapper = mount(<FileInput previewComponent={ Preview } { ...props }/>)
-  expect(wrapper.find('blink').exists()).toEqual(true)
+  expect(wrapper.find('p').exists()).toEqual(true)
   wrapper.setState({ file: { name: 'fileName', type: 'image/png' } })
-  expect(wrapper.find('blink').text()).toEqual('fileName')
+  expect(wrapper.find('p').text()).toEqual('fileName')
+})
+
+test('Fileinput passes value to custom preview', () => {
+  const Preview = ({ value }) => <p>{ value }</p> // eslint-disable-line react/prop-types
+  const value = 'foo'
+  const props = { input: { name, value }, meta: {} }
+  const wrapper = mount(<FileInput previewComponent={ Preview } { ...props }/>)
+  expect(wrapper.find('p').exists()).toEqual(true)
+  expect(wrapper.find('p').text()).toEqual(value)
 })
 
 test('FileInput reads files and calls change handlers correctly', () => {
-  const FILE = 'my file'
+  const FILE = { name: 'my file' }
   const FILEDATA = 'my file data'
   window.FileReader = createMockFileReader(FILEDATA)
   const onLoad = jest.fn()
