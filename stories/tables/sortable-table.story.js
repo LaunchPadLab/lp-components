@@ -8,11 +8,21 @@ const tableData = [
   { name: 'Lorax', age: 450, active: 'yes' },
 ]
 
+function colorForStatus (active) {
+  return active === 'yes' ? 'green' : 'red'
+}
+
 // eslint-disable-next-line react/prop-types
 function CustomCell ({ value }) {
-  const color = value === 'yes' ? 'green' : 'red'
   return (
-    <td style={{ color }}>{ value }</td>
+    <td style={{ color: colorForStatus(value) }}>{ value }</td>
+  )
+}
+
+// eslint-disable-next-line react/prop-types
+function CustomRow ({ data: { active }, children }) {
+  return (
+    <tr style={{ backgroundColor: colorForStatus(active) }}>{ children }</tr>
   )
 }
 
@@ -41,11 +51,18 @@ storiesOf('SortableTable', module)
       <Column name="active" label="IS ACTIVE" />
     </SortableTable>
   ))
-  .add('with custom component', () => (
+  .add('with custom cell component', () => (
     <SortableTable data={ tableData }>
       <Column name="name" />
       <Column name="age" />
       <Column name="active" component={ CustomCell } />
+    </SortableTable>
+  ))
+  .add('with custom row component', () => (
+    <SortableTable data={ tableData } rowComponent={ CustomRow }>
+      <Column name="name" />
+      <Column name="age" />
+      <Column name="active" />
     </SortableTable>
   ))
   .add('with disabled column', () => (

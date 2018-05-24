@@ -1105,6 +1105,7 @@ This component's behavior is largely determined by the [TableColumn][36] compone
 -   `disableSort` **[Boolean][50]** A flag to disable sorting on all columns and hide sorting arrows. (optional, default `false`)
 -   `controlled` **[Boolean][50]** A flag to disable sorting on all columns, while keeping the sorting arrows. Used when sorting is controlled by an external source. (optional, default `false`)
 -   `onChange` **[Function][49]?** A callback that will be fired when the sorting state changes
+-   `rowComponent` **[Function][49]?** A custom row component for the table. Will be passed the `data` for the row, as well as `children` to render.
 
 **Examples**
 
