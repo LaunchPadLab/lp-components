@@ -17,6 +17,7 @@ import classnames from 'classnames'
  * @param {Boolean} [disableSort=false] - A flag to disable sorting on all columns and hide sorting arrows.
  * @param {Boolean} [controlled=false] - A flag to disable sorting on all columns, while keeping the sorting arrows. Used when sorting is controlled by an external source. 
  * @param {Function} [onChange] - A callback that will be fired when the sorting state changes
+ * @param {Function} [rowComponent] - A custom row component for the table. Will be passed the `data` for the row, as well as `children` to render.
  * @example
  * 
  * function PersonTable ({ people }) {
@@ -37,6 +38,7 @@ const propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   disableSort: PropTypes.bool.isRequired,
   controlled: PropTypes.bool.isRequired,
+  rowComponent: Types.component,
   ...sortablePropTypes,
 }
 
@@ -52,6 +54,7 @@ function SortableTable ({
   sortPath, 
   setSortPath, 
   setSortFunc,
+  rowComponent,
 }) {
   const data = (controlled || disableSort) ? unsortedData : sort(unsortedData)
   return (
@@ -82,6 +85,7 @@ function SortableTable ({
               key,
               rowData,
               columns,
+              rowComponent,
             }} />
           )
         }
@@ -96,7 +100,7 @@ SortableTable.defaultProps = defaultProps
 const WrappedTable = sortable()(SortableTable)
 
 // Passes relevant sortable props
-function SortableTableWrapper ({ initialColumn, children, disableSort, disableReverse, data, onChange, ...rest }) {
+function SortableTableWrapper ({ initialColumn, children, disableSort, disableReverse, onChange, ...rest }) {
   const columns = getColumnData(children, disableSort)
   const initialProps = columns.filter(col => col.name === initialColumn).pop()
   return <WrappedTable {...{
@@ -106,8 +110,7 @@ function SortableTableWrapper ({ initialColumn, children, disableSort, disableRe
     onChange,
     disableReverse,
     // Local props
-    columns, 
-    data,
+    columns,
     disableSort,
     ...rest,
   }} />
@@ -120,6 +123,7 @@ SortableTableWrapper.propTypes = {
   disableSort: PropTypes.bool,
   disableReverse: PropTypes.bool,
   onChange: PropTypes.func,
+  rowComponent: Types.component,
 }
 
 SortableTableWrapper.defaultProps = {

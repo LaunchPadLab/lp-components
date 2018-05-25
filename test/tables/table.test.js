@@ -16,6 +16,6 @@ test('Table does not sort data', () => {
   )
   wrapper.find('th').first().simulate('click')
   // Data remains unsorted
-  expect(wrapper.find('tr > td').first().text()).toEqual('Kim')
-  expect(wrapper.find('tr > td').last().text()).toEqual('Lorax')
+  expect(wrapper.find('td').first().text()).toEqual('Kim')
+  expect(wrapper.find('td').last().text()).toEqual('Lorax')
 })
