@@ -113,6 +113,15 @@ test('column can have custom sort function', () => {
   expect(mySort).toHaveBeenCalled()
 })
 
+test('column can have custom className', () => {
+  const wrapper = mount(
+    <SortableTable data={ tableData }>
+      <Column name="name" className="foo"/>
+    </SortableTable>
+  )
+  expect(wrapper.find('td.foo').exists()).toEqual(true)
+})
+
 test('column can have custom cell component', () => {
   const MyCell = () => <td> Hi! </td> 
   const wrapper = mount(
