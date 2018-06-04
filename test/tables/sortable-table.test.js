@@ -20,6 +20,17 @@ test('Column data is pulled out via name', () => {
   expect(wrapper.find('td').last().text()).toEqual('Lorax')
 })
 
+test('Columns without props are ignored', () => {
+  const wrapper = mount(
+    <SortableTable data={ tableData }>
+      <Column name="name"/>
+      { false }
+    </SortableTable>
+  )
+  expect(wrapper.find('td').first().text()).toEqual('Kim')
+  expect(wrapper.find('td').last().text()).toEqual('Lorax')
+})
+
 test('Clicking on column header changes sortPath', () => {
   const wrapper = mount(
     <SortableTable data={ tableData }>
