@@ -75,6 +75,8 @@ function BackgroundSetter ({ backgroundColor, setBackgroundColor }) {
     </div>
   )
 }
+
+*
 ```
 
 ## Paginator
@@ -109,6 +111,7 @@ function ShowPages ({ pages, currentPage, changeCurrentPage }) {
     </div>
   )
 }
+*
 ```
 
 ## TabBar
@@ -137,6 +140,7 @@ function ShowTabs ({ currentTab, setCurrentTab }) {
     </div>
   )
 }
+*
 ```
 
 ## fieldOptionsType
@@ -182,6 +186,8 @@ fieldPropTypesWithValue(valuePropType)
 //     valid: PropTypes.bool,
 //   }).isRequired
 // }
+
+*
 ```
 
 Returns **[Object][55]** `PropTypes` for `redux-forms` [input][53] and [meta][56] objects
@@ -236,6 +242,8 @@ function MessageButton ({ message }) {
 }
 
 // For a more in-depth example of using buttons with forms, see the docs for SubmitButton.
+
+*
 ```
 
 ## ButtonArea
@@ -264,6 +272,8 @@ function ButtonForm ({ handleSubmit }) {
 }
 
 // Buttons will be wrapped in a div with class: "button-area my-area"
+
+*
 ```
 
 ## SubmitButton
@@ -288,6 +298,7 @@ function PersonForm ({ handleSubmit, pristine, invalid, submitting }) {
 }
 
 // When SubmitButton is pressed, form will submit and handleSubmit() will be called.
+*
 ```
 
 ## Checkbox
@@ -316,6 +327,7 @@ function CoolPersonForm ({ handleSubmit, pristine, invalid, submitting }) {
 }
 
 export default CoolPersonForm
+*
 ```
 
 ## CheckboxGroup
@@ -360,6 +372,7 @@ function TodoForm ({ handleSubmit, pristine, invalid, submitting }) {
 }
 
 export default TodoForm
+*
 ```
 
 ## ColorInput
@@ -388,6 +401,7 @@ function UserForm ({ handleSubmit, pristine, invalid, submitting }) {
     </form>
   )
 }
+*
 ```
 
 ## DateInput
@@ -425,6 +439,8 @@ function BirthdayForm ({ handleSubmit }) {
 }
 
 // Will render datepicker with label "Birthday" and placeholder "mm/dd/yyyy"
+
+*
 ```
 
 ## DropdownCheckboxGroup
@@ -470,6 +486,7 @@ function InterestsForm ({ handleSubmit, pristine, invalid, submitting }) {
 }
 
 export default TodoForm
+*
 ```
 
 ## FileInput
@@ -513,6 +530,7 @@ function HeadshotForm ({ handleSubmit, pristine, invalid, submitting }) {
     </form>
   )
 }
+*
 ```
 
 ## HiddenInput
@@ -537,6 +555,8 @@ function UserForm ({ handleSubmit }) {
     </form>
   )
 }
+
+*
 ```
 
 ## Input
@@ -569,6 +589,7 @@ function UserForm ({ handleSubmit, pristine, invalid, submitting }) {
     </form>
   )
 }
+*
 ```
 
 ## IconInput
@@ -602,6 +623,7 @@ function TwitterForm ({ handleSubmit, pristine, invalid, submitting }) {
     </form>
   )
 }
+*
 ```
 
 ## RangeInput
@@ -636,6 +658,7 @@ function StudentForm ({ handleSubmit, pristine, invalid, submitting }) {
     </form>
   )
 }
+*
 ```
 
 ## RadioGroup
@@ -679,6 +702,7 @@ function FavoriteFoodForm ({ handleSubmit, pristine, invalid, submitting }) {
 }
 
 export default FavoriteFoodForm
+*
 ```
 
 ## Select
@@ -753,6 +777,7 @@ function EmployeeForm ({ handleSubmit, pristine, invalid, submitting }) {
     </form>
   )
 }
+*
 ```
 
 ## SetterLink
@@ -784,6 +809,8 @@ function FilterForm ({ handleSubmit, pristine, invalid, submitting }) {
     </form>
   )
 }
+
+*
 ```
 
 ## Textarea
@@ -814,6 +841,7 @@ function BiographyForm ({ handleSubmit, pristine, invalid, submitting }) {
     </form>
   )
 }
+*
 ```
 
 ## InputError
@@ -855,6 +883,8 @@ function ValidatedInput ({
     </div>
   )
 }
+
+*
 ```
 
 ## InputLabel
@@ -902,6 +932,8 @@ function EmailInput ({
     </div>
   )
 }
+
+*
 ```
 
 ## LabeledField
@@ -941,6 +973,8 @@ function LabeledPhoneInput (props) {
     </LabeledField>
   )
 }
+
+*
 ```
 
 ## blurDirty
@@ -970,6 +1004,7 @@ function TextForm ({ handleSubmit, pristine, invalid, submitting }) {
 export default compose(
    blurDirty()
 )(TextForm)
+*
 ```
 
 ## convertNameToLabel
@@ -986,6 +1021,8 @@ by stripping its namespace and converting it to start case.
 ```javascript
 convertNameToLabel('example') // -> 'Example'
 convertNameToLabel('person.firstName') // -> 'First Name'
+
+*
 ```
 
 Returns **[String][48]** A user-friendly field label
@@ -1033,6 +1070,8 @@ function Input (props) {
      ... 
    )
 }
+
+*
 ```
 
 Returns **[Object][55]** `props` object with [InputLabel][28] props omitted
@@ -1067,6 +1106,7 @@ Checkbox.propTypes = PropTypes.shape({
 export default compose(
    replaceEmptyStringValue(false)
 )(Checkbox)
+*
 ```
 
 ## Table
@@ -1090,6 +1130,7 @@ function PersonTable ({ people }) {
     </Table>
   )
 }
+*
 ```
 
 ## SortableTable
@@ -1119,6 +1160,7 @@ function PersonTable ({ people }) {
     </SortableTable>
   )
 }
+*
 ```
 
 ## TableColumn
@@ -1145,6 +1187,7 @@ function PersonTable ({ people }) {
     </SortableTable>
   )
 }
+*
 ```
 
 ## FlashMessage
@@ -1167,6 +1210,8 @@ function ManyMessages ({ messages }) {
      </div>
   )
 }
+
+*
 ```
 
 ## FlashMessageContainer
@@ -1190,6 +1235,8 @@ function MyApp ({ messages }) {
      </div>
   )
 }
+
+*
 ```
 
 ## Spinner
@@ -1211,6 +1258,8 @@ function Image ({ imgUrl }) {
 }
 
 // Spinner is rendered when there is no content to display
+
+*
 ```
 
 ## LoadingContainer
@@ -1237,6 +1286,8 @@ function PatientIndex ({ patientProfiles }) {
      </div>
   )
 }
+
+*
 ```
 
 ## AuthorizedRoute
@@ -1268,6 +1319,7 @@ const MyRoutes = (
        />
     </Route>
 )
+*
 ```
 
 ## UnauthorizedRoute
@@ -1297,6 +1349,7 @@ const MyRoutes = (
        />
     </Route>
 )
+*
 ```
 
 ## compareAtPath
@@ -1327,6 +1380,8 @@ people.sort(ageComparator)
 //   { name: 'Georgina', age: 35 },
 //   { name: 'Brad', age: 66 },
 // ]
+
+*
 ```
 
 Returns **[Function][49]** Comparison function
@@ -1348,6 +1403,8 @@ const options = ['apple', 'banana']
 serializeOptions(options)
 
 // [{ key: 'apple', value: 'apple' }, { key: 'banana', value: 'banana' }]
+
+*
 ```
 
 Returns **[Array][52]** Array of object options
@@ -1381,6 +1438,8 @@ serializeOptionGroups(optionGroups)
 //     options: [{ key: 'lettuce', value: 'lettuce' }, { key: 'pepper', value: 'pepper' }] 
 //   },
 // ]
+
+*
 ```
 
 Returns **[Array][52]** Array of object group options
@@ -1403,6 +1462,8 @@ const namespace = 'user.profile.name'
 stripNamespace(namespace)
 
 // 'name'
+
+*
 ```
 
 Returns **[String][48]** String with namespace removed
