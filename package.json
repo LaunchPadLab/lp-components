@@ -42,7 +42,7 @@
     "prop-types": "^15.5.8",
     "react-color": "^2.14.0",
     "react-datepicker": "^1.0.3",
-    "react-router": "3.2.1",
+    "react-router": "4.3.0",
     "redux-flash": "^2.0.0"
   },
   "devDependencies": {
