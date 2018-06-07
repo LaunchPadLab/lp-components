@@ -6,25 +6,27 @@ import { Types } from '../helpers'
 const propTypes = {
   rowData: PropTypes.any,
   columns: PropTypes.arrayOf(Types.column).isRequired,
+  rowComponent: Types.component,
 }
+
+const DefaultRowComponent = ({ children }) => <tr>{ children }</tr> // eslint-disable-line
+const DefaultCellComponent = ({ value, className }) => <td { ...{ className } }>{ value }</td> // eslint-disable-line
 
 function TableRow ({
   rowData,
   columns,
+  rowComponent: RowComponent = DefaultRowComponent,
 }) {
   return (
-    <tr>
+    <RowComponent { ...{ data: rowData } }>
       {
-        columns.map((column, key ) => {
-          const { name, component: CustomComponent, ...rest } = column
+        columns.map((column, key) => {
+          const { name, component: CellComponent=DefaultCellComponent, ...rest } = column
           const value = get(name, rowData)
-          return CustomComponent ?
-            <CustomComponent { ...{ key, name, value, data: rowData, ...rest } } />
-          :
-            <td { ...{ key } }>{ value }</td>
+          return <CellComponent { ...{ key, value, name, data: rowData, ...rest } } /> // eslint-disable-line
         })
       }
-    </tr>
+    </RowComponent>
   )
 }
 

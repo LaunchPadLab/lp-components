@@ -1,4 +1,6 @@
 export {
+  castArray,
+  has,
   startCase,
   range,
   noop,

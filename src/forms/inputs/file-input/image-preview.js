@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-// Default FileInput preview component
+// Default FileInput preview component for image files
 
 const propTypes = {
   image: PropTypes.string,
@@ -14,7 +14,7 @@ const defaultProps = {
 function ImagePreview ({ image }) {
   return (
     <div className="thumbnail">
-        <img src={ image } />
+      <img src={ image } />
     </div>
   )
 }

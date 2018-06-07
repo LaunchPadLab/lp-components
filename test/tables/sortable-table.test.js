@@ -16,8 +16,19 @@ test('Column data is pulled out via name', () => {
       <Column name="name"/>
     </SortableTable>
   )
-  expect(wrapper.find('tr > td').first().text()).toEqual('Kim')
-  expect(wrapper.find('tr > td').last().text()).toEqual('Lorax')
+  expect(wrapper.find('td').first().text()).toEqual('Kim')
+  expect(wrapper.find('td').last().text()).toEqual('Lorax')
+})
+
+test('Columns without props are ignored', () => {
+  const wrapper = mount(
+    <SortableTable data={ tableData }>
+      <Column name="name"/>
+      { false }
+    </SortableTable>
+  )
+  expect(wrapper.find('td').first().text()).toEqual('Kim')
+  expect(wrapper.find('td').last().text()).toEqual('Lorax')
 })
 
 test('Clicking on column header changes sortPath', () => {
@@ -28,8 +39,8 @@ test('Clicking on column header changes sortPath', () => {
   )
   wrapper.find('th').first().simulate('click')
   // Data should now be sorted by name
-  expect(wrapper.find('tr > td').first().text()).toEqual('Kim')
-  expect(wrapper.find('tr > td').last().text()).toEqual('Tommy')
+  expect(wrapper.find('td').first().text()).toEqual('Kim')
+  expect(wrapper.find('td').last().text()).toEqual('Tommy')
 })
 
 test('onChange is fired when sorting state changes', () => {
@@ -53,8 +64,8 @@ test('Clicking on column header twice toggles ascending', () => {
   wrapper.find('th').first().simulate('click')
   wrapper.find('th').first().simulate('click')
   // Data should now be sorted descending by name
-  expect(wrapper.find('tr > td').first().text()).toEqual('Tommy')
-  expect(wrapper.find('tr > td').last().text()).toEqual('Kim')
+  expect(wrapper.find('td').first().text()).toEqual('Tommy')
+  expect(wrapper.find('td').last().text()).toEqual('Kim')
 })
 
 test('Clicking on disabled column header does nothing', () => {
@@ -65,8 +76,8 @@ test('Clicking on disabled column header does nothing', () => {
   )
   wrapper.find('th').first().simulate('click')
   // Data remains unsorted
-  expect(wrapper.find('tr > td').first().text()).toEqual('Kim')
-  expect(wrapper.find('tr > td').last().text()).toEqual('Lorax')
+  expect(wrapper.find('td').first().text()).toEqual('Kim')
+  expect(wrapper.find('td').last().text()).toEqual('Lorax')
 })
 
 test('disableSort disables all columns', () => {
@@ -77,8 +88,20 @@ test('disableSort disables all columns', () => {
   )
   wrapper.find('th').first().simulate('click')
   // Data remains unsorted
-  expect(wrapper.find('tr > td').first().text()).toEqual('Kim')
-  expect(wrapper.find('tr > td').last().text()).toEqual('Lorax')
+  expect(wrapper.find('td').first().text()).toEqual('Kim')
+  expect(wrapper.find('td').last().text()).toEqual('Lorax')
+})
+
+test('controlled disables all columns', () => {
+  const wrapper = mount(
+    <SortableTable data={ tableData } controlled>
+      <Column name="name"/>
+    </SortableTable>
+  )
+  wrapper.find('th').first().simulate('click')
+  // Data remains unsorted
+  expect(wrapper.find('td').first().text()).toEqual('Kim')
+  expect(wrapper.find('td').last().text()).toEqual('Lorax')
 })
 
 test('column can have custom label', () => {
@@ -101,7 +124,16 @@ test('column can have custom sort function', () => {
   expect(mySort).toHaveBeenCalled()
 })
 
-test('column can have custom component', () => {
+test('column can have custom className', () => {
+  const wrapper = mount(
+    <SortableTable data={ tableData }>
+      <Column name="name" className="foo"/>
+    </SortableTable>
+  )
+  expect(wrapper.find('td.foo').exists()).toEqual(true)
+})
+
+test('column can have custom cell component', () => {
   const MyCell = () => <td> Hi! </td> 
   const wrapper = mount(
     <SortableTable data={ tableData }>
@@ -118,6 +150,17 @@ test('column can have custom component', () => {
   expect(wrapper.find(MyCell).first().props()).toEqual(expectedProps)
 })
 
+test('column can have custom row component', () => {
+  const MyRow = ({ children }) => <tr>{ children }</tr> // eslint-disable-line
+  const wrapper = mount(
+    <SortableTable data={ tableData } rowComponent={ MyRow }>
+      <Column name="name"/>
+    </SortableTable>
+  )
+  expect(wrapper.find(MyRow).exists()).toEqual(true)
+  expect(wrapper.find(MyRow).first().props().data).toEqual({ name: 'Kim', test: true })
+})
+
 test('initialColumn determines inital sortPath and sortFunc', () => {
   const mySort = jest.fn(compareAtPath('name', sortAscending))
   const wrapper = mount(
@@ -126,7 +169,7 @@ test('initialColumn determines inital sortPath and sortFunc', () => {
     </SortableTable>
   )
   // Data should now be sorted by name
-  expect(wrapper.find('tr > td').first().text()).toEqual('Kim')
-  expect(wrapper.find('tr > td').last().text()).toEqual('Tommy')
+  expect(wrapper.find('td').first().text()).toEqual('Kim')
+  expect(wrapper.find('td').last().text()).toEqual('Tommy')
   expect(mySort).toHaveBeenCalled()
 })

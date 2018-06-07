@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { buttonClasses, fieldPropTypes, omitLabelProps } from '../../helpers'
+import { buttonClasses, fieldPropTypes, isImageType, omitLabelProps } from '../../helpers'
 import { LabeledField } from '../../labels'
-import ImagePreview from './image-preview'
+import FilePreview from './file-preview'
+import ImagePreview from './image-preview';
 import { noop } from '../../../utils'
 
 /**
@@ -15,7 +16,10 @@ import { noop } from '../../../utils'
  *
  * By default, this component displays a thumbnail preview of the loaded file. This preview can be customized
  * by using the `thumbnail` or `hidePreview` props, as well as by passing a custom preview via `previewComponent` or `children`.
- * A component passed using `previewComponent` will receive a `file` prop containing the uploaded file object or `null`.
+ *
+ * A component passed using `previewComponent` will receive the following props:
+ * - `file`: the uploaded file object, or `null` if no file has been uploaded.
+ * - `value`: the current value of the input (data URL or empty string)
  * 
  * @name FileInput
  * @type Function
@@ -92,6 +96,7 @@ class FileInput extends React.Component {
       className, // eslint-disable-line no-unused-vars
       submitting,
       accept,
+      hidePreview,
       ...rest
     } = omitLabelProps(this.props)
     const { file } = this.state
@@ -100,6 +105,7 @@ class FileInput extends React.Component {
       <LabeledField { ...this.props }>
         <div className="fileupload fileupload-exists">
           { 
+            !hidePreview &&
             renderPreview({ file, value, ...rest })
           }
           <div className={ wrapperClass }>
@@ -121,11 +127,12 @@ class FileInput extends React.Component {
 }
 
 // eslint-disable-next-line react/prop-types
-function renderPreview ({ file, value, thumbnail, hidePreview, previewComponent: Component, children }) {
-  if (hidePreview) return null
-  if (Component) return <Component file={ file } />
+function renderPreview ({ file, value, thumbnail, previewComponent: Component, children }) {
+  if (Component) return <Component file={ file } value={ value } />
   if (children) return children
-  return <ImagePreview image={ value || thumbnail } />
+  const renderImagePreview = isImageType(file) || thumbnail
+  if (renderImagePreview) return <ImagePreview image={ value || thumbnail } />
+  return <FilePreview file={ file } />
 }
 
 FileInput.propTypes = propTypes
