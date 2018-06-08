@@ -477,7 +477,7 @@ function HeadshotForm ({ handleSubmit, pristine, invalid, submitting }) {
   return (
     <form onSubmit={ handleSubmit }>
       <Field 
-         name="headshot" 
+         name="headshotUrl" 
          component={ CloudinaryFileInput }
          cloudName="my-cloudinary-cloud"
          bucket="my-cloudinary-bucket"
