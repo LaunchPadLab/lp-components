@@ -21,6 +21,7 @@ export wrapDisplayName from 'recompose/wrapDisplayName'
 // LP Utils
 export {
   adaptToReactRouter,
+  cloudinaryUploader,
   deprecate,
   modifyProps,
   sortable,
