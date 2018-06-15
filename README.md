@@ -1,4 +1,4 @@
-[ ![Codeship Status for LaunchPadLab/lp-components](https://app.codeship.com/projects/9ed40b70-ed52-0134-977a-7ab4e0ed4895/status?branch=master)](https://app.codeship.com/projects/208563) [![Test Coverage](https://codeclimate.com/repos/58cc190ef96b3b02880000b6/badges/452f912b130d452bca15/coverage.svg)](https://codeclimate.com/repos/58cc190ef96b3b02880000b6/coverage) [![Greenkeeper badge](https://badges.greenkeeper.io/LaunchPadLab/lp-components.svg)](https://greenkeeper.io/)
+[![NPM version](https://img.shields.io/npm/v/@launchpadlab/lp-components.svg?style=flat-square)](https://www.npmjs.com/package/@launchpadlab/lp-components)
 
 # lp-components
 
