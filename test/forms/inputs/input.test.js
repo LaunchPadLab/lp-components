@@ -20,8 +20,8 @@ test('Input contains div with class input-wrapper', () => {
 })
 
 test('Input renders children', () => {
-  const Wrapped = () => <blink> I'm a child component </blink> 
+  const Wrapped = () => <p> I'm a child component </p> 
   const props = { input, meta: {} }
   const wrapper = mount(<Input { ...props }><Wrapped /></Input>)
-  expect(wrapper.find('blink').exists()).toEqual(true)
+  expect(wrapper.find(Wrapped).exists()).toEqual(true)
 })
