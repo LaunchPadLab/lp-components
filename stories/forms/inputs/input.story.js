@@ -34,6 +34,13 @@ storiesOf('Input', module)
       label={false}
     />
   ))
+  .add('with no label, using `hideLabel` prop', () => (
+    <Input
+      input={ inputProps }
+      meta={ {} }
+      hideLabel
+    />
+  ))
   .add('with error', () => (
     <Input 
       input={inputProps}

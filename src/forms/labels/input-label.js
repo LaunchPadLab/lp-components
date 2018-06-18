@@ -22,6 +22,7 @@ import { toggle, togglePropTypes } from '../../utils'
  * @name InputLabel
  * @type Function
  * @param {String} name - The name of the associated input
+ * @param {Boolean} [hideLabel=false] - A boolean representing whether or not to display the label element
  * @param {String} [hint] - A usage hint for the associated input
  * @param {String|Boolean} [label] - Custom text for the label
  * @param {String} [tooltip] - A message to display in a tooltip
@@ -51,6 +52,7 @@ import { toggle, togglePropTypes } from '../../utils'
 **/
 
 const propTypes = {
+  hideLabel: PropTypes.bool,
   hint: PropTypes.string,
   label: PropTypes.oneOfType([ PropTypes.string, PropTypes.bool ]),
   name: PropTypes.string.isRequired,
@@ -59,17 +61,27 @@ const propTypes = {
 }
 
 const defaultProps = {
+  hideLabel: false,
   hint: '',
   label: '',
   tooltip: '',
 }
 
-function InputLabel ({ hint, label, name, tooltip, tooltipShown, toggleTooltipShown }) {
+function InputLabel ({ 
+  hideLabel, 
+  hint, 
+  label, 
+  name, 
+  tooltip, 
+  tooltipShown, 
+  toggleTooltipShown,
+}) {
+  const labelHidden = hideLabel || label === false
   const labelText = label || convertNameToLabel(name)
   return (
     <span>
       {  
-        label !== false &&
+        !labelHidden &&
         <label htmlFor={ name }>
           { labelText }
           { 
