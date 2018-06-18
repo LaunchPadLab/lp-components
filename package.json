@@ -1,6 +1,6 @@
 {
   "name": "@launchpadlab/lp-components",
-  "version": "3.11.2",
+  "version": "3.11.3",
   "description": "Our Components",
   "main": "lib/index.js",
   "repository": "launchpadlab/lp-components",
@@ -31,7 +31,7 @@
     "lib/"
   ],
   "dependencies": {
-    "@launchpadlab/lp-hoc": "^2.7.0",
+    "@launchpadlab/lp-hoc": "^2.8.0",
     "classnames": "^2.2.5",
     "filter-invalid-dom-props": "^2.0.0",
     "lodash": "^4.17.4",
@@ -40,7 +40,7 @@
     "react-color": "^2.14.0",
     "react-datepicker": "^1.0.3",
     "react-router": "^3.2.1",
-    "redux-flash": "^2.0.0"
+    "redux-flash": "^2.0.1"
   },
   "devDependencies": {
     "@launchpadlab/babel-preset": "^1.0.0",
@@ -58,9 +58,9 @@
     "eslint": "^4.12.1",
     "husky": "^0.14.3",
     "jest": "^22.4.3",
-    "jest-canvas-mock": "^1.0.2",
+    "jest-canvas-mock": "^1.0.3",
     "node-sass": "^4.5.1",
-    "react": "^16.2.0",
+    "react": "^16.4.1",
     "react-dom": "^16.2.0",
     "redux": "^4.0.0",
     "rimraf": "^2.5.4",
