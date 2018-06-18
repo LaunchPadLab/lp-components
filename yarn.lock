@@ -86,9 +86,9 @@
     eslint-plugin-jsx-a11y "^6.0.2"
     eslint-plugin-react "^7.4.0"
 
-"@launchpadlab/lp-hoc@^2.7.0":
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/@launchpadlab/lp-hoc/-/lp-hoc-2.7.0.tgz#eaa416415e15387593d262f71e65a89b23e09b9d"
+"@launchpadlab/lp-hoc@^2.8.0":
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/@launchpadlab/lp-hoc/-/lp-hoc-2.8.0.tgz#a4cbee4a575830d45bdc381b90ef2152e989d745"
   dependencies:
     "@launchpadlab/lp-redux-api" "^5.0.2"
     "@launchpadlab/lp-requests" "^3.0.0"
@@ -100,7 +100,7 @@
     react-router "^3.2.1"
     recompose "^0.26.0"
     redux "^3.7.2"
-    redux-modal "^1.7.0"
+    redux-modal "^2.0.2"
 
 "@launchpadlab/lp-redux-api@^5.0.2":
   version "5.0.2"
@@ -5546,9 +5546,9 @@ isurl@^1.0.0-alpha5:
     has-to-string-tag-x "^1.2.0"
     is-object "^1.0.1"
 
-jest-canvas-mock@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/jest-canvas-mock/-/jest-canvas-mock-1.0.2.tgz#05373f8f87fa764ca25fb4c5d6d9e34954a05550"
+jest-canvas-mock@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/jest-canvas-mock/-/jest-canvas-mock-1.0.3.tgz#38473f21eea1ffd37218efefdf26c19d4a532702"
 
 jest-changed-files@^22.4.3:
   version "22.4.3"
@@ -8136,9 +8136,9 @@ react-treebeard@^2.0.3:
     shallowequal "^0.2.2"
     velocity-react "^1.3.1"
 
-react@^16.2.0:
-  version "16.2.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"
+react@^16.4.1:
+  version "16.4.1"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.4.1.tgz#de51ba5764b5dbcd1f9079037b862bd26b82fe32"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
@@ -8329,17 +8329,17 @@ redux-actions@^2.0.3:
     lodash-es "^4.17.4"
     reduce-reducers "^0.1.0"
 
-redux-flash@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/redux-flash/-/redux-flash-2.0.0.tgz#7725a66a1e1544be1e9678a34c7c8bd2e7614a8d"
+redux-flash@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/redux-flash/-/redux-flash-2.0.1.tgz#416997dfd4049b89ab36cacbd6e118aed263d15a"
   dependencies:
     prop-types "^15.6.1"
     redux-actions "^2.0.3"
     uuid "^3.1.0"
 
-redux-modal@^1.7.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/redux-modal/-/redux-modal-1.7.0.tgz#423551dcf2eafae5e739952211be490647df3e92"
+redux-modal@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/redux-modal/-/redux-modal-2.0.2.tgz#712ab34a3903eaf9eac418a91cb3fde42758314e"
   dependencies:
     hoist-non-react-statics "^2.3.1"
     prop-types "^15.5.10"
