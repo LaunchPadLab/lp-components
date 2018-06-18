@@ -35,7 +35,7 @@ import { compose, serializeOptions, serializeOptionGroups } from '../../utils'
  * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @param {Array} options - An array of option values (strings, numbers, or key-value pairs). This prop will be ignored if `optionGroups` is present.
  * @param {Array} optionGroups - An array of option group objects
- * @param {String} [placeholder] - A string to display as a placeholder option
+ * @param {String} [placeholder='Select'] - A string to display as a placeholder option. Pass in `false` to hide the placeholder option.
  * @param {Boolean} [enablePlaceholderOption=false] - A flag indicating that the placeholder option should not be `disabled`
  * @example
  *
@@ -93,6 +93,7 @@ const defaultProps = {
   enablePlaceholderOption: false,
   options: [],
   optionGroups: [],
+  placeholder: 'Select',
 }
 
 function Select (props) {

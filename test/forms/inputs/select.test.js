@@ -2,6 +2,8 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { Select } from '../../../src/'
 
+const DEFAULT_PLACEHOLDER = 'Select'
+
 test('Select adds string options to select tag', () => {
   const OPTION = 'MY OPTION'
   const props = { 
@@ -11,6 +13,7 @@ test('Select adds string options to select tag', () => {
     }, 
     meta: {},
     options: [OPTION],
+    placeholder: false,
   }
   const wrapper = shallow(<Select { ...props }/>)
   expect(wrapper.dive().find('option').contains(OPTION)).toEqual(true)
@@ -27,6 +30,7 @@ test('Select adds object options to select tag', () => {
     }, 
     meta: {},
     options: [{ key: KEY, value: VALUE }],
+    placeholder: false,
   }
   const wrapper = shallow(<Select { ...props }/>)
   expect(wrapper.dive().find('option').contains(KEY)).toEqual(true)
@@ -75,8 +79,23 @@ test('Select renders option groups correctly', () => {
     }, 
     meta: {},
     optionGroups: [options],
+    placeholder: false,
   }
   const wrapper = shallow(<Select { ...props }/>)
   expect(wrapper.dive().find('optgroup').first().prop('label')).toEqual('groupName')
   expect(wrapper.dive().find('option').first().prop('value')).toEqual('testOption')
+})
+
+test('Select has a placeholder by default', () => {
+  const props = {
+    input: {
+      name: 'test',
+      value: '',
+    },
+    options: [],
+    meta: {},
+  }
+  const wrapper = shallow(<Select { ...props } />)
+  expect(wrapper.dive().find('option').contains(DEFAULT_PLACEHOLDER)).toEqual(true)
+  expect(wrapper.dive().find('option').prop('value')).toEqual('')
 })

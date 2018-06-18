@@ -742,7 +742,7 @@ The value of the `Select` component will be the same as the value of the selecte
 -   `meta` **[Object][56]** A `redux-forms` [meta][57] object
 -   `options` **[Array][53]** An array of option values (strings, numbers, or key-value pairs). This prop will be ignored if `optionGroups` is present.
 -   `optionGroups` **[Array][53]** An array of option group objects
--   `placeholder` **[String][49]?** A string to display as a placeholder option
+-   `placeholder` **[String][49]** A string to display as a placeholder option. Pass in `false` to hide the placeholder option. (optional, default `'Select'`)
 -   `enablePlaceholderOption` **[Boolean][51]** A flag indicating that the placeholder option should not be `disabled` (optional, default `false`)
 
 **Examples**
