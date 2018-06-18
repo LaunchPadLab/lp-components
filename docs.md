@@ -650,7 +650,7 @@ A range input that can be used in a `redux-forms`-controlled form.
 -   `min` **[Number][52]** The minumum attribute of the slider control (optional, default `0`)
 -   `max` **[Number][52]** The maximum attribute of the slider control (optional, default `100`)
 -   `step` **[Number][52]** The step attribute of the slider control (optional, default `1`)
--   `hideLabel` **[Boolean][51]** A boolean representing whether or not to display the range value label element (optional, default `false`)
+-   `hideRangeLabel` **[Boolean][51]** A boolean representing whether or not to display the range value label element (optional, default `false`)
 
 **Examples**
 
@@ -911,6 +911,7 @@ For instance: `'person.firstName'` becomes `'First Name'`
 **Parameters**
 
 -   `name` **[String][49]** The name of the associated input
+-   `hideLabel` **[Boolean][51]** A boolean representing whether or not to display the label element (optional, default `false`)
 -   `hint` **[String][49]?** A usage hint for the associated input
 -   `label` **([String][49] \| [Boolean][51])?** Custom text for the label
 -   `tooltip` **[String][49]?** A message to display in a tooltip
@@ -1032,6 +1033,7 @@ Created in order to prevent these props from being passed down to the input comp
 
 Omits the following props:
 
+-   `hideLabel`
 -   `hint`
 -   `tooltip`
 -   `label`
@@ -1045,6 +1047,7 @@ Omits the following props:
 ```javascript
 const props = {
    label: 'Biography',
+   hideLabel: true,
    hint: 'A short biography',
    tooltip: 'Help us learn more about you!',
    maxLength: 1000
