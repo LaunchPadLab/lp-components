@@ -1,6 +1,6 @@
 {
   "name": "@launchpadlab/lp-components",
-  "version": "3.11.3",
+  "version": "3.11.4",
   "description": "Our Components",
   "main": "lib/index.js",
   "repository": "launchpadlab/lp-components",
@@ -31,7 +31,7 @@
     "lib/"
   ],
   "dependencies": {
-    "@launchpadlab/lp-hoc": "^2.8.0",
+    "@launchpadlab/lp-hoc": "^2.8.2",
     "classnames": "^2.2.5",
     "filter-invalid-dom-props": "^2.0.0",
     "lodash": "^4.17.4",
