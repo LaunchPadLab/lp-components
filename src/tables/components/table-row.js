@@ -11,9 +11,7 @@ const propTypes = {
 
 const DefaultRowComponent = ({ children }) => <tr>{ children }</tr> // eslint-disable-line
 const DefaultCellComponent = ({ className, onClick, value }) => // eslint-disable-line
-  <td { ...{ className, onClick }}>
-    { value }
-  </td>
+  <td { ...{ className, onClick }}>{ value }</td>
 
 function TableRow ({
   columns,
