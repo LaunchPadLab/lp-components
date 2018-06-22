@@ -1,6 +1,7 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import { SortableTable, TableColumn as Column, compareAtPath } from '../../src/'
+import { noop } from '../../src/utils/'
 
 const tableData = [
   { name: 'Kim', test: true },
@@ -13,7 +14,7 @@ const sortAscending = (a, b) => (a > b) ? 1 : -1
 test('Column data is pulled out via name', () => {
   const wrapper = mount(
     <SortableTable data={ tableData }>
-      <Column name="name"/>
+      <Column name="name" onClick={ () => console.log('hi') }/>
     </SortableTable>
   )
   expect(wrapper.find('td').first().text()).toEqual('Kim')
@@ -147,7 +148,7 @@ test('column can have custom cell component', () => {
     data: { name: 'Kim', test: true },
     disabled: false,
   }
-  expect(wrapper.find(MyCell).first().props()).toEqual(expectedProps)
+  expect(wrapper.find(MyCell).first().props()).toMatchObject(expectedProps)
 })
 
 test('column can have custom row component', () => {
@@ -172,4 +173,30 @@ test('initialColumn determines inital sortPath and sortFunc', () => {
   expect(wrapper.find('td').first().text()).toEqual('Kim')
   expect(wrapper.find('td').last().text()).toEqual('Tommy')
   expect(mySort).toHaveBeenCalled()
+})
+
+test('`onClick` function is called on column', () => {
+  const onClick = jest.fn()
+  const wrapper = mount(
+    <SortableTable data={ tableData } initialColumn="name">
+      <Column name="name" onClick={ onClick } className="click"/>
+      <Column name="city" className="no-click" />
+    </SortableTable>
+  )
+
+  wrapper.find('td.click').first().simulate('click')
+  expect(onClick).toHaveBeenCalled()
+})
+
+test('`onClick` function is not called on column', () => {
+  const onClick = jest.fn()
+  const wrapper = mount(
+    <SortableTable data={ tableData } initialColumn="name">
+      <Column name="name" onClick={ onClick } className="click" />
+      <Column name="city" className="no-click" />
+    </SortableTable>
+  )
+
+  wrapper.find('td.no-click').last().simulate('click')
+  expect(onClick).not.toHaveBeenCalled()
 })

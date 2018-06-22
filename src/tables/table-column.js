@@ -9,6 +9,7 @@ import { columnPropTypes } from './helpers'
  * @param {String} [label] - The text that will be displayed in the column header. Defaults to `name`.
  * @param {Function} [sortFunc] - The function that will be used to sort the table data when the column is selected
  * @param {Function} [component] - A custom cell component for the column. Will be passed the `key`, `name`, `value` and `data` for the row.
+ * @param {Function} [onClick] - A function that will be called `onClick` on every cell in the column
  * @param {Boolean} [disabled] - A flag that disables sorting for the column
  * @example
  * 
