@@ -10,8 +10,8 @@ const propTypes = {
 }
 
 const DefaultRowComponent = ({ children }) => <tr>{ children }</tr> // eslint-disable-line
-const DefaultCellComponent = ({ className, name, onClick, value }) => // eslint-disable-line
-  <td { ...{ className, onClick: () => onClick(name) } }>
+const DefaultCellComponent = ({ className, onClick, value }) => // eslint-disable-line
+  <td { ...{ className, onClick }}>
     { value }
   </td>
 
@@ -26,15 +26,13 @@ function TableRow ({
         columns.map((column, key) => {
           const { name, component: CellComponent=DefaultCellComponent, onClick=noop, ...rest } = column
           const value = get(name, rowData)
+          const onColClick = column.disabled ? noop : onClick
           return <CellComponent { ...{ // eslint-disable-line
             key, 
             value, 
             name, 
             data: rowData, 
-            onClick: cellName => {
-              if (column.disabled) return
-              if (cellName === name) onClick()
-            }, 
+            onClick: onColClick, 
             ...rest 
           } } />
         })
