@@ -1,7 +1,6 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import { SortableTable, TableColumn as Column, compareAtPath } from '../../src/'
-import { noop } from '../../src/utils/'
 
 const tableData = [
   { name: 'Kim', test: true },
