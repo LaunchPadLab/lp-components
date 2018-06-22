@@ -175,7 +175,7 @@ test('initialColumn determines inital sortPath and sortFunc', () => {
   expect(mySort).toHaveBeenCalled()
 })
 
-test('`onClick` function is called on column', () => {
+test('`onClick` function is called on correct column', () => {
   const onClick = jest.fn()
   const wrapper = mount(
     <SortableTable data={ tableData } initialColumn="name">
@@ -188,7 +188,7 @@ test('`onClick` function is called on column', () => {
   expect(onClick).toHaveBeenCalled()
 })
 
-test('`onClick` function is not called on column', () => {
+test('`onClick` function is not called on other columns', () => {
   const onClick = jest.fn()
   const wrapper = mount(
     <SortableTable data={ tableData } initialColumn="name">
