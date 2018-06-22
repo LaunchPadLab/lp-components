@@ -10,7 +10,7 @@ const propTypes = {
 }
 
 const DefaultRowComponent = ({ children }) => <tr>{ children }</tr> // eslint-disable-line
-const DefaultCellComponent = ({ className, name, onClick, value, ...rest }) => // eslint-disable-line
+const DefaultCellComponent = ({ className, name, onClick, value }) => // eslint-disable-line
   <td { ...{ className, onClick: () => onClick(name) } }>
     { value }
   </td>
