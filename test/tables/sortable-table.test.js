@@ -147,7 +147,7 @@ test('column can have custom cell component', () => {
     data: { name: 'Kim', test: true },
     disabled: false,
   }
-  expect(wrapper.find(MyCell).first().props()).toEqual(expectedProps)
+  expect(wrapper.find(MyCell).first().props()).toMatchObject(expectedProps)
 })
 
 test('column can have custom row component', () => {
@@ -172,4 +172,20 @@ test('initialColumn determines inital sortPath and sortFunc', () => {
   expect(wrapper.find('td').first().text()).toEqual('Kim')
   expect(wrapper.find('td').last().text()).toEqual('Tommy')
   expect(mySort).toHaveBeenCalled()
+})
+
+test('`onClick` function is called on correct column cells', () => {
+  const onClick = jest.fn()
+  const wrapper = mount(
+    <SortableTable data={ tableData } initialColumn="name">
+      <Column name="name" onClick={ onClick } className="click"/>
+      <Column name="city" className="no-click" />
+    </SortableTable>
+  )
+
+  wrapper.find('td.no-click').last().simulate('click')
+  expect(onClick).not.toHaveBeenCalled()
+
+  wrapper.find('td.click').first().simulate('click')
+  expect(onClick).toHaveBeenCalledWith({ name: 'Kim', test: true })
 })
