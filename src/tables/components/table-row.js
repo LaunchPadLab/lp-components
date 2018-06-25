@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { get } from 'lodash/fp'
-import { identity, noop } from 'lodash'
+import { get, identity, noop } from '../../utils'
+import {  } from 'lodash'
 import { Types } from '../helpers'
 
 const propTypes = {
