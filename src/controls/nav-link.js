@@ -8,7 +8,6 @@ import { Link } from 'react-router'
  * 
  * @name NavLink
  * @type Function
- * @description 
  * @example
  *
  * function Header () {
