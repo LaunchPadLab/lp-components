@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { get, noop } from '../../utils'
+import { get } from 'lodash/fp'
+import { identity, noop } from 'lodash'
 import { Types } from '../helpers'
 
 const propTypes = {
@@ -22,8 +23,8 @@ function TableRow ({
     <RowComponent { ...{ data: rowData } }>
       {
         columns.map((column, key) => {
-          const { name, component: CellComponent=DefaultCellComponent, onClick=noop, ...rest } = column
-          const value = get(name, rowData)
+          const { name, component: CellComponent=DefaultCellComponent, format=identity, onClick=noop, ...rest } = column
+          const value = format(get(name, rowData))
           const onColClick = column.disabled ? noop : () => onClick(rowData)
           return <CellComponent { ...{ // eslint-disable-line
             key, 

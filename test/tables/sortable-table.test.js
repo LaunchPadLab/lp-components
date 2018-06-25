@@ -1,5 +1,6 @@
 import React from 'react'
 import { mount } from 'enzyme'
+import { lowerCase } from 'lodash'
 import { SortableTable, TableColumn as Column, compareAtPath } from '../../src/'
 
 const tableData = [
@@ -188,4 +189,16 @@ test('`onClick` function is called on correct column cells', () => {
 
   wrapper.find('td.click').first().simulate('click')
   expect(onClick).toHaveBeenCalledWith({ name: 'Kim', test: true })
+})
+
+test('`format` updates the cell value', () => {
+  const format = jest.fn(lowerCase)
+  const wrapper = mount(
+    <SortableTable data={ tableData } initialColumn="name">
+      <Column name="name" format={ format } />
+    </SortableTable>
+  )
+  expect(wrapper.find('td').first().text()).toEqual('kim')
+  expect(wrapper.find('td').last().text()).toEqual('tommy')
+  expect(format).toHaveBeenCalled()
 })
