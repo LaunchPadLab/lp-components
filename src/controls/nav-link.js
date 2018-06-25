@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 
 /**
- * A component that wraps the `react-router` [`Link`](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/Link.md) component, adding an `activeClassName`.
+ * A component that wraps the `react-router` [`Link`](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/Link.md) component, adding the `activeClassName` `is-active`.
  * A full list of props supported by this component can be found [here](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/Link.md).
  * 
  * @name NavLink

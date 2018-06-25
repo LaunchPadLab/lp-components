@@ -81,7 +81,7 @@ function BackgroundSetter ({ backgroundColor, setBackgroundColor }) {
 
 ## NavLink
 
-A component that wraps the `react-router` [`Link`][53] component, adding an `activeClassName`.
+A component that wraps the `react-router` [`Link`][53] component, adding the `activeClassName` `is-active`.
 A full list of props supported by this component can be found [here][53].
 
 **Examples**
