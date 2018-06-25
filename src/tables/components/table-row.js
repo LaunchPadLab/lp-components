@@ -24,7 +24,7 @@ function TableRow ({
         columns.map((column, key) => {
           const { name, component: CellComponent=DefaultCellComponent, onClick=noop, ...rest } = column
           const value = get(name, rowData)
-          const onColClick = column.disabled ? noop : onClick(rowData)
+          const onColClick = column.disabled ? noop : () => onClick(rowData)
           return <CellComponent { ...{ // eslint-disable-line
             key, 
             value, 

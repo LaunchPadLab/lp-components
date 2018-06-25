@@ -187,5 +187,5 @@ test('`onClick` function is called on correct column cells', () => {
   expect(onClick).not.toHaveBeenCalled()
 
   wrapper.find('td.click').first().simulate('click')
-  expect(onClick).toHaveBeenCalled()
+  expect(onClick).toHaveBeenCalledWith({ name: 'Kim', test: true })
 })
