@@ -80,5 +80,6 @@ storiesOf('SortableTable', module)
     <SortableTable data={ tableData }>
       <Column name="name" format={ lowerCase }/>
       <Column name="age" format={ val => val.toFixed(1) } />
+      <Column name="active" format={ val => val === 'yes' ? 'Y' : 'N' } />
     </SortableTable>
   ))
