@@ -77,11 +77,8 @@ storiesOf('SortableTable', module)
     </div>
   ))
   .add('with formatted column values', () => (
-    <div>
-      <h2> The "age" column is disabled and will not sort. </h2>
-      <SortableTable data={ tableData }>
-        <Column name="name" format={ lowerCase }/>
-        <Column name="age" format={ val => val.toFixed(1) } />
-      </SortableTable>
-    </div>
+    <SortableTable data={ tableData }>
+      <Column name="name" format={ lowerCase }/>
+      <Column name="age" format={ val => val.toFixed(1) } />
+    </SortableTable>
   ))
