@@ -127,8 +127,8 @@ class FileInput extends React.Component {
 }
 
 // eslint-disable-next-line react/prop-types
-function renderPreview ({ file, value, thumbnail, previewComponent: Component, children }) {
-  if (Component) return <Component file={ file } value={ value } />
+function renderPreview ({ file, value, thumbnail, previewComponent: Component, children, ...rest }) {
+  if (Component) return <Component file={ file } value={ value } { ...rest } />
   if (children) return children
   const renderImagePreview = isImageType(file) || thumbnail
   if (renderImagePreview) return <ImagePreview image={ value || thumbnail } />

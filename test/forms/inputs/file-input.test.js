@@ -42,12 +42,19 @@ test('Fileinput sets custom preview from children', () => {
 })
 
 test('Fileinput sets custom preview from props', () => {
-  const Preview = ({ file }) => <p>{ file && file.name }</p> // eslint-disable-line react/prop-types
+  const Preview = ({ file, }) => <p>{ file && file.name }</p> // eslint-disable-line react/prop-types
   const props = { input: { name, value: '' }, meta: {} }
   const wrapper = mount(<FileInput previewComponent={ Preview } { ...props }/>)
   expect(wrapper.find('p').exists()).toEqual(true)
   wrapper.setState({ file: { name: 'fileName', type: 'image/png' } })
   expect(wrapper.find('p').text()).toEqual('fileName')
+})
+
+test('Fileinput passes extra props to custom preview', () => {
+  const Preview = ({ message }) => <p>{ message }</p> // eslint-disable-line react/prop-types
+  const props = { input: { name, value: '' }, meta: {}, message: 'FOO' }
+  const wrapper = mount(<FileInput previewComponent={ Preview } { ...props }/>)
+  expect(wrapper.find('p').text()).toEqual('FOO')
 })
 
 test('Fileinput passes value to custom preview', () => {
