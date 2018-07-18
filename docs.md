@@ -1314,6 +1314,7 @@ A component used to pass column information to a [Table][92] or [SortableTable][
 -   `onClick` **[Function][132]?** A function that will be called `onClick` on every cell in the column
 -   `format` **[Function][132]?** A function that formats the value displayed in each cell in the column
 -   `disabled` **[Boolean][133]?** A flag that disables sorting for the column
+-   `placeholder` **[String][131]?** A string that will be displayed if the value of the cell is `undefined` or `null`
 
 ### Examples
 
