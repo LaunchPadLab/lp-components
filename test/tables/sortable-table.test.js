@@ -202,3 +202,17 @@ test('`format` updates the cell value', () => {
   expect(wrapper.find('td').last().text()).toEqual('tommy')
   expect(format).toHaveBeenCalled()
 })
+
+test('`placeholder` option is displayed if value is `null` or `undefined`', () => {
+  const data = [
+    { name: null }, 
+    { name: undefined },
+  ]
+  const wrapper = mount(
+    <SortableTable data={ data }>
+      <Column name="name" placeholder="placeholder" />
+    </SortableTable>
+  )
+  expect(wrapper.find('td').first().text()).toEqual('placeholder')
+  expect(wrapper.find('td').last().text()).toEqual('placeholder')
+})

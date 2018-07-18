@@ -2,6 +2,7 @@ export {
   castArray,
   has,
   identity,
+  isNil,
   startCase,
   range,
   noop,
