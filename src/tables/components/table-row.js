@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { get, identity, noop } from '../../utils'
+import { get, identity, isNil, noop } from '../../utils'
 import { Types } from '../helpers'
 
 const propTypes = {
@@ -10,8 +10,8 @@ const propTypes = {
 }
 
 const DefaultRowComponent = ({ children }) => <tr>{ children }</tr> // eslint-disable-line
-const DefaultCellComponent = ({ className, onClick, value }) => // eslint-disable-line
-  <td { ...{ className, onClick }}>{ value }</td>
+const DefaultCellComponent = ({ className, onClick, placeholder, value }) => // eslint-disable-line
+  <td { ...{ className, onClick }}>{ isNil(value) ? placeholder : value }</td>
 
 function TableRow ({
   columns,
