@@ -1,6 +1,6 @@
 {
   "name": "@launchpadlab/lp-components",
-  "version": "3.15.2",
+  "version": "3.15.3",
   "description": "Our Components",
   "main": "lib/index.js",
   "repository": "launchpadlab/lp-components",
@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@launchpadlab/babel-preset": "^1.0.0",
-    "@launchpadlab/eslint-config": "^2.2.3",
+    "@launchpadlab/eslint-config": "^2.4.1",
     "@storybook/react": "^3.2.16",
     "babel-cli": "^6.22.2",
     "babel-core": "^6.26.3",
@@ -55,7 +55,7 @@
     "documentation": "^8.0.0",
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.0",
-    "eslint": "^4.12.1",
+    "eslint": "^5.2.0",
     "husky": "^0.14.3",
     "jest": "^22.4.3",
     "jest-canvas-mock": "^1.0.3",
@@ -74,6 +74,7 @@
   "greenkeeper": {
     "ignore": [
       "bourbon",
+      "bourbon-neat",
       "css-loader",
       "react-router",
       "sass-loader",
