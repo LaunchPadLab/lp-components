@@ -847,7 +847,7 @@ export default FavoriteFoodForm
 
 A select input that can be used in a `redux-forms`-controlled form.
 
-The value of each option is specified via the `options` or the `optionGroups` prop. 
+The value of each option is specified via the `options` or the `optionGroups` prop.
 The `options` prop will be ignored if `optionGroups` is present.
 
 The `options` prop can either be:

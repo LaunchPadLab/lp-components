@@ -76,7 +76,7 @@ function RadioGroup (props) {
                 key: i,
                 type: 'radio',
                 input: {
-                  name: `${ name }.${ option.key }`,
+                  name: `${ name }.${ option.value }`,
                   value: '',
                   onChange: () => onChange(option.value),
                 },
