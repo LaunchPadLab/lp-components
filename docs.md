@@ -847,7 +847,7 @@ export default FavoriteFoodForm
 
 A select input that can be used in a `redux-forms`-controlled form.
 
-The value of each option is specified via the `options` or the `optionGroups` prop. 
+The value of each option is specified via the `options` or the `optionGroups` prop.
 The `options` prop will be ignored if `optionGroups` is present.
 
 The `options` prop can either be:
@@ -1314,6 +1314,7 @@ A component used to pass column information to a [Table][92] or [SortableTable][
 -   `onClick` **[Function][132]?** A function that will be called `onClick` on every cell in the column
 -   `format` **[Function][132]?** A function that formats the value displayed in each cell in the column
 -   `disabled` **[Boolean][133]?** A flag that disables sorting for the column
+-   `placeholder` **[String][131]?** A string that will be displayed if the value of the cell is `undefined` or `null`
 
 ### Examples
 

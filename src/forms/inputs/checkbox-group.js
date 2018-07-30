@@ -84,7 +84,7 @@ function CheckboxGroup (props) {
               {...{
                 key: i,
                 input: {
-                  name: `${ name }.${ option.key }`,
+                  name: `${ name }.${ option.value }`,
                   value: value.includes(option.value),
                   onChange: handleChange(option)
                 },
