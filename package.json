@@ -50,7 +50,7 @@
     "babel-core": "^6.26.3",
     "babel-jest": "^23.0.1",
     "bourbon": "^4.3.3",
-    "bourbon-neat": "^1.8.0",
+    "bourbon-neat": "^3.0.0",
     "css-loader": "^0.28.7",
     "documentation": "^8.0.0",
     "enzyme": "^3.2.0",
