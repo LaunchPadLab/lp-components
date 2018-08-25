@@ -54,7 +54,7 @@
     "css-loader": "^0.28.7",
     "documentation": "^8.0.0",
     "enzyme": "^3.4.4",
-    "enzyme-adapter-react-16": "^1.1.0",
+    "enzyme-adapter-react-16": "^1.2.0",
     "eslint": "^5.2.0",
     "husky": "^0.14.3",
     "jest": "^22.4.3",
