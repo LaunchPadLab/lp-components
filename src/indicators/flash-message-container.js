@@ -37,7 +37,7 @@ const defaultProps = {
 function FlashMessageContainer ({ messages, limit }) {
   const messagesToDisplay = messages.slice(0, limit)
   return (
-    <div className="flash-message-container">
+    <div className="flash-message-container" role="alert">
     {
       messagesToDisplay.map(message => 
         <FlashMessage key={ message.id } message={ message } />
