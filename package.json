@@ -45,7 +45,7 @@
   "devDependencies": {
     "@launchpadlab/babel-preset": "^1.0.0",
     "@launchpadlab/eslint-config": "^2.4.1",
-    "@storybook/react": "^3.2.16",
+    "@storybook/react": "^3.4.11",
     "babel-cli": "^6.22.2",
     "babel-core": "^6.26.3",
     "babel-jest": "^23.0.1",
