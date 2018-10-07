@@ -17,3 +17,8 @@ test('HiddenInput renders a div the correct styles', () => {
   expect(wrapper.find('div').first().props().style).toHaveProperty('position', 'absolute')
   expect(wrapper.find('div').first().props().style).toHaveProperty('left', -9999)
 })
+
+test('HiddenInput is removed from the natural tab order', () => {
+  const wrapper = mount(<HiddenInput { ...props } />)
+  expect(wrapper.find('input').first().prop('tabIndex')).toEqual("-1")
+})
