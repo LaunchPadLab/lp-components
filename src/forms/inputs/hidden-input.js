@@ -34,7 +34,7 @@ const hiddenStyle = {
 function HiddenInput (props) {
   return (
     <div style={ hiddenStyle }>
-      <Input { ...props } />
+      <Input tabIndex="-1" { ...props } />
     </div>
   )
 }
