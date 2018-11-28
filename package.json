@@ -1,6 +1,9 @@
 {
   "name": "@launchpadlab/lp-components",
   "version": "3.15.6",
+  "engines": {
+    "node": "^8.0.0"
+  },
   "description": "Our Components",
   "main": "lib/index.js",
   "repository": "launchpadlab/lp-components",
