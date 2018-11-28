@@ -9,6 +9,8 @@ import { buttonClasses } from '../helpers'
  * Conditionally adds classes and/or becomes disabled depending on passed props.
  * In addition to the props below, any extra props will be passed directly to the inner `<button>` element.
  * 
+ * If a className is provided to the component, it will be appended to the conditionally added classes.
+ * 
  * @name Button
  * @type Function
  * @param {Boolean} [invalid] - Whether or not a related form is invalid (will disable when `true`)
@@ -40,20 +42,22 @@ const propTypes = {
   style:      PropTypes.string,
   submitting: PropTypes.bool,
   type:       PropTypes.string.isRequired,
-  children:   PropTypes.node
+  children:   PropTypes.node,
+  className:  PropTypes.string,
 }
 
 const defaultProps = {
   style: 'primary',
   type: 'button',
+  className: '',
 }
 
 // eslint-disable-next-line no-unused-vars
-function Button ({ children, type, style, pristine, invalid, submitting, ...rest }) {
+function Button ({ children, type, style, pristine, invalid, submitting, className, ...rest }) {
   return (
     <button
       type={ type }
-      className={ buttonClasses({ style, pristine, invalid, submitting }) }
+      className={ buttonClasses({ className, style, pristine, invalid, submitting }) }
       disabled={ pristine || invalid }
       { ...rest }
     >

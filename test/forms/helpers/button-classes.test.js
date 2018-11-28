@@ -16,3 +16,6 @@ test('returns correct classes when pristine', () => {
   expect(buttonClasses({ style: 'primary', pristine: true })).toEqual('button-primary is-disabled')
 })
 
+test('returns correct classes when classname is provided', () => {
+  expect(buttonClasses({ style: 'primary', className: 'button-large' })).toEqual('button-primary button-large')
+})
