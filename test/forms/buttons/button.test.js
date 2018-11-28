@@ -32,3 +32,21 @@ test('Button passes extra props to button element', () => {
   const wrapper = shallow(<Button onClick={onClick}> Hi</Button>)
   expect(wrapper.props().onClick).toBe(onClick)
 })
+
+test('Specifying a class name prop does not override style class', () => {
+  const wrapper = shallow(<Button style="primary" className="button-large">Click Me</Button>)
+  expect(wrapper.hasClass('button-primary')).toBe(true)
+  expect(wrapper.hasClass('button-large')).toBe(true)
+})
+
+test('Specifying a class name prop does not override is-disabled class', () => {
+  const wrapper = shallow(<Button className="button-large" invalid>Click Me</Button>)
+  expect(wrapper.hasClass('is-disabled')).toBe(true)
+  expect(wrapper.hasClass('button-large')).toBe(true)
+})
+
+test('Specifying a class name prop does not override in-progress class', () => {
+  const wrapper = shallow(<Button className="button-large" submitting>Submit</Button>)
+  expect(wrapper.hasClass('in-progress')).toBe(true)
+  expect(wrapper.hasClass('button-large')).toBe(true)
+})
