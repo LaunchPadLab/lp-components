@@ -9,6 +9,8 @@ import { buttonClasses } from '../helpers'
  * Conditionally adds classes and/or becomes disabled depending on passed props.
  * In addition to the props below, any extra props will be passed directly to the inner `<button>` element.
  * 
+ * If a className is provided to the component, it will be appended to the conditionally added classes.
+ * 
  * @name Button
  * @type Function
  * @param {Boolean} [invalid] - Whether or not a related form is invalid (will disable when `true`)
