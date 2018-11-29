@@ -996,6 +996,8 @@ The error label uses the following rules to determine how it will be displayed:
 -   If the `error` prop is set to a string, the label will display that text
 -   If the `error` prop is set to an array of strings, the label will display those errors separated by commas
 
+In addition to the props below, any extra props will be passed directly to the inner `<span>` element.
+
 ### Parameters
 
 -   `error` **([String][131] \| [Array][136])** An error message or array of error messages to display
