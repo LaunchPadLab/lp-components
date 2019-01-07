@@ -4,7 +4,7 @@ import { InputLabel } from 'src'
 
 storiesOf('InputLabel', module)
   .add('with default label', () => (
-    <InputLabel 
+    <InputLabel
       name="nameOfInput"
     />
   ))
@@ -18,6 +18,29 @@ storiesOf('InputLabel', module)
     <InputLabel
       name="nameOfInput"
       label={false}
+    />
+  ))
+  .add('with required true default indicator', () => (
+    <InputLabel
+      name="nameOfInput"
+      label="Custom Label"
+      required={ true }
+    />
+  ))
+  .add('with required true custom indicator', () => (
+    <InputLabel
+      name="nameOfInput"
+      label="Custom Label"
+      required={ true }
+      requiredIndicator={ '@@@' }
+    />
+  ))
+  .add('with required true no indicator', () => (
+    <InputLabel
+      name="nameOfInput"
+      label="Custom Label"
+      required={ true }
+      requiredIndicator={ false }
     />
   ))
   .add('with hint', () => (

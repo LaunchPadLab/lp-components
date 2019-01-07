@@ -15,32 +15,58 @@ const inputProps = {
 
 storiesOf('Input', module)
   .add('with default label', () => (
-    <Input 
-      input={inputProps} 
+    <Input
+      input={inputProps}
       meta={{}}
     />
   ))
   .add('with custom label', () => (
-    <Input 
+    <Input
       input={inputProps}
       meta={{}}
       label="Custom Label"
     />
   ))
   .add('with no label', () => (
-    <Input 
+    <Input
       input={inputProps}
       meta={{}}
       label={false}
     />
   ))
-  .add('with error', () => (
-    <Input 
+  .add('with required true default indicator', () => (
+    <Input
       input={inputProps}
-      meta={{ 
+      meta={{}}
+      label="Custom Label"
+      required={ true }
+    />
+  ))
+  .add('with required true custom indicator', () => (
+    <Input
+      input={inputProps}
+      meta={{}}
+      label="Custom Label"
+      required={ true }
+      requiredIndicator={ '@@@' }
+    />
+  ))
+  .add('with required true no indicator', () => (
+    <Input
+      input={inputProps}
+      meta={{}}
+      label="Custom Label"
+      required={ true }
+      requiredIndicator={ false }
+    />
+  ))
+  .add('with error', () => (
+    <Input
+      input={inputProps}
+      meta={{
         invalid: true,
         touched: true,
-        error: 'Invalid input' 
+        error: 'Invalid input'
       }}
       value="0000"
     />
