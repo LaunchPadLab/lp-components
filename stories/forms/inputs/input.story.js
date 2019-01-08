@@ -39,7 +39,7 @@ storiesOf('Input', module)
       input={inputProps}
       meta={{}}
       label="Custom Label"
-      required={ true }
+      required
     />
   ))
   .add('with required true custom indicator', () => (
@@ -47,7 +47,7 @@ storiesOf('Input', module)
       input={inputProps}
       meta={{}}
       label="Custom Label"
-      required={ true }
+      required
       requiredIndicator={ '@@@' }
     />
   ))
@@ -56,7 +56,7 @@ storiesOf('Input', module)
       input={inputProps}
       meta={{}}
       label="Custom Label"
-      required={ true }
+      required
       requiredIndicator={ false }
     />
   ))

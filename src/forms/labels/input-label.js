@@ -26,7 +26,7 @@ import { toggle, togglePropTypes } from '../../utils'
  * @param {String|Boolean} [label] - Custom text for the label
  * @param {String} [tooltip] - A message to display in a tooltip
  * @param {Boolean} [required] - A boolean value to indicate whether the field is required
- * @param {String|Boolean} [requiredIndicator] - Custom character to denote a field is required (optional, default `*`)
+ * @param {String|Boolean} [requiredIndicator] - Custom character to denote a field is required. Pass false to display no indicator when a field is required. (optional, default `*`)
 
  * @example
  *
@@ -66,7 +66,7 @@ const defaultProps = {
   hint: '',
   label: '',
   tooltip: '',
-  requiredIndicator: '*'
+  requiredIndicator: '*',
 }
 
 function InputLabel ({
@@ -88,7 +88,7 @@ function InputLabel ({
           { labelText }
           {
             required && requiredIndicator &&
-            <span aria-hidden="true">{ requiredIndicator }</span>
+            <span className="required-indicator" aria-hidden="true">{ requiredIndicator }</span>
           }
           {
             hint &&

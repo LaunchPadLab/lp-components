@@ -24,14 +24,14 @@ storiesOf('InputLabel', module)
     <InputLabel
       name="nameOfInput"
       label="Custom Label"
-      required={ true }
+      required
     />
   ))
   .add('with required true custom indicator', () => (
     <InputLabel
       name="nameOfInput"
       label="Custom Label"
-      required={ true }
+      required
       requiredIndicator={ '@@@' }
     />
   ))
@@ -39,7 +39,7 @@ storiesOf('InputLabel', module)
     <InputLabel
       name="nameOfInput"
       label="Custom Label"
-      required={ true }
+      required
       requiredIndicator={ false }
     />
   ))

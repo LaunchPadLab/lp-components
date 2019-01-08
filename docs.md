@@ -1052,7 +1052,7 @@ For instance: `'person.firstName'` becomes `'First Name'`
 -   `label` **([String][131] \| [Boolean][133])?** Custom text for the label
 -   `tooltip` **[String][131]?** A message to display in a tooltip
 -   `required` **[Boolean][133]?** A boolean value to indicate whether the field is required
--   `requiredIndicator` **([String][131] \| [Boolean][133])?** Custom character to denote a field is required (optional, default `*`)
+-   `requiredIndicator` **([String][131] \| [Boolean][133])?** Custom character to denote a field is required. Pass false to display no indicator when a field is required. (optional, default `*`)
 
 ### Examples
 
