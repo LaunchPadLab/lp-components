@@ -1,6 +1,6 @@
 {
   "name": "@launchpadlab/lp-components",
-  "version": "3.15.8",
+  "version": "3.15.9",
   "engines": {
     "node": "^8.0.0"
   },
@@ -34,7 +34,7 @@
     "lib/"
   ],
   "dependencies": {
-    "@launchpadlab/lp-hoc": "^2.8.2",
+    "@launchpadlab/lp-hoc": "^3.2.1",
     "classnames": "^2.2.5",
     "filter-invalid-dom-props": "^2.0.0",
     "lodash": "^4.17.4",
