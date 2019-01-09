@@ -95,46 +95,11 @@
     eslint-plugin-import "^2.13.0"
     eslint-plugin-react "^7.10.0"
 
-"@launchpadlab/lp-components@^3.11.3":
-  version "3.15.8"
-  resolved "https://registry.yarnpkg.com/@launchpadlab/lp-components/-/lp-components-3.15.8.tgz#8d04d570ab618fd44262e86c5591975704ab331e"
-  integrity sha512-3RWywdF7+F/EPvaH4KtZWL9zzcWrdA2No6bDoseD8Ja+O74pYYvHWEWBWqzwbSuOhincYCCZRv60+hvHbKrN1w==
+"@launchpadlab/lp-hoc@^3.2.2":
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/@launchpadlab/lp-hoc/-/lp-hoc-3.2.2.tgz#1f8307a6e244cee28a8f840c77e473885a12b4e9"
+  integrity sha512-Av9Ag9/lkgoNGwatftnHmZWxgsMfeZspgNJ31F/KCvSR05bOwno/Q2i3lEH+zFTFbvZX3A56mAsvc08+yIqcSA==
   dependencies:
-    "@launchpadlab/lp-hoc" "^2.8.2"
-    classnames "^2.2.5"
-    filter-invalid-dom-props "^2.0.0"
-    lodash "^4.17.4"
-    moment "^2.19.3"
-    prop-types "^15.5.8"
-    react-color "^2.14.0"
-    react-datepicker "^1.0.3"
-    react-router "^3.2.1"
-    redux-flash "^2.0.1"
-
-"@launchpadlab/lp-hoc@^2.8.2":
-  version "2.8.2"
-  resolved "https://registry.yarnpkg.com/@launchpadlab/lp-hoc/-/lp-hoc-2.8.2.tgz#3da9a4c3c81c7537b1d5044d5059f8d6057002bf"
-  integrity sha512-cz7FFhmvQM8FKt7LcskisJOWNGHBR0V46Nn1QJBRQbD+VFHqa+tEkHn/pbOm2H0N49Tvvf96OUeZLO1n1DL/tw==
-  dependencies:
-    "@launchpadlab/lp-redux-api" "^5.0.2"
-    "@launchpadlab/lp-requests" "^3.0.0"
-    classnames "^2.2.5"
-    humps "^2.0.1"
-    lodash "^4.17.4"
-    prop-types "^15.5.8"
-    react-body-classname "^1.2.0"
-    react-redux "^5.0.6"
-    react-router "^3.2.1"
-    recompose "^0.26.0"
-    redux "^3.7.2"
-    redux-modal "^2.0.2"
-
-"@launchpadlab/lp-hoc@^3.2.1":
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/@launchpadlab/lp-hoc/-/lp-hoc-3.2.1.tgz#91b3ae496b9a27096d0ffb206c0bc5a0a349cc41"
-  integrity sha512-mKUtJy0QIxRm8TMfCguU1+WW7bchqmUzHZteNv0G8AijQh0Gd3wjZ/+2wP6NtmjATguZqGjnInpPQ80HvJikLQ==
-  dependencies:
-    "@launchpadlab/lp-components" "^3.11.3"
     "@launchpadlab/lp-requests" "^3.5.1"
     classnames "^2.2.5"
     humps "^2.0.1"
@@ -146,30 +111,6 @@
     recompose "^0.26.0"
     redux "^3.7.2"
     redux-modal "^2.0.2"
-
-"@launchpadlab/lp-redux-api@^5.0.2":
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/@launchpadlab/lp-redux-api/-/lp-redux-api-5.0.2.tgz#f03b21b21cba9b06e31272b8a61d0a7f79d238cd"
-  integrity sha1-8Dshshy6mwbjEnK4ph0Kf3nSOM0=
-  dependencies:
-    es6-symbol "^3.1.1"
-    humps "^2.0.0"
-    isomorphic-fetch "^2.2.1"
-    lodash "^4.17.4"
-
-"@launchpadlab/lp-requests@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@launchpadlab/lp-requests/-/lp-requests-3.0.0.tgz#01582fb4b9a32b0996cb97c090877a1606b90722"
-  integrity sha1-AVgvtLmjKwmWy5fAkId6Fga5ByI=
-  dependencies:
-    babel-preset-react "^6.24.1"
-    humps "^2.0.0"
-    is-promise "^2.1.0"
-    isomorphic-fetch "^2.2.1"
-    js-cookie "^2.1.4"
-    lodash "^4.17.4"
-    query-string "^5.0.0"
-    url-join "^2.0.2"
 
 "@launchpadlab/lp-requests@^3.5.1":
   version "3.5.1"
@@ -3471,13 +3412,6 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
-d@1:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/d/-/d-1.0.0.tgz#754bb5bfe55451da69a58b94d45f4c5b0462d58f"
-  integrity sha1-dUu1v+VUUdpppYuU1F9MWwRi1Y8=
-  dependencies:
-    es5-ext "^0.10.9"
-
 d@^0.1.1, d@~0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/d/-/d-0.1.1.tgz#da184c535d18d8ee7ba2aa229b914009fae11309"
@@ -4052,14 +3986,6 @@ es-to-primitive@^1.1.1:
     is-date-object "^1.0.1"
     is-symbol "^1.0.1"
 
-es5-ext@^0.10.35, es5-ext@^0.10.9, es5-ext@~0.10.14:
-  version "0.10.35"
-  resolved "https://registry.yarnpkg.com/es5-ext/-/es5-ext-0.10.35.tgz#18ee858ce6a3c45c7d79e91c15fcca9ec568494f"
-  integrity sha1-GO6FjOajxFx9eekcFfzKnsVoSU8=
-  dependencies:
-    es6-iterator "~2.0.1"
-    es6-symbol "~3.1.1"
-
 es5-ext@^0.10.7, es5-ext@^0.10.8, es5-ext@~0.10.11, es5-ext@~0.10.2, es5-ext@~0.10.7:
   version "0.10.12"
   resolved "https://registry.yarnpkg.com/es5-ext/-/es5-ext-0.10.12.tgz#aa84641d4db76b62abba5e45fd805ecbab140047"
@@ -4081,15 +4007,6 @@ es6-iterator@2:
     d "^0.1.1"
     es5-ext "^0.10.7"
     es6-symbol "3"
-
-es6-iterator@~2.0.1:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/es6-iterator/-/es6-iterator-2.0.3.tgz#a7de889141a05a94b0854403b2d0a0fbfa98f3b7"
-  integrity sha1-p96IkUGgWpSwhUQDstCg+/qY87c=
-  dependencies:
-    d "1"
-    es5-ext "^0.10.35"
-    es6-symbol "^3.1.1"
 
 es6-map@^0.1.3:
   version "0.1.4"
@@ -4126,14 +4043,6 @@ es6-symbol@3, es6-symbol@~3.1, es6-symbol@~3.1.0:
   dependencies:
     d "~0.1.1"
     es5-ext "~0.10.11"
-
-es6-symbol@^3.1.1, es6-symbol@~3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/es6-symbol/-/es6-symbol-3.1.1.tgz#bf00ef4fdab6ba1b46ecb7b629b4c7ed5715cc77"
-  integrity sha1-vwDvT9q2uhtG7Le2KbTH7VcVzHc=
-  dependencies:
-    d "1"
-    es5-ext "~0.10.14"
 
 es6-weak-map@^2.0.1:
   version "2.0.1"
@@ -11318,11 +11227,6 @@ urix@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/urix/-/urix-0.1.0.tgz#da937f7a62e21fec1fd18d49b35c2935067a6c72"
   integrity sha1-2pN/emLiH+wf0Y1Js1wpNQZ6bHI=
-
-url-join@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/url-join/-/url-join-2.0.2.tgz#c072756967ad24b8b59e5741551caac78f50b8b7"
-  integrity sha1-wHJ1aWetJLi1nldBVRyqx49QuLc=
 
 url-join@^4.0.0:
   version "4.0.0"
