@@ -1,6 +1,7 @@
 import React from 'react'
 import { mount } from 'enzyme'
-import { CloudinaryFileInput, FileInput } from '../../../src/'
+import { CloudinaryFileInput } from '../../../src/'
+import { createMockFileReader } from './file-input.test'
 
 const name = 'name.of.field'
 const value = 'value of field'
@@ -21,12 +22,15 @@ test('CloudinaryFileInput adds uploadStatus to className', () => {
 })
 
 test('CloudinaryFileInput sets returned url as value', () => {
+  const fakeFileEvent = { target: { files: [] }}
+  window.FileReader = createMockFileReader()
   const onChange = jest.fn()
   const props = { input: { ...input, onChange }, meta: {}, upload, uploadStatus }
   const wrapper = mount(<CloudinaryFileInput { ...props }/>)
-  const onLoad = wrapper.find(FileInput).prop('onLoad')
+  const internalOnChange = wrapper.find('input').prop('onChange')
   // internally calls upload, which resolves with url
-  return onLoad().then(() => 
+  internalOnChange(fakeFileEvent)
+  return Promise.resolve().then(() => 
     expect(onChange).toHaveBeenCalledWith(PUBLIC_URL)
   )
 })
