@@ -35,14 +35,6 @@ storiesOf('InputLabel', module)
       requiredIndicator={ '@@@' }
     />
   ))
-  .add('with required true no indicator', () => (
-    <InputLabel
-      name="nameOfInput"
-      label="Custom Label"
-      required
-      requiredIndicator={ false }
-    />
-  ))
   .add('with hint', () => (
     <InputLabel
       name="nameOfInput"
