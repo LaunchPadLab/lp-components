@@ -86,7 +86,7 @@ test('FileInput passes accept attribute to input component', () => {
 })
 
 // Creates a mock FileReader that passes the given file data to its onload() handler
-function createMockFileReader (fileData) {
+export function createMockFileReader (fileData) {
   return class MockFileReader {
     readAsDataURL () {
       this.onload({ target: { result: fileData } })
