@@ -24,7 +24,6 @@ export wrapDisplayName from 'recompose/wrapDisplayName'
 export {
   adaptToReactRouter,
   cloudinaryUploader,
-  deprecate,
   modifyProps,
   sortable,
   sortablePropTypes,

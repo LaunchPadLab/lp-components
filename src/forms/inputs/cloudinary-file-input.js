@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import FileInput from './file-input'
 import { fieldPropTypes } from '../helpers'
-import { compose, cloudinaryUploader } from '../../utils'
+import { compose, cloudinaryUploader, noop } from '../../utils'
 import classnames from 'classnames'
 
 /**
@@ -46,15 +46,16 @@ const propTypes = {
 const defaultProps = {}
 
 function CloudinaryFileInput ({ 
-  input: { onChange, ...input },
+  input,
   className,
   upload, 
   uploadStatus, 
   ...rest 
 }) {
+  const { onChange } = input
   return (
      <FileInput
-      input={ input }
+      input={{ ...input, onChange: noop }}
       onLoad={ (fileData, file) => upload(fileData, file).then(({ url }) => onChange(url)) }
       className={ classnames(uploadStatus, className) }
       { ...rest }
