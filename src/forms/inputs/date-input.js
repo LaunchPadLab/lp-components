@@ -70,7 +70,7 @@ function DateInput (props) {
           id: name,
           name,
           selected: momentValue,
-          onBlur: () => onBlur(),
+          onBlur: () => onBlur(value),
           onChange: (val) => onChange(val ? val.toDate() : ''),
           ...rest
         }}
