@@ -1051,13 +1051,15 @@ For instance: `'person.firstName'` becomes `'First Name'`
 -   `hint` **[String][131]?** A usage hint for the associated input
 -   `label` **([String][131] \| [Boolean][133])?** Custom text for the label
 -   `tooltip` **[String][131]?** A message to display in a tooltip
+-   `required` **[Boolean][133]?** A boolean value to indicate whether the field is required
+-   `requiredIndicator` **[String][131]?** Custom character to denote a field is required (optional, default `''`)
 
 ### Examples
 
 ```javascript
 // A custom input to use with redux-forms
 
-function EmailInput ({  
+function EmailInput ({
   input: { name, value, onBlur, onChange },
   label,
 }) {
@@ -1069,7 +1071,7 @@ function EmailInput ({
          name,
          value,
          onBlur,
-         onChange,   
+         onChange,
       }}
     </div>
   )

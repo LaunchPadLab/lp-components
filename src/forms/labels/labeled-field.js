@@ -61,12 +61,14 @@ function LabeledField ({
     hint,
     label,
     tooltip,
+    required,
+    requiredIndicator,
     children,
     hideErrorLabel,
   }) {
   return (
     <fieldset className={ classnames(className, { 'error': touched && invalid }) }>
-      <InputLabel { ...{ hint, label, name, tooltip } } />
+      <InputLabel { ...{ hint, label, name, tooltip, required, requiredIndicator } } />
         { children }
       { !hideErrorLabel && <InputError { ...{ error, invalid, touched } } /> }
     </fieldset>
