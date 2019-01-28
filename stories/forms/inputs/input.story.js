@@ -34,30 +34,13 @@ storiesOf('Input', module)
       label={false}
     />
   ))
-  .add('with required true default indicator', () => (
-    <Input
-      input={inputProps}
-      meta={{}}
-      label="Custom Label"
-      required
-    />
-  ))
   .add('with required true custom indicator', () => (
     <Input
       input={inputProps}
       meta={{}}
       label="Custom Label"
       required
-      requiredIndicator={ '@@@' }
-    />
-  ))
-  .add('with required true no indicator', () => (
-    <Input
-      input={inputProps}
-      meta={{}}
-      label="Custom Label"
-      required
-      requiredIndicator={ false }
+      requiredIndicator={ '*' }
     />
   ))
   .add('with error', () => (

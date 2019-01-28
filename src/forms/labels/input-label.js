@@ -26,7 +26,7 @@ import { toggle, togglePropTypes } from '../../utils'
  * @param {String|Boolean} [label] - Custom text for the label
  * @param {String} [tooltip] - A message to display in a tooltip
  * @param {Boolean} [required] - A boolean value to indicate whether the field is required
- * @param {String|Boolean} [requiredIndicator] - Custom character to denote a field is required (optional, default `''`)
+ * @param {String} [requiredIndicator] - Custom character to denote a field is required (optional, default `''`)
 
  * @example
  *
@@ -58,7 +58,7 @@ const propTypes = {
   name: PropTypes.string.isRequired,
   tooltip: PropTypes.string,
   required: PropTypes.bool,
-  requiredIndicator: PropTypes.oneOfType([ PropTypes.string, PropTypes.bool ]),
+  requiredIndicator: PropTypes.string,
   ...togglePropTypes('tooltipShown')
 }
 

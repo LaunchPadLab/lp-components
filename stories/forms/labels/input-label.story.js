@@ -32,7 +32,7 @@ storiesOf('InputLabel', module)
       name="nameOfInput"
       label="Custom Label"
       required
-      requiredIndicator={ '@@@' }
+      requiredIndicator={ '*' }
     />
   ))
   .add('with hint', () => (

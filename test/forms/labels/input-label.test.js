@@ -39,12 +39,12 @@ test('when tooltip provided - toggle tooltip', () => {
   expect(wrapper.find('div.tooltip-content.is-active').exists()).toEqual(false)
 })
 
-test('when required true - no custom indicator provided', () => {
+test('when no custom required indicator provided, do not show required indicator', () => {
   const wrapper = mount(<InputLabel name={name} required />)
   expect(wrapper.find('span.required-indicator').exists()).toEqual(false)
 })
 
-test('when required true and custom requiredIndicator provided', () => {
-  const wrapper = mount(<InputLabel name={name} required requiredIndicator={ '@@@' } />)
-  expect(wrapper.find('label > span').text()).toEqual('@@@')
+test('when required true and custom requiredIndicator provided, show custom indicator', () => {
+  const wrapper = mount(<InputLabel name={name} required requiredIndicator={ '*' } />)
+  expect(wrapper.find('label > span').text()).toEqual('*')
 })
