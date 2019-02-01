@@ -7,7 +7,7 @@ import { toggle, togglePropTypes } from '../../utils'
 /**
  *
  * A dynamic label associated with an input component.
- * 
+ *
  * This component is used within {@link LabeledField}, and therefore is incorporated into most `lp-components` input components by default.
  *
  * The text of the label is set using the following rules:
@@ -18,19 +18,21 @@ import { toggle, togglePropTypes } from '../../utils'
  * If `name` is used to set the text, it will be stripped of its prefixes and converted to [start case](https://en.wikipedia.org/wiki/Letter_case#Stylistic_or_specialised_usage).
  *
  * For instance: `'person.firstName'` becomes `'First Name'`
- * 
+ *
  * @name InputLabel
  * @type Function
  * @param {String} name - The name of the associated input
  * @param {String} [hint] - A usage hint for the associated input
  * @param {String|Boolean} [label] - Custom text for the label
  * @param {String} [tooltip] - A message to display in a tooltip
+ * @param {Boolean} [required] - A boolean value to indicate whether the field is required
+ * @param {String} [requiredIndicator] - Custom character to denote a field is required (optional, default `''`)
 
  * @example
- * 
+ *
  * // A custom input to use with redux-forms
- * 
- * function EmailInput ({  
+ *
+ * function EmailInput ({
  *   input: { name, value, onBlur, onChange },
  *   label,
  * }) {
@@ -42,7 +44,7 @@ import { toggle, togglePropTypes } from '../../utils'
  *          name,
  *          value,
  *          onBlur,
- *          onChange,   
+ *          onChange,
  *       }}
  *     </div>
  *   )
@@ -55,6 +57,8 @@ const propTypes = {
   label: PropTypes.oneOfType([ PropTypes.string, PropTypes.bool ]),
   name: PropTypes.string.isRequired,
   tooltip: PropTypes.string,
+  required: PropTypes.bool,
+  requiredIndicator: PropTypes.string,
   ...togglePropTypes('tooltipShown')
 }
 
@@ -62,27 +66,41 @@ const defaultProps = {
   hint: '',
   label: '',
   tooltip: '',
+  requiredIndicator: '',
 }
 
-function InputLabel ({ hint, label, name, tooltip, tooltipShown, toggleTooltipShown }) {
+function InputLabel ({
+  hint,
+  label,
+  name,
+  tooltip,
+  tooltipShown,
+  toggleTooltipShown,
+  required,
+  requiredIndicator,
+}) {
   const labelText = label || convertNameToLabel(name)
   return (
     <span>
-      {  
+      {
         label !== false &&
         <label htmlFor={ name }>
           { labelText }
-          { 
+          {
+            required && requiredIndicator &&
+            <span className="required-indicator" aria-hidden="true">{ requiredIndicator }</span>
+          }
+          {
             hint &&
             <i>{ hint }</i>
           }
         </label>
       }
-      { 
+      {
         tooltip &&
         <span className="tooltip-trigger" onClick={ toggleTooltipShown }/>
       }
-      { 
+      {
         tooltip &&
         <div className={ classnames('tooltip-content', { 'is-active': tooltipShown }) }>
           { tooltip }
