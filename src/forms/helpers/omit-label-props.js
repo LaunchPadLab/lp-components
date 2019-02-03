@@ -9,6 +9,7 @@ import { omit } from '../../utils'
  * - `hint`
  * - `tooltip`
  * - `label`
+ * - `requiredIndicator`
  * 
  * @name omitLabelProps
  * @type Function
@@ -20,6 +21,7 @@ import { omit } from '../../utils'
  *    label: 'Biography',
  *    hint: 'A short biography',
  *    tooltip: 'Help us learn more about you!',
+ *    requiredIndicator: '*',
  *    maxLength: 1000
  * }
  * 
@@ -48,7 +50,8 @@ function omitLabelProps (props) {
   return omit([
     'hint',
     'tooltip',
-    'label'
+    'label',
+    'requiredIndicator',
   ], props)
 }
 
