@@ -7,7 +7,7 @@ test('when props is empty - returns the empty object', () => {
 
 test('when the props include the omitted keywords - returns props object without keywords', () => {
   const remainingProp = 'i\'m here'
-  const props = { hint: 'a hint', tooltip: 'a tooltip', label: 'a label', remainingProp }
+  const props = { hint: 'a hint', tooltip: 'a tooltip', label: 'a label', requiredIndicator: '*', remainingProp }
   expect(omitLabelProps(props)).toEqual({ remainingProp })
 })
 

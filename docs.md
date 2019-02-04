@@ -1181,6 +1181,7 @@ Omits the following props:
 -   `hint`
 -   `tooltip`
 -   `label`
+-   `requiredIndicator`
 
 ### Parameters
 
@@ -1193,6 +1194,7 @@ const props = {
    label: 'Biography',
    hint: 'A short biography',
    tooltip: 'Help us learn more about you!',
+   requiredIndicator: '*',
    maxLength: 1000
 }
 
