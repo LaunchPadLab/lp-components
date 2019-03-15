@@ -18,6 +18,8 @@ import { toggle, togglePropTypes } from '../../utils'
  * If `name` is used to set the text, it will be stripped of its prefixes and converted to [start case](https://en.wikipedia.org/wiki/Letter_case#Stylistic_or_specialised_usage).
  *
  * For instance: `'person.firstName'` becomes `'First Name'`
+ * 
+ * Note: When using third party form libraries (e.g., [Redux Form](https://redux-form.com)), it's likely that setting the `required` prop will turn on the browser's automatic validation, which could cause the library to behave unexpectedly. If the browser validation behavior is causing issues, then add a `noValidate` prop to the form to [turn off](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation#Validating_forms_using_JavaScript) automatic validation. (e.g., `<form noValidate></form>`)
  *
  * @name InputLabel
  * @type Function
