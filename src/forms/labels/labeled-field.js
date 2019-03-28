@@ -55,20 +55,21 @@ const defaultProps = {
 }
 
 function LabeledField ({
-    input: { name },
-    meta: { error, touched, invalid },
-    className,
-    hint,
-    label,
-    tooltip,
-    required,
-    requiredIndicator,
-    children,
-    hideErrorLabel,
-  }) {
+  id,
+  input: { name },
+  meta: { error, touched, invalid },
+  className,
+  hint,
+  label,
+  tooltip,
+  required,
+  requiredIndicator,
+  children,
+  hideErrorLabel,
+}) {
   return (
     <fieldset className={ classnames(className, { 'error': touched && invalid }) }>
-      <InputLabel { ...{ hint, label, name, tooltip, required, requiredIndicator } } />
+      <InputLabel { ...{ hint, label, name, id, tooltip, required, requiredIndicator } } />
         { children }
       { !hideErrorLabel && <InputError { ...{ error, invalid, touched } } /> }
     </fieldset>
