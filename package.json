@@ -2,7 +2,7 @@
   "name": "@launchpadlab/lp-components",
   "version": "3.16.3",
   "engines": {
-    "node": "^8.0.0"
+    "node": "^8.0.0 || ^10.13.0"
   },
   "description": "Our Components",
   "main": "lib/index.js",
@@ -46,23 +46,19 @@
     "redux-flash": "^2.0.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.4.0",
     "@launchpadlab/babel-preset": "^1.0.0",
     "@launchpadlab/eslint-config": "^2.4.1",
-    "@storybook/react": "^3.2.16",
-    "babel-cli": "^6.22.2",
-    "babel-core": "^6.26.3",
-    "babel-jest": "^23.0.1",
-    "bourbon": "^4.3.3",
-    "bourbon-neat": "^1.8.0",
+    "@storybook/react": "5.0.5",
     "css-loader": "^0.28.7",
     "documentation": "^8.1.2",
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.0",
     "eslint": "^5.2.0",
     "husky": "^0.14.3",
-    "jest": "^22.4.3",
+    "jest": "^23.6.0",
     "jest-canvas-mock": "^1.0.3",
-    "node-sass": "^4.5.1",
     "react": "^16.4.1",
     "react-dom": "^16.2.0",
     "redux": "^4.0.0",
