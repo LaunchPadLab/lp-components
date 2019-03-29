@@ -6,8 +6,8 @@ import InputLabel from './input-label'
 
 /**
  *
- * A fieldset wrapper for redux-form controlled inputs. This wrapper adds an {@link InputLabel}
- * above the wrapped component and an {@link InputError} below. Additionally, it adds the class `"error"`
+ * A fieldset wrapper for redux-form controlled inputs. This wrapper adds a label component (defaults to {@link InputLabel})
+ * above the wrapped component and an error component below (defaults to {@link InputError}). Additionally, it adds the class `"error"`
  * to the fieldset if the input is touched and invalid.
  *
  * In order to populate the `InputLabel` and `InputError` correctly, you should pass all the props of the corresponding input
@@ -16,7 +16,9 @@ import InputLabel from './input-label'
  *
  * @name LabeledField
  * @type Function
- * @param {Boolean} [hideErrorLabel] A boolean determining whether to hide the error label on input error (optional, default `false`)
+ * @param {Boolean} [hideErrorLabel] - A boolean determining whether to hide the error label on input error (optional, default `false`)
+ * @param {Function} [labelComponent=InputLabel] - A custom label component for the input
+ * @param {Function} [errorComponent=InputError] - A custom error component for the input
  *
  * @example
  *
@@ -54,23 +56,28 @@ const defaultProps = {
   hideErrorLabel: false,
 }
 
+const DefaultLabelComponent = InputLabel
+const DefaultErrorComponent = InputError
+
 function LabeledField ({
-    input: { name },
-    meta: { error, touched, invalid },
-    className,
-    hint,
-    label,
-    tooltip,
-    required,
-    requiredIndicator,
-    children,
-    hideErrorLabel,
-  }) {
+  input: { name },
+  meta: { error, touched, invalid },
+  className,
+  errorComponent: ErrorComponent = DefaultErrorComponent,
+  hint,
+  label,
+  labelComponent: LabelComponent = DefaultLabelComponent,
+  tooltip,
+  required,
+  requiredIndicator,
+  children,
+  hideErrorLabel,
+}) {
   return (
     <fieldset className={ classnames(className, { 'error': touched && invalid }) }>
-      <InputLabel { ...{ hint, label, name, tooltip, required, requiredIndicator } } />
+      <LabelComponent { ...{ hint, label, name, tooltip, required, requiredIndicator } } />
         { children }
-      { !hideErrorLabel && <InputError { ...{ error, invalid, touched } } /> }
+      { !hideErrorLabel && <ErrorComponent { ...{ error, invalid, touched } } /> }
     </fieldset>
   )
 }

@@ -1038,7 +1038,8 @@ This component is used within [LabeledField][78], and therefore is incorporated 
 The text of the label is set using the following rules:
 
 -   If the `label` prop is set to `false`, the label is hidden completely
--   If the `label` prop is set to a string, the label will display that text
+-   Else If the component is passed childen, the children will be displayed within the `label`
+-   Else If the `label` prop is set to a string, the label will display that text
 -   Otherwise, the label will be set using the `name` prop.
 
 If `name` is used to set the text, it will be stripped of its prefixes and converted to [start case][149].
@@ -1084,8 +1085,8 @@ function EmailInput ({
 
 ## LabeledField
 
-A fieldset wrapper for redux-form controlled inputs. This wrapper adds an [InputLabel][75]
-above the wrapped component and an [InputError][72] below. Additionally, it adds the class `"error"`
+A fieldset wrapper for redux-form controlled inputs. This wrapper adds a label component (defaults to [InputLabel][75])
+above the wrapped component and an error component below (defaults to [InputError][72]). Additionally, it adds the class `"error"`
 to the fieldset if the input is touched and invalid.
 
 In order to populate the `InputLabel` and `InputError` correctly, you should pass all the props of the corresponding input
@@ -1095,6 +1096,8 @@ use the [omitLabelProps][86] helper.
 ### Parameters
 
 -   `hideErrorLabel` **[Boolean][133]?** A boolean determining whether to hide the error label on input error (optional, default `false`)
+-   `labelComponent` **[Function][132]** A custom label component for the input (optional, default `InputLabel`)
+-   `errorComponent` **[Function][132]** A custom error component for the input (optional, default `InputError`)
 
 ### Examples
 
