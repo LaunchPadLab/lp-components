@@ -19,3 +19,18 @@ test('RadioGroup changes value when buttons are clicked', () => {
   wrapper.find('input').last().simulate('change')
   expect(onChange).toHaveBeenCalledWith('Option 2')
 })
+
+test('A RadioGroup\'s inputs all have the same name', () => {
+  const name = "sameName"
+  const props = { 
+    input: {
+      name,
+      value: '',
+    }, 
+    meta: {},
+    options: ['Option 1', 'Option 2']
+  }
+  const wrapper = mount(<RadioGroup { ...props }/>)
+  expect(wrapper.find('input').first().prop('name')).toEqual(name)
+  expect(wrapper.find('input').last().prop('name')).toEqual(name)
+})
