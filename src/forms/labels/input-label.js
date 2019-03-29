@@ -52,7 +52,7 @@ import { toggle, togglePropTypes } from '../../utils'
  *     </div>
  *   )
  * }
- *
+ * 
 **/
 
 const propTypes = {

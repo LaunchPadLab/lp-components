@@ -42,6 +42,16 @@ import InputLabel from './input-label'
  *     </LabeledField>
  *   )
  * }
+ * 
+ * // A custom label to pass in as a label component (re-using `<InputLabel />`)
+ * 
+ * const handleClick = () => TermsModal.show()
+ * function CustomLabelComponent (props) {
+ *  return (
+ *    <InputLabel { ...props }>
+ *      <span>I agree to the <a onClick={handleClick}>Terms and Conditions</a></span>
+ *    </InputLabel>
+ * }
  *
 **/
 
