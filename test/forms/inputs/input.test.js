@@ -25,3 +25,9 @@ test('Input renders children', () => {
   const wrapper = mount(<Input { ...props }><Wrapped /></Input>)
   expect(wrapper.find(Wrapped).exists()).toEqual(true)
 })
+
+test('Input is given an aria described by attribute', () => {
+  const props = { input, meta: {} }
+  const wrapper = mount(<Input { ...props }/>)
+  expect(wrapper.find('input').prop('aria-describedby')).toContain(name)
+})
