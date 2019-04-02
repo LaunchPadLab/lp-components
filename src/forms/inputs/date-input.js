@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import DatePicker from 'react-datepicker'
-import moment from 'moment'
 import { blurDirty, fieldPropTypesWithValue, omitLabelProps } from '../helpers'
 import { LabeledField } from '../labels'
 import { compose } from '../../utils'
@@ -11,7 +10,6 @@ import { compose } from '../../utils'
  * An input component that wraps a `DatePicker` component from the [react-datepicker](https://github.com/Hacker0x01/react-datepicker) library.
  * This wrapper adds the following functionality to `DatePicker`:
  * - Adapts it to receive `redux-forms`-style input props.
- * - Converts value type from [moment](https://github.com/moment/moment) to [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date).
  * - Adds name and error labels.
  *
  * With the exception of the `input` and `meta` props, all props are passed down to the `DatePicker` component. 
@@ -62,16 +60,15 @@ function DateInput (props) {
     className, // eslint-disable-line no-unused-vars
     ...rest
   } = omitLabelProps(props)
-  const momentValue = value ? moment(value) : null
   return (
     <LabeledField { ...props }>
       <DatePicker 
         {...{ 
           id: name,
           name,
-          selected: momentValue,
+          selected: value,
           onBlur: () => onBlur(value),
-          onChange: (val) => onChange(val ? val.toDate() : ''),
+          onChange: (val) => onChange(val || ''),
           ...rest
         }}
       />

@@ -24,6 +24,7 @@
     "prepublish": "yarn run clean && yarn run build",
     "storybook": "start-storybook -p 6006",
     "test": "jest --coverage",
+    "size": "yarn build && size-limit",
     "storybook:build": "build-storybook -o .storybook/static/storybook",
     "heroku-prebuild": "yarn remove node-sass",
     "heroku-postbuild": "yarn run storybook:build"
@@ -34,14 +35,13 @@
     "lib/"
   ],
   "dependencies": {
-    "@launchpadlab/lp-hoc": "^3.2.2",
+    "@launchpadlab/lp-hoc": "^4.0.0",
     "classnames": "^2.2.5",
     "filter-invalid-dom-props": "^2.0.0",
     "lodash": "^4.17.4",
-    "moment": "^2.19.3",
     "prop-types": "^15.5.8",
-    "react-color": "^2.14.0",
-    "react-datepicker": "^1.0.3",
+    "react-color": "^2.17.0",
+    "react-datepicker": "^2.3.0",
     "react-router": "^3.2.1",
     "redux-flash": "^2.0.1"
   },
@@ -63,11 +63,15 @@
     "jest": "^22.4.3",
     "jest-canvas-mock": "^1.0.3",
     "node-sass": "^4.5.1",
-    "react": "^16.4.1",
-    "react-dom": "^16.2.0",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "react-redux": "6",
     "redux": "^4.0.0",
+    "redux-modal": "3",
     "rimraf": "^2.5.4",
     "sass-loader": "^6.0.6",
+    "size-limit": "^1.0.0",
+    "source-map-explorer": "^1.8.0",
     "style-loader": "^0.19.0",
     "webpack": "^3.8.1"
   },
@@ -77,6 +81,12 @@
   "peerDependencies": {
     "react": ">=15.5.0"
   },
+  "bundlesize": [
+    {
+      "path": "lib",
+      "maxSize": "3 kB"
+    }
+  ],
   "greenkeeper": {
     "ignore": [
       "bourbon",
