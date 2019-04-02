@@ -81,12 +81,6 @@
   "peerDependencies": {
     "react": ">=15.5.0"
   },
-  "bundlesize": [
-    {
-      "path": "lib",
-      "maxSize": "3 kB"
-    }
-  ],
   "greenkeeper": {
     "ignore": [
       "bourbon",
