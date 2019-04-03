@@ -24,6 +24,7 @@ import { toggle, togglePropTypes } from '../../utils'
  * @name InputLabel
  * @type Function
  * @param {String} name - The name of the associated input
+ * @param {String} [id=name] - The id of the associated input (defaults to name)
  * @param {String} [hint] - A usage hint for the associated input
  * @param {String|Boolean} [label] - Custom text for the label
  * @param {String} [tooltip] - A message to display in a tooltip
@@ -56,6 +57,7 @@ import { toggle, togglePropTypes } from '../../utils'
 
 const propTypes = {
   hint: PropTypes.string,
+  id: PropTypes.string,
   label: PropTypes.oneOfType([ PropTypes.string, PropTypes.bool ]),
   name: PropTypes.string.isRequired,
   tooltip: PropTypes.string,
@@ -66,6 +68,7 @@ const propTypes = {
 
 const defaultProps = {
   hint: '',
+  id: '',
   label: '',
   tooltip: '',
   requiredIndicator: '',
@@ -73,6 +76,7 @@ const defaultProps = {
 
 function InputLabel ({
   hint,
+  id,
   label,
   name,
   tooltip,
@@ -86,7 +90,7 @@ function InputLabel ({
     <span>
       {
         label !== false &&
-        <label htmlFor={ name }>
+        <label htmlFor={ id || name }>
           { labelText }
           {
             required && requiredIndicator &&

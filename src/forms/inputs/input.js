@@ -47,6 +47,7 @@ const defaultProps = {
 function Input (props) {
   const {
     input: { name, value, onBlur, onChange },
+    id,
     meta, // eslint-disable-line no-unused-vars
     className, // eslint-disable-line no-unused-vars
     type,
@@ -58,7 +59,7 @@ function Input (props) {
       <div className="input-wrapper">
         <input
           {...{
-            id: name,
+            id: id || name,
             name,
             type,
             value,
