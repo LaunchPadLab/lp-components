@@ -1056,6 +1056,7 @@ Note: When using third party form libraries (e.g., [Redux Form][153]), it's like
 ### Parameters
 
 -   `name` **[String][134]** The name of the associated input
+-   `id` **[String][134]** The id of the associated input (defaults to name) (optional, default `name`)
 -   `hint` **[String][134]?** A usage hint for the associated input
 -   `label` **([String][134] \| [Boolean][136])?** Custom text for the label
 -   `tooltip` **[String][134]?** A message to display in a tooltip
