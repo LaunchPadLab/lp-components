@@ -6,3 +6,6 @@ enzyme.configure({ adapter: new Adapter() })
 
 // Mock browser canvas
 import 'jest-canvas-mock'
+
+// Add babel polyfill since lp-hoc > lp-requests uses async/await
+import '@babel/polyfill'
