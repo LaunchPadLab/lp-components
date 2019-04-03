@@ -1125,13 +1125,24 @@ function LabeledPhoneInput (props) {
 
 // A custom label to pass in as a label component (re-using `<InputLabel />`)
 
-const handleClick = () => TermsModal.show()
-function CustomLabelComponent (props) {
+function CustomLabelComponent ({ handleClick, ...rest }) {
  return (
-   <InputLabel { ...props }>
+   <InputLabel { ...rest }>
      <span>I agree to the <a onClick={handleClick}>Terms and Conditions</a></span>
    </InputLabel>
+ )
 }
+
+const props = {
+  input: { name: 'foo' },
+  meta: { touched: true, invalid: true },
+  labelComponent: CustomLabelComponent,
+}
+
+<LabeledPhoneInput
+   {...props}
+   handleClick={ () => 'bar' }
+/>
 
 *
 ```

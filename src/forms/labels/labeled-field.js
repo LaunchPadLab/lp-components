@@ -45,13 +45,24 @@ import InputLabel from './input-label'
  * 
  * // A custom label to pass in as a label component (re-using `<InputLabel />`)
  * 
- * const handleClick = () => TermsModal.show()
- * function CustomLabelComponent (props) {
+ * function CustomLabelComponent ({ handleClick, ...rest }) {
  *  return (
- *    <InputLabel { ...props }>
+ *    <InputLabel { ...rest }>
  *      <span>I agree to the <a onClick={handleClick}>Terms and Conditions</a></span>
  *    </InputLabel>
+ *  )
  * }
+ * 
+ * const props = {
+ *   input: { name: 'foo' },
+ *   meta: { touched: true, invalid: true },
+ *   labelComponent: CustomLabelComponent,
+ * }
+ * 
+ * <LabeledPhoneInput
+ *    {...props}
+ *    handleClick={ () => 'bar' }
+ * />
  *
 **/
 
@@ -66,17 +77,14 @@ const defaultProps = {
   hideErrorLabel: false,
 }
 
-const DefaultLabelComponent = InputLabel
-const DefaultErrorComponent = InputError
-
 function LabeledField ({
   input: { name },
   meta: { error, touched, invalid },
   className,
-  errorComponent: ErrorComponent = DefaultErrorComponent,
+  errorComponent: ErrorComponent = InputLabel,
   hint,
   label,
-  labelComponent: LabelComponent = DefaultLabelComponent,
+  labelComponent: LabelComponent = InputError,
   tooltip,
   required,
   requiredIndicator,
