@@ -9,7 +9,12 @@ import {
   omitLabelProps
 } from '../helpers'
 import { LabeledField } from '../labels'
-import { compose, serializeOptions, serializeOptionGroups } from '../../utils'
+import {
+  compose,
+  generateInputErrorId,
+  serializeOptions,
+  serializeOptionGroups
+} from '../../utils'
 
 /**
  *
@@ -118,6 +123,7 @@ function Select (props) {
           value,
           onBlur,
           onChange,
+          'aria-describedby': generateInputErrorId(name),
           ...rest
         }}
       >

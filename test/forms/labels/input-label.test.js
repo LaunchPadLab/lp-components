@@ -48,3 +48,14 @@ test('when required true and custom requiredIndicator provided, show custom indi
   const wrapper = mount(<InputLabel name={name} required requiredIndicator={ '*' } />)
   expect(wrapper.find('label > span').text()).toEqual('*')
 })
+
+test('when id is _not_ provided - renders a label associated to the input name', () => {
+  const wrapper = mount(<InputLabel name={name} label="foo" />)
+  expect(wrapper.find('label').prop('htmlFor')).toBe(name)
+})
+
+test('when id is provided - renders a label associated to the input id', () => {
+  const id = 'testId'
+  const wrapper = mount(<InputLabel name={name} id={id} label="foo" />)
+  expect(wrapper.find('label').prop('htmlFor')).toBe(id)
+})
