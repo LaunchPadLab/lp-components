@@ -34,3 +34,9 @@ test('passes extra props to span element', () => {
   const wrapper = shallow(<InputError onClick={ onClick } error="Foo" touched invalid />)
   expect(wrapper.props().onClick).toBe(onClick)
 })
+
+test('is provided with an id containing the associated input name', () => {
+  const inputName = "test-name"
+  const wrapper = shallow(<InputError name={ inputName } invalid touched />)
+  expect(wrapper.find('span').prop('id')).toContain(inputName)
+})

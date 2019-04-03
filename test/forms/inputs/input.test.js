@@ -25,3 +25,21 @@ test('Input renders children', () => {
   const wrapper = mount(<Input { ...props }><Wrapped /></Input>)
   expect(wrapper.find(Wrapped).exists()).toEqual(true)
 })
+
+test('Input is given an aria described by attribute', () => {
+  const props = { input, meta: {} }
+  const wrapper = mount(<Input { ...props }/>)
+  expect(wrapper.find('input').prop('aria-describedby')).toContain(name)
+})
+
+test('Input id defaults to name when no id is provided', () => {
+  const props = { input, meta: {} }
+  const wrapper = mount(<Input { ...props } />)
+  expect(wrapper.find('input').prop('id')).toBe(name)
+})
+
+test('Input id is set when id is provided', () => {
+  const props = { input, meta: {} }
+  const wrapper = mount(<Input {...props} id="testId" />)
+  expect(wrapper.find('input').prop('id')).toBe('testId')
+})

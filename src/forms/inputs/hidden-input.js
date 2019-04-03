@@ -29,12 +29,13 @@ import Input from './input'
 const hiddenStyle = {
   position: 'absolute',
   left: -9999,
+  visibility: 'hidden', // removes from tab order AND screen reader
 }
 
 function HiddenInput (props) {
   return (
     <div style={ hiddenStyle }>
-      <Input tabIndex="-1" { ...props } />
+      <Input { ...props } />
     </div>
   )
 }

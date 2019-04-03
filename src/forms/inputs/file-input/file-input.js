@@ -4,7 +4,7 @@ import { buttonClasses, fieldPropTypes, isImageType, omitLabelProps } from '../.
 import { LabeledField } from '../../labels'
 import FilePreview from './file-preview'
 import ImagePreview from './image-preview';
-import { noop } from '../../../utils'
+import { noop, generateInputErrorId } from '../../../utils'
 
 /**
  *
@@ -117,6 +117,7 @@ class FileInput extends React.Component {
                   type: 'file',
                   onChange: this.loadFile,
                   accept,
+                  'aria-describedby': generateInputErrorId(name),
                 }}
               />
           </div>
