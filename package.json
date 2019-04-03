@@ -1,8 +1,8 @@
 {
   "name": "@launchpadlab/lp-components",
-  "version": "3.18.0",
+  "version": "3.19.0",
   "engines": {
-    "node": "^8.0.0"
+    "node": "^8.0.0 || ^10.13.0"
   },
   "description": "Our Components",
   "main": "lib/index.js",
@@ -22,10 +22,9 @@
     "lint": "eslint src",
     "precommit": "yarn run docs && git add docs.md",
     "prepublish": "yarn run clean && yarn run build",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "yarn && start-storybook -p 6006",
     "test": "jest --coverage",
     "storybook:build": "build-storybook -o .storybook/static/storybook",
-    "heroku-prebuild": "yarn remove node-sass",
     "heroku-postbuild": "yarn run storybook:build"
   },
   "files": [
@@ -46,23 +45,27 @@
     "redux-flash": "^2.0.1"
   },
   "devDependencies": {
-    "@launchpadlab/babel-preset": "^1.0.0",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.4.0",
+    "@babel/polyfill": "^7.4.3",
+    "@launchpadlab/babel-preset": "^2.0.0",
     "@launchpadlab/eslint-config": "^2.4.1",
-    "@storybook/react": "^3.2.16",
-    "babel-cli": "^6.22.2",
-    "babel-core": "^6.26.3",
-    "babel-jest": "^23.0.1",
+    "@storybook/addon-actions": "^5.0.6",
+    "@storybook/addon-links": "^5.0.6",
+    "@storybook/addons": "^5.0.6",
+    "@storybook/react": "^5.0.6",
+    "babel-loader": "^8.0.0",
     "bourbon": "^4.3.3",
     "bourbon-neat": "^1.8.0",
     "css-loader": "^0.28.7",
-    "documentation": "^8.1.2",
+    "documentation": "^9.3.1",
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.0",
     "eslint": "^5.2.0",
     "husky": "^0.14.3",
-    "jest": "^22.4.3",
+    "jest": "^24.7.0",
     "jest-canvas-mock": "^1.0.3",
-    "node-sass": "^4.5.1",
+    "node-sass": "^4.11.0",
     "react": "^16.4.1",
     "react-dom": "^16.2.0",
     "redux": "^4.0.0",
