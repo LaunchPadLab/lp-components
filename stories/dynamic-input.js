@@ -32,7 +32,8 @@ export default function dynamicInput (options={}) {
         const givenOnChange = get(onChangePath, this.props) || noop
         const props = compose(
           set(valuePath, value),
-          set(onChangePath, compose(givenOnChange, this.onChange))
+          set(onChangePath, compose(givenOnChange, this.onChange)),
+          set('onBlur', noop),
         )(this.props)
         return (
           <Wrapped { ...props }/>

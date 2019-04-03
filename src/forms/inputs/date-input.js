@@ -66,7 +66,7 @@ function DateInput (props) {
         {...{ 
           id: name,
           name,
-          selected: value,
+          selected: value || null,
           onBlur: () => onBlur(value),
           onChange: (val) => onChange(val || ''),
           ...rest
