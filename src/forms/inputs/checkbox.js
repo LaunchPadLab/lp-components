@@ -7,7 +7,7 @@ import {
   replaceEmptyStringValue,
 } from '../helpers'
 import { LabeledField } from '../labels'
-import { compose } from '../../utils'
+import { compose, generateInputErrorId } from '../../utils'
 
 /**
  *
@@ -56,6 +56,7 @@ function Checkbox (props) {
         checked: value,
         onBlur,
         onChange: () => onChange(!value),
+        'aria-describedby': generateInputErrorId(name),
         ...rest 
       }} 
     />
