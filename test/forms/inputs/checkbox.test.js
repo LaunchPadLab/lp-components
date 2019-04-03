@@ -17,3 +17,16 @@ test('Checkbox toggles value when clicked', () => {
   const newValue = onChange.mock.calls[0][0]
   expect(newValue).toEqual(true)
 })
+
+test('Checkbox is given an aria described by attribute', () => {
+  const name = "test"
+  const props = { 
+    input: {
+      name,
+      value: false,
+    }, 
+    meta: {} 
+  }
+  const wrapper = mount(<Checkbox { ...props }/>)
+  expect(wrapper.find('input').prop('aria-describedby')).toContain(name)
+})

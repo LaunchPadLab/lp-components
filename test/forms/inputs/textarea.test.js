@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
 import { Textarea } from '../../../src/'
 
 test('Textarea passes down defaults and does not show character count', () => {
@@ -10,9 +10,9 @@ test('Textarea passes down defaults and does not show character count', () => {
     },
     meta: {},
   }
-  const wrapper = shallow(<Textarea { ...props }/>)
-  expect(wrapper.dive().find('textarea').prop('maxLength')).toEqual(null)
-  expect(wrapper.dive().find('.character-count').exists()).toEqual(false)
+  const wrapper = mount(<Textarea { ...props }/>)
+  expect(wrapper.find('textarea').prop('maxLength')).toEqual(null)
+  expect(wrapper.find('.character-count').exists()).toEqual(false)
 })
 
 test('Textarea passes down max length and shows character count correctly', () => {
@@ -24,9 +24,9 @@ test('Textarea passes down max length and shows character count correctly', () =
     meta: {},
     maxLength: 5,
   }
-  const wrapper = shallow(<Textarea { ...props }/>)
-  expect(wrapper.dive().find('textarea').prop('maxLength')).toEqual(5)
-  expect(wrapper.dive().find('.character-count').exists()).toEqual(true)
+  const wrapper = mount(<Textarea { ...props }/>)
+  expect(wrapper.find('textarea').prop('maxLength')).toEqual(5)
+  expect(wrapper.find('.character-count').exists()).toEqual(true)
 })
 
 test('Textarea hides character count correctly', () => {
@@ -39,9 +39,22 @@ test('Textarea hides character count correctly', () => {
     maxLength: 5,
     hideCharacterCount: true,
   }
-  const wrapper = shallow(<Textarea { ...props }/>)
-  expect(wrapper.dive().find('textarea').prop('maxLength')).toEqual(5)
-  expect(wrapper.dive().find('.character-count').exists()).toEqual(false)
+  const wrapper = mount(<Textarea { ...props }/>)
+  expect(wrapper.find('textarea').prop('maxLength')).toEqual(5)
+  expect(wrapper.find('.character-count').exists()).toEqual(false)
 })
 
-
+test('Input is given an aria described by attribute', () => {
+  const name = 'test'
+  const props = {
+    input: {
+      name,
+      value: '',
+    },
+    meta: {},
+    maxLength: 5,
+    hideCharacterCount: true,
+  }
+  const wrapper = mount(<Textarea { ...props }/>)
+  expect(wrapper.find('textarea').prop('aria-describedby')).toContain(name)
+})

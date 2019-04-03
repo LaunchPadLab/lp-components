@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { generateInputErrorId } from '../../utils'
 
 /**
  *
@@ -12,6 +13,8 @@ import classnames from 'classnames'
  * - If the input is `invalid` and `touched`, the label will be shown
  * - If the `error` prop is set to a string, the label will display that text
  * - If the `error` prop is set to an array of strings, the label will display those errors separated by commas
+ * 
+ * This label supports accessibility by adding a uniquely generated id to the span which should be referenced by the input using `aria-describedby`.
  *
  * In addition to the props below, any extra props will be passed directly to the inner `<span>` element.
  *
@@ -20,6 +23,7 @@ import classnames from 'classnames'
  * @param {String|Array} error - An error message or array of error messages to display
  * @param {Boolean} invalid - Whether the associated input has an invalid value
  * @param {String} touched - Whether the associated input has been touched
+ * @param {String} name - The name of the input (used to generate a unique ID)
  *
  * @example
  * 
@@ -37,7 +41,7 @@ import classnames from 'classnames'
  *          onBlur,
  *          onChange,   
  *       }}
- *       <InputError { ...{ error, invalid, touched } } />
+ *       <InputError { ...{ error, invalid, touched, name } } />
  *     </div>
  *   )
  * }
@@ -52,6 +56,7 @@ const propTypes = {
   invalid: PropTypes.bool,
   touched: PropTypes.bool,
   className: PropTypes.string,
+  name: PropTypes.string,
 }
 
 const defaultProps = {
@@ -59,11 +64,13 @@ const defaultProps = {
   invalid: false,
   touched: false,
   className: '',
+  name: '',
 }
 
-function InputError ({ error, invalid, touched, className, ...rest }) {
+function InputError ({ error, invalid, touched, name, className, ...rest }) {
   return (touched && invalid)
     ? <span
+        id={ generateInputErrorId(name) }
         className={ classnames('error-message', className) }
         { ...rest }
       >
