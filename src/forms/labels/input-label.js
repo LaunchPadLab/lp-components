@@ -12,7 +12,8 @@ import { toggle, togglePropTypes } from '../../utils'
  *
  * The text of the label is set using the following rules:
  * - If the `label` prop is set to `false`, the label is hidden completely
- * - If the `label` prop is set to a string, the label will display that text
+ * - Else If the component is passed childen, the children will be displayed within the `label`
+ * - Else If the `label` prop is set to a string, the label will display that text
  * - Otherwise, the label will be set using the `name` prop.
  *
  * If `name` is used to set the text, it will be stripped of its prefixes and converted to [start case](https://en.wikipedia.org/wiki/Letter_case#Stylistic_or_specialised_usage).
@@ -52,10 +53,11 @@ import { toggle, togglePropTypes } from '../../utils'
  *     </div>
  *   )
  * }
- *
+ * 
 **/
 
 const propTypes = {
+  children: PropTypes.node,
   hint: PropTypes.string,
   id: PropTypes.string,
   label: PropTypes.oneOfType([ PropTypes.string, PropTypes.bool ]),
@@ -67,6 +69,7 @@ const propTypes = {
 }
 
 const defaultProps = {
+  children: null,
   hint: '',
   id: '',
   label: '',
@@ -75,6 +78,7 @@ const defaultProps = {
 }
 
 function InputLabel ({
+  children,
   hint,
   id,
   label,
@@ -85,13 +89,14 @@ function InputLabel ({
   required,
   requiredIndicator,
 }) {
-  const labelText = label || convertNameToLabel(name)
+  const labelToDisplay = children || label || convertNameToLabel(name)
+  
   return (
     <span>
       {
         label !== false &&
         <label htmlFor={ id || name }>
-          { labelText }
+          { labelToDisplay }
           {
             required && requiredIndicator &&
             <span className="required-indicator" aria-hidden="true">{ requiredIndicator }</span>
@@ -117,7 +122,6 @@ function InputLabel ({
 }
 
 InputLabel.propTypes = propTypes
-
 InputLabel.defaultProps = defaultProps
 
 export default toggle('tooltipShown')(InputLabel)

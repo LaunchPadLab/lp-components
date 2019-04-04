@@ -6,8 +6,8 @@ import InputLabel from './input-label'
 
 /**
  *
- * A fieldset wrapper for redux-form controlled inputs. This wrapper adds an {@link InputLabel}
- * above the wrapped component and an {@link InputError} below. Additionally, it adds the class `"error"`
+ * A fieldset wrapper for redux-form controlled inputs. This wrapper adds a label component (defaults to {@link InputLabel})
+ * above the wrapped component and an error component below (defaults to {@link InputError}). Additionally, it adds the class `"error"`
  * to the fieldset if the input is touched and invalid.
  *
  * In order to populate the `InputLabel` and `InputError` correctly, you should pass all the props of the corresponding input
@@ -16,11 +16,13 @@ import InputLabel from './input-label'
  *
  * @name LabeledField
  * @type Function
- * @param {Boolean} [hideErrorLabel] A boolean determining whether to hide the error label on input error (optional, default `false`)
+ * @param {Boolean} [hideErrorLabel] - A boolean determining whether to hide the error label on input error (optional, default `false`)
+ * @param {Function} [labelComponent=InputLabel] - A custom label component for the input
+ * @param {Function} [errorComponent=InputError] - A custom error component for the input
  *
  * @example
  *
- * // A custom input to use with redux-forms
+ * // A custom input to use with redux-form
  *
  * function LabeledPhoneInput (props) {
  *   const {
@@ -40,8 +42,29 @@ import InputLabel from './input-label'
  *     </LabeledField>
  *   )
  * }
+ * 
+ * // A custom label to pass in as a label component (using <InputLabel /> and redux-form)
+ * 
+ * import LabeledPhoneInput from './LabeledPhoneInput'
+ * import { InputLabel } from 'lp-components'
+ * import { Field } from 'redux-form'
+ * 
+ * function CustomLabelComponent ({ onClickLabel, ...rest }) {
+ *  return (
+ *    <InputLabel { ...rest }>
+ *      <span>I agree to the <a onClick={ onClickLabel }>Terms and Conditions</a></span>
+ *    </InputLabel>
+ *  )
+ * }
+ * 
+ * <Field
+ *   name="phoneNumber"
+ *   component={ LabeledPhoneInput }
+ *   onClickLabel={ () => 'bar' }
+ *   labelComponent={ CustomLabelComponent }
+ * />
  *
-**/
+ */
 
 const propTypes = {
   ...InputLabel.propTypes,
@@ -59,8 +82,10 @@ function LabeledField ({
   input: { name },
   meta: { error, touched, invalid },
   className,
+  errorComponent: ErrorComponent = InputError,
   hint,
   label,
+  labelComponent: LabelComponent = InputLabel,
   tooltip,
   required,
   requiredIndicator,
@@ -69,9 +94,9 @@ function LabeledField ({
 }) {
   return (
     <fieldset className={ classnames(className, { 'error': touched && invalid }) }>
-      <InputLabel { ...{ hint, label, name, id, tooltip, required, requiredIndicator } } />
+      <LabelComponent { ...{ hint, label, name, id, tooltip, required, requiredIndicator } } />
         { children }
-      { !hideErrorLabel && <InputError { ...{ error, invalid, touched, name } } /> }
+      { !hideErrorLabel && <ErrorComponent { ...{ error, invalid, touched, name } } /> }
     </fieldset>
   )
 }

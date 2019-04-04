@@ -52,6 +52,8 @@ function omitLabelProps (props) {
     'tooltip',
     'label',
     'requiredIndicator',
+    'errorComponent',
+    'labelComponent',
   ], props)
 }
 

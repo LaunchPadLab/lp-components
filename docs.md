@@ -122,16 +122,16 @@
 -   [compareAtPath][118]
     -   [Parameters][119]
     -   [Examples][120]
--   [serializeOptions][121]
+-   [generateInputErrorId][121]
     -   [Parameters][122]
     -   [Examples][123]
--   [serializeOptionGroups][124]
+-   [serializeOptions][124]
     -   [Parameters][125]
     -   [Examples][126]
--   [stripNamespace][127]
+-   [serializeOptionGroups][127]
     -   [Parameters][128]
     -   [Examples][129]
--   [generateInputErrorId][130]
+-   [stripNamespace][130]
     -   [Parameters][131]
     -   [Examples][132]
 
@@ -1044,7 +1044,8 @@ This component is used within [LabeledField][78], and therefore is incorporated 
 The text of the label is set using the following rules:
 
 -   If the `label` prop is set to `false`, the label is hidden completely
--   If the `label` prop is set to a string, the label will display that text
+-   Else If the component is passed childen, the children will be displayed within the `label`
+-   Else If the `label` prop is set to a string, the label will display that text
 -   Otherwise, the label will be set using the `name` prop.
 
 If `name` is used to set the text, it will be stripped of its prefixes and converted to [start case][152].
@@ -1091,8 +1092,8 @@ function EmailInput ({
 
 ## LabeledField
 
-A fieldset wrapper for redux-form controlled inputs. This wrapper adds an [InputLabel][75]
-above the wrapped component and an [InputError][72] below. Additionally, it adds the class `"error"`
+A fieldset wrapper for redux-form controlled inputs. This wrapper adds a label component (defaults to [InputLabel][75])
+above the wrapped component and an error component below (defaults to [InputError][72]). Additionally, it adds the class `"error"`
 to the fieldset if the input is touched and invalid.
 
 In order to populate the `InputLabel` and `InputError` correctly, you should pass all the props of the corresponding input
@@ -1102,11 +1103,13 @@ use the [omitLabelProps][86] helper.
 ### Parameters
 
 -   `hideErrorLabel` **[Boolean][136]?** A boolean determining whether to hide the error label on input error (optional, default `false`)
+-   `labelComponent` **[Function][135]** A custom label component for the input (optional, default `InputLabel`)
+-   `errorComponent` **[Function][135]** A custom error component for the input (optional, default `InputError`)
 
 ### Examples
 
 ```javascript
-// A custom input to use with redux-forms
+// A custom input to use with redux-form
 
 function LabeledPhoneInput (props) {
   const {
@@ -1127,7 +1130,26 @@ function LabeledPhoneInput (props) {
   )
 }
 
-*
+// A custom label to pass in as a label component (using <InputLabel /> and redux-form)
+
+import LabeledPhoneInput from './LabeledPhoneInput'
+import { InputLabel } from 'lp-components'
+import { Field } from 'redux-form'
+
+function CustomLabelComponent ({ onClickLabel, ...rest }) {
+ return (
+   <InputLabel { ...rest }>
+     <span>I agree to the <a onClick={ onClickLabel }>Terms and Conditions</a></span>
+   </InputLabel>
+ )
+}
+
+<Field
+  name="phoneNumber"
+  component={ LabeledPhoneInput }
+  onClickLabel={ () => 'bar' }
+  labelComponent={ CustomLabelComponent }
+/>
 ```
 
 ## blurDirty
@@ -1544,6 +1566,27 @@ people.sort(ageComparator)
 
 Returns **[Function][135]** Comparison function
 
+## generateInputErrorId
+
+A utility for generating a unique id for an input error label. This logic
+is centralized to facilitate reference by multiple input components.
+
+### Parameters
+
+-   `name` **[String][134]** The name of the input
+
+### Examples
+
+```javascript
+const name = 'cardNumber'
+
+generateInputErrorId(name)
+
+// 'cardNumberError'
+```
+
+Returns **[String][134]** String representing error id
+
 ## serializeOptions
 
 Function that transforms string options into object options with keys of
@@ -1625,27 +1668,6 @@ stripNamespace(namespace)
 ```
 
 Returns **[String][134]** String with namespace removed
-
-## generateInputErrorId
-
-A utility for generating a unique id for an input error label. This logic
-is centralized to facilitate reference by multiple input components.
-
-### Parameters
-
--   `name` **[String][134]** The name of the input
-
-### Examples
-
-```javascript
-const name = 'cardNumber'
-
-generateInputErrorId(name)
-
-// 'cardNumberError'
-```
-
-Returns **[String][134]** String representing error id
 
 [1]: #colorpicker
 
@@ -1887,25 +1909,25 @@ Returns **[String][134]** String representing error id
 
 [120]: #examples-39
 
-[121]: #serializeoptions
+[121]: #generateinputerrorid
 
 [122]: #parameters-35
 
 [123]: #examples-40
 
-[124]: #serializeoptiongroups
+[124]: #serializeoptions
 
 [125]: #parameters-36
 
 [126]: #examples-41
 
-[127]: #stripnamespace
+[127]: #serializeoptiongroups
 
 [128]: #parameters-37
 
 [129]: #examples-42
 
-[130]: #generateinputerrorid
+[130]: #stripnamespace
 
 [131]: #parameters-38
 

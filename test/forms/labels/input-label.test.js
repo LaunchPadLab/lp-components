@@ -20,6 +20,19 @@ test('when label not provided - renders a label with content equal to string', (
   expect(wrapper.dive().find('label').text()).toEqual('foo')
 })
 
+test('when children are provided, renders a label with content equal to children', () => {
+  const onClick = jest.fn()
+  const wrapper = mount(<InputLabel name={name}>Are you <span onClick={onClick}>sure</span>?</InputLabel>)
+  expect(wrapper.find('label').text()).toEqual('Are you sure?')
+})
+
+test('when children are provided, renders a label with custom interactions intact', () => {
+  const onClick = jest.fn()
+  const wrapper = mount(<InputLabel name={name}>Are you <span id="click" onClick={onClick}>sure</span>?</InputLabel>)
+  wrapper.find('#click').simulate('click')
+  expect(onClick).toHaveBeenCalled()
+})
+
 test('when hint provided - shows hint', () => {
   const wrapper = shallow(<InputLabel name={name} hint="hint"/>)
   expect(wrapper.dive().find('label > i').text()).toEqual('hint')
