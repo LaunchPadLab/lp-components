@@ -43,25 +43,24 @@ import InputLabel from './input-label'
  *   )
  * }
  * 
- * // A custom label to pass in as a label component (re-using `<InputLabel />`)
+ * // A custom label to pass in as a label component (using `<InputLabel />` and `redux-form`)
+ * import LabeledPhoneInput from './LabeledPhoneInput'
+ * import { InputLabel } from 'lp-components'
+ * import { Field } from 'redux-form'
  * 
- * function CustomLabelComponent ({ handleClick, ...rest }) {
+ * function CustomLabelComponent ({ onClickLabel, ...rest }) {
  *  return (
  *    <InputLabel { ...rest }>
- *      <span>I agree to the <a onClick={handleClick}>Terms and Conditions</a></span>
+ *      <span>I agree to the <a onClick={ onClickLabel }>Terms and Conditions</a></span>
  *    </InputLabel>
  *  )
  * }
  * 
- * const props = {
- *   input: { name: 'foo' },
- *   meta: { touched: true, invalid: true },
- *   labelComponent: CustomLabelComponent,
- * }
- * 
- * <LabeledPhoneInput
- *    {...props}
- *    handleClick={ () => 'bar' }
+ * <Field
+ *   name="phoneNumber"
+ *   component={ LabeledPhoneInput }
+ *   onClickLabel={ () => 'bar' }
+ *   labelComponent={ CustomLabelComponent }
  * />
  *
 **/
