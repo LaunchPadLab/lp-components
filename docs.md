@@ -1109,7 +1109,7 @@ use the [omitLabelProps][86] helper.
 ### Examples
 
 ```javascript
-// A custom input to use with redux-forms
+// A custom input to use with redux-form
 
 function LabeledPhoneInput (props) {
   const {
@@ -1130,7 +1130,8 @@ function LabeledPhoneInput (props) {
   )
 }
 
-// A custom label to pass in as a label component (using `<InputLabel />` and `redux-form`)
+// A custom label to pass in as a label component (using <InputLabel /> and redux-form)
+
 import LabeledPhoneInput from './LabeledPhoneInput'
 import { InputLabel } from 'lp-components'
 import { Field } from 'redux-form'
