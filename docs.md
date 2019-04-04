@@ -122,16 +122,16 @@
 -   [compareAtPath][118]
     -   [Parameters][119]
     -   [Examples][120]
--   [serializeOptions][121]
+-   [generateInputErrorId][121]
     -   [Parameters][122]
     -   [Examples][123]
--   [serializeOptionGroups][124]
+-   [serializeOptions][124]
     -   [Parameters][125]
     -   [Examples][126]
--   [stripNamespace][127]
+-   [serializeOptionGroups][127]
     -   [Parameters][128]
     -   [Examples][129]
--   [generateInputErrorId][130]
+-   [stripNamespace][130]
     -   [Parameters][131]
     -   [Examples][132]
 
@@ -1149,8 +1149,6 @@ function CustomLabelComponent ({ onClickLabel, ...rest }) {
   onClickLabel={ () => 'bar' }
   labelComponent={ CustomLabelComponent }
 />
-
-*
 ```
 
 ## blurDirty
@@ -1567,6 +1565,27 @@ people.sort(ageComparator)
 
 Returns **[Function][135]** Comparison function
 
+## generateInputErrorId
+
+A utility for generating a unique id for an input error label. This logic
+is centralized to facilitate reference by multiple input components.
+
+### Parameters
+
+-   `name` **[String][134]** The name of the input
+
+### Examples
+
+```javascript
+const name = 'cardNumber'
+
+generateInputErrorId(name)
+
+// 'cardNumberError'
+```
+
+Returns **[String][134]** String representing error id
+
 ## serializeOptions
 
 Function that transforms string options into object options with keys of
@@ -1648,27 +1667,6 @@ stripNamespace(namespace)
 ```
 
 Returns **[String][134]** String with namespace removed
-
-## generateInputErrorId
-
-A utility for generating a unique id for an input error label. This logic
-is centralized to facilitate reference by multiple input components.
-
-### Parameters
-
--   `name` **[String][134]** The name of the input
-
-### Examples
-
-```javascript
-const name = 'cardNumber'
-
-generateInputErrorId(name)
-
-// 'cardNumberError'
-```
-
-Returns **[String][134]** String representing error id
 
 [1]: #colorpicker
 
@@ -1910,25 +1908,25 @@ Returns **[String][134]** String representing error id
 
 [120]: #examples-39
 
-[121]: #serializeoptions
+[121]: #generateinputerrorid
 
 [122]: #parameters-35
 
 [123]: #examples-40
 
-[124]: #serializeoptiongroups
+[124]: #serializeoptions
 
 [125]: #parameters-36
 
 [126]: #examples-41
 
-[127]: #stripnamespace
+[127]: #serializeoptiongroups
 
 [128]: #parameters-37
 
 [129]: #examples-42
 
-[130]: #generateinputerrorid
+[130]: #stripnamespace
 
 [131]: #parameters-38
 

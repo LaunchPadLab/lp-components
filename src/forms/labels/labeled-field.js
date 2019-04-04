@@ -63,7 +63,7 @@ import InputLabel from './input-label'
  *   labelComponent={ CustomLabelComponent }
  * />
  *
-**/
+ */
 
 const propTypes = {
   ...InputLabel.propTypes,
