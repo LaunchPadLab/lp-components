@@ -23,7 +23,7 @@ import Button from './button'
  * }
  * 
  * // When SubmitButton is pressed, form will submit and handleSubmit() will be called.
-**/
+ */
 
 function SubmitButton (props) {
   return (

@@ -32,7 +32,7 @@ import classnames from 'classnames'
  *     </form>
  *   )
  * }
-**/
+ */
 
 const propTypes = {
   className: PropTypes.string,

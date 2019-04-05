@@ -17,7 +17,7 @@
  *
  * // 'name'
  *
-**/
+ */
 
 function stripNamespace (str) {
   if (!str || typeof str !== 'string') return str

@@ -27,7 +27,7 @@ import classnames from 'classnames'
  *
  * // Buttons will be wrapped in a div with class: "button-area my-area"
  *
-**/
+ */
 
 const propTypes = {
   className: PropTypes.string,

@@ -48,7 +48,7 @@ import { addToArray, removeFromArray, serializeOptions, compose } from '../../ut
  * }
  *
  * export default TodoForm
-**/
+ */
 
 const propTypes = {
   ...checkboxGroupPropTypes,

@@ -30,7 +30,7 @@ import { wrapDisplayName, noop, set, omit } from '../../utils'
  * export default compose(
  *    blurDirty()
  * )(TextForm)
-**/
+ */
 
 /* eslint react/prop-types: off */
 

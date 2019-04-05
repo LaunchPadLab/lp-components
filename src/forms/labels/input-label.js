@@ -54,7 +54,7 @@ import { toggle, togglePropTypes } from '../../utils'
  *   )
  * }
  * 
-**/
+ */
 
 const propTypes = {
   children: PropTypes.node,
