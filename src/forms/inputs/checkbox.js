@@ -33,7 +33,7 @@ import { compose, generateInputErrorId } from '../../utils'
  * }
  *
  * export default CoolPersonForm
-**/
+ */
 
 const propTypes = {
   ...fieldPropTypesWithValue(PropTypes.bool),

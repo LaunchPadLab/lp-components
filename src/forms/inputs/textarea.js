@@ -31,7 +31,7 @@ import { compose, generateInputErrorId } from '../../utils'
  *     </form>
  *   )
  * }
-**/
+ */
 
 const propTypes = {
   ...fieldPropTypes,

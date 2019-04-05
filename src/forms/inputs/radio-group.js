@@ -47,7 +47,7 @@ import { serializeOptions } from '../../utils'
  * }
  *
  * export default FavoriteFoodForm
-**/
+ */
 
 const propTypes = {
   ...fieldPropTypes,

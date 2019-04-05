@@ -47,7 +47,7 @@ import { InputLabel }from '../labels'
  * }
  *
  * export default TodoForm
-**/
+ */
 
 const propTypes = {
   ...checkboxGroupPropTypes,

@@ -30,7 +30,7 @@ import { fieldPropTypes } from '../helpers'
  *   )
  * }
  *
-**/
+ */
 
 const propTypes = {
   ...fieldPropTypes,

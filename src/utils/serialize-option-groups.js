@@ -30,7 +30,7 @@ import serializeOptions from './serialize-options'
  * //   },
  * // ]
  *
-**/
+ */
 
 export default function serializeOptionGroups (optionGroupArray) {
   return optionGroupArray.map(group => ({ ...group, options: serializeOptions(group.options) }))

@@ -34,7 +34,7 @@ import { buttonClasses } from '../helpers'
  *
  * // For a more in-depth example of using buttons with forms, see the docs for SubmitButton.
  *
-**/
+ */
 
 const propTypes = {
   invalid:    PropTypes.bool,

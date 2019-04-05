@@ -27,7 +27,7 @@ import { filterInvalidDOMProps } from '../utils'
  *   )
  * }
  *
-**/
+ */
 
 const propTypes = {
   isLoading: PropTypes.bool.isRequired,

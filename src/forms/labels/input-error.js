@@ -46,7 +46,7 @@ import { generateInputErrorId } from '../../utils'
  *   )
  * }
  *
-**/
+ */
 
 const propTypes = {
   error: PropTypes.oneOfType([

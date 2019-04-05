@@ -23,7 +23,7 @@ import FlashMessage from './flash-message'
  *   )
  * }
  *
-**/
+ */
 
 const propTypes = {
   messages: PropTypes.arrayOf(flashMessageType).isRequired,

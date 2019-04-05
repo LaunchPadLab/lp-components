@@ -30,7 +30,7 @@ import { adaptToReactRouter, compose } from '../utils'
  *        />
  *     </Route>
  * )
-**/
+ */
 
 const propTypes = {
   authFunction: PropTypes.func.isRequired,

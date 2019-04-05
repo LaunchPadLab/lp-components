@@ -29,7 +29,7 @@ import classnames from 'classnames'
  *     </SortableTable>
  *   )
  * }
-**/
+ */
 
 /* eslint react/jsx-key: 0 */
 
