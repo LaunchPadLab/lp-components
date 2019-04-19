@@ -6,15 +6,17 @@ import { buttonClasses } from '../helpers'
  *
  * A simple button component that can be used independently, or as part of a form.
  *
- * Conditionally adds classes and/or becomes disabled depending on passed props.
+ * Conditionally adds classes and/or sets aria-disabled depending on passed props.
  * In addition to the props below, any extra props will be passed directly to the inner `<button>` element.
  * 
  * If a className is provided to the component, it will be appended to the conditionally added classes.
  * 
+ * _Note: Instead of targeting the `:disabled` pseudo-class or `[disabled]` attribute, you can target `[aria-disabled=true]` to apply similar styling. Using the ARIA attribute keeps the `<button>` in the taborder and will be read as "disabled" or "dimmed" by screen reader technologies. You can also target `.is-disabled` which gets added as a class based on the same conditions that set `aria-disabled`._
+ * 
  * @name Button
  * @type Function
- * @param {Boolean} [invalid] - Whether or not a related form is invalid (will disable when `true`)
- * @param {Boolean} [pristine] - Whether or not a related form is pristine (will disable when `true`)
+ * @param {Boolean} [invalid] - Whether or not a related form is invalid (will set aria-disabled when `true`)
+ * @param {Boolean} [pristine] - Whether or not a related form is pristine (will set aria-disabled when `true`)
  * @param {String} [style="primary"] - A descriptive string that will be appended to the button's class with format `button-<type>`
  * @param {Boolean} [submitting] - Whether or not a related form is submitting (will give button class `'in-progress` when `true`)
  * @param {Boolean} [type="button"] - The [type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type) attribute of the button element
@@ -58,7 +60,7 @@ function Button ({ children, type, style, pristine, invalid, submitting, classNa
     <button
       type={ type }
       className={ buttonClasses({ className, style, pristine, invalid, submitting }) }
-      disabled={ pristine || invalid }
+      aria-disabled={ pristine || invalid }
       { ...rest }
     >
       { children }
