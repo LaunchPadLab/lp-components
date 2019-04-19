@@ -29,15 +29,15 @@ import classnames from 'classnames'
  *     </SortableTable>
  *   )
  * }
-**/
+ */
 
 /* eslint react/jsx-key: 0 */
 
 const propTypes = {
   columns: PropTypes.arrayOf(Types.column).isRequired,
+  controlled: PropTypes.bool.isRequired,
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   disableSort: PropTypes.bool.isRequired,
-  controlled: PropTypes.bool.isRequired,
   rowComponent: Types.component,
   ...sortablePropTypes,
 }

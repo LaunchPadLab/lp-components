@@ -15,7 +15,7 @@ import { compose } from '../../utils'
  * - Adds name and error labels.
  *
  * With the exception of the `input` and `meta` props, all props are passed down to the `DatePicker` component. 
- * A full list of props supported by this component can be found [here](https://github.com/Hacker0x01/react-datepicker/blob/master/docs/datepicker.md).
+ * A full list of props supported by this component can be found [here](https://github.com/Hacker0x01/react-datepicker/blob/master/docs/datepicker.md). Note that unfortunately `aria-*` props are **not** supported.
  *
  * _Note: this component requires special styles in order to render correctly. To include these styles in your project, follow the directions in the main [README](README.md#dateinput-styles) file._
  * 
@@ -39,7 +39,7 @@ import { compose } from '../../utils'
  *
  * // Will render datepicker with label "Birthday" and placeholder "mm/dd/yyyy"
  *
-**/
+ */
 
 const propTypes = {
   ...fieldPropTypesWithValue(PropTypes.oneOfType([
@@ -70,7 +70,7 @@ function DateInput (props) {
           id: name,
           name,
           selected: momentValue,
-          onBlur: () => onBlur(),
+          onBlur: () => onBlur(value),
           onChange: (val) => onChange(val ? val.toDate() : ''),
           ...rest
         }}

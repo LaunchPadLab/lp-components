@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { blurDirty, fieldPropTypes, omitLabelProps } from '../helpers'
 import { LabeledField } from '../labels'
-import { compose } from '../../utils'
+import { compose, generateInputErrorId } from '../../utils'
 
 /**
  *
@@ -32,7 +32,7 @@ import { compose } from '../../utils'
  *     </form>
  *   )
  * }
-**/
+ */
 
 const propTypes = {
   ...fieldPropTypes,
@@ -47,6 +47,7 @@ const defaultProps = {
 function Input (props) {
   const {
     input: { name, value, onBlur, onChange },
+    id,
     meta, // eslint-disable-line no-unused-vars
     className, // eslint-disable-line no-unused-vars
     type,
@@ -58,12 +59,13 @@ function Input (props) {
       <div className="input-wrapper">
         <input
           {...{
-            id: name,
+            id: id || name,
             name,
             type,
             value,
             onBlur,
             onChange,
+            'aria-describedby': generateInputErrorId(name),
             ...rest
           }}
         />

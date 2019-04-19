@@ -1,6 +1,8 @@
 export {
   castArray,
   has,
+  identity,
+  isNil,
   startCase,
   range,
   noop,
@@ -22,7 +24,6 @@ export wrapDisplayName from 'recompose/wrapDisplayName'
 export {
   adaptToReactRouter,
   cloudinaryUploader,
-  deprecate,
   modifyProps,
   sortable,
   sortablePropTypes,
@@ -32,6 +33,7 @@ export {
 
 // Local
 export compareAtPath from './compare-at-path'
+export generateInputErrorId from './generate-input-error-id'
 export serializeOptions from './serialize-options'
 export serializeOptionGroups from './serialize-option-groups'
 export stripNamespace from './strip-namespace'

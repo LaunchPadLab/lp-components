@@ -10,11 +10,6 @@ test('when label is false - does not render a label', () => {
   expect(wrapper.find('label').exists()).toEqual(false)
 })
 
-test('when hideLabel is true - does not render a label', () => {
-  const wrapper = shallow(<InputLabel name={ name } hideLabel label="foo" />)
-  expect(wrapper.find('label').exists()).toEqual(false)
-})
-
 test('when label not provided - renders a label with content equal to formatted input name', () => {
   const wrapper = shallow(<InputLabel name={name}/>)
   expect(wrapper.dive().find('label').text()).toEqual(formattedName)
@@ -23,6 +18,19 @@ test('when label not provided - renders a label with content equal to formatted 
 test('when label provided - renders a label with content equal to string', () => {
   const wrapper = shallow(<InputLabel name={name} label="foo"/>)
   expect(wrapper.dive().find('label').text()).toEqual('foo')
+})
+
+test('when children are provided, renders a label with content equal to children', () => {
+  const onClick = jest.fn()
+  const wrapper = mount(<InputLabel name={name}>Are you <span onClick={onClick}>sure</span>?</InputLabel>)
+  expect(wrapper.find('label').text()).toEqual('Are you sure?')
+})
+
+test('when children are provided, renders a label with custom interactions intact', () => {
+  const onClick = jest.fn()
+  const wrapper = mount(<InputLabel name={name}>Are you <span id="click" onClick={onClick}>sure</span>?</InputLabel>)
+  wrapper.find('#click').simulate('click')
+  expect(onClick).toHaveBeenCalled()
 })
 
 test('when hint provided - shows hint', () => {
@@ -42,4 +50,25 @@ test('when tooltip provided - toggle tooltip', () => {
   expect(wrapper.find('div.tooltip-content.is-active').exists()).toEqual(true)
   wrapper.find('span.tooltip-trigger').simulate('click')
   expect(wrapper.find('div.tooltip-content.is-active').exists()).toEqual(false)
+})
+
+test('when no custom required indicator provided, do not show required indicator', () => {
+  const wrapper = mount(<InputLabel name={name} required />)
+  expect(wrapper.find('span.required-indicator').exists()).toEqual(false)
+})
+
+test('when required true and custom requiredIndicator provided, show custom indicator', () => {
+  const wrapper = mount(<InputLabel name={name} required requiredIndicator={ '*' } />)
+  expect(wrapper.find('label > span').text()).toEqual('*')
+})
+
+test('when id is _not_ provided - renders a label associated to the input name', () => {
+  const wrapper = mount(<InputLabel name={name} label="foo" />)
+  expect(wrapper.find('label').prop('htmlFor')).toBe(name)
+})
+
+test('when id is provided - renders a label associated to the input id', () => {
+  const id = 'testId'
+  const wrapper = mount(<InputLabel name={name} id={id} label="foo" />)
+  expect(wrapper.find('label').prop('htmlFor')).toBe(id)
 })

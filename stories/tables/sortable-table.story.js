@@ -1,5 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
+import { lowerCase } from 'lodash'
 import { SortableTable, TableColumn as Column } from 'src'
 
 const tableData = [
@@ -74,4 +75,11 @@ storiesOf('SortableTable', module)
         <Column name="active" />
       </SortableTable>
     </div>
+  ))
+  .add('with formatted column values', () => (
+    <SortableTable data={ tableData }>
+      <Column name="name" format={ lowerCase }/>
+      <Column name="age" format={ val => val.toFixed(1) } />
+      <Column name="active" format={ val => val === 'yes' ? 'Y' : 'N' } />
+    </SortableTable>
   ))

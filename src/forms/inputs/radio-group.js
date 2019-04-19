@@ -47,7 +47,7 @@ import { serializeOptions } from '../../utils'
  * }
  *
  * export default FavoriteFoodForm
-**/
+ */
 
 const propTypes = {
   ...fieldPropTypes,
@@ -76,10 +76,11 @@ function RadioGroup (props) {
                 key: i,
                 type: 'radio',
                 input: {
-                  name: `${ name }.${ option.key }`,
+                  name, // all radio inputs must share the same name
                   value: '',
                   onChange: () => onChange(option.value),
                 },
+                id: `${ name }.${ option.value }`, // override Input default behavior to assign id to input: { name }
                 meta: {},
                 checked: value === option.value,
                 label: option.key,

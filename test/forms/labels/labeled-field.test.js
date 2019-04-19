@@ -34,3 +34,49 @@ test('hides error label with hideErrorLabel option', () => {
   // InputError
   expect(wrapper.find('.error-message').exists()).toEqual(false)
 })
+
+test('adds a custom label component', () => {
+  const Wrapped = () => <input name="test" />
+  const LabelComponent = () => <label>This is a custom label</label>
+  const props = {
+    input: {
+      name: 'foo'
+    },
+    meta: {},
+    labelComponent: LabelComponent,
+  }
+  
+  const wrapper = mount(<LabeledField { ...props }><Wrapped /></LabeledField>)
+  expect(wrapper.find('label').text()).toEqual('This is a custom label')
+})
+
+test('considers a custom label component to have higher precedence than a label prop', () => {
+  const Wrapped = () => <input name="test" />
+  const LabelComponent = () => <label>This is a custom label</label>
+  const props = {
+    input: {
+      name: 'foo'
+    },
+    label: 'Standard Label',
+    meta: {},
+    labelComponent: LabelComponent,
+  }
+  
+  const wrapper = mount(<LabeledField { ...props }><Wrapped /></LabeledField>)
+  expect(wrapper.find('label').text()).toEqual('This is a custom label')
+})
+
+test('adds a custom error component', () => {
+  const Wrapped = () => <input name="test" />
+  const ErrorComponent = () => <span className="error">This is a custom error message</span>
+  const props = {
+    input: {
+      name: 'foo'
+    },
+    meta: {},
+    errorComponent: ErrorComponent,
+  }
+  
+  const wrapper = mount(<LabeledField { ...props }><Wrapped /></LabeledField>)
+  expect(wrapper.find('span.error').text()).toEqual('This is a custom error message')
+})

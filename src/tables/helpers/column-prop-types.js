@@ -8,6 +8,8 @@ export const columnPropTypes = {
   sortFunc: PropTypes.func,
   disabled: PropTypes.bool,
   component: componentType,
+  onClick: PropTypes.func,
+  format: PropTypes.func,
 }
 
 export const Types = {

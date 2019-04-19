@@ -14,7 +14,7 @@ import { startCase, stripNamespace } from '../../utils'
  * convertNameToLabel('example') // -> 'Example'
  * convertNameToLabel('person.firstName') // -> 'First Name'
  *
-**/
+ */
 
 function convertNameToLabel (name) {
   return startCase(stripNamespace(name))

@@ -20,3 +20,9 @@ test('RangeInput sets the `min`, `max`, and `step` correctly', () => {
   expect(wrapper.find('input').props().max).toEqual(50)
   expect(wrapper.find('input').props().step).toEqual(10)
 })
+
+test('RangeInput has aria described by attribute', () => {
+  const props = { input, meta: {} }
+  const wrapper = mount(<RangeInput { ...props }/>)
+  expect(wrapper.find('input').prop('aria-describedby')).toContain(name)
+})

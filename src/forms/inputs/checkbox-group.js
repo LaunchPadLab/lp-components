@@ -48,7 +48,7 @@ import { addToArray, removeFromArray, serializeOptions, compose } from '../../ut
  * }
  *
  * export default TodoForm
-**/
+ */
 
 const propTypes = {
   ...checkboxGroupPropTypes,
@@ -84,7 +84,7 @@ function CheckboxGroup (props) {
               {...{
                 key: i,
                 input: {
-                  name: `${ name }.${ option.key }`,
+                  name: `${ name }.${ option.value }`,
                   value: value.includes(option.value),
                   onChange: handleChange(option)
                 },

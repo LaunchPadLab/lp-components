@@ -22,7 +22,7 @@ import classnames from 'classnames'
  *   )
  * }
  *
-**/
+ */
 
 const propTypes = {
   message: flashMessageType.isRequired,

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { ChromePicker } from 'react-color'
+import ChromePicker from 'react-color/lib/Chrome'
 import { compose, toggle, togglePropTypes, modifyProps, noop } from '../utils'
 
 /**
@@ -27,7 +27,7 @@ import { compose, toggle, togglePropTypes, modifyProps, noop } from '../utils'
  *   )
  * }
  * 
-**/
+ */
 
 const propTypes = {
   value: PropTypes.string,

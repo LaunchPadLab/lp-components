@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
 import { Select } from '../../../src/'
 
 const DEFAULT_PLACEHOLDER = 'Select'
@@ -15,9 +15,9 @@ test('Select adds string options to select tag', () => {
     options: [OPTION],
     placeholder: false,
   }
-  const wrapper = shallow(<Select { ...props }/>)
-  expect(wrapper.dive().find('option').contains(OPTION)).toEqual(true)
-  expect(wrapper.dive().find('option').prop('value')).toEqual(OPTION)
+  const wrapper = mount(<Select { ...props }/>)
+  expect(wrapper.find('option').contains(OPTION)).toEqual(true)
+  expect(wrapper.find('option').prop('value')).toEqual(OPTION)
 })
 
 test('Select adds object options to select tag', () => {
@@ -32,9 +32,9 @@ test('Select adds object options to select tag', () => {
     options: [{ key: KEY, value: VALUE }],
     placeholder: false,
   }
-  const wrapper = shallow(<Select { ...props }/>)
-  expect(wrapper.dive().find('option').contains(KEY)).toEqual(true)
-  expect(wrapper.dive().find('option').prop('value')).toEqual(VALUE)
+  const wrapper = mount(<Select { ...props }/>)
+  expect(wrapper.find('option').contains(KEY)).toEqual(true)
+  expect(wrapper.find('option').prop('value')).toEqual(VALUE)
 })
 
 test('Select adds placeholder option to select tag', () => {
@@ -48,9 +48,9 @@ test('Select adds placeholder option to select tag', () => {
     options: [],
     placeholder: PLACEHOLDER,
   }
-  const wrapper = shallow(<Select { ...props }/>)
-  expect(wrapper.dive().find('option').contains(PLACEHOLDER)).toEqual(true)
-  expect(wrapper.dive().find('option').prop('value')).toEqual('')
+  const wrapper = mount(<Select { ...props }/>)
+  expect(wrapper.find('option').contains(PLACEHOLDER)).toEqual(true)
+  expect(wrapper.find('option').prop('value')).toEqual('')
 })
 
 test('Select enables the placeholder option to be selected correctly', () => {
@@ -65,9 +65,9 @@ test('Select enables the placeholder option to be selected correctly', () => {
     placeholder: PLACEHOLDER,
     enablePlaceholderOption: true,
   }
-  const wrapper = shallow(<Select { ...props }/>)
-  expect(wrapper.dive().find('option').first().prop('value')).toEqual('')
-  expect(wrapper.dive().find('option').first().prop('disabled')).toEqual(false)
+  const wrapper = mount(<Select { ...props }/>)
+  expect(wrapper.find('option').first().prop('value')).toEqual('')
+  expect(wrapper.find('option').first().prop('disabled')).toEqual(false)
 })
 
 test('Select renders option groups correctly', () => {
@@ -81,9 +81,9 @@ test('Select renders option groups correctly', () => {
     optionGroups: [options],
     placeholder: false,
   }
-  const wrapper = shallow(<Select { ...props }/>)
-  expect(wrapper.dive().find('optgroup').first().prop('label')).toEqual('groupName')
-  expect(wrapper.dive().find('option').first().prop('value')).toEqual('testOption')
+  const wrapper = mount(<Select { ...props }/>)
+  expect(wrapper.find('optgroup').first().prop('label')).toEqual('groupName')
+  expect(wrapper.find('option').first().prop('value')).toEqual('testOption')
 })
 
 test('Select has a placeholder by default', () => {
@@ -95,7 +95,22 @@ test('Select has a placeholder by default', () => {
     options: [],
     meta: {},
   }
-  const wrapper = shallow(<Select { ...props } />)
-  expect(wrapper.dive().find('option').contains(DEFAULT_PLACEHOLDER)).toEqual(true)
-  expect(wrapper.dive().find('option').prop('value')).toEqual('')
+  const wrapper = mount(<Select { ...props } />)
+  expect(wrapper.find('option').contains(DEFAULT_PLACEHOLDER)).toEqual(true)
+  expect(wrapper.find('option').prop('value')).toEqual('')
+})
+
+test('Select adds an aria described by attribute', () => {
+  const OPTION = 'MY OPTION'
+  const name = 'test'
+  const props = { 
+    input: {
+      name,
+      value: '',
+    }, 
+    meta: {},
+    options: [OPTION],
+  }
+  const wrapper = mount(<Select { ...props }/>)
+  expect(wrapper.find('select').prop('aria-describedby')).toContain(name)
 })

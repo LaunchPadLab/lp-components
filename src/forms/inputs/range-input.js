@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { blurDirty, fieldPropTypes, omitLabelProps } from '../helpers'
 import { LabeledField } from '../labels'
-import { compose } from '../../utils'
+import { compose, generateInputErrorId } from '../../utils'
 
 /**
  *
@@ -34,7 +34,7 @@ import { compose } from '../../utils'
  *     </form>
  *   )
  * }
-**/
+ */
 
 const propTypes = {
   ...fieldPropTypes,
@@ -81,6 +81,7 @@ function RangeInput (props) {
           min,
           max,
           step,
+          'aria-describedby': generateInputErrorId(name),
           ...rest 
         }} 
       />

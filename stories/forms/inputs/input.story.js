@@ -1,5 +1,6 @@
 import React from 'react'
-import { storiesOf, action } from '@storybook/react'
+import { storiesOf } from '@storybook/react'
+import { action } from '@storybook/addon-actions'
 import { Input as StaticInput } from 'src'
 import dynamicInput from '../../dynamic-input'
 
@@ -15,39 +16,41 @@ const inputProps = {
 
 storiesOf('Input', module)
   .add('with default label', () => (
-    <Input 
-      input={inputProps} 
+    <Input
+      input={inputProps}
       meta={{}}
     />
   ))
   .add('with custom label', () => (
-    <Input 
+    <Input
       input={inputProps}
       meta={{}}
       label="Custom Label"
     />
   ))
   .add('with no label', () => (
-    <Input 
+    <Input
       input={inputProps}
       meta={{}}
       label={false}
     />
   ))
-  .add('with no label, using `hideLabel` prop', () => (
+  .add('with required true custom indicator', () => (
     <Input
-      input={ inputProps }
-      meta={ {} }
-      hideLabel
+      input={inputProps}
+      meta={{}}
+      label="Custom Label"
+      required
+      requiredIndicator={ '*' }
     />
   ))
   .add('with error', () => (
-    <Input 
+    <Input
       input={inputProps}
-      meta={{ 
+      meta={{
         invalid: true,
         touched: true,
-        error: 'Invalid input' 
+        error: 'Invalid input'
       }}
       value="0000"
     />

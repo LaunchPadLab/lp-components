@@ -30,7 +30,7 @@ import curry from 'lodash/fp/curry'
  * //   { name: 'Brad', age: 66 },
  * // ]
  *
-**/
+ */
 
 function compareAtPath (path, func) {
   const getter = get(path)

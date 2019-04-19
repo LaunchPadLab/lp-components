@@ -1,28 +1,33 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { 
-  blurDirty, 
-  fieldPropTypes, 
+import {
+  blurDirty,
+  fieldPropTypes,
   fieldOptionGroupsType,
-  fieldOptionsType, 
-  omitLabelProps 
+  fieldOptionsType,
+  omitLabelProps
 } from '../helpers'
 import { LabeledField } from '../labels'
-import { compose, serializeOptions, serializeOptionGroups } from '../../utils'
+import {
+  compose,
+  generateInputErrorId,
+  serializeOptions,
+  serializeOptionGroups
+} from '../../utils'
 
 /**
  *
  * A select input that can be used in a `redux-forms`-controlled form.
  *
- * The value of each option is specified via the `options` or the `optionGroups` prop. 
+ * The value of each option is specified via the `options` or the `optionGroups` prop.
  * The `options` prop will be ignored if `optionGroups` is present.
- * 
+ *
  * The `options` prop can either be:
  * - An array of strings
  * - An array of numbers
  * - An array of key-value pairs: `{ key, value }`
- * 
+ *
  * The `optionGroups` props must be an array of objects with the following keys:
  * - `name`: The name of the option group
  * - `options`: As above, an array of strings or key-value pairs.
@@ -79,7 +84,7 @@ import { compose, serializeOptions, serializeOptionGroups } from '../../utils'
  *     </form>
  *   )
  * }
-**/
+ */
 
 const propTypes = {
   ...fieldPropTypes,
@@ -119,6 +124,7 @@ function Select (props) {
           value,
           onBlur,
           onChange,
+          'aria-describedby': generateInputErrorId(name),
           ...rest
         }}
       >
@@ -130,14 +136,14 @@ function Select (props) {
         }
         {
           optionGroupObjects.length
-          ? optionGroupObjects.map(({ name, options }, idx) => 
+          ? optionGroupObjects.map(({ name, options }, idx) =>
               <optgroup key={ idx } label={ name }>
                 {
-                  options.map(({ key, value }) => <option key={ key } value={ value }>{ key }</option>)
+                  options.map(({ key, value }) => <option key={ value } value={ value }>{ key }</option>)
                 }
               </optgroup>
             )
-          : optionObjects.map(({ key, value }) => <option key={ key } value={ value }>{ key }</option>)
+          : optionObjects.map(({ key, value }) => <option key={ value } value={ value }>{ key }</option>)
         }
       </select>
      </LabeledField>

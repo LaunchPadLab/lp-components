@@ -1,5 +1,6 @@
 import React from 'react'
 import { mount } from 'enzyme'
+import { lowerCase } from 'lodash'
 import { SortableTable, TableColumn as Column, compareAtPath } from '../../src/'
 
 const tableData = [
@@ -147,7 +148,7 @@ test('column can have custom cell component', () => {
     data: { name: 'Kim', test: true },
     disabled: false,
   }
-  expect(wrapper.find(MyCell).first().props()).toEqual(expectedProps)
+  expect(wrapper.find(MyCell).first().props()).toMatchObject(expectedProps)
 })
 
 test('column can have custom row component', () => {
@@ -172,4 +173,46 @@ test('initialColumn determines inital sortPath and sortFunc', () => {
   expect(wrapper.find('td').first().text()).toEqual('Kim')
   expect(wrapper.find('td').last().text()).toEqual('Tommy')
   expect(mySort).toHaveBeenCalled()
+})
+
+test('`onClick` function is called on correct column cells', () => {
+  const onClick = jest.fn()
+  const wrapper = mount(
+    <SortableTable data={ tableData } initialColumn="name">
+      <Column name="name" onClick={ onClick } className="click"/>
+      <Column name="city" className="no-click" />
+    </SortableTable>
+  )
+
+  wrapper.find('td.no-click').last().simulate('click')
+  expect(onClick).not.toHaveBeenCalled()
+
+  wrapper.find('td.click').first().simulate('click')
+  expect(onClick).toHaveBeenCalledWith({ name: 'Kim', test: true })
+})
+
+test('`format` updates the cell value', () => {
+  const format = jest.fn(lowerCase)
+  const wrapper = mount(
+    <SortableTable data={ tableData } initialColumn="name">
+      <Column name="name" format={ format } />
+    </SortableTable>
+  )
+  expect(wrapper.find('td').first().text()).toEqual('kim')
+  expect(wrapper.find('td').last().text()).toEqual('tommy')
+  expect(format).toHaveBeenCalled()
+})
+
+test('`placeholder` option is displayed if value is `null` or `undefined`', () => {
+  const data = [
+    { name: null }, 
+    { name: undefined },
+  ]
+  const wrapper = mount(
+    <SortableTable data={ data }>
+      <Column name="name" placeholder="placeholder" />
+    </SortableTable>
+  )
+  expect(wrapper.find('td').first().text()).toEqual('placeholder')
+  expect(wrapper.find('td').last().text()).toEqual('placeholder')
 })

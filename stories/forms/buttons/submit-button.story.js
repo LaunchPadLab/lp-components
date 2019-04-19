@@ -1,6 +1,7 @@
 import React from 'react'
-import { storiesOf, action } from '@storybook/react'
-import { Button, SubmitButton, Submit } from 'src'
+import { storiesOf } from '@storybook/react'
+import { action } from '@storybook/addon-actions'
+import { Button, SubmitButton } from 'src'
 
 function submit (e) {
   e.preventDefault()
@@ -14,11 +15,5 @@ storiesOf('SubmitButton', module)
       <Button> Test </Button>
       <label> Clicking this button will submit the form. </label>
       <SubmitButton> Submit </SubmitButton>
-    </form>
-  ))
-  .add('inside form with Submit (deprecated)', () => (
-    <form onSubmit={submit}>
-      <label>Check out the console to see a deprecation warning.</label> 
-      <Submit> Submit </Submit>
     </form>
   ))

@@ -6,10 +6,10 @@ import { omit } from '../../utils'
  * Created in order to prevent these props from being passed down to the input component through `...rest`.
  *
  * Omits the following props:
- * - `hideLabel`
  * - `hint`
  * - `tooltip`
  * - `label`
+ * - `requiredIndicator`
  * 
  * @name omitLabelProps
  * @type Function
@@ -19,9 +19,9 @@ import { omit } from '../../utils'
  * 
  * const props = {
  *    label: 'Biography',
- *    hideLabel: true,
  *    hint: 'A short biography',
  *    tooltip: 'Help us learn more about you!',
+ *    requiredIndicator: '*',
  *    maxLength: 1000
  * }
  * 
@@ -44,14 +44,16 @@ import { omit } from '../../utils'
  *    )
  * }
  *
-**/
+ */
 
 function omitLabelProps (props) {
   return omit([
-    'hideLabel',
     'hint',
     'tooltip',
-    'label'
+    'label',
+    'requiredIndicator',
+    'errorComponent',
+    'labelComponent',
   ], props)
 }
 
