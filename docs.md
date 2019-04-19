@@ -313,15 +313,17 @@ Type: PropTypes
 
 A simple button component that can be used independently, or as part of a form.
 
-Conditionally adds classes and/or becomes disabled depending on passed props.
+Conditionally adds classes and/or sets aria-disabled depending on passed props.
 In addition to the props below, any extra props will be passed directly to the inner `<button>` element.
 
 If a className is provided to the component, it will be appended to the conditionally added classes.
 
+_Note: Instead of targeting the `:disabled` pseudo-class or `[disabled]` attribute, you can target `[aria-disabled=true]` to apply similar styling. Using the ARIA attribute keeps the `<button>` in the taborder and will be read as "disabled" or "dimmed" by screen reader technologies. You can also target `.is-disabled` which gets added as a class based on the same conditions that set `aria-disabled`._
+
 ### Parameters
 
--   `invalid` **[Boolean][136]?** Whether or not a related form is invalid (will disable when `true`)
--   `pristine` **[Boolean][136]?** Whether or not a related form is pristine (will disable when `true`)
+-   `invalid` **[Boolean][136]?** Whether or not a related form is invalid (will set aria-disabled when `true`)
+-   `pristine` **[Boolean][136]?** Whether or not a related form is pristine (will set aria-disabled when `true`)
 -   `style` **[String][134]** A descriptive string that will be appended to the button's class with format `button-<type>` (optional, default `"primary"`)
 -   `submitting` **[Boolean][136]?** Whether or not a related form is submitting (will give button class `'in-progress` when `true`)
 -   `type` **[Boolean][136]** The [type][144] attribute of the button element (optional, default `"button"`)

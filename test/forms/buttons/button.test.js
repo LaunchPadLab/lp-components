@@ -1,15 +1,23 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import { Button } from '../../../src/'
 
-test('Button is disabled when form is invalid', () => {
+test('Button is aria-disabled when form is invalid', () => {
   const wrapper = shallow(<Button invalid={true}> Hi</Button>)
-  expect(wrapper.props().disabled).toBe(true)
+  expect(wrapper.props()['aria-disabled']).toBe(true)
 })
 
-test('Button is disabled when form is pristine', () => {
+test('Button is aria-disabled when form is pristine', () => {
   const wrapper = shallow(<Button pristine={true}> Hi</Button>)
-  expect(wrapper.props().disabled).toBe(true)
+  expect(wrapper.props()['aria-disabled']).toBe(true)
+})
+
+test('Button can still be pressed when aria-disabled', () => {
+  const onClick = jest.fn()
+  const wrapper = mount(<Button onClick={onClick} invalid={true}>Hi</Button>)
+  wrapper.find('button').simulate('click')
+  
+  expect(onClick).toHaveBeenCalled()
 })
 
 test('Button adds style string to class', () => {
