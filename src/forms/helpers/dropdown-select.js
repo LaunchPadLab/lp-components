@@ -8,7 +8,6 @@ const propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   selectedValues: PropTypes.arrayOf(PropTypes.string),
-  text: PropTypes.string,
   ...togglePropTypes('expanded'),
 }
 
