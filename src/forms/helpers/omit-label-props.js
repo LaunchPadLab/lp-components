@@ -44,7 +44,7 @@ import { omit } from '../../utils'
  *    )
  * }
  *
-**/
+ */
 
 function omitLabelProps (props) {
   return omit([

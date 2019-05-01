@@ -19,7 +19,7 @@ import { Link } from 'react-router'
  *   )
  * }
  * 
-**/
+ */
 
 const propTypes = {
   children: PropTypes.node,

@@ -34,7 +34,7 @@ import PageLink from './page-link'
  *     </div>
  *   )
  * }
-**/
+ */
 
 const propTypes = {
   value: PropTypes.number,

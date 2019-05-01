@@ -27,7 +27,7 @@ import { compose, toggle, togglePropTypes, modifyProps, noop } from '../utils'
  *   )
  * }
  * 
-**/
+ */
 
 const propTypes = {
   value: PropTypes.string,

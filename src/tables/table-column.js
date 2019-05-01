@@ -24,7 +24,7 @@ import { columnPropTypes } from './helpers'
  *     </SortableTable>
  *   )
  * }
-**/
+ */
 
 const propTypes = {
   ...columnPropTypes

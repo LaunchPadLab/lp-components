@@ -16,7 +16,7 @@
  *
  * // [{ key: 'apple', value: 'apple' }, { key: 'banana', value: 'banana' }]
  *
-**/
+ */
 
 export default function serializeOptions (optionArray) {
   return optionArray.map((option) => {

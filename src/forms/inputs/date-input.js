@@ -39,7 +39,7 @@ import { compose } from '../../utils'
  *
  * // Will render datepicker with label "Birthday" and placeholder "mm/dd/yyyy"
  *
-**/
+ */
 
 const propTypes = {
   ...fieldPropTypesWithValue(PropTypes.oneOfType([

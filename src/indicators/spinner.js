@@ -24,7 +24,7 @@ import { filterInvalidDOMProps } from '../utils'
  *
  * // Spinner is rendered when there is no content to display
  *
-**/
+ */
 
 const propTypes = {}
 

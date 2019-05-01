@@ -24,7 +24,7 @@ import Input from './input'
  *   )
  * }
  *
-**/
+ */
 
 const hiddenStyle = {
   position: 'absolute',

@@ -19,7 +19,7 @@ import SortableTable from './sortable-table'
  *     </Table>
  *   )
  * }
-**/
+ */
 
 function Table (props) {
  return <SortableTable {...{ ...props, disableSort: true }} />
