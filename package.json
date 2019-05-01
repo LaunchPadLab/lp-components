@@ -24,7 +24,7 @@
     "prepublish": "yarn run clean && yarn run build",
     "storybook": "yarn && start-storybook -p 6006",
     "test": "jest --coverage",
-    "size": "size-limit",
+    "size": "yarn build && size-limit",
     "storybook:build": "build-storybook -o .storybook/static/storybook",
     "heroku-postbuild": "yarn run storybook:build"
   },
@@ -34,7 +34,7 @@
     "lib/"
   ],
   "dependencies": {
-    "@launchpadlab/lp-hoc": "^3.2.2",
+    "@launchpadlab/lp-hoc": "^4.1.0",
     "classnames": "^2.2.5",
     "filter-invalid-dom-props": "^2.0.0",
     "lodash": "^4.17.4",
