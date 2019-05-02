@@ -2,6 +2,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { LabeledField } from 'src'
 import dynamicInput from '../../dynamic-input'
+import { action } from '@storybook/addon-actions'
 
 const StaticInput = (props) => <input { ...props } />
 const Input = dynamicInput()(StaticInput)
@@ -47,7 +48,11 @@ storiesOf('LabeledField', module)
     </LabeledField>
   ))
   .add('with custom label', () => {
-    const CustomLabel = () => <label htmlFor="inputName">This is a <b>custom</b> label</label>
+    const CustomLabel = () => (
+      <label onClick={ action('Custom Label Clicked') } htmlFor="inputName">
+        This is a <b>custom</b> label
+      </label>
+    )
     return (
       <LabeledField {...{
         input: {
