@@ -1,6 +1,6 @@
 {
   "name": "@launchpadlab/lp-components",
-  "version": "3.20.2",
+  "version": "3.20.3",
   "engines": {
     "node": "^8.0.0 || ^10.13.0"
   },
@@ -24,6 +24,7 @@
     "prepublish": "yarn run clean && yarn run build",
     "storybook": "yarn && start-storybook -p 6006",
     "test": "jest --coverage",
+    "size": "yarn build && size-limit",
     "storybook:build": "build-storybook -o .storybook/static/storybook",
     "heroku-postbuild": "yarn run storybook:build"
   },
@@ -33,7 +34,7 @@
     "lib/"
   ],
   "dependencies": {
-    "@launchpadlab/lp-hoc": "^3.2.2",
+    "@launchpadlab/lp-hoc": "^4.1.0",
     "classnames": "^2.2.5",
     "filter-invalid-dom-props": "^2.0.0",
     "lodash": "^4.17.4",
@@ -68,9 +69,11 @@
     "node-sass": "^4.11.0",
     "react": "^16.4.1",
     "react-dom": "^16.2.0",
+    "recompose": "^0.30.0",
     "redux": "^4.0.0",
     "rimraf": "^2.5.4",
     "sass-loader": "^6.0.6",
+    "size-limit": "^1.0.0",
     "style-loader": "^0.19.0",
     "webpack": "^3.8.1"
   },

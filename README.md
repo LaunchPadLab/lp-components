@@ -16,6 +16,9 @@ This package follows the Opex [NPM package guidelines](https://github.com/Launch
 
 ## Additional info
 
+#### Size Limit
+This library uses [size-limit](https://github.com/ai/size-limit) to prevent size bloat. The `yarn size` script is run in CI to check that the package size is under the limit specified in [.size-limit.js](.size-limit.js). For a visualization of this package's relative dependency sizes, you can run `yarn size --why`.
+
 #### React Storybook
 This library uses [React Storybook](https://getstorybook.io/) to render components in a development sandbox. In order to view the storybook, run `yarn run storybook` and navigate to the localhost port indicated.
 
