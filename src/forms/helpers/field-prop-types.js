@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
  * 
  * @constant {PropTypes} fieldOptionsType
  * 
-**/
+ */
 
 export const fieldOptionsType = PropTypes.arrayOf(
   PropTypes.oneOfType([
@@ -28,7 +28,7 @@ export const fieldOptionsType = PropTypes.arrayOf(
  * 
  * @constant {PropTypes} fieldOptionGroupsType
  * 
-**/
+ */
 
 export const fieldOptionGroupsType = PropTypes.arrayOf(
   PropTypes.shape({
@@ -68,7 +68,7 @@ export const fieldOptionGroupsType = PropTypes.arrayOf(
  * //   }).isRequired
  * // }
  *
-**/
+ */
 
 export function fieldPropTypesWithValue (value) {
   return {
@@ -95,7 +95,7 @@ export function fieldPropTypesWithValue (value) {
  * 
  * @constant {PropTypes} defaultValueTypes
  *
-**/
+ */
 
 const defaultValueTypes = PropTypes.oneOfType([
   PropTypes.string,
@@ -108,7 +108,7 @@ const defaultValueTypes = PropTypes.oneOfType([
  * 
  * @constant {Object} fieldPropTypes
  *
-**/
+ */
 
 export const fieldPropTypes = fieldPropTypesWithValue(defaultValueTypes)
 
@@ -118,7 +118,7 @@ export const fieldPropTypes = fieldPropTypesWithValue(defaultValueTypes)
  * 
  * @constant {PropTypes} checkboxGroupPropTypes
  *
-**/
+ */
 
 export const checkboxGroupPropTypes = fieldPropTypesWithValue(
   PropTypes.arrayOf(

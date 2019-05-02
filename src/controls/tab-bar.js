@@ -27,7 +27,7 @@ import { serializeOptions, noop } from '../utils'
  *     </div>
  *   )
  * }
-**/
+ */
 
 const propTypes = {
   vertical: PropTypes.bool,

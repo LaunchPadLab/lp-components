@@ -44,7 +44,7 @@ import { noop, generateInputErrorId } from '../../../utils'
  *     </form>
  *   )
  * }
-**/
+ */
 
 const propTypes = {
   ...fieldPropTypes,

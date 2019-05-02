@@ -29,7 +29,7 @@ import { wrapDisplayName, set } from '../../utils'
  * export default compose(
  *    replaceEmptyStringValue(false)
  * )(Checkbox)
-**/
+ */
 
 /* eslint react/prop-types: off */
 
