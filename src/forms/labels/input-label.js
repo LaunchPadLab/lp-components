@@ -65,6 +65,7 @@ const propTypes = {
   tooltip: PropTypes.string,
   required: PropTypes.bool,
   requiredIndicator: PropTypes.string,
+  className: PropTypes.string,
   ...togglePropTypes('tooltipShown')
 }
 
@@ -75,6 +76,7 @@ const defaultProps = {
   label: '',
   tooltip: '',
   requiredIndicator: '',
+  className: '',
 }
 
 function InputLabel ({
@@ -88,6 +90,7 @@ function InputLabel ({
   toggleTooltipShown,
   required,
   requiredIndicator,
+  className,
 }) {
   const labelToDisplay = children || label || convertNameToLabel(name)
   
@@ -95,7 +98,7 @@ function InputLabel ({
     <span>
       {
         label !== false &&
-        <label htmlFor={ id || name }>
+        <label htmlFor={ id || name } className={ className }>
           { labelToDisplay }
           {
             required && requiredIndicator &&
