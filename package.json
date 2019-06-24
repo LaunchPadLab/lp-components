@@ -1,11 +1,13 @@
 {
   "name": "@launchpadlab/lp-components",
-  "version": "3.21.0",
+  "version": "3.22.0",
   "engines": {
     "node": "^8.0.0 || ^10.13.0"
   },
   "description": "Our Components",
   "main": "lib/index.js",
+  "module": "esm/index.js",
+  "sideEffects": false,
   "repository": "launchpadlab/lp-components",
   "homepage": "https://github.com/launchpadlab/lp-components",
   "author": {
@@ -15,8 +17,10 @@
   "license": "MIT",
   "scripts": {
     "start": "yarn run build:development",
-    "build": "babel src --out-dir lib",
-    "build:development": "babel src --watch --out-dir lib",
+    "build": "yarn build:cjs && yarn build:esm",
+    "build:cjs": "babel src --out-dir lib",
+    "build:esm": "BABEL_ENV=esm babel src --out-dir esm",
+    "build:development": "BABEL_ENV=esm babel src --watch --out-dir esm",
     "clean": "rimraf lib",
     "docs": "documentation build src/index.js -f md -o docs.md",
     "lint": "eslint src",
