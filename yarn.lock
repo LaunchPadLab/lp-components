@@ -1471,10 +1471,10 @@
     "@types/istanbul-lib-coverage" "^2.0.0"
     "@types/yargs" "^12.0.9"
 
-"@launchpadlab/babel-preset@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@launchpadlab/babel-preset/-/babel-preset-2.0.0.tgz#5e858466a393a0daee5e4b3c28fa2e5e92d194bd"
-  integrity sha512-wISVdW4wu5L7Gc2+PDh+FjNasA/VjWCB+Ireli2wXC+MQyY+4PFH6G5n5MKBpXgFZ03aruALl8ig8yxuaVxZ+w==
+"@launchpadlab/babel-preset@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@launchpadlab/babel-preset/-/babel-preset-2.1.0.tgz#8a44c7ea498dbf48db6fd77082d144120ad4348a"
+  integrity sha512-zkGpbaPrF9dp+1OYxgh8qjo7L1IZ9gam/Bdu7T4fq83P3fQ46n6PGZMjPsAL8Gg/nl5CoSNHAUBTsMb10QXtDQ==
   dependencies:
     "@babel/plugin-proposal-class-properties" "^7.0.0"
     "@babel/plugin-proposal-decorators" "^7.0.0"

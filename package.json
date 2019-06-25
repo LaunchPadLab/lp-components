@@ -54,7 +54,7 @@
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.4.0",
     "@babel/polyfill": "^7.4.3",
-    "@launchpadlab/babel-preset": "^2.0.0",
+    "@launchpadlab/babel-preset": "^2.1.0",
     "@launchpadlab/eslint-config": "^2.4.1",
     "@storybook/addon-actions": "^5.0.6",
     "@storybook/addon-links": "^5.0.6",
