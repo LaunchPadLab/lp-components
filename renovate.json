@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "config:base"
+  ],
+  "statusCheckVerify": true,
+  "ignoreDeps": [
+    "bourbon",
+    "bourbon-neat",
+    "css-loader",
+    "react-router",
+    "sass-loader",
+    "style-loader",
+    "webpack"
+  ]
+}
