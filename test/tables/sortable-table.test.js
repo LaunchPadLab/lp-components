@@ -162,6 +162,33 @@ test('column can have custom row component', () => {
   expect(wrapper.find(MyRow).first().props().data).toEqual({ name: 'Kim', test: true })
 })
 
+test('column can have custom header component', () => {
+  const MyHeader = ({ column: { name } }) => <th>{ name }</th> // eslint-disable-line
+  const wrapper = mount(
+    <SortableTable data={ tableData } headerComponent={ MyHeader }>
+      <Column name="name"/>
+      <Column name="date"/>
+    </SortableTable>
+  )
+  expect(wrapper.find(MyHeader).exists()).toEqual(true)
+  expect(wrapper.find(MyHeader).length).toEqual(2)
+  expect(wrapper.find(MyHeader).first().props().column.name).toEqual('name')
+  expect(wrapper.find(MyHeader).last().props().column.name).toEqual('date')
+})
+
+test('column can have a column-specific custom header component', () => {
+  const MyHeader = ({ column: { name } }) => <th>{ name }</th> // eslint-disable-line
+  const wrapper = mount(
+    <SortableTable data={ tableData }>
+      <Column name="name" headerComponent={ MyHeader } />
+      <Column name="date"/>
+    </SortableTable>
+  )
+  expect(wrapper.find(MyHeader).exists()).toEqual(true)
+  expect(wrapper.find(MyHeader).length).toEqual(1)
+  expect(wrapper.find(MyHeader).first().props().column.name).toEqual('name')
+})
+
 test('initialColumn determines inital sortPath and sortFunc', () => {
   const mySort = jest.fn(compareAtPath('name', sortAscending))
   const wrapper = mount(
