@@ -131,7 +131,7 @@ test('column can have custom className', () => {
       <Column name="name" className="foo"/>
     </SortableTable>
   )
-  expect(wrapper.find('td.foo').exists()).toEqual(true)
+  expect(wrapper.find('td.foo').exists()).toBe(true)
 })
 
 test('column can have custom cell component', () => {
@@ -141,7 +141,7 @@ test('column can have custom cell component', () => {
       <Column name="name" component={ MyCell }/>
     </SortableTable>
   )
-  expect(wrapper.find(MyCell).exists()).toEqual(true)
+  expect(wrapper.find(MyCell).exists()).toBe(true)
   const expectedProps = {
     name: 'name',
     value: 'Kim',
@@ -158,8 +158,35 @@ test('column can have custom row component', () => {
       <Column name="name"/>
     </SortableTable>
   )
-  expect(wrapper.find(MyRow).exists()).toEqual(true)
+  expect(wrapper.find(MyRow).exists()).toBe(true)
   expect(wrapper.find(MyRow).first().props().data).toEqual({ name: 'Kim', test: true })
+})
+
+test('column can have custom header component', () => {
+  const MyHeader = ({ column: { name } }) => <th>{ name }</th> // eslint-disable-line
+  const wrapper = mount(
+    <SortableTable data={ tableData } headerComponent={ MyHeader }>
+      <Column name="name"/>
+      <Column name="date"/>
+    </SortableTable>
+  )
+  expect(wrapper.find(MyHeader).exists()).toBe(true)
+  expect(wrapper.find(MyHeader).length).toEqual(2)
+  expect(wrapper.find(MyHeader).first().props().column.name).toEqual('name')
+  expect(wrapper.find(MyHeader).last().props().column.name).toEqual('date')
+})
+
+test('column can have a column-specific custom header component', () => {
+  const MyHeader = ({ column: { name } }) => <th>{ name }</th> // eslint-disable-line
+  const wrapper = mount(
+    <SortableTable data={ tableData }>
+      <Column name="name" headerComponent={ MyHeader } />
+      <Column name="date"/>
+    </SortableTable>
+  )
+  expect(wrapper.find(MyHeader).exists()).toBe(true)
+  expect(wrapper.find(MyHeader).length).toEqual(1)
+  expect(wrapper.find(MyHeader).first().props().column.name).toEqual('name')
 })
 
 test('initialColumn determines inital sortPath and sortFunc', () => {

@@ -1283,6 +1283,7 @@ This component's behavior is largely determined by the [TableColumn][98] compone
 -   `controlled` **[Boolean][136]** A flag to disable sorting on all columns, while keeping the sorting arrows. Used when sorting is controlled by an external source. (optional, default `false`)
 -   `onChange` **[Function][135]?** A callback that will be fired when the sorting state changes
 -   `rowComponent` **[Function][135]?** A custom row component for the table. Will be passed the `data` for the row, as well as `children` to render.
+-   `headerComponent` **[Function][135]?** A custom header component for the table. Will be passed the configuration of the corresponding column, as well as the current `sortPath` / `ascending` and an `onClick` handler. May be overridden by a custom `headerComponent` for a column.
 
 ### Examples
 
@@ -1308,6 +1309,7 @@ A component used to pass column information to a [Table][92] or [SortableTable][
 -   `label` **[String][134]?** The text that will be displayed in the column header. Defaults to `name`.
 -   `sortFunc` **[Function][135]?** The function that will be used to sort the table data when the column is selected
 -   `component` **[Function][135]?** A custom cell component for the column. Will be passed the `key`, `name`, `value` and `data` for the row.
+-   `headerComponent` **[Function][135]?** A custom header component for the column. Will be passed the configuration of the column, as well as the current `sortPath` / `ascending` and an `onClick` handler.
 -   `onClick` **[Function][135]?** A function that will be called `onClick` on every cell in the column
 -   `format` **[Function][135]?** A function that formats the value displayed in each cell in the column
 -   `disabled` **[Boolean][136]?** A flag that disables sorting for the column
