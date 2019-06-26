@@ -3328,10 +3328,10 @@ bourbon-neat@^1.8.0:
   dependencies:
     node-sass "^4.1.1"
 
-bourbon@^4.3.3:
-  version "4.3.4"
-  resolved "https://registry.yarnpkg.com/bourbon/-/bourbon-4.3.4.tgz#4da380029e92c0c8f9764c779451a134b11e7cc3"
-  integrity sha1-TaOAAp6SwMj5dkx3lFGhNLEefMM=
+bourbon@^5.0.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/bourbon/-/bourbon-5.1.0.tgz#84fa10de4c4e837602d8c2ec716d74bcb8915bad"
+  integrity sha512-rO4rwNAVNuzPmnL+DruxAe7DR2YFFo4nHsgDVRd9URMgDxtHmVBUnvFLXPan6teVe7jkybCyxcnR+CKClotj3g==
 
 boxen@^2.1.0:
   version "2.1.0"

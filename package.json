@@ -61,7 +61,7 @@
     "@storybook/addons": "^5.0.6",
     "@storybook/react": "^5.0.6",
     "babel-loader": "^8.0.0",
-    "bourbon": "^4.3.3",
+    "bourbon": "^5.0.0",
     "bourbon-neat": "^1.8.0",
     "css-loader": "^0.28.7",
     "documentation": "^9.3.1",
