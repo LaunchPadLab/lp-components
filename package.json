@@ -62,7 +62,7 @@
     "@storybook/react": "^5.0.6",
     "babel-loader": "^8.0.0",
     "bourbon": "^4.3.3",
-    "bourbon-neat": "^1.8.0",
+    "bourbon-neat": "^3.0.0",
     "css-loader": "^0.28.7",
     "documentation": "^9.3.1",
     "enzyme": "^3.2.0",
