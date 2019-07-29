@@ -1,5 +1,5 @@
 import React from 'react'
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import { flashMessageType } from 'redux-flash'
 import classnames from 'classnames'
 
@@ -10,6 +10,7 @@ import classnames from 'classnames'
  * @name FlashMessage
  * @type Function
  * @param {Object} message - The flash message that will be displayed.
+ * @param {Function} [onDismiss] - A callback for dismissing the flash message. The dismiss button will only be shown if this callback is provided.
  * @example
  * 
  * function ManyMessages ({ messages }) {
@@ -26,15 +27,24 @@ import classnames from 'classnames'
 
 const propTypes = {
   message: flashMessageType.isRequired,
+  onDismiss: PropTypes.func,
 }
 
-const defaultProps = {}
+const defaultProps = {
+  onDismiss: null,
+}
 
-function FlashMessage ({ message: { message, isError } }) {
-  const statusClass = isError ? 'failure' : 'success'
+function FlashMessage ({ message, onDismiss }) {
+  const statusClass = message.isError ? 'failure' : 'success'
   return (
     <div className={ classnames('flash-message', statusClass) }>
-      <p> { message } </p>
+      { 
+        onDismiss &&
+        <button type="button" className="dismiss" onClick={ () => onDismiss(message) }>
+          X
+        </button>
+      }
+      <p> { message.message } </p>
     </div>
   )
 }
