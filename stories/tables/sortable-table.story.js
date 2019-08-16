@@ -27,6 +27,13 @@ function CustomRow ({ data: { active }, children }) {
   )
 }
 
+// eslint-disable-next-line react/prop-types
+function CustomHeader ({ column: { name } }) {
+  return (
+    <th>{ name.toUpperCase() + '!' }</th>
+  )
+}
+
 storiesOf('SortableTable', module)
   .add('default', () => (
     <SortableTable data={ tableData }>
@@ -62,6 +69,20 @@ storiesOf('SortableTable', module)
   .add('with custom row component', () => (
     <SortableTable data={ tableData } rowComponent={ CustomRow }>
       <Column name="name" />
+      <Column name="age" />
+      <Column name="active" />
+    </SortableTable>
+  ))
+  .add('with custom header component', () => (
+    <SortableTable data={ tableData } headerComponent={ CustomHeader }>
+      <Column name="name" />
+      <Column name="age" />
+      <Column name="active" />
+    </SortableTable>
+  ))
+  .add('with column-specific custom header component', () => (
+    <SortableTable data={ tableData }>
+      <Column name="name" headerComponent={ CustomHeader } />
       <Column name="age" />
       <Column name="active" />
     </SortableTable>
