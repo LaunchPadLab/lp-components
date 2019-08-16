@@ -68,7 +68,7 @@
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.0",
     "eslint": "^5.2.0",
-    "husky": "^0.14.3",
+    "husky": "^3.0.0",
     "jest": "^24.7.0",
     "jest-canvas-mock": "^1.0.3",
     "node-sass": "^4.11.0",
