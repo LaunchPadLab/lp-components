@@ -73,5 +73,5 @@ test('Textrea does not receive invalid dom attributes', () => {
   }
   
   const wrapper = mount(<Textarea {...props} />)
-  expect(wrapper.find('select').prop('onClickLabel')).toBe(undefined)
+  expect(wrapper.find('textarea').prop('onClickLabel')).toBe(undefined)
 })
