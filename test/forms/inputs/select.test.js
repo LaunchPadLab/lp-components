@@ -95,3 +95,20 @@ test('Select adds an aria described by attribute', () => {
   const wrapper = mount(<Select { ...props }/>)
   expect(wrapper.find('select').prop('aria-describedby')).toContain(name)
 })
+
+test('Select does not receive invalid dom attributes', () => {
+  const OPTION = 'MY OPTION'
+  const name = 'test'
+  const props = { 
+    input: {
+      name,
+      value: '',
+    }, 
+    meta: {},
+    options: [OPTION],
+    onClickLabel: () => 'foo'
+  }
+  
+  const wrapper = mount(<Select {...props} />)
+  expect(wrapper.find('select').prop('onClickLabel')).toBe(undefined)
+})

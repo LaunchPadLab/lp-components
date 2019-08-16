@@ -1102,10 +1102,10 @@ import LabeledPhoneInput from './LabeledPhoneInput'
 import { InputLabel } from 'lp-components'
 import { Field } from 'redux-form'
 
-function CustomLabelComponent (props) {
+function CustomLabelComponent ({ onClickLabel, ...rest }) {
  return (
-   <InputLabel { ...props }>
-     <span>I agree to the <a onClick={ () => 'bar' }>Terms and Conditions</a></span>
+   <InputLabel { ...rest }>
+     I agree to the <button onClick={ onClickLabel }>Terms and Conditions</button>
    </InputLabel>
  )
 }
@@ -1113,6 +1113,7 @@ function CustomLabelComponent (props) {
 <Field
   name="phoneNumber"
   component={ LabeledPhoneInput }
+  onClickLabel={ () => 'bar' }
   labelComponent={ CustomLabelComponent }
 />
 ```

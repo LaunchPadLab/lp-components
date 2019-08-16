@@ -48,8 +48,9 @@ storiesOf('LabeledField', module)
     </LabeledField>
   ))
   .add('with custom label', () => {
-    const CustomLabel = () => (
-      <label onClick={ action('Custom Label Clicked') } htmlFor="inputName">
+    // eslint-disable-next-line
+    const CustomLabel = ({ onClickLabel }) => (
+      <label onClick={ onClickLabel } htmlFor="inputName">
         This is a <b>custom</b> label
       </label>
     )
@@ -59,7 +60,8 @@ storiesOf('LabeledField', module)
           name: 'inputName',
         },
         meta: {},
-        labelComponent: CustomLabel
+        labelComponent: CustomLabel,
+        onClickLabel: action('Custom Label Clicked')
       }}>
         <Input id="inputName" />
       </LabeledField>

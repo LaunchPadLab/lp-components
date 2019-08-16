@@ -11,6 +11,7 @@ import {
 import { LabeledField } from '../labels'
 import {
   compose,
+  filterInvalidDOMProps,
   generateInputErrorId,
   serializeOptions,
   serializeOptionGroups
@@ -124,7 +125,7 @@ function Select (props) {
           onBlur,
           onChange,
           'aria-describedby': generateInputErrorId(name),
-          ...rest
+          ...filterInvalidDOMProps(rest)
         }}
       >
         {
