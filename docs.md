@@ -1105,7 +1105,7 @@ import { Field } from 'redux-form'
 function CustomLabelComponent ({ onClickLabel, ...rest }) {
  return (
    <InputLabel { ...rest }>
-     <span>I agree to the <a onClick={ onClickLabel }>Terms and Conditions</a></span>
+     I agree to the <button onClick={ onClickLabel }>Terms and Conditions</button>
    </InputLabel>
  )
 }

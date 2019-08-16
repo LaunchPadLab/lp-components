@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { blurDirty, fieldPropTypes, omitLabelProps } from '../helpers'
 import { LabeledField } from '../labels'
-import { compose, generateInputErrorId } from '../../utils'
+import { compose, filterInvalidDOMProps, generateInputErrorId } from '../../utils'
 
 /**
  *
@@ -82,7 +82,7 @@ function RangeInput (props) {
           max,
           step,
           'aria-describedby': generateInputErrorId(name),
-          ...rest 
+          ...filterInvalidDOMProps(rest)
         }} 
       />
     </LabeledField>

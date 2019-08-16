@@ -52,7 +52,7 @@ import InputLabel from './input-label'
  * function CustomLabelComponent ({ onClickLabel, ...rest }) {
  *  return (
  *    <InputLabel { ...rest }>
- *      <span>I agree to the <a onClick={ onClickLabel }>Terms and Conditions</a></span>
+ *      I agree to the <button onClick={ onClickLabel }>Terms and Conditions</button>
  *    </InputLabel>
  *  )
  * }
@@ -83,26 +83,21 @@ function LabeledField ({
   meta: { error, touched, invalid },
   className,
   errorComponent: ErrorComponent = InputError,
-  hint,
-  label,
   labelComponent: LabelComponent = InputLabel,
-  tooltip,
-  required,
-  requiredIndicator,
   children,
   hideErrorLabel,
+  ...rest
 }) {
   return (
     <fieldset className={ classnames(className, { 'error': touched && invalid }) }>
-      <LabelComponent { ...{ hint, label, name, id, tooltip, required, requiredIndicator } } />
+      <LabelComponent { ...{ name, id, ...rest } } />
         { children }
-      { !hideErrorLabel && <ErrorComponent { ...{ error, invalid, touched, name } } /> }
+      { !hideErrorLabel && <ErrorComponent { ...{ error, invalid, touched, name, ...rest } } /> }
     </fieldset>
   )
 }
 
 LabeledField.propTypes = propTypes
-
 LabeledField.defaultProps = defaultProps
 
 export default LabeledField

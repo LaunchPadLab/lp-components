@@ -50,6 +50,23 @@ test('adds a custom label component', () => {
   expect(wrapper.find('label').text()).toEqual('This is a custom label')
 })
 
+test('passes custom props to a custom label component', () => {
+  const Wrapped = () => <input name="test" />
+  // eslint-disable-next-line
+  const LabelComponent = ({ customHint }) => <label>This is a custom label<span>{customHint}</span></label>
+  const props = {
+    input: {
+      name: 'foo'
+    },
+    meta: {},
+    customHint: 'Hi!',
+    labelComponent: LabelComponent,
+  }
+  
+  const wrapper = mount(<LabeledField { ...props }><Wrapped /></LabeledField>)
+  expect(wrapper.find('label > span').text()).toEqual('Hi!')
+})
+
 test('considers a custom label component to have higher precedence than a label prop', () => {
   const Wrapped = () => <input name="test" />
   const LabelComponent = () => <label>This is a custom label</label>
@@ -79,4 +96,21 @@ test('adds a custom error component', () => {
   
   const wrapper = mount(<LabeledField { ...props }><Wrapped /></LabeledField>)
   expect(wrapper.find('span.error').text()).toEqual('This is a custom error message')
+})
+
+test('passes custom props to a custom error component', () => {
+  const Wrapped = () => <input name="test" />
+  // eslint-disable-next-line
+  const ErrorComponent = ({ customHint }) => <span className="error">This is a custom error message<span>{customHint}</span></span>
+  const props = {
+    input: {
+      name: 'foo'
+    },
+    meta: {},
+    errorComponent: ErrorComponent,
+    customHint: 'Hi!',
+  }
+  
+  const wrapper = mount(<LabeledField { ...props }><Wrapped /></LabeledField>)
+  expect(wrapper.find('span > span').text()).toEqual('Hi!')
 })

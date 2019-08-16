@@ -26,3 +26,15 @@ test('RangeInput has aria described by attribute', () => {
   const wrapper = mount(<RangeInput { ...props }/>)
   expect(wrapper.find('input').prop('aria-describedby')).toContain(name)
 })
+
+test('RangeInput does not receive invalid dom attributes', () => {
+  const props = {
+    input,
+    meta: {},
+    onClickLabel: () => 'foo'
+  }
+  
+  const wrapper = mount(<RangeInput {...props} />)
+  expect(wrapper.find('input').prop('onClickLabel')).toBe(undefined)
+})
+

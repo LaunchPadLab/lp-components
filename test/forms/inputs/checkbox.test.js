@@ -30,3 +30,17 @@ test('Checkbox is given an aria described by attribute', () => {
   const wrapper = mount(<Checkbox { ...props }/>)
   expect(wrapper.find('input').prop('aria-describedby')).toContain(name)
 })
+
+test('Checkbox does not receive invalid dom attributes', () => {
+  const props = {
+    input: {
+      name: 'test',
+      value: false,
+    },
+    meta: {},
+    onClickLabel: () => 'foo'
+  }
+  
+  const wrapper = mount(<Checkbox {...props} />)
+  expect(wrapper.find('input').prop('onClickLabel')).toBe(undefined)
+})

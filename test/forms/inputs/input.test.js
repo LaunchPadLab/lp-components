@@ -43,3 +43,14 @@ test('Input id is set when id is provided', () => {
   const wrapper = mount(<Input {...props} id="testId" />)
   expect(wrapper.find('input').prop('id')).toBe('testId')
 })
+
+test('Input does not receive invalid dom attributes', () => {
+  const props = {
+    input,
+    meta: {},
+    onClickLabel: () => 'foo'
+  }
+  
+  const wrapper = mount(<Input {...props} />)
+  expect(wrapper.find('input').prop('onClickLabel')).toBe(undefined)
+})
