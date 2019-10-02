@@ -19,6 +19,8 @@ import classnames from 'classnames'
  * @type Function
  * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
  * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+ * @param {Function} [onUploadSuccess] - A handler that gets invoked with the response from a successful upload to Cloudinary
+ * @param {Function} [onUploadFailure] - A handler that gets invoked with the error from a failed upload to Cloudinary
  * @example
  * 
  * function HeadshotForm ({ handleSubmit, pristine, invalid, submitting }) {
@@ -40,14 +42,22 @@ import classnames from 'classnames'
 
 const propTypes = {
   ...fieldPropTypes,
+  onUploadFailure: PropTypes.func,
+  onUploadSuccess: PropTypes.func,
   upload: PropTypes.func.isRequired,
   uploadStatus: PropTypes.string.isRequired,
 }
-const defaultProps = {}
+
+const defaultProps = {
+  onUploadSuccess: noop,
+  onUploadFailure: noop,
+}
 
 function CloudinaryFileInput ({ 
   input,
   className,
+  onUploadFailure,
+  onUploadSuccess,
   upload, 
   uploadStatus, 
   ...rest 
@@ -56,7 +66,12 @@ function CloudinaryFileInput ({
   return (
      <FileInput
       input={{ ...input, onChange: noop }}
-      onLoad={ (fileData, file) => upload(fileData, file).then(({ url }) => onChange(url)) }
+      onLoad={ (fileData, file) => upload(fileData, file)
+        .then((res) => {
+          onChange(res.url)
+          return onUploadSuccess(res)
+        }, (err) => onUploadFailure(err))
+      }
       className={ classnames(uploadStatus, className) }
       { ...rest }
     />
