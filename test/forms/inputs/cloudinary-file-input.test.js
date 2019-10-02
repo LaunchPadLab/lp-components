@@ -8,7 +8,8 @@ const value = 'value of field'
 const onChange = () => {}
 const input = { name, value, onChange }
 const PUBLIC_URL = 'url-of-uploaded-file'
-const upload = () => Promise.resolve({ url: PUBLIC_URL })
+const uploadResponse = { url: PUBLIC_URL }
+const upload = () => Promise.resolve(uploadResponse)
 const uploadStatus = 'upload-success'
 const cloudName = 'cloudName'
 const bucket = 'bucket'
@@ -36,4 +37,33 @@ test('CloudinaryFileInput sets returned url as value', () => {
   return Promise.resolve().then(() => 
     expect(onChange).toHaveBeenCalledWith(PUBLIC_URL)
   )
+})
+
+test('CloudinaryFileInput calls success handler with response on successful upload', () => {
+  const fakeFileEvent = { target: { files: [] }}
+  const onUploadSuccess = jest.fn()
+  const props = { input: { ...input, onChange: jest.fn() }, meta: {}, upload, cloudName, bucket, onUploadSuccess }
+  const wrapper = mount(<CloudinaryFileInput {...props} />)
+  const internalOnChange = wrapper.find('input').prop('onChange')
+  internalOnChange(fakeFileEvent)
+  
+  return Promise.resolve().then(() => {
+    expect(onUploadSuccess).toHaveBeenCalledWith(uploadResponse)
+  })
+})
+
+test('CloudinaryFileInput calls error handler with error on failed upload', () => {
+  const fakeFileEvent = { target: { files: [] }}
+  const onUploadFailure = jest.fn()
+  const failureResponse = { errors: "Invalid filename" }
+  const upload = () => Promise.reject(failureResponse)
+  
+  const props = { input: { ...input, onChange: jest.fn() }, meta: {}, upload, cloudName, bucket, onUploadFailure }
+  const wrapper = mount(<CloudinaryFileInput {...props} />)
+  const internalOnChange = wrapper.find('input').prop('onChange')
+  internalOnChange(fakeFileEvent)
+  
+  return Promise.resolve().then(() => {
+    expect(onUploadFailure).toHaveBeenCalledWith(failureResponse)
+  })
 })

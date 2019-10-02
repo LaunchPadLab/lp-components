@@ -482,6 +482,8 @@ or via the `CLOUDINARY_CLOUD_NAME` and `CLOUDINARY_BUCKET` env vars (recommended
 
 -   `input` **[Object][142]** A `redux-forms` [input][140] object
 -   `meta` **[Object][142]** A `redux-forms` [meta][143] object
+-   `onUploadSuccess` **[Function][135]?** A handler that gets invoked with the response from a successful upload to Cloudinary
+-   `onUploadFailure` **[Function][135]?** A handler that gets invoked with the error from a failed upload to Cloudinary
 
 ### Examples
 
