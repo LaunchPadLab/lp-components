@@ -4,7 +4,7 @@ import { buttonClasses, fieldPropTypes, isImageType, omitLabelProps } from '../.
 import { LabeledField } from '../../labels'
 import FilePreview from './file-preview'
 import ImagePreview from './image-preview';
-import { noop, generateInputErrorId } from '../../../utils'
+import { noop, generateInputErrorId, removeAt } from '../../../utils'
 
 /**
  *
@@ -25,9 +25,11 @@ import { noop, generateInputErrorId } from '../../../utils'
  * @type Function
  * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
  * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+ * @param {Boolean} [multiple=false] - A flag indicating whether or not to accept multiple files
  * @param {Function} [onLoad] - A callback fired when the file is loaded
+ * @param {Function} [onRemove] - A callback fired when the file is removed (only available when multiple files can be uploaded)
  * @param {String} [thumbnail] - A placeholder image to display before the file is loaded
- * @param {Boolean} [hidePreview] - A flag indicating whether or not to hide the file preview
+ * @param {Boolean} [hidePreview=false] - A flag indicating whether or not to hide the file preview
  * @example
  * 
  * function HeadshotForm ({ handleSubmit, pristine, invalid, submitting }) {
@@ -54,38 +56,77 @@ const propTypes = {
   className: PropTypes.string,
   previewComponent: PropTypes.func,
   children: PropTypes.node,
+  multiple: PropTypes.bool,
+  onRemove: PropTypes.func,
+  removeText: PropTypes.string,
 }
 
 const defaultProps = {
+  multiple: false,
   onLoad: noop,
+  onRemove: noop,
+  removeText: "x",
+}
+
+function readFile (file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = (readEvent) => {
+      resolve(readEvent.target.result)
+    }
+    reader.onerror = reject
+    
+    reader.readAsDataURL(file)
+  })
 }
 
 class FileInput extends React.Component {
 
   constructor (props) {
     super(props)
-    this.state = { file: null }
-    this.reader = new FileReader()
-    this.loadFile = this.loadFile.bind(this)
+    this.state = { files: [] }
+    this.loadFiles = this.loadFiles.bind(this)
     this.onChange = this.onChange.bind(this)
+    this.removeFile = this.removeFile.bind(this)
   }
 
-  loadFile (e) {
-    // Read file as data URL and call change handlers
-    const file = e.target.files[0]
-    this.reader.onload = (readEvent) => {
-      const fileData = readEvent.target.result
-      this.onChange(fileData, file)
-    }
-    this.reader.readAsDataURL(file)
+  loadFiles (e) {
+    // Read files as data URL and call change handlers
+    const files = [...e.target.files] // when multiple=false, `files` is still array-like
+    return files.map((file) => {
+      return readFile(file)
+        .then((fileData) => {
+          this.onChange(fileData, file)
+        })
+    })
   }
-
+  
+  // TODO: Should this fire once or per file?
   onChange (fileData, file) {
     // Call redux forms onChange and onLoad callback
-    const { input: { onChange }, onLoad } = this.props
-    onChange(fileData)
+    const { input: { onChange, value }, onLoad, multiple } = this.props
+    
+    if (multiple) {
+      onChange([...value, fileData])
+      this.setState((state) => {
+        return { files: [ ...state.files, file ] }
+      })
+    } else {
+      onChange(fileData)
+      this.setState({ files: [file] })
+    }
+    
     onLoad(fileData, file)
-    this.setState({ file })
+  }
+  
+  removeFile (idx) {
+    const { input: { onChange, value }, onRemove } = this.props
+    const [removedValue, remainingValues] = removeAt(value, idx)
+    const [removedFile, remainingFiles] = removeAt(this.state.files, idx)
+    
+    onChange(remainingValues)
+    onRemove(removedValue, removedFile)
+    this.setState({ files: remainingFiles })
   }
 
   render () {
@@ -97,26 +138,49 @@ class FileInput extends React.Component {
       submitting,
       accept,
       hidePreview,
+      multiple,
+      removeText,
       ...rest
     } = omitLabelProps(this.props)
-    const { file } = this.state
+    const { files } = this.state
     const wrapperClass = buttonClasses({ style: 'secondary-light', submitting })
+    const labelText = multiple ? 'Select File(s)' : 'Select File'
+    
     return (
       <LabeledField { ...this.props }>
         <div className="fileupload fileupload-exists">
           { 
             !hidePreview &&
-            renderPreview({ file, value, ...rest })
+            files.map((file, idx) => (
+              <div key={file.name}>
+                <RenderPreview
+                  file={file}
+                  value={value[idx]}
+                  {...rest}
+                />
+                { multiple &&
+                  <button
+                    type="button"
+                    className="remove-file"
+                    onClick={() => this.removeFile(idx)}
+                  >
+                    { removeText }
+                  </button>
+                }
+              </div>
+            ))
           }
           <div className={ wrapperClass }>
-            <span className="fileupload-exists"> Select File </span>
+            <span className="fileupload-exists" id={name+'-label'}> { labelText } </span>
               <input 
                 {...{
                   id: name,
                   name,
                   type: 'file',
-                  onChange: this.loadFile,
+                  onChange: this.loadFiles,
                   accept,
+                  multiple,
+                  'aria-labelledby': name + '-label',
                   'aria-describedby': generateInputErrorId(name),
                 }}
               />
@@ -128,7 +192,14 @@ class FileInput extends React.Component {
 }
 
 // eslint-disable-next-line react/prop-types
-function renderPreview ({ file, value, thumbnail, previewComponent: Component, children, ...rest }) {
+function RenderPreview ({
+  file,
+  value,
+  thumbnail,
+  previewComponent: Component,
+  children,
+  ...rest
+}) {
   if (Component) return <Component file={ file } value={ value } { ...rest } />
   if (children) return children
   const renderImagePreview = isImageType(file) || thumbnail
@@ -137,7 +208,6 @@ function renderPreview ({ file, value, thumbnail, previewComponent: Component, c
 }
 
 FileInput.propTypes = propTypes
-
 FileInput.defaultProps = defaultProps
 
 export default FileInput

@@ -635,9 +635,11 @@ A component passed using `previewComponent` will receive the following props:
 
 -   `input` **[Object][142]** A `redux-forms` [input][140] object
 -   `meta` **[Object][142]** A `redux-forms` [meta][143] object
+-   `multiple` **[Boolean][136]** A flag indicating whether or not to accept multiple files (optional, default `false`)
 -   `onLoad` **[Function][135]?** A callback fired when the file is loaded
+-   `onRemove` **[Function][135]?** A callback fired when the file is removed (only available when multiple files can be uploaded)
 -   `thumbnail` **[String][134]?** A placeholder image to display before the file is loaded
--   `hidePreview` **[Boolean][136]?** A flag indicating whether or not to hide the file preview
+-   `hidePreview` **[Boolean][136]** A flag indicating whether or not to hide the file preview (optional, default `false`)
 
 ### Examples
 
