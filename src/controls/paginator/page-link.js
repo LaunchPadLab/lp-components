@@ -27,15 +27,15 @@ const triggerOnEnter = (fn) => {
   }
 }
 
-function PageLink ({ className, active, onClick, children, 'aria-label': ariaLabel }) {
+function PageLink ({ className, active, onClick, children, ...rest }) {
   return (
     <li className={ classnames(className, { 'active': active }) }>
       <a
         onClick={ onClick }
         onKeyPress={ triggerOnEnter(onClick) } // keyboard interaction requirement
         aria-current={ active ? 'page' : false }
-        aria-label={ ariaLabel }
         tabIndex="0" // add back to tab order
+        { ...rest }
       >
         { children }
       </a>
