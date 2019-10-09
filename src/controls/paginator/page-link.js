@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { noop } from '../../utils'
+import { noop, triggerOnKeys } from '../../utils'
 import classnames from 'classnames'
 
 const propTypes = {
@@ -18,21 +18,12 @@ const defaultProps = {
   'aria-label': '',
 }
 
-const triggerOnEnter = (fn) => {
-  return function (e) {
-    const key = e.which || e.keyCode
-    if (key !== 13) return
-    
-    return fn()
-  }
-}
-
 function PageLink ({ className, active, onClick, children, ...rest }) {
   return (
     <li className={ classnames(className, { 'active': active }) }>
       <a
         onClick={ onClick }
-        onKeyPress={ triggerOnEnter(onClick) } // keyboard interaction requirement
+        onKeyPress={ triggerOnKeys(onClick, 13) } // keyboard interaction requirement
         aria-current={ active ? 'page' : false }
         tabIndex="0" // add back to tab order
         { ...rest }
