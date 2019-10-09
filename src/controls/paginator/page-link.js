@@ -8,14 +8,12 @@ const propTypes = {
   active: PropTypes.bool,
   onClick: PropTypes.func,
   children: PropTypes.node,
-  'aria-label': PropTypes.string,
 }
 
 const defaultProps = {
   className: '',
   active: false,
   onClick: noop,
-  'aria-label': '',
 }
 
 function PageLink ({ className, active, onClick, children, ...rest }) {
