@@ -6,7 +6,6 @@ import Delimiter from './delimiter'
 import PageLink from './page-link'
 
 /**
- * 
  * @name Paginator
  * @type Function
  * @description A control component for navigating between multiple numbered pages.
@@ -58,7 +57,11 @@ const defaultProps = {
   nextLabel: 'Next'
 }
 
-function Paginator ({ 
+const Nav = ({ children }) => <nav className="pagination" aria-label="pagination">{children}</nav>
+const EmptyState = () => <Nav><ul/></Nav>
+const pageLabel = (val) => 'Go to page ' + val
+
+function Paginator ({
   value,
   onChange,
   min,
@@ -66,16 +69,16 @@ function Paginator ({
   alwaysShow,
   pagesShown,
   previousLabel,
-  nextLabel 
+  nextLabel,
 }) {
   // Hide if there's only one page
   const totalPages = (max - min) + 1
-  if (totalPages === 1 && !alwaysShow) return EmptyState
+  if (totalPages === 1 && !alwaysShow) return <EmptyState />
 
   const middlePages = calculateMiddlePages(value, min, max, pagesShown)
 
   return (
-    <div className="pagination">
+    <Nav>
       <ul>
 
         {/* Previous link */}
@@ -85,6 +88,7 @@ function Paginator ({
           <PageLink
             className="prev"
             onClick={() => onChange(value - 1)}
+            aria-label="Previous page"
           >
             { previousLabel }
           </PageLink>
@@ -95,6 +99,7 @@ function Paginator ({
         <PageLink
           active={(value === min)}
           onClick={() => onChange(min)}
+          aria-label={pageLabel(min)}
         >
           { min }
         </PageLink>
@@ -116,6 +121,7 @@ function Paginator ({
                 key={ page }
                 active={(value === page)}
                 onClick={() => onChange(page)}
+                aria-label={pageLabel(page)}
               >
                 { page }
               </PageLink>
@@ -139,6 +145,7 @@ function Paginator ({
           <PageLink
             active={(value === max)}
             onClick={() => onChange(max)}
+            aria-label={pageLabel(max)}
           >
             { max }
           </PageLink>
@@ -148,19 +155,18 @@ function Paginator ({
 
         {
           (value < max) &&
-          <PageLink 
+          <PageLink
             className="next"
             onClick={() => onChange(value + 1)}
+            aria-label="Next page"
           >
-            { nextLabel } 
+            { nextLabel }
           </PageLink>
         }
       </ul>
-    </div>
+    </Nav>
   )
 }
-
-const EmptyState = <div className="pagination"><ul/></div>
 
 Paginator.propTypes = propTypes
 Paginator.defaultProps = defaultProps

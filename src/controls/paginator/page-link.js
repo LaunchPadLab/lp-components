@@ -7,19 +7,36 @@ const propTypes = {
   className: PropTypes.string,
   active: PropTypes.bool,
   onClick: PropTypes.func,
-  children: PropTypes.node
+  children: PropTypes.node,
+  'aria-label': PropTypes.string,
 }
 
 const defaultProps = {
   className: '',
   active: false,
-  onClick: noop
+  onClick: noop,
+  'aria-label': '',
 }
 
-function PageLink ({ className, active, onClick, children }) {
+const triggerOnEnter = (fn) => {
+  return function (e) {
+    const key = e.which || e.keyCode
+    if (key !== 13) return
+    
+    return fn()
+  }
+}
+
+function PageLink ({ className, active, onClick, children, 'aria-label': ariaLabel }) {
   return (
-    <li className={classnames(className, { 'active': active })}>
-      <a onClick={ onClick }>
+    <li className={ classnames(className, { 'active': active }) }>
+      <a
+        onClick={ onClick }
+        onKeyPress={ triggerOnEnter(onClick) } // keyboard interaction requirement
+        aria-current={ active ? 'page' : false }
+        aria-label={ ariaLabel }
+        tabIndex="0" // add back to tab order
+      >
         { children }
       </a>
     </li>
