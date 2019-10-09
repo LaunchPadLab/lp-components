@@ -65,7 +65,6 @@ const defaultProps = {
   multiple: false,
   onLoad: noop,
   onRemove: noop,
-  removeText: "x",
 }
 
 function readFile (file) {
@@ -116,6 +115,7 @@ class FileInput extends React.Component {
       this.setState({ files: [file] })
     }
     
+    // TODO: should this be required to fulfill successfully before firing onChange / set state?
     onLoad(fileData, file)
   }
   
@@ -132,14 +132,14 @@ class FileInput extends React.Component {
   render () {
     const {
       input: { name, value },
-      meta,   // eslint-disable-line no-unused-vars
+      meta, // eslint-disable-line no-unused-vars
       onLoad, // eslint-disable-line no-unused-vars
       className, // eslint-disable-line no-unused-vars
       submitting,
       accept,
       hidePreview,
       multiple,
-      removeText,
+      removeComponent: RemoveComponent = RemoveButton,
       ...rest
     } = omitLabelProps(this.props)
     const { files } = this.state
@@ -158,15 +158,7 @@ class FileInput extends React.Component {
                   value={value[idx]}
                   {...rest}
                 />
-                { multiple &&
-                  <button
-                    type="button"
-                    className="remove-file"
-                    onClick={() => this.removeFile(idx)}
-                  >
-                    { removeText }
-                  </button>
-                }
+                { multiple && <RemoveComponent onRemove={() => this.removeFile(idx) } /> }
               </div>
             ))
           }
@@ -205,6 +197,18 @@ function RenderPreview ({
   const renderImagePreview = isImageType(file) || thumbnail
   if (renderImagePreview) return <ImagePreview image={ value || thumbnail } />
   return <FilePreview file={ file } />
+}
+
+function RemoveButton ({ onRemove }) {
+  return (
+    <button
+      type="button"
+      className="remove-file"
+      onClick={onRemove}
+    >
+      x
+    </button>
+  )
 }
 
 FileInput.propTypes = propTypes
