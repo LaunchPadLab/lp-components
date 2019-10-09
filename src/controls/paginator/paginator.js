@@ -57,9 +57,17 @@ const defaultProps = {
   nextLabel: 'Next'
 }
 
-const Nav = ({ children }) => <nav className="pagination" aria-label="pagination">{children}</nav>
-const EmptyState = () => <Nav><ul/></Nav>
-const pageLabel = (val) => 'Go to page ' + val
+function Nav ({ children }) { 
+  return (
+    <nav className="pagination" aria-label="pagination">{children}</nav>
+  )
+}
+
+function EmptyState () {
+  return (<Nav><ul/></Nav>)
+}
+
+const createPageLabel = (val) => 'Go to page ' + val
 
 function Paginator ({
   value,
@@ -99,7 +107,7 @@ function Paginator ({
         <PageLink
           active={(value === min)}
           onClick={() => onChange(min)}
-          aria-label={pageLabel(min)}
+          aria-label={createPageLabel(min)}
         >
           { min }
         </PageLink>
@@ -121,7 +129,7 @@ function Paginator ({
                 key={ page }
                 active={(value === page)}
                 onClick={() => onChange(page)}
-                aria-label={pageLabel(page)}
+                aria-label={createPageLabel(page)}
               >
                 { page }
               </PageLink>
@@ -145,7 +153,7 @@ function Paginator ({
           <PageLink
             active={(value === max)}
             onClick={() => onChange(max)}
-            aria-label={pageLabel(max)}
+            aria-label={createPageLabel(max)}
           >
             { max }
           </PageLink>
