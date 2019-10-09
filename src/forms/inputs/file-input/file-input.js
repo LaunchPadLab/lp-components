@@ -92,7 +92,13 @@ class FileInput extends React.Component {
   loadFiles (e) {
     // Read files as data URL and call change handlers
     const files = [...e.target.files] // when multiple=false, `files` is still array-like
-    return files.map((file) => {
+    
+    // Do not reload files that have been successfully loaded
+    const filesToLoad = files.filter((file) => {
+      return !this.state.files.some((existingFile) => existingFile.name === file.name)
+    })
+    
+    return filesToLoad.map((file) => {
       return readFile(file)
         .then((fileData) => {
           this.onChange(fileData, file)
@@ -169,6 +175,7 @@ class FileInput extends React.Component {
                   id: name,
                   name,
                   type: 'file',
+                  onClick: (e) => { e.target.value = "" }, // force onChange to fire every time
                   onChange: this.loadFiles,
                   accept,
                   multiple,
