@@ -13,6 +13,7 @@ import createFocusListener from './focus'
  * @param {Boolean} [vertical] A boolean setting the `className` of the `ul` to 'horizontal' (default), or 'vertical', which determines the alignment of the tabs (optional, default `false`)
  * @param {Array} [options] An array of tab values (strings or key-value pairs)
  * @param {String|Number} [value] - The value of the current tab
+ * @param {String|Number} [defaultValue] - The value of the tab that should start as active
  * @param {Function} [onChange] - A function called with the new value when a tab is clicked
  * @param {String} [activeClassName] - The class of the active tab, (optional, default `active`)
  * @example
@@ -47,12 +48,13 @@ const defaultProps = {
   vertical: false,
   options: [],
   value: '',
+  defaultValue: '',
   onChange: noop,
   className: '',
   activeClassName: 'active',
 }
 
-function TabBar ({ vertical, options, defaultValue, value, onChange, className, activeClassName }) {
+function TabBar ({ vertical, options, value, defaultValue, onChange, className, activeClassName }) {
   const optionObjects = serializeOptions(options)
   const defaultTabValue = defaultValue || first(optionObjects).value // must have an active tab, defaults to first option
   const activeValue = value || defaultTabValue
