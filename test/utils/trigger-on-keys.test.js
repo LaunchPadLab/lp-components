@@ -41,4 +41,22 @@ describe('Trigger on Keys', () => {
     
     expect(fn).not.toHaveBeenCalled()
   })
+  
+  test('ignores undefined key codes', () => {
+    const fn = jest.fn()
+    const e = { keyCode: undefined }
+    const triggerOnEnter = triggerOnKeys(fn)
+    triggerOnEnter(e)
+    
+    expect(fn).not.toHaveBeenCalled()
+  })
+  
+  test('ignores null key codes', () => {
+    const fn = jest.fn()
+    const e = { keyCode: null }
+    const triggerOnEnter = triggerOnKeys(fn)
+    triggerOnEnter(e)
+    
+    expect(fn).not.toHaveBeenCalled()
+  })
 })

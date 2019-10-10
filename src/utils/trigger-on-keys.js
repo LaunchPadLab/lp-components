@@ -11,8 +11,10 @@
  * function MyExample () { return <Example onKeyPress={triggerOnEnter} /> }
  */
 
+import { castArray, compact } from 'lodash'
+
 function triggerOnKeys (fn, keyCodes) {
-  const codes = Array.isArray(keyCodes) ? keyCodes : [keyCodes]
+  const codes = compact(castArray(keyCodes))
   return function (e) {
     const key = e.which || e.keyCode
     if (!codes.some((keyCode) => keyCode == key)) return
