@@ -19,7 +19,7 @@ function triggerOnKeys (fn, keyCodes) {
     const key = e.which || e.keyCode
     if (!codes.some((keyCode) => keyCode == key)) return
     
-    return fn()
+    return fn(e)
   }
 }
 

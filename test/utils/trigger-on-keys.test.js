@@ -6,6 +6,22 @@ describe('Trigger on Keys', () => {
     expect(triggerOnKeys(fn, 13)).toBeInstanceOf(Function)
   })
   
+  test('triggers the function when the key code matches', () => {
+    const fn = jest.fn()
+    const e = { keyCode: 13 }
+    const triggerOnEnter = triggerOnKeys(fn, 13)
+    triggerOnEnter(e)
+    expect(fn).toHaveBeenCalled()
+  })
+  
+  test('invokes the function with the event', () => {
+    const fn = jest.fn()
+    const e = { keyCode: 13 }
+    const triggerOnEnter = triggerOnKeys(fn, 13)
+    triggerOnEnter(e)
+    expect(fn).toHaveBeenCalledWith(e)
+  })
+  
   test('accepts a string key code', () => {
     const fn = jest.fn()
     const e = { keyCode: 13 }
