@@ -81,7 +81,7 @@ test('Select renders option groups correctly', () => {
   expect(wrapper.find('option').first().prop('value')).toEqual('testOption')
 })
 
-test('Select adds an aria described by attribute', () => {
+test('Select adds an aria-describedby attribute when there is an input error', () => {
   const OPTION = 'MY OPTION'
   const name = 'test'
   const props = { 
@@ -89,7 +89,10 @@ test('Select adds an aria described by attribute', () => {
       name,
       value: '',
     }, 
-    meta: {},
+    meta: {
+      touched: true,
+      invalid: true,
+    },
     options: [OPTION],
   }
   const wrapper = mount(<Select { ...props }/>)

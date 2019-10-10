@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { 
   blurDirty,
+  hasInputError,
   fieldPropTypesWithValue,
   omitLabelProps,
   replaceEmptyStringValue,
@@ -56,7 +57,7 @@ function Checkbox (props) {
         checked: value,
         onBlur,
         onChange: () => onChange(!value),
-        'aria-describedby': generateInputErrorId(name),
+        'aria-describedby': hasInputError(meta) ? generateInputErrorId(name) : null,
         ...filterInvalidDOMProps(rest)
       }} 
     />
