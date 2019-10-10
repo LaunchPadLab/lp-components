@@ -41,3 +41,10 @@ storiesOf('FileInput', module)
       previewComponent={FilenamePreview}
     />
   ))
+  .add('with multiple files', () => (
+    <FileInput
+      input={inputProps}
+      meta={{}}
+      multiple
+    />
+  ))

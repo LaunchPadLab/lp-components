@@ -64,7 +64,7 @@ function CloudinaryFileInput ({
 }) {
   const { onChange } = input
   return (
-     <FileInput
+    <FileInput
       input={{ ...input, onChange: noop }}
       onLoad={ (fileData, file) => upload(fileData, file)
         .then((res) => {
