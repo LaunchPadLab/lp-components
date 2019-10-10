@@ -44,14 +44,17 @@ test('Textarea hides character count correctly', () => {
   expect(wrapper.find('.character-count').exists()).toEqual(false)
 })
 
-test('Textarea is given an aria described by attribute', () => {
+test('Textarea is given an aria-describedby attribute when there is an input error', () => {
   const name = 'test'
   const props = {
     input: {
       name,
       value: '',
     },
-    meta: {},
+    meta: {
+      touched: true,
+      invalid: true,
+    },
     maxLength: 5,
     hideCharacterCount: true,
   }

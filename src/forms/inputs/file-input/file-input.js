@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { buttonClasses, fieldPropTypes, isImageType, omitLabelProps } from '../../helpers'
+import { buttonClasses, fieldPropTypes, hasInputError, isImageType, omitLabelProps } from '../../helpers'
 import { LabeledField } from '../../labels'
 import FilePreview from './file-preview'
 import ImagePreview from './image-preview';
@@ -117,7 +117,7 @@ class FileInput extends React.Component {
                   type: 'file',
                   onChange: this.loadFile,
                   accept,
-                  'aria-describedby': generateInputErrorId(name),
+                  'aria-describedby': hasInputError(meta) ? generateInputErrorId(name) : null,
                 }}
               />
           </div>

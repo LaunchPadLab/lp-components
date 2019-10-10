@@ -6,6 +6,7 @@ import {
   fieldPropTypes,
   fieldOptionGroupsType,
   fieldOptionsType,
+  hasInputError,
   omitLabelProps
 } from '../helpers'
 import { LabeledField } from '../labels'
@@ -124,7 +125,7 @@ function Select (props) {
           value,
           onBlur,
           onChange,
-          'aria-describedby': generateInputErrorId(name),
+          'aria-describedby': hasInputError(meta) ? generateInputErrorId(name) : null,
           ...filterInvalidDOMProps(rest)
         }}
       >
