@@ -13,80 +13,80 @@
 -   [TabBar][9]
     -   [Parameters][10]
     -   [Examples][11]
--   [fieldOptionsType][12]
--   [fieldOptionGroupsType][13]
--   [fieldPropTypesWithValue][14]
-    -   [Parameters][15]
-    -   [Examples][16]
--   [defaultValueTypes][17]
--   [fieldPropTypes][18]
--   [checkboxGroupPropTypes][19]
--   [Button][20]
+-   [Button][12]
+    -   [Parameters][13]
+    -   [Examples][14]
+-   [ButtonArea][15]
+    -   [Parameters][16]
+    -   [Examples][17]
+-   [SubmitButton][18]
+    -   [Examples][19]
+-   [Checkbox][20]
     -   [Parameters][21]
     -   [Examples][22]
--   [ButtonArea][23]
+-   [CheckboxGroup][23]
     -   [Parameters][24]
     -   [Examples][25]
--   [SubmitButton][26]
-    -   [Examples][27]
--   [Checkbox][28]
-    -   [Parameters][29]
-    -   [Examples][30]
--   [CheckboxGroup][31]
-    -   [Parameters][32]
-    -   [Examples][33]
--   [CloudinaryFileInput][34]
-    -   [Parameters][35]
-    -   [Examples][36]
--   [ColorInput][37]
-    -   [Parameters][38]
-    -   [Examples][39]
--   [DateInput][40]
-    -   [Parameters][41]
+-   [CloudinaryFileInput][26]
+    -   [Parameters][27]
+    -   [Examples][28]
+-   [ColorInput][29]
+    -   [Parameters][30]
+    -   [Examples][31]
+-   [DateInput][32]
+    -   [Parameters][33]
+    -   [Examples][34]
+-   [DropdownCheckboxGroup][35]
+    -   [Parameters][36]
+    -   [Examples][37]
+-   [FileInput][38]
+    -   [Parameters][39]
+    -   [Examples][40]
+-   [HiddenInput][41]
     -   [Examples][42]
--   [DropdownCheckboxGroup][43]
+-   [Input][43]
     -   [Parameters][44]
     -   [Examples][45]
--   [FileInput][46]
+-   [IconInput][46]
     -   [Parameters][47]
     -   [Examples][48]
--   [HiddenInput][49]
-    -   [Examples][50]
--   [Input][51]
-    -   [Parameters][52]
-    -   [Examples][53]
--   [IconInput][54]
-    -   [Parameters][55]
-    -   [Examples][56]
--   [RangeInput][57]
-    -   [Parameters][58]
-    -   [Examples][59]
--   [RadioGroup][60]
-    -   [Parameters][61]
-    -   [Examples][62]
--   [Select][63]
-    -   [Parameters][64]
-    -   [Examples][65]
--   [SetterLink][66]
-    -   [Parameters][67]
-    -   [Examples][68]
--   [Textarea][69]
-    -   [Parameters][70]
-    -   [Examples][71]
--   [InputError][72]
-    -   [Parameters][73]
+-   [RangeInput][49]
+    -   [Parameters][50]
+    -   [Examples][51]
+-   [RadioGroup][52]
+    -   [Parameters][53]
+    -   [Examples][54]
+-   [Select][55]
+    -   [Parameters][56]
+    -   [Examples][57]
+-   [SetterLink][58]
+    -   [Parameters][59]
+    -   [Examples][60]
+-   [Textarea][61]
+    -   [Parameters][62]
+    -   [Examples][63]
+-   [InputError][64]
+    -   [Parameters][65]
+    -   [Examples][66]
+-   [InputLabel][67]
+    -   [Parameters][68]
+    -   [Examples][69]
+-   [LabeledField][70]
+    -   [Parameters][71]
+    -   [Examples][72]
+-   [blurDirty][73]
     -   [Examples][74]
--   [InputLabel][75]
+-   [convertNameToLabel][75]
     -   [Parameters][76]
     -   [Examples][77]
--   [LabeledField][78]
-    -   [Parameters][79]
-    -   [Examples][80]
--   [blurDirty][81]
+-   [fieldOptionsType][78]
+-   [fieldOptionGroupsType][79]
+-   [fieldPropTypesWithValue][80]
+    -   [Parameters][81]
     -   [Examples][82]
--   [convertNameToLabel][83]
-    -   [Parameters][84]
-    -   [Examples][85]
+-   [defaultValueTypes][83]
+-   [fieldPropTypes][84]
+-   [checkboxGroupPropTypes][85]
 -   [omitLabelProps][86]
     -   [Parameters][87]
     -   [Examples][88]
@@ -246,72 +246,6 @@ function ShowTabs ({ currentTab, setCurrentTab }) {
 }
 ```
 
-## fieldOptionsType
-
-A constant representing the `PropTypes` of the `options` prop for select components, e.g., [Select][63] and [CheckboxGroup][31]
-
-Type: PropTypes
-
-## fieldOptionGroupsType
-
-A constant representing the `PropTypes` of the `optionGroups` prop for select components, e.g., [Select][63]
-
-Type: PropTypes
-
-## fieldPropTypesWithValue
-
-A function that takes `PropTypes` for a `redux-forms` [input][143] object.
-Returns an object containing all `PropTypes` for `redux-forms` [Field][144] components.
-
-### Parameters
-
--   `value` **PropTypes** `PropTypes` object
-
-### Examples
-
-```javascript
-const valuePropType = PropTypes.string
-
-fieldPropTypesWithValue(valuePropType)
-
-// {
-//   input: PropTypes.shape({
-//     value: PropTypes.string.isRequired,
-//     name: PropTypes.string.isRequired,
-//     onBlur: PropTypes.func,
-//     onChange: PropTypes.func
-//   }),
-//   meta: PropTypes.shape({
-//     dirty: PropTypes.bool,
-//     invalid: PropTypes.bool,
-//     pristine: PropTypes.bool,
-//     touched: PropTypes.bool,
-//     valid: PropTypes.bool,
-//   }).isRequired
-// }
-```
-
-Returns **[Object][145]** `PropTypes` for `redux-forms` [input][143] and [meta][146] objects
-
-## defaultValueTypes
-
-A constant representing default `PropTypes` for `redux-forms` [Field][144] values.
-Default types are either `number` or `string`.
-
-Type: PropTypes
-
-## fieldPropTypes
-
-An object containing the default `PropTypes` for `redux-forms` [Field][144] components.
-
-Type: [Object][145]
-
-## checkboxGroupPropTypes
-
-A constant representing the `PropTypes` of the `input` prop for checkbox group components, e.g., [CheckboxGroup][31] and [DropdownCheckboxGroup][43]
-
-Type: PropTypes
-
 ## Button
 
 A simple button component that can be used independently, or as part of a form.
@@ -328,7 +262,7 @@ If a className is provided to the component, it will be appended to the conditio
 -   `pristine` **[Boolean][139]?** Whether or not a related form is pristine (will disable when `true`)
 -   `style` **[String][137]** A descriptive string that will be appended to the button's class with format `button-<type>` (optional, default `"primary"`)
 -   `submitting` **[Boolean][139]?** Whether or not a related form is submitting (will give button class `'in-progress` when `true`)
--   `type` **[Boolean][139]** The [type][147] attribute of the button element (optional, default `"button"`)
+-   `type` **[Boolean][139]** The [type][143] attribute of the button element (optional, default `"button"`)
 -   `children` **[Function][138]?** Any React component(s) being wrapped by the button
 
 ### Examples
@@ -378,9 +312,9 @@ function ButtonForm ({ handleSubmit }) {
 
 ## SubmitButton
 
-A wrapper around the [Button][20] component that adds `type="submit"`. Generally used in the context of forms. 
+A wrapper around the [Button][12] component that adds `type="submit"`. Generally used in the context of forms. 
 
-With the exception of `type`, this component shares the same props as [Button][20].
+With the exception of `type`, this component shares the same props as [Button][12].
 
 ### Examples
 
@@ -408,8 +342,8 @@ This input only accepts and stores boolean values.
 
 ### Parameters
 
--   `input` **[Object][145]** A `redux-forms` [input][143] object
--   `meta` **[Object][145]** A `redux-forms` [meta][146] object
+-   `input` **[Object][144]** A `redux-forms` [input][145] object
+-   `meta` **[Object][144]** A `redux-forms` [meta][146] object
 
 ### Examples
 
@@ -443,8 +377,8 @@ Clicking an unselected checkbox adds its value to this array, and clicking a sel
 
 ### Parameters
 
--   `input` **[Object][145]** A `redux-forms` [input][143] object
--   `meta` **[Object][145]** A `redux-forms` [meta][146] object
+-   `input` **[Object][144]** A `redux-forms` [input][145] object
+-   `meta` **[Object][144]** A `redux-forms` [meta][146] object
 -   `options` **[Array][142]** An array of checkbox values (strings, numbers, or key-value pairs)
 
 ### Examples
@@ -474,7 +408,7 @@ export default TodoForm
 
 ## CloudinaryFileInput
 
-A wrapper around the [FileInput][46] component that automatically uploads files to cloudinary via the [cloudinaryUploader][148] HOC.
+A wrapper around the [FileInput][38] component that automatically uploads files to cloudinary via the [cloudinaryUploader][147] HOC.
 The value of this input is the public URL of the uploaded file.
 Additionally, the `uploadStatus` passed down from `cloudinaryUploader` will be added as a class on the input.
 
@@ -483,8 +417,8 @@ or via the `CLOUDINARY_CLOUD_NAME` and `CLOUDINARY_BUCKET` env vars (recommended
 
 ### Parameters
 
--   `input` **[Object][145]** A `redux-forms` [input][143] object
--   `meta` **[Object][145]** A `redux-forms` [meta][146] object
+-   `input` **[Object][144]** A `redux-forms` [input][145] object
+-   `meta` **[Object][144]** A `redux-forms` [meta][146] object
 -   `onUploadSuccess` **[Function][138]?** A handler that gets invoked with the response from a successful upload to Cloudinary
 -   `onUploadFailure` **[Function][138]?** A handler that gets invoked with the error from a failed upload to Cloudinary
 
@@ -515,8 +449,8 @@ The value of this input is a hex color string.
 
 ### Parameters
 
--   `input` **[Object][145]** A `redux-forms` [input][143] object
--   `meta` **[Object][145]** A `redux-forms` [meta][146] object
+-   `input` **[Object][144]** A `redux-forms` [input][145] object
+-   `meta` **[Object][144]** A `redux-forms` [meta][146] object
 
 ### Examples
 
@@ -538,22 +472,22 @@ function UserForm ({ handleSubmit, pristine, invalid, submitting }) {
 
 ## DateInput
 
-An input component that wraps a `DatePicker` component from the [react-datepicker][149] library.
+An input component that wraps a `DatePicker` component from the [react-datepicker][148] library.
 This wrapper adds the following functionality to `DatePicker`:
 
 -   Adapts it to receive `redux-forms`-style input props.
--   Converts value type from [moment][150] to [Date][151].
+-   Converts value type from [moment][149] to [Date][150].
 -   Adds name and error labels.
 
 With the exception of the `input` and `meta` props, all props are passed down to the `DatePicker` component. 
-A full list of props supported by this component can be found [here][152]. Note that unfortunately `aria-*` props are **not** supported.
+A full list of props supported by this component can be found [here][151]. Note that unfortunately `aria-*` props are **not** supported.
 
-_Note: this component requires special styles in order to render correctly. To include these styles in your project, follow the directions in the main [README][153] file._
+_Note: this component requires special styles in order to render correctly. To include these styles in your project, follow the directions in the main [README][152] file._
 
 ### Parameters
 
--   `input` **[Object][145]** A `redux-forms` [input][143] object
--   `meta` **[Object][145]** A `redux-forms` [meta][146] object
+-   `input` **[Object][144]** A `redux-forms` [input][145] object
+-   `meta` **[Object][144]** A `redux-forms` [meta][146] object
 
 ### Examples
 
@@ -576,7 +510,7 @@ function BirthdayForm ({ handleSubmit }) {
 ## DropdownCheckboxGroup
 
 A group of checkboxes that can be used in a `redux-forms`-controlled form. 
-Wraps the [CheckboxGroup][31] component in a [DropdownSelect][154] component, which displays the selected values as a list.
+Wraps the [CheckboxGroup][23] component in a [DropdownSelect][153] component, which displays the selected values as a list.
 Options are displayed in a scrollable `Select`-style dropdown container.
 
 The value of each checkbox is specified via the `options` prop. This prop can either be:
@@ -589,8 +523,8 @@ Clicking an unselected checkbox adds its value to this array, and clicking a sel
 
 ### Parameters
 
--   `input` **[Object][145]** A `redux-forms` [input][143] object
--   `meta` **[Object][145]** A `redux-forms` [meta][146] object
+-   `input` **[Object][144]** A `redux-forms` [input][145] object
+-   `meta` **[Object][144]** A `redux-forms` [meta][146] object
 -   `options` **[Array][142]** An array of checkbox values (strings or key-value pairs)
 
 ### Examples
@@ -636,8 +570,8 @@ A component passed using `previewComponent` will receive the following props:
 
 ### Parameters
 
--   `input` **[Object][145]** A `redux-forms` [input][143] object
--   `meta` **[Object][145]** A `redux-forms` [meta][146] object
+-   `input` **[Object][144]** A `redux-forms` [input][145] object
+-   `meta` **[Object][144]** A `redux-forms` [meta][146] object
 -   `onLoad` **[Function][138]?** A callback fired when the file is loaded
 -   `thumbnail` **[String][137]?** A placeholder image to display before the file is loaded
 -   `hidePreview` **[Boolean][139]?** A flag indicating whether or not to hide the file preview
@@ -666,7 +600,7 @@ function HeadshotForm ({ handleSubmit, pristine, invalid, submitting }) {
 An Input component that is hidden from the page. The input element is hidden with CSS instead 
 of using `type="hidden` so that Cypress can still access its value.
 
-Aside from being hidden, this component is identical to [Input][51],
+Aside from being hidden, this component is identical to [Input][43],
 and will take the same props.
 
 ### Examples
@@ -694,8 +628,8 @@ Any children passed to this component will be rendered within this wrapper.
 
 ### Parameters
 
--   `input` **[Object][145]** A `redux-forms` [input][143] object
--   `meta` **[Object][145]** A `redux-forms` [meta][146] object
+-   `input` **[Object][144]** A `redux-forms` [input][145] object
+-   `meta` **[Object][144]** A `redux-forms` [meta][146] object
 -   `type` **[String][137]?** A string to specify the type of input element (defaults to `text`)
 
 ### Examples
@@ -719,12 +653,12 @@ function UserForm ({ handleSubmit, pristine, invalid, submitting }) {
 
 ## IconInput
 
-A wrapper around the [Input][51] component that adds an icon to the input.
+A wrapper around the [Input][43] component that adds an icon to the input.
 
 This icon is rendered as an `<i>` tag, with a dynamic class based on the `icon` prop. 
-For example, given an `icon` prop of `"twitter"`, the component will render an [Input][51] with child `<i className="twitter-icon"/>`.
+For example, given an `icon` prop of `"twitter"`, the component will render an [Input][43] with child `<i className="twitter-icon"/>`.
 
-Additionally, the fieldset of this [Input][51] will be given the class `"icon-label"` for styling purposes.
+Additionally, the fieldset of this [Input][43] will be given the class `"icon-label"` for styling purposes.
 
 ### Parameters
 
@@ -756,8 +690,8 @@ A range input that can be used in a `redux-forms`-controlled form.
 
 ### Parameters
 
--   `input` **[Object][145]** A `redux-forms` [input][143] object
--   `meta` **[Object][145]** A `redux-forms` [meta][146] object
+-   `input` **[Object][144]** A `redux-forms` [input][145] object
+-   `meta` **[Object][144]** A `redux-forms` [meta][146] object
 -   `min` **[Number][141]** The minumum attribute of the slider control (optional, default `0`)
 -   `max` **[Number][141]** The maximum attribute of the slider control (optional, default `100`)
 -   `step` **[Number][141]** The step attribute of the slider control (optional, default `1`)
@@ -798,8 +732,8 @@ The value of the entire `RadioGroup` component is the value of the currently sel
 
 ### Parameters
 
--   `input` **[Object][145]** A `redux-forms` [input][143] object
--   `meta` **[Object][145]** A `redux-forms` [meta][146] object
+-   `input` **[Object][144]** A `redux-forms` [input][145] object
+-   `meta` **[Object][144]** A `redux-forms` [meta][146] object
 -   `options` **[Array][142]** An array of button values (strings, numbers, or key-value pairs)
 
 ### Examples
@@ -849,8 +783,8 @@ The value of the `Select` component will be the same as the value of the selecte
 
 ### Parameters
 
--   `input` **[Object][145]** A `redux-forms` [input][143] object
--   `meta` **[Object][145]** A `redux-forms` [meta][146] object
+-   `input` **[Object][144]** A `redux-forms` [input][145] object
+-   `meta` **[Object][144]** A `redux-forms` [meta][146] object
 -   `options` **[Array][142]** An array of option values (strings, numbers, or key-value pairs). This prop will be ignored if `optionGroups` is present.
 -   `optionGroups` **[Array][142]** An array of option group objects
 -   `placeholder` **[String][137]?** A string to display as a placeholder option
@@ -907,7 +841,7 @@ A component that returns an `<a>` element that can be used to change the value o
 
 ### Parameters
 
--   `input` **[Object][145]** A `redux-forms` [input][143] object
+-   `input` **[Object][144]** A `redux-forms` [input][145] object
 -   `label` **[String][137]** The link text
 -   `valueToSet` **Any** The value to set the input when clicked (optional, default `true`)
 
@@ -938,8 +872,8 @@ A textarea input that can be used in a `redux-forms`-controlled form. Optionally
 
 ### Parameters
 
--   `input` **[Object][145]** A `redux-forms` [input][143] object
--   `meta` **[Object][145]** A `redux-forms` [meta][146] object
+-   `input` **[Object][144]** A `redux-forms` [input][145] object
+-   `meta` **[Object][144]** A `redux-forms` [meta][146] object
 -   `maxLength` **[Number][141]?** The maximum allowed length of the input
 -   `hideCharacterCount` **[Boolean][139]** Whether to hide the character count if given a maxLength (optional, default `false`)
 
@@ -966,7 +900,7 @@ function BiographyForm ({ handleSubmit, pristine, invalid, submitting }) {
 
 A dynamic error label associated with an input component.
 
-This component is used within [LabeledField][78], and therefore is incorporated into most `lp-components` input components by default.
+This component is used within [LabeledField][70], and therefore is incorporated into most `lp-components` input components by default.
 
 The error label uses the following rules to determine how it will be displayed:
 
@@ -1012,7 +946,7 @@ function ValidatedInput ({
 
 A dynamic label associated with an input component.
 
-This component is used within [LabeledField][78], and therefore is incorporated into most `lp-components` input components by default.
+This component is used within [LabeledField][70], and therefore is incorporated into most `lp-components` input components by default.
 
 The text of the label is set using the following rules:
 
@@ -1021,11 +955,11 @@ The text of the label is set using the following rules:
 -   Else If the `label` prop is set to a string, the label will display that text
 -   Otherwise, the label will be set using the `name` prop.
 
-If `name` is used to set the text, it will be stripped of its prefixes and converted to [start case][155].
+If `name` is used to set the text, it will be stripped of its prefixes and converted to [start case][154].
 
 For instance: `'person.firstName'` becomes `'First Name'`
 
-Note: When using third party form libraries (e.g., [Redux Form][156]), it's likely that setting the `required` prop will turn on the browser's automatic validation, which could cause the library to behave unexpectedly. If the browser validation behavior is causing issues, then add a `noValidate` prop to the form to [turn off][157] automatic validation. (e.g., `<form noValidate></form>`)
+Note: When using third party form libraries (e.g., [Redux Form][155]), it's likely that setting the `required` prop will turn on the browser's automatic validation, which could cause the library to behave unexpectedly. If the browser validation behavior is causing issues, then add a `noValidate` prop to the form to [turn off][156] automatic validation. (e.g., `<form noValidate></form>`)
 
 ### Parameters
 
@@ -1063,8 +997,8 @@ function EmailInput ({
 
 ## LabeledField
 
-A fieldset wrapper for redux-form controlled inputs. This wrapper adds a label component (defaults to [InputLabel][75])
-above the wrapped component and an error component below (defaults to [InputError][72]). Additionally, it adds the class `"error"`
+A fieldset wrapper for redux-form controlled inputs. This wrapper adds a label component (defaults to [InputLabel][67])
+above the wrapped component and an error component below (defaults to [InputError][64]). Additionally, it adds the class `"error"`
 to the fieldset if the input is touched and invalid.
 
 In order to populate the `InputLabel` and `InputError` correctly, you should pass all the props of the corresponding input
@@ -1170,9 +1104,75 @@ convertNameToLabel('person.firstName') // -> 'First Name'
 
 Returns **[String][137]** A user-friendly field label
 
+## fieldOptionsType
+
+A constant representing the `PropTypes` of the `options` prop for select components, e.g., [Select][55] and [CheckboxGroup][23]
+
+Type: PropTypes
+
+## fieldOptionGroupsType
+
+A constant representing the `PropTypes` of the `optionGroups` prop for select components, e.g., [Select][55]
+
+Type: PropTypes
+
+## fieldPropTypesWithValue
+
+A function that takes `PropTypes` for a `redux-forms` [input][145] object.
+Returns an object containing all `PropTypes` for `redux-forms` [Field][157] components.
+
+### Parameters
+
+-   `value` **PropTypes** `PropTypes` object
+
+### Examples
+
+```javascript
+const valuePropType = PropTypes.string
+
+fieldPropTypesWithValue(valuePropType)
+
+// {
+//   input: PropTypes.shape({
+//     value: PropTypes.string.isRequired,
+//     name: PropTypes.string.isRequired,
+//     onBlur: PropTypes.func,
+//     onChange: PropTypes.func
+//   }),
+//   meta: PropTypes.shape({
+//     dirty: PropTypes.bool,
+//     invalid: PropTypes.bool,
+//     pristine: PropTypes.bool,
+//     touched: PropTypes.bool,
+//     valid: PropTypes.bool,
+//   }).isRequired
+// }
+```
+
+Returns **[Object][144]** `PropTypes` for `redux-forms` [input][145] and [meta][146] objects
+
+## defaultValueTypes
+
+A constant representing default `PropTypes` for `redux-forms` [Field][157] values.
+Default types are either `number` or `string`.
+
+Type: PropTypes
+
+## fieldPropTypes
+
+An object containing the default `PropTypes` for `redux-forms` [Field][157] components.
+
+Type: [Object][144]
+
+## checkboxGroupPropTypes
+
+A constant representing the `PropTypes` of the `input` prop for checkbox group components, e.g., [CheckboxGroup][23] and [DropdownCheckboxGroup][35]
+
+Type: PropTypes
+
 ## omitLabelProps
 
-A function that takes a form component `props` object and returns the `props` object with [InputLabel][75] props omitted.
+A function that takes a form component `props` object and returns the `props` object with [InputLabel][67] props omitted.
 Created in order to prevent these props from being passed down to the input component through `...rest`.
 
 Omits the following props:
@@ -1184,7 +1184,7 @@ Omits the following props:
 
 ### Parameters
 
--   `props` **[Object][145]** A props object
+-   `props` **[Object][144]** A props object
 
 ### Examples
 
@@ -1217,7 +1217,7 @@ function Input (props) {
 }
 ```
 
-Returns **[Object][145]** `props` object with [InputLabel][75] props omitted
+Returns **[Object][144]** `props` object with [InputLabel][67] props omitted
 
 ## replaceEmptyStringValue
 
@@ -1341,7 +1341,7 @@ Any message props will be passed through to this component.
 
 ### Parameters
 
--   `message` **[Object][145]** The flash message that will be displayed.
+-   `message` **[Object][144]** The flash message that will be displayed.
 -   `onDismiss` **[Function][138]?** A callback for dismissing the flash message. The dismiss button will only be shown if this callback is provided.
 
 ### Examples
@@ -1366,7 +1366,7 @@ Will pass down any additional props to the inner `FlashMessage` components.
 
 ### Parameters
 
--   `messages` **[Object][145]** The flash messages that will be displayed.
+-   `messages` **[Object][144]** The flash messages that will be displayed.
 -   `limit` **[Number][141]?** Maximum number of concurrent messages to display
 
 ### Examples
@@ -1656,153 +1656,153 @@ Returns **[Function][138]** Returns a function that takes an event and watches f
 
 [11]: #examples-3
 
-[12]: #fieldoptionstype
+[12]: #button
 
-[13]: #fieldoptiongroupstype
+[13]: #parameters-3
 
-[14]: #fieldproptypeswithvalue
+[14]: #examples-4
 
-[15]: #parameters-3
+[15]: #buttonarea
 
-[16]: #examples-4
+[16]: #parameters-4
 
-[17]: #defaultvaluetypes
+[17]: #examples-5
 
-[18]: #fieldproptypes
+[18]: #submitbutton
 
-[19]: #checkboxgroupproptypes
+[19]: #examples-6
 
-[20]: #button
+[20]: #checkbox
 
-[21]: #parameters-4
+[21]: #parameters-5
 
-[22]: #examples-5
+[22]: #examples-7
 
-[23]: #buttonarea
+[23]: #checkboxgroup
 
-[24]: #parameters-5
+[24]: #parameters-6
 
-[25]: #examples-6
+[25]: #examples-8
 
-[26]: #submitbutton
+[26]: #cloudinaryfileinput
 
-[27]: #examples-7
+[27]: #parameters-7
 
-[28]: #checkbox
+[28]: #examples-9
 
-[29]: #parameters-6
+[29]: #colorinput
 
-[30]: #examples-8
+[30]: #parameters-8
 
-[31]: #checkboxgroup
+[31]: #examples-10
 
-[32]: #parameters-7
+[32]: #dateinput
 
-[33]: #examples-9
+[33]: #parameters-9
 
-[34]: #cloudinaryfileinput
+[34]: #examples-11
 
-[35]: #parameters-8
+[35]: #dropdowncheckboxgroup
 
-[36]: #examples-10
+[36]: #parameters-10
 
-[37]: #colorinput
+[37]: #examples-12
 
-[38]: #parameters-9
+[38]: #fileinput
 
-[39]: #examples-11
+[39]: #parameters-11
 
-[40]: #dateinput
+[40]: #examples-13
 
-[41]: #parameters-10
+[41]: #hiddeninput
 
-[42]: #examples-12
+[42]: #examples-14
 
-[43]: #dropdowncheckboxgroup
+[43]: #input
 
-[44]: #parameters-11
+[44]: #parameters-12
 
-[45]: #examples-13
+[45]: #examples-15
 
-[46]: #fileinput
+[46]: #iconinput
 
-[47]: #parameters-12
+[47]: #parameters-13
 
-[48]: #examples-14
+[48]: #examples-16
 
-[49]: #hiddeninput
+[49]: #rangeinput
 
-[50]: #examples-15
+[50]: #parameters-14
 
-[51]: #input
+[51]: #examples-17
 
-[52]: #parameters-13
+[52]: #radiogroup
 
-[53]: #examples-16
+[53]: #parameters-15
 
-[54]: #iconinput
+[54]: #examples-18
 
-[55]: #parameters-14
+[55]: #select
 
-[56]: #examples-17
+[56]: #parameters-16
 
-[57]: #rangeinput
+[57]: #examples-19
 
-[58]: #parameters-15
+[58]: #setterlink
 
-[59]: #examples-18
+[59]: #parameters-17
 
-[60]: #radiogroup
+[60]: #examples-20
 
-[61]: #parameters-16
+[61]: #textarea
 
-[62]: #examples-19
+[62]: #parameters-18
 
-[63]: #select
+[63]: #examples-21
 
-[64]: #parameters-17
+[64]: #inputerror
 
-[65]: #examples-20
+[65]: #parameters-19
 
-[66]: #setterlink
+[66]: #examples-22
 
-[67]: #parameters-18
+[67]: #inputlabel
 
-[68]: #examples-21
+[68]: #parameters-20
 
-[69]: #textarea
+[69]: #examples-23
 
-[70]: #parameters-19
+[70]: #labeledfield
 
-[71]: #examples-22
+[71]: #parameters-21
 
-[72]: #inputerror
+[72]: #examples-24
 
-[73]: #parameters-20
+[73]: #blurdirty
 
-[74]: #examples-23
+[74]: #examples-25
 
-[75]: #inputlabel
+[75]: #convertnametolabel
 
-[76]: #parameters-21
+[76]: #parameters-22
 
-[77]: #examples-24
+[77]: #examples-26
 
-[78]: #labeledfield
+[78]: #fieldoptionstype
 
-[79]: #parameters-22
+[79]: #fieldoptiongroupstype
 
-[80]: #examples-25
+[80]: #fieldproptypeswithvalue
 
-[81]: #blurdirty
+[81]: #parameters-23
 
-[82]: #examples-26
+[82]: #examples-27
 
-[83]: #convertnametolabel
+[83]: #defaultvaluetypes
 
-[84]: #parameters-23
+[84]: #fieldproptypes
 
-[85]: #examples-27
+[85]: #checkboxgroupproptypes
 
 [86]: #omitlabelprops
 
@@ -1918,35 +1918,35 @@ Returns **[Function][138]** Returns a function that takes an event and watches f
 
 [142]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 
-[143]: http://redux-form.com/6.5.0/docs/api/Field.md/#input-props
+[143]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type
 
-[144]: http://redux-form.com/6.5.0/docs/api/Field.md/
+[144]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[145]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[145]: http://redux-form.com/6.5.0/docs/api/Field.md/#input-props
 
 [146]: http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props
 
-[147]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type
+[147]: https://github.com/LaunchPadLab/lp-hoc/blob/master/docs.md#cloudinaryuploader
 
-[148]: https://github.com/LaunchPadLab/lp-hoc/blob/master/docs.md#cloudinaryuploader
+[148]: https://github.com/Hacker0x01/react-datepicker
 
-[149]: https://github.com/Hacker0x01/react-datepicker
+[149]: https://github.com/moment/moment
 
-[150]: https://github.com/moment/moment
+[150]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
 
-[151]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
+[151]: https://github.com/Hacker0x01/react-datepicker/blob/master/docs/datepicker.md
 
-[152]: https://github.com/Hacker0x01/react-datepicker/blob/master/docs/datepicker.md
+[152]: README.md#dateinput-styles
 
-[153]: README.md#dateinput-styles
+[153]: DropdownSelect
 
-[154]: DropdownSelect
+[154]: https://en.wikipedia.org/wiki/Letter_case#Stylistic_or_specialised_usage
 
-[155]: https://en.wikipedia.org/wiki/Letter_case#Stylistic_or_specialised_usage
+[155]: https://redux-form.com
 
-[156]: https://redux-form.com
+[156]: https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation#Validating_forms_using_JavaScript
 
-[157]: https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation#Validating_forms_using_JavaScript
+[157]: http://redux-form.com/6.5.0/docs/api/Field.md/
 
 [158]: https://github.com/LaunchPadLab/redux-flash
 

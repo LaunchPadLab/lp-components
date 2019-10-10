@@ -6,6 +6,8 @@ export {
   startCase,
   range,
   noop,
+  first,
+  toLower,
   union as addToArray,
   xor as removeFromArray,
 } from 'lodash'

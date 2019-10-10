@@ -10,7 +10,7 @@ const TabBar = dynamicInput({
 storiesOf('TabBar', module)
   .add('horizontal', () => (
     <TabBar
-      options={['Tab 1', 'Tab 2']}
+      options={['Tab 1', 'Tab 2', 'Tab 3', 'Tab 4']}
       onChange={action('tabbed horizontally')}
     />
   ))
@@ -19,6 +19,13 @@ storiesOf('TabBar', module)
       options={['Tab 1', 'Tab 2']}
       vertical
       onChange={action('tabbed vertically')}
+    />
+  ))
+  .add('with default specified', () => (
+    <TabBar
+      options={['Tab 1', 'Tab 2', 'Tab 3', 'Tab 4']}
+      onChange={action('tabbed horizontally')}
+      defaultValue="Tab 2"
     />
   ))
 
