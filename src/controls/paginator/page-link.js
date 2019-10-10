@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import { noop, triggerOnKeys } from '../../utils'
 import classnames from 'classnames'
 
+const ENTER_KEY_CODE = 13
+
 const propTypes = {
   className: PropTypes.string,
   active: PropTypes.bool,
@@ -21,9 +23,9 @@ function PageLink ({ className, active, onClick, children, ...rest }) {
     <li className={ classnames(className, { 'active': active }) }>
       <a
         onClick={ onClick }
-        onKeyPress={ triggerOnKeys(onClick, 13) } // keyboard interaction requirement
+        onKeyPress={ triggerOnKeys(onClick, ENTER_KEY_CODE) } // keyboard interaction requirement
         aria-current={ active ? 'page' : false }
-        tabIndex="0" // add back to tab order
+        tabIndex="0" // add back to natural tab order (automatically removed without an href)
         { ...rest }
       >
         { children }
