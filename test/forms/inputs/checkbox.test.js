@@ -18,14 +18,17 @@ test('Checkbox toggles value when clicked', () => {
   expect(newValue).toEqual(true)
 })
 
-test('Checkbox is given an aria described by attribute', () => {
+test('Checkbox is given an aria-describedby attribute when there is an input error', () => {
   const name = "test"
   const props = { 
     input: {
       name,
       value: false,
     }, 
-    meta: {} 
+    meta: {
+      touched: true,
+      invalid: true,
+    } 
   }
   const wrapper = mount(<Checkbox { ...props }/>)
   expect(wrapper.find('input').prop('aria-describedby')).toContain(name)

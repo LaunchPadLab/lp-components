@@ -6,6 +6,7 @@ const datePickerIncludePaths = [ path.resolve(__dirname, '../node_modules/react-
 module.exports = async ({ config }) => {
   config.module.rules.push({
     test: /\.scss$/,
+    sideEffects: true,
     use: [
       'style-loader',
       'css-loader',
