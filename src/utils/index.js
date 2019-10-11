@@ -6,6 +6,7 @@ export {
   startCase,
   range,
   noop,
+  isString,
   union as addToArray,
   xor as removeFromArray,
 } from 'lodash'

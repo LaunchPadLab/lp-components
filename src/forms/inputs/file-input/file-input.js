@@ -4,7 +4,7 @@ import { buttonClasses, fieldPropTypes, hasInputError, isImageType, omitLabelPro
 import { LabeledField } from '../../labels'
 import FilePreview from './file-preview'
 import ImagePreview from './image-preview';
-import { noop, generateInputErrorId, removeAt } from '../../../utils'
+import { get, noop, generateInputErrorId, removeAt, castArray, isString } from '../../../utils'
 
 /**
  *
@@ -26,7 +26,7 @@ import { noop, generateInputErrorId, removeAt } from '../../../utils'
  * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
  * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @param {Boolean} [multiple=false] - A flag indicating whether or not to accept multiple files
- * @param {Function} [onLoad] - A callback fired when the file is loaded
+ * @param {Function} [onRead] - A callback fired when the file data has been read
  * @param {Function} [onRemove] - A callback fired when the file is removed (only available when multiple files can be uploaded)
  * @param {String} [thumbnail] - A placeholder image to display before the file is loaded
  * @param {Boolean} [hidePreview=false] - A flag indicating whether or not to hide the file preview
@@ -50,7 +50,7 @@ import { noop, generateInputErrorId, removeAt } from '../../../utils'
 
 const propTypes = {
   ...fieldPropTypes,
-  onLoad: PropTypes.func,
+  onRead: PropTypes.func,
   thumbnail: PropTypes.string,
   hidePreview: PropTypes.bool,
   className: PropTypes.string,
@@ -63,10 +63,11 @@ const propTypes = {
 
 const defaultProps = {
   multiple: false,
-  onLoad: noop,
+  onRead: noop,
   onRemove: noop,
 }
 
+// Read a file and convert it to a base64 string (promisified)
 function readFile (file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
@@ -83,63 +84,96 @@ class FileInput extends React.Component {
 
   constructor (props) {
     super(props)
-    this.state = { files: [] }
-    this.loadFiles = this.loadFiles.bind(this)
+    // this.state = { files: [] } // TODO: Should we be doing this?
+    this.readFiles = this.readFiles.bind(this)
     this.onChange = this.onChange.bind(this)
     this.removeFile = this.removeFile.bind(this)
+    
+    this.fileInput = null
+    this.setFileInputRef = element => {
+      this.fileInput = element
+    }
+    this.clearFileInput = () => {
+      // Focus the text input using the raw DOM API
+      if (this.fileInput) this.fileInput.value = ""
+    }
   }
 
-  loadFiles (e) {
+  readFiles (e) {
+    const existingFiles = castArray(get('value', this.props) || []) // or this.state.files
+    
     // Read files as data URL and call change handlers
     const files = [...e.target.files] // when multiple=false, `files` is still array-like
     
     // Do not reload files that have been successfully loaded
     const filesToLoad = files.filter((file) => {
-      return !this.state.files.some((existingFile) => existingFile.name === file.name)
+      return !existingFiles.some(({ name }) => name === file.name)
     })
     
     return filesToLoad.map((file) => {
       return readFile(file)
         .then((fileData) => {
-          this.onChange(fileData, file)
+          // Pass metadata related to file, but not actual File object (properties are not enumerable / visible in Redux)
+          return this.onChange({ file: { name: file.name, size: file.size, type: file.type }, fileData })
         })
     })
   }
   
-  // TODO: Should this fire once or per file?
-  onChange (fileData, file) {
+  async onChange (fileInfo) {
     // Call redux forms onChange and onLoad callback
-    const { input: { onChange, value }, onLoad, multiple } = this.props
+    const { input: { onChange, value: existingFiles }, onRead, multiple } = this.props
     
-    if (multiple) {
-      onChange([...value, fileData])
-      this.setState((state) => {
-        return { files: [ ...state.files, file ] }
-      })
-    } else {
-      onChange(fileData)
-      this.setState({ files: [file] })
+    // Only add value to form if successfully loads
+    try {
+      const result = await Promise.resolve(onRead(fileInfo)) // wrap in a promise (just in case)
+      
+      
+      // Add to array of multiple files are allowed, otherwise replace
+      const filesToKeep = multiple ? existingFiles : []
+      const fileToAdd = result ? result : fileInfo
+      
+      onChange([...filesToKeep, fileToAdd])
+      
+    } catch (e) {
+      // eslint-disable-next-line
+      console.error(e)
     }
     
-    // TODO: should this be required to fulfill successfully before firing onChange / set state?
-    onLoad(fileData, file)
+    // if (multiple) {
+    //   onChange([...value, fileData])
+    //   this.setState((state) => {
+    //     return { files: [ ...state.files, file ] }
+    //   })
+    // } else {
+    //   onChange(fileData)
+    //   this.setState({ files: [file] })
+    // }
+    // onLoad(fileData, file)
   }
   
-  removeFile (idx) {
+  async removeFile (idx) {
     const { input: { onChange, value }, onRemove } = this.props
-    const [removedValue, remainingValues] = removeAt(value, idx)
-    const [removedFile, remainingFiles] = removeAt(this.state.files, idx)
+    const [removedFile, remainingFiles] = removeAt(value, idx)
+    // const [removedFile, remainingFiles] = removeAt(this.state.files, idx)
     
-    onChange(remainingValues)
-    onRemove(removedValue, removedFile)
-    this.setState({ files: remainingFiles })
+    try {
+      await Promise.resolve(onRemove(removedFile)) // wrap in a promise (just in case)
+      onChange(remainingFiles)
+      
+      // If all files have been removed, then reset the native input
+      if (!remainingFiles.length) this.clearFileInput()
+    } catch (e) {
+      // do nothing -- or maybe throw a field error?
+    }
+    
+    // this.setState({ files: remainingFiles })
   }
 
   render () {
     const {
       input: { name, value },
       meta, // eslint-disable-line no-unused-vars
-      onLoad, // eslint-disable-line no-unused-vars
+      onRead, // eslint-disable-line no-unused-vars
       className, // eslint-disable-line no-unused-vars
       submitting,
       accept,
@@ -148,39 +182,47 @@ class FileInput extends React.Component {
       removeComponent: RemoveComponent = RemoveButton,
       ...rest
     } = omitLabelProps(this.props)
-    const { files } = this.state
+    // const { files } = this.state
     const wrapperClass = buttonClasses({ style: 'secondary-light', submitting })
     const labelText = multiple ? 'Select File(s)' : 'Select File'
+    
+    const values = castArray(value || [])
     
     return (
       <LabeledField { ...this.props }>
         <div className="fileupload fileupload-exists">
           { 
             !hidePreview &&
-            files.map((file, idx) => (
-              <div key={file.name}>
-                <RenderPreview
-                  file={file}
-                  value={value[idx]}
-                  {...rest}
-                />
-                { multiple && <RemoveComponent onRemove={() => this.removeFile(idx) } /> }
-              </div>
-            ))
+            values.map((value, idx) => {
+              const fileValue = isString(value) ? value : (get('fileUpload.url', value) || get('fileData', value))
+              const file = isString(value) ? { name: 'Uploaded File' } : get('file', value)
+              
+              return (
+                <div key={file.name}>
+                  <RenderPreview
+                    file={file}
+                    value={fileValue}
+                    {...rest}
+                  />
+                  { multiple && <RemoveComponent onRemove={() => this.removeFile(idx) } /> }
+                </div>
+              )
+            })
           }
           <div className={ wrapperClass }>
             <span className="fileupload-exists" id={name+'-label'}> { labelText } </span>
-              <input 
+              <input
                 {...{
                   id: name,
                   name,
                   type: 'file',
-                  onClick: (e) => { e.target.value = "" }, // force onChange to fire every time
-                  onChange: this.loadFiles,
+                  onClick: this.clearFileInput, // force onChange to fire _every_ time (use case: attempting to upload the same file after a failure)
+                  onChange: this.readFiles,
                   accept,
                   multiple,
                   'aria-labelledby': name + '-label',
                   'aria-describedby': hasInputError(meta) ? generateInputErrorId(name) : null,
+                  ref: this.setFileInputRef,
                 }}
               />
           </div>

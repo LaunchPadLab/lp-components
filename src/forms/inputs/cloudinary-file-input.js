@@ -62,15 +62,18 @@ function CloudinaryFileInput ({
   uploadStatus, 
   ...rest 
 }) {
-  const { onChange } = input
+  // const { onChange } = input
   return (
     <FileInput
-      input={{ ...input, onChange: noop }}
-      onLoad={ (fileData, file) => upload(fileData, file)
-        .then((res) => {
-          onChange(res.url)
-          return onUploadSuccess(res)
-        }, (err) => onUploadFailure(err))
+      input={ input }
+      onRead={({ fileData, file }) => {
+        return upload(fileData, file)
+          .then((res) => {
+            // onChange(res.url)
+            onUploadSuccess(res)
+            return { file, fileUpload: res }
+          }, (err) => onUploadFailure(err))
+        }
       }
       className={ classnames(uploadStatus, className) }
       { ...rest }
