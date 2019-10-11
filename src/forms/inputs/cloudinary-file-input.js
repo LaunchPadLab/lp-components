@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import FileInput from './file-input'
-import { fieldPropTypes } from '../helpers'
+import { fileInputPropTypes } from '../helpers'
 import { compose, cloudinaryUploader, noop } from '../../utils'
 import classnames from 'classnames'
 
@@ -41,7 +41,7 @@ import classnames from 'classnames'
  */
 
 const propTypes = {
-  ...fieldPropTypes,
+  ...fileInputPropTypes,
   onUploadFailure: PropTypes.func,
   onUploadSuccess: PropTypes.func,
   upload: PropTypes.func.isRequired,

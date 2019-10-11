@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { buttonClasses, fieldPropTypes, hasInputError, isImageType, omitLabelProps } from '../../helpers'
+import { buttonClasses, fileInputPropTypes, hasInputError, isImageType, omitLabelProps } from '../../helpers'
 import { LabeledField } from '../../labels'
 import FilePreview from './file-preview'
 import ImagePreview from './image-preview';
-import { get, noop, generateInputErrorId, removeAt, castArray, isString } from '../../../utils'
+import { first, get, noop, generateInputErrorId, removeAt, castArray, isString, identity } from '../../../utils'
 
 /**
  *
@@ -49,7 +49,7 @@ import { get, noop, generateInputErrorId, removeAt, castArray, isString } from '
  */
 
 const propTypes = {
-  ...fieldPropTypes,
+  ...fileInputPropTypes,
   onRead: PropTypes.func,
   thumbnail: PropTypes.string,
   hidePreview: PropTypes.bool,
@@ -63,7 +63,7 @@ const propTypes = {
 
 const defaultProps = {
   multiple: false,
-  onRead: noop,
+  onRead: identity,
   onRemove: noop,
 }
 
@@ -80,11 +80,39 @@ function readFile (file) {
   })
 }
 
+// Copy metadata related to a file, but not the actual File object. These
+// properties are not enumerable / visible in Redux.
+function deepCloneFile (file) {
+  return {
+    name: file.name,
+    size: file.size,
+    type: file.type,
+    lastModified: file.lastModified,
+  }
+}
+
+function castToFileArray (values) {
+  if (!values) return []
+  return castArray(values)
+}
+
+function getFileObject (fileInfo) {
+  if (isString(fileInfo)) return ({ name: 'Uploaded File' })
+  return fileInfo.file
+}
+
+// Checks for url and then data (if not a string)
+function getFileValue (fileInfo) {
+  if (isString(fileInfo)) return fileInfo
+  return get('fileUpload.url', fileInfo) || get('fileData', fileInfo)
+}
+
+
 class FileInput extends React.Component {
 
   constructor (props) {
     super(props)
-    // this.state = { files: [] } // TODO: Should we be doing this?
+    
     this.readFiles = this.readFiles.bind(this)
     this.onChange = this.onChange.bind(this)
     this.removeFile = this.removeFile.bind(this)
@@ -94,16 +122,13 @@ class FileInput extends React.Component {
       this.fileInput = element
     }
     this.clearFileInput = () => {
-      // Focus the text input using the raw DOM API
       if (this.fileInput) this.fileInput.value = ""
     }
   }
 
   readFiles (e) {
-    const existingFiles = castArray(get('value', this.props) || []) // or this.state.files
-    
-    // Read files as data URL and call change handlers
-    const files = [...e.target.files] // when multiple=false, `files` is still array-like
+    const files = [...e.target.files]
+    const existingFiles = castToFileArray(this.props.input.value)
     
     // Do not reload files that have been successfully loaded
     const filesToLoad = files.filter((file) => {
@@ -113,60 +138,43 @@ class FileInput extends React.Component {
     return filesToLoad.map((file) => {
       return readFile(file)
         .then((fileData) => {
-          // Pass metadata related to file, but not actual File object (properties are not enumerable / visible in Redux)
-          return this.onChange({ file: { name: file.name, size: file.size, type: file.type }, fileData })
+          return this.onChange({ file: deepCloneFile(file), fileData })
         })
     })
   }
   
   async onChange (fileInfo) {
-    // Call redux forms onChange and onLoad callback
     const { input: { onChange, value: existingFiles }, onRead, multiple } = this.props
     
-    // Only add value to form if successfully loads
     try {
-      const result = await Promise.resolve(onRead(fileInfo)) // wrap in a promise (just in case)
+      // Only add value to form if successfully loads
+      const fileToAdd = await Promise.resolve(onRead(fileInfo)) // wrap in a promise (just in case)
       
-      
-      // Add to array of multiple files are allowed, otherwise replace
-      const filesToKeep = multiple ? existingFiles : []
-      const fileToAdd = result ? result : fileInfo
-      
-      onChange([...filesToKeep, fileToAdd])
-      
+      if (!multiple) return onChange(fileToAdd)
+      return onChange([...existingFiles, fileToAdd])
     } catch (e) {
       // eslint-disable-next-line
       console.error(e)
     }
-    
-    // if (multiple) {
-    //   onChange([...value, fileData])
-    //   this.setState((state) => {
-    //     return { files: [ ...state.files, file ] }
-    //   })
-    // } else {
-    //   onChange(fileData)
-    //   this.setState({ files: [file] })
-    // }
-    // onLoad(fileData, file)
   }
   
   async removeFile (idx) {
-    const { input: { onChange, value }, onRemove } = this.props
+    const { input: { onChange, value }, multiple, onRemove } = this.props
     const [removedFile, remainingFiles] = removeAt(value, idx)
-    // const [removedFile, remainingFiles] = removeAt(this.state.files, idx)
     
     try {
       await Promise.resolve(onRemove(removedFile)) // wrap in a promise (just in case)
-      onChange(remainingFiles)
       
       // If all files have been removed, then reset the native input
       if (!remainingFiles.length) this.clearFileInput()
+      
+      if (multiple) return onChange(remainingFiles)
+      
+      return onChange(first(remainingFiles))
     } catch (e) {
-      // do nothing -- or maybe throw a field error?
+      // eslint-disable-next-line
+      console.error(e)
     }
-    
-    // this.setState({ files: remainingFiles })
   }
 
   render () {
@@ -182,11 +190,9 @@ class FileInput extends React.Component {
       removeComponent: RemoveComponent = RemoveButton,
       ...rest
     } = omitLabelProps(this.props)
-    // const { files } = this.state
     const wrapperClass = buttonClasses({ style: 'secondary-light', submitting })
     const labelText = multiple ? 'Select File(s)' : 'Select File'
-    
-    const values = castArray(value || [])
+    const values = castToFileArray(value)
     
     return (
       <LabeledField { ...this.props }>
@@ -194,8 +200,9 @@ class FileInput extends React.Component {
           { 
             !hidePreview &&
             values.map((value, idx) => {
-              const fileValue = isString(value) ? value : (get('fileUpload.url', value) || get('fileData', value))
-              const file = isString(value) ? { name: 'Uploaded File' } : get('file', value)
+              // Maintain basic backwards compatability by accepting a string value and coercing it into the right shapee
+              const file = getFileObject(value)
+              const fileValue = getFileValue(value)
               
               return (
                 <div key={file.name}>
