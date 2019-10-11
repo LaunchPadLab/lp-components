@@ -1,7 +1,6 @@
 export {
   castArray,
   has,
-  first,
   identity,
   isNil,
   startCase,

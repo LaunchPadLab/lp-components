@@ -4,7 +4,7 @@ import { buttonClasses, fileInputPropTypes, hasInputError, isImageType, omitLabe
 import { LabeledField } from '../../labels'
 import FilePreview from './file-preview'
 import ImagePreview from './image-preview';
-import { first, get, noop, generateInputErrorId, removeAt, castArray, isString, identity } from '../../../utils'
+import { get, noop, generateInputErrorId, removeAt, castArray, isString, identity } from '../../../utils'
 
 /**
  *
@@ -149,9 +149,9 @@ class FileInput extends React.Component {
     try {
       // Only add value to form if successfully loads
       const fileToAdd = await Promise.resolve(onRead(fileInfo)) // wrap in a promise (just in case)
+      const filesToKeep = multiple ? existingFiles : [] // overwrite existing files for a single file input
       
-      if (!multiple) return onChange(fileToAdd)
-      return onChange([...existingFiles, fileToAdd])
+      return onChange([...filesToKeep, fileToAdd])
     } catch (e) {
       // eslint-disable-next-line
       console.error(e)
@@ -169,8 +169,7 @@ class FileInput extends React.Component {
       if (!remainingFiles.length) this.clearFileInput()
       
       if (multiple) return onChange(remainingFiles)
-      
-      return onChange(first(remainingFiles))
+      return onChange([])
     } catch (e) {
       // eslint-disable-next-line
       console.error(e)
