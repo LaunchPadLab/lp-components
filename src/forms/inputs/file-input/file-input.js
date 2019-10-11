@@ -126,7 +126,7 @@ class FileInput extends React.Component {
     }
   }
 
-  readFiles (e) {
+  async readFiles (e) {
     const files = [...e.target.files]
     const existingFiles = castToFileArray(this.props.input.value)
     
@@ -135,12 +135,17 @@ class FileInput extends React.Component {
       return !existingFiles.some(({ name }) => name === file.name)
     })
     
-    return filesToLoad.map((file) => {
-      return readFile(file)
-        .then((fileData) => {
-          return this.onChange({ file: deepCloneFile(file), fileData })
-        })
-    })
+    // Read files synchronously to ensure that files are not written over when referencing the current value of the input
+    // eslint-disable-next-line
+    for (const fileToLoad of filesToLoad) {
+      try {
+        const fileData = await readFile(fileToLoad)
+        await this.onChange({ file: deepCloneFile(fileToLoad), fileData })
+      } catch (e) {
+        // eslint-disable-next-line
+        console.error('Could not read '+file.name, e)
+      }
+    }
   }
   
   async onChange (fileInfo) {
