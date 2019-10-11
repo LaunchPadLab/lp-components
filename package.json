@@ -1,6 +1,6 @@
 {
   "name": "@launchpadlab/lp-components",
-  "version": "3.26.2",
+  "version": "3.27.0",
   "engines": {
     "node": "^8.0.0 || ^10.13.0"
   },
@@ -16,7 +16,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "start": "yarn run build:development",
+    "start": "yarn && yarn build:development",
     "build": "yarn build:cjs && yarn build:esm",
     "build:cjs": "babel src --out-dir lib",
     "build:esm": "BABEL_ENV=esm babel src --out-dir esm",
