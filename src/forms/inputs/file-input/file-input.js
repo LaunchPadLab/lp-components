@@ -5,6 +5,7 @@ import { LabeledField } from '../../labels'
 import FilePreview from './file-preview'
 import ImagePreview from './image-preview';
 import { get, noop, generateInputErrorId, removeAt, castArray, isString, identity } from '../../../utils'
+import classnames from 'classnames'
 
 /**
  *
@@ -106,7 +107,6 @@ function getFileValue (fileInfo) {
   if (isString(fileInfo)) return fileInfo
   return get('fileUpload.url', fileInfo) || get('fileData', fileInfo)
 }
-
 
 class FileInput extends React.Component {
 
@@ -220,22 +220,23 @@ class FileInput extends React.Component {
               )
             })
           }
-          <div className={ wrapperClass }>
-            <span className="fileupload-exists" id={name+'-label'}> { labelText } </span>
-              <input
-                {...{
-                  id: name,
-                  name,
-                  type: 'file',
-                  onClick: this.clearFileInput, // force onChange to fire _every_ time (use case: attempting to upload the same file after a failure)
-                  onChange: this.readFiles,
-                  accept,
-                  multiple,
-                  'aria-labelledby': name + '-label',
-                  'aria-describedby': hasInputError(meta) ? generateInputErrorId(name) : null,
-                  ref: this.setFileInputRef,
-                }}
-              />
+          <div>
+            <input
+              {...{
+                id: name,
+                name,
+                type: 'file',
+                onClick: this.clearFileInput, // force onChange to fire _every_ time (use case: attempting to upload the same file after a failure)
+                onChange: this.readFiles,
+                accept,
+                multiple,
+                'aria-labelledby': name + '-label',
+                'aria-describedby': hasInputError(meta) ? generateInputErrorId(name) : null,
+                ref: this.setFileInputRef,
+              }}
+            />
+            {/* Include after input to allowing for styling with adjacent sibling selector */}
+            <span className={classnames("fileupload-exists", wrapperClass)} id={name+'-label'}> { labelText } </span>
           </div>
         </div>
       </LabeledField>
