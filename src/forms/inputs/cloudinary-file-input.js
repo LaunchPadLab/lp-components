@@ -1,12 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import FileInput from './file-input'
+import DefaultFileInput from './file-input'
 import { fileInputPropTypes } from '../helpers'
-import { compose, cloudinaryUploader, noop } from '../../utils'
+import { compose, cloudinaryUploader, noop, set } from '../../utils'
 import classnames from 'classnames'
 
 /**
- *
  * A wrapper around the {@link FileInput} component that automatically uploads files to cloudinary via the [cloudinaryUploader](https://github.com/LaunchPadLab/lp-hoc/blob/master/docs.md#cloudinaryuploader) HOC.
  * The value of this input is the public URL of the uploaded file.
  * Additionally, the `uploadStatus` passed down from `cloudinaryUploader` will be added as a class on the input.
@@ -53,28 +52,40 @@ const defaultProps = {
   onUploadFailure: noop,
 }
 
-function CloudinaryFileInput ({ 
+function mapCloudinaryResponse (file, response) {
+  return compose(
+    set('url', response.url),
+    set('meta.cloudinary', response)
+  )(file)
+}
+
+function CloudinaryFileInput ({
   input,
   className,
   onUploadFailure,
   onUploadSuccess,
-  upload, 
-  uploadStatus, 
+  upload,
+  uploadStatus,
+  fileInput: FileInput = DefaultFileInput,
   ...rest 
 }) {
-  // const { onChange } = input
   return (
     <FileInput
       input={ input }
-      onRead={({ fileData, file }) => {
-        return upload(fileData, file)
-          .then((res) => {
-            // onChange(res.url)
-            onUploadSuccess(res)
-            return { file, fileUpload: res }
-          }, (err) => onUploadFailure(err))
+      onRead={async (files) => {
+        try {
+          const uploadFilePromises = files.map(async (file) => {
+            const cloudinaryRes = await upload(file.url, file)
+            return mapCloudinaryResponse(file, cloudinaryRes)
+          })
+          
+          const uploadedFiles = await Promise.all(uploadFilePromises)
+          onUploadSuccess(uploadedFiles)
+          return uploadedFiles
+        } catch (e) {
+          onUploadFailure(e)
         }
-      }
+      }}
       className={ classnames(uploadStatus, className) }
       { ...rest }
     />
