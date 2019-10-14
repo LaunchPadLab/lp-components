@@ -1,14 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { buttonClasses, fileInputPropTypes, hasInputError, isImageType, omitLabelProps } from '../../helpers'
-import { LabeledField } from '../../labels'
+import { InputError, LabeledField } from '../../labels'
 import FilePreview from './file-preview'
 import ImagePreview from './image-preview';
-import { get, noop, generateInputErrorId, removeAt, castArray, isString, identity } from '../../../utils'
+import { first, noop, generateInputErrorId, removeAt, identity } from '../../../utils'
 import classnames from 'classnames'
+import { castToFileArray, readFiles } from './helpers'
 
 /**
- *
  * A file input that can be used in a `redux-forms`-controlled form. 
  * The value of this input is the data URL of the loaded file. 
  *
@@ -59,61 +59,21 @@ const propTypes = {
   children: PropTypes.node,
   multiple: PropTypes.bool,
   onRemove: PropTypes.func,
-  removeText: PropTypes.string,
+  selectText: PropTypes.string,
 }
 
 const defaultProps = {
   multiple: false,
   onRead: identity,
   onRemove: noop,
-}
-
-// Read a file and convert it to a base64 string (promisified)
-function readFile (file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.onload = (readEvent) => {
-      resolve(readEvent.target.result)
-    }
-    reader.onerror = reject
-    
-    reader.readAsDataURL(file)
-  })
-}
-
-// Copy metadata related to a file, but not the actual File object. These
-// properties are not enumerable / visible in Redux.
-function deepCloneFile (file) {
-  return {
-    name: file.name,
-    size: file.size,
-    type: file.type,
-    lastModified: file.lastModified,
-  }
-}
-
-function castToFileArray (values) {
-  if (!values) return []
-  return castArray(values)
-}
-
-function getFileObject (fileInfo) {
-  if (isString(fileInfo)) return ({ name: 'Uploaded File' })
-  return fileInfo.file
-}
-
-// Checks for url and then data (if not a string)
-function getFileValue (fileInfo) {
-  if (isString(fileInfo)) return fileInfo
-  return get('fileUpload.url', fileInfo) || get('fileData', fileInfo)
+  selectText: '',
 }
 
 class FileInput extends React.Component {
-
   constructor (props) {
     super(props)
     
-    this.readFiles = this.readFiles.bind(this)
+    this.state = { errors: null }
     this.onChange = this.onChange.bind(this)
     this.removeFile = this.removeFile.bind(this)
     
@@ -125,41 +85,20 @@ class FileInput extends React.Component {
       if (this.fileInput) this.fileInput.value = ""
     }
   }
-
-  async readFiles (e) {
-    const files = [...e.target.files]
-    const existingFiles = castToFileArray(this.props.input.value)
-    
-    // Do not reload files that have been successfully loaded
-    const filesToLoad = files.filter((file) => {
-      return !existingFiles.some(({ name }) => name === file.name)
-    })
-    
-    // Read files synchronously to ensure that files are not written over when referencing the current value of the input
-    // eslint-disable-next-line
-    for (const fileToLoad of filesToLoad) {
-      try {
-        const fileData = await readFile(fileToLoad)
-        await this.onChange({ file: deepCloneFile(fileToLoad), fileData })
-      } catch (e) {
-        // eslint-disable-next-line
-        console.error('Could not read '+file.name, e)
-      }
-    }
-  }
   
-  async onChange (fileInfo) {
+  async onChange (fileValues) {
     const { input: { onChange, value: existingFiles }, onRead, multiple } = this.props
     
     try {
-      // Only add value to form if successfully loads
-      const fileToAdd = await Promise.resolve(onRead(fileInfo)) // wrap in a promise (just in case)
-      const filesToKeep = multiple ? existingFiles : [] // overwrite existing files for a single file input
-      
-      return onChange([...filesToKeep, fileToAdd])
+      // Only add value to form if file(s) successfully load
+      const filesToAdd = await Promise.resolve(onRead(fileValues)) // wrap in a promise (just in case)
+      if (!filesToAdd) return
+      if (!multiple) return onChange(first(filesToAdd))
+      return onChange([...existingFiles, ...filesToAdd])
     } catch (e) {
       // eslint-disable-next-line
       console.error(e)
+      this.setState({ errors: e })
     }
   }
   
@@ -174,10 +113,11 @@ class FileInput extends React.Component {
       if (!remainingFiles.length) this.clearFileInput()
       
       if (multiple) return onChange(remainingFiles)
-      return onChange([])
+      return onChange(null)
     } catch (e) {
       // eslint-disable-next-line
       console.error(e)
+      this.setState({ errors: e })
     }
   }
 
@@ -192,10 +132,12 @@ class FileInput extends React.Component {
       hidePreview,
       multiple,
       removeComponent: RemoveComponent = RemoveButton,
+      selectText,
       ...rest
     } = omitLabelProps(this.props)
+    const { errors } = this.state
     const wrapperClass = buttonClasses({ style: 'secondary-light', submitting })
-    const labelText = multiple ? 'Select File(s)' : 'Select File'
+    const labelText = selectText || (multiple ? 'Select File(s)' : 'Select File')
     const values = castToFileArray(value)
     
     return (
@@ -204,17 +146,9 @@ class FileInput extends React.Component {
           { 
             !hidePreview &&
             values.map((value, idx) => {
-              // Maintain basic backwards compatability by accepting a string value and coercing it into the right shapee
-              const file = getFileObject(value)
-              const fileValue = getFileValue(value)
-              
               return (
-                <div key={file.name}>
-                  <RenderPreview
-                    file={file}
-                    value={fileValue}
-                    {...rest}
-                  />
+                <div key={value.name}>
+                  <RenderPreview value={value} {...rest} />
                   { multiple && <RemoveComponent onRemove={() => this.removeFile(idx) } /> }
                 </div>
               )
@@ -227,7 +161,11 @@ class FileInput extends React.Component {
                 name,
                 type: 'file',
                 onClick: this.clearFileInput, // force onChange to fire _every_ time (use case: attempting to upload the same file after a failure)
-                onChange: this.readFiles,
+                onChange: async (e) => {
+                  this.setState({ errors: null })
+                  const files = await readFiles({ newFiles: [...e.target.files], existingFiles: values })
+                  return this.onChange(files)
+                },
                 accept,
                 multiple,
                 'aria-labelledby': name + '-label',
@@ -238,6 +176,7 @@ class FileInput extends React.Component {
             {/* Include after input to allowing for styling with adjacent sibling selector */}
             <span className={classnames("fileupload-exists", wrapperClass)} id={name+'-label'}> { labelText } </span>
           </div>
+          { errors && <InputError error={errors} className="field-warning" touched invalid /> }
         </div>
       </LabeledField>
     )
@@ -246,18 +185,17 @@ class FileInput extends React.Component {
 
 // eslint-disable-next-line react/prop-types
 function RenderPreview ({
-  file,
   value,
   thumbnail,
   previewComponent: Component,
   children,
   ...rest
 }) {
-  if (Component) return <Component file={ file } value={ value } { ...rest } />
+  if (Component) return <Component value={ value } { ...rest } />
   if (children) return children
-  const renderImagePreview = isImageType(file) || thumbnail
-  if (renderImagePreview) return <ImagePreview image={ value || thumbnail } />
-  return <FilePreview file={ file } />
+  const renderImagePreview = isImageType(value.type) || thumbnail
+  if (renderImagePreview) return <ImagePreview image={ value.url || thumbnail } />
+  return <FilePreview name={ value.name } />
 }
 
 function RemoveButton ({ onRemove }) {
