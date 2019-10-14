@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import DefaultFileInput from './file-input'
-import { fileInputPropTypes } from '../helpers'
+import { fileInputPropTypes, readFilesAsDataUrls } from '../helpers'
 import { compose, cloudinaryUploader, noop, set } from '../../utils'
 import classnames from 'classnames'
 
@@ -41,6 +41,7 @@ import classnames from 'classnames'
 
 const propTypes = {
   ...fileInputPropTypes,
+  fileInput: PropTypes.func,
   onUploadFailure: PropTypes.func,
   onUploadSuccess: PropTypes.func,
   upload: PropTypes.func.isRequired,
@@ -48,6 +49,7 @@ const propTypes = {
 }
 
 const defaultProps = {
+  fileInput: DefaultFileInput,
   onUploadSuccess: noop,
   onUploadFailure: noop,
 }
@@ -66,25 +68,29 @@ function CloudinaryFileInput ({
   onUploadSuccess,
   upload,
   uploadStatus,
-  fileInput: FileInput = DefaultFileInput,
-  ...rest 
+  fileInput: FileInput,
+  ...rest
 }) {
   return (
     <FileInput
       input={ input }
-      onRead={async (files) => {
+      readFiles={async (files) => {
+        let uploadedFiles = null
         try {
-          const uploadFilePromises = files.map(async (file) => {
+          const filesWithDataUrls = await readFilesAsDataUrls(files)
+          const uploadFilePromises = filesWithDataUrls.map(async (file) => {
             const cloudinaryRes = await upload(file.url, file)
             return mapCloudinaryResponse(file, cloudinaryRes)
           })
           
-          const uploadedFiles = await Promise.all(uploadFilePromises)
-          onUploadSuccess(uploadedFiles)
-          return uploadedFiles
+          uploadedFiles = await Promise.all(uploadFilePromises)
         } catch (e) {
           onUploadFailure(e)
+          throw e
         }
+        
+        onUploadSuccess(uploadedFiles)
+        return input.onChange(uploadedFiles)
       }}
       className={ classnames(uploadStatus, className) }
       { ...rest }
