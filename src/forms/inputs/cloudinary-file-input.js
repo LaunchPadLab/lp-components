@@ -6,20 +6,22 @@ import { compose, cloudinaryUploader, noop, set } from '../../utils'
 import classnames from 'classnames'
 
 /**
- * A wrapper around the {@link FileInput} component that automatically uploads files to cloudinary via the [cloudinaryUploader](https://github.com/LaunchPadLab/lp-hoc/blob/master/docs.md#cloudinaryuploader) HOC.
- * The value of this input is the public URL of the uploaded file.
+ * A wrapper around a file input component (defaults to {@link FileInput}) that automatically uploads files to cloudinary via the [cloudinaryUploader](https://github.com/LaunchPadLab/lp-hoc/blob/master/docs.md#cloudinaryuploader) HOC.
+ * 
+ * The value of this input will only get set upon successful upload. The shape of the value will be of a file object or an array of file objects with the `url` set to the public URL of the uploaded file. The full response from Cloudinary is accessible via the value's `meta.cloudinary` key.
+ * 
  * Additionally, the `uploadStatus` passed down from `cloudinaryUploader` will be added as a class on the input.
  * 
  * You can pass arguments to the instance of `cloudinaryUploader` via this component's props,
  * or via the `CLOUDINARY_CLOUD_NAME` and `CLOUDINARY_BUCKET` env vars (recommended).
- * 
  *
  * @name CloudinaryFileInput
  * @type Function
  * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
  * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
- * @param {Function} [onUploadSuccess] - A handler that gets invoked with the response from a successful upload to Cloudinary
- * @param {Function} [onUploadFailure] - A handler that gets invoked with the error from a failed upload to Cloudinary
+ * @param {Function} [fileInput=FileInput] - A component that gets wrapped with Cloudinary upload logic
+ * @param {Function} [onUploadSuccess=noop] - A handler that gets invoked with the response from a successful upload to Cloudinary
+ * @param {Function} [onUploadFailure=noop] - A handler that gets invoked with the error from a failed upload to Cloudinary
  * @example
  * 
  * function HeadshotForm ({ handleSubmit, pristine, invalid, submitting }) {
