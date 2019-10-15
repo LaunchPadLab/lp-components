@@ -90,7 +90,7 @@ function CloudinaryFileInput ({
         }
         
         onUploadSuccess(uploadedFiles)
-        return input.onChange(uploadedFiles)
+        return uploadedFiles
       }}
       className={ classnames(uploadStatus, className) }
       { ...rest }
