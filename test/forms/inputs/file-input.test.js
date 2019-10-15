@@ -85,8 +85,8 @@ test('FileInput passes accept attribute to input component', () => {
   expect(wrapper.find('input').prop('accept')).toEqual('image/*')
 })
 
-test('FileInput is given an aria described by attribute', () => {
-  const props = { input: { name, value: '' }, meta: {} }
+test('FileInput is given an aria-describedby attribute when there is an input error', () => {
+  const props = { input: { name, value: '' }, meta: { touched: true, invalid: true } }
   const wrapper = mount(<FileInput { ...props }/>)
   expect(wrapper.find('input').prop('aria-describedby')).toContain(name)
 })

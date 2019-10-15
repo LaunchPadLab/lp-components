@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import InputError from './input-error'
 import InputLabel from './input-label'
+import { hasInputError } from '../helpers'
 
 /**
  *
@@ -89,7 +90,7 @@ function LabeledField ({
   ...rest
 }) {
   return (
-    <fieldset className={ classnames(className, { 'error': touched && invalid }) }>
+    <fieldset className={ classnames(className, { 'error': hasInputError({ touched, invalid }) }) }>
       <LabelComponent { ...{ name, id, ...rest } } />
         { children }
       { !hideErrorLabel && <ErrorComponent { ...{ error, invalid, touched, name, ...rest } } /> }
