@@ -12,7 +12,7 @@ import {
 import { LabeledField } from '../../labels'
 import FilePreview from './file-preview'
 import ImagePreview from './image-preview';
-import { first, noop, generateInputErrorId, removeAt } from '../../../utils'
+import { first, noop, generateInputErrorId, isString, removeAt } from '../../../utils'
 import classnames from 'classnames'
 
 /**
@@ -98,7 +98,7 @@ class FileInput extends React.Component {
     const [removedFile, remainingFiles] = removeAt(value, idx)
     
     try {
-      await Promise.resolve(onRemove(removedFile)) // wrap in a promise (just in case)
+      await onRemove(removedFile)
       
       // If all files have been removed, then reset the native input
       if (!remainingFiles.length) this.clearFileInput()
@@ -166,13 +166,12 @@ class FileInput extends React.Component {
                 },
                 accept,
                 multiple,
-                'aria-labelledby': name + '-label',
-                'aria-describedby': hasInputError(meta) ? generateInputErrorId(name) : null,
                 ref: this.setFileInputRef,
+                'aria-describedby': hasInputError(meta) ? generateInputErrorId(name) : null,
               }}
             />
             {/* Include after input to allowing for styling with adjacent sibling selector */}
-            <legend htmlFor={name} className={classnames("fileupload-exists", wrapperClass)}>{ labelText }</legend>
+            <label htmlFor={name} className={classnames("fileupload-exists", wrapperClass)}>{ labelText }</label>
           </div>
         </div>
       </LabeledField>
@@ -193,7 +192,7 @@ function setInputErrors (meta, fieldWideErrors) {
   if (meta.error || !fieldWideErrors) return meta
   return {
     ...meta,
-    error: fieldWideErrors.message,
+    error: isString(fieldWideErrors) ? fieldWideErrors : fieldWideErrors.message,
     touched: true,
     invalid: true,
   }
