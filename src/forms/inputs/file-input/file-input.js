@@ -17,26 +17,28 @@ import classnames from 'classnames'
 
 /**
  * A file input that can be used in a `redux-forms`-controlled form. 
- * The value of this input is the data URL of the loaded file. 
+ * The value of this input is a file object or an array of file objects with the `url` set to the base64 encoded data URL of the loaded file(s).
+ * 
+ * Allowing multiple files to be selected requires passing in the `multiple` prop set to `true`. Multiple files can then be uploaded either all at once or piecemeal. Once a file has successfully been loaded, it is possible to remove the file object from the current set of values. An optional callback can be fired when a file is removed: `onRemove(removedFile)`. To customize the component that receives this `onRemove` handler, pass in a cutom component to the `removeComponent` prop.
  *
- * An optional callback can be fired when the file is loaded: `onLoad(fileData, file)`. 
- * This callback will be passed the data URL of the file, as well as the `File` object itself.
- *
- * By default, this component displays a thumbnail preview of the loaded file. This preview can be customized
+ * By default, this component displays a thumbnail preview of the loaded file(s). This preview can be customized
  * by using the `thumbnail` or `hidePreview` props, as well as by passing a custom preview via `previewComponent` or `children`.
  *
  * A component passed using `previewComponent` will receive the following props:
- * - `file`: the uploaded file object, or `null` if no file has been uploaded.
- * - `value`: the current value of the input (data URL or empty string)
+ * - `value`: the current value of the input (file object or array of file objects)
  * 
  * @name FileInput
  * @type Function
  * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
  * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+ * @param {Function} [readFiles] - A callback that is fired with new files and is expected to return an array of file objects with the `url` key set to the "read" value. This can be either a data URL or the public URL from a 3rd party API
  * @param {Boolean} [multiple=false] - A flag indicating whether or not to accept multiple files
- * @param {Function} [onRemove] - A callback fired when the file is removed (only available when multiple files can be uploaded)
+ * @param {Function} [onRemove=noop] - A callback fired when the file is removed (only available when `multiple` is set to `true`)
+ * @param {Function} [removeComponent=RemoveButton] - A custom component that receives the `onRemove` callback (only available when `multiple` is set to `true`)
  * @param {String} [thumbnail] - A placeholder image to display before the file is loaded
  * @param {Boolean} [hidePreview=false] - A flag indicating whether or not to hide the file preview
+ * @param {String} [selectText] - An override for customizing the text that is displayed on the input's label. Defaults to 'Select File' or 'Select File(s)' depending on the `multiple` prop value
+ *
  * @example
  * 
  * function HeadshotForm ({ handleSubmit, pristine, invalid, submitting }) {
@@ -46,6 +48,7 @@ import classnames from 'classnames'
  *          name="headshot" 
  *          component={ FileInput } 
  *          onLoad={ (fileData, file) => console.log('Loaded file!', file) }
+ *          selectText="Select profile picture"
  *       />
  *       <SubmitButton {...{ pristine, invalid, submitting }}>
  *         Submit
