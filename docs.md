@@ -990,7 +990,7 @@ In addition to the props below, any extra props will be passed directly to the i
 ```javascript
 // A custom input to use with redux-forms
 
-function ValidatedInput ({  
+function ValidatedInput ({
   input: { name, value, onBlur, onChange },
   meta: { error, touched, invalid },
 }) {
@@ -1000,7 +1000,7 @@ function ValidatedInput ({
          name,
          value,
          onBlur,
-         onChange,   
+         onChange,
       }}
       <InputError { ...{ error, invalid, touched, name } } />
     </div>
@@ -1125,7 +1125,7 @@ function CustomLabelComponent ({ onClickLabel, ...rest }) {
 
 ## blurDirty
 
-A function that returns an HOC to wrap a `redux-forms`-controlled input. 
+A function that returns an HOC to wrap a `redux-forms`-controlled input.
 
 If the input is pristine, this HOC replaces the passed `onBlur` with an empty function.
 This prevents the form from being re-validated unless its value has changed.
