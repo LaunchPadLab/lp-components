@@ -243,3 +243,16 @@ test('`placeholder` option is displayed if value is `null` or `undefined`', () =
   expect(wrapper.find('td').first().text()).toEqual('placeholder')
   expect(wrapper.find('td').last().text()).toEqual('placeholder')
 })
+
+test('can recieve custom class name', () => {
+  const data = [
+    { name: null }, 
+    { name: undefined },
+  ]
+  const wrapper = mount(
+    <SortableTable data={ data } className="foo">
+      <Column name="name" placeholder="placeholder" />
+    </SortableTable>
+  )
+  expect(wrapper.find('table.foo').exists()).toBe(true)
+})
