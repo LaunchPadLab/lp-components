@@ -198,6 +198,7 @@ A control component for navigating between multiple numbered pages.
 -   `pagesShown` **[Number][141]** The number of pages to display around (and including) the current page (optional, default `3`)
 -   `previousLabel` **[String][137]** The text of the "previous page" button (optional, default `'Prev'`)
 -   `nextLabel` **[String][137]** The text of the "next page" button (optional, default `'Next'`)
+-   `delimiter` **[String][137]** The delimiter that will be shown when there are hidden pages (optional, default `'...'`)
 
 ### Examples
 

@@ -17,6 +17,7 @@ import PageLink from './page-link'
  * @param {Number} [pagesShown=3] The number of pages to display around (and including) the current page
  * @param {String} [previousLabel='Prev'] The text of the "previous page" button
  * @param {String} [nextLabel='Next'] The text of the "next page" button
+ * @param {String} [delimiter='...'] The delimiter that will be shown when there are hidden pages
  * @example
  *
  * function ShowPages ({ pages, currentPage, changeCurrentPage }) {
