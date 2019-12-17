@@ -18,14 +18,14 @@ import PageLink from './page-link'
  * @param {String} [previousLabel='Prev'] The text of the "previous page" button
  * @param {String} [nextLabel='Next'] The text of the "next page" button
  * @example
- * 
+ *
  * function ShowPages ({ pages, currentPage, changeCurrentPage }) {
  *   return (
  *     <div>
- *       <Page 
- *         page={pages[currentPage]} 
+ *       <Page
+ *         page={pages[currentPage]}
  *       />
- *       <Paginator 
+ *       <Paginator
  *         value={currentPage}
  *         onChange={changeCurrentPage}
  *         max={pages.length}
@@ -43,7 +43,8 @@ const propTypes = {
   alwaysShow: PropTypes.bool,
   pagesShown: PropTypes.number,
   previousLabel: PropTypes.string,
-  nextLabel: PropTypes.string
+  nextLabel: PropTypes.string,
+  delimiter: PropTypes.string,
 }
 
 const defaultProps = {
@@ -54,22 +55,29 @@ const defaultProps = {
   alwaysShow: false,
   pagesShown: 3,
   previousLabel: 'Prev',
-  nextLabel: 'Next'
+  nextLabel: 'Next',
+  delimiter: '...',
 }
 
-function Nav ({ children }) { 
+function Nav({ children }) {
   return (
-    <nav className="pagination" aria-label="pagination">{children}</nav>
+    <nav className="pagination" aria-label="pagination">
+      {children}
+    </nav>
   )
 }
 
-function EmptyState () {
-  return (<Nav><ul/></Nav>)
+function EmptyState() {
+  return (
+    <Nav>
+      <ul />
+    </Nav>
+  )
 }
 
 const createPageLabel = (val) => 'Go to page ' + val
 
-function Paginator ({
+function Paginator({
   value,
   onChange,
   min,
@@ -78,9 +86,10 @@ function Paginator ({
   pagesShown,
   previousLabel,
   nextLabel,
+  delimiter,
 }) {
   // Hide if there's only one page
-  const totalPages = (max - min) + 1
+  const totalPages = max - min + 1
   if (totalPages === 1 && !alwaysShow) return <EmptyState />
 
   const middlePages = calculateMiddlePages(value, min, max, pagesShown)
@@ -88,89 +97,78 @@ function Paginator ({
   return (
     <Nav>
       <ul>
-
         {/* Previous link */}
 
-        {
-          (value > min) &&
+        {value > min && (
           <PageLink
             className="prev"
             onClick={() => onChange(value - 1)}
             aria-label="Previous page"
           >
-            { previousLabel }
+            {previousLabel}
           </PageLink>
-        }
+        )}
 
         {/* First page */}
 
         <PageLink
-          active={(value === min)}
+          active={value === min}
           onClick={() => onChange(min)}
           aria-label={createPageLabel(min)}
         >
-          { min }
+          {min}
         </PageLink>
 
         {/* First delimiter */}
 
-        {
-          // If there are hidden pages between first page and first "middle" page
-          (middlePages[0] > min + 1) &&
-          <Delimiter />
-        }
+        {// If there are hidden pages between first page and first "middle" page
+        middlePages[0] > min + 1 && <Delimiter>{delimiter}</Delimiter>}
 
         {/* Middle pages */}
 
-        {
-          middlePages.map((page) => {
-            return (
-              <PageLink 
-                key={ page }
-                active={(value === page)}
-                onClick={() => onChange(page)}
-                aria-label={createPageLabel(page)}
-              >
-                { page }
-              </PageLink>
-            )
-          })
-        }
+        {middlePages.map((page) => {
+          return (
+            <PageLink
+              key={page}
+              active={value === page}
+              onClick={() => onChange(page)}
+              aria-label={createPageLabel(page)}
+            >
+              {page}
+            </PageLink>
+          )
+        })}
 
         {/* Second delimiter */}
 
-        {
-          // If there are hidden pages between last "middle" page and last page
-          (middlePages[middlePages.length - 1] < max - 1) &&
-          <Delimiter />
-        }
+        {// If there are hidden pages between last "middle" page and last page
+        middlePages[middlePages.length - 1] < max - 1 && (
+          <Delimiter>{delimiter}</Delimiter>
+        )}
 
         {/* Last page */}
 
-
-        {
-          (max !== min) &&
+        {max !== min && (
           <PageLink
-            active={(value === max)}
+            active={value === max}
             onClick={() => onChange(max)}
             aria-label={createPageLabel(max)}
           >
-            { max }
+            {max}
           </PageLink>
-        }
+        )}
 
         {/* Next link */}
 
-        {
-          (value < max) &&
+        {value < max && (
           <PageLink
             className="next"
             onClick={() => onChange(value + 1)}
             aria-label="Next page"
           >
-            { nextLabel }
+            {nextLabel}
           </PageLink>
-        }
+        )}
       </ul>
     </Nav>
   )

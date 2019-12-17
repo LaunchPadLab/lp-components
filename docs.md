@@ -205,10 +205,10 @@ A control component for navigating between multiple numbered pages.
 function ShowPages ({ pages, currentPage, changeCurrentPage }) {
   return (
     <div>
-      <Page 
-        page={pages[currentPage]} 
+      <Page
+        page={pages[currentPage]}
       />
-      <Paginator 
+      <Paginator
         value={currentPage}
         onChange={changeCurrentPage}
         max={pages.length}
