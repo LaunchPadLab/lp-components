@@ -74,7 +74,7 @@
     "enzyme-adapter-react-16": "^1.1.0",
     "eslint": "^6.2.1",
     "husky": "^3.0.4",
-    "jest": "^24.7.0",
+    "jest": "^24.9.0",
     "jest-canvas-mock": "^2.1.1",
     "node-sass": "^4.11.0",
     "react": "^16.4.1",
