@@ -329,7 +329,7 @@ _Note: Instead of targeting the `:disabled` pseudo-class or `[disabled]` attribu
 
 -   `invalid` **[Boolean][139]?** Whether or not a related form is invalid (will set aria-disabled when `true`)
 -   `pristine` **[Boolean][139]?** Whether or not a related form is pristine (will set aria-disabled when `true`)
--   `style` **[String][137]** A descriptive string that will be appended to the button's class with format `button-<type>` (optional, default `"primary"`)
+-   `priority` **[String][137]** A descriptive string that will be appended to the button's class with format `button-<type>` (optional, default `"primary"`)
 -   `submitting` **[Boolean][139]?** Whether or not a related form is submitting (will give button class `'in-progress` when `true`)
 -   `type` **[Boolean][139]** The [type][147] attribute of the button element (optional, default `"button"`)
 -   `children` **[Function][138]?** Any React component(s) being wrapped by the button
@@ -340,7 +340,7 @@ _Note: Instead of targeting the `:disabled` pseudo-class or `[disabled]` attribu
 function MessageButton ({ message }) {
   return (
      <Button
-       style="secondary"
+       priority="secondary"
        onClick={ () => console.log(message) }
      > 
        Print Message

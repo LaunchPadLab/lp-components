@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { buttonClasses, fieldPropTypes, hasInputError, isImageType, omitLabelProps } from '../../helpers'
+import { fieldPropTypes, hasInputError, isImageType, omitLabelProps } from '../../helpers'
 import { LabeledField } from '../../labels'
 import FilePreview from './file-preview'
-import ImagePreview from './image-preview';
+import ImagePreview from './image-preview'
 import { noop, generateInputErrorId } from '../../../utils'
+import classnames from 'classnames'
 
 /**
  *
@@ -100,7 +101,7 @@ class FileInput extends React.Component {
       ...rest
     } = omitLabelProps(this.props)
     const { file } = this.state
-    const wrapperClass = buttonClasses({ style: 'secondary-light', submitting })
+    // const wrapperClass = buttonClasses({ priority: 'secondary-light', submitting })
     return (
       <LabeledField { ...this.props }>
         <div className="fileupload fileupload-exists">
@@ -108,7 +109,7 @@ class FileInput extends React.Component {
             !hidePreview &&
             renderPreview({ file, value, ...rest })
           }
-          <div className={ wrapperClass }>
+          <div className={ classnames(`button-secondary-light`, {'in-progress': submitting })}>
             <span className="fileupload-exists"> Select File </span>
               <input 
                 {...{

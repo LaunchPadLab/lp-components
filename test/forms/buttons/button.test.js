@@ -57,8 +57,8 @@ test('Button onClick is not run when form is submitting', () => {
   expect(onClick).not.toHaveBeenCalled()
 })
 
-test('Button adds style string to class', () => {
-  const wrapper = shallow(<Button style="custom"> Hi</Button>)
+test('Button adds priority string to class', () => {
+  const wrapper = shallow(<Button priority="custom"> Hi</Button>)
   expect(wrapper.hasClass('button-custom')).toBe(true)
 })
 
@@ -78,8 +78,8 @@ test('Button passes extra props to button element', () => {
   expect(wrapper.props().onClick).toBe(onClick)
 })
 
-test('Specifying a class name prop does not override style class', () => {
-  const wrapper = shallow(<Button style="primary" className="button-large">Click Me</Button>)
+test('Specifying a class name prop does not override priority class', () => {
+  const wrapper = shallow(<Button priority="primary" className="button-large">Click Me</Button>)
   expect(wrapper.hasClass('button-primary')).toBe(true)
   expect(wrapper.hasClass('button-large')).toBe(true)
 })
@@ -94,4 +94,9 @@ test('Specifying a class name prop does not override in-progress class', () => {
   const wrapper = shallow(<Button className="button-large" submitting>Submit</Button>)
   expect(wrapper.hasClass('in-progress')).toBe(true)
   expect(wrapper.hasClass('button-large')).toBe(true)
+})
+
+test('Button can receive object style prop', () => {
+  const wrapper = shallow(<Button style={{ display: 'none' }}>Submit</Button>)
+  expect(wrapper.find('button').prop('style').display).toEqual('none')
 })
