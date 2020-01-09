@@ -44,7 +44,25 @@ test('Textarea hides character count correctly', () => {
   expect(wrapper.find('.character-count').exists()).toEqual(false)
 })
 
-test('Input is given an aria described by attribute', () => {
+test('Textarea is given an aria-describedby attribute when there is an input error', () => {
+  const name = 'test'
+  const props = {
+    input: {
+      name,
+      value: '',
+    },
+    meta: {
+      touched: true,
+      invalid: true,
+    },
+    maxLength: 5,
+    hideCharacterCount: true,
+  }
+  const wrapper = mount(<Textarea { ...props }/>)
+  expect(wrapper.find('textarea').prop('aria-describedby')).toContain(name)
+})
+
+test('Textrea does not receive invalid dom attributes', () => {
   const name = 'test'
   const props = {
     input: {
@@ -54,7 +72,9 @@ test('Input is given an aria described by attribute', () => {
     meta: {},
     maxLength: 5,
     hideCharacterCount: true,
+    onClickLabel: () => 'foo'
   }
-  const wrapper = mount(<Textarea { ...props }/>)
-  expect(wrapper.find('textarea').prop('aria-describedby')).toContain(name)
+  
+  const wrapper = mount(<Textarea {...props} />)
+  expect(wrapper.find('textarea').prop('onClickLabel')).toBe(undefined)
 })

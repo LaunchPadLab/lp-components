@@ -15,12 +15,20 @@ Flash
   p{
     text-align: center;
   }
+  
+  button.dismiss {
+    float: right;
+    border: none;
+    padding: 0;
+    background: inherit;
+    font-size: $s-base;
+  }
 
   &.success{
     background-color: $green-light;
     border: 1px solid $green-base;
 
-    p{
+    p, button{
       color: $green-base;
     }
   }
@@ -29,7 +37,7 @@ Flash
     background-color: $red-light;
     border: 1px solid $red-base;
 
-    p{
+    p, button{
       color: $red-base;
     }
   }

@@ -100,7 +100,26 @@ test('Select has a placeholder by default', () => {
   expect(wrapper.find('option').prop('value')).toEqual('')
 })
 
-test('Select adds an aria described by attribute', () => {
+
+test('Select adds an aria-describedby attribute when there is an input error', () => {
+  const OPTION = 'MY OPTION'
+  const name = 'test'
+  const props = { 
+    input: {
+      name,
+      value: '',
+    }, 
+    meta: {
+      touched: true,
+      invalid: true,
+    },
+    options: [OPTION],
+  }
+  const wrapper = mount(<Select { ...props }/>)
+  expect(wrapper.find('select').prop('aria-describedby')).toContain(name)
+})
+
+test('Select does not receive invalid dom attributes', () => {
   const OPTION = 'MY OPTION'
   const name = 'test'
   const props = { 
@@ -110,7 +129,9 @@ test('Select adds an aria described by attribute', () => {
     }, 
     meta: {},
     options: [OPTION],
+    onClickLabel: () => 'foo'
   }
-  const wrapper = mount(<Select { ...props }/>)
-  expect(wrapper.find('select').prop('aria-describedby')).toContain(name)
+  
+  const wrapper = mount(<Select {...props} />)
+  expect(wrapper.find('select').prop('onClickLabel')).toBe(undefined)
 })

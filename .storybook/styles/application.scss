@@ -15,8 +15,8 @@
  */
 
 // Imports
- @import "bourbon";
- @import "neat";
+@import "~bourbon/app/assets/stylesheets/bourbon";
+@import "~bourbon-neat/app/assets/stylesheets/neat";
  @import "datepicker";
 
  $output-bourbon-deprecation-warnings: false;

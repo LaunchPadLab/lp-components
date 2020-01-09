@@ -1,12 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { buttonClasses } from '../helpers'
+import { noop } from '../../utils'
 
 /**
  *
  * A simple button component that can be used independently, or as part of a form.
  *
- * Conditionally adds classes and/or sets aria-disabled depending on passed props.
+
+ * Conditionally adds classes and/or sets aria-disabled depending on passed props. If the button is `disabled` or `submitting`, the `onClick` handler will be overridden with a `noop`. This is especially helpful when preventing duplicate form submissions for **both** mouse and keyboard actions.
+ * 
  * In addition to the props below, any extra props will be passed directly to the inner `<button>` element.
  * 
  * If a className is provided to the component, it will be appended to the conditionally added classes.
@@ -46,21 +49,35 @@ const propTypes = {
   type:       PropTypes.string.isRequired,
   children:   PropTypes.node,
   className:  PropTypes.string,
+  onClick:    PropTypes.func,
 }
 
 const defaultProps = {
   style: 'primary',
   type: 'button',
   className: '',
+  onClick: noop,
 }
 
 // eslint-disable-next-line no-unused-vars
-function Button ({ children, type, style, pristine, invalid, submitting, className, ...rest }) {
+function Button ({
+  children,
+  type,
+  style,
+  pristine,
+  invalid,
+  submitting,
+  className,
+  onClick,
+  ...rest
+}) {
+  const disabled = pristine || invalid
   return (
     <button
       type={ type }
       className={ buttonClasses({ className, style, pristine, invalid, submitting }) }
       aria-disabled={ pristine || invalid }
+      onClick={ (disabled || submitting) ? noop : onClick }
       { ...rest }
     >
       { children }

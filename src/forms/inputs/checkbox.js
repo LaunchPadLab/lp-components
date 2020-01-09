@@ -2,12 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { 
   blurDirty,
+  hasInputError,
   fieldPropTypesWithValue,
   omitLabelProps,
   replaceEmptyStringValue,
 } from '../helpers'
 import { LabeledField } from '../labels'
-import { compose, generateInputErrorId } from '../../utils'
+import { compose, filterInvalidDOMProps, generateInputErrorId } from '../../utils'
 
 /**
  *
@@ -48,16 +49,16 @@ function Checkbox (props) {
   } = omitLabelProps(props)
   return (
     <LabeledField className="checkbox" { ...props }>
-      <input {...{ 
+      <input {...{
         id: name,
         name,
         value,
-        type: 'checkbox', 
+        type: 'checkbox',
         checked: value,
         onBlur,
         onChange: () => onChange(!value),
-        'aria-describedby': generateInputErrorId(name),
-        ...rest 
+        'aria-describedby': hasInputError(meta) ? generateInputErrorId(name) : null,
+        ...filterInvalidDOMProps(rest)
       }} 
     />
     </LabeledField>

@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { generateInputErrorId } from '../../utils'
+import { hasInputError } from '../helpers'
 
 /**
  *
@@ -68,7 +69,7 @@ const defaultProps = {
 }
 
 function InputError ({ error, invalid, touched, name, className, ...rest }) {
-  return (touched && invalid)
+  return hasInputError({ touched, invalid })
     ? <span
         id={ generateInputErrorId(name) }
         className={ classnames('error-message', className) }

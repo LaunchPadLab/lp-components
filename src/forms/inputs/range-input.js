@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { blurDirty, fieldPropTypes, omitLabelProps } from '../helpers'
+import { blurDirty, fieldPropTypes, hasInputError, omitLabelProps } from '../helpers'
 import { LabeledField } from '../labels'
-import { compose, generateInputErrorId } from '../../utils'
+import { compose, filterInvalidDOMProps, generateInputErrorId } from '../../utils'
 
 /**
  *
@@ -81,8 +81,8 @@ function RangeInput (props) {
           min,
           max,
           step,
-          'aria-describedby': generateInputErrorId(name),
-          ...rest 
+          'aria-describedby': hasInputError(meta) ? generateInputErrorId(name) : null,
+          ...filterInvalidDOMProps(rest)
         }} 
       />
     </LabeledField>

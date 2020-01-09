@@ -20,6 +20,43 @@ test('Button can still be pressed when aria-disabled', () => {
   expect(onClick).toHaveBeenCalled()
 })
 
+test('Button onClick is run when the form is not submitting, pristine, or invalid', () => {
+  const onClick = jest.fn()
+  const formProps = {
+    invalid: false,
+    pristine: false,
+    submitting: false,
+  }
+  const wrapper = shallow(<Button onClick={onClick} {...formProps}> Hi</Button>)
+  wrapper.find('button').simulate('click')
+  
+  expect(onClick).toHaveBeenCalled()
+})
+
+test('Button onClick is not run when form is invalid', () => {
+  const onClick = jest.fn()
+  const wrapper = mount(<Button onClick={onClick} invalid={true}> Hi</Button>)
+  wrapper.find('button').simulate('click')
+  
+  expect(onClick).not.toHaveBeenCalled()
+})
+
+test('Button onClick is not run when form is pristine', () => {
+  const onClick = jest.fn()
+  const wrapper = mount(<Button onClick={onClick} pristine={true}> Hi</Button>)
+  wrapper.find('button').simulate('click')
+  
+  expect(onClick).not.toHaveBeenCalled()
+})
+
+test('Button onClick is not run when form is submitting', () => {
+  const onClick = jest.fn()
+  const wrapper = mount(<Button onClick={onClick} submitting={true}> Hi</Button>)
+  wrapper.find('button').simulate('click')
+  
+  expect(onClick).not.toHaveBeenCalled()
+})
+
 test('Button adds style string to class', () => {
   const wrapper = shallow(<Button style="custom"> Hi</Button>)
   expect(wrapper.hasClass('button-custom')).toBe(true)

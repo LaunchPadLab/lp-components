@@ -72,3 +72,8 @@ test('when id is provided - renders a label associated to the input id', () => {
   const wrapper = mount(<InputLabel name={name} id={id} label="foo" />)
   expect(wrapper.find('label').prop('htmlFor')).toBe(id)
 })
+
+test('can accept a custom classname', () => {
+  const wrapper = mount(<InputLabel name={name} className="foo" />)
+  expect(wrapper.find('label').hasClass('foo')).toBe(true)
+})

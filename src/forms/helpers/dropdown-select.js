@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { compose } from '../../utils'
-import { onOutsideClick, toggle, togglePropTypes } from '@launchpadlab/lp-hoc'
+import { compose, onOutsideClick, toggle, togglePropTypes } from '../../utils'
 import classnames from 'classnames'
 
 const propTypes = {

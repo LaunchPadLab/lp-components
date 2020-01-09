@@ -21,8 +21,20 @@ test('RangeInput sets the `min`, `max`, and `step` correctly', () => {
   expect(wrapper.find('input').props().step).toEqual(10)
 })
 
-test('RangeInput has aria described by attribute', () => {
-  const props = { input, meta: {} }
+test('RangeInput has aria-describedby attribute when there is an input error', () => {
+  const props = { input, meta: { touched: true, invalid: true } }
   const wrapper = mount(<RangeInput { ...props }/>)
   expect(wrapper.find('input').prop('aria-describedby')).toContain(name)
 })
+
+test('RangeInput does not receive invalid dom attributes', () => {
+  const props = {
+    input,
+    meta: {},
+    onClickLabel: () => 'foo'
+  }
+  
+  const wrapper = mount(<RangeInput {...props} />)
+  expect(wrapper.find('input').prop('onClickLabel')).toBe(undefined)
+})
+

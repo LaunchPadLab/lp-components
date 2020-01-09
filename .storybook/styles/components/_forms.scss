@@ -77,13 +77,13 @@ Input Icon
     // background-image: asset-url("mail.svg");
   }
   .phone-icon{
-    background-image: asset-url("phone.svg");
+    // background-image: asset-url("phone.svg");
   }
   .linkedin-icon{
-    background-image: asset-url("linkedin.svg");
+    // background-image: asset-url("linkedin.svg");
   }
   .web-icon{
-    background-image: asset-url("web.svg");
+    // background-image: asset-url("web.svg");
   }
 }
 
@@ -120,7 +120,7 @@ textarea:focus {
 Select
 -----------------------*/
 select{
-  background-image: asset-url("down-arrow.svg");
+  // background-image: asset-url("down-arrow.svg");
   background-position: right 0px top 50%;
   background-repeat: no-repeat;
   background-size: 15px;
@@ -408,7 +408,7 @@ Custom Dropdown Select
     @include rem(padding, 7px 13px);
 
     &:after{
-      background-image: asset-url('dropdown.svg');
+      // background-image: asset-url('dropdown.svg');
       background-position: right 10px top 50%;
       background-repeat: no-repeat;
       background-size: 15px;
