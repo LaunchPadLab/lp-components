@@ -107,6 +107,6 @@ export function createMockFileReader (fileData) {
 
 // Resolves when other ongoing promises have resolved
 // https://stackoverflow.com/a/51045733
-function flushPromises () {
+export function flushPromises () {
   return new Promise(window.setImmediate) // eslint-disable-line no-undef
 }
