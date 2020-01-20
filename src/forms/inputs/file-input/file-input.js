@@ -83,7 +83,7 @@ class FileInput extends React.Component {
 
   loadFile (e) {
     // Don't attempt file reading in SSR mode
-    if (isServer()) return console.log('yeet')
+    if (isServer()) return
     // Read file as data URL and call change handlers
     const file = e.target.files[0]
     return readFileAsDataUrl(file)
