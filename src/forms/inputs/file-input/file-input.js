@@ -101,7 +101,6 @@ class FileInput extends React.Component {
       ...rest
     } = omitLabelProps(this.props)
     const { file } = this.state
-    // const wrapperClass = buttonClasses({ priority: 'secondary-light', submitting })
     return (
       <LabeledField { ...this.props }>
         <div className="fileupload fileupload-exists">
@@ -109,7 +108,7 @@ class FileInput extends React.Component {
             !hidePreview &&
             renderPreview({ file, value, ...rest })
           }
-          <div className={ classnames(`button-secondary-light`, {'in-progress': submitting })}>
+          <div className={ classnames('button-secondary-light', {'in-progress': submitting })}>
             <span className="fileupload-exists"> Select File </span>
               <input 
                 {...{
