@@ -3891,6 +3891,11 @@ clean-css@^4.2.1:
   dependencies:
     source-map "~0.6.0"
 
+cleave.js@^1.5.3:
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/cleave.js/-/cleave.js-1.5.3.tgz#1ef36e1375dea289bffeefe8ebb1e3ef2ee23240"
+  integrity sha512-tLum0abk+NRUZtMxpqLQS0jE9k2KYzsUlnMAqfMd2LAf8bb5xTHLHXTtPyI+dCk6DThtmWER3EzKfUi4NHdR7A==
+
 cli-boxes@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/cli-boxes/-/cli-boxes-2.2.0.tgz#538ecae8f9c6ca508e3c3c95b453fe93cb4c168d"
