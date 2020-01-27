@@ -12,14 +12,6 @@ test('Button is aria-disabled when form is pristine', () => {
   expect(wrapper.props()['aria-disabled']).toBe(true)
 })
 
-test('Button can still be pressed when aria-disabled', () => {
-  const onClick = jest.fn()
-  const wrapper = mount(<Button onClick={onClick} invalid={true}>Hi</Button>)
-  wrapper.find('button').simulate('click')
-  
-  expect(onClick).toHaveBeenCalled()
-})
-
 test('Button onClick is run when the form is not submitting, pristine, or invalid', () => {
   const onClick = jest.fn()
   const formProps = {
