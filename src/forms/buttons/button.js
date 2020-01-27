@@ -43,7 +43,7 @@ import classnames from 'classnames'
 const propTypes = {
   invalid:    PropTypes.bool,
   pristine:   PropTypes.bool,
-  priority:      PropTypes.string,
+  priority:   PropTypes.string,
   submitting: PropTypes.bool,
   type:       PropTypes.string.isRequired,
   children:   PropTypes.node,
