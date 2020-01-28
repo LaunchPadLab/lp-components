@@ -42,11 +42,6 @@ const defaultProps = {
   onChange: noop,
 }
 
-function getValueFromEvent(e) {
-  // TODO
-  return e.target.value
-}
-
 function Input(props) {
   const {
     id,
@@ -64,7 +59,7 @@ function Input(props) {
         <input
           {...{
             id: id || name,
-            onChange: (e) => onChange(getValueFromEvent(e), e),
+            onChange: (e) => onChange(e.target.value),
             'aria-describedby': hasInputError({ invalid, touched })
               ? generateInputErrorId(name)
               : null,
