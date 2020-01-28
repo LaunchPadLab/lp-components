@@ -1,6 +1,5 @@
 // Centralized logic for when to show an input error
-function hasInputError (meta) {
-  const { invalid, touched } = meta
+function hasInputError({ invalid, touched }) {
   return invalid && touched
 }
 

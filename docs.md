@@ -690,14 +690,13 @@ function UserForm ({ handleSubmit }) {
 
 An input element that can be used in a `redux-forms`-controlled form.
 
-Note: The `input` tag is surrounded by a `div` with class `"input-wrapper"`. 
+Note: The `input` tag is surrounded by a `div` with class `"input-wrapper"`.
 Any children passed to this component will be rendered within this wrapper.
 
 ### Parameters
 
 -   `input` **[Object][145]** A `redux-forms` [input][143] object
 -   `meta` **[Object][145]** A `redux-forms` [meta][146] object
--   `type` **[String][137]?** A string to specify the type of input element (defaults to `text`)
 
 ### Examples
 
@@ -705,7 +704,7 @@ Any children passed to this component will be rendered within this wrapper.
 function UserForm ({ handleSubmit, pristine, invalid, submitting }) {
   return (
     <form onSubmit={ handleSubmit }>
-      <Field 
+      <Field
          name="firstName"
          component={ Input }
          placeholder="Your first name"

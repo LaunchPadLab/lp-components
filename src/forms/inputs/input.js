@@ -1,27 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { blurDirty, fieldPropTypes, hasInputError, omitLabelProps } from '../helpers'
+import { fieldPropTypes, hasInputError, applyFormAdapter } from '../helpers'
 import { LabeledField } from '../labels'
-import { compose, filterInvalidDOMProps, generateInputErrorId } from '../../utils'
+import { filterInvalidDOMProps, generateInputErrorId, noop } from '../../utils'
 
 /**
  *
  * An input element that can be used in a `redux-forms`-controlled form.
  *
- * Note: The `input` tag is surrounded by a `div` with class `"input-wrapper"`. 
+ * Note: The `input` tag is surrounded by a `div` with class `"input-wrapper"`.
  * Any children passed to this component will be rendered within this wrapper.
- * 
+ *
  * @name Input
  * @type Function
  * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
  * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
- * @param {String} [type] - A string to specify the type of input element (defaults to `text`)
  * @example
- * 
+ *
  * function UserForm ({ handleSubmit, pristine, invalid, submitting }) {
  *   return (
  *     <form onSubmit={ handleSubmit }>
- *       <Field 
+ *       <Field
  *          name="firstName"
  *          component={ Input }
  *          placeholder="Your first name"
@@ -36,40 +35,43 @@ import { compose, filterInvalidDOMProps, generateInputErrorId } from '../../util
 
 const propTypes = {
   ...fieldPropTypes,
-  type: PropTypes.string,
   children: PropTypes.node,
 }
 
 const defaultProps = {
-  type: 'text',
+  onChange: noop,
 }
 
-function Input (props) {
+function getValueFromEvent(e) {
+  // TODO
+  return e.target.value
+}
+
+function Input(props) {
   const {
-    input: { name, value, onBlur, onChange },
     id,
-    meta, // eslint-disable-line no-unused-vars
+    name,
+    invalid,
+    touched,
+    onChange,
     className, // eslint-disable-line no-unused-vars
-    type,
     children,
     ...rest
-  } = omitLabelProps(props)
+  } = props
   return (
-    <LabeledField { ...props }>
+    <LabeledField {...props}>
       <div className="input-wrapper">
         <input
           {...{
             id: id || name,
-            name,
-            type,
-            value,
-            onBlur,
-            onChange,
-            'aria-describedby': hasInputError(meta) ? generateInputErrorId(name) : null,
-            ...filterInvalidDOMProps(rest)
+            onChange: (e) => onChange(getValueFromEvent(e), e),
+            'aria-describedby': hasInputError({ invalid, touched })
+              ? generateInputErrorId(name)
+              : null,
+            ...filterInvalidDOMProps(rest),
           }}
         />
-        { children }
+        {children}
       </div>
     </LabeledField>
   )
@@ -78,6 +80,4 @@ function Input (props) {
 Input.defaultProps = defaultProps
 Input.propTypes = propTypes
 
-export default compose(
-  blurDirty()
-)(Input)
+export default applyFormAdapter(Input)

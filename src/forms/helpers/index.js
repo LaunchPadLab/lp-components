@@ -1,3 +1,4 @@
+export applyFormAdapter from './apply-form-adapter'
 export blurDirty from './blur-dirty'
 export buttonClasses from './button-classes'
 export convertNameToLabel from './convert-name-to-label'
