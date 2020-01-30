@@ -24,7 +24,6 @@
     "clean": "rm -rf lib esm",
     "docs": "documentation build src/index.js -f md -o docs.md",
     "lint": "eslint src",
-    "precommit": "yarn run docs && git add docs.md",
     "prepublish": "yarn run clean && yarn run build",
     "storybook": "yarn && start-storybook -p 6006",
     "test": "jest --coverage",
@@ -73,16 +72,15 @@
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.0",
     "eslint": "^6.2.1",
-    "husky": "^3.0.4",
-    "jest": "^24.9.0",
+    "husky": "^4.2.1",
+    "jest": "^25.1.0",
     "jest-canvas-mock": "^2.1.1",
     "node-sass": "^4.11.0",
     "react": "^16.4.1",
     "react-dom": "^16.2.0",
     "recompose": "^0.30.0",
     "redux": "^4.0.0",
-    "sass-loader": "^7.3.1",
-    "size-limit": "^2.1.1",
+    "sass-loader": "^8.0.2",
     "style-loader": "^1.0.0",
     "webpack": "^4.39.2"
   },
@@ -92,15 +90,7 @@
   "peerDependencies": {
     "react": ">=15.5.0"
   },
-  "greenkeeper": {
-    "ignore": [
-      "bourbon",
-      "bourbon-neat",
-      "css-loader",
-      "react-router",
-      "sass-loader",
-      "style-loader",
-      "webpack"
-    ]
+  "husky": {
+    "pre-commit": "yarn run docs && git add docs.md"
   }
 }
