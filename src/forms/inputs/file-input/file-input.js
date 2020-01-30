@@ -4,7 +4,7 @@ import { fieldPropTypes, hasInputError, isImageType, omitLabelProps } from '../.
 import { LabeledField } from '../../labels'
 import FilePreview from './file-preview'
 import ImagePreview from './image-preview'
-import { noop, generateInputErrorId } from '../../../utils'
+import { noop, generateInputErrorId, isServer } from '../../../utils'
 import classnames from 'classnames'
 
 /**
@@ -61,24 +61,34 @@ const defaultProps = {
   onLoad: noop,
 }
 
+// Promise wrapper around FileReader
+function readFileAsDataUrl (file) {
+  // eslint-disable-next-line no-undef
+  const fileReader = new window.FileReader()
+  return new Promise((resolve, reject) => {
+    // Resolve with file data on success
+    fileReader.onload = (event) => resolve(event.target.result)
+    fileReader.onerror = (error) => reject(error)
+    return fileReader.readAsDataURL(file)
+  })
+}
+
 class FileInput extends React.Component {
 
   constructor (props) {
     super(props)
     this.state = { file: null }
-    this.reader = new FileReader()
     this.loadFile = this.loadFile.bind(this)
     this.onChange = this.onChange.bind(this)
   }
 
   loadFile (e) {
+    // Don't attempt file reading in SSR mode
+    if (isServer()) return
     // Read file as data URL and call change handlers
     const file = e.target.files[0]
-    this.reader.onload = (readEvent) => {
-      const fileData = readEvent.target.result
-      this.onChange(fileData, file)
-    }
-    this.reader.readAsDataURL(file)
+    return readFileAsDataUrl(file)
+      .then((fileData) => this.onChange(fileData, file))
   }
 
   onChange (fileData, file) {

@@ -66,15 +66,18 @@ test('FileInput passes value to custom preview', () => {
   expect(wrapper.find('p').text()).toEqual(value)
 })
 
-test('FileInput reads files and calls change handlers correctly', () => {
+test('FileInput reads files and calls change handlers correctly', async () => {
   const FILE = { name: 'my file' }
   const FILEDATA = 'my file data'
-  window.FileReader = createMockFileReader(FILEDATA)
+  // Set global mock on window
+  window.FileReader = createMockFileReader(FILEDATA) // eslint-disable-line no-undef
   const onLoad = jest.fn()
   const onChange = jest.fn()
   const props = { input: { name, value: '', onChange }, meta: {}, onLoad }
   const wrapper = mount(<FileInput { ...props }/>)
   wrapper.find('input').simulate('change', { target: { files: [FILE] }})
+  // Needed since FileReader works asynchronously
+  await flushPromises()
   expect(onChange).toHaveBeenCalledWith(FILEDATA)
   expect(onLoad).toHaveBeenCalledWith(FILEDATA, FILE)
 })
@@ -91,6 +94,8 @@ test('FileInput is given an aria-describedby attribute when there is an input er
   expect(wrapper.find('input').prop('aria-describedby')).toContain(name)
 })
 
+// HELPERS
+
 // Creates a mock FileReader that passes the given file data to its onload() handler
 export function createMockFileReader (fileData) {
   return class MockFileReader {
@@ -98,4 +103,10 @@ export function createMockFileReader (fileData) {
       this.onload({ target: { result: fileData } })
     }
   }
+}
+
+// Resolves when other ongoing promises have resolved
+// https://stackoverflow.com/a/51045733
+export function flushPromises () {
+  return new Promise(window.setImmediate) // eslint-disable-line no-undef
 }
