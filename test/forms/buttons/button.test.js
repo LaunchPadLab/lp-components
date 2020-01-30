@@ -49,8 +49,8 @@ test('Button onClick is not run when form is submitting', () => {
   expect(onClick).not.toHaveBeenCalled()
 })
 
-test('Button adds priority string to class', () => {
-  const wrapper = shallow(<Button priority="custom"> Hi</Button>)
+test('Button adds variant string to class', () => {
+  const wrapper = shallow(<Button variant="custom"> Hi</Button>)
   expect(wrapper.hasClass('button-custom')).toBe(true)
 })
 
@@ -70,8 +70,8 @@ test('Button passes extra props to button element', () => {
   expect(wrapper.props().onClick).toBe(onClick)
 })
 
-test('Specifying a class name prop does not override priority class', () => {
-  const wrapper = shallow(<Button priority="primary" className="button-large">Click Me</Button>)
+test('Specifying a class name prop does not override variant class', () => {
+  const wrapper = shallow(<Button variant="primary" className="button-large">Click Me</Button>)
   expect(wrapper.hasClass('button-primary')).toBe(true)
   expect(wrapper.hasClass('button-large')).toBe(true)
 })

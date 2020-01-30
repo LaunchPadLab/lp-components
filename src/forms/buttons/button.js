@@ -19,7 +19,7 @@ import classnames from 'classnames'
  * @type Function
  * @param {Boolean} [invalid] - Whether or not a related form is invalid (will set aria-disabled when `true`)
  * @param {Boolean} [pristine] - Whether or not a related form is pristine (will set aria-disabled when `true`)
- * @param {String} [priority="primary"] - A descriptive string that will be appended to the button's class with format `button-<type>`
+ * @param {String} [variant="primary"] - A descriptive string that will be appended to the button's class with format `button-<type>`
  * @param {Boolean} [submitting] - Whether or not a related form is submitting (will give button class `'in-progress` when `true`)
  * @param {Boolean} [type="button"] - The [type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type) attribute of the button element
  * @param {Function} [children] - Any React component(s) being wrapped by the button
@@ -28,7 +28,7 @@ import classnames from 'classnames'
  * function MessageButton ({ message }) {
  *   return (
  *      <Button
- *        priority="secondary"
+ *        variant="secondary"
  *        onClick={ () => console.log(message) }
  *      > 
  *        Print Message
@@ -43,7 +43,7 @@ import classnames from 'classnames'
 const propTypes = {
   invalid:    PropTypes.bool,
   pristine:   PropTypes.bool,
-  priority:   PropTypes.string,
+  variant:    PropTypes.string,
   submitting: PropTypes.bool,
   type:       PropTypes.string.isRequired,
   children:   PropTypes.node,
@@ -52,15 +52,15 @@ const propTypes = {
 }
 
 const defaultProps = {
-  priority: 'primary',
+  variant: 'primary',
   type: 'button',
   className: '',
   onClick: noop,
 }
 
-function calculateClassName ({ className, priority, pristine, invalid, submitting }) {
+function calculateClassName ({ className, variant, pristine, invalid, submitting }) {
   return classnames(
-    `button-${priority}`,
+    `button-${variant}`,
     {
       'is-disabled': pristine || invalid,
       'in-progress': submitting,
@@ -74,7 +74,7 @@ function calculateClassName ({ className, priority, pristine, invalid, submittin
 function Button ({
   children,
   type,
-  priority,
+  variant,
   pristine,
   invalid,
   submitting,
@@ -86,7 +86,7 @@ function Button ({
   return (
     <button
       type={ type }
-      className={ calculateClassName({ className, priority, pristine, invalid, submitting }) }
+      className={ calculateClassName({ className, variant, pristine, invalid, submitting }) }
       aria-disabled={ pristine || invalid }
       onClick={ (disabled || submitting) ? noop : onClick }
       { ...rest }
