@@ -1,13 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { buttonClasses } from '../helpers'
 import { noop } from '../../utils'
+import classnames from 'classnames'
 
 /**
  *
  * A simple button component that can be used independently, or as part of a form.
  *
-
  * Conditionally adds classes and/or sets aria-disabled depending on passed props. If the button is `disabled` or `submitting`, the `onClick` handler will be overridden with a `noop`. This is especially helpful when preventing duplicate form submissions for **both** mouse and keyboard actions.
  * 
  * In addition to the props below, any extra props will be passed directly to the inner `<button>` element.
@@ -20,7 +19,7 @@ import { noop } from '../../utils'
  * @type Function
  * @param {Boolean} [invalid] - Whether or not a related form is invalid (will set aria-disabled when `true`)
  * @param {Boolean} [pristine] - Whether or not a related form is pristine (will set aria-disabled when `true`)
- * @param {String} [style="primary"] - A descriptive string that will be appended to the button's class with format `button-<type>`
+ * @param {String} [variant="primary"] - A descriptive string that will be appended to the button's class with format `button-<type>`
  * @param {Boolean} [submitting] - Whether or not a related form is submitting (will give button class `'in-progress` when `true`)
  * @param {Boolean} [type="button"] - The [type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type) attribute of the button element
  * @param {Function} [children] - Any React component(s) being wrapped by the button
@@ -29,7 +28,7 @@ import { noop } from '../../utils'
  * function MessageButton ({ message }) {
  *   return (
  *      <Button
- *        style="secondary"
+ *        variant="secondary"
  *        onClick={ () => console.log(message) }
  *      > 
  *        Print Message
@@ -44,7 +43,7 @@ import { noop } from '../../utils'
 const propTypes = {
   invalid:    PropTypes.bool,
   pristine:   PropTypes.bool,
-  style:      PropTypes.string,
+  variant:    PropTypes.string,
   submitting: PropTypes.bool,
   type:       PropTypes.string.isRequired,
   children:   PropTypes.node,
@@ -53,17 +52,29 @@ const propTypes = {
 }
 
 const defaultProps = {
-  style: 'primary',
+  variant: 'primary',
   type: 'button',
   className: '',
   onClick: noop,
 }
 
+function calculateClassName ({ className, variant, pristine, invalid, submitting }) {
+  return classnames(
+    `button-${variant}`,
+    {
+      'is-disabled': pristine || invalid,
+      'in-progress': submitting,
+    },
+    className,
+  )
+}
+
+
 // eslint-disable-next-line no-unused-vars
 function Button ({
   children,
   type,
-  style,
+  variant,
   pristine,
   invalid,
   submitting,
@@ -75,7 +86,7 @@ function Button ({
   return (
     <button
       type={ type }
-      className={ buttonClasses({ className, style, pristine, invalid, submitting }) }
+      className={ calculateClassName({ className, variant, pristine, invalid, submitting }) }
       aria-disabled={ pristine || invalid }
       onClick={ (disabled || submitting) ? noop : onClick }
       { ...rest }
