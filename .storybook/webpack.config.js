@@ -22,11 +22,13 @@ module.exports = async ({ config }) => {
       {
         loader: 'sass-loader',
         options: {
-          includePaths: [
-            datePickerIncludePaths,
-            bourbonIncludePaths,
-            neatIncludePaths,
-          ],
+          sassOptions: {
+            includePaths: [
+              datePickerIncludePaths,
+              bourbonIncludePaths,
+              neatIncludePaths,
+            ],
+          }
         },
       },
     ],
