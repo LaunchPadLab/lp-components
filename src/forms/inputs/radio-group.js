@@ -2,6 +2,7 @@ import React from 'react'
 // import PropTypes from 'prop-types'
 import Input from './input'
 import {
+  convertNameToLabel,
   fieldPropTypes,
   fieldOptionsType,
   omitLabelProps,
@@ -58,6 +59,12 @@ const defaultProps = {
   options: []
 }
 
+function RadioGroupLegend ({ label, name }) {
+  return (
+    <legend>{ label || convertNameToLabel(name) }</legend>
+  )
+}
+
 function RadioGroup (props) {
   const {
     input: { value, onChange, name },
@@ -67,7 +74,11 @@ function RadioGroup (props) {
   } = omitLabelProps(props)
   const optionObjects = serializeOptions(options)
   return (
-    <LabeledField className="RadioGroup" { ...props }>
+    <LabeledField
+      className="RadioGroup"
+      labelComponent={ RadioGroupLegend }
+      { ...props }
+    >
       {
         optionObjects.map((option, i) => {
           return (

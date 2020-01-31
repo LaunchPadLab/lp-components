@@ -15,7 +15,7 @@ test('when label not provided - renders a label with content equal to formatted 
   expect(wrapper.dive().find('label').text()).toEqual(formattedName)
 })
 
-test('when label not provided - renders a label with content equal to string', () => {
+test('when label provided - renders a label with content equal to string', () => {
   const wrapper = shallow(<InputLabel name={name} label="foo"/>)
   expect(wrapper.dive().find('label').text()).toEqual('foo')
 })

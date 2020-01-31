@@ -8,6 +8,7 @@ import {
 } from '../helpers'
 import { LabeledField } from '../labels'
 import { addToArray, removeFromArray, serializeOptions, compose } from '../../utils'
+import { convertNameToLabel } from '../helpers'
 
 /**
  *
@@ -59,6 +60,12 @@ const defaultProps = {
   options: []
 }
 
+function CheckboxGroupLegend ({ name, label }) {
+  return (
+    <legend>{ label || convertNameToLabel(name) }</legend>
+  )
+}
+
 function CheckboxGroup (props) {
   const {
     input: { value, onChange, name },
@@ -76,7 +83,11 @@ function CheckboxGroup (props) {
     }
   }
   return (
-    <LabeledField className="CheckboxGroup" { ...props }>
+    <LabeledField
+      className="CheckboxGroup"
+      labelComponent={ CheckboxGroupLegend }
+      { ...props }
+    >
       {
         optionObjects.map((option, i) => {
           return (

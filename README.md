@@ -10,6 +10,7 @@ Documentation and usage info can be found in [docs.md](docs.md).
 ## Migration Guides
 - [v2.0.0](migration-guides/v2.0.0.md)
 - [v3.0.0](migration-guides/v3.0.0.md)
+- [v4.0.0](migration-guides/v4.0.0.md)
 
 ## Contribution
 This package follows the Opex [NPM package guidelines](https://github.com/LaunchPadLab/opex/blob/master/gists/npm-package-guidelines.md). Please refer to the linked document for information on contributing, testing and versioning.

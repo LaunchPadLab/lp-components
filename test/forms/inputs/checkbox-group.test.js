@@ -37,3 +37,34 @@ test('CheckboxGroup removes value to array when selected option clicked', () => 
   const newValue = onChange.mock.calls[0][0]
   expect(newValue).toEqual([])
 })
+
+test('CheckboxGroup has a legend with the group\'s name by default', () => {
+  const props = { 
+    input: {
+      name: 'testGroup',
+      value: '',
+    }, 
+    meta: {},
+    options: ['TOGGLED_OPTION']
+  }
+  const wrapper = mount(<CheckboxGroup { ...props }/>)
+  const legend = wrapper.find('fieldset').first().find('legend')
+  expect(legend).toBeTruthy()
+  expect(legend.text()).toEqual('Test Group')
+})
+
+test('CheckboxGroup has a legend with the group\'s label (when provided)', () => {
+  const props = { 
+    input: {
+      name: 'testGroup',
+      value: '',
+    },
+    label: 'Checkbox Group',
+    meta: {},
+    options: ['TOGGLED_OPTION']
+  }
+  const wrapper = mount(<CheckboxGroup { ...props }/>)
+  const legend = wrapper.find('fieldset').first().find('legend')
+  expect(legend).toBeTruthy()
+  expect(legend.text()).toEqual('Checkbox Group')
+})

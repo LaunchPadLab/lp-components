@@ -5,7 +5,7 @@ import Button from './button'
  * A wrapper around the {@link Button} component that adds `type="submit"`. Generally used in the context of forms. 
  *
  * With the exception of `type`, this component shares the same props as {@link Button}.
- *
+ * 
  * @name SubmitButton
  * @type Function
  * @example

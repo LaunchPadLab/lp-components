@@ -317,17 +317,19 @@ Type: PropTypes
 
 A simple button component that can be used independently, or as part of a form.
 
-Conditionally adds classes and/or becomes disabled depending on passed props. If the button is `disabled` or `submitting`, the `onClick` handler will be overridden with a `noop`. This is especially helpful when preventing duplicate form submissions for **both** mouse and keyboard actions.
+Conditionally adds classes and/or sets aria-disabled depending on passed props. If the button is `disabled` or `submitting`, the `onClick` handler will be overridden with a `noop`. This is especially helpful when preventing duplicate form submissions for **both** mouse and keyboard actions.
 
 In addition to the props below, any extra props will be passed directly to the inner `<button>` element.
 
 If a className is provided to the component, it will be appended to the conditionally added classes.
 
+_Note: Instead of targeting the `:disabled` pseudo-class or `[disabled]` attribute, you can target `[aria-disabled=true]` to apply similar styling. Using the ARIA attribute keeps the `<button>` in the taborder and will be read as "disabled" or "dimmed" by screen reader technologies. You can also target `.is-disabled` which gets added as a class based on the same conditions that set `aria-disabled`._
+
 ### Parameters
 
--   `invalid` **[Boolean][139]?** Whether or not a related form is invalid (will disable when `true`)
--   `pristine` **[Boolean][139]?** Whether or not a related form is pristine (will disable when `true`)
--   `style` **[String][137]** A descriptive string that will be appended to the button's class with format `button-<type>` (optional, default `"primary"`)
+-   `invalid` **[Boolean][139]?** Whether or not a related form is invalid (will set aria-disabled when `true`)
+-   `pristine` **[Boolean][139]?** Whether or not a related form is pristine (will set aria-disabled when `true`)
+-   `variant` **[String][137]** A descriptive string that will be appended to the button's class with format `button-<type>` (optional, default `"primary"`)
 -   `submitting` **[Boolean][139]?** Whether or not a related form is submitting (will give button class `'in-progress` when `true`)
 -   `type` **[Boolean][139]** The [type][147] attribute of the button element (optional, default `"button"`)
 -   `children` **[Function][138]?** Any React component(s) being wrapped by the button
@@ -338,7 +340,7 @@ If a className is provided to the component, it will be appended to the conditio
 function MessageButton ({ message }) {
   return (
      <Button
-       style="secondary"
+       variant="secondary"
        onClick={ () => console.log(message) }
      > 
        Print Message
@@ -762,7 +764,7 @@ A range input that can be used in a `redux-forms`-controlled form.
 -   `min` **[Number][141]** The minumum attribute of the slider control (optional, default `0`)
 -   `max` **[Number][141]** The maximum attribute of the slider control (optional, default `100`)
 -   `step` **[Number][141]** The step attribute of the slider control (optional, default `1`)
--   `hideLabel` **[Boolean][139]** A boolean representing whether or not to display the range value label element (optional, default `false`)
+-   `hideRangeLabel` **[Boolean][139]** A boolean representing whether or not to display the range value label element (optional, default `false`)
 
 ### Examples
 
@@ -854,7 +856,7 @@ The value of the `Select` component will be the same as the value of the selecte
 -   `meta` **[Object][145]** A `redux-forms` [meta][146] object
 -   `options` **[Array][142]** An array of option values (strings, numbers, or key-value pairs). This prop will be ignored if `optionGroups` is present.
 -   `optionGroups` **[Array][142]** An array of option group objects
--   `placeholder` **[String][137]?** A string to display as a placeholder option
+-   `placeholder` **[String][137]** A string to display as a placeholder option. Pass in `false` to hide the placeholder option. (optional, default `'Select'`)
 -   `enablePlaceholderOption` **[Boolean][139]** A flag indicating that the placeholder option should not be `disabled` (optional, default `false`)
 
 ### Examples
