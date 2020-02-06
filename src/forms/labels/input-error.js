@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { generateInputErrorId } from '../../utils'
+import { generateInputErrorId, filterInvalidDOMProps } from '../../utils'
 import { hasInputError } from '../helpers'
 
 /**
@@ -73,7 +73,7 @@ function InputError ({ error, invalid, touched, name, className, ...rest }) {
     ? <span
         id={ generateInputErrorId(name) }
         className={ classnames('error-message', className) }
-        { ...rest }
+        { ...filterInvalidDOMProps(rest) }
       >
         { formatError(error) }
       </span>
