@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { fieldOptionsType } from '../../forms/helpers/field-prop-types'
-import { serializeOptions, noop, first, toLower, triggerOnKeys } from '../../utils'
+import { serializeOptions, noop, get, first, toLower, triggerOnKeys } from '../../utils'
 import createFocusListener from './focus'
 
 /**
@@ -53,7 +53,7 @@ const defaultProps = {
 
 function TabBar ({ vertical, options, value, onChange, className, activeClassName }) {
   const optionObjects = serializeOptions(options)
-  const activeValue = value || first(optionObjects).value // a11y dictates that a tab must be active, so default to the first
+  const activeValue = value || get('value', first(optionObjects)) // a11y dictates that a tab must be active, so default to the first option
   const alignment = vertical ? 'vertical' : 'horizontal'
   
   return (

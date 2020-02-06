@@ -40,7 +40,7 @@ test('TabBar calls onChange', () => {
 })
 
 test('TabBar passes down custom className to ul', () => {
-  const wrapper = mount(<TabBar options={defaultOptions} className="custom" />)
+  const wrapper = mount(<TabBar className="custom" />)
   expect(wrapper.find('ul').hasClass('custom')).toEqual(true)
 })
 
