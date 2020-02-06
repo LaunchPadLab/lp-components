@@ -1,3 +1,4 @@
+// List of key codes that can be used to modify the DOM's activeElement in a tab list
 const PERTINENT_KEY_CODES = {
   DOWN: '40',
   UP: '38',
@@ -49,6 +50,8 @@ function getSafeIndex (length, newIndex) {
   return newIndex
 }
 
+// Creates a function that can be passed to event handlers (e.g., onKeyPress) that manages which element should be focused
+// Note: Expected keyboard interaction with arrow keys changes depending on the orientation of the tab list
 function createFocusListener (alignment='horizontal') {
   const vertical = alignment === 'vertical'
   
