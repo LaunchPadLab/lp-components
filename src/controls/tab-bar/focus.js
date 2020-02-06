@@ -49,7 +49,9 @@ function getSafeIndex (length, newIndex) {
   return newIndex
 }
 
-function createFocusListener (vertical) {
+function createFocusListener (alignment='horizontal') {
+  const vertical = alignment === 'vertical'
+  
   return function manageFocus (e) {
     // If not activated while on a tab, then ignore
     if (!isTabControl(e.target)) return

@@ -66,10 +66,10 @@ function TabBar ({ vertical, options, value, onChange, className, activeClassNam
               className={ classnames({ [activeClassName]: isActive }) }
               key={ key }
               role="presentation"
-              onKeyDown={createFocusListener(vertical)}
+              onKeyDown={createFocusListener(alignment)}
             >
               <a
-                id={'tab-'+ toLower(key)} // allow sections to reference tab using `aria-labelledby`
+                id={'tab-'+ toLower(optionValue)} // allow sections to reference tab using `aria-labelledby`
                 onClick={() => { onChange(optionValue) }}
                 onKeyPress={triggerOnKeys(() => { onChange(optionValue) }, [ENTER_KEY_CODE, SPACE_KEY_CODE])}
                 tabIndex={ isActive ? '0' : '-1' } // remove inactive tabs from tab order (controlled with arrow keys)
