@@ -76,3 +76,8 @@ test('Page button is triggered via click or enter', () => {
   
   expect(onChange).toHaveBeenCalledTimes(2)
 })
+
+test('Can accept custom delimiter', () => {
+  const wrapper = mount(<Paginator value={ 1 } min={ 1 } max={ 10 } delimiter="foo" />)
+  expect(wrapper.find('.delimiter').contains('foo')).toBe(true)
+})

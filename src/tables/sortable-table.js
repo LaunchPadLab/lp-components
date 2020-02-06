@@ -41,10 +41,13 @@ const propTypes = {
   disableSort: PropTypes.bool.isRequired,
   rowComponent: Types.component,
   headerComponent: Types.component,
+  className: PropTypes.string,
   ...sortablePropTypes,
 }
 
-const defaultProps = {}
+const defaultProps = {
+  className: ''
+}
 
 function SortableTable ({ 
   columns,
@@ -58,10 +61,11 @@ function SortableTable ({
   setSortFunc,
   rowComponent,
   headerComponent,
+  className,
 }) {
   const data = (controlled || disableSort) ? unsortedData : sort(unsortedData)
   return (
-    <table className={ classnames({ 'sortable-table': !disableSort }) }>
+    <table className={ classnames(className, { 'sortable-table': !disableSort }) }>
       <thead><tr>
         {
           columns.map((column, key) => {
