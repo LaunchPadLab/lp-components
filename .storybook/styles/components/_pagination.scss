@@ -47,4 +47,9 @@
     color: #666;
     text-decoration: none;
   }
+  
+  a:focus {
+    outline: auto;
+    outline-color: $blue-base;
+  }
 }
