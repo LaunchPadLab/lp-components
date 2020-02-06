@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { fieldOptionsType } from '../../forms/helpers/field-prop-types'
-import { serializeOptions, noop, first, toLower, triggerOnKeys,  } from '../../utils'
+import { serializeOptions, noop, first, toLower, triggerOnKeys } from '../../utils'
 import createFocusListener from './focus'
 
 /**
@@ -38,7 +38,6 @@ const propTypes = {
   vertical: PropTypes.bool,
   options: fieldOptionsType,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onChange: PropTypes.func,
   className: PropTypes.string,
   activeClassName: PropTypes.string,
@@ -48,16 +47,14 @@ const defaultProps = {
   vertical: false,
   options: [],
   value: '',
-  defaultValue: '',
   onChange: noop,
   className: '',
   activeClassName: 'active',
 }
 
-function TabBar ({ vertical, options, value, defaultValue, onChange, className, activeClassName }) {
+function TabBar ({ vertical, options, value, onChange, className, activeClassName }) {
   const optionObjects = serializeOptions(options)
-  const defaultTabValue = defaultValue || first(optionObjects).value // must have an active tab, defaults to first option
-  const activeValue = value || defaultTabValue
+  const activeValue = value || first(optionObjects).value // a11y dictates that a tab must be active, so default to the first
   const alignment = vertical ? 'vertical' : 'horizontal'
   
   return (
@@ -76,7 +73,7 @@ function TabBar ({ vertical, options, value, defaultValue, onChange, className, 
                 id={'tab-'+ toLower(key)} // allow sections to reference tab using `aria-labelledby`
                 onClick={() => { onChange(optionValue) }}
                 onKeyPress={triggerOnKeys(() => { onChange(optionValue) }, [ENTER_KEY_CODE, SPACE_KEY_CODE])}
-                tabIndex={ isActive ? "0" : "-1" } // remove inactive tabs from tab order (controlled with arrow keys)
+                tabIndex={ isActive ? '0' : '-1' } // remove inactive tabs from tab order (controlled with arrow keys)
                 role="tab"
                 aria-selected={ isActive }
               >
