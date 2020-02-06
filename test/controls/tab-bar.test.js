@@ -65,19 +65,19 @@ test('TabBar mounts with the first tab active by default', () => {
   expect(wrapper.find('li.active').length).toBe(1)
 })
 
-test('TabBar allows default active tab to be specified', () => {
-  const wrapper = mount(<TabBar options={defaultOptions} defaultValue="Account" />)
-  expect(wrapper.find('li.active > a').text()).toBe("Account")
+test('Inactive tabs are explicitly removed from the natural tab order', () => {
+  const wrapper = mount(<TabBar options={defaultOptions} />)
+  expect(wrapper.find('li').not('.active').find('a').every('[tabIndex="-1"]')).toBe(true)
 })
 
-test('Tab focus is triggered via Enter', () => {
+test('Tab to show is triggered via Enter', () => {
   const onChange = jest.fn()
   const wrapper = mount(<TabBar options={objectOptions} onChange={ onChange } />)
   wrapper.find('li > a').first().simulate('keyPress', { keyCode: 13 })
   expect(onChange).toHaveBeenCalledWith('home')
 })
 
-test('Tab focus is triggered via Space', () => {
+test('Tab to show is triggered via Space', () => {
   const onChange = jest.fn()
   const wrapper = mount(<TabBar options={objectOptions} onChange={ onChange } />)
   wrapper.find('li > a').first().simulate('keyPress', { keyCode: 32 })
