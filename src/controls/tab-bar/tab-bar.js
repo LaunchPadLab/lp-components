@@ -13,7 +13,6 @@ import createFocusListener from './focus'
  * @param {Boolean} [vertical] A boolean setting the `className` of the `ul` to 'horizontal' (default), or 'vertical', which determines the alignment of the tabs (optional, default `false`)
  * @param {Array} [options] An array of tab values (strings or key-value pairs)
  * @param {String|Number} [value] - The value of the current tab
- * @param {String|Number} [defaultValue] - The value of the tab that should start as active
  * @param {Function} [onChange] - A function called with the new value when a tab is clicked
  * @param {String} [activeClassName] - The class of the active tab, (optional, default `active`)
  * @example
