@@ -42,7 +42,7 @@ function FlashMessage ({ message, onDismiss }) {
       { 
         onDismiss &&
         <button type="button" className="dismiss" onClick={ () => onDismiss(message) }>
-          X
+          ×
         </button>
       }
       <p> { message.message } </p>

@@ -1,9 +1,9 @@
 import React from 'react'
 
-function Delimiter () {
+function Delimiter({ children }) {
   return (
     <li>
-      <span className="delimiter">...</span>
+      <span className="delimiter">{children}</span>
     </li>
   )
 }
