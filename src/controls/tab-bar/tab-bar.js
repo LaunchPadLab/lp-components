@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { fieldOptionsType } from '../../forms/helpers/field-prop-types'
-import { serializeOptions, noop, get, first, toLower, triggerOnKeys } from '../../utils'
-import createFocusListener from './focus'
+import { serializeOptions, noop, get, first, toLower, triggerOnKeys, KeyCodes } from '../../utils'
+import manageFocus from './focus'
 
 /**
  *
@@ -29,9 +29,6 @@ import createFocusListener from './focus'
  *   )
  * }
  */
-
-const ENTER_KEY_CODE = 13
-const SPACE_KEY_CODE = 32
 
 const propTypes = {
   vertical: PropTypes.bool,
@@ -66,12 +63,12 @@ function TabBar ({ vertical, options, value, onChange, className, activeClassNam
               className={ classnames({ [activeClassName]: isActive }) }
               key={ key }
               role="presentation"
-              onKeyDown={createFocusListener(alignment)}
+              onKeyDown={(e) => manageFocus(e, { vertical })}
             >
               <a
                 id={'tab-'+ toLower(optionValue)} // allow sections to reference tab using `aria-labelledby`
                 onClick={() => { onChange(optionValue) }}
-                onKeyPress={triggerOnKeys(() => { onChange(optionValue) }, [ENTER_KEY_CODE, SPACE_KEY_CODE])}
+                onKeyPress={triggerOnKeys(() => { onChange(optionValue) }, [KeyCodes.ENTER, KeyCodes.SPACE])}
                 tabIndex={ isActive ? '0' : '-1' } // remove inactive tabs from tab order (controlled with arrow keys)
                 role="tab"
                 aria-selected={ isActive }

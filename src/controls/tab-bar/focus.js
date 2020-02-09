@@ -1,93 +1,100 @@
-// List of key codes that can be used to modify the DOM's activeElement in a tab list
-const PERTINENT_KEY_CODES = {
-  DOWN: '40',
-  UP: '38',
-  HOME: '36',
-  END: '35',
-  LEFT: '37',
-  RIGHT: '39',
+import { KeyCodes } from '../../utils'
+
+// Funnction that can be passed to event handlers (e.g., onKeyPress) that manages which element should be focused
+// Note: Expected keyboard interaction with arrow keys changes depending on the orientation of the tab list
+function manageFocus (e, { vertical=false }) {
+  // If not activated while on a tab, then ignore
+  if (!isTabControl(e.target)) return
+  
+  const key = (e.which || e.keyCode || '').toString()
+  switch (key) {
+    case KeyCodes.DOWN: {
+      if (!vertical) return
+      return focusNextControl(e)
+    }
+    case KeyCodes.UP: {
+      if (!vertical) return
+      return focusPreviousControl(e)
+    }
+    case KeyCodes.LEFT: {
+      if (vertical) return
+      return focusPreviousControl(e)
+    }
+    case KeyCodes.RIGHT: {
+      if (vertical) return
+      return focusNextControl(e)
+    }
+    case KeyCodes.HOME: {
+      return focusFirstControl(e)
+    }
+    case KeyCodes.END: {
+      return focusLastControl(e)
+    }
+    default:
+      // do nothing
+  }
 }
 
-// Recursively searches for the closest parent tab list
-function getClosestTabList (el) {
-  return el && (el.matches('[role="tablist"]') ? el : getClosestTabList(el.parentElement))
+// ----- FOCUS APIs -----
+
+function focusFirstControl(e) {
+  e.preventDefault()
+  const controls = getTabs(e.target)
+  return controls[0].focus()
 }
+
+function focusLastControl(e) {
+  e.preventDefault()
+  const controls = getTabs(e.target)
+  return controls[controls.length - 1].focus()
+}
+
+function focusNextControl(e) {
+  e.preventDefault()
+  const nextControl = getAdjacentControl(e.target)
+  return nextControl.focus()
+}
+
+function focusPreviousControl(e) {
+  e.preventDefault()
+  const previousControl = getAdjacentControl(e.target, { previous: true })
+  return previousControl.focus()
+}
+
+// ----- PRIVATE HELPERS -----
 
 // Checks if the element is a tab
 function isTabControl (el) {
   return el && el.matches('[role="tab"]')
 }
 
-// Moves focus the next tab in the tab list
-// Note: this will wrap around if the current tab is the first or last element
-function focusNextControl (control, direction) {
+// Returns the _closest_ adjacent control
+// Note: will wrap around the array (e.g., the closest previous control to the first item is the last item)
+function getAdjacentControl (control, { previous=false }={}) {
+  const controls = getTabs(control)
+  const currentIndex = controls.indexOf(control)
+  
+  return previous ? getNthValue(controls, currentIndex - 1) : getNthValue(controls, currentIndex + 1)
+}
+
+// Recursively searches for the closest parent tab list
+function getClosestTabList (el) {
+  if (!el) return
+  return el.matches('[role="tablist"]') ? el : getClosestTabList(el.parentElement)
+}
+
+// Returns the value at a "safe" index by accounting for indices that exceed the bounds
+// Note: handles positive and negative index args
+function getNthValue(arr, newIndex) {
+  const length = arr.length
+  const safeIndex = ((newIndex % length) + length) % length
+  return arr[safeIndex]
+}
+
+// Returns an array of tab elements in the tab list corresponding to the target element
+function getTabs (control) {
   const tabList = getClosestTabList(control)
-  const tabs = Array.from(tabList.querySelectorAll('[role="tab"]'))
-  const currentIndex = tabs.indexOf(control)
-  
-  if (currentIndex === -1) return
-  
-  const newIndex = getSafeIndex(tabs.length, currentIndex + 1*direction)
-  tabs[newIndex].focus()
+  return Array.from(tabList.querySelectorAll('[role="tab"]'))
 }
 
-// Moves focus to the "extreme" tab (first or last in the tab list)
-function focusExtremeControl (control, top=true) {
-  const tabList = getClosestTabList(control)
-  const tabs = Array.from(tabList.querySelectorAll('[role="tab"]'))
-  
-  top ? tabs[0].focus() : tabs[tabs.length - 1].focus()
-}
-
-// Recursively calculates a "safe" index by wrapping around when the array bounds are exceeded
-// e.g., getSafeIndex([1, 2, 3].length, 3) -> 0
-function getSafeIndex (length, newIndex) {
-  const maxIndex = length - 1
-  
-  if (newIndex < 0) return getSafeIndex(length, length + newIndex)
-  if (newIndex > maxIndex) return getSafeIndex(length, length - newIndex)
-  
-  return newIndex
-}
-
-// Creates a function that can be passed to event handlers (e.g., onKeyPress) that manages which element should be focused
-// Note: Expected keyboard interaction with arrow keys changes depending on the orientation of the tab list
-function createFocusListener (alignment='horizontal') {
-  const vertical = alignment === 'vertical'
-  
-  return function manageFocus (e) {
-    // If not activated while on a tab, then ignore
-    if (!isTabControl(e.target)) return
-    
-    const key = (e.which || e.keyCode || '').toString()
-    switch (key) {
-      case PERTINENT_KEY_CODES.DOWN:
-      case PERTINENT_KEY_CODES.UP: {
-        if (!vertical) break
-        
-        e.preventDefault()
-        const direction = (key === PERTINENT_KEY_CODES.DOWN) ? 1 : -1
-        focusNextControl(e.target, direction)
-        break
-      }
-      case PERTINENT_KEY_CODES.LEFT:
-      case PERTINENT_KEY_CODES.RIGHT: {
-        if (vertical) break
-        
-        e.preventDefault()
-        const direction = (key === PERTINENT_KEY_CODES.RIGHT) ? 1 : -1
-        focusNextControl(e.target, direction)
-        break
-      }
-      case PERTINENT_KEY_CODES.HOME:
-      case PERTINENT_KEY_CODES.END:
-        e.preventDefault()
-        focusExtremeControl(e.target, key === PERTINENT_KEY_CODES.HOME)
-        break
-      default:
-        // do nothing
-    }
-  }
-}
-
-export default createFocusListener
+export default manageFocus
