@@ -48,3 +48,38 @@ test('TabBar passes down custom activeClassName to li', () => {
   const wrapper = mount(<TabBar options={objectOptions} value='home' activeClassName="custom" />)
   expect(wrapper.find('li').first().hasClass('custom')).toEqual(true)
 })
+
+test('TabBar assigns appropriate aria roles', () => {
+  const wrapper = mount(<TabBar options={defaultOptions} />)
+  expect(wrapper.find('ul').prop('role')).toBe('tablist')
+  expect(wrapper.find('li > a').every('[role="tab"]')).toBe(true)
+})
+
+test('TabBar assigns unique id to tab', () => {
+  const wrapper = mount(<TabBar options={defaultOptions} />)
+  expect(wrapper.find('li > a').first().prop('id')).toContain(defaultOptions[0].toLowerCase())
+})
+
+test('TabBar mounts with the first tab active by default', () => {
+  const wrapper = mount(<TabBar options={defaultOptions} />)
+  expect(wrapper.find('li.active').length).toBe(1)
+})
+
+test('Inactive tabs are explicitly removed from the natural tab order', () => {
+  const wrapper = mount(<TabBar options={defaultOptions} />)
+  expect(wrapper.find('li').not('.active').find('a').every('[tabIndex="-1"]')).toBe(true)
+})
+
+test('Tab to show is triggered via Enter', () => {
+  const onChange = jest.fn()
+  const wrapper = mount(<TabBar options={objectOptions} onChange={ onChange } />)
+  wrapper.find('li > a').first().simulate('keyPress', { keyCode: 13 })
+  expect(onChange).toHaveBeenCalledWith('home')
+})
+
+test('Tab to show is triggered via Space', () => {
+  const onChange = jest.fn()
+  const wrapper = mount(<TabBar options={objectOptions} onChange={ onChange } />)
+  wrapper.find('li > a').first().simulate('keyPress', { keyCode: 32 })
+  expect(onChange).toHaveBeenCalledWith('home')
+})

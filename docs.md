@@ -13,41 +13,41 @@
 -   [TabBar][9]
     -   [Parameters][10]
     -   [Examples][11]
--   [fieldOptionsType][12]
--   [fieldOptionGroupsType][13]
--   [fieldPropTypesWithValue][14]
-    -   [Parameters][15]
-    -   [Examples][16]
--   [defaultValueTypes][17]
--   [fieldPropTypes][18]
--   [checkboxGroupPropTypes][19]
--   [Button][20]
+-   [Button][12]
+    -   [Parameters][13]
+    -   [Examples][14]
+-   [ButtonArea][15]
+    -   [Parameters][16]
+    -   [Examples][17]
+-   [SubmitButton][18]
+    -   [Examples][19]
+-   [Checkbox][20]
     -   [Parameters][21]
     -   [Examples][22]
--   [ButtonArea][23]
+-   [CheckboxGroup][23]
     -   [Parameters][24]
     -   [Examples][25]
--   [SubmitButton][26]
-    -   [Examples][27]
--   [Checkbox][28]
-    -   [Parameters][29]
-    -   [Examples][30]
--   [CheckboxGroup][31]
-    -   [Parameters][32]
-    -   [Examples][33]
--   [CloudinaryFileInput][34]
-    -   [Parameters][35]
-    -   [Examples][36]
--   [ColorInput][37]
-    -   [Parameters][38]
-    -   [Examples][39]
--   [DateInput][40]
-    -   [Parameters][41]
+-   [CloudinaryFileInput][26]
+    -   [Parameters][27]
+    -   [Examples][28]
+-   [ColorInput][29]
+    -   [Parameters][30]
+    -   [Examples][31]
+-   [DateInput][32]
+    -   [Parameters][33]
+    -   [Examples][34]
+-   [DropdownCheckboxGroup][35]
+    -   [Parameters][36]
+    -   [Examples][37]
+-   [FileInput][38]
+    -   [Parameters][39]
+    -   [Examples][40]
+-   [HiddenInput][41]
     -   [Examples][42]
--   [DropdownCheckboxGroup][43]
+-   [Input][43]
     -   [Parameters][44]
     -   [Examples][45]
--   [FileInput][46]
+-   [IconInput][46]
     -   [Parameters][47]
     -   [Examples][48]
 -   [HiddenInput][49]
@@ -382,9 +382,9 @@ function ButtonForm ({ handleSubmit }) {
 
 ## SubmitButton
 
-A wrapper around the [Button][20] component that adds `type="submit"`. Generally used in the context of forms. 
+A wrapper around the [Button][12] component that adds `type="submit"`. Generally used in the context of forms. 
 
-With the exception of `type`, this component shares the same props as [Button][20].
+With the exception of `type`, this component shares the same props as [Button][12].
 
 ### Examples
 
@@ -670,7 +670,7 @@ function HeadshotForm ({ handleSubmit, pristine, invalid, submitting }) {
 An Input component that is hidden from the page. The input element is hidden with CSS instead 
 of using `type="hidden` so that Cypress can still access its value.
 
-Aside from being hidden, this component is identical to [Input][51],
+Aside from being hidden, this component is identical to [Input][43],
 and will take the same props.
 
 ### Examples
@@ -752,12 +752,12 @@ function PurchaseForm ({ handleSubmit, submitting }) {
 
 ## IconInput
 
-A wrapper around the [Input][51] component that adds an icon to the input.
+A wrapper around the [Input][43] component that adds an icon to the input.
 
 This icon is rendered as an `<i>` tag, with a dynamic class based on the `icon` prop. 
-For example, given an `icon` prop of `"twitter"`, the component will render an [Input][51] with child `<i className="twitter-icon"/>`.
+For example, given an `icon` prop of `"twitter"`, the component will render an [Input][43] with child `<i className="twitter-icon"/>`.
 
-Additionally, the fieldset of this [Input][51] will be given the class `"icon-label"` for styling purposes.
+Additionally, the fieldset of this [Input][43] will be given the class `"icon-label"` for styling purposes.
 
 ### Parameters
 
@@ -1689,143 +1689,143 @@ Returns **[Function][141]** Returns a function that takes an event and watches f
 
 [11]: #examples-3
 
-[12]: #fieldoptionstype
+[12]: #button
 
-[13]: #fieldoptiongroupstype
+[13]: #parameters-3
 
-[14]: #fieldproptypeswithvalue
+[14]: #examples-4
 
-[15]: #parameters-3
+[15]: #buttonarea
 
-[16]: #examples-4
+[16]: #parameters-4
 
-[17]: #defaultvaluetypes
+[17]: #examples-5
 
-[18]: #fieldproptypes
+[18]: #submitbutton
 
-[19]: #checkboxgroupproptypes
+[19]: #examples-6
 
-[20]: #button
+[20]: #checkbox
 
-[21]: #parameters-4
+[21]: #parameters-5
 
-[22]: #examples-5
+[22]: #examples-7
 
-[23]: #buttonarea
+[23]: #checkboxgroup
 
-[24]: #parameters-5
+[24]: #parameters-6
 
-[25]: #examples-6
+[25]: #examples-8
 
-[26]: #submitbutton
+[26]: #cloudinaryfileinput
 
-[27]: #examples-7
+[27]: #parameters-7
 
-[28]: #checkbox
+[28]: #examples-9
 
-[29]: #parameters-6
+[29]: #colorinput
 
-[30]: #examples-8
+[30]: #parameters-8
 
-[31]: #checkboxgroup
+[31]: #examples-10
 
-[32]: #parameters-7
+[32]: #dateinput
 
-[33]: #examples-9
+[33]: #parameters-9
 
-[34]: #cloudinaryfileinput
+[34]: #examples-11
 
-[35]: #parameters-8
+[35]: #dropdowncheckboxgroup
 
-[36]: #examples-10
+[36]: #parameters-10
 
-[37]: #colorinput
+[37]: #examples-12
 
-[38]: #parameters-9
+[38]: #fileinput
 
-[39]: #examples-11
+[39]: #parameters-11
 
-[40]: #dateinput
+[40]: #examples-13
 
-[41]: #parameters-10
+[41]: #hiddeninput
 
-[42]: #examples-12
+[42]: #examples-14
 
-[43]: #dropdowncheckboxgroup
+[43]: #input
 
-[44]: #parameters-11
+[44]: #parameters-12
 
-[45]: #examples-13
+[45]: #examples-15
 
-[46]: #fileinput
+[46]: #iconinput
 
-[47]: #parameters-12
+[47]: #parameters-13
 
-[48]: #examples-14
+[48]: #examples-16
 
-[49]: #hiddeninput
+[49]: #rangeinput
 
-[50]: #examples-15
+[50]: #parameters-14
 
-[51]: #input
+[51]: #examples-17
 
-[52]: #parameters-13
+[52]: #radiogroup
 
-[53]: #examples-16
+[53]: #parameters-15
 
 [54]: #input-1
 
-[55]: #parameters-14
+[55]: #select
 
-[56]: #examples-17
+[56]: #parameters-16
 
 [57]: #iconinput
 
-[58]: #parameters-15
+[58]: #setterlink
 
-[59]: #examples-18
+[59]: #parameters-17
 
 [60]: #rangeinput
 
-[61]: #parameters-16
+[61]: #textarea
 
-[62]: #examples-19
+[62]: #parameters-18
 
 [63]: #radiogroup
 
-[64]: #parameters-17
+[64]: #inputerror
 
-[65]: #examples-20
+[65]: #parameters-19
 
 [66]: #select
 
-[67]: #parameters-18
+[67]: #inputlabel
 
-[68]: #examples-21
+[68]: #parameters-20
 
 [69]: #setterlink
 
-[70]: #parameters-19
+[70]: #labeledfield
 
-[71]: #examples-22
+[71]: #parameters-21
 
 [72]: #textarea
 
-[73]: #parameters-20
+[73]: #blurdirty
 
-[74]: #examples-23
+[74]: #examples-25
 
 [75]: #inputerror
 
-[76]: #parameters-21
+[76]: #parameters-22
 
-[77]: #examples-24
+[77]: #examples-26
 
 [78]: #inputlabel
 
-[79]: #parameters-22
+[79]: #fieldoptiongroupstype
 
-[80]: #examples-25
+[80]: #fieldproptypeswithvalue
 
 [81]: #labeledfield
 
@@ -1835,7 +1835,7 @@ Returns **[Function][141]** Returns a function that takes an event and watches f
 
 [84]: #blurdirty
 
-[85]: #examples-27
+[85]: #checkboxgroupproptypes
 
 [86]: #convertnametolabel
 
