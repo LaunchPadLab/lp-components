@@ -54,7 +54,11 @@ function TabBar ({ vertical, options, value, onChange, className, activeClassNam
   const alignment = vertical ? 'vertical' : 'horizontal'
   
   return (
-    <ul className={ classnames('tabs', `${alignment}-tabs`, className) } role="tablist">
+    <ul
+      className={ classnames('tabs', `${alignment}-tabs`, className) }
+      role="tablist"
+      aria-orientation={alignment}
+    >
       {
         optionObjects.map(({ key, value: optionValue }) => {
           const isActive = optionValue === activeValue
