@@ -55,6 +55,14 @@ test('TabBar assigns appropriate aria roles', () => {
   expect(wrapper.find('li > a').every('[role="tab"]')).toBe(true)
 })
 
+test('TabBar assigns appropriate aria orientation', () => {
+  const horizontalWrapper = mount(<TabBar options={defaultOptions} vertical={false} />)
+  const verticalWrapper = mount(<TabBar options={defaultOptions} vertical />)
+  
+  expect(horizontalWrapper.find('[role="tablist"]').prop('aria-orientation')).toBe('horizontal')
+  expect(verticalWrapper.find('[role="tablist"]').prop('aria-orientation')).toBe('vertical')
+})
+
 test('TabBar assigns unique id to tab', () => {
   const wrapper = mount(<TabBar options={defaultOptions} />)
   expect(wrapper.find('li > a').first().prop('id')).toContain(defaultOptions[0].toLowerCase())
