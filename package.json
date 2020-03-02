@@ -46,7 +46,7 @@
     "moment": "^2.19.3",
     "prop-types": "^15.5.8",
     "react-color": "^2.14.0",
-    "react-datepicker": "^1.0.3",
+    "react-datepicker": "^2.0.0",
     "react-router": "^3.2.1",
     "redux-flash": "^2.0.1"
   },
