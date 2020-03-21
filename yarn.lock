@@ -3608,17 +3608,15 @@ boolbase@^1.0.0, boolbase@~1.0.0:
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
 
-bourbon-neat@^1.8.0:
-  version "1.9.1"
-  resolved "https://registry.yarnpkg.com/bourbon-neat/-/bourbon-neat-1.9.1.tgz#f7932e889bb24ac908c45d399b04bd5b0df1e949"
-  integrity sha512-W4gjJx1j+KPNF8Bg/3ecaTHPMC7IJ2pFKmYEZanWtzFk9MpM9kn+f14iXypIj8htHMRmzVByhzFhVWwuDKSTYg==
-  dependencies:
-    node-sass "^4.1.1"
+bourbon-neat@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/bourbon-neat/-/bourbon-neat-4.0.0.tgz#8aa1794aafba50b13993817af5e16c449739e332"
+  integrity sha512-Ql1JdvjNvK9NbGvcBpsDkfuRRMK8fZ/mx1gRyZEy3PM/kqQ8QX0PcmKEqnZMl18YLfKaDwC0qa+e36TlDmT49g==
 
-bourbon@^4.3.3:
-  version "4.3.4"
-  resolved "https://registry.yarnpkg.com/bourbon/-/bourbon-4.3.4.tgz#4da380029e92c0c8f9764c779451a134b11e7cc3"
-  integrity sha1-TaOAAp6SwMj5dkx3lFGhNLEefMM=
+bourbon@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/bourbon/-/bourbon-7.0.0.tgz#42c0b691e99cb1f7616aad2a11b17ab88bbc4918"
+  integrity sha512-49kyBY+4gwnEvnez8H0TzFjfNZpUVdCmmS873S9nQ6YUuh2+qesbOh8lA+9gAuWlqtYlF+/3Etxm/13RhceOrg==
 
 boxen@^3.0.0:
   version "3.2.0"
@@ -9286,7 +9284,7 @@ node-releases@^1.1.38, node-releases@^1.1.46:
   dependencies:
     semver "^6.3.0"
 
-node-sass@^4.1.1, node-sass@^4.11.0:
+node-sass@^4.11.0:
   version "4.13.0"
   resolved "https://registry.yarnpkg.com/node-sass/-/node-sass-4.13.0.tgz#b647288babdd6a1cb726de4545516b31f90da066"
   integrity sha512-W1XBrvoJ1dy7VsvTAS5q1V45lREbTlZQqFbiHb3R3OTTCma0XBtuG6xZ6Z4506nR4lmHPTqVRwxT6KgtWC97CA==

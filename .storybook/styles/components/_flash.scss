@@ -92,15 +92,6 @@ Flash
       }
     }
   }
-
-  &.neutral{
-    background-color: $grey-light;
-    border: 1px solid $grey-base;
-
-    p, button{
-      color: $black-base;
-    }
-  }
 }
 
 .flash-message ~ .flash-message{
