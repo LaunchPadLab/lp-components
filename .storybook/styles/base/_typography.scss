@@ -4,12 +4,11 @@
 html{
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
+  font-size: 87.5%;
 }
 
 body {
-  background-color: $grey-lighter;
   @include font-type($primary-sans-serif, normal, normal);
-  font: 100%/1.618;
   overflow-x: hidden;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -21,16 +20,15 @@ h2,
 h3,
 h4,
 h5,
-h6
- {
+h6 {
   color: $black-base;
+  @include font-type($primary-sans-serif, normal, $regular);
+  @include rem(margin-bottom, 12px);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  letter-spacing: 1.75;
-  line-height: 1.1;
 
   a{
-    @include transition(all 0.3s ease-in-out);
+    @include font-type($primary-sans-serif, normal, $regular);
 
     &:hover{
       text-decoration: underline;
@@ -38,47 +36,61 @@ h6
   }
 }
 
-h1 {
-  font-size: $s-bigger;
-  @include media($tablet) {
-    font-size: $s-large;
+h1 { 
+  @include rem(font-size, 28px);
+  font-weight: $light;
+
+  @include grid-media($tablet-landscape){
+    @include rem(font-size, 31px);
   }
 }
 
-h2 {
-  font-size: $s-medium;
-  @include media($tablet-landscape) {
-    font-size: $s-bigger;
-    font-weight: 500;
+
+h2 { 
+  @include rem(font-size, 25px);
+  font-weight: $light;
+  @include rem(margin-bottom, 30px);
+
+  @include grid-media($tablet-landscape){
+    @include rem(font-size, 27px);
   }
 }
 
 h3 {
-  font-size: $s-base;
-  @include media($tablet) {
-    font-size: $s-big;
-    @include rem(margin-bottom, 20px);
-  }
+  @include font-size-jumbo;   
+  font-weight: $semibold;
 }
-
-h4 { font-size: $s-bigger; }
-h5 { font-size: $s-big; }
-h6 { font-size: $s-big; }
 
 h4 {
-  text-transform: uppercase;
-  font-weight: $bold;
+  @include font-size-display;   
+  font-weight: $semibold;
 }
 
-p {
-  font-size: $s-small;
-  //@include rem(margin-bottom, 12px);
-  line-height: 22px;
-  color: $black-base;
-  @include media($tablet) {
-    font-size: $s-base;
-  }
+h5 {  
+  @include font-size-subheader; 
+  font-weight: $semibold;
+}
 
+h6 { 
+  @include font-size-minor; 
+  font-weight: $semibold;
+  text-transform: uppercase;
+}
+
+
+h3, h4, h5, h6{
+  @include rem(margin, 30px 0px);
+}
+
+p{
+  color: $black-base;
+  font-weight: normal;
+  font-style: normal;
+  @include font-type($primary-sans-serif, normal, $regular);
+  @include font-size-mbody;
+  @include rem(margin-bottom, 12px);
+  line-height: $base-line-loose;
+  @include rem(margin-bottom, 30px);
 
   &:last-child { @include rem(margin-bottom, 0); }
 }
@@ -87,6 +99,7 @@ li,
 dd{
   color: $black-base;
   @include font-type($primary-sans-serif, normal, normal);
+  @include font-size-mbody;
   line-height: $base-line-height;
   list-style: none;
 }
@@ -94,35 +107,19 @@ dd{
 a {
   color: $black-base;
   cursor: pointer;
-  @include transition(all 0.3s ease-in-out);
-  text-decoration: none;
-  border-bottom: 2px solid $blue-light;
-  font-size: $s-small;
+  @include font-size-mbody;
+  @include font-type($primary-sans-serif, normal, normal);
+  text-decoration: underline;
+  transition: all .5s ease-in-out;
 
   &:hover, &:focus  {
-    border-bottom: 2px solid $blue-base;
+    color: $black-dark;
   }
-
-  &:active,
-  &:focus {
-    outline: none;
-  }
-}
-
-.edit-link {
-  display: inline-block;
-  cursor: pointer;
-  border-bottom: 2px solid $blue-light;
 }
 
 strong, b { font-weight: $bold; }
 i, em { font-style: italic; }
 
-
-b, i {
-  color: $black-base;
-}
-
-b, i {
-  font-size: $s-base;
+u{
+  text-decoration: underline;
 }

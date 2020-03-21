@@ -1,55 +1,87 @@
+/*-----------------------
+Pagination
+-----------------------*/
+$pagination-active-color: $black-base !default;
+$pagination-default-color: $black-base !default;
 
 .pagination {
-  margin: 0 auto;
   display: table;
-  padding: 2px 2px 3px 1px;
-
-  ul{
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    float: left;
-  }
+  @include rem(margin, 20px auto 0px);
 
   li {
     float: left;
-    margin: 0 4px 0 0;
-    font-size: 12px;
+    @include rem(margin, 0px 8px);
 
-    &:last-child {
-      margin: 0;
+    a {
+      color: $pagination-default-color;
+      float: left;
+      text-decoration: none;
+      text-align: center;
+
+      &:hover {
+        color: darken($pagination-default-color, 10%);
+        text-decoration: underline;
+      }
     }
 
     &.active a,
     a:active {
-      box-shadow: none;
-    }
-
-    &.active a,
-    a:hover {
-      color: $blue-base;
+      color: $pagination-active-color;
     }
 
     .delimeter {
       display: block;
-      padding-top: 6px;
+      @include rem(padding-top, 6px);
     }
   }
-  a {
-    float: left;
-    background: #fff;
-    background: linear-gradient(top, #fff, #f5f5f5);
-    border-radius: 3px;
-    padding: 4px 10px;
-    border: 1px solid #d9d9d9;
-    border-top-color: $grey-light;
-    box-shadow: 0 3px 5px rgba(0,0,0,0.14);
-    color: #666;
-    text-decoration: none;
+}
+
+//With Arrows
+@mixin pagination-arrows {
+  background-position: top;
+  background-size: 100%;
+  content: '';
+  display: inline-block;
+  height: 18px;
+  transition: all 0.3s ease-in-out;
+  width: 14px;
+  vertical-align: sub;
+}
+
+.pagination {
+  li.next,
+  li.prev {
+    margin: 0px;
+
+    a {
+      height: 22px;
+      overflow: hidden;
+      width: 18px;
+
+      &:before {
+        display: block;
+      }
+    }
   }
-  
-  a:focus {
-    outline: auto;
-    outline-color: $blue-base;
+
+  .next a {
+    width: auto;
+
+    &:before {
+      // background: url('../../images/icons/next.svg') no-repeat center;
+      @include pagination-arrows;
+      @include rem(margin, 6px 0px 0px 3px);
+    }
+  }
+
+  .prev a {
+    width: auto;
+
+    &:before {
+      // background: url('../../images/icons/next.svg') no-repeat center;
+      @include pagination-arrows;
+      @include rem(margin-top, 3px);
+      transform: rotate(180deg);
+    }
   }
 }

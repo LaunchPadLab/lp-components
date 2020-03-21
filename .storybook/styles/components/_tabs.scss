@@ -3,12 +3,17 @@ Shared
 -----------------------*/
 .tabs{
   cursor: pointer;
+  position: relative;
 
   li{
-    @include transition(all 0.3s ease-in-out);
+    transition: all 0.3s ease-in-out;
 
     &:hover{
       color: darken($black-base, 100%);
+    }
+
+    a{
+      text-decoration: none;
     }
   }
 }
