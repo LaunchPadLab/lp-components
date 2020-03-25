@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import ReactModal from 'react-modal'
 
 const propTypes = {
-  shown: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   hideCloseButton: PropTypes.bool,
   children: PropTypes.node,
@@ -23,7 +22,7 @@ function getRootElement() {
 
 // A wrapper for react-modal that adds some styles and a close button.
 // See https://github.com/reactjs/react-modal for usage.
-function Modal({ shown, onClose, hideCloseButton, children, ...rest }) {
+function Modal({ onClose, hideCloseButton, children, ...rest }) {
   return (
     <ReactModal
       isOpen
@@ -36,17 +35,16 @@ function Modal({ shown, onClose, hideCloseButton, children, ...rest }) {
       {...rest}
     >
       <div className="modal-content rich-text">{children}</div>
-      {!hideCloseButton && (
-        <button
-          onClick={onClose}
-          className="close"
-          aria-label="Close Modal"
-        ></button>
-      )}
-      {!hideCloseButton && (
-        <button onClick={onClose} className="button-primary">
-          Close
-        </button>
+      {!!onClose && !hideCloseButton && (
+        <>
+          <button
+            onClick={onClose}
+            className="modal-close"
+            aria-label="Close Modal"
+          >
+            ×
+          </button>
+        </>
       )}
     </ReactModal>
   )
