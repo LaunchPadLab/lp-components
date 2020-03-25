@@ -1,29 +1,36 @@
 /*-----------------------
 Fieldset
 -----------------------*/
-fieldset{
+fieldset {
   display: inline-block;
-  @include rem(margin-top, 15px);
+  @include rem(margin-bottom, 18px);
   position: relative;
   width: 100%;
-  vertical-align: top;
-  max-width: 300px;
-  @include rem(margin-right, 20px);
 }
 
 /*-----------------------
 Labels
 -----------------------*/
-label{
+label {
   color: $black-base;
   display: inline-block;
-  font-size: $s-small;
+  @include font-type($primary-sans-serif, normal, $bold);
+  @include font-size-mbody;
   @include rem(margin-bottom, 6px);
+  text-align: left;
 
-  i{
+  i {
     font-style: italic;
-    font-weight: $light;
+    font-weight: $regular;
+    @include rem(margin-left, 6px);
+    text-transform: none;
   }
+}
+
+//Required
+.required-indicator {
+  color: $red-base;
+  @include rem(margin-left, 3px);
 }
 
 /*-----------------------
@@ -31,59 +38,92 @@ Inputs
 -----------------------*/
 #{$all-text-inputs},
 select,
-textarea{
+textarea,
+.input {
   background-color: $white-base;
-  border: none;
-  border-bottom: 3px solid $grey-light;
+  border: 1px solid $white-dark;
+  border-radius: 0px;
   box-sizing: border-box;
-  @include appearance(none);
-  @include transition (all 0.3s ease-in-out);
+  appearance: none;
+  transition: all 0.3s ease-in-out;
   @include font-type($primary-sans-serif, normal, 400);
-  @include s-base;
+  @include font-size-mbody;
+  @include rem(padding, 13px);
   width: 100%;
   -webkit-font-smoothing: antialiased;
-  border-radius: 0;
+  font-weight: $semibold;
+  cursor: pointer;
+  color: $black-base;
 
-  @include placeholder{
-    color: $white-med;
+  &::placeholder {
+    color: $white-dark;
     font-style: italic;
   }
 
-  &:focus{
-    border-color: $green-base;
+  &:focus {
     outline: none;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    border-color: #9da7b9;
+  }
+
+  &:active,
+  &:focus {
+    background-color: #f4f6f7;
+  }
+
+  &:disabled {
+    border-color: #e3e6eb;
+    background-color: #f8f9fa;
+  }
+}
+
+textarea ~ span {
+  label {
+    &:after {
+      content: '*';
+      display: inline-block;
+      color: $red-base;
+    }
+  }
+}
+
+/*-----------------------
+Hidden Input
+-----------------------*/
+.hidden-field {
+  height: 0px;
+  width: 0px;
+}
+
+// Cypress does not provide a way (or I couldn't find it)
+// to set the value of a hidden input. This is to `hide`
+// the input with type="text"
+.really.hidden-field {
+  input {
+    padding: 0px;
+    border: none;
   }
 }
 
 /*-----------------------
 Input Icon
 -----------------------*/
-.icon-label{
+.icon-label {
   position: relative;
-  input{
+  input {
     @include rem(padding-left, 30px);
   }
 
-  i{
-    @include position(absolute, 1px null null 10px);
+  i {
+    @include position(absolute, 12px null null 10px);
     background-repeat: no-repeat;
     background-size: 15px;
     height: 20px;
     width: 20px;
-  }
-
-  .mail-icon:after{
-    content: '📧';
-    // background-image: asset-url("mail.svg");
-  }
-  .phone-icon{
-    // background-image: asset-url("phone.svg");
-  }
-  .linkedin-icon{
-    // background-image: asset-url("linkedin.svg");
-  }
-  .web-icon{
-    // background-image: asset-url("web.svg");
   }
 }
 
@@ -91,71 +131,71 @@ Input Icon
 Textarea
 -----------------------*/
 textarea,
-textarea[type="text"]{
+textarea[type='text'] {
   height: 100px;
-  resize: none;
-  border: 1px solid $grey-light;
-  @include rem(padding, 8px);
+  resize: vertical;
 }
 
-textarea:focus {
-  border-color: $black-base;
-}
-
-.with-character-count{
-  label{
+.with-character-count {
+  label {
     @include rem(padding-right, 108px);
   }
 
-  .character-count{
-    color: $grey-base;
+  .character-count {
+    color: $black-base;
     float: right;
     @include position(absolute, 0px 0px null null);
-    @include s-small;
+    @include font-size-sbody;
   }
 }
-
 
 /*-----------------------
 Select
 -----------------------*/
-select{
-  // background-image: asset-url("down-arrow.svg");
-  background-position: right 0px top 50%;
+select {
+  //background-image: url('../images/utility-icons/dropdown.svg');
+  background-position: right 10px top 50%;
   background-repeat: no-repeat;
   background-size: 15px;
   cursor: pointer;
-  //@include rem(padding, 8px 32px 8px 8px);
+  @include rem(padding-right, 32px);
   text-overflow: ellipsis;
   width: 100%;
-  &.unselected {
-    color: gray
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  option:disabled {
+    color: $grey-light;
+    font-style: italic;
   }
 }
-
 
 /*-----------------------
 Checkbox
 -----------------------*/
-.checkbox{
-  @include rem(margin-top, 15px);
+.checkbox {
   width: 100%;
 
-  label{
+  label {
     cursor: pointer;
     float: right;
-    @include rem(margin-top, 4px);
+    @include rem(margin, -1px 0px 0px);
     line-height: normal;
     width: calc(100% - 32px);
+    text-transform: none;
+    @include font-size-mbody;
   }
 }
 
-input[type="checkbox"]{
-  @include appearance(none);
-  @include transition (all 0.3s ease-in-out);
+input[type='checkbox'] {
+  -webkit-appearance: none;
+  appearance: none;
+  transition: all 0.3s ease-in-out;
   background-color: $white-base;
-  border: 1px solid $white-med;
-  border-radius: 2px;
+  border: 1px solid #d5d9e1;
+  border-radius: 0px;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.06);
   cursor: pointer;
   position: relative;
   @include rem(height, 20px);
@@ -164,69 +204,235 @@ input[type="checkbox"]{
   display: inline-block;
   @include rem(margin, 0px 8px 0px 0px);
 
-  &:focus{
+  &:focus {
+    border-color: $black-base;
     outline: none;
   }
 
-  &:checked{
-    &:after{
-      background-size: 17px;
-      color: $green-base;
-      content: '✓';
+  &:hover {
+    border-color: darken($white-dark, 10%);
+  }
+
+  &:checked {
+    &:after {
+      // background-image: url('../../images/icons/checkmark.svg');
+      background-size: 15px 14px;
+      content: '';
       display: block;
-      font-size: 17px;
-      font-weight: $bold;
-      height: 12px;
-      @include transition(all 0.2s ease-in);
-      margin-left: 1px;
-      @include position(absolute, 1px null null 1px);
+      height: 15px;
+      transition: all 0.2s ease-in;
+      @include position(absolute, 2px null null 2px);
       text-align: center;
-      width: 17px;
+      width: 14px;
       -webkit-position: absolute;
       -webkit-z-index: 3;
     }
   }
 }
 
+.CheckboxGroup,
+.RadioGroup {
+  label, span label{
+    @include font-size-sbody;
+    text-transform: uppercase;
+    font-weight: 600;
+    @include rem(margin-bottom, 8px);
+  }
+
+  fieldset {
+    @include rem(margin-bottom, 10px);
+    &:last-of-type {
+      margin-bottom: 0px;
+    }
+
+    label{
+      font-weight: 400;
+      text-transform: none;
+    }
+  }
+}
+
+/*-----------------------
+Radio Buttons
+-----------------------*/
+.radio-buttons {
+  display: block;
+  width: 100%;
+
+  .label-input {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .input-wrapper .row {
+    display: block;
+    margin-bottom: 0px;
+
+    input[type='radio'] {
+      position: absolute;
+      z-index: -1;
+    }
+
+    input[type='radio']:focus ~ span {
+      border-color: $black-base;
+    }
+
+    label.radio-button {
+      background-color: $white-base;
+      border-radius: 3px;
+      display: inline-block;
+      // @include grid-column(6 of 12);
+      overflow: hidden;
+      position: relative;
+      text-align: center;
+    }
+
+    span {
+      background: $white-base;
+      border: 1px solid $grey-base;
+      border-radius: 4px;
+      color: $black-base;
+      cursor: pointer;
+      display: block;
+      @include font-size-mbody;
+      font-weight: $bold;
+      padding: 15px;
+      width: 100%;
+
+      &:hover {
+        background-color: lighten($primary-base, 65%);
+        transition: all 0.3s ease-in-out;
+      }
+    }
+
+    input:checked + span {
+      background-color: $primary-base;
+      border-color: $primary-base;
+      color: $white-base;
+    }
+  }
+}
+
+/*-----------------------
+Radio Inputs
+-----------------------*/
+.RadioGroup {
+  width: 100%;
+
+  label {
+    cursor: pointer;
+    line-height: normal;
+    display: block;
+    text-transform: none;
+    @include font-size-mbody;
+  }
+
+  fieldset span {
+    color: $black-base;
+    display: inline-block;
+    width: calc(100% - 32px);
+
+    p {
+      white-space: normal;
+    }
+  }
+
+  .input-wrapper {
+    float: left;
+    vertical-align: top;
+  }
+
+  input[type='radio'] {
+    -webkit-appearance: none;
+    appearance: none;
+    transition: all 0.3s ease-in-out;
+    background-color: $white-base;
+    border: 1px solid $white-dark;
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+    @include rem(height, 20px);
+    @include rem(width, 20px);
+    outline: none;
+    display: inline-block;
+    @include rem(margin, 0px 8px 0px 0px);
+    border-radius: 20em;
+    vertical-align: top;
+    background: #ffffff;
+    border: 1px solid #c7cdd7;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.06);
+
+    &:focus {
+      border-color: $black-base;
+      outline: none;
+    }
+
+    &:hover {
+      border-color: darken($white-dark, 10%);
+    }
+
+    &:checked {
+      position: relative;
+      &:after {
+        background-color: $black-base;
+        color: $black-base;
+        content: '';
+        display: block;
+        height: 6px;
+        transition: all 0.2s ease-in;
+        text-align: center;
+        width: 6px;
+        -webkit-position: absolute;
+        -webkit-z-index: 3;
+        border-radius: 20em;
+        @include vertical-horizontal-center;
+      }
+    }
+  }
+}
 
 /*-----------------------
 Error
 -----------------------*/
-.error{
-  input, textarea, select{
-    border: none;
-    border-bottom: 3px solid $red-base;
+.error {
+  input,
+  textarea,
+  select {
+    border: 1px solid $red-base;
 
-    &:focus{
+    &:focus {
       border-color: $black-base;
       outline: none;
     }
   }
 }
 
-textarea.textarea-error {
-  border: none;
-  border: 1px solid $red-base;
-}
-
-.error-message{
+.error-message,
+span.error-message,
+#inputError {
   color: $red-base;
   display: inline-block;
-  @include rem(margin-top, 4px);
-  @include s-tiny;
-  @include transition (all 0.3s ease-in-out);
-}
+  @include rem(margin-top, 6px);
+  font-size: 12px;
+  transition: all 0.3s ease-in-out;
 
+  border: none;
+  padding: 0px;
+
+  &:first-letter {
+    text-transform: capitalize;
+  }
+}
 
 /*-----------------------
 Input Tooltip
 -----------------------*/
-.tooltip-trigger:after{
-  background-color: $white-light;
-  border: 1px solid $white-med;
+.tooltip-trigger:after {
+  background-color: $grey-light;
+  border: 1px solid $white-light;
   border-radius: 50%;
   color: $grey-base;
-  content:"?";
+  content: '?';
   cursor: pointer;
   display: inline-block;
   height: 18px;
@@ -238,119 +444,125 @@ Input Tooltip
   width: 18px;
 }
 
-.tooltip-content{
+.tooltip-content {
   display: none;
   @include rem(margin-bottom, 8px);
 
-  p{
+  p {
     line-height: 1.5;
   }
 
-  &.is-active{ display: block; }
+  &.is-active {
+    display: block;
+  }
 }
-
 
 /*-----------------------
 Uploader
 -----------------------*/
-.fileupload{
-
-  .thumbnail{
+.fileupload {
+  .thumbnail {
     display: inline-block;
     @include rem(margin-right, 15px);
     width: 70px;
     vertical-align: middle;
 
-    img{
+    img {
       border-radius: 50%;
       height: 70px;
     }
   }
 
-  .button-secondary-light{
+  .button-secondary-light {
+    @include button;
     overflow: hidden;
     position: relative;
     vertical-align: middle;
-    background-color: $grey-base;
+    background-color: $grey-light;
     box-shadow: none;
     border: none;
     cursor: pointer;
-    color: $white-base;
-    text-align: center;
 
-    &:hover{
-      background-color: darken($grey-base, 8%);
-    }
-
-    .fileupload-exists{
-      color: $white-base;
+    &:hover {
+      background-color: darken($grey-light, 8%);
     }
   }
 
-  &.fileupload-exists{
-    div{
-      padding: 0px !important;
-
-      span{
-        //border: 1px solid $grey-base;
-        display: inline-block;
-        //@include rem(padding, 15px);
-        @include rem(margin, 20px 0px);
-        color: $black-base;
-      }
-    }
-  }
-
-  .button-secondary-light>input{
-    position:absolute;
-    top:0;
-    right:0;
-    margin:0;
-    opacity:0;
-    filter:alpha(opacity=0);
-    transform:translate(-300px, 0) scale(4);
+  .button-secondary-light > input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    transform: translate(-300px, 0) scale(4);
     cursor: pointer;
   }
 }
 
-.fileupload-exists .fileupload-new,.fileupload-new .fileupload-exists{
+.fileupload-exists .fileupload-new,
+.fileupload-new .fileupload-exists {
   display: none;
 }
 
-.fileupload-preview{
+.fileupload-preview {
   @include rem(margin, 0px 10px);
-  @include s-tiny;
-  //color: $grey-base
+  @include font-size-sbody;
+  vertical-align: middle;
 }
 
-.close{
+.fileupload .close {
   text-decoration: none;
-  vertical-align: text-bottom;
-  // border: none;
+  vertical-align: middle;
+  @include font-size-mbody;
 }
 
+/*-----------------------
+Date Picker
+-----------------------*/
+.react-datepicker__input-container {
+  width: 100%;
+}
+
+/*-----------------------
+Color Picker
+-----------------------*/
+.color-picker {
+  .color {
+    border: 1px solid $white-light;
+    height: 20px;
+    @include position(absolute, 32px null null 10px);
+    width: 20px;
+  }
+
+  .hex {
+    @include position(absolute, 35px null null 38px);
+  }
+
+  .color-input {
+    @include rem(padding-left, 50px);
+  }
+}
 
 /*-----------------------
 Button Area
 -----------------------*/
-.button-area{
-  @include rem(margin-top, 20px);
-
-  button{
+.button-area {
+  button {
     width: 100%;
 
-    @include media($tablet){
-      //width: inherit;
+    @include grid-media($tablet) {
+      width: inherit;
     }
   }
 
-  a{
+  a {
     display: inline-block;
     @include rem(margin-top, 20px);
     text-align: center;
     width: 100%;
 
-    @include media($tablet){
+    @include grid-media($tablet) {
       @include rem(margin-top, 10px);
       float: right;
       width: inherit;
@@ -358,218 +570,11 @@ Button Area
   }
 }
 
-// SHORT INPUTS
-
-.short-input {
-  width: 135px;
-}
-
-
-
 /*-----------------------
-Input Icon
+Forms
 -----------------------*/
-.icon-label{
-  position: relative;
-  input{
-    @include rem(padding-left, 30px);
-  }
-
-  .input-wrapper{
-    position: relative;
-
-    i{
-      @include position(absolute, 3px null null 10px);
-      background-repeat: no-repeat;
-      background-size: 15px;
-      display: inline-block;
-      height: 20px;
-      width: 20px;
-    }
-  }
-}
-
-/*-----------------------
-Custom Dropdown Select
------------------------*/
-.dropdown-select, .dropdown{
-  position: relative;
-
-  .select-input{
-    background-color: $white-base;
-    border: 1px solid $white-med;
-    border-radius: 5px;
-    box-sizing: border-box;
-    cursor: pointer;
-    @include appearance(none);
-    @include transition (all 0.3s ease-in-out);
-    @include font-type($primary-sans-serif, normal, 400);
-    @include s-base;
-    @include rem(padding, 7px 13px);
-
-    &:after{
-      // background-image: asset-url('dropdown.svg');
-      background-position: right 10px top 50%;
-      background-repeat: no-repeat;
-      background-size: 15px;
-      content: "";
-      @include position(absolute, 15px 5px null null);
-      @include rem(padding, 8px 32px 8px 8px);
-      width: 100%;
-    }
-
-    p{
-      margin: 0px;
-    }
-  }
-
-  a{
-    text-decoration: none;
-  }
-
-  label, a{
-    font-weight: normal;
-  }
-
-  .options{
-    display: none;
-
-    &.is-active{
-      display: inline-block;
-
-      .scroll-box{
-        max-height: 150px;
-        overflow: scroll;
-      }
-    }
-  }
-
-  .scroll-box{
-    background-color: $white-base;
-    border: 1px solid $white-med;
-    @include position(absolute, 41px 0px null 0px);
-    z-index: 2;
-
-    & > * {
-      @include rem(padding, 2px 10px);
-    }
-
-    .checkbox {
-      margin-bottom: 0;
-    }
-
-    .expander{
-      padding: 0px;
-    }
-
-    .expander-trigger{
-      @include rem(padding, 5px);
-      border: none;
-    }
-
-    .expander .is-active + .expander-content{
-      padding: 5px;
-      display: inline-block;
-        width: 100%;
-    }
-  }
-
-  .checkboxes{
-    li{
-      display: inline-block;
-      @include rem(padding, 0px 15px);
-      width: 100%;
-
-      .checkbox{
-        @include rem(margin, 5px 0px 0px);
-
-        label{
-          font-weight: normal;
-        }
-
-        span{
-          float: none;
-        }
-
-      }
-    }
-
-  }
-}
-
-.dropdown{
-  @include rem(margin-bottom, 10px);
-
-  @include media($tablet){
-    @include rem(margin-bottom, 0px);
-  }
-
-  .select-input{
-    background-color: $white-light;
-    height: 56px;
-    @include rem(padding, 18px);
-
-    &:after{
-      @include position(absolute, 22px 15px null null);
-    }
-  }
-}
-
-.scroll-box{
-  .toggle{
-    display: block;
-    height: 27px;
-    @include rem(margin, 10px 10px 0px);
-    @include s-small;
-    padding: 0px;
-
-    .is-active, li, li:hover{
-      height: 25px;
-      line-height: 2;
-    }
-  }
-
-  fieldset.checkbox, fieldset.CheckboxGroup{
-    width: 100% !important;
-
-    input{
-      border: 1px solid $white-med;
-    }
-  }
-}
-
-/*-----------------------
-Color Picker
------------------------*/
-.color-picker{
-  .swatch{
-    cursor: pointer;
-    border: 1px solid $white-med;
-    height: 20px;
-    @include position(absolute, 32px null null 10px);
-    width: 20px;
-  }
-
-  .cover {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-  }
-
-  .popover {
-    position: absolute;
-    top: 80px;
-    z-index: 2;
-  }
-}
-
-.color-input{
-  .hex-input{
-    @include rem(padding-left, 50px);
-  }
-  .hex{
-    @include position(absolute, 35px null null 38px);
+form {
+  .row {
+    margin-bottom: 0px;
   }
 }

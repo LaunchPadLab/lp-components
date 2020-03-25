@@ -2,26 +2,61 @@
 Flash
 -----------------------*/
 .flash-message-container{
-  @include position(absolute, 0px 0px null 0px);
+  @include position(fixed, 55px 0px null 0px);
+  z-index: 2;
+  @include rem(padding, 0px 18px);
+
+  .flash-message{
+    position: relative;
+    top: 0px;
+  }
+}
+
+.side-navigation ~ .flash-message-container{
+  @include grid-media($tablet-landscape){
+    margin-left: 250px;
+  }
+}
+
+.side-navigation.is-collapsed ~ .flash-message-container{
+  @include grid-media($tablet-landscape){
+    margin-left: 50px;
+  }
 }
 
 .flash-message{
-  @include rem(padding, 10px 20px);
-  @include animation(fade-in 0.5s ease-in);
-  width: 50%;
+  @include rem(padding, 16px 20px);
+  animation: fade-in 0.5s ease-in;
   margin: 0 auto;
   text-align: center;
+  width: 100%;
+  z-index: 2;
+  @include center;
+
+  @include grid-media($tablet-landscape){
+    max-width: 600px
+  }
 
   p{
     text-align: center;
   }
-  
+
   button.dismiss {
-    float: right;
+    background: transparent;
     border: none;
+    cursor: pointer;
+    float: right;
+    @include rem(font-size, 25px);
     padding: 0;
-    background: inherit;
-    font-size: $s-base;
+
+    &:hover{
+      opacity: 0.8;
+    }
+  }
+
+  button ~ p{
+    text-align: left;
+    @include rem(margin-right, 30px);
   }
 
   &.success{
@@ -40,10 +75,25 @@ Flash
     p, button{
       color: $red-base;
     }
+
+    p{
+      &:before{
+        border: 1px solid $red-base;
+        border-radius: 20em;
+        display: inline-block;
+        @include rem(font-size, 15px);
+        line-height: normal;
+        font-weight: bold;
+        content: "!";
+        text-align: center;
+        height: 22px;
+        width: 22px;
+        @include rem(margin-right, 5px);
+      }
+    }
   }
 }
 
-.styleguide-flash{
-  position: relative;
-  height: 50px;
+.flash-message ~ .flash-message{
+  @include rem(margin-top, 5px);
 }

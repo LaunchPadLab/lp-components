@@ -1,38 +1,20 @@
-//GRID SETTINGS
-  $grid-columns: 12;
-
 //MEDIA QUERIES
+$tablet: (
+  columns: 12,
+  gutter: 32px,
+  media: 720px,
+);
 
-  //DEFINED VARIABLES
-  $mobile-size:em(320);
-  $tablet-size:em(720);
-  $desktop-size:em(1200);
-
-  // SPECIAL VARIABLES
-  $tablet-landscape: em(1024);
-
-  // Bourbon Neat Breakpoints
-  $mobile: new-breakpoint(min-width $mobile-size 4);
-  $tablet: new-breakpoint(min-width $tablet-size 9);
-  $tablet-landscape: new-breakpoint(min-width $tablet-landscape orientation landscape 9); //LPL Added
-  $desktop: new-breakpoint(min-width $desktop-size 12);
+$tablet-landscape: (
+  columns: 12,
+  gutter: 32px,
+  media: 1024px,
+);
 
 //BORDERS
-$blue-border: 1px solid $blue-base;
-$grey-border: 1px solid $grey-base;
-$white-border: 1px solid $white-base;
-$blue-border-thick: 4px solid $blue-base;
+$grey-border: 1px solid $grey-light;
 
-//OFFSET
-$page-header-offset: 112px;
-$page-header-offset-mobile: 90px;
-
-
-@mixin header-offset {
-  margin-top: $page-header-offset-mobile;
-  @include media($tablet) { margin-top: $page-header-offset; }
-}
-
+//MIXINS
 @mixin center {
   display: block;
   margin-left: auto;
@@ -43,25 +25,17 @@ $page-header-offset-mobile: 90px;
 @mixin base-padding {
   @include rem(padding, 20px);
 
-  @include media($tablet) { @include rem(padding, 30px); }
-}
-
-@mixin secondary-padding {
-  @include rem(padding, 40px 20px);
-}
-
-@mixin side-padding {
-  @include rem(padding, 0 20px);
+  @include grid-media($tablet) { @include rem(padding, 30px); }
 }
 
 @mixin vertical-center {
-  @include transform(translateY(-50%));
+  transform: translateY(-50%);
   position: absolute;
   top: 50%;
 }
 
 @mixin horizontal-center {
-  @include transform(translateX(-50%));
+  transform: translateX(-50%);
   position: absolute;
   left: 50%;
 }
@@ -69,14 +43,7 @@ $page-header-offset-mobile: 90px;
 @mixin vertical-horizontal-center {
   @include vertical-center;
   left: 50%;
-  @include transform(translateY(-50%) translateX(-50%));
-}
-
-@mixin hover-zoom {
-  @include transition(all 1s ease);
-  background-size: 100%;
-
-  &:hover { background-size: 120%; }
+  transform: translateY(-50%) translateX(-50%);
 }
 
 img { width: 100%; }
@@ -89,27 +56,29 @@ img { width: 100%; }
 
 @mixin mobile-hide {
   display: none;
-  @include media($tablet) { display: block; }
+  @include grid-media($tablet) { display: block; }
 }
 
 @mixin desktop-hide{
-  @include media ($tablet){ display: none; }
+  @include grid-media ($tablet){ display: none; }
 }
 
 .horizontal-divider {
   border-bottom: $grey-border;
 }
 
-// ------------------------------------------------------------
-// Override Neat's grid settings
-// ------------------------------------------------------------
-$column: golden-ratio(1em, 2) !default;
-$gutter: golden-ratio(1em, 1) !default;
-$fg-column: $column;
-$fg-gutter: $gutter;
-
-@mixin omega-reset($nth) {
-  &:nth-child(#{$nth}) { margin-right: flex-gutter(); }
-  &:nth-child(#{$nth}+1) { clear: none }
+@mixin ellipsis{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
+@mixin outline-dark{
+  outline: 1px dotted $black-base;
+  outline-offset: 2px;
+}
+
+@mixin outline-light{
+  outline: 1px dotted $white-base;
+  outline-offset: 2px;
+}

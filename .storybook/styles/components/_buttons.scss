@@ -3,48 +3,28 @@
 
 // Main Button
 @mixin button{
+  border-radius: 0px;
   display: inline-block;
-  font-weight: $bold;
-  @include rem(padding, 10px);
-  @include transition (all 0.3s ease-in-out);
-  letter-spacing: 1px;
-  line-height: normal;
+  @include font-type($primary-sans-serif, normal, $bold);
+  @include rem(padding, 8px 15px);
+  @include rem(font-size, 13px);
+  transition: all .5s ease-in-out;
+  min-width: 100px;
   position: relative;
   text-align: center;
   text-decoration: none;
-  text-transform: uppercase;
-  width: 100%;
-
-  &[class*=-outline]{
-    box-shadow: none;
-  }
-
-  text{
-    align: center;
-    decoration: none;
-  }
   -webkit-appearance: none;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  @include rem(height, 46px);
 
   &:hover{ cursor: pointer; }
 
   &:focus{
     border: none;
-    outline: none;
+    // @include outline-dark;
     text-decoration: none;
   }
-}
-
-button.button-primary:hover {
-  background-color: $green-dark;
-}
-
-button.button-alert:hover {
-  background-color: $yellow-dark;
-}
-
-button.button-chill:hover {
-  background-color: $grey-base;
-  color: $white-base;
 }
 
 
@@ -57,7 +37,7 @@ button.button-chill:hover {
   $hover-bg:    nth($button, 5);
   $hover-color: nth($button, 6);
 
-  .button-#{$type}{
+  .button-#{$type}, a.button-#{$type}{
     background-color: $bg-1;
     border: 1px solid $border;
     color: $color;
@@ -67,7 +47,6 @@ button.button-chill:hover {
       background-color: $hover-bg;
       border: 1px solid $hover-bg;
       color: $hover-color;
-      opacity: 1;
     }
 
     &:active{
@@ -79,45 +58,60 @@ button.button-chill:hover {
     &:focus{ border: 1px solid $hover-bg; }
 
     &.is-disabled{
-      opacity: 0.4;
+      background-color: $bg-1;
+      color: $color;
       cursor: not-allowed;
+      opacity: 0.4;
     }
 
     &.in-progress{
-      pointer-events: none;
       color: transparent;
+      pointer-events: none;
       position: relative;
 
       &:after{
-         border: 2px solid rgba(255,255,255,1);
+         animation: spin 0.5s linear infinite;
+         border: 2px solid $color;
          border-radius: 50%;
          border-right-color: transparent;
          border-top-color: transparent;
          content:"";
          display: block;
          height: 20px;
-         @include animation(spin 0.5s linear infinite);
-         margin: 0 calc((100% - 40px)/2);
-         position: absolute;
-         top: 12px;
+         @include position(absolute, 10px null null null);
+         margin: 0 calc((100% - 50px)/2);
          width: 20px;
       }
+    }
 
-      &[class*=-primary-outline]{
-        &:after{
-          border: 2px solid $blue-base;
-          border-right-color: transparent;
-          border-top-color: transparent;
-        }
+    &.with-arrow{
+      align-items: center;
+      display: flex;
+      min-width: 170px;
+      text-align: left;
+      text-decoration: none;
+
+      &:after{
+        // background: url('../../images/icons/arrow-right.svg') no-repeat center top;
+        background-size: 100%;
+        content: "";
+        display: inline-block;
+        height: 14px;
+        margin-left: auto;
+        transition: all 0.3s ease-in-out;
+        vertical-align: sub;
+        width: 9px;
       }
 
-      &[class*=-alert-outline]{
-        &:after{
-          border: 2px solid $yellow-base;
-          border-right-color: transparent;
-          border-top-color: transparent;
-        }
+      &:hover:after{
+        // background: url('../../images/icons/arrow-right-white.svg') no-repeat center top;
+        background-size: 100%;
       }
+    }
+
+    span{
+      top: calc(50% - 7px);
+      position: relative;
     }
   }
 
@@ -125,33 +119,63 @@ button.button-chill:hover {
   .link-#{$type}{
     color: $bg-1;
     display: inline-block;
-    @include s-base;
-    @include font-type($primary-sans-serif, normal, $bold);
-    @include transition(all 0.3s ease-in-out);
-    @include rem(margin-top, 15px);
-    @include rem(padding-bottom, 3px);
+    @include font-size-sbody;
+    @include font-type($primary-sans-serif, normal, normal);
+    transition: all 0.3s ease-in-out;
+    @include rem(margin-bottom, 20px);
     text-decoration: none;
+    width: fit-content;
 
     &:hover{
       color: $hover-bg;
+      text-decoration: underline;
+    }
+
+    &:focus{
+      // @include outline-dark;
+    }
+  
+    &.with-underline{
+      text-decoration: underline;
+    }
+
+    &.all-caps{
+      text-transform: uppercase;
+      @include rem(font-size, 13px);
+      letter-spacing: 0.5px;
+      font-weight: $semibold;
+      display: block;
+
+      img{
+        width: 10px;
+        display: inline-block;
+        @include rem(margin-right, 8px);
+        vertical-align: middle;
+      }
     }
   }
 }
 
 
 // Buton Sizes
-.button-small {
-  @include rem(padding, 5px 6px);
-  @include s-small;
-  min-width: inherit;
-  width: 100px;
+.button-small, a.button-small{
+  @include rem(height, 36px);
+  min-width: 0px;
+
+  &.in-progress{
+    &:after{
+      top: 5px;
+    }
+  }
 }
 
-.button-large {
-   @include rem(padding, 15px 12px);
-}
+.button-large, a.button-large {
+   @include rem(height, 60px);
+   min-width: 160px;
 
-.button-arrow {
-    padding: 15px 14px;
+   &.in-progress{
+     &:after{
+       top: 17px;
+     }
+   }
 }
-
