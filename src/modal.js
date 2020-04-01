@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactModal from 'react-modal'
+import { isServer } from './utils'
 
 const propTypes = {
   onClose: PropTypes.func.isRequired,
@@ -14,7 +15,7 @@ const defaultProps = {
 
 function getRootElement() {
   // Skip in SSR mode
-  if (typeof window === 'undefined') return
+  if (isServer()) return
   // Note that this expects a root element with id "root"
   // eslint-disable-next-line no-undef
   return window.document.querySelector('#root')
@@ -32,9 +33,10 @@ function Modal({ onClose, hideCloseButton, children, ...rest }) {
       overlayClassName="modal-fade-screen"
       bodyOpenClassName="modal-open"
       appElement={getRootElement()}
+      ariaHideApp={isServer()} // Opt out of setting appElement on the server.
       {...rest}
     >
-      <div className="modal-content rich-text">{children}</div>
+      <div className="modal-content">{children}</div>
       {!!onClose && !hideCloseButton && (
         <>
           <button
