@@ -43,9 +43,8 @@ const defaultProps = {
 function getRootElement() {
   // Skip in SSR mode
   if (isServer()) return
-  // Note that this expects a root element with id "root"
   // eslint-disable-next-line no-undef
-  return window.document.querySelector('#root')
+  return window.document.querySelector('body')
 }
 
 // A wrapper for react-modal that adds some styles and a close button.
