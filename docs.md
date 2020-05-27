@@ -47,10 +47,10 @@
 -   [Input][43]
     -   [Parameters][44]
     -   [Examples][45]
--   [Input][46]
+-   [IconInput][46]
     -   [Parameters][47]
     -   [Examples][48]
--   [IconInput][49]
+-   [MaskedInput][49]
     -   [Parameters][50]
     -   [Examples][51]
 -   [RangeInput][52]
@@ -655,35 +655,6 @@ function UserForm ({ handleSubmit, pristine, invalid, submitting }) {
 }
 ```
 
-## Input
-
-A masked input that can be used in a `redux-forms`-controlled form. Built on top of [cleave.js][157].
-
-### Parameters
-
--   `input` **[Object][147]** A `redux-forms` [input][148] object
--   `meta` **[Object][147]** A `redux-forms` [meta][149] object
--   `maskOptions` **[Object][147]?** An object of options to pass to the underlying `Cleave` instance. [(supported options)][158]
-
-### Examples
-
-```javascript
-function PurchaseForm ({ handleSubmit, submitting }) {
-  return (
-    <form onSubmit={ handleSubmit }>
-      <Field 
-         name="quantity"
-         component={ MaskedInput }
-         maskOptions={{ numeral: true }}
-      />
-      <SubmitButton submitting={submitting}>
-        Submit
-      </SubmitButton>
-    </form>
-  )
-}
-```
-
 ## IconInput
 
 A wrapper around the [Input][43] component that adds an icon to the input.
@@ -710,6 +681,35 @@ function TwitterForm ({ handleSubmit, pristine, invalid, submitting }) {
          placeholder="Your twitter handle"
       />
       <SubmitButton {...{ pristine, invalid, submitting }}>
+        Submit
+      </SubmitButton>
+    </form>
+  )
+}
+```
+
+## MaskedInput
+
+A masked input that can be used in a `redux-forms`-controlled form. Built on top of [cleave.js][157].
+
+### Parameters
+
+-   `input` **[Object][147]** A `redux-forms` [input][148] object
+-   `meta` **[Object][147]** A `redux-forms` [meta][149] object
+-   `maskOptions` **[Object][147]?** An object of options to pass to the underlying `Cleave` instance. [(supported options)][158]
+
+### Examples
+
+```javascript
+function PurchaseForm ({ handleSubmit, submitting }) {
+  return (
+    <form onSubmit={ handleSubmit }>
+      <Field 
+         name="quantity"
+         component={ MaskedInput }
+         maskOptions={{ numeral: true }}
+      />
+      <SubmitButton submitting={submitting}>
         Submit
       </SubmitButton>
     </form>
@@ -1757,13 +1757,13 @@ Returns **[Function][141]** Returns a function that takes an event and watches f
 
 [45]: #examples-15
 
-[46]: #input-1
+[46]: #iconinput
 
 [47]: #parameters-13
 
 [48]: #examples-16
 
-[49]: #iconinput
+[49]: #maskedinput
 
 [50]: #parameters-14
 
