@@ -1316,6 +1316,7 @@ This component's behavior is largely determined by the [TableColumn][101] compon
 
 -   `data` **[Array][145]** An array of objects to display in the table- one object per row (optional, default `[]`)
 -   `initialColumn` **[Number][144]** The name of the column that's initially selected (optional, default `''`)
+-   `initialAscending` **[Boolean][142]** The sort direction of the initial column (optional, default `true`)
 -   `disableReverse` **[Boolean][142]** Disables automatic reversing of descending sorts (optional, default `false`)
 -   `disableSort` **[Boolean][142]** A flag to disable sorting on all columns and hide sorting arrows. (optional, default `false`)
 -   `controlled` **[Boolean][142]** A flag to disable sorting on all columns, while keeping the sorting arrows. Used when sorting is controlled by an external source. (optional, default `false`)
@@ -1352,6 +1353,7 @@ A component used to pass column information to a [Table][95] or [SortableTable][
 -   `format` **[Function][141]?** A function that formats the value displayed in each cell in the column
 -   `disabled` **[Boolean][142]?** A flag that disables sorting for the column
 -   `placeholder` **[String][140]?** A string that will be displayed if the value of the cell is `undefined` or `null`
+-   `valueGetter` **[Function][141]?** A function that will return a cell's value derived from each data object. Will be passed the `data` for the row.
 
 ### Examples
 

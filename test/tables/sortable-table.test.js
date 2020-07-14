@@ -135,7 +135,7 @@ test('column can have custom className', () => {
 })
 
 test('column can have custom cell component', () => {
-  const MyCell = () => <td> Hi! </td> 
+  const MyCell = () => <td> Hi! </td>
   const wrapper = mount(
     <SortableTable data={ tableData }>
       <Column name="name" component={ MyCell }/>
@@ -232,7 +232,7 @@ test('`format` updates the cell value', () => {
 
 test('`placeholder` option is displayed if value is `null` or `undefined`', () => {
   const data = [
-    { name: null }, 
+    { name: null },
     { name: undefined },
   ]
   const wrapper = mount(
@@ -246,7 +246,7 @@ test('`placeholder` option is displayed if value is `null` or `undefined`', () =
 
 test('can recieve custom class name', () => {
   const data = [
-    { name: null }, 
+    { name: null },
     { name: undefined },
   ]
   const wrapper = mount(
@@ -255,4 +255,20 @@ test('can recieve custom class name', () => {
     </SortableTable>
   )
   expect(wrapper.find('table.foo').exists()).toBe(true)
+})
+
+test('`valueGetter` derives the cell value', () => {
+  const data = [
+    { name: 'Opportunity 1', accountName: 'Dealer 1' },
+    { name: 'Opportunity 2', accountName: 'Dealer 2' },
+  ]
+  const myValueGetter = jest.fn((data) => `${data.name} - ${data.accountName}`)
+  const wrapper = mount(
+    <SortableTable data={ data } >
+      <Column name="opportunityName" valueGetter={ myValueGetter } />
+    </SortableTable>
+  )
+  expect(wrapper.find('td').first().text()).toEqual('Opportunity 1 - Dealer 1')
+  expect(wrapper.find('td').last().text()).toEqual('Opportunity 2 - Dealer 2')
+  expect(myValueGetter).toHaveBeenCalled()
 })

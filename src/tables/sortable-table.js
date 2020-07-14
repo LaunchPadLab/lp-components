@@ -2,25 +2,26 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { sortable, sortablePropTypes, noop } from '../utils'
 import { getColumnData, Types } from './helpers'
-import { TableHeader as DefaultHeader, TableRow as Row } from './components' 
+import { TableHeader as DefaultHeader, TableRow as Row } from './components'
 import classnames from 'classnames'
 
 /**
  * A component for displaying sortable data in a table.
  * This component's behavior is largely determined by the {@link TableColumn} components that are passed to it.
- * 
+ *
  * @name SortableTable
  * @type Function
  * @param {Array} [data=[]] - An array of objects to display in the table- one object per row
  * @param {Number} [initialColumn=''] - The name of the column that's initially selected
+ * @param {Boolean} [initialAscending=true] - The sort direction of the initial column
  * @param {Boolean} [disableReverse=false] - Disables automatic reversing of descending sorts
  * @param {Boolean} [disableSort=false] - A flag to disable sorting on all columns and hide sorting arrows.
- * @param {Boolean} [controlled=false] - A flag to disable sorting on all columns, while keeping the sorting arrows. Used when sorting is controlled by an external source. 
+ * @param {Boolean} [controlled=false] - A flag to disable sorting on all columns, while keeping the sorting arrows. Used when sorting is controlled by an external source.
  * @param {Function} [onChange] - A callback that will be fired when the sorting state changes
  * @param {Function} [rowComponent] - A custom row component for the table. Will be passed the `data` for the row, as well as `children` to render.
  * @param {Function} [headerComponent] - A custom header component for the table. Will be passed the configuration of the corresponding column, as well as the current `sortPath` / `ascending` and an `onClick` handler. May be overridden by a custom `headerComponent` for a column.
  * @example
- * 
+ *
  * function PersonTable ({ people }) {
  *   return (
  *     <SortableTable data={ people } initialColumn="name">
@@ -49,15 +50,15 @@ const defaultProps = {
   className: ''
 }
 
-function SortableTable ({ 
+function SortableTable ({
   columns,
-  data: unsortedData, 
+  data: unsortedData,
   disableSort,
   controlled,
-  sort, 
-  ascending, 
-  sortPath, 
-  setSortPath, 
+  sort,
+  ascending,
+  sortPath,
+  setSortPath,
   setSortFunc,
   rowComponent,
   headerComponent,
@@ -91,7 +92,7 @@ function SortableTable ({
       </tr></thead>
       <tbody>
         {
-          data.map((rowData, key) => 
+          data.map((rowData, key) =>
             <Row {...{
               key,
               rowData,

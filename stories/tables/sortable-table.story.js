@@ -34,6 +34,10 @@ function CustomHeader ({ column: { name } }) {
   )
 }
 
+function createCustomValue(data) {
+  return `${data.name}:${data.age}`
+}
+
 storiesOf('SortableTable', module)
   .add('default', () => (
     <SortableTable data={ tableData }>
@@ -102,5 +106,13 @@ storiesOf('SortableTable', module)
       <Column name="name" format={ lowerCase }/>
       <Column name="age" format={ val => val.toFixed(1) } />
       <Column name="active" format={ val => val === 'yes' ? 'Y' : 'N' } />
+    </SortableTable>
+  ))
+  .add('with custom value getter', () => (
+    <SortableTable data={ tableData }>
+      <Column name="name" format={ lowerCase }/>
+      <Column name="age" format={ val => val.toFixed(1) } />
+      <Column name="active" format={ val => val === 'yes' ? 'Y' : 'N' } />
+      <Column name="nameAndAge" valueGetter={createCustomValue} />
     </SortableTable>
   ))
