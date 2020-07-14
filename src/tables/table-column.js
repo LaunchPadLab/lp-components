@@ -14,7 +14,7 @@ import { columnPropTypes } from './helpers'
  * @param {Function} [format] - A function that formats the value displayed in each cell in the column
  * @param {Boolean} [disabled] - A flag that disables sorting for the column
  * @param {String} [placeholder] - A string that will be displayed if the value of the cell is `undefined` or `null`
- * @param{Function} [valueGetter] - A function that will return a cell's value derived from each data object. Will be passed the 'data' for the row.
+ * @param{Function} [valueGetter] - A function that will return a cell's value derived from each data object. Will be passed the `data` for the row.
  * @example
  *
  * function PersonTable ({ people }) {
