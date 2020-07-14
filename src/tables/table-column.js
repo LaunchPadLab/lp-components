@@ -2,7 +2,7 @@ import { columnPropTypes } from './helpers'
 
 /**
  * A component used to pass column information to a {@link Table} or {@link SortableTable}.
- * 
+ *
  * @name TableColumn
  * @type Function
  * @param {String} name - The key of the value to display in the column from each data object
@@ -14,8 +14,9 @@ import { columnPropTypes } from './helpers'
  * @param {Function} [format] - A function that formats the value displayed in each cell in the column
  * @param {Boolean} [disabled] - A flag that disables sorting for the column
  * @param {String} [placeholder] - A string that will be displayed if the value of the cell is `undefined` or `null`
+ * @param{Function} [valueGetter] - A function that will return a cell's value derived from each data object. Will be passed the 'data' for the row.
  * @example
- * 
+ *
  * function PersonTable ({ people }) {
  *   return (
  *     <SortableTable data={ people } initialColumn="name">
