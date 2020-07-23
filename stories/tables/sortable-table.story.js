@@ -39,8 +39,8 @@ function createCustomValue(data) {
 }
 
 function compareCustomValue(a, b) {
-  const ageA = Number(a.split(':')[1])
-  const ageB = Number(b.split(':')[1])
+  const ageA = Number(a)
+  const ageB = Number(b)
 
   return (ageA > ageB) ? 1 : -1
 }
@@ -149,7 +149,22 @@ storiesOf('SortableTable', module)
         <Column name="active" format={val => val === 'yes' ? 'Y' : 'N'} />
         <Column
           name="nameAndAge"
-          sortFunc={compareAtPath('nameAndAge', compareCustomValue)}
+          sortFunc={compareAtPath('age', compareCustomValue)}
+          valueGetter={createCustomValue}
+        />
+      </SortableTable>
+    </div>
+  ))
+  .add('with custom value getter, custom sorter, iniital column', () => (
+    <div>
+      <h2>"Name and Age" column combines name and age, sorted by age portion, initial column</h2>
+      <SortableTable data={tableData} initialColumn="nameAndAge">
+        <Column name="name" format={lowerCase} />
+        <Column name="age" format={val => val.toFixed(1)} />
+        <Column name="active" format={val => val === 'yes' ? 'Y' : 'N'} />
+        <Column
+          name="nameAndAge"
+          sortFunc={compareAtPath('age', compareCustomValue)}
           valueGetter={createCustomValue}
         />
       </SortableTable>

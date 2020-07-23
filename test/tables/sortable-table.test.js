@@ -2,6 +2,7 @@ import React from 'react'
 import { mount } from 'enzyme'
 import { lowerCase } from 'lodash'
 import { SortableTable, TableColumn as Column, compareAtPath } from '../../src/'
+import { TableColumnError } from '../../src/tables/helpers'
 
 const tableData = [
   { name: 'Kim', test: true },
@@ -287,3 +288,40 @@ test('`valueGetter` derives the cell value', () => {
   expect(wrapper.find('td').last().text()).toEqual('Opportunity 2 - Dealer 2')
   expect(myValueGetter).toHaveBeenCalled()
 })
+
+test('`valueGetter` can utilize the default sort', () => {
+  const data = [
+    { name: 'Opportunity 2', accountName: 'Dealer 2' },
+    { name: 'Opportunity 1', accountName: 'Dealer 1' },
+  ]
+  const myValueGetter = jest.fn((data) => `${data.name} - ${data.accountName}`)
+  const wrapper = mount(
+    <SortableTable data={data} >
+      <Column name="opportunityName" valueGetter={myValueGetter} />
+    </SortableTable>
+  )
+  wrapper.find('th').first().simulate('click')
+  // Data should now be sorted by derived data values
+  expect(wrapper.find('td').first().text()).toEqual('Opportunity 1 - Dealer 1')
+  expect(wrapper.find('td').last().text()).toEqual('Opportunity 2 - Dealer 2')
+
+  expect(myValueGetter).toHaveBeenCalled()
+})
+
+test('`valueGetter` column can be the initial column and is sorted ascending', () => {
+  const data = [
+    { name: 'Opportunity 2', accountName: 'Dealer 2' },
+    { name: 'Opportunity 1', accountName: 'Dealer 1' },
+  ]
+  const myValueGetter = jest.fn((data) => `${data.name} - ${data.accountName}`)
+  const wrapper = mount(
+    <SortableTable data={data} initialColumn="opportunityName">
+      <Column name="opportunityName" valueGetter={myValueGetter} />
+      <Column accountName="accountName" />
+      <Column name="name" />
+    </SortableTable>
+  )
+  expect(wrapper.find('td').first().text()).toEqual('Opportunity 1 - Dealer 1')
+  expect(myValueGetter).toHaveBeenCalled()
+})
+
