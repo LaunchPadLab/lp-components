@@ -2,7 +2,6 @@ import React from 'react'
 import { mount } from 'enzyme'
 import { lowerCase } from 'lodash'
 import { SortableTable, TableColumn as Column, compareAtPath } from '../../src/'
-import { TableColumnError } from '../../src/tables/helpers'
 
 const tableData = [
   { name: 'Kim', test: true },

@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import PropTypes from 'prop-types'
-import { getColumnData, TableColumnError, Types } from './helpers'
+import { getColumnData, Types } from './helpers'
 import { TableHeader as DefaultHeader, TableRow as Row } from './components'
 import { get, noop, orderBy } from '../utils'
 import classnames from 'classnames'
@@ -58,19 +58,19 @@ const defaultProps = {
   controlled: false,
   onChange: noop,
 }
+const defaultControls = {
+  initialSortPath: '',
+  initialSortFunc: null,
+  initialValueGetter: null,
+}
 
 function getInitialSortControls(initialColumn, columns) {
-  const defaultControls = {
-    initialSortPath: '',
-    initialSortFunc: null,
-    initialValueGetter: null,
-  }
   if (!initialColumn) return defaultControls
 
   const initialProps = columns.filter(col => col.name === initialColumn).pop()
   // Exceptional situation-- an initial column was specified but no column data
   // exists for the named column...
-  if (!initialProps) throw new TableColumnError('initial column has no column definition')
+  if (!initialProps) throw new Error('initial column has no column definition')
 
   return {
     initialSortPath: initialProps.name,
@@ -121,7 +121,7 @@ function SortableTable({
       )
       return sorted
     }
-  }, [ascending, sortPath, sortFunc])
+  }, [ascending, sortPath, sortFunc, valueGetter])
 
   const handleColumnChange = (column) => {
     if (column.disabled) return
