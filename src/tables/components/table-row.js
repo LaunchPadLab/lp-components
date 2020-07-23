@@ -22,14 +22,13 @@ function TableRow ({
     <RowComponent { ...{ data: rowData } }>
       {
         columns.map((column, key) => {
-          const { name, component: CellComponent=DefaultCellComponent, format=identity, onClick=noop, valueGetter, ...rest } = column
-          const cellValue =
-            valueGetter ? valueGetter(rowData) : get(name, rowData)
-          const value = format(cellValue)
+          const { name, component: CellComponent=DefaultCellComponent, format=identity, onClick=noop, ...rest } = column
+          const cellValue = get(name, rowData)
+          const formattedValue = format(cellValue)
           const onColClick = column.disabled ? noop : () => onClick(rowData)
           return <CellComponent { ...{ // eslint-disable-line
             key,
-            value,
+            value: formattedValue,
             name,
             data: rowData,
             onClick: onColClick,

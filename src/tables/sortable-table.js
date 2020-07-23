@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { getColumnData, Types } from './helpers'
+import { applyValueGetters, getColumnData, Types } from './helpers'
 import { TableHeader as DefaultHeader, TableRow as Row } from './components'
-import { get, noop, orderBy } from '../utils'
+import { noop, orderBy } from '../utils'
 import classnames from 'classnames'
 
 /**
@@ -38,7 +38,7 @@ import classnames from 'classnames'
 const propTypes = {
   className: PropTypes.string,
   columns: PropTypes.arrayOf(Types.column).isRequired,
-  data: PropTypes.arrayOf(PropTypes.object),
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
   initialSortPath: PropTypes.string.isRequired,
   initialSortFunc: PropTypes.func,
   initialAscending: PropTypes.bool,
@@ -51,7 +51,6 @@ const propTypes = {
 }
 const defaultProps = {
   className: '',
-  data: [],
   initialAscending: true,
   disableReverse: false,
   controlled: false,
@@ -78,24 +77,15 @@ function SortableTable ({
   const [sortFunc, setSortFunc] = useState(initialSortFunc)
 
   console.log('rendering: ascending: ', ascending, ', sortPath: ', sortPath, ', sortFunc: ', sortFunc)
-  const defaultValueGetter = (data) => {
-    console.log('trying to get: ', sortPath, ', from: ', data)
-    const result =  sortPath //get(sortPath, data)
-    console.log('get returned: ', result)
-    return result
-  }
-  const [valueGetter, setValueGetter] = useState(defaultValueGetter)
 
   const sort = (array) => {
     console.log('trying to sort array: ', array, ', sortFunc: ', sortFunc)
     if (sortFunc) {
-      console.log('using sort func')
       const sorted = [...array].sort(sortFunc)
       if (!ascending && !disableReverse) sorted.reverse()
       return sorted
     }
     else {
-      console.log('using orderBy')
       const order = ascending ? 'asc' : 'desc'
       const sorted = orderBy(array, sortPath, order)
       return sorted
@@ -137,11 +127,8 @@ function SortableTable ({
                   if (column.disabled) return
                   const newSortPath = column.name
                   const newSortFunc = column.sortFunc || null
-                  const newValueGetter =
-                    column.valueGetter || defaultValueGetter
                   updateSortPath(newSortPath)
                   setSortFunc(newSortFunc)
-                  setValueGetter(newValueGetter)
                 }
               }} />
             )
@@ -168,8 +155,9 @@ function SortableTable ({
 SortableTable.propTypes = propTypes
 SortableTable.defaultProps = defaultProps
 
-// Passes relevant SortableTable props
+// Passes relevant SortableTable props and applies valueGetters...
 function SortableTableWrapper ({
+  data: unsortedData,
   initialColumn,
   children,
   disableSort,
@@ -177,8 +165,10 @@ function SortableTableWrapper ({
 }) {
   const columns = getColumnData(children, disableSort)
   const initialProps = columns.filter(col => col.name === initialColumn).pop()
-  console.log('initial props: ', initialProps)
+  const data = applyValueGetters(columns, unsortedData)
+console.log('columns: ', columns)
   return <SortableTable {...{
+    data,
     initialSortPath: initialProps ? initialProps.name : '',
     initialSortFunc: initialProps ? initialProps.sortFunc : null,
     columns,
@@ -188,12 +178,14 @@ function SortableTableWrapper ({
 }
 
 SortableTableWrapper.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object),
   initialColumn: PropTypes.string,
   disableSort: PropTypes.bool,
   children: PropTypes.node.isRequired,
 }
 
 SortableTableWrapper.defaultProps = {
+  data: [],
   initialColumn: '',
   disableSort: false,
 }
