@@ -13,8 +13,8 @@ const sortAscending = (a, b) => (a > b) ? 1 : -1
 
 test('Column data is pulled out via name', () => {
   const wrapper = mount(
-    <SortableTable data={ tableData }>
-      <Column name="name"/>
+    <SortableTable data={tableData}>
+      <Column name="name" />
     </SortableTable>
   )
   expect(wrapper.find('td').first().text()).toEqual('Kim')
@@ -23,9 +23,9 @@ test('Column data is pulled out via name', () => {
 
 test('Columns without props are ignored', () => {
   const wrapper = mount(
-    <SortableTable data={ tableData }>
-      <Column name="name"/>
-      { false }
+    <SortableTable data={tableData}>
+      <Column name="name" />
+      {false}
     </SortableTable>
   )
   expect(wrapper.find('td').first().text()).toEqual('Kim')
@@ -34,8 +34,8 @@ test('Columns without props are ignored', () => {
 
 test('Clicking on column header changes sortPath', () => {
   const wrapper = mount(
-    <SortableTable data={ tableData }>
-      <Column name="name"/>
+    <SortableTable data={tableData}>
+      <Column name="name" />
     </SortableTable>
   )
   wrapper.find('th').first().simulate('click')
@@ -47,8 +47,8 @@ test('Clicking on column header changes sortPath', () => {
 test('onChange is fired when sorting state changes', () => {
   const onChange = jest.fn()
   const wrapper = mount(
-    <SortableTable data={ tableData } onChange={ onChange }>
-      <Column name="name"/>
+    <SortableTable data={tableData} onChange={onChange}>
+      <Column name="name" />
     </SortableTable>
   )
   wrapper.find('th').first().simulate('click')
@@ -58,8 +58,8 @@ test('onChange is fired when sorting state changes', () => {
 
 test('Clicking on column header twice toggles ascending', () => {
   const wrapper = mount(
-    <SortableTable data={ tableData }>
-      <Column name="name"/>
+    <SortableTable data={tableData}>
+      <Column name="name" />
     </SortableTable>
   )
   wrapper.find('th').first().simulate('click')
@@ -71,8 +71,8 @@ test('Clicking on column header twice toggles ascending', () => {
 
 test('Clicking on disabled column header does nothing', () => {
   const wrapper = mount(
-    <SortableTable data={ tableData }>
-      <Column name="name" disabled/>
+    <SortableTable data={tableData}>
+      <Column name="name" disabled />
     </SortableTable>
   )
   wrapper.find('th').first().simulate('click')
@@ -83,8 +83,8 @@ test('Clicking on disabled column header does nothing', () => {
 
 test('disableSort disables all columns', () => {
   const wrapper = mount(
-    <SortableTable data={ tableData } disableSort>
-      <Column name="name"/>
+    <SortableTable data={tableData} disableSort>
+      <Column name="name" />
     </SortableTable>
   )
   wrapper.find('th').first().simulate('click')
@@ -95,8 +95,8 @@ test('disableSort disables all columns', () => {
 
 test('controlled disables all columns', () => {
   const wrapper = mount(
-    <SortableTable data={ tableData } controlled>
-      <Column name="name"/>
+    <SortableTable data={tableData} controlled>
+      <Column name="name" />
     </SortableTable>
   )
   wrapper.find('th').first().simulate('click')
@@ -107,8 +107,8 @@ test('controlled disables all columns', () => {
 
 test('column can have custom label', () => {
   const wrapper = mount(
-    <SortableTable data={ tableData }>
-      <Column name="name" label="FOO"/>
+    <SortableTable data={tableData}>
+      <Column name="name" label="FOO" />
     </SortableTable>
   )
   expect(wrapper.find('th').first().text()).toEqual('FOO')
@@ -117,8 +117,8 @@ test('column can have custom label', () => {
 test('column can have custom sort function', () => {
   const mySort = jest.fn(compareAtPath('name', sortAscending))
   const wrapper = mount(
-    <SortableTable data={ tableData }>
-      <Column name="name" sortFunc={ mySort }/>
+    <SortableTable data={tableData}>
+      <Column name="name" sortFunc={mySort} />
     </SortableTable>
   )
   wrapper.find('th').first().simulate('click')
@@ -127,8 +127,8 @@ test('column can have custom sort function', () => {
 
 test('column can have custom className', () => {
   const wrapper = mount(
-    <SortableTable data={ tableData }>
-      <Column name="name" className="foo"/>
+    <SortableTable data={tableData}>
+      <Column name="name" className="foo" />
     </SortableTable>
   )
   expect(wrapper.find('td.foo').exists()).toBe(true)
@@ -137,8 +137,8 @@ test('column can have custom className', () => {
 test('column can have custom cell component', () => {
   const MyCell = () => <td> Hi! </td>
   const wrapper = mount(
-    <SortableTable data={ tableData }>
-      <Column name="name" component={ MyCell }/>
+    <SortableTable data={tableData}>
+      <Column name="name" component={MyCell} />
     </SortableTable>
   )
   expect(wrapper.find(MyCell).exists()).toBe(true)
@@ -152,10 +152,10 @@ test('column can have custom cell component', () => {
 })
 
 test('column can have custom row component', () => {
-  const MyRow = ({ children }) => <tr>{ children }</tr> // eslint-disable-line
+  const MyRow = ({ children }) => <tr>{children}</tr> // eslint-disable-line
   const wrapper = mount(
-    <SortableTable data={ tableData } rowComponent={ MyRow }>
-      <Column name="name"/>
+    <SortableTable data={tableData} rowComponent={MyRow}>
+      <Column name="name" />
     </SortableTable>
   )
   expect(wrapper.find(MyRow).exists()).toBe(true)
@@ -163,11 +163,11 @@ test('column can have custom row component', () => {
 })
 
 test('column can have custom header component', () => {
-  const MyHeader = ({ column: { name } }) => <th>{ name }</th> // eslint-disable-line
+  const MyHeader = ({ column: { name } }) => <th>{name}</th> // eslint-disable-line
   const wrapper = mount(
-    <SortableTable data={ tableData } headerComponent={ MyHeader }>
-      <Column name="name"/>
-      <Column name="date"/>
+    <SortableTable data={tableData} headerComponent={MyHeader}>
+      <Column name="name" />
+      <Column name="date" />
     </SortableTable>
   )
   expect(wrapper.find(MyHeader).exists()).toBe(true)
@@ -177,11 +177,11 @@ test('column can have custom header component', () => {
 })
 
 test('column can have a column-specific custom header component', () => {
-  const MyHeader = ({ column: { name } }) => <th>{ name }</th> // eslint-disable-line
+  const MyHeader = ({ column: { name } }) => <th>{name}</th> // eslint-disable-line
   const wrapper = mount(
-    <SortableTable data={ tableData }>
-      <Column name="name" headerComponent={ MyHeader } />
-      <Column name="date"/>
+    <SortableTable data={tableData}>
+      <Column name="name" headerComponent={MyHeader} />
+      <Column name="date" />
     </SortableTable>
   )
   expect(wrapper.find(MyHeader).exists()).toBe(true)
@@ -192,8 +192,8 @@ test('column can have a column-specific custom header component', () => {
 test('initialColumn determines inital sortPath and sortFunc', () => {
   const mySort = jest.fn(compareAtPath('name', sortAscending))
   const wrapper = mount(
-    <SortableTable data={ tableData } initialColumn="name">
-      <Column name="name" sortFunc={ mySort }/>
+    <SortableTable data={tableData} initialColumn="name">
+      <Column name="name" sortFunc={mySort} />
     </SortableTable>
   )
   // Data should now be sorted by name
@@ -202,11 +202,26 @@ test('initialColumn determines inital sortPath and sortFunc', () => {
   expect(mySort).toHaveBeenCalled()
 })
 
+test('initialColumn can be default sorted descending', () => {
+  const wrapper = mount(
+    <SortableTable
+      data={tableData}
+      initialColumn="name"
+      initialAscending={false}
+    >
+      <Column name="name" />
+    </SortableTable>
+  )
+  // Data should now be sorted, descending, by name
+  expect(wrapper.find('td').first().text()).toEqual('Tommy')
+  expect(wrapper.find('td').last().text()).toEqual('Kim')
+})
+
 test('`onClick` function is called on correct column cells', () => {
   const onClick = jest.fn()
   const wrapper = mount(
-    <SortableTable data={ tableData } initialColumn="name">
-      <Column name="name" onClick={ onClick } className="click"/>
+    <SortableTable data={tableData} initialColumn="name">
+      <Column name="name" onClick={onClick} className="click" />
       <Column name="city" className="no-click" />
     </SortableTable>
   )
@@ -221,8 +236,8 @@ test('`onClick` function is called on correct column cells', () => {
 test('`format` updates the cell value', () => {
   const format = jest.fn(lowerCase)
   const wrapper = mount(
-    <SortableTable data={ tableData } initialColumn="name">
-      <Column name="name" format={ format } />
+    <SortableTable data={tableData} initialColumn="name">
+      <Column name="name" format={format} />
     </SortableTable>
   )
   expect(wrapper.find('td').first().text()).toEqual('kim')
@@ -236,7 +251,7 @@ test('`placeholder` option is displayed if value is `null` or `undefined`', () =
     { name: undefined },
   ]
   const wrapper = mount(
-    <SortableTable data={ data }>
+    <SortableTable data={data}>
       <Column name="name" placeholder="placeholder" />
     </SortableTable>
   )
@@ -250,7 +265,7 @@ test('can recieve custom class name', () => {
     { name: undefined },
   ]
   const wrapper = mount(
-    <SortableTable data={ data } className="foo">
+    <SortableTable data={data} className="foo">
       <Column name="name" placeholder="placeholder" />
     </SortableTable>
   )
@@ -264,8 +279,8 @@ test('`valueGetter` derives the cell value', () => {
   ]
   const myValueGetter = jest.fn((data) => `${data.name} - ${data.accountName}`)
   const wrapper = mount(
-    <SortableTable data={ data } >
-      <Column name="opportunityName" valueGetter={ myValueGetter } />
+    <SortableTable data={data} >
+      <Column name="opportunityName" valueGetter={myValueGetter} />
     </SortableTable>
   )
   expect(wrapper.find('td').first().text()).toEqual('Opportunity 1 - Dealer 1')

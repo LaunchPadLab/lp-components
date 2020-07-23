@@ -58,7 +58,7 @@ const defaultProps = {
 }
 
 
-function SortableTable ({
+function SortableTable({
   className,
   columns,
   data: unsortedData,
@@ -72,47 +72,53 @@ function SortableTable ({
   rowComponent,
   headerComponent,
 }) {
-  const [ascending, setAscending] = useState(initialAscending)
-  const [sortPath, setSortPath] = useState(initialSortPath)
-  const [sortFunc, setSortFunc] = useState(initialSortFunc)
+  const [sortControls, setSortControls] = useState({
+    ascending: initialAscending,
+    sortPath: initialSortPath,
+    sortFunc: initialSortFunc
+  })
+  const [data, setData] = useState(unsortedData)
+  const { ascending, sortPath, sortFunc } = sortControls
 
-  console.log('rendering: ascending: ', ascending, ', sortPath: ', sortPath, ', sortFunc: ', sortFunc)
+  const handleColumnChange = (column) => {
+    if (column.disabled) return
 
-  const sort = (array) => {
-    console.log('trying to sort array: ', array, ', sortFunc: ', sortFunc)
+    const newSortPath = column.name
+    const newSortFunc = column.sortFunc || null
+
+    // Toggle ascending if the path is already selected. Otherwise, default
+    // to ascending when switching paths...
+    const newAscending = newSortPath === sortPath ? !ascending : true
+
+    setSortControls({
+      ...sortControls,
+      ascending: newAscending,
+      sortPath: newSortPath,
+      sortFunc: newSortFunc,
+    })
+  }
+
+  useEffect(() => {
+    // Sort the data, if necessary...
+    if (controlled || disableSort) return
+
     if (sortFunc) {
-      const sorted = [...array].sort(sortFunc)
+      const sorted = [...data].sort(sortFunc)
       if (!ascending && !disableReverse) sorted.reverse()
-      return sorted
+      setData(sorted)
     }
     else {
       const order = ascending ? 'asc' : 'desc'
-      const sorted = orderBy(array, sortPath, order)
-      return sorted
+      const sorted = orderBy(data, sortPath, order)
+      setData(sorted)
     }
-  }
 
-  const updateSortPath = (newPath) => {
-    // Toggle ascending if the path is already selected. Otherwise, default
-    // to ascending when switching paths...
-    setAscending(
-      newPath === sortPath ? !ascending : true
-    )
-    setSortPath(newPath)
-  }
-
-  const data = (controlled || disableSort)
-    ? unsortedData :
-    sort(unsortedData)
-
-    console.log('after sort, data: ', data)
-  useEffect(() => {
-    // Call onChange if the sort path changes...
-    if (onChange) onChange({ ascending, sortPath, sortFunc})
-  }, [sortPath])
+    // Call onChange if the sort controls change...
+    if (onChange) onChange({ ascending, sortPath, sortFunc })
+  }, [sortControls])
 
   return (
-    <table className={ classnames(className, { 'sortable-table': !disableSort }) }>
+    <table className={classnames(className, { 'sortable-table': !disableSort })}>
       <thead><tr>
         {
           columns.map((column, key) => {
@@ -123,13 +129,7 @@ function SortableTable ({
                 column,
                 sortPath,
                 ascending,
-                onClick: () => {
-                  if (column.disabled) return
-                  const newSortPath = column.name
-                  const newSortFunc = column.sortFunc || null
-                  updateSortPath(newSortPath)
-                  setSortFunc(newSortFunc)
-                }
+                onClick: () => handleColumnChange(column)
               }} />
             )
           }
@@ -156,7 +156,7 @@ SortableTable.propTypes = propTypes
 SortableTable.defaultProps = defaultProps
 
 // Passes relevant SortableTable props and applies valueGetters...
-function SortableTableWrapper ({
+function SortableTableWrapper({
   data: unsortedData,
   initialColumn,
   children,
@@ -166,7 +166,7 @@ function SortableTableWrapper ({
   const columns = getColumnData(children, disableSort)
   const initialProps = columns.filter(col => col.name === initialColumn).pop()
   const data = applyValueGetters(columns, unsortedData)
-console.log('columns: ', columns)
+
   return <SortableTable {...{
     data,
     initialSortPath: initialProps ? initialProps.name : '',
