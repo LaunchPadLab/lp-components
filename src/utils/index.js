@@ -6,6 +6,7 @@ export {
   startCase,
   range,
   noop,
+  orderBy,
   first,
   toLower,
   union as addToArray,

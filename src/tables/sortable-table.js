@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { sortable, sortablePropTypes, noop } from '../utils'
 import { getColumnData, Types } from './helpers'
 import { TableHeader as DefaultHeader, TableRow as Row } from './components'
+import { get, noop, orderBy } from '../utils'
 import classnames from 'classnames'
 
 /**
@@ -36,35 +36,91 @@ import classnames from 'classnames'
 /* eslint react/jsx-key: 0 */
 
 const propTypes = {
+  className: PropTypes.string,
   columns: PropTypes.arrayOf(Types.column).isRequired,
-  controlled: PropTypes.bool.isRequired,
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes.arrayOf(PropTypes.object),
+  initialSortPath: PropTypes.string.isRequired,
+  initialSortFunc: PropTypes.func,
+  initialAscending: PropTypes.bool,
+  disableReverse: PropTypes.bool,
   disableSort: PropTypes.bool.isRequired,
+  controlled: PropTypes.bool,
+  onChange: PropTypes.func,
   rowComponent: Types.component,
   headerComponent: Types.component,
-  className: PropTypes.string,
-  ...sortablePropTypes,
+}
+const defaultProps = {
+  className: '',
+  data: [],
+  initialAscending: true,
+  disableReverse: false,
+  controlled: false,
+  onChange: noop,
 }
 
-const defaultProps = {
-  className: ''
-}
 
 function SortableTable ({
+  className,
   columns,
   data: unsortedData,
+  initialSortPath,
+  initialSortFunc,
+  initialAscending,
+  disableReverse,
   disableSort,
   controlled,
-  sort,
-  ascending,
-  sortPath,
-  setSortPath,
-  setSortFunc,
+  onChange,
   rowComponent,
   headerComponent,
-  className,
 }) {
-  const data = (controlled || disableSort) ? unsortedData : sort(unsortedData)
+  const [ascending, setAscending] = useState(initialAscending)
+  const [sortPath, setSortPath] = useState(initialSortPath)
+  const [sortFunc, setSortFunc] = useState(initialSortFunc)
+
+  console.log('rendering: ascending: ', ascending, ', sortPath: ', sortPath, ', sortFunc: ', sortFunc)
+  const defaultValueGetter = (data) => {
+    console.log('trying to get: ', sortPath, ', from: ', data)
+    const result =  sortPath //get(sortPath, data)
+    console.log('get returned: ', result)
+    return result
+  }
+  const [valueGetter, setValueGetter] = useState(defaultValueGetter)
+
+  const sort = (array) => {
+    console.log('trying to sort array: ', array, ', sortFunc: ', sortFunc)
+    if (sortFunc) {
+      console.log('using sort func')
+      const sorted = [...array].sort(sortFunc)
+      if (!ascending && !disableReverse) sorted.reverse()
+      return sorted
+    }
+    else {
+      console.log('using orderBy')
+      const order = ascending ? 'asc' : 'desc'
+      const sorted = orderBy(array, sortPath, order)
+      return sorted
+    }
+  }
+
+  const updateSortPath = (newPath) => {
+    // Toggle ascending if the path is already selected. Otherwise, default
+    // to ascending when switching paths...
+    setAscending(
+      newPath === sortPath ? !ascending : true
+    )
+    setSortPath(newPath)
+  }
+
+  const data = (controlled || disableSort)
+    ? unsortedData :
+    sort(unsortedData)
+
+    console.log('after sort, data: ', data)
+  useEffect(() => {
+    // Call onChange if the sort path changes...
+    if (onChange) onChange({ ascending, sortPath, sortFunc})
+  }, [sortPath])
+
   return (
     <table className={ classnames(className, { 'sortable-table': !disableSort }) }>
       <thead><tr>
@@ -81,8 +137,11 @@ function SortableTable ({
                   if (column.disabled) return
                   const newSortPath = column.name
                   const newSortFunc = column.sortFunc || null
-                  setSortPath(newSortPath)
+                  const newValueGetter =
+                    column.valueGetter || defaultValueGetter
+                  updateSortPath(newSortPath)
                   setSortFunc(newSortFunc)
+                  setValueGetter(newValueGetter)
                 }
               }} />
             )
@@ -109,19 +168,19 @@ function SortableTable ({
 SortableTable.propTypes = propTypes
 SortableTable.defaultProps = defaultProps
 
-const WrappedTable = sortable()(SortableTable)
-
-// Passes relevant sortable props
-function SortableTableWrapper ({ initialColumn, children, disableSort, disableReverse, onChange, ...rest }) {
+// Passes relevant SortableTable props
+function SortableTableWrapper ({
+  initialColumn,
+  children,
+  disableSort,
+  ...rest
+}) {
   const columns = getColumnData(children, disableSort)
   const initialProps = columns.filter(col => col.name === initialColumn).pop()
-  return <WrappedTable {...{
-    // Sortable props
+  console.log('initial props: ', initialProps)
+  return <SortableTable {...{
     initialSortPath: initialProps ? initialProps.name : '',
     initialSortFunc: initialProps ? initialProps.sortFunc : null,
-    onChange,
-    disableReverse,
-    // Local props
     columns,
     disableSort,
     ...rest,
@@ -130,22 +189,13 @@ function SortableTableWrapper ({ initialColumn, children, disableSort, disableRe
 
 SortableTableWrapper.propTypes = {
   initialColumn: PropTypes.string,
-  children: PropTypes.node.isRequired,
-  data: PropTypes.arrayOf(PropTypes.object),
   disableSort: PropTypes.bool,
-  disableReverse: PropTypes.bool,
-  onChange: PropTypes.func,
-  rowComponent: Types.component,
-  headerComponent: Types.component,
+  children: PropTypes.node.isRequired,
 }
 
 SortableTableWrapper.defaultProps = {
   initialColumn: '',
   disableSort: false,
-  controlled: false,
-  disableReverse: false,
-  data: [],
-  onChange: noop,
 }
 
 export default SortableTableWrapper
