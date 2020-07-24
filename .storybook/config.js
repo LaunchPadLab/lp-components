@@ -1,4 +1,4 @@
-import '../.storybook/styles/application.scss'
+import '../.storybook/styles/storybook.scss'
 
 import { configure, addDecorator } from '@storybook/react'
 import { withA11y } from '@storybook/addon-a11y'

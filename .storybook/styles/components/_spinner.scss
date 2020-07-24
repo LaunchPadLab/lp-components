@@ -3,23 +3,22 @@ Spinner
 -----------------------*/
 
 #spinner {
-  @include rem(margin-top, 50px);
   text-align: center;
 
   &:after{
-    border: 3px solid $green-base;
+    animation: spin 0.5s linear infinite;
+    border: 3px solid $primary-base;
     border-radius: 50%;
-    border-top-color: $blue-base;
+    border-top-color: $primary-base;
     border-right-color: transparent;
     border-top-color: transparent;
     content:"";
     display: inline-block;
     height: 30px;
-    @include animation(spin 0.5s linear infinite);
     width: 30px;
   }
 }
 
-@include keyframes(spin) {
-  to { @include transform(rotate(360deg)); }
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }

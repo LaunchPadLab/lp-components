@@ -1,19 +1,22 @@
 /*-----------------------
 Table
 -----------------------*/
-
 table{
-  background-color: $grey-lighter;
+  background-color: $white-base;
   table-layout: fixed;
   width: 100%;
 
+  thead{
+    border-bottom: 2px solid $black-base;
+  }
+
   th, td {
+    color: $black-base;
     display: table-cell;
     @include rem(margin, 15px 5px);
-    @include rem(padding, 10px);
-    @include s-medium;
+    @include rem(padding, 12px 10px);
+    @include font-size-mbody;
     text-align: left;
-    white-space: nowrap;
     width: inherit;
     vertical-align: middle;
   }
@@ -21,67 +24,63 @@ table{
   th, td:before {
     color: $grey-base;
     font-weight: $bold;
-    font-size: $s-small;
+    @include font-size-mbody;
   }
 
-  td{
-    max-width: 300px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: $s-small;
-  }
-
-  th, thead{
-    background-color: $yellow-light;
+  th{
     color: $black-base;
-    cursor: pointer;
     width: 100%;
+  }
+
+  th.sortable{
+    cursor: pointer;
   }
 
   tbody{
     overflow: auto;
 
     tr{
+      &.clickable{
+        cursor: pointer;
+      }
       &:nth-child(even){
-        background-color: rgba(lighten($blue-base, 35%), 0.7);
+        background-color: $white-light;
       }
     }
   }
 }
 
 /*-----------------------
+Scrollable
+-----------------------*/
+.scrollable-table{
+  overflow: auto;
+}
+
+/*-----------------------
 Filter Table Arrows
 -----------------------*/
-th{
+th.sortable{
   &:after{
     display: inline-block;
-    font-size: 8px;
+    font-size: 12px;
     @include rem(margin-left, 10px);
     opacity: 0.4;
   }
 
-  &:hover:after{
-    content:"▼";
+  &.order-descend:after {
+    // background-image: url('../images/utility-icons/dropdown.svg');
   }
-}
-
-.order-ascend{
-  &:after{
-    content:"▲";
+  &.order-ascend:after{
+    // background-image: url('../images/utility-icons/dropdown.svg');
+    transform: scaleY(-1);
+    filter: FlipV;
+    -ms-filter: “FlipV”;
   }
-
-  &:hover:after{
-   content:"▼";
-  }
-}
-
-.order-descend{
-  &:after{
-    content:"▼";
-  }
-
-  &:hover:after{
-    content:"▲";
+  &:not(.order-ascend):not(.order-descend):hover:after {
+    // background-image: url('../images/utility-icons/dropdown.svg');
+    transform: scaleY(-1);
+    filter: FlipV;
+    -ms-filter: “FlipV”;
   }
 }

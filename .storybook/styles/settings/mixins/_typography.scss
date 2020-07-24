@@ -3,51 +3,45 @@
 
 
 // Font Sizes
-@mixin s-giga{
-  @include rem(font-size, $s-giga);
+@mixin font-size-hero{
+  @include rem(font-size, $s-hero);
 }
 
-@mixin s-mega{
+@mixin font-size-mega{
   @include rem(font-size, $s-mega);
 }
 
-@mixin s-huge{
-  @include rem(font-size, $s-huge);
+@mixin font-size-jumbo{
+  @include rem(font-size, $s-jumbo);
 }
 
-@mixin s-large{
-  @include rem(font-size, $s-large);
+@mixin font-size-display{
+  @include rem(font-size, $s-display);
   @include rem(line-height, $base-line-height);
 }
 
-@mixin s-bigger{
-  @include rem(font-size, $s-bigger);
+@mixin font-size-subheader{
+  @include rem(font-size, $s-subheader);
   @include rem(line-height, $base-line-height);
 }
 
-@mixin s-big{
-  @include rem(font-size, $s-big);
+@mixin font-size-minor{
+  @include rem(font-size, $s-minor);
   @include rem(line-height, $base-line-loose);
 }
 
-@mixin s-medium{
-  @include rem(font-size, $s-medium);
+@mixin font-size-lbody{
+  @include rem(font-size, $s-lbody);
   line-height: normal;
 }
 
-@mixin s-base{
-  @include rem(font-size, $s-base);
+@mixin font-size-mbody{
+  @include rem(font-size, $s-mbody);
 }
 
-@mixin s-small{
-  @include rem(font-size, $s-small);
+@mixin font-size-sbody{
+  @include rem(font-size, $s-sbody);
 }
-
-@mixin s-tiny{
-  @include rem(font-size, $s-tiny);
-  @include rem(line-height, $base-line-small);
-}
-
 
 // Font Styles
 @mixin font-type($type, $style, $weight){
