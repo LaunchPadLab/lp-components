@@ -1655,10 +1655,10 @@
     eslint-plugin-import "^2.13.0"
     eslint-plugin-react "^7.10.0"
 
-"@launchpadlab/lp-hoc@^5.0.4":
-  version "5.0.4"
-  resolved "https://registry.yarnpkg.com/@launchpadlab/lp-hoc/-/lp-hoc-5.0.4.tgz#7e04c729d9a9ff6bdab00864f2495786a52908dc"
-  integrity sha512-h1wGLrshks99vRhJNWsBbfiovnQ0Oq1aHYJEX4ATr+KK+NBCLmGN54cfWKsVlrn2I4JHLQNX20OcFD7zrhO7aQ==
+"@launchpadlab/lp-hoc@^5.0.6":
+  version "5.0.6"
+  resolved "https://registry.yarnpkg.com/@launchpadlab/lp-hoc/-/lp-hoc-5.0.6.tgz#76f0d4413f2733b63c7e6257fb6445162d8503b2"
+  integrity sha512-xsNBSFFzValegSyPAxw8YAlyx6PFkHfjDIq0C2+j8sKMMUgFYPwQeeTRGBzhWLCNq2BtxfPjekfsId9kG5FR6Q==
   dependencies:
     "@launchpadlab/lp-requests" "^4.1.6"
     classnames "^2.2.5"

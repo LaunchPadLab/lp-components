@@ -1678,6 +1678,8 @@ A modal component with a built-in close button. Uses [`react-modal`][168] under 
 
 Unlike `react-modal`, this component does not require an `isOpen` prop to render. However, that prop can still be used in the case where animations are necessary- see [this issue][169].
 
+Note: this component requires custom styles. These styles can be imported from the `lib/styles` folder as shown inn the example below.
+
 ### Parameters
 
 -   `onClose` **[Function][144]** A handler for closing the modal. May be triggered via the close button, and outside click, or a key press.
@@ -1686,6 +1688,12 @@ Unlike `react-modal`, this component does not require an `isOpen` prop to render
 ### Examples
 
 ```javascript
+// application.scss
+
+// @import "../../node_modules/@launchpadlab/lp-components/lib/styles/modal";
+
+// MyView.js
+
 function MyView () {
   const [ modalShown, setModalShown ] = useState(false)
   return (

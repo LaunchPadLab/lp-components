@@ -8,12 +8,20 @@ import { isServer } from './utils'
  *
  * Unlike `react-modal`, this component does not require an `isOpen` prop to render. However, that prop can still be used in the case where animations are necessary- see [this issue](https://github.com/reactjs/react-modal/issues/25).
  *
+ * Note: this component requires custom styles. These styles can be imported from the `lib/styles` folder as shown inn the example below.
+ *
  * @name Modal
  * @type Function
  * @param {Function} onClose - A handler for closing the modal. May be triggered via the close button, and outside click, or a key press.
  * @param {Boolean} [hideCloseButton] - A flag for hiding the default close button.
  *
  * @example
+ *
+ * // application.scss
+ *
+ * // @import "../../node_modules/@launchpadlab/lp-components/lib/styles/modal";
+ *
+ * // MyView.js
  *
  * function MyView () {
  *   const [ modalShown, setModalShown ] = useState(false)

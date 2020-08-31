@@ -28,6 +28,8 @@
  // Base Styles
  @import "base/typography";
 
+ // Exported component styles
+ @import "../../src/styles/modal";
 
  // Components List
  @import "components/buttons";
@@ -38,7 +40,6 @@
  @import "components/forms";
  @import "components/table";
  @import "components/spinner";
- @import "components/modal";
  @import "components/flash";
  @import "components/grid";
  @import "components/empty-state";
@@ -67,3 +68,4 @@
  // Page Styles
  @import "pages/main";
  @import "pages/styleguide";
+
