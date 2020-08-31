@@ -8,7 +8,7 @@ storiesOf('Modal', module)
     return (
       <div>
         {modalShown && (
-          <Modal isOpen={false} onClose={() => setModalShown(false)}>
+          <Modal onClose={() => setModalShown(false)}>
             This is the modal content!
           </Modal>
         )}

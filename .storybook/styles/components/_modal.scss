@@ -1,107 +1,114 @@
-.modal {
+body.modal-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overscroll-behavior-y: contain;
+}
 
-  .modal-fade-screen {
-    @include position(fixed, 0 0 0 0);
+.modal-fade-screen {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     background-color: rgba(0, 0, 0, 0.65);
     opacity: 1;
     transition: opacity 0.25s ease;
-    visibility: hidden;
     z-index: 9999999;
-
-    &.is-active {
-      opacity: 1;
-      visibility: visible;
-    }
-  }
-
-  .modal-bg {
-    cursor: pointer;
-    @include position(absolute, 0 0 0 0);
-  }
-
-  h2{
-    border-bottom: 1px solid $blue-base;
-    @include rem(padding-bottom, 20px);
-  }
-
-  .modal-close {
-    cursor: pointer;
-    @include position(absolute, 0px 0px null null);
-    @include s-huge;
-    @include rem(padding, 20px);
-    color: $blue-base;
-
-    @include media($tablet){
-      @include position(absolute, 15px 20px null null);
-    }
-  }
-
-
-  &.modal-warning{
-    h2{
-      border-bottom: 1px solid $red-base;
-      color: $red-base;
-    }
-
-    .modal-close{
-      color: $grey-base
-    }
-  }
-
-  .modal-inner {
-    @include outer-container;
-    background-color: $white-base;
-    box-shadow: none;
-    margin: auto;
-    max-height: 95%;
-    overflow: auto;
-    position: relative;
-    transition: opacity 0.25s ease;
-    width: 100%;
-
-    @include media($tablet) {
-      @include center;
-      max-width: 700px;
-      @include vertical-center;
-      left: 50%;
-      max-height: 598px;
-      @include transform(translateY(-50%) translateX(-50%));
-    }
-
-    a{
-      width: 100%;
-
-      @include media($tablet){
-        @include rem(margin-right, 15px);
-        width: inherit;
-      }
-
-      &:last-child{
-        @include rem(margin-top, 15px);
-
-        @include media($tablet){
-          @include rem(margin-top, 0px);
-        }
-      }
-    }
-  }
 }
 
-.modal-card{
-  position: relative;
+.modal.is-active {
+    opacity: 1;
+    visibility: visible;
+}
 
-  .modal{
+.modal .modal-bg {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
 
-    .modal-fade-screen{
-      position: relative;
-      opacity: 1;
-      visibility: visible;
-      z-index: 0;
+.modal .modal-close {
+    color: #444444;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    font-size: 36px;
+    font-size: 2.5714285714rem;
+    top: 10px;
+    right: 10px;
+    line-height: 0;
+    background-color: transparent;
+    line-height: 25px;
+}
 
-      .modal-inner{
-        @include position(relative, 0 0 0 0);
-        @include transform(translateY(0) translateX(0));
-      }
+.modal .modal-inner {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #FFFFFF;
+    box-shadow: none;
+    max-height: calc(100% - 40px);
+    -ms-overflow-style: none;
+    overflow: scroll;
+    position: relative;
+    transition: opacity 0.25s ease;
+    padding: 2em;
+    margin: 20px;
+}
+
+.modal .modal-inner::after {
+    clear: both;
+    content: "";
+    display: block;
+}
+
+@media screen and (min-width: 45em) {
+    .modal .modal-inner {
+        margin: auto;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        max-width: 700px;
+        -webkit-transform: translateY(-50%);
+        -moz-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        -o-transform: translateY(-50%);
+        transform: translateY(-50%);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        max-height: 650px;
+        -webkit-transform: translateY(-50%) translateX(-50%);
+        -moz-transform: translateY(-50%) translateX(-50%);
+        -ms-transform: translateY(-50%) translateX(-50%);
+        -o-transform: translateY(-50%) translateX(-50%);
+        transform: translateY(-50%) translateX(-50%);
     }
-  }
+}
+
+.modal .modal-inner a {
+    width: 100%;
+}
+
+@media screen and (min-width: 45em) {
+    .modal .modal-inner a {
+        margin-right: 1.0714285714rem;
+        width: inherit;
+    }
+}
+
+.modal .modal-inner a:last-child {
+    margin-top: 1.0714285714rem;
+}
+
+@media screen and (min-width: 45em) {
+    .modal .modal-inner a:last-child {
+        margin-top: 0px;
+    }
 }
