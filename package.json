@@ -1,6 +1,6 @@
 {
   "name": "@launchpadlab/lp-components",
-  "version": "3.32.0",
+  "version": "3.34.0",
   "engines": {
     "node": "^8.0.0 || ^10.13.0 || ^12.0.0"
   },
@@ -17,9 +17,10 @@
   "license": "MIT",
   "scripts": {
     "start": "yarn && yarn build:development",
-    "build": "yarn build:cjs && yarn build:esm",
+    "build": "yarn build:cjs && yarn build:esm && yarn build:styles",
     "build:cjs": "babel src --out-dir lib",
     "build:esm": "BABEL_ENV=esm babel src --out-dir esm",
+    "build:styles": "cp -r src/styles lib/styles && node-sass src/styles/ -o lib/styles",
     "build:development": "BABEL_ENV=esm babel src --watch --out-dir esm",
     "clean": "rm -rf lib esm",
     "docs": "documentation build src/index.js -f md -o docs.md",
@@ -47,6 +48,7 @@
     "prop-types": "^15.5.8",
     "react-color": "^2.14.0",
     "react-datepicker": "^1.0.3",
+    "react-modal": "^3.11.2",
     "react-router": "^3.2.1",
     "react-switch": "^5.0.1",
     "redux-flash": "^2.0.1"
