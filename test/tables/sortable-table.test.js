@@ -316,7 +316,7 @@ test('`valueGetter` column can be the initial column and is sorted ascending', (
   const wrapper = mount(
     <SortableTable data={data} initialColumn="opportunityName">
       <Column name="opportunityName" valueGetter={myValueGetter} />
-      <Column accountName="accountName" />
+      <Column name="accountName" />
       <Column name="name" />
     </SortableTable>
   )
