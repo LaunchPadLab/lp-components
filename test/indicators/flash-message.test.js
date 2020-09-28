@@ -2,24 +2,26 @@ import React from 'react'
 import { mount } from 'enzyme'
 import { FlashMessage } from '../../src/'
 
-const successMessage = { id: '0', message: 'Success!', isError: false, props: {} }
-const customMessage = { id: '0', message: 'Success!', isError: false, props: { className: 'foo', hidden: true } }
-
 test('FlashMessage only shows dismiss button when callback is provided', () => {
-  const wrapper = mount(
-    <FlashMessage message={ successMessage } />
-  )
+  const wrapper = mount(<FlashMessage>Success!</FlashMessage>)
   expect(wrapper.find('button.dismiss').exists()).toBe(false)
   const dismissWrapper = mount(
-    <FlashMessage message={ successMessage } onDismiss={ () => { /* do something */ } } />
+    <FlashMessage
+      onDismiss={() => {
+        /* do something */
+      }}
+    >
+      Success!
+    </FlashMessage>
   )
   expect(dismissWrapper.find('button.dismiss').exists()).toBe(true)
 })
 
-test('FlashMessage accepts props from message object', () => {
-  const wrapper = mount(
-    <FlashMessage message={ customMessage } />
-  )
-  expect(wrapper.find('div.foo').exists()).toBe(true)
-  expect(wrapper.find('div').prop('hidden')).toBe(true)
+test('FlashMessage sets class based on isError prop', () => {
+  const wrapper = mount(<FlashMessage>Success!</FlashMessage>)
+  expect(wrapper.find('div.success').exists()).toBe(true)
+  expect(wrapper.find('div.failure').exists()).toBe(false)
+  const errorWrapper = mount(<FlashMessage isError>Failure!</FlashMessage>)
+  expect(errorWrapper.find('div.success').exists()).toBe(false)
+  expect(errorWrapper.find('div.failure').exists()).toBe(true)
 })
