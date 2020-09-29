@@ -46,7 +46,7 @@ function FlashMessageContainer({ messages, limit, ...rest }) {
           {...message.props}
           {...rest}
         >
-          {message.message}
+          <p>{message.message}</p>
         </FlashMessage>
       ))}
     </div>

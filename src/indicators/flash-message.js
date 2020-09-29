@@ -9,7 +9,7 @@ import classnames from 'classnames'
  * @name FlashMessage
  * @type Function
  * @param {String} children - The flash message that will be displayed.
- * @param {Boolean} [isError] - A flag to indicate whether the message is an error message.
+ * @param {Boolean} [isError=false] - A flag to indicate whether the message is an error message.
  * @param {Function} [onDismiss] - A callback for dismissing the flash message. The dismiss button will only be shown if this callback is provided.
  * @example
  *
@@ -53,7 +53,7 @@ function FlashMessage({ children, isError, onDismiss, className, ...rest }) {
           ×
         </button>
       )}
-      <p> {children} </p>
+      {children}
     </div>
   )
 }
