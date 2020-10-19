@@ -301,7 +301,7 @@ Uploader
     }
   }
 
-  .button-secondary-light>input{
+  input[type="file"]{
     position:absolute;
     top:0;
     right:0;
@@ -310,6 +310,18 @@ Uploader
     filter:alpha(opacity=0);
     transform:translate(-300px, 0) scale(4);
     cursor: pointer;
+
+    &:focus + .button-secondary-light{
+      outline-width: 2px;
+      outline-style: solid;
+      outline-color: Highlight;
+
+      /* WebKit gets its native focus styles. */
+      @media (-webkit-min-device-pixel-ratio:0){
+        outline-color: -webkit-focus-ring-color;
+        outline-style: auto;
+      }
+    }
   }
 }
 

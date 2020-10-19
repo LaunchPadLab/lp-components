@@ -5,6 +5,7 @@ import { LabeledField } from '../../labels'
 import FilePreview from './file-preview'
 import ImagePreview from './image-preview'
 import { noop, generateInputErrorId, isServer } from '../../../utils'
+import classnames from 'classnames'
 
 /**
  *
@@ -114,22 +115,29 @@ class FileInput extends React.Component {
     return (
       <LabeledField { ...this.props }>
         <div className="fileupload fileupload-exists">
-          { 
-            !hidePreview &&
-            renderPreview({ file, value, ...rest })
-          }
-          <div className={ wrapperClass }>
-            <span className="fileupload-exists"> Select File </span>
-              <input 
-                {...{
-                  id: name,
-                  name,
-                  type: 'file',
-                  onChange: this.loadFile,
-                  accept,
-                  'aria-describedby': hasInputError(meta) ? generateInputErrorId(name) : null,
-                }}
-              />
+          {!hidePreview && renderPreview({ file, value, ...rest })}
+          <div>
+            <input
+              {...{
+                id: name,
+                name,
+                type: 'file',
+                onChange: this.loadFile,
+                accept,
+                'aria-labelledby': name + '-label',
+                'aria-describedby': hasInputError(meta)
+                  ? generateInputErrorId(name)
+                  : null,
+              }}
+            />
+            {/* Include after input to allowing for styling with adjacent sibling selector */}
+            <span
+              className={classnames('fileupload-exists', wrapperClass)}
+              id={name + '-label'}
+            >
+              {' '}
+              Select File{' '}
+            </span>
           </div>
         </div>
       </LabeledField>
