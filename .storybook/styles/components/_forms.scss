@@ -267,31 +267,32 @@ Uploader
     }
   }
 
-  .button-secondary-light span{
+  .button-secondary-light{
     overflow: hidden;
     position: relative;
-    background-color: $grey-base;
-    box-shadow: none;
-    border: none;
-    cursor: pointer;
-    color: $white-base;
-    text-align: center;
-    display: block;
-    @include rem(padding, 20px 0px);
-    color: $black-base;
 
-    &:hover{
-      background-color: darken($grey-base, 8%);
+    span{
+      background-color: $grey-base;
+      cursor: pointer;
+      color: $white-base;
+      text-align: center;
+      display: block;
+      @include rem(padding, 20px 0px);
+      color: $black-base;
+
+      &:hover{
+        background-color: darken($grey-base, 8%);
+      }
+
+      &.fileupload-exists{
+        color: $white-base;
+      }
     }
 
     &.fileupload-exists{
-      color: $white-base;
-    }
-  }
-
-  &.fileupload-exists{
-    div{
-      padding: 0px !important;
+      div{
+        padding: 0px !important;
+      }
     }
   }
 
