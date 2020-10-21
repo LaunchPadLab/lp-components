@@ -267,22 +267,24 @@ Uploader
     }
   }
 
-  .button-secondary-light{
+  .button-secondary-light span{
     overflow: hidden;
     position: relative;
-    vertical-align: middle;
     background-color: $grey-base;
     box-shadow: none;
     border: none;
     cursor: pointer;
     color: $white-base;
     text-align: center;
+    display: block;
+    @include rem(padding, 20px 0px);
+    color: $black-base;
 
     &:hover{
       background-color: darken($grey-base, 8%);
     }
 
-    .fileupload-exists{
+    &.fileupload-exists{
       color: $white-base;
     }
   }
@@ -290,18 +292,10 @@ Uploader
   &.fileupload-exists{
     div{
       padding: 0px !important;
-
-      span{
-        //border: 1px solid $grey-base;
-        display: inline-block;
-        //@include rem(padding, 15px);
-        @include rem(margin, 20px 0px);
-        color: $black-base;
-      }
     }
   }
 
-  input[type="file"]{
+  .button-secondary-light>input{
     position:absolute;
     top:0;
     right:0;
@@ -311,7 +305,7 @@ Uploader
     transform:translate(-300px, 0) scale(4);
     cursor: pointer;
 
-    &:focus + .button-secondary-light{
+    &:focus + span{
       outline-width: 2px;
       outline-style: solid;
       outline-color: Highlight;

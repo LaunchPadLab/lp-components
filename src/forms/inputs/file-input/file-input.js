@@ -5,7 +5,6 @@ import { LabeledField } from '../../labels'
 import FilePreview from './file-preview'
 import ImagePreview from './image-preview'
 import { noop, generateInputErrorId, isServer } from '../../../utils'
-import classnames from 'classnames'
 
 /**
  *
@@ -116,7 +115,7 @@ class FileInput extends React.Component {
       <LabeledField { ...this.props }>
         <div className="fileupload fileupload-exists">
           {!hidePreview && renderPreview({ file, value, ...rest })}
-          <div>
+          <div className={wrapperClass}>
             <input
               {...{
                 id: name,
@@ -131,13 +130,7 @@ class FileInput extends React.Component {
               }}
             />
             {/* Include after input to allowing for styling with adjacent sibling selector */}
-            <span
-              className={classnames('fileupload-exists', wrapperClass)}
-              id={name + '-label'}
-            >
-              {' '}
-              Select File{' '}
-            </span>
+            <span className='fileupload-exists' id={name + '-label'}> Select File </span>
           </div>
         </div>
       </LabeledField>
