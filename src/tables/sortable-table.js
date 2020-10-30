@@ -121,7 +121,7 @@ function SortableTable({
       )
       return sorted
     }
-  }, [ascending, sortPath, sortFunc, valueGetter])
+  }, [ascending, sortPath, sortFunc, valueGetter, controlled, disableSort, disableReverse, unsortedData])
 
   const handleColumnChange = (column) => {
     if (column.disabled) return
