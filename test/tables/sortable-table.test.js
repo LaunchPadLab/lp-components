@@ -316,7 +316,7 @@ test('`valueGetter` column can be the initial column and is sorted ascending', (
   const wrapper = mount(
     <SortableTable data={data} initialColumn="opportunityName">
       <Column name="opportunityName" valueGetter={myValueGetter} />
-      <Column accountName="accountName" />
+      <Column name="accountName" />
       <Column name="name" />
     </SortableTable>
   )
@@ -324,3 +324,14 @@ test('`valueGetter` column can be the initial column and is sorted ascending', (
   expect(myValueGetter).toHaveBeenCalled()
 })
 
+test('table data is updated when data prop changes', () => {
+  const newTableData = [{ name: 'Kortney' }]
+  const wrapper = mount(
+    <SortableTable data={tableData}>
+      <Column name="name" />
+    </SortableTable>
+  )
+  expect(wrapper.find('td').first().text()).toEqual('Kim')
+  wrapper.setProps({ data: newTableData })
+  expect(wrapper.find('td').first().text()).toEqual('Kortney')
+})
