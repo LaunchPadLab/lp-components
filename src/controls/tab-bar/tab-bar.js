@@ -32,8 +32,8 @@ import manageFocus from './focus'
 
 const propTypes = {
   vertical: PropTypes.bool,
-  options: fieldOptionsType,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  options: fieldOptionsType.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   onChange: PropTypes.func,
   className: PropTypes.string,
   activeClassName: PropTypes.string,
