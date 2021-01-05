@@ -92,6 +92,7 @@ function SortableTable({
   onChange,
   rowComponent,
   headerComponent,
+  ...rest
 }) {
   const columns = getColumnData(children, disableSort)
   const { initialSortPath, initialSortFunc, initialValueGetter } =
@@ -147,7 +148,7 @@ function SortableTable({
   }
 
   return (
-    <table className={classnames(className, { 'sortable-table': !disableSort })}>
+    <table className={classnames(className, { 'sortable-table': !disableSort })} {...rest}>
       <thead><tr>
         {
           columns.map((column, key) => {

@@ -335,3 +335,12 @@ test('table data is updated when data prop changes', () => {
   wrapper.setProps({ data: newTableData })
   expect(wrapper.find('td').first().text()).toEqual('Kortney')
 })
+
+test('arbitrary props passed to table element', () => {
+  const wrapper = mount(
+    <SortableTable data={tableData} aria-label="Annual Report">
+      <Column name="name" />
+    </SortableTable>
+  )
+  expect(wrapper.find('table').first().props()['aria-label']).toEqual('Annual Report')
+})
