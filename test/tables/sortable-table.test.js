@@ -342,5 +342,14 @@ test('arbitrary props passed to table element', () => {
       <Column name="name" />
     </SortableTable>
   )
-  expect(wrapper.find('table').first().props()['aria-label']).toEqual('Annual Report')
+  expect(wrapper.find('table').first().prop('aria-label')).toEqual('Annual Report')
+})
+
+test('invalid arbitrary props filtered out', () => {
+  const wrapper = mount(
+    <SortableTable data={tableData} aria-label="Annual Report" invalidProp="shouldFail">
+      <Column name="name" />
+    </SortableTable>
+  )
+  expect(wrapper.find('table').first().prop('invalidProp')).toBe(undefined)
 })

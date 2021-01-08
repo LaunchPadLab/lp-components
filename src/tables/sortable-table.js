@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react'
 import PropTypes from 'prop-types'
 import { getColumnData, Types } from './helpers'
 import { TableHeader as DefaultHeader, TableRow as Row } from './components'
-import { get, noop, orderBy } from '../utils'
+import { filterInvalidDOMProps, get, noop, orderBy } from '../utils'
 import classnames from 'classnames'
 
 /**
@@ -148,24 +148,24 @@ function SortableTable({
   }
 
   return (
-    <table className={classnames(className, { 'sortable-table': !disableSort })} {...rest}>
-      <thead><tr>
-        {
-          columns.map((column, key) => {
-            const Header = column.headerComponent || headerComponent || DefaultHeader
-            return (
-              <Header {...{
-                key,
-                column,
-                sortPath,
-                ascending,
-                onClick: () => handleColumnChange(column)
-              }} />
-            )
-          }
-          )
-        }
-      </tr></thead>
+    <table className={classnames(className, { 'sortable-table': !disableSort })} {...filterInvalidDOMProps(rest)}>
+      <thead>
+        <tr>
+          {columns.map((column, key) => {
+              const Header = column.headerComponent || headerComponent || DefaultHeader
+              return (
+                <Header {...{
+                  key,
+                  column,
+                  sortPath,
+                  ascending,
+                  onClick: () => handleColumnChange(column)
+                }} />
+              )
+            }
+          )}
+        </tr>
+      </thead>
       <tbody>
         {
           data.map((rowData, key) =>
