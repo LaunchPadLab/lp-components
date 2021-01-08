@@ -18,7 +18,7 @@ import classnames from 'classnames'
  * @param {Boolean} [disableSort=false] - A flag to disable sorting on all columns and hide sorting arrows.
  * @param {Boolean} [controlled=false] - A flag to disable sorting on all columns, while keeping the sorting arrows. Used when sorting is controlled by an external source.
  * @param {Function} [onChange] - A callback that will be fired when the sorting state changes
- * @param {Function} [rowComponent] - A custom row component for the table. Will be passed the `data` for the row, as well as `children` to render.
+ * @param {Function} [rowComponent] - A custom row component for the table. Will be passed the `data` for the row, several internal table states (the current column being sorted (sortPath), whether ascending sort is active or not (ascending), the sorting function (sortFunc), and the value getter (valueGetter)) as well as `children` to render.
  * @param {Function} [headerComponent] - A custom header component for the table. Will be passed the configuration of the corresponding column, as well as the current `sortPath` / `ascending` and an `onClick` handler. May be overridden by a custom `headerComponent` for a column.
  * @example
  *
@@ -173,6 +173,10 @@ function SortableTable({
               rowData,
               columns,
               rowComponent,
+              ascending,
+              sortPath,
+              sortFunc,
+              valueGetter,
             }} />
           )
         }
