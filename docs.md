@@ -942,7 +942,7 @@ export default CoolPersonForm
 
 ## Textarea
 
-A textarea input that can be used in a `redux-forms`-controlled form. Optionally displays a character count.
+A textarea input that can be used in a `redux-forms`-controlled form. Forwards ref down to textarea input and optionally displays a character count.
 
 ### Parameters
 
@@ -950,6 +950,7 @@ A textarea input that can be used in a `redux-forms`-controlled form. Optionally
 -   `meta` **[Object][156]** A `redux-forms` [meta][158] object
 -   `maxLength` **[Number][153]?** The maximum allowed length of the input
 -   `hideCharacterCount` **[Boolean][151]** Whether to hide the character count if given a maxLength (optional, default `false`)
+-   `forwardedRef` **[Ref][178]?** A ref to be forwarded to `textarea` input when used with `redux-forms`
 
 ### Examples
 
@@ -2131,3 +2132,5 @@ function MyView () {
 [176]: https://github.com/reactjs/react-modal
 
 [177]: https://github.com/reactjs/react-modal/issues/25
+
+[178]: https://reactjs.org/docs/refs-and-the-dom.html
