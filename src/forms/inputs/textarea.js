@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {forwardRef} from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { blurDirty, fieldPropTypes, hasInputError, omitLabelProps } from '../helpers'
@@ -7,7 +7,8 @@ import { compose, filterInvalidDOMProps, generateInputErrorId } from '../../util
 
 /**
  *
- * A textarea input that can be used in a `redux-forms`-controlled form. Optionally displays a character count.
+ * A textarea input that can be used in a `redux-forms`-controlled form.
+ * Forwards ref down to textarea input and optionally displays a character count.
  *
  * @name Textarea
  * @type Function
@@ -15,6 +16,7 @@ import { compose, filterInvalidDOMProps, generateInputErrorId } from '../../util
  * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @param {Number} [maxLength] - The maximum allowed length of the input
  * @param {Boolean} [hideCharacterCount=false] - Whether to hide the character count if given a maxLength
+ * @param {Ref} [forwardedRef] - A ref to be forwarded to `textarea` input when used with `redux-forms`
  * @example
  *
  * function BiographyForm ({ handleSubmit, pristine, invalid, submitting }) {
@@ -36,21 +38,29 @@ import { compose, filterInvalidDOMProps, generateInputErrorId } from '../../util
 const propTypes = {
   ...fieldPropTypes,
   hideCharacterCount: PropTypes.bool,
-  maxLength: PropTypes.oneOfType([PropTypes.number, PropTypes.bool])
+  maxLength: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
+  forwardedRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({
+      current: PropTypes.instanceOf(Element), // eslint-disable-line no-undef
+    }),
+  ]),
 }
 
 const defaultProps = {
   maxLength: null,
   hideCharacterCount: false,
+  forwardedRef: null,
 }
 
-function Textarea (props) {
+const Textarea = forwardRef(function Textarea (props, ref) {
   const {
     input: { name, value, onBlur, onChange },
     meta, // eslint-disable-line no-unused-vars
     hideCharacterCount,
     className,
     maxLength,
+    forwardedRef,
     ...rest
   } = omitLabelProps(props)
   return (
@@ -72,16 +82,16 @@ function Textarea (props) {
           value,
           onBlur,
           onChange,
+          ref: forwardedRef || ref,
           'aria-describedby': hasInputError(meta) ? generateInputErrorId(name) : null,
           ...filterInvalidDOMProps(rest),
         }}
       />
     </LabeledField>
   )
-}
+})
 
 Textarea.propTypes = propTypes
-
 Textarea.defaultProps = defaultProps
 
 export default compose(
