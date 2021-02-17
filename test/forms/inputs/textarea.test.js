@@ -79,6 +79,21 @@ test('Textarea does not receive invalid dom attributes', () => {
   expect(wrapper.find('textarea').prop('onClickLabel')).toBe(undefined)
 })
 
+test('Textarea passes down standard ref to input correctly', () => {
+  const inputRef = createRef()
+  const props = {
+    input: {
+      name: 'test',
+      value: '',
+    },
+    meta: {},
+    ref: inputRef,
+  }
+
+  const wrapper = mount(<Textarea {...props} />)
+  expect(wrapper.find('textarea').prop('id')).toEqual(inputRef.current.id)
+})
+
 test('Textarea passes down forwardedRef to input correctly', () => {
   const inputRef = createRef()
   const props = {
