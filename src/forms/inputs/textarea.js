@@ -1,4 +1,4 @@
-import React, {forwardRef} from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { blurDirty, fieldPropTypes, hasInputError, omitLabelProps } from '../helpers'
@@ -16,7 +16,7 @@ import { compose, filterInvalidDOMProps, generateInputErrorId } from '../../util
  * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @param {Number} [maxLength] - The maximum allowed length of the input
  * @param {Boolean} [hideCharacterCount=false] - Whether to hide the character count if given a maxLength
- * @param {Ref} [forwardedRef] - A ref to be forwarded to `textarea` input when used with `redux-forms`
+ * @param {Ref} [forwardedRef] - A ref to be forwarded to `textarea` input when standard `ref` prop cannot be used
  * @example
  *
  * function BiographyForm ({ handleSubmit, pristine, invalid, submitting }) {
@@ -42,7 +42,8 @@ const propTypes = {
   forwardedRef: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({
-      current: PropTypes.instanceOf(Element), // eslint-disable-line no-undef
+      // eslint-disable-next-line no-undef
+      current: PropTypes.instanceOf(Element),
     }),
   ]),
 }
@@ -56,7 +57,7 @@ const defaultProps = {
 const Textarea = forwardRef(function Textarea (props, ref) {
   const {
     input: { name, value, onBlur, onChange },
-    meta, // eslint-disable-line no-unused-vars
+    meta,
     hideCharacterCount,
     className,
     maxLength,

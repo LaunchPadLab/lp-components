@@ -950,7 +950,7 @@ A textarea input that can be used in a `redux-forms`-controlled form. Forwards r
 -   `meta` **[Object][156]** A `redux-forms` [meta][158] object
 -   `maxLength` **[Number][153]?** The maximum allowed length of the input
 -   `hideCharacterCount` **[Boolean][151]** Whether to hide the character count if given a maxLength (optional, default `false`)
--   `forwardedRef` **[Ref][178]?** A ref to be forwarded to `textarea` input when used with `redux-forms`
+-   `forwardedRef` **[Ref][178]?** A ref to be forwarded to `textarea` input when standard `ref` prop cannot be used
 
 ### Examples
 
