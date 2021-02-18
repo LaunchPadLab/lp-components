@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { blurDirty, fieldPropTypes, hasInputError, omitLabelProps } from '../helpers'
@@ -8,7 +8,7 @@ import { compose, filterInvalidDOMProps, generateInputErrorId } from '../../util
 /**
  *
  * A textarea input that can be used in a `redux-forms`-controlled form.
- * Forwards ref down to textarea input and optionally displays a character count.
+ * Can forward ref down to textarea input and optionally displays a character count.
  *
  * @name Textarea
  * @type Function
@@ -16,7 +16,7 @@ import { compose, filterInvalidDOMProps, generateInputErrorId } from '../../util
  * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @param {Number} [maxLength] - The maximum allowed length of the input
  * @param {Boolean} [hideCharacterCount=false] - Whether to hide the character count if given a maxLength
- * @param {Ref} [forwardedRef] - A ref to be forwarded to `textarea` input when standard `ref` prop cannot be used
+ * @param {Ref} [forwardedRef] - A ref to be forwarded to `textarea` input (standard `ref` cannot currently be forwarded)
  * @example
  *
  * function BiographyForm ({ handleSubmit, pristine, invalid, submitting }) {
@@ -54,7 +54,7 @@ const defaultProps = {
   forwardedRef: null,
 }
 
-const Textarea = forwardRef(function Textarea (props, ref) {
+function Textarea (props) {
   const {
     input: { name, value, onBlur, onChange },
     meta,
@@ -83,14 +83,14 @@ const Textarea = forwardRef(function Textarea (props, ref) {
           value,
           onBlur,
           onChange,
-          ref: forwardedRef || ref,
+          ref: forwardedRef,
           'aria-describedby': hasInputError(meta) ? generateInputErrorId(name) : null,
           ...filterInvalidDOMProps(rest),
         }}
       />
     </LabeledField>
   )
-})
+}
 
 Textarea.propTypes = propTypes
 Textarea.defaultProps = defaultProps
