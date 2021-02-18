@@ -1,4 +1,4 @@
-import React, {createRef} from 'react'
+import React, { createRef } from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { Textarea as StaticTextarea } from 'src'
