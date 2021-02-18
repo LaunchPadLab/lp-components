@@ -38,13 +38,6 @@ storiesOf('Textarea', module)
       hideCharacterCount={true}
     />
   ))
-  .add('with a standard ref', () => (
-    <Textarea
-      input={inputProps}
-      meta={{}}
-      ref={inputRef}
-    />
-  ))
   .add('with a forwardedRef', () => (
     <Textarea
       input={inputProps}
