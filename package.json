@@ -47,7 +47,7 @@
     "moment": "^2.19.3",
     "prop-types": "^15.5.8",
     "react-color": "^2.14.0",
-    "react-datepicker": "^1.0.3",
+    "react-datepicker": "^3.0.0",
     "react-modal": "^3.11.2",
     "react-router": "^3.2.1",
     "react-switch": "^5.0.1",
