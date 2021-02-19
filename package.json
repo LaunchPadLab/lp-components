@@ -59,7 +59,7 @@
     "@babel/polyfill": "^7.4.3",
     "@launchpadlab/babel-preset": "^2.1.0",
     "@launchpadlab/eslint-config": "^2.4.1",
-    "@size-limit/preset-small-lib": "^3.0.0",
+    "@size-limit/preset-small-lib": "^4.0.0",
     "@storybook/addon-a11y": "^5.2.5",
     "@storybook/addon-actions": "^5.0.6",
     "@storybook/addon-knobs": "^5.2.5",
