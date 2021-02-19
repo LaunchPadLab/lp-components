@@ -89,7 +89,7 @@
     "webpack": "^4.39.2"
   },
   "resolutions": {
-    "documentation/chokidar": "^2.0.4"
+    "documentation/chokidar": "^3.0.0"
   },
   "peerDependencies": {
     "react": "^16.8.0"
