@@ -80,8 +80,8 @@
     "jest": "^25.1.0",
     "jest-canvas-mock": "^2.1.1",
     "node-sass": "^4.11.0",
-    "react": "^16.8.0",
-    "react-dom": "^16.2.0",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
     "recompose": "^0.30.0",
     "redux": "^4.0.0",
     "sass-loader": "^8.0.2",
@@ -92,7 +92,7 @@
     "documentation/chokidar": "^2.0.4"
   },
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": "^17.0.0"
   },
   "husky": {
     "pre-commit": "yarn run docs && git add docs.md"
