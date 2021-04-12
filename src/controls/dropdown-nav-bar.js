@@ -11,11 +11,6 @@ import DropdownNavMenu from './dropdown-nav-menu'
  * @name DropdownNavBar
  * @type Function
  * @description A control component for navigating among multiple navigation menu items that can include dropdowns with sub-menu items
- * @param {Boolean} [vertical] A boolean setting the `className` of the `ul` to 'horizontal' (default), or 'vertical', which determines the alignment of the tabs (optional, default `false`)
- * @param {Array} [options] An array of tab values (strings or key-value pairs)
- * @param {String|Number} [value] - The value of the current tab
- * @param {Function} [onChange] - A function called with the new value when a tab is clicked
- * @param {String} [activeClassName] - The class of the active tab, (optional, default `active`)
  * @param {String} [baseUrl] -
  * @param {Number} [mobileBreakpoint] -
  * @param {Array} [menuItems] -

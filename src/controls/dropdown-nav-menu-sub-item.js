@@ -4,9 +4,8 @@ import { getNavLink } from './helpers'
 
 const propTypes = {
   name: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
   path: PropTypes.string.isRequired,
-  baseURL: PropTypes.string.isRequired,
+  baseUrl: PropTypes.string.isRequired,
   isLastItem: PropTypes.bool.isRequired,
   closeSubmenu: PropTypes.func.isRequired,
 }
@@ -15,17 +14,13 @@ const defaultProps = {}
 
 function DropdownNavMenuSubItem({
   name,
-  id,
-  baseURL,
+  baseUrl,
   path,
   isLastItem,
   closeSubmenu,
 }) {
   return (
-    <li
-      id={`menu-item-${id}`}
-      className={`menu-item menu-item-type-post_type menu-item-object-page menu-item-${id}`}
-    >
+    <li className="menu-item child-menu">
       <a
         onKeyDown={(e) => {
           if (
@@ -37,8 +32,7 @@ function DropdownNavMenuSubItem({
             closeSubmenu()
           }
         }}
-        href={getNavLink(baseURL, path)}
-        className="menu-image-title-after"
+        href={getNavLink(baseUrl, path)}
       >
         {name}
       </a>

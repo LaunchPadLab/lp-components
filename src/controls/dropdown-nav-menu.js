@@ -6,28 +6,25 @@ import DropdownNavMenuSubItem from './dropdown-nav-menu-sub-item'
 import { isEmpty, first, last } from 'lodash'
 
 const propTypes = {
-  baseURL: PropTypes.string,
+  baseUrl: PropTypes.string,
   menuItems: PropTypes.arrayOf(menuItemType).isRequired,
   activeMenuIds: PropTypes.arrayOf(PropTypes.number).isRequired,
   onInteractParentMenu: PropTypes.func.isRequired,
   toggleActiveMenuId: PropTypes.func.isRequired,
   closeSubmenu: PropTypes.func.isRequired,
-  children: PropTypes.node,
 }
 
 const defaultProps = {
-  baseURL: '',
-  children: null,
+  baseUrl: '',
 }
 
 function DropdownNavMenu({
-  baseURL,
+  baseUrl,
   menuItems,
   activeMenuIds,
   onInteractParentMenu,
   toggleActiveMenuId,
   closeSubmenu,
-  children,
 }) {
   return (
     <div className="primary-menu">
@@ -39,7 +36,7 @@ function DropdownNavMenu({
               key={index}
               name={parentItem.name}
               id={parentItem.id}
-              baseURL={baseURL}
+              baseUrl={baseUrl}
               path={parentItem.path}
               active={activeMenuIds.includes(parentItem.id)}
               onInteractParentMenu={onInteractParentMenu}
@@ -48,7 +45,7 @@ function DropdownNavMenu({
               isFirstItem={isFirstParentItem}
             >
               {parentItem.childItems && !isEmpty(parentItem.childItems) && (
-                <React.Fragment>
+                <ul className="sub-menu">
                   {parentItem.childItems.map((childItem, index) => {
                     const isLastChildItem =
                       childItem === last(parentItem.childItems)
@@ -56,21 +53,19 @@ function DropdownNavMenu({
                       <DropdownNavMenuSubItem
                         key={index}
                         name={childItem.name}
-                        id={childItem.id}
-                        baseURL={baseURL}
+                        baseUrl={baseUrl}
                         path={childItem.path}
                         isLastItem={isLastChildItem}
                         closeSubmenu={closeSubmenu}
                       />
                     )
                   })}
-                </React.Fragment>
+                </ul>
               )}
             </DropdownNavMenuItem>
           )
         })}
       </ul>
-      {children}
     </div>
   )
 }

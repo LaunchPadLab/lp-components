@@ -10,7 +10,6 @@ import PropTypes from 'prop-types'
 
 const childItemType = PropTypes.shape({
   name: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
   path: PropTypes.string.isRequired,
 })
 
@@ -26,7 +25,5 @@ export const menuItemType = PropTypes.shape({
   name: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   path: PropTypes.string.isRequired,
-  imageId: PropTypes.number.isRequired,
-  imagePath: PropTypes.string.isRequired,
   childItems: PropTypes.arrayOf(childItemType),
 })
