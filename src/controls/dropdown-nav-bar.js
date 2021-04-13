@@ -37,14 +37,16 @@ const propTypes = {
   menuItems: PropTypes.arrayOf(menuItemType).isRequired,
   mobileBreakpoint: PropTypes.number,
   baseUrl: PropTypes.string,
+  menuLabel: PropTypes.string,
 }
 
 const defaultProps = {
   mobileBreakpoint: 1024,
   baseUrl: '',
+  menuLabel: 'Primary navigation',
 }
 
-function DropdownNavBar({ menuItems, mobileBreakpoint, baseUrl }) {
+function DropdownNavBar({ menuItems, mobileBreakpoint, baseUrl, menuLabel }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeMenuIds, setActiveMenuIds] = useState([])
   const clearActiveMenuIds = () => {
@@ -78,7 +80,7 @@ function DropdownNavBar({ menuItems, mobileBreakpoint, baseUrl }) {
   )
 
   return (
-    <nav id="dropdown-nav-bar">
+    <nav className="dropdown-nav-bar" aria-label={menuLabel}>
       <input
         type="checkbox"
         id="mobile-nav-button"
@@ -100,6 +102,7 @@ function DropdownNavBar({ menuItems, mobileBreakpoint, baseUrl }) {
         closeSubmenu={clearActiveMenuIds}
         baseUrl={baseUrl}
         menuItems={menuItems}
+        menuLabel={menuLabel}
       />
     </nav>
   )

@@ -1,11 +1,11 @@
-#dropdown-nav-bar {
+.dropdown-nav-bar {
   input[type='checkbox'] {
     position: absolute;
     top: -9999px;
     left: -9999px;
 
     &:checked {
-      & ~ .primary-menu {
+      & ~ .dropdown-nav-menu {
         top: 0;
         position: fixed;
         overflow: auto;
@@ -44,7 +44,7 @@
     }
   }
 
-  .primary-menu {
+  .dropdown-nav-menu {
     display: none;
 
     @include media($tablet) {
