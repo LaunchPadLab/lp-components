@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
-import { isMobileMenu, toggleElementArray } from './helpers'
+import { isMobileView, toggleElementArray } from './helpers'
 import { menuItemType } from './helpers/nav-prop-types'
 import DropdownNavMenu from './dropdown-nav-menu'
 
@@ -49,35 +49,18 @@ const defaultProps = {
 function DropdownNavBar({ menuItems, mobileBreakpoint, baseUrl, menuLabel }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeMenuIds, setActiveMenuIds] = useState([])
-  const clearActiveMenuIds = () => {
-    // effectively closes submenu
-    // don't clear out active menu ids if mobile menu
-    if (isMobileMenu(mobileBreakpoint)) return
-    setActiveMenuIds([])
-  }
+  const isMobileMenu = isMobileView(mobileBreakpoint)
   const toggleActiveMenuId = (id) => {
-    /* Specific for mobile view. Keep submenus open unless
+    if (!isMobileMenu) return setActiveMenuIds([id])
+    /* For mobile view, keep submenus open unless
     dropdown arrow is specifically tapped again to close it */
     setActiveMenuIds(toggleElementArray(activeMenuIds, id))
   }
-
-  const onInteractParentMenu = useCallback(
-    (e, id) => {
-      if (
-        // Ignore if:
-        // 1) Mobile menu
-        isMobileMenu(mobileBreakpoint) ||
-        // 2) Not attempting to open submenu using Enter/Space on keyboard
-        (e.key && !['Enter', ' '].includes(e.key)) ||
-        // 3) IDs match, as we then want Enter/Space or a tap to activate href link (default behavior)
-        activeMenuIds.includes(id)
-      )
-        return
-      e.preventDefault()
-      setActiveMenuIds([id])
-    },
-    [activeMenuIds]
-  )
+  const closeDesktopSubmenu = () => {
+    // don't close if mobile menu
+    if (isMobileMenu) return
+    setActiveMenuIds([])
+  }
 
   return (
     <nav className="dropdown-nav-bar" aria-label={menuLabel}>
@@ -87,7 +70,7 @@ function DropdownNavBar({ menuItems, mobileBreakpoint, baseUrl, menuLabel }) {
         checked={isMobileMenuOpen}
         onChange={() => {
           setIsMobileMenuOpen(!isMobileMenuOpen)
-          clearActiveMenuIds()
+          closeDesktopSubmenu()
         }}
       />
       <label htmlFor="mobile-nav-button" className="mobile-menu">
@@ -97,9 +80,8 @@ function DropdownNavBar({ menuItems, mobileBreakpoint, baseUrl, menuLabel }) {
       </label>
       <DropdownNavMenu
         activeMenuIds={activeMenuIds}
-        onInteractParentMenu={onInteractParentMenu}
         toggleActiveMenuId={toggleActiveMenuId}
-        closeSubmenu={clearActiveMenuIds}
+        closeDesktopSubmenu={closeDesktopSubmenu}
         baseUrl={baseUrl}
         menuItems={menuItems}
         menuLabel={menuLabel}

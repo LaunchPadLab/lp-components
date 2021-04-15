@@ -10,9 +10,8 @@ const propTypes = {
   baseUrl: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired,
   active: PropTypes.bool,
-  closeSubmenu: PropTypes.func.isRequired,
-  onInteractParentMenu: PropTypes.func.isRequired,
-  toggleActiveMenuId: PropTypes.func.isRequired,
+  closeDesktopSubmenu: PropTypes.func.isRequired,
+  toggleSubmenu: PropTypes.func.isRequired,
   isFirstItem: PropTypes.bool.isRequired,
   children: PropTypes.node,
 }
@@ -28,9 +27,8 @@ function DropdownNavMenuItem({
   baseUrl,
   path,
   active,
-  onInteractParentMenu,
-  closeSubmenu,
-  toggleActiveMenuId,
+  closeDesktopSubmenu,
+  toggleSubmenu,
   isFirstItem,
   children,
 }) {
@@ -45,16 +43,13 @@ function DropdownNavMenuItem({
           active,
         })}
       >
-        <OutsideClickHandler onOutsideClick={closeSubmenu}>
+        <OutsideClickHandler onOutsideClick={closeDesktopSubmenu}>
           <a
             onFocus={() => {
               setShowDropdownButton(true)
-              closeSubmenu()
+              closeDesktopSubmenu()
             }}
-            onBlur={() => {
-              setTimeout(() => setShowDropdownButton(false), 10)
-            }}
-            onTouchEnd={(e) => onInteractParentMenu(e, id)}
+            onBlur={() => setTimeout(() => setShowDropdownButton(false), 10)}
             href={getNavLink(baseUrl, path)}
           >
             {name}
@@ -71,13 +66,10 @@ function DropdownNavMenuItem({
                   /* if interaction is on first item in submenu, close the
                   submenu only if Tab is entered _with_ Shift being held */
                   (isFirstItem && e.key === 'Tab' && e.shiftKey)
-                ) {
-                  return closeSubmenu()
-                }
-
-                onInteractParentMenu(e, id)
+                )
+                  closeDesktopSubmenu()
               }}
-              onTouchEnd={() => toggleActiveMenuId(id)}
+              onClick={toggleSubmenu}
               aria-haspopup
               aria-expanded="false"
             />

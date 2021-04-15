@@ -34,6 +34,10 @@
     z-index: 3;
     cursor: pointer;
 
+    @include media($tablet) {
+      display: none;
+    }
+
     span {
       display: block;
       margin: 4px auto;

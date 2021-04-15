@@ -9,9 +9,8 @@ const propTypes = {
   baseUrl: PropTypes.string.isRequired,
   menuItems: PropTypes.arrayOf(menuItemType).isRequired,
   activeMenuIds: PropTypes.arrayOf(PropTypes.number).isRequired,
-  onInteractParentMenu: PropTypes.func.isRequired,
   toggleActiveMenuId: PropTypes.func.isRequired,
-  closeSubmenu: PropTypes.func.isRequired,
+  closeDesktopSubmenu: PropTypes.func.isRequired,
   menuLabel: PropTypes.string.isRequired,
 }
 
@@ -21,33 +20,31 @@ function DropdownNavMenu({
   baseUrl,
   menuItems,
   activeMenuIds,
-  onInteractParentMenu,
   toggleActiveMenuId,
-  closeSubmenu,
+  closeDesktopSubmenu,
   menuLabel,
 }) {
   return (
     <ul className="dropdown-nav-menu" aria-label={menuLabel}>
       {menuItems.map((parentItem, index) => {
         const isFirstParentItem = parentItem === first(menuItems)
+        const { id, name, path, childItems } = parentItem
         return (
           <DropdownNavMenuItem
             key={index}
-            name={parentItem.name}
-            id={parentItem.id}
+            name={name}
+            id={id}
             baseUrl={baseUrl}
-            path={parentItem.path}
-            active={activeMenuIds.includes(parentItem.id)}
-            onInteractParentMenu={onInteractParentMenu}
-            closeSubmenu={closeSubmenu}
-            toggleActiveMenuId={toggleActiveMenuId}
+            path={path}
+            active={activeMenuIds.includes(id)}
+            closeDesktopSubmenu={closeDesktopSubmenu}
+            toggleSubmenu={() => toggleActiveMenuId(id)}
             isFirstItem={isFirstParentItem}
           >
-            {parentItem.childItems && !isEmpty(parentItem.childItems) && (
+            {childItems && !isEmpty(childItems) && (
               <ul className="sub-menu">
-                {parentItem.childItems.map((childItem, index) => {
-                  const isLastChildItem =
-                    childItem === last(parentItem.childItems)
+                {childItems.map((childItem, index) => {
+                  const isLastChildItem = childItem === last(childItems)
                   return (
                     <DropdownNavMenuSubItem
                       key={index}
@@ -55,7 +52,7 @@ function DropdownNavMenu({
                       baseUrl={baseUrl}
                       path={childItem.path}
                       isLastItem={isLastChildItem}
-                      closeSubmenu={closeSubmenu}
+                      closeDesktopSubmenu={closeDesktopSubmenu}
                     />
                   )
                 })}

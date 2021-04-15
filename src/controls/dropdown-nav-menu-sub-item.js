@@ -7,7 +7,7 @@ const propTypes = {
   path: PropTypes.string.isRequired,
   baseUrl: PropTypes.string.isRequired,
   isLastItem: PropTypes.bool.isRequired,
-  closeSubmenu: PropTypes.func.isRequired,
+  closeDesktopSubmenu: PropTypes.func.isRequired,
 }
 
 const defaultProps = {}
@@ -17,7 +17,7 @@ function DropdownNavMenuSubItem({
   baseUrl,
   path,
   isLastItem,
-  closeSubmenu,
+  closeDesktopSubmenu,
 }) {
   return (
     <li className="menu-item child-menu">
@@ -29,7 +29,7 @@ function DropdownNavMenuSubItem({
             submenu only if Tab is entered _without_ Shift being held */
             (isLastItem && e.key === 'Tab' && !e.shiftKey)
           ) {
-            closeSubmenu()
+            closeDesktopSubmenu()
           }
         }}
         href={getNavLink(baseUrl, path)}
