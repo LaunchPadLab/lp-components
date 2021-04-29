@@ -9,7 +9,7 @@ const propTypes = {
   id: PropTypes.number.isRequired,
   baseUrl: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired,
-  active: PropTypes.bool,
+  isSubmenuOpen: PropTypes.bool,
   closeDesktopSubmenu: PropTypes.func.isRequired,
   toggleSubmenu: PropTypes.func.isRequired,
   isFirstItem: PropTypes.bool.isRequired,
@@ -17,7 +17,7 @@ const propTypes = {
 }
 
 const defaultProps = {
-  active: false,
+  isSubmenuOpen: false,
   children: null,
 }
 
@@ -26,7 +26,7 @@ function DropdownNavMenuItem({
   id,
   baseUrl,
   path,
-  active,
+  isSubmenuOpen,
   closeDesktopSubmenu,
   toggleSubmenu,
   isFirstItem,
@@ -40,7 +40,7 @@ function DropdownNavMenuItem({
       <li
         id={`menu-item-${id}`}
         className={classnames('menu-item parent-menu', {
-          active,
+          'open-submenu': isSubmenuOpen,
         })}
         role="none"
       >
@@ -50,7 +50,10 @@ function DropdownNavMenuItem({
               setShowDropdownButton(true)
               closeDesktopSubmenu()
             }}
-            onBlur={() => setTimeout(() => setShowDropdownButton(false), 10)}
+            onBlur={() => {
+              // timeout needed to move from link to button without it disappearing
+              setTimeout(() => setShowDropdownButton(false), 0)
+            }}
             href={getNavLink(baseUrl, path)}
             role="menuitem"
           >
@@ -60,7 +63,7 @@ function DropdownNavMenuItem({
             <button
               type="button"
               className={classnames('menu-item-button', {
-                'desktop-visible': active || showDropdownButton,
+                'desktop-visible': isSubmenuOpen || showDropdownButton,
               })}
               onKeyDown={(e) => {
                 if (
@@ -73,7 +76,7 @@ function DropdownNavMenuItem({
               }}
               onClick={toggleSubmenu}
               aria-haspopup
-              aria-expanded={active}
+              aria-expanded={isSubmenuOpen}
             />
           )}
           {children}

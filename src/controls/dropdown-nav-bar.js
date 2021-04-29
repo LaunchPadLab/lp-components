@@ -43,23 +43,23 @@ const propTypes = {
 const defaultProps = {
   mobileBreakpoint: 1024,
   baseUrl: '',
-  menuLabel: 'Primary navigation',
+  menuLabel: 'Primary Menu',
 }
 
 function DropdownNavBar({ menuItems, mobileBreakpoint, baseUrl, menuLabel }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [activeMenuIds, setActiveMenuIds] = useState([])
+  const [openMenuIds, setOpenMenuIds] = useState([])
   const isMobileMenu = isMobileView(mobileBreakpoint)
-  const toggleActiveMenuId = (id) => {
-    if (!isMobileMenu) return setActiveMenuIds([id])
+  const toggleOpenMenuId = (id) => {
+    if (!isMobileMenu) return setOpenMenuIds([id])
     /* For mobile view, keep submenus open unless
     dropdown arrow is specifically tapped again to close it */
-    setActiveMenuIds(toggleElementArray(activeMenuIds, id))
+    setOpenMenuIds(toggleElementArray(openMenuIds, id))
   }
   const closeDesktopSubmenu = () => {
     // don't close if mobile menu
     if (isMobileMenu) return
-    setActiveMenuIds([])
+    setOpenMenuIds([])
   }
 
   return (
@@ -79,8 +79,8 @@ function DropdownNavBar({ menuItems, mobileBreakpoint, baseUrl, menuLabel }) {
         <span />
       </label>
       <DropdownNavMenu
-        activeMenuIds={activeMenuIds}
-        toggleActiveMenuId={toggleActiveMenuId}
+        openMenuIds={openMenuIds}
+        toggleOpenMenuId={toggleOpenMenuId}
         closeDesktopSubmenu={closeDesktopSubmenu}
         baseUrl={baseUrl}
         menuItems={menuItems}

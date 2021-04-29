@@ -8,8 +8,8 @@ import { isEmpty, first, last } from 'lodash'
 const propTypes = {
   baseUrl: PropTypes.string.isRequired,
   menuItems: PropTypes.arrayOf(menuItemType).isRequired,
-  activeMenuIds: PropTypes.arrayOf(PropTypes.number).isRequired,
-  toggleActiveMenuId: PropTypes.func.isRequired,
+  openMenuIds: PropTypes.arrayOf(PropTypes.number).isRequired,
+  toggleOpenMenuId: PropTypes.func.isRequired,
   closeDesktopSubmenu: PropTypes.func.isRequired,
   menuLabel: PropTypes.string.isRequired,
 }
@@ -19,8 +19,8 @@ const defaultProps = {}
 function DropdownNavMenu({
   baseUrl,
   menuItems,
-  activeMenuIds,
-  toggleActiveMenuId,
+  openMenuIds,
+  toggleOpenMenuId,
   closeDesktopSubmenu,
   menuLabel,
 }) {
@@ -36,9 +36,9 @@ function DropdownNavMenu({
             id={id}
             baseUrl={baseUrl}
             path={path}
-            active={activeMenuIds.includes(id)}
+            isSubmenuOpen={openMenuIds.includes(id)}
             closeDesktopSubmenu={closeDesktopSubmenu}
-            toggleSubmenu={() => toggleActiveMenuId(id)}
+            toggleSubmenu={() => toggleOpenMenuId(id)}
             isFirstItem={isFirstParentItem}
           >
             {childItems && !isEmpty(childItems) && (

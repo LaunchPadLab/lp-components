@@ -76,7 +76,7 @@
         }
       }
 
-      /* Show the dropdown menu on hover (except on mobile) or active touch state */
+      /* Show the dropdown menu on hover (except on mobile) or triggered by keyboard/touch */
       &:hover {
         .sub-menu {
           @include media($tablet) {
@@ -84,7 +84,7 @@
           }
         }
       }
-      &.active {
+      &.open-submenu {
         .sub-menu {
           display: block;
         }
