@@ -42,6 +42,7 @@ function DropdownNavMenuItem({
         className={classnames('menu-item parent-menu', {
           active,
         })}
+        role="none"
       >
         <OutsideClickHandler onOutsideClick={closeDesktopSubmenu}>
           <a
@@ -51,6 +52,7 @@ function DropdownNavMenuItem({
             }}
             onBlur={() => setTimeout(() => setShowDropdownButton(false), 10)}
             href={getNavLink(baseUrl, path)}
+            role="menuitem"
           >
             {name}
           </a>
@@ -71,7 +73,7 @@ function DropdownNavMenuItem({
               }}
               onClick={toggleSubmenu}
               aria-haspopup
-              aria-expanded="false"
+              aria-expanded={active}
             />
           )}
           {children}

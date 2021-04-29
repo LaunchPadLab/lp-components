@@ -25,7 +25,7 @@ function DropdownNavMenu({
   menuLabel,
 }) {
   return (
-    <ul className="dropdown-nav-menu" aria-label={menuLabel}>
+    <ul className="dropdown-nav-menu" aria-label={menuLabel} role="menubar">
       {menuItems.map((parentItem, index) => {
         const isFirstParentItem = parentItem === first(menuItems)
         const { id, name, path, childItems } = parentItem
@@ -42,7 +42,7 @@ function DropdownNavMenu({
             isFirstItem={isFirstParentItem}
           >
             {childItems && !isEmpty(childItems) && (
-              <ul className="sub-menu">
+              <ul className="sub-menu" role="menu" aria-label={name}>
                 {childItems.map((childItem, index) => {
                   const isLastChildItem = childItem === last(childItems)
                   return (

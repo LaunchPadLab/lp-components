@@ -20,7 +20,7 @@ function DropdownNavMenuSubItem({
   closeDesktopSubmenu,
 }) {
   return (
-    <li className="menu-item child-menu">
+    <li className="menu-item child-menu" role="none">
       <a
         onKeyDown={(e) => {
           if (
@@ -33,6 +33,7 @@ function DropdownNavMenuSubItem({
           }
         }}
         href={getNavLink(baseUrl, path)}
+        role="menuitem"
       >
         {name}
       </a>
