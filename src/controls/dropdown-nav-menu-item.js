@@ -14,6 +14,7 @@ const propTypes = {
   toggleSubmenu: PropTypes.func.isRequired,
   isFirstItem: PropTypes.bool.isRequired,
   children: PropTypes.node,
+  hideDropdownButtonBeforeFocus: PropTypes.bool.isRequired,
 }
 
 const defaultProps = {
@@ -31,9 +32,12 @@ function DropdownNavMenuItem({
   toggleSubmenu,
   isFirstItem,
   children,
+  hideDropdownButtonBeforeFocus,
 }) {
   // show dropdown button on desktop, will always be shown on mobile
-  const [showDropdownButton, setShowDropdownButton] = useState(false)
+  const [showDropdownButton, setShowDropdownButton] = useState(
+    !hideDropdownButtonBeforeFocus
+  )
 
   return (
     <React.Fragment>
@@ -47,12 +51,14 @@ function DropdownNavMenuItem({
         <OutsideClickHandler onOutsideClick={closeDesktopSubmenu}>
           <a
             onFocus={() => {
-              setShowDropdownButton(true)
+              if (hideDropdownButtonBeforeFocus) setShowDropdownButton(true)
               closeDesktopSubmenu()
             }}
             onBlur={() => {
-              // timeout needed to move from link to button without it disappearing
-              setTimeout(() => setShowDropdownButton(false), 0)
+              if (hideDropdownButtonBeforeFocus) {
+                // timeout needed to move from link to button without it disappearing
+                setTimeout(() => setShowDropdownButton(false), 0)
+              }
             }}
             href={getNavLink(baseUrl, path)}
             role="menuitem"
@@ -75,6 +81,7 @@ function DropdownNavMenuItem({
                   closeDesktopSubmenu()
               }}
               onClick={toggleSubmenu}
+              aria-label={`Open submenu for ${name}`}
               aria-haspopup
               aria-expanded={isSubmenuOpen}
             />

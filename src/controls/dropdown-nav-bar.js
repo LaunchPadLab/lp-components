@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { isMobileView, toggleElementArray } from './helpers'
 import { menuItemType } from './helpers/nav-prop-types'
@@ -38,15 +38,23 @@ const propTypes = {
   mobileBreakpoint: PropTypes.number,
   baseUrl: PropTypes.string,
   menuLabel: PropTypes.string,
+  hideDropdownButtonsBeforeFocus: PropTypes.bool,
 }
 
 const defaultProps = {
   mobileBreakpoint: 1024,
   baseUrl: '',
   menuLabel: 'Primary Menu',
+  hideDropdownButtonsBeforeFocus: false,
 }
 
-function DropdownNavBar({ menuItems, mobileBreakpoint, baseUrl, menuLabel }) {
+function DropdownNavBar({
+  menuItems,
+  mobileBreakpoint,
+  baseUrl,
+  menuLabel,
+  hideDropdownButtonsBeforeFocus,
+}) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [openMenuIds, setOpenMenuIds] = useState([])
   const isMobileMenu = isMobileView(mobileBreakpoint)
@@ -85,6 +93,7 @@ function DropdownNavBar({ menuItems, mobileBreakpoint, baseUrl, menuLabel }) {
         baseUrl={baseUrl}
         menuItems={menuItems}
         menuLabel={menuLabel}
+        hideDropdownButtonsBeforeFocus={hideDropdownButtonsBeforeFocus}
       />
     </nav>
   )
