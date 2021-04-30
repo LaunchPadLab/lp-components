@@ -40,56 +40,54 @@ function DropdownNavMenuItem({
   )
 
   return (
-    <React.Fragment>
-      <li
-        id={`menu-item-${id}`}
-        className={classnames('menu-item parent-menu', {
-          'open-submenu': isSubmenuOpen,
-        })}
-        role="none"
-      >
-        <OutsideClickHandler onOutsideClick={closeDesktopSubmenu}>
-          <a
-            onFocus={() => {
-              if (hideMenuButtonBeforeFocus) setShowMenuButton(true)
-              closeDesktopSubmenu()
-            }}
-            onBlur={() => {
-              if (hideMenuButtonBeforeFocus) {
-                // timeout needed to move from link to button without it disappearing
-                setTimeout(() => setShowMenuButton(false), 0)
-              }
-            }}
-            href={getNavLink(baseUrl, path)}
-            role="menuitem"
-          >
-            {name}
-          </a>
-          {children && (
-            <button
-              type="button"
-              className={classnames('menu-item-button', {
-                'desktop-visible': isSubmenuOpen || showMenuButton,
-              })}
-              onKeyDown={(e) => {
-                if (
-                  e.key === 'Escape' ||
-                  /* if interaction is on first item in submenu, close the
+    <li
+      className={classnames('menu-item parent-menu', {
+        'open-submenu': isSubmenuOpen,
+      })}
+      role="none"
+    >
+      <OutsideClickHandler onOutsideClick={closeDesktopSubmenu}>
+        <a
+          onFocus={() => {
+            if (hideMenuButtonBeforeFocus) setShowMenuButton(true)
+            closeDesktopSubmenu()
+          }}
+          onBlur={() => {
+            if (hideMenuButtonBeforeFocus) {
+              // timeout needed to move from link to button without it disappearing
+              setTimeout(() => setShowMenuButton(false), 0)
+            }
+          }}
+          href={getNavLink(baseUrl, path)}
+          role="menuitem"
+        >
+          {name}
+        </a>
+        {children && (
+          <button
+            type="button"
+            className={classnames('menu-item-button', {
+              'desktop-visible': isSubmenuOpen || showMenuButton,
+            })}
+            onKeyDown={(e) => {
+              if (
+                e.key === 'Escape' ||
+                /* if interaction is on first item in submenu, close the
                   submenu only if Tab is entered _with_ Shift being held */
-                  (isFirstItem && e.key === 'Tab' && e.shiftKey)
-                )
-                  closeDesktopSubmenu()
-              }}
-              onClick={toggleSubmenu}
-              aria-label={`Open submenu for ${name}`}
-              aria-haspopup
-              aria-expanded={isSubmenuOpen}
-            />
-          )}
-          {children}
-        </OutsideClickHandler>
-      </li>
-    </React.Fragment>
+                (isFirstItem && e.key === 'Tab' && e.shiftKey)
+              )
+                closeDesktopSubmenu()
+            }}
+            onClick={toggleSubmenu}
+            aria-label={`Open submenu for ${name}`}
+            aria-haspopup
+            aria-expanded={isSubmenuOpen}
+            aria-controls={`submenu-${id}`}
+          />
+        )}
+        {children}
+      </OutsideClickHandler>
+    </li>
   )
 }
 

@@ -45,7 +45,12 @@ function DropdownNavMenu({
             hideMenuButtonBeforeFocus={hideMenuButtonsBeforeFocus}
           >
             {childItems && !isEmpty(childItems) && (
-              <ul className="sub-menu" role="menu" aria-label={name}>
+              <ul
+                id={`submenu-${id}`}
+                className="sub-menu"
+                role="menu"
+                aria-label={name}
+              >
                 {childItems.map((childItem, index) => {
                   const isLastChildItem = childItem === last(childItems)
                   return (
