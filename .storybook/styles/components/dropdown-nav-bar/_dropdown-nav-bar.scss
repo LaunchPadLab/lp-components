@@ -1,0 +1,8 @@
+.dropdown-nav-bar.no-mobile {
+  @import 'dropdown-nav-bar-no-mobile';
+  @import 'dropdown-nav-bar-common';
+}
+
+.dropdown-nav-bar:not(.no-mobile) {
+  @import 'dropdown-nav-bar-common';
+}

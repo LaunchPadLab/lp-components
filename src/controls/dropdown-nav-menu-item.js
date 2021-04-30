@@ -14,7 +14,7 @@ const propTypes = {
   toggleSubmenu: PropTypes.func.isRequired,
   isFirstItem: PropTypes.bool.isRequired,
   children: PropTypes.node,
-  hideDropdownButtonBeforeFocus: PropTypes.bool.isRequired,
+  hideMenuButtonBeforeFocus: PropTypes.bool.isRequired,
 }
 
 const defaultProps = {
@@ -32,11 +32,11 @@ function DropdownNavMenuItem({
   toggleSubmenu,
   isFirstItem,
   children,
-  hideDropdownButtonBeforeFocus,
+  hideMenuButtonBeforeFocus,
 }) {
-  // show dropdown button on desktop, will always be shown on mobile
-  const [showDropdownButton, setShowDropdownButton] = useState(
-    !hideDropdownButtonBeforeFocus
+  // show menu button on desktop, will always be shown on mobile
+  const [showMenuButton, setShowMenuButton] = useState(
+    !hideMenuButtonBeforeFocus
   )
 
   return (
@@ -51,13 +51,13 @@ function DropdownNavMenuItem({
         <OutsideClickHandler onOutsideClick={closeDesktopSubmenu}>
           <a
             onFocus={() => {
-              if (hideDropdownButtonBeforeFocus) setShowDropdownButton(true)
+              if (hideMenuButtonBeforeFocus) setShowMenuButton(true)
               closeDesktopSubmenu()
             }}
             onBlur={() => {
-              if (hideDropdownButtonBeforeFocus) {
+              if (hideMenuButtonBeforeFocus) {
                 // timeout needed to move from link to button without it disappearing
-                setTimeout(() => setShowDropdownButton(false), 0)
+                setTimeout(() => setShowMenuButton(false), 0)
               }
             }}
             href={getNavLink(baseUrl, path)}
@@ -69,7 +69,7 @@ function DropdownNavMenuItem({
             <button
               type="button"
               className={classnames('menu-item-button', {
-                'desktop-visible': isSubmenuOpen || showDropdownButton,
+                'desktop-visible': isSubmenuOpen || showMenuButton,
               })}
               onKeyDown={(e) => {
                 if (

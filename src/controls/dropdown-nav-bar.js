@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { isMobileView, toggleElementArray } from './helpers'
 import { menuItemType } from './helpers/nav-prop-types'
 import DropdownNavMenu from './dropdown-nav-menu'
+import classnames from 'classnames'
 
 // TODO: Finish documentation
 /**
@@ -12,7 +13,7 @@ import DropdownNavMenu from './dropdown-nav-menu'
  * @type Function
  * @description A control component for navigating among multiple navigation menu items that can include dropdowns with sub-menu items
  * @param {String} [baseUrl] -
- * @param {Number} [mobileBreakpoint] -
+ * @param {Number|Boolean} [mobileBreakpoint] -
  * @param {Array} [menuItems] -
  * @example
  *
@@ -35,17 +36,17 @@ import DropdownNavMenu from './dropdown-nav-menu'
 
 const propTypes = {
   menuItems: PropTypes.arrayOf(menuItemType).isRequired,
-  mobileBreakpoint: PropTypes.number,
+  mobileBreakpoint: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
   baseUrl: PropTypes.string,
   menuLabel: PropTypes.string,
-  hideDropdownButtonsBeforeFocus: PropTypes.bool,
+  hideMenuButtonsBeforeFocus: PropTypes.bool,
 }
 
 const defaultProps = {
-  mobileBreakpoint: 1024,
+  mobileBreakpoint: 720,
   baseUrl: '',
   menuLabel: 'Primary Menu',
-  hideDropdownButtonsBeforeFocus: false,
+  hideMenuButtonsBeforeFocus: false,
 }
 
 function DropdownNavBar({
@@ -53,7 +54,7 @@ function DropdownNavBar({
   mobileBreakpoint,
   baseUrl,
   menuLabel,
-  hideDropdownButtonsBeforeFocus,
+  hideMenuButtonsBeforeFocus,
 }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [openMenuIds, setOpenMenuIds] = useState([])
@@ -71,21 +72,30 @@ function DropdownNavBar({
   }
 
   return (
-    <nav className="dropdown-nav-bar" aria-label={menuLabel}>
-      <input
-        type="checkbox"
-        id="mobile-nav-button"
-        checked={isMobileMenuOpen}
-        onChange={() => {
-          setIsMobileMenuOpen(!isMobileMenuOpen)
-          closeDesktopSubmenu()
-        }}
-      />
-      <label htmlFor="mobile-nav-button" className="mobile-menu">
-        <span />
-        <span />
-        <span />
-      </label>
+    <nav
+      className={classnames('dropdown-nav-bar', {
+        'no-mobile': !mobileBreakpoint,
+      })}
+      aria-label={menuLabel}
+    >
+      {!!mobileBreakpoint && (
+        <React.Fragment>
+          <input
+            type="checkbox"
+            id="mobile-nav-button"
+            checked={isMobileMenuOpen}
+            onChange={() => {
+              setIsMobileMenuOpen(!isMobileMenuOpen)
+              closeDesktopSubmenu()
+            }}
+          />
+          <label htmlFor="mobile-nav-button" className="mobile-menu">
+            <span />
+            <span />
+            <span />
+          </label>
+        </React.Fragment>
+      )}
       <DropdownNavMenu
         openMenuIds={openMenuIds}
         toggleOpenMenuId={toggleOpenMenuId}
@@ -93,7 +103,7 @@ function DropdownNavBar({
         baseUrl={baseUrl}
         menuItems={menuItems}
         menuLabel={menuLabel}
-        hideDropdownButtonsBeforeFocus={hideDropdownButtonsBeforeFocus}
+        hideMenuButtonsBeforeFocus={hideMenuButtonsBeforeFocus}
       />
     </nav>
   )

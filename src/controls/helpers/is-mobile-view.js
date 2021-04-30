@@ -15,6 +15,7 @@
  */
 
 function isMobileView(mobileBreakpoint) {
+  if (!mobileBreakpoint) return false
   // eslint-disable-next-line no-undef
   return window.top.innerWidth < mobileBreakpoint
 }

@@ -77,13 +77,16 @@ const menuItems = [
 ]
 
 storiesOf('DropdownNavBar', module)
-  .add('with dropdown buttons always visible', () => (
+  .add('default', () => (
     <DropdownNavBar menuItems={menuItems} mobileBreakpoint={940} />
   ))
-  .add('with dropdown buttons only visible on link focus', () => (
+  .add('without mobile breakpoint', () => (
+    <DropdownNavBar menuItems={menuItems} mobileBreakpoint={false} />
+  ))
+  .add('with menu buttons only visible on link focus', () => (
     <DropdownNavBar
       menuItems={menuItems}
       mobileBreakpoint={940}
-      hideDropdownButtonsBeforeFocus
+      hideMenuButtonsBeforeFocus
     />
   ))

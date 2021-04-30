@@ -12,7 +12,7 @@ const propTypes = {
   toggleOpenMenuId: PropTypes.func.isRequired,
   closeDesktopSubmenu: PropTypes.func.isRequired,
   menuLabel: PropTypes.string.isRequired,
-  hideDropdownButtonsBeforeFocus: PropTypes.bool.isRequired,
+  hideMenuButtonsBeforeFocus: PropTypes.bool.isRequired,
 }
 
 const defaultProps = {}
@@ -24,7 +24,7 @@ function DropdownNavMenu({
   toggleOpenMenuId,
   closeDesktopSubmenu,
   menuLabel,
-  hideDropdownButtonsBeforeFocus,
+  hideMenuButtonsBeforeFocus,
 }) {
   return (
     <ul className="dropdown-nav-menu" aria-label={menuLabel} role="menubar">
@@ -42,7 +42,7 @@ function DropdownNavMenu({
             closeDesktopSubmenu={closeDesktopSubmenu}
             toggleSubmenu={() => toggleOpenMenuId(id)}
             isFirstItem={isFirstParentItem}
-            hideDropdownButtonBeforeFocus={hideDropdownButtonsBeforeFocus}
+            hideMenuButtonBeforeFocus={hideMenuButtonsBeforeFocus}
           >
             {childItems && !isEmpty(childItems) && (
               <ul className="sub-menu" role="menu" aria-label={name}>
