@@ -23,7 +23,6 @@ const childItemType = PropTypes.shape({
 
 export const menuItemType = PropTypes.shape({
   name: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
   path: PropTypes.string.isRequired,
   childItems: PropTypes.arrayOf(childItemType),
 })

@@ -11,24 +11,38 @@ import classnames from 'classnames'
  *
  * @name DropdownNavBar
  * @type Function
- * @description A control component for navigating among multiple navigation menu items that can include dropdowns with sub-menu items
- * @param {String} [baseUrl] -
+ * @description A control component for navigating through multiple navigation menu items that can include dropdowns with sub-menu items along with a mobile view option
+ * @param {Array} [menuItems] - An array of {@link menuItemType} objects used to populate the menu and any submenus
  * @param {Number|Boolean} [mobileBreakpoint] -
- * @param {Array} [menuItems] -
+ * @param {String} [menuLabel] -
+ * @param {Boolean} [hideMenuButtonsBeforeFocus] -
  * @example
  *
- * function Header({ baseUrl, menuItems }) {
+ * const menuItems = [
+ *   {
+ *     name: 'Experiences',
+ *     path: '/experiences',
+ *     childItems: [
+ *       {
+ *         name: 'Animal Encounters',
+ *         path: '/experiences/encounters',
+ *       },
+ *       {
+ *         name: 'Zoo Keeper for a Day',
+ *         path: '/experiences/keeper',
+ *       },
+ *     ],
+ *   },
+ *   {
+ *     name: 'Visit Us',
+ *     path: 'https://goo.gl/maps/oGeajN5N1Ycy1D4J8',
+ *   },
+ * ]
+ *
+ * function Header({ menuItems }) {
  *   return (
  *     <header>
- *       <div>
- *         <a href={baseUrl} className="logo">
- *           <img
- *             src={logo}
- *             alt="Navigate to the Home Page"
- *           />
- *         </a>
- *         <DropdownNavBar baseUrl={baseUrl} menuItems={menuItems} />
- *       </div>
+ *       <DropdownNavBar menuItems={menuItems} />
  *     </header>
  *   )
  * }
@@ -37,14 +51,12 @@ import classnames from 'classnames'
 const propTypes = {
   menuItems: PropTypes.arrayOf(menuItemType).isRequired,
   mobileBreakpoint: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
-  baseUrl: PropTypes.string,
   menuLabel: PropTypes.string,
   hideMenuButtonsBeforeFocus: PropTypes.bool,
 }
 
 const defaultProps = {
   mobileBreakpoint: 720,
-  baseUrl: '',
   menuLabel: 'Primary Menu',
   hideMenuButtonsBeforeFocus: false,
 }
@@ -52,7 +64,6 @@ const defaultProps = {
 function DropdownNavBar({
   menuItems,
   mobileBreakpoint,
-  baseUrl,
   menuLabel,
   hideMenuButtonsBeforeFocus,
 }) {
@@ -100,7 +111,6 @@ function DropdownNavBar({
         openMenuIds={openMenuIds}
         toggleOpenMenuId={toggleOpenMenuId}
         closeDesktopSubmenu={closeDesktopSubmenu}
-        baseUrl={baseUrl}
         menuItems={menuItems}
         menuLabel={menuLabel}
         hideMenuButtonsBeforeFocus={hideMenuButtonsBeforeFocus}

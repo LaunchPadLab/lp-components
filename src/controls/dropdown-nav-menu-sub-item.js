@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { getNavLink } from './helpers'
+import { Link } from 'react-router'
 
 const propTypes = {
   name: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired,
-  baseUrl: PropTypes.string.isRequired,
+  isExternalPath: PropTypes.bool.isRequired,
   isLastItem: PropTypes.bool.isRequired,
   closeDesktopSubmenu: PropTypes.func.isRequired,
 }
@@ -14,29 +14,36 @@ const defaultProps = {}
 
 function DropdownNavMenuSubItem({
   name,
-  baseUrl,
   path,
+  isExternalPath,
   isLastItem,
   closeDesktopSubmenu,
 }) {
+  const menuItemProps = {
+    onKeyDown: (e) => {
+      if (
+        e.key === 'Escape' ||
+        /* if interaction is on last item in submenu, close the
+        submenu only if Tab is entered _without_ Shift being held */
+        (isLastItem && e.key === 'Tab' && !e.shiftKey)
+      ) {
+        closeDesktopSubmenu()
+      }
+    },
+    role: 'menuItem',
+  }
+
   return (
     <li className="menu-item child-menu" role="none">
-      <a
-        onKeyDown={(e) => {
-          if (
-            e.key === 'Escape' ||
-            /* if interaction is on last item in submenu, close the
-            submenu only if Tab is entered _without_ Shift being held */
-            (isLastItem && e.key === 'Tab' && !e.shiftKey)
-          ) {
-            closeDesktopSubmenu()
-          }
-        }}
-        href={getNavLink(baseUrl, path)}
-        role="menuitem"
-      >
-        {name}
-      </a>
+      {isExternalPath ? (
+        <a href={path} {...menuItemProps}>
+          {name}
+        </a>
+      ) : (
+        <Link to={path} {...menuItemProps}>
+          {name}
+        </Link>
+      )}
     </li>
   )
 }

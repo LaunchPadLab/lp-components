@@ -1,13 +1,13 @@
 import React from 'react'
 import { mount } from 'enzyme'
+import { Link } from 'react-router'
 import { DropdownNavBar } from '../../src/'
 
-const path = ''
+const path = '/'
 
 const menuItems = [
   {
     name: 'Experiences',
-    id: 1,
     path,
     childItems: [
       {
@@ -22,7 +22,6 @@ const menuItems = [
   },
   {
     name: 'Visit Us',
-    id: 2,
     path: 'https://goo.gl/maps/oGeajN5N1Ycy1D4J8',
   },
 ]
@@ -48,14 +47,14 @@ describe('DropdownNavBar', () => {
     expect(wrapper.find('a').exists()).toBe(true)
     expect(
       wrapper
-        .find('a')
+        .find(Link)
         .first()
-        .prop('href')
+        .prop('to')
     ).toEqual('/')
     expect(
       wrapper
         .find('a')
-        .last()
+        .at(3)
         .prop('href')
     ).toContain('https://')
   })
@@ -122,7 +121,7 @@ describe('DropdownNavBar', () => {
       .find('li ul')
       .first()
       .prop('id')
-    expect(submenuId).toContain(menuItems[0].id)
+
     expect(
       wrapper
         .find('button')

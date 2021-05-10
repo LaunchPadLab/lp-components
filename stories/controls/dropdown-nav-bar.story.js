@@ -1,16 +1,17 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
+import { Router, Route } from 'react-router'
+import createMemoryHistory from 'react-router/lib/createMemoryHistory'
 import { DropdownNavBar as StaticDropdownNavBar } from 'src'
 import dynamicInput from '../dynamic-input'
 
 const DropdownNavBar = dynamicInput({})(StaticDropdownNavBar)
 
-const path = ''
+const path = '/'
 
 const menuItems = [
   {
     name: 'Experiences',
-    id: 1,
     path,
     childItems: [
       {
@@ -33,7 +34,6 @@ const menuItems = [
   },
   {
     name: 'Wildlife',
-    id: 2,
     path,
     childItems: [
       {
@@ -52,12 +52,10 @@ const menuItems = [
   },
   {
     name: 'Visit Us',
-    id: 3,
     path: 'https://goo.gl/maps/oGeajN5N1Ycy1D4J8',
   },
   {
     name: 'About Us',
-    id: 4,
     path,
     childItems: [
       {
@@ -77,6 +75,11 @@ const menuItems = [
 ]
 
 storiesOf('DropdownNavBar', module)
+  .addDecorator((story) => (
+    <Router history={createMemoryHistory('/')}>
+      <Route path="/" component={story} />
+    </Router>
+  ))
   .add('default', () => (
     <DropdownNavBar menuItems={menuItems} mobileBreakpoint={940} />
   ))

@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import OutsideClickHandler from 'react-outside-click-handler'
+import { Link } from 'react-router'
 import classnames from 'classnames'
-import { getNavLink } from './helpers'
 
 const propTypes = {
   name: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
-  baseUrl: PropTypes.string.isRequired,
+  submenuId: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired,
+  isExternalPath: PropTypes.bool.isRequired,
   isSubmenuOpen: PropTypes.bool,
   closeDesktopSubmenu: PropTypes.func.isRequired,
   toggleSubmenu: PropTypes.func.isRequired,
@@ -24,9 +24,9 @@ const defaultProps = {
 
 function DropdownNavMenuItem({
   name,
-  id,
-  baseUrl,
+  submenuId,
   path,
+  isExternalPath,
   isSubmenuOpen,
   closeDesktopSubmenu,
   toggleSubmenu,
@@ -38,6 +38,21 @@ function DropdownNavMenuItem({
   const [showMenuButton, setShowMenuButton] = useState(
     !hideMenuButtonBeforeFocus
   )
+  const menuItemOnFocus = () => {
+    if (hideMenuButtonBeforeFocus) setShowMenuButton(true)
+    closeDesktopSubmenu()
+  }
+  const menuItemOnBlur = () => {
+    if (hideMenuButtonBeforeFocus) {
+      // timeout needed to move from link to button without it disappearing
+      setTimeout(() => setShowMenuButton(false), 0)
+    }
+  }
+  const menuItemProps = {
+    onFocus: menuItemOnFocus,
+    onBlur: menuItemOnBlur,
+    role: 'menuItem',
+  }
 
   return (
     <li
@@ -47,22 +62,15 @@ function DropdownNavMenuItem({
       role="none"
     >
       <OutsideClickHandler onOutsideClick={closeDesktopSubmenu}>
-        <a
-          onFocus={() => {
-            if (hideMenuButtonBeforeFocus) setShowMenuButton(true)
-            closeDesktopSubmenu()
-          }}
-          onBlur={() => {
-            if (hideMenuButtonBeforeFocus) {
-              // timeout needed to move from link to button without it disappearing
-              setTimeout(() => setShowMenuButton(false), 0)
-            }
-          }}
-          href={getNavLink(baseUrl, path)}
-          role="menuitem"
-        >
-          {name}
-        </a>
+        {isExternalPath ? (
+          <a href={path} {...menuItemProps}>
+            {name}
+          </a>
+        ) : (
+          <Link to={path} {...menuItemProps}>
+            {name}
+          </Link>
+        )}
         {children && (
           <button
             type="button"
@@ -82,7 +90,7 @@ function DropdownNavMenuItem({
             aria-label={`Open submenu for ${name}`}
             aria-haspopup
             aria-expanded={isSubmenuOpen}
-            aria-controls={`submenu-${id}`}
+            aria-controls={submenuId}
           />
         )}
         {children}
