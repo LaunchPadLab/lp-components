@@ -10,11 +10,11 @@ import classnames from 'classnames'
  *
  * @name DropdownNavBar
  * @type Function
- * @description A control component for navigating through multiple navigation menu items that can include dropdowns with sub-menu items along with a mobile view option
+ * @description A control component for navigating through multiple navigation menu items that can include dropdowns with submenu items along with a mobile view option
  * @param {Array} [menuItems] - An array of {@link menuItemType} objects used to populate the menu and any submenus
- * @param {Number|Boolean} [mobileBreakpoint] - The screen width (in pixels) when mobile view styling is no longer applied. Can pass `false` when not using mobile styling. (optional, default `720`)
- * @param {String} [menuAriaLabel] - The aria-label to use for both the `nav` and `ul[role="menubar"]` (optional, default `'Primary Menu'`)
- * @param {Boolean} [hideMenuButtonsBeforeFocus] - Whether to hide the accessible menu buttons until the corresponding parent menu link is focused (optional, default `false`)
+ * @param {Number|Boolean} [mobileBreakpoint=720] - The screen width (in pixels) when mobile view styling is no longer applied (can pass `false` when not using mobile styling)
+ * @param {String} [menuAriaLabel='Primary Menu'] - The aria-label to use for both the `nav` and `ul[role="menubar"]`
+ * @param {Boolean} [hideMenuButtonsBeforeFocus=false] - Whether to hide the accessible menu buttons until the corresponding parent menu link is focused
  * @example
  *
  * const menuItems = [
