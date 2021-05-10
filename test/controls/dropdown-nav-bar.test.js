@@ -106,7 +106,7 @@ describe('DropdownNavBar', () => {
   test('assigns default or passed menu aria label', () => {
     const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
     const passedMenuLabelWrapper = mount(
-      <DropdownNavBar menuItems={menuItems} menuLabel="Main Menu" />
+      <DropdownNavBar menuItems={menuItems} menuAriaLabel="Main Menu" />
     )
 
     expect(wrapper.find('nav').prop('aria-label')).toBe('Primary Menu')

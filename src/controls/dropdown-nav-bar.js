@@ -5,7 +5,6 @@ import { menuItemType } from './helpers/nav-prop-types'
 import DropdownNavMenu from './dropdown-nav-menu'
 import classnames from 'classnames'
 
-// TODO: Finish documentation
 /**
  *
  *
@@ -13,9 +12,9 @@ import classnames from 'classnames'
  * @type Function
  * @description A control component for navigating through multiple navigation menu items that can include dropdowns with sub-menu items along with a mobile view option
  * @param {Array} [menuItems] - An array of {@link menuItemType} objects used to populate the menu and any submenus
- * @param {Number|Boolean} [mobileBreakpoint] -
- * @param {String} [menuLabel] -
- * @param {Boolean} [hideMenuButtonsBeforeFocus] -
+ * @param {Number|Boolean} [mobileBreakpoint] - The screen width (in pixels) when mobile view styling is no longer applied. Can pass `false` when not using mobile styling. (optional, default `720`)
+ * @param {String} [menuAriaLabel] - The aria-label to use for both the `nav` and `ul[role="menubar"]` (optional, default `'Primary Menu'`)
+ * @param {Boolean} [hideMenuButtonsBeforeFocus] - Whether to hide the accessible menu buttons until the corresponding parent menu link is focused (optional, default `false`)
  * @example
  *
  * const menuItems = [
@@ -51,20 +50,20 @@ import classnames from 'classnames'
 const propTypes = {
   menuItems: PropTypes.arrayOf(menuItemType).isRequired,
   mobileBreakpoint: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
-  menuLabel: PropTypes.string,
+  menuAriaLabel: PropTypes.string,
   hideMenuButtonsBeforeFocus: PropTypes.bool,
 }
 
 const defaultProps = {
   mobileBreakpoint: 720,
-  menuLabel: 'Primary Menu',
+  menuAriaLabel: 'Primary Menu',
   hideMenuButtonsBeforeFocus: false,
 }
 
 function DropdownNavBar({
   menuItems,
   mobileBreakpoint,
-  menuLabel,
+  menuAriaLabel,
   hideMenuButtonsBeforeFocus,
 }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -87,7 +86,7 @@ function DropdownNavBar({
       className={classnames('dropdown-nav-bar', {
         'no-mobile': !mobileBreakpoint,
       })}
-      aria-label={menuLabel}
+      aria-label={menuAriaLabel}
     >
       {!!mobileBreakpoint && (
         <React.Fragment>
@@ -112,7 +111,7 @@ function DropdownNavBar({
         toggleOpenMenuId={toggleOpenMenuId}
         closeDesktopSubmenu={closeDesktopSubmenu}
         menuItems={menuItems}
-        menuLabel={menuLabel}
+        menuAriaLabel={menuAriaLabel}
         hideMenuButtonsBeforeFocus={hideMenuButtonsBeforeFocus}
       />
     </nav>

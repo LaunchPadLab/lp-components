@@ -6,7 +6,7 @@
  *
  * @name isMobileView
  * @type Function
- * @param {Number} mobileBreakpoint - The screen width (in pixels) when mobile view styling is no longer applied
+ * @param {Number|Boolean} mobileBreakpoint - The screen width (in pixels) when mobile view styling is no longer applied
  * @returns {Boolean} - Whether mobile view styling is currently applied
  * @example
  *

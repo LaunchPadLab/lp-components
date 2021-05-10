@@ -10,7 +10,7 @@ const propTypes = {
   openMenuIds: PropTypes.arrayOf(PropTypes.string).isRequired,
   toggleOpenMenuId: PropTypes.func.isRequired,
   closeDesktopSubmenu: PropTypes.func.isRequired,
-  menuLabel: PropTypes.string.isRequired,
+  menuAriaLabel: PropTypes.string.isRequired,
   hideMenuButtonsBeforeFocus: PropTypes.bool.isRequired,
 }
 
@@ -27,12 +27,12 @@ function DropdownNavMenu({
   openMenuIds,
   toggleOpenMenuId,
   closeDesktopSubmenu,
-  menuLabel,
+  menuAriaLabel,
   hideMenuButtonsBeforeFocus,
 }) {
   const uniqueIds = useMemo(() => getRandomIntIds(menuItems), [menuItems])
   return (
-    <ul className="dropdown-nav-menu" aria-label={menuLabel} role="menubar">
+    <ul className="dropdown-nav-menu" aria-label={menuAriaLabel} role="menubar">
       {menuItems.map((parentItem, index) => {
         const isFirstParentItem = parentItem === first(menuItems)
         const { name, path, childItems } = parentItem
