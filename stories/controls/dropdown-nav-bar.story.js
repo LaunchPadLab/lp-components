@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { storiesOf } from '@storybook/react'
 import { Router, Route } from 'react-router'
 import createMemoryHistory from 'react-router/lib/createMemoryHistory'
@@ -80,16 +80,52 @@ storiesOf('DropdownNavBar', module)
       <Route path="/" component={story} />
     </Router>
   ))
-  .add('default', () => (
-    <DropdownNavBar menuItems={menuItems} mobileBreakpoint={940} />
-  ))
-  .add('without mobile breakpoint', () => (
+  .add('default', () => {
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+    return (
+      <header>
+        <input
+          type="checkbox"
+          id="mobile-nav-button"
+          checked={isMobileMenuOpen}
+          onChange={() => {
+            setIsMobileMenuOpen(!isMobileMenuOpen)
+          }}
+        />
+        <label htmlFor="mobile-nav-button" className="mobile-menu">
+          <span />
+          <span />
+          <span />
+        </label>
+        <DropdownNavBar menuItems={menuItems} mobileBreakpoint={940} />
+      </header>
+    )
+  })
+  .add('without mobile version', () => (
     <DropdownNavBar menuItems={menuItems} mobileBreakpoint={false} />
   ))
-  .add('with menu buttons only visible on link focus', () => (
-    <DropdownNavBar
-      menuItems={menuItems}
-      mobileBreakpoint={940}
-      hideMenuButtonsBeforeFocus
-    />
-  ))
+  .add('with menu buttons only visible on link focus', () => {
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+    return (
+      <header>
+        <input
+          type="checkbox"
+          id="mobile-nav-button"
+          checked={isMobileMenuOpen}
+          onChange={() => {
+            setIsMobileMenuOpen(!isMobileMenuOpen)
+          }}
+        />
+        <label htmlFor="mobile-nav-button" className="mobile-menu">
+          <span />
+          <span />
+          <span />
+        </label>
+        <DropdownNavBar
+          menuItems={menuItems}
+          mobileBreakpoint={940}
+          hideMenuButtonsBeforeFocus
+        />
+      </header>
+    )
+  })

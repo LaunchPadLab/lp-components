@@ -66,7 +66,6 @@ function DropdownNavBar({
   menuAriaLabel,
   hideMenuButtonsBeforeFocus,
 }) {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [openMenuIds, setOpenMenuIds] = useState([])
   const isMobileMenu = isMobileView(mobileBreakpoint)
   const toggleOpenMenuId = (id) => {
@@ -88,24 +87,6 @@ function DropdownNavBar({
       })}
       aria-label={menuAriaLabel}
     >
-      {!!mobileBreakpoint && (
-        <React.Fragment>
-          <input
-            type="checkbox"
-            id="mobile-nav-button"
-            checked={isMobileMenuOpen}
-            onChange={() => {
-              setIsMobileMenuOpen(!isMobileMenuOpen)
-              closeDesktopSubmenu()
-            }}
-          />
-          <label htmlFor="mobile-nav-button" className="mobile-menu">
-            <span />
-            <span />
-            <span />
-          </label>
-        </React.Fragment>
-      )}
       <DropdownNavMenu
         openMenuIds={openMenuIds}
         toggleOpenMenuId={toggleOpenMenuId}
