@@ -102,11 +102,6 @@ a {
   &:hover, &:focus  {
     border-bottom: 2px solid $blue-base;
   }
-
-  &:active,
-  &:focus {
-    outline: none;
-  }
 }
 
 .edit-link {

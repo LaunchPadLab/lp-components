@@ -1,0 +1,91 @@
+& {
+  .dropdown-nav-menu {
+    display: none;
+
+    @include media($tablet) {
+      display: block;
+    }
+
+    .menu-item {
+      margin-top: 30px;
+      cursor: pointer;
+      font-size: 20px;
+      text-align: left;
+      width: inherit;
+
+      @include media($tablet) {
+        display: inline-block;
+        margin: 0;
+        margin-right: 30px;
+      }
+
+      a {
+        @include rem(font-size, 20px);
+
+        @include media($tablet) {
+          @include s-base;
+        }
+      }
+
+      /* Show the dropdown menu on hover (except on mobile) or triggered by keyboard/touch */
+      &:hover {
+        .sub-menu {
+          @include media($tablet) {
+            display: block;
+          }
+        }
+      }
+      &.open-submenu {
+        .sub-menu {
+          display: block;
+        }
+      }
+
+      .menu-item-button {
+        display: inline-block;
+        padding: 0 18px;
+        vertical-align: top;
+        background: none;
+        width: auto;
+        border: none;
+
+        &:after {
+          content: 'v';
+          display: inline-block;
+          font-size: 20px;
+        }
+
+        @include media($tablet) {
+          display: none;
+          vertical-align: initial;
+
+          &.desktop-visible,
+          &:focus {
+            display: inline-block;
+          }
+        }
+      }
+    }
+
+    .sub-menu {
+      display: none;
+      padding: 10px 0 20px;
+
+      @include media($tablet) {
+        position: absolute;
+        background-color: $white-base;
+        padding: 5px 15px;
+      }
+
+      .menu-item {
+        padding: 0;
+        margin-top: 15px;
+        display: block;
+
+        @include media($tablet) {
+          padding-bottom: 20px;
+        }
+      }
+    }
+  }
+}
