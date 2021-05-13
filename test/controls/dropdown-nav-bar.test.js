@@ -130,7 +130,7 @@ describe('DropdownNavBar', () => {
     ).toEqual(submenuId)
   })
 
-  test('applies correct menu button class on initial render', () => {
+  test('applies correct submenu button class on initial render', () => {
     const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
     const hideButtonsWrapper = mount(
       <DropdownNavBar menuItems={menuItems} hideSubmenuButtonsBeforeFocus />
@@ -150,7 +150,7 @@ describe('DropdownNavBar', () => {
     ).toBe(false)
   })
 
-  test('displays menu button on focus of parent menu link', () => {
+  test('displays submenu button on focus of parent menu link', () => {
     const hideButtonsWrapper = mount(
       <DropdownNavBar menuItems={menuItems} hideSubmenuButtonsBeforeFocus />
     )
@@ -173,7 +173,7 @@ describe('DropdownNavBar', () => {
     ).toBe(true)
   })
 
-  test('displays submenu when menu button is clicked', () => {
+  test('displays submenu when submenu button is clicked', () => {
     const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
 
     expect(
