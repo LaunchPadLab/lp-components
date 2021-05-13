@@ -133,7 +133,7 @@ describe('DropdownNavBar', () => {
   test('applies correct menu button class on initial render', () => {
     const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
     const hideButtonsWrapper = mount(
-      <DropdownNavBar menuItems={menuItems} hideMenuButtonsBeforeFocus />
+      <DropdownNavBar menuItems={menuItems} hideSubmenuButtonsBeforeFocus />
     )
 
     expect(
@@ -152,7 +152,7 @@ describe('DropdownNavBar', () => {
 
   test('displays menu button on focus of parent menu link', () => {
     const hideButtonsWrapper = mount(
-      <DropdownNavBar menuItems={menuItems} hideMenuButtonsBeforeFocus />
+      <DropdownNavBar menuItems={menuItems} hideSubmenuButtonsBeforeFocus />
     )
 
     expect(
@@ -210,7 +210,7 @@ describe('DropdownNavBar', () => {
         .hasClass('open-submenu')
     ).toBe(true)
     wrapper
-      .find('li.child-menu a')
+      .find('li.sub-menu-item a')
       .first()
       .simulate('keyDown', { key: 'Escape' })
     expect(

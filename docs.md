@@ -276,7 +276,7 @@ A control component for navigating through multiple navigation menu items that c
 -   `menuItems` **[Array][162]?** An array of [menuItemType][19] objects used to populate the menu and any submenus
 -   `mobileBreakpoint` **([Number][161] \| [Boolean][159])** The screen width (in pixels) when mobile view styling is no longer applied (can pass `false` when not using mobile styling) (optional, default `720`)
 -   `menuAriaLabel` **[String][157]** The aria-label to use for both the `nav` and `ul[role="menubar"]` (optional, default `'Primary Menu'`)
--   `hideMenuButtonsBeforeFocus` **[Boolean][159]** Whether to hide the accessible menu buttons until the corresponding parent menu link is focused (optional, default `false`)
+-   `hideSubmenuButtonsBeforeFocus` **[Boolean][159]** Whether to hide the accessible submenu buttons until the corresponding parent menu link is focused (optional, default `false`)
 
 ### Examples
 

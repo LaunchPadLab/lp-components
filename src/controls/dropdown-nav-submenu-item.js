@@ -7,17 +7,17 @@ const propTypes = {
   path: PropTypes.string.isRequired,
   isExternalPath: PropTypes.bool.isRequired,
   isLastItem: PropTypes.bool.isRequired,
-  closeDesktopSubmenu: PropTypes.func.isRequired,
+  closeDesktopSubmenus: PropTypes.func.isRequired,
 }
 
 const defaultProps = {}
 
-function DropdownNavMenuSubItem({
+function DropdownNavSubmenuItem({
   name,
   path,
   isExternalPath,
   isLastItem,
-  closeDesktopSubmenu,
+  closeDesktopSubmenus,
 }) {
   const menuItemProps = {
     onKeyDown: (e) => {
@@ -27,14 +27,14 @@ function DropdownNavMenuSubItem({
         submenu only if Tab is entered _without_ Shift being held */
         (isLastItem && e.key === 'Tab' && !e.shiftKey)
       ) {
-        closeDesktopSubmenu()
+        closeDesktopSubmenus()
       }
     },
     role: 'menuItem',
   }
 
   return (
-    <li className="menu-item child-menu" role="none">
+    <li className="menu-item sub-menu-item" role="none">
       {isExternalPath ? (
         <a href={path} {...menuItemProps}>
           {name}
@@ -48,7 +48,7 @@ function DropdownNavMenuSubItem({
   )
 }
 
-DropdownNavMenuSubItem.propTypes = propTypes
-DropdownNavMenuSubItem.defaultProps = defaultProps
+DropdownNavSubmenuItem.propTypes = propTypes
+DropdownNavSubmenuItem.defaultProps = defaultProps
 
-export default DropdownNavMenuSubItem
+export default DropdownNavSubmenuItem

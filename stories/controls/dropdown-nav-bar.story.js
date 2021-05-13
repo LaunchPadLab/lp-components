@@ -124,7 +124,7 @@ storiesOf('DropdownNavBar', module)
         <DropdownNavBar
           menuItems={menuItems}
           mobileBreakpoint={940}
-          hideMenuButtonsBeforeFocus
+          hideSubmenuButtonsBeforeFocus
         />
       </header>
     )

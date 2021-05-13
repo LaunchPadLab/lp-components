@@ -14,7 +14,7 @@ import classnames from 'classnames'
  * @param {Array} [menuItems] - An array of {@link menuItemType} objects used to populate the menu and any submenus
  * @param {Number|Boolean} [mobileBreakpoint=720] - The screen width (in pixels) when mobile view styling is no longer applied (can pass `false` when not using mobile styling)
  * @param {String} [menuAriaLabel='Primary Menu'] - The aria-label to use for both the `nav` and `ul[role="menubar"]`
- * @param {Boolean} [hideMenuButtonsBeforeFocus=false] - Whether to hide the accessible menu buttons until the corresponding parent menu link is focused
+ * @param {Boolean} [hideSubmenuButtonsBeforeFocus=false] - Whether to hide the accessible submenu buttons until the corresponding parent menu link is focused
  * @example
  *
  * const menuItems = [
@@ -51,33 +51,33 @@ const propTypes = {
   menuItems: PropTypes.arrayOf(menuItemType).isRequired,
   mobileBreakpoint: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
   menuAriaLabel: PropTypes.string,
-  hideMenuButtonsBeforeFocus: PropTypes.bool,
+  hideSubmenuButtonsBeforeFocus: PropTypes.bool,
 }
 
 const defaultProps = {
   mobileBreakpoint: 720,
   menuAriaLabel: 'Primary Menu',
-  hideMenuButtonsBeforeFocus: false,
+  hideSubmenuButtonsBeforeFocus: false,
 }
 
 function DropdownNavBar({
   menuItems,
   mobileBreakpoint,
   menuAriaLabel,
-  hideMenuButtonsBeforeFocus,
+  hideSubmenuButtonsBeforeFocus,
 }) {
-  const [openMenuIds, setOpenMenuIds] = useState([])
+  const [openSubmenus, setOpenSubmenus] = useState([])
   const isMobileMenu = isMobileView(mobileBreakpoint)
-  const toggleOpenMenuId = (id) => {
-    if (!isMobileMenu) return setOpenMenuIds([id])
+  const toggleSubmenu = (submenuId) => {
+    if (!isMobileMenu) return setOpenSubmenus([submenuId])
     /* For mobile view, keep submenus open unless
     dropdown arrow is specifically tapped again to close it */
-    setOpenMenuIds(toggleElementArray(openMenuIds, id))
+    setOpenSubmenus(toggleElementArray(openSubmenus, submenuId))
   }
-  const closeDesktopSubmenu = () => {
+  const closeDesktopSubmenus = () => {
     // don't close if mobile menu
     if (isMobileMenu) return
-    setOpenMenuIds([])
+    setOpenSubmenus([])
   }
 
   return (
@@ -88,12 +88,12 @@ function DropdownNavBar({
       aria-label={menuAriaLabel}
     >
       <DropdownNavMenu
-        openMenuIds={openMenuIds}
-        toggleOpenMenuId={toggleOpenMenuId}
-        closeDesktopSubmenu={closeDesktopSubmenu}
+        openSubmenus={openSubmenus}
+        toggleSubmenu={toggleSubmenu}
+        closeDesktopSubmenus={closeDesktopSubmenus}
         menuItems={menuItems}
         menuAriaLabel={menuAriaLabel}
-        hideMenuButtonsBeforeFocus={hideMenuButtonsBeforeFocus}
+        hideSubmenuButtonsBeforeFocus={hideSubmenuButtonsBeforeFocus}
       />
     </nav>
   )

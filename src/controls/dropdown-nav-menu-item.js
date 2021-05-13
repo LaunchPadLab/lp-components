@@ -10,11 +10,11 @@ const propTypes = {
   path: PropTypes.string.isRequired,
   isExternalPath: PropTypes.bool.isRequired,
   isSubmenuOpen: PropTypes.bool,
-  closeDesktopSubmenu: PropTypes.func.isRequired,
+  closeDesktopSubmenus: PropTypes.func.isRequired,
   toggleSubmenu: PropTypes.func.isRequired,
   isFirstItem: PropTypes.bool.isRequired,
   children: PropTypes.node,
-  hideMenuButtonBeforeFocus: PropTypes.bool.isRequired,
+  hideSubmenuButtonBeforeFocus: PropTypes.bool.isRequired,
 }
 
 const defaultProps = {
@@ -28,24 +28,24 @@ function DropdownNavMenuItem({
   path,
   isExternalPath,
   isSubmenuOpen,
-  closeDesktopSubmenu,
+  closeDesktopSubmenus,
   toggleSubmenu,
   isFirstItem,
   children,
-  hideMenuButtonBeforeFocus,
+  hideSubmenuButtonBeforeFocus,
 }) {
-  // show menu button on desktop, will always be shown on mobile
-  const [showMenuButton, setShowMenuButton] = useState(
-    !hideMenuButtonBeforeFocus
+  // show submenu button on desktop, will always be shown on mobile
+  const [showSubmenuButton, setShowSubmenuButton] = useState(
+    !hideSubmenuButtonBeforeFocus
   )
   const menuItemOnFocus = () => {
-    if (hideMenuButtonBeforeFocus) setShowMenuButton(true)
-    closeDesktopSubmenu()
+    if (hideSubmenuButtonBeforeFocus) setShowSubmenuButton(true)
+    closeDesktopSubmenus()
   }
   const menuItemOnBlur = () => {
-    if (hideMenuButtonBeforeFocus) {
+    if (hideSubmenuButtonBeforeFocus) {
       // timeout needed to move from link to button without it disappearing
-      setTimeout(() => setShowMenuButton(false), 0)
+      setTimeout(() => setShowSubmenuButton(false), 0)
     }
   }
   const menuItemProps = {
@@ -61,7 +61,7 @@ function DropdownNavMenuItem({
       })}
       role="none"
     >
-      <OutsideClickHandler onOutsideClick={closeDesktopSubmenu}>
+      <OutsideClickHandler onOutsideClick={closeDesktopSubmenus}>
         {isExternalPath ? (
           <a href={path} {...menuItemProps}>
             {name}
@@ -75,7 +75,7 @@ function DropdownNavMenuItem({
           <button
             type="button"
             className={classnames('menu-item-button', {
-              'desktop-visible': isSubmenuOpen || showMenuButton,
+              'desktop-visible': isSubmenuOpen || showSubmenuButton,
             })}
             onKeyDown={(e) => {
               if (
@@ -84,7 +84,7 @@ function DropdownNavMenuItem({
                   submenu only if Tab is entered _with_ Shift being held */
                 (isFirstItem && e.key === 'Tab' && e.shiftKey)
               )
-                closeDesktopSubmenu()
+                closeDesktopSubmenus()
             }}
             onClick={toggleSubmenu}
             aria-label={`Open submenu for ${name}`}

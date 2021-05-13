@@ -2,16 +2,16 @@ import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { menuItemType } from './helpers/nav-prop-types'
 import DropdownNavMenuItem from './dropdown-nav-menu-item'
-import DropdownNavMenuSubItem from './dropdown-nav-menu-sub-item'
+import DropdownNavSubmenuItem from './dropdown-nav-submenu-item'
 import { isEmpty, first, last } from 'lodash'
 
 const propTypes = {
   menuItems: PropTypes.arrayOf(menuItemType).isRequired,
-  openMenuIds: PropTypes.arrayOf(PropTypes.string).isRequired,
-  toggleOpenMenuId: PropTypes.func.isRequired,
-  closeDesktopSubmenu: PropTypes.func.isRequired,
+  openSubmenus: PropTypes.arrayOf(PropTypes.string).isRequired,
+  toggleSubmenu: PropTypes.func.isRequired,
+  closeDesktopSubmenus: PropTypes.func.isRequired,
   menuAriaLabel: PropTypes.string.isRequired,
-  hideMenuButtonsBeforeFocus: PropTypes.bool.isRequired,
+  hideSubmenuButtonsBeforeFocus: PropTypes.bool.isRequired,
 }
 
 const defaultProps = {}
@@ -24,11 +24,11 @@ function getRandomIntIds(menuItems) {
 
 function DropdownNavMenu({
   menuItems,
-  openMenuIds,
-  toggleOpenMenuId,
-  closeDesktopSubmenu,
+  openSubmenus,
+  toggleSubmenu,
+  closeDesktopSubmenus,
   menuAriaLabel,
-  hideMenuButtonsBeforeFocus,
+  hideSubmenuButtonsBeforeFocus,
 }) {
   const uniqueIds = useMemo(() => getRandomIntIds(menuItems), [menuItems])
   return (
@@ -45,11 +45,11 @@ function DropdownNavMenu({
             submenuId={submenuId}
             path={path}
             isExternalPath={path.startsWith('http')}
-            isSubmenuOpen={openMenuIds.includes(id)}
-            closeDesktopSubmenu={closeDesktopSubmenu}
-            toggleSubmenu={() => toggleOpenMenuId(id)}
+            isSubmenuOpen={openSubmenus.includes(submenuId)}
+            closeDesktopSubmenus={closeDesktopSubmenus}
+            toggleSubmenu={() => toggleSubmenu(submenuId)}
             isFirstItem={isFirstParentItem}
-            hideMenuButtonBeforeFocus={hideMenuButtonsBeforeFocus}
+            hideSubmenuButtonBeforeFocus={hideSubmenuButtonsBeforeFocus}
           >
             {childItems && !isEmpty(childItems) && (
               <ul
@@ -61,13 +61,13 @@ function DropdownNavMenu({
                 {childItems.map((childItem) => {
                   const isLastChildItem = childItem === last(childItems)
                   return (
-                    <DropdownNavMenuSubItem
+                    <DropdownNavSubmenuItem
                       key={`${submenuId}-${childItem.name}`}
                       name={childItem.name}
                       path={childItem.path}
                       isExternalPath={childItem.path.startsWith('http')}
                       isLastItem={isLastChildItem}
-                      closeDesktopSubmenu={closeDesktopSubmenu}
+                      closeDesktopSubmenus={closeDesktopSubmenus}
                     />
                   )
                 })}
