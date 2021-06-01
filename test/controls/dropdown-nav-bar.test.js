@@ -61,7 +61,7 @@ describe('DropdownNavBar', () => {
 
   test('renders menuItems', () => {
     const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
-    const firstMenuItem = wrapper
+    const firstMenuItemLink = wrapper
       .find('li')
       .first()
       .render()
@@ -71,19 +71,19 @@ describe('DropdownNavBar', () => {
       .render()
 
     expect(
-      firstMenuItem
+      firstMenuItemLink
         .find('a')
         .first()
         .text()
     ).toEqual('Experiences')
     expect(
-      firstMenuItem
+      firstMenuItemLink
         .find('ul > li')
         .first()
         .text()
     ).toEqual('Animal Encounters')
     expect(
-      firstMenuItem
+      firstMenuItemLink
         .find('ul > li')
         .last()
         .text()
@@ -115,21 +115,6 @@ describe('DropdownNavBar', () => {
     )
   })
 
-  test("assigns matching unique id to submenu and related button's aria controls value", () => {
-    const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
-    const submenuId = wrapper
-      .find('li ul')
-      .first()
-      .prop('id')
-
-    expect(
-      wrapper
-        .find('button')
-        .first()
-        .prop('aria-controls')
-    ).toEqual(submenuId)
-  })
-
   test('applies correct submenu button class on initial render', () => {
     const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
     const hideButtonsWrapper = mount(
@@ -138,15 +123,15 @@ describe('DropdownNavBar', () => {
 
     expect(
       wrapper
-        .find('button')
+        .find('li.parent-menu a')
         .first()
-        .hasClass('desktop-visible')
+        .hasClass('down-arrow')
     ).toBe(true)
     expect(
       hideButtonsWrapper
-        .find('button')
+        .find('li.parent-menu a')
         .first()
-        .hasClass('desktop-visible')
+        .hasClass('down-arrow')
     ).toBe(false)
   })
 
@@ -154,44 +139,60 @@ describe('DropdownNavBar', () => {
     const hideButtonsWrapper = mount(
       <DropdownNavBar menuItems={menuItems} hideSubmenuButtonsBeforeFocus />
     )
-
-    expect(
-      hideButtonsWrapper
-        .find('button')
-        .first()
-        .hasClass('desktop-visible')
-    ).toBe(false)
-    hideButtonsWrapper
-      .find('a')
+    const firstMenuItemLink = hideButtonsWrapper
+      .find('li.parent-menu a')
       .first()
-      .simulate('focus')
-    expect(
-      hideButtonsWrapper
-        .find('button')
-        .first()
-        .hasClass('desktop-visible')
-    ).toBe(true)
+
+    expect(firstMenuItemLink.hasClass('down-arrow')).toBe(false)
+    firstMenuItemLink.simulate('focus')
+    expect(firstMenuItemLink.hasClass('down-arrow')).toBe(true)
   })
 
-  test('displays submenu when submenu button is clicked', () => {
+  test('moves focus between parent menu links when triggered via right arrow on parent menu link', () => {
+    const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
+    const firstMenuItemLink = wrapper.find('li.parent-menu a').first()
+
+    expect(firstMenuItemLink.prop('tabindex')).toEqual('0')
+    firstMenuItemLink.simulate('keyDown', { key: 'ArrowRight' })
+    // removed focus from first parent menu link
+    expect(firstMenuItemLink.prop('tabindex')).toEqual('-1')
+    // added focus to second parent menu link
+    expect(wrapper.find('li.parent-menu a')[1].prop('tabindex')).toEqual('0')
+  })
+
+  test('opens submenu and focuses first submenu link when triggered via down arrow on parent menu link', () => {
     const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
 
     expect(
       wrapper
         .find('li.parent-menu')
         .first()
-        .hasClass('open-submenu')
+        .hasClass('submenu-open')
     ).toBe(false)
     wrapper
-      .find('button')
+      .find('li.parent-menu a')
       .first()
-      .simulate('click')
+      .simulate('keyDown', { key: 'ArrowDown' })
     expect(
       wrapper
         .find('li.parent-menu')
         .first()
-        .hasClass('open-submenu')
+        .hasClass('submenu-open')
     ).toBe(true)
+    // removed focus from parent menu link
+    expect(
+      wrapper
+        .find('li.parent-menu a')
+        .first()
+        .prop('tabindex')
+    ).toEqual('-1')
+    // added focus to first submenu link
+    expect(
+      wrapper
+        .find('li.sub-menu-item a')
+        .first()
+        .prop('tabindex')
+    ).toEqual('0')
   })
 
   test('closes submenu when triggered via Escape on submenu link', () => {
@@ -199,15 +200,15 @@ describe('DropdownNavBar', () => {
 
     // open submenu first
     wrapper
-      .find('button')
+      .find('li.parent-menu a')
       .first()
-      .simulate('click')
+      .simulate('keyDown', { key: 'ArrowDown' })
 
     expect(
       wrapper
         .find('li.parent-menu')
         .first()
-        .hasClass('open-submenu')
+        .hasClass('submenu-open')
     ).toBe(true)
     wrapper
       .find('li.sub-menu-item a')
@@ -217,7 +218,46 @@ describe('DropdownNavBar', () => {
       wrapper
         .find('li.parent-menu')
         .first()
-        .hasClass('open-submenu')
+        .hasClass('submenu-open')
     ).toBe(false)
+  })
+
+  test('moves focus between submenu links when triggered via down arrow on submenu link', () => {
+    const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
+    const firstSubmenuLink = wrapper.find('li.sub-menu-item a').first()
+
+    // open submenu first
+    wrapper
+      .find('li.parent-menu a')
+      .first()
+      .simulate('keyDown', { key: 'ArrowDown' })
+
+    expect(firstSubmenuLink.prop('tabindex')).toEqual('0')
+    firstSubmenuLink.simulate('keyDown', { key: 'ArrowDown' })
+    // removed focus from first submenu link
+    expect(firstSubmenuLink.prop('tabindex')).toEqual('-1')
+    // added focus to second submenu link
+    expect(wrapper.find('li.sub-menu-item a')[1].prop('tabindex')).toBe('0')
+  })
+
+  test('displays submenu when mobile submenu button is clicked', () => {
+    const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
+
+    expect(
+      wrapper
+        .find('li.parent-menu')
+        .first()
+        .hasClass('submenu-open')
+    ).toBe(false)
+    wrapper
+      .find('button')
+      .first()
+      .simulate('click')
+    expect(
+      wrapper
+        .find('li.parent-menu')
+        .first()
+        .hasClass('submenu-open')
+    ).toBe(true)
   })
 })
