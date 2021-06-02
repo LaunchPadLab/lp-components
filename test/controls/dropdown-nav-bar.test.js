@@ -157,7 +157,12 @@ describe('DropdownNavBar', () => {
     // removed focus from first parent menu link
     expect(firstMenuItemLink.prop('tabindex')).toEqual('-1')
     // added focus to second parent menu link
-    expect(wrapper.find('li.parent-menu a')[1].prop('tabindex')).toEqual('0')
+    expect(
+      wrapper
+        .find('li.parent-menu a')
+        .at(1)
+        .prop('tabindex')
+    ).toEqual('0')
   })
 
   test('moves focus to first or last parent menu link when triggered via home or end on parent menu link', () => {
@@ -242,7 +247,7 @@ describe('DropdownNavBar', () => {
   test('moves focus between submenu links when triggered via down or up arrow on submenu link', () => {
     const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
     const firstSubmenuLink = wrapper.find('li.sub-menu-item a').first()
-    const secondSubmenuLink = wrapper.find('li.sub-menu-item a')[1]
+    const secondSubmenuLink = wrapper.find('li.sub-menu-item a').at(1)
 
     // open submenu first
     wrapper
@@ -264,12 +269,9 @@ describe('DropdownNavBar', () => {
 
   test('moves focus to first or last submenu link when triggered via home or end on submenu link', () => {
     const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
-    const firstSubmenuLink = wrapper
-      .find('li.parent-menu:first-child .sub-menu-item a')
-      .first()
-    const lastSubmenuLink = wrapper
-      .find('li.parent-menu:first-child .sub-menu-item a')
-      .last()
+    const firstMenuItem = wrapper.find('li.parent-menu').first()
+    const firstSubmenuLink = firstMenuItem.find('.sub-menu-item a').first()
+    const lastSubmenuLink = firstMenuItem.find('.sub-menu-item a').last()
 
     // end
     expect(firstSubmenuLink.prop('tabindex')).toEqual('0')
@@ -286,7 +288,7 @@ describe('DropdownNavBar', () => {
   test('moves focus to next parent menu link and opens submenu when triggered via right or left arrow on submenu link', () => {
     const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
     const firstMenuItem = wrapper.find('li.parent-menu').first()
-    const secondMenuItem = wrapper.find('li.parent-menu')[1]
+    const secondMenuItem = wrapper.find('li.parent-menu').at(1)
 
     // open submenu first
     wrapper
@@ -347,7 +349,7 @@ describe('DropdownNavBar', () => {
     wrapper
       .find('li.parent-menu a')
       .first()
-      .simulate('touch')
+      .simulate('touchend')
     expect(
       wrapper
         .find('li.parent-menu')
