@@ -118,7 +118,7 @@ describe('DropdownNavBar', () => {
   test('applies correct submenu button class on initial render', () => {
     const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
     const hideButtonsWrapper = mount(
-      <DropdownNavBar menuItems={menuItems} hideSubmenuButtonsBeforeFocus />
+      <DropdownNavBar menuItems={menuItems} hideSubmenuArrowsBeforeFocus />
     )
 
     expect(
@@ -135,9 +135,9 @@ describe('DropdownNavBar', () => {
     ).toBe(false)
   })
 
-  test('displays submenu button on focus of parent menu link', () => {
+  test('displays submenu arrow on focus of parent menu link', () => {
     const hideButtonsWrapper = mount(
-      <DropdownNavBar menuItems={menuItems} hideSubmenuButtonsBeforeFocus />
+      <DropdownNavBar menuItems={menuItems} hideSubmenuArrowsBeforeFocus />
     )
     const firstMenuItemLink = hideButtonsWrapper
       .find('li.parent-menu a')
@@ -158,6 +158,23 @@ describe('DropdownNavBar', () => {
     expect(firstMenuItemLink.prop('tabindex')).toEqual('-1')
     // added focus to second parent menu link
     expect(wrapper.find('li.parent-menu a')[1].prop('tabindex')).toEqual('0')
+  })
+
+  test('moves focus to first or last parent menu link when triggered via home or end on parent menu link', () => {
+    const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
+    const firstMenuItemLink = wrapper.find('li.parent-menu a').first()
+    const lastMenuItemLink = wrapper.find('li.parent-menu:last-child a').first()
+
+    // end
+    expect(firstMenuItemLink.prop('tabindex')).toEqual('0')
+    firstMenuItemLink.simulate('keyDown', { key: 'End' })
+    expect(firstMenuItemLink.prop('tabindex')).toEqual('-1')
+    expect(lastMenuItemLink.prop('tabindex')).toEqual('0')
+
+    // home
+    lastMenuItemLink.simulate('keyDown', { key: 'Home' })
+    expect(firstMenuItemLink.prop('tabindex')).toEqual('0')
+    expect(lastMenuItemLink.prop('tabindex')).toEqual('-1')
   })
 
   test('opens submenu and focuses first submenu link when triggered via down arrow on parent menu link', () => {
@@ -222,9 +239,10 @@ describe('DropdownNavBar', () => {
     ).toBe(false)
   })
 
-  test('moves focus between submenu links when triggered via down arrow on submenu link', () => {
+  test('moves focus between submenu links when triggered via down or up arrow on submenu link', () => {
     const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
     const firstSubmenuLink = wrapper.find('li.sub-menu-item a').first()
+    const secondSubmenuLink = wrapper.find('li.sub-menu-item a')[1]
 
     // open submenu first
     wrapper
@@ -232,12 +250,110 @@ describe('DropdownNavBar', () => {
       .first()
       .simulate('keyDown', { key: 'ArrowDown' })
 
+    // down arrow
     expect(firstSubmenuLink.prop('tabindex')).toEqual('0')
     firstSubmenuLink.simulate('keyDown', { key: 'ArrowDown' })
-    // removed focus from first submenu link
     expect(firstSubmenuLink.prop('tabindex')).toEqual('-1')
-    // added focus to second submenu link
-    expect(wrapper.find('li.sub-menu-item a')[1].prop('tabindex')).toBe('0')
+    expect(secondSubmenuLink.prop('tabindex')).toBe('0')
+
+    // up arrow
+    secondSubmenuLink.simulate('keyDown', { key: 'ArrowUp' })
+    expect(firstSubmenuLink.prop('tabindex')).toEqual('0')
+    expect(secondSubmenuLink.prop('tabindex')).toBe('-1')
+  })
+
+  test('moves focus to first or last submenu link when triggered via home or end on submenu link', () => {
+    const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
+    const firstSubmenuLink = wrapper
+      .find('li.parent-menu:first-child .sub-menu-item a')
+      .first()
+    const lastSubmenuLink = wrapper
+      .find('li.parent-menu:first-child .sub-menu-item a')
+      .last()
+
+    // end
+    expect(firstSubmenuLink.prop('tabindex')).toEqual('0')
+    firstSubmenuLink.simulate('keyDown', { key: 'End' })
+    expect(firstSubmenuLink.prop('tabindex')).toEqual('-1')
+    expect(lastSubmenuLink.prop('tabindex')).toEqual('0')
+
+    // home
+    lastSubmenuLink.simulate('keyDown', { key: 'Home' })
+    expect(firstSubmenuLink.prop('tabindex')).toEqual('0')
+    expect(lastSubmenuLink.prop('tabindex')).toEqual('-1')
+  })
+
+  test('moves focus to next parent menu link and opens submenu when triggered via right or left arrow on submenu link', () => {
+    const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
+    const firstMenuItem = wrapper.find('li.parent-menu').first()
+    const secondMenuItem = wrapper.find('li.parent-menu')[1]
+
+    // open submenu first
+    wrapper
+      .find('li.parent-menu a')
+      .first()
+      .simulate('keyDown', { key: 'ArrowDown' })
+
+    // right arrow
+    expect(
+      secondMenuItem
+        .find('a')
+        .first()
+        .prop('tabindex')
+    ).toEqual('-1')
+    expect(secondMenuItem.hasClass('submenu-open')).toBe(false)
+    firstMenuItem
+      .find('li.sub-menu-item a')
+      .first()
+      .simulate('keyDown', { key: 'ArrowRight' })
+    expect(
+      secondMenuItem
+        .find('a')
+        .first()
+        .prop('tabindex')
+    ).toEqual('0')
+    expect(secondMenuItem.hasClass('submenu-open')).toBe(true)
+
+    // left arrow
+    expect(
+      firstMenuItem
+        .find('a')
+        .first()
+        .prop('tabindex')
+    ).toEqual('-1')
+    expect(firstMenuItem.hasClass('submenu-open')).toBe(false)
+    secondMenuItem
+      .find('li.sub-menu-item a')
+      .first()
+      .simulate('keyDown', { key: 'ArrowLeft' })
+    expect(
+      firstMenuItem
+        .find('a')
+        .first()
+        .prop('tabindex')
+    ).toEqual('0')
+    expect(firstMenuItem.hasClass('submenu-open')).toBe(true)
+  })
+
+  test('opens submenu when parent menu link is tapped once (does not navigate to link)', () => {
+    const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
+
+    expect(
+      wrapper
+        .find('li.parent-menu')
+        .first()
+        .hasClass('submenu-open')
+    ).toBe(false)
+    wrapper
+      .find('li.parent-menu a')
+      .first()
+      .simulate('touch')
+    expect(
+      wrapper
+        .find('li.parent-menu')
+        .first()
+        .hasClass('submenu-open')
+    ).toBe(true)
   })
 
   test('displays submenu when mobile submenu button is clicked', () => {
