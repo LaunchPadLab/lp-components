@@ -115,7 +115,7 @@ class FileInput extends React.Component {
       <LabeledField { ...this.props }>
         <div className="fileupload fileupload-exists">
           {!hidePreview && renderPreview({ file, value, ...rest })}
-          <div className={classnames('button-secondary-light', {'in-progress': submitting })}}>
+          <div className={classnames('button-secondary-light', {'in-progress': submitting })}>
             <input
               {...{
                 id: name,
