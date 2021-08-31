@@ -7,8 +7,8 @@ const value = 'value of field'
 const onChange = () => {}
 const input = { name, value, onChange }
 
-test('RangeInput hides the value label when `hideRangeLabel` is `true`', () => {
-  const props = { input, hideRangeLabel: true, meta: {} }
+test('RangeInput hides the value label when `hideRangeValue` is `true`', () => {
+  const props = { input, hideRangeValue: true, meta: {} }
   const wrapper = mount(<RangeInput { ...props }/>)
   expect(wrapper.find('.range-value').exists()).toBe(false)
 })
@@ -33,7 +33,7 @@ test('RangeInput does not receive invalid dom attributes', () => {
     meta: {},
     onClickLabel: () => 'foo'
   }
-  
+
   const wrapper = mount(<RangeInput {...props} />)
   expect(wrapper.find('input').prop('onClickLabel')).toBe(undefined)
 })

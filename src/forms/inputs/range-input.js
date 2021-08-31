@@ -6,8 +6,8 @@ import { compose, filterInvalidDOMProps, generateInputErrorId } from '../../util
 
 /**
  *
- * A range input that can be used in a `redux-forms`-controlled form. 
- * 
+ * A range input that can be used in a `redux-forms`-controlled form.
+ *
  * @name RangeInput
  * @type Function
  * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
@@ -15,15 +15,15 @@ import { compose, filterInvalidDOMProps, generateInputErrorId } from '../../util
  * @param {Number} [min=0] - The minumum attribute of the slider control
  * @param {Number} [max=100] - The maximum attribute of the slider control
  * @param {Number} [step=1] - The step attribute of the slider control
- * @param {Boolean} [hideRangeLabel=false] - A boolean representing whether or not to display the range value label element
+ * @param {Boolean} [hideRangeValue=false] - A boolean representing whether or not to display the range value
  * @example
- * 
+ *
  * function StudentForm ({ handleSubmit, pristine, invalid, submitting }) {
  *   return (
  *     <form onSubmit={ handleSubmit }>
- *       <Field 
- *          name="minGPA" 
- *          component={ RangeInput } 
+ *       <Field
+ *          name="minGPA"
+ *          component={ RangeInput }
  *          step={ 0.5 }
  *          min={ 2.0 }
  *          max={ 4.0 }
@@ -41,14 +41,14 @@ const propTypes = {
   min: PropTypes.number,
   max: PropTypes.number,
   step: PropTypes.number,
-  hideRangeLabel: PropTypes.bool
+  hideRangeValue: PropTypes.bool
 }
 
 const defaultProps = {
   min: 0,
   max: 100,
   step: 1,
-  hideRangeLabel: false
+  hideRangeValue: false
 }
 
 function RangeInput (props) {
@@ -56,7 +56,7 @@ function RangeInput (props) {
     input: { name, value, onBlur, onChange },
     meta, // eslint-disable-line no-unused-vars
     className, // eslint-disable-line no-unused-vars
-    hideRangeLabel,
+    hideRangeValue,
     min,
     max,
     step,
@@ -66,11 +66,11 @@ function RangeInput (props) {
     <LabeledField { ...props }>
       <div>
       {
-        !hideRangeLabel &&
+        !hideRangeValue &&
         <label className="range-value">{value}</label>
       }
       </div>
-      <input 
+      <input
         {...{
           id: name,
           name,
@@ -83,7 +83,7 @@ function RangeInput (props) {
           step,
           'aria-describedby': hasInputError(meta) ? generateInputErrorId(name) : null,
           ...filterInvalidDOMProps(rest)
-        }} 
+        }}
       />
     </LabeledField>
   )
