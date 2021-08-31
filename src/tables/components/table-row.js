@@ -7,6 +7,10 @@ const propTypes = {
   columns: PropTypes.arrayOf(Types.column).isRequired,
   rowComponent: Types.component,
   rowData: PropTypes.any,
+  ascending: PropTypes.bool,
+  sortPath: PropTypes.string,
+  sortFunc: PropTypes.func,
+  valueGetter: PropTypes.func,
 }
 
 const DefaultRowComponent = ({ children }) => <tr>{ children }</tr> // eslint-disable-line
@@ -17,21 +21,27 @@ function TableRow ({
   columns,
   rowComponent: RowComponent = DefaultRowComponent,
   rowData,
+  ascending,
+  sortPath,
+  sortFunc,
+  valueGetter,
 }) {
   return (
-    <RowComponent { ...{ data: rowData } }>
+    <RowComponent { ...{ data: rowData, ascending, sortPath, sortFunc, valueGetter } }>
       {
         columns.map((column, key) => {
-          const { name, component: CellComponent=DefaultCellComponent, format=identity, onClick=noop, ...rest } = column
-          const value = format(get(name, rowData))
+          const { name, component: CellComponent=DefaultCellComponent, format=identity, onClick=noop, valueGetter, ...rest } = column
+          const cellValue =
+            valueGetter ? valueGetter(rowData) : get(name, rowData)
+          const formattedValue = format(cellValue)
           const onColClick = column.disabled ? noop : () => onClick(rowData)
           return <CellComponent { ...{ // eslint-disable-line
-            key, 
-            value, 
-            name, 
-            data: rowData, 
-            onClick: onColClick, 
-            ...rest 
+            key,
+            value: formattedValue,
+            name,
+            data: rowData,
+            onClick: onColClick,
+            ...rest
           } } />
         })
       }

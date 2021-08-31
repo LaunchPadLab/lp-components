@@ -11,6 +11,7 @@ export const columnPropTypes = {
   headerComponent: componentType,
   onClick: PropTypes.func,
   format: PropTypes.func,
+  valueGetter: PropTypes.func,
 }
 
 export const Types = {

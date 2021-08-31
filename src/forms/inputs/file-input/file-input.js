@@ -9,10 +9,10 @@ import classnames from 'classnames'
 
 /**
  *
- * A file input that can be used in a `redux-forms`-controlled form. 
- * The value of this input is the data URL of the loaded file. 
+ * A file input that can be used in a `redux-forms`-controlled form.
+ * The value of this input is the data URL of the loaded file.
  *
- * An optional callback can be fired when the file is loaded: `onLoad(fileData, file)`. 
+ * An optional callback can be fired when the file is loaded: `onLoad(fileData, file)`.
  * This callback will be passed the data URL of the file, as well as the `File` object itself.
  *
  * By default, this component displays a thumbnail preview of the loaded file. This preview can be customized
@@ -21,7 +21,7 @@ import classnames from 'classnames'
  * A component passed using `previewComponent` will receive the following props:
  * - `file`: the uploaded file object, or `null` if no file has been uploaded.
  * - `value`: the current value of the input (data URL or empty string)
- * 
+ *
  * @name FileInput
  * @type Function
  * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
@@ -30,13 +30,13 @@ import classnames from 'classnames'
  * @param {String} [thumbnail] - A placeholder image to display before the file is loaded
  * @param {Boolean} [hidePreview] - A flag indicating whether or not to hide the file preview
  * @example
- * 
+ *
  * function HeadshotForm ({ handleSubmit, pristine, invalid, submitting }) {
  *   return (
  *     <form onSubmit={ handleSubmit }>
- *       <Field 
- *          name="headshot" 
- *          component={ FileInput } 
+ *       <Field
+ *          name="headshot"
+ *          component={ FileInput }
  *          onLoad={ (fileData, file) => console.log('Loaded file!', file) }
  *       />
  *       <SubmitButton {...{ pristine, invalid, submitting }}>
@@ -114,22 +114,23 @@ class FileInput extends React.Component {
     return (
       <LabeledField { ...this.props }>
         <div className="fileupload fileupload-exists">
-          { 
-            !hidePreview &&
-            renderPreview({ file, value, ...rest })
-          }
-          <div className={ classnames('button-secondary-light', {'in-progress': submitting })}>
-            <span className="fileupload-exists"> Select File </span>
-              <input 
-                {...{
-                  id: name,
-                  name,
-                  type: 'file',
-                  onChange: this.loadFile,
-                  accept,
-                  'aria-describedby': hasInputError(meta) ? generateInputErrorId(name) : null,
-                }}
-              />
+          {!hidePreview && renderPreview({ file, value, ...rest })}
+          <div className={classnames('button-secondary-light', {'in-progress': submitting })}}>
+            <input
+              {...{
+                id: name,
+                name,
+                type: 'file',
+                onChange: this.loadFile,
+                accept,
+                'aria-labelledby': name + '-label',
+                'aria-describedby': hasInputError(meta)
+                  ? generateInputErrorId(name)
+                  : null,
+              }}
+            />
+            {/* Include after input to allowing for styling with adjacent sibling selector */}
+            <span className='fileupload-exists' id={name + '-label'}> Select File </span>
           </div>
         </div>
       </LabeledField>

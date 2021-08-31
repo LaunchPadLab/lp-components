@@ -1,12 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { generateInputErrorId } from '../../utils'
+import { generateInputErrorId, filterInvalidDOMProps } from '../../utils'
 import { hasInputError } from '../helpers'
 
 /**
  *
  * A dynamic error label associated with an input component.
+ * 
+ * NOTE: direct use of this component is deprecated as of v4.1.0 due to its dependency on redux-form. Please use {@link ErrorLabel} instead.
  *
  * This component is used within {@link LabeledField}, and therefore is incorporated into most `lp-components` input components by default.
  *
@@ -73,7 +75,7 @@ function InputError ({ error, invalid, touched, name, className, ...rest }) {
     ? <span
         id={ generateInputErrorId(name) }
         className={ classnames('error-message', className) }
-        { ...rest }
+        { ...filterInvalidDOMProps(rest) }
       >
         { formatError(error) }
       </span>
