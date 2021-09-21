@@ -1,44 +1,53 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { buttonClasses, fieldPropTypes, hasInputError, isImageType, omitLabelProps } from '../../helpers'
+import {
+  buttonClasses,
+  castFormValueToArray,
+  fileInputPropTypes,
+  hasInputError,
+  isImageType,
+  omitLabelProps,
+  readFilesAsDataUrls,
+} from '../../helpers'
 import { LabeledField } from '../../labels'
 import FilePreview from './file-preview'
 import ImagePreview from './image-preview';
-import { noop, generateInputErrorId, removeAt } from '../../../utils'
+import { first, noop, generateInputErrorId, isString, removeAt } from '../../../utils'
+import classnames from 'classnames'
 
 /**
+ * A file input that can be used in a `redux-forms`-controlled form.
+ * The value of this input is a file object or an array of file objects with the `url` set to the base64 encoded data URL of the loaded file(s).
  *
- * A file input that can be used in a `redux-forms`-controlled form. 
- * The value of this input is the data URL of the loaded file. 
+ * Allowing multiple files to be selected requires passing in the `multiple` prop set to `true`. Multiple files can then be uploaded either all at once or piecemeal. Once a file has successfully been loaded, it is possible to remove the file object from the current set of values. An optional callback can be fired when a file is removed: `onRemove(removedFile)`. To customize the component that receives this `onRemove` handler, pass in a cutom component to the `removeComponent` prop.
  *
- * An optional callback can be fired when the file is loaded: `onLoad(fileData, file)`. 
- * This callback will be passed the data URL of the file, as well as the `File` object itself.
- *
- * By default, this component displays a thumbnail preview of the loaded file. This preview can be customized
+ * By default, this component displays a thumbnail preview of the loaded file(s). This preview can be customized
  * by using the `thumbnail` or `hidePreview` props, as well as by passing a custom preview via `previewComponent` or `children`.
  *
  * A component passed using `previewComponent` will receive the following props:
- * - `file`: the uploaded file object, or `null` if no file has been uploaded.
- * - `value`: the current value of the input (data URL or empty string)
- * 
+ * - `value`: the current value of the input (file object or array of file objects)
+ *
  * @name FileInput
  * @type Function
  * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
  * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+ * @param {Function} [readFiles] - A callback that is fired with new files and is expected to return an array of file objects with the `url` key set to the "read" value. This can be either a data URL or the public URL from a 3rd party API
  * @param {Boolean} [multiple=false] - A flag indicating whether or not to accept multiple files
- * @param {Function} [onLoad] - A callback fired when the file is loaded
- * @param {Function} [onRemove] - A callback fired when the file is removed (only available when multiple files can be uploaded)
+ * @param {Function} [onRemove=noop] - A callback fired when the file is removed (only available when `multiple` is set to `true`)
+ * @param {Function} [removeComponent=RemoveButton] - A custom component that receives the `onRemove` callback (only available when `multiple` is set to `true`)
  * @param {String} [thumbnail] - A placeholder image to display before the file is loaded
  * @param {Boolean} [hidePreview=false] - A flag indicating whether or not to hide the file preview
+ * @param {String} [selectText] - An override for customizing the text that is displayed on the input's label. Defaults to 'Select File' or 'Select File(s)' depending on the `multiple` prop value
+ *
  * @example
- * 
+ *
  * function HeadshotForm ({ handleSubmit, pristine, invalid, submitting }) {
  *   return (
  *     <form onSubmit={ handleSubmit }>
- *       <Field 
- *          name="headshot" 
- *          component={ FileInput } 
- *          onLoad={ (fileData, file) => console.log('Loaded file!', file) }
+ *       <Field
+ *          name="headshot"
+ *          component={ FileInput }
+ *          selectText="Select profile picture"
  *       />
  *       <SubmitButton {...{ pristine, invalid, submitting }}>
  *         Submit
@@ -49,8 +58,7 @@ import { noop, generateInputErrorId, removeAt } from '../../../utils'
  */
 
 const propTypes = {
-  ...fieldPropTypes,
-  onLoad: PropTypes.func,
+  ...fileInputPropTypes,
   thumbnail: PropTypes.string,
   hidePreview: PropTypes.bool,
   className: PropTypes.string,
@@ -58,131 +66,122 @@ const propTypes = {
   children: PropTypes.node,
   multiple: PropTypes.bool,
   onRemove: PropTypes.func,
-  removeText: PropTypes.string,
+  readFiles: PropTypes.func,
+  removeComponent: PropTypes.func,
+  selectText: PropTypes.string,
 }
 
 const defaultProps = {
+  hidePreview: false,
   multiple: false,
-  onLoad: noop,
   onRemove: noop,
-}
-
-function readFile (file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.onload = (readEvent) => {
-      resolve(readEvent.target.result)
-    }
-    reader.onerror = reject
-    
-    reader.readAsDataURL(file)
-  })
+  readFiles: readFilesAsDataUrls,
+  removeComponent: RemoveButton,
+  selectText: '',
 }
 
 class FileInput extends React.Component {
-
   constructor (props) {
     super(props)
-    this.state = { files: [] }
-    this.loadFiles = this.loadFiles.bind(this)
-    this.onChange = this.onChange.bind(this)
+
+    this.state = { errors: null }
     this.removeFile = this.removeFile.bind(this)
+
+    this.fileInput = null
+    this.setFileInputRef = element => {
+      this.fileInput = element
+    }
+    this.clearFileInput = () => {
+      if (this.fileInput) this.fileInput.value = ""
+    }
   }
 
-  loadFiles (e) {
-    // Read files as data URL and call change handlers
-    const files = [...e.target.files] // when multiple=false, `files` is still array-like
-    
-    // Do not reload files that have been successfully loaded
-    const filesToLoad = files.filter((file) => {
-      return !this.state.files.some((existingFile) => existingFile.name === file.name)
-    })
-    
-    return filesToLoad.map((file) => {
-      return readFile(file)
-        .then((fileData) => {
-          this.onChange(fileData, file)
-        })
-    })
-  }
-  
-  // TODO: Should this fire once or per file?
-  onChange (fileData, file) {
-    // Call redux forms onChange and onLoad callback
-    const { input: { onChange, value }, onLoad, multiple } = this.props
-    
-    if (multiple) {
-      onChange([...value, fileData])
-      this.setState((state) => {
-        return { files: [ ...state.files, file ] }
-      })
-    } else {
-      onChange(fileData)
-      this.setState({ files: [file] })
+  async removeFile (idx) {
+    const { input: { onChange, value }, multiple, onRemove } = this.props
+    const [removedFile, remainingFiles] = removeAt(value, idx)
+
+    try {
+      await onRemove(removedFile)
+
+      // If all files have been removed, then reset the native input
+      if (!remainingFiles.length) this.clearFileInput()
+
+      if (multiple) return onChange(remainingFiles)
+      return onChange(null)
+    } catch (e) {
+      this.setState({ errors: e })
     }
-    
-    // TODO: should this be required to fulfill successfully before firing onChange / set state?
-    onLoad(fileData, file)
-  }
-  
-  removeFile (idx) {
-    const { input: { onChange, value }, onRemove } = this.props
-    const [removedValue, remainingValues] = removeAt(value, idx)
-    const [removedFile, remainingFiles] = removeAt(this.state.files, idx)
-    
-    onChange(remainingValues)
-    onRemove(removedValue, removedFile)
-    this.setState({ files: remainingFiles })
   }
 
   render () {
     const {
-      input: { name, value },
-      meta, // eslint-disable-line no-unused-vars
-      onLoad, // eslint-disable-line no-unused-vars
+      input: { name, onChange, value },
+      meta,
       className, // eslint-disable-line no-unused-vars
       submitting,
       accept,
       hidePreview,
       multiple,
-      removeComponent: RemoveComponent = RemoveButton,
+      readFiles,
+      removeComponent: RemoveComponent,
+      selectText,
+      thumbnail,
       ...rest
     } = omitLabelProps(this.props)
-    const { files } = this.state
+    const inputMeta = setInputErrors(meta, this.state.errors)
     const wrapperClass = buttonClasses({ style: 'secondary-light', submitting })
-    const labelText = multiple ? 'Select File(s)' : 'Select File'
-    
+    const labelText = selectText || (multiple ? 'Select File(s)' : 'Select File')
+    const values = castFormValueToArray(value)
+
     return (
-      <LabeledField { ...this.props }>
+      <LabeledField { ...this.props } meta={ inputMeta }>
         <div className="fileupload fileupload-exists">
-          { 
-            !hidePreview &&
-            files.map((file, idx) => (
-              <div key={file.name}>
+          {!hidePreview &&
+            <React.Fragment>
+              {values.length === 0 &&
                 <RenderPreview
-                  file={file}
-                  value={value[idx]}
+                  value={{}}
+                  thumbnail={thumbnail}
                   {...rest}
                 />
-                { multiple && <RemoveComponent onRemove={() => this.removeFile(idx) } /> }
-              </div>
-            ))
+              }
+              {values.map((value, idx) => {
+              return (
+                <div key={value.name} className="fileupload-preview-container">
+                  <RenderPreview value={value} thumbnail={thumbnail} {...rest} />
+                  { multiple && <RemoveComponent onRemove={ () => this.removeFile(idx) } /> }
+                </div>
+              )})}
+            </React.Fragment>
           }
-          <div className={ wrapperClass }>
-            <span className="fileupload-exists" id={name+'-label'}> { labelText } </span>
-              <input 
-                {...{
-                  id: name,
-                  name,
-                  type: 'file',
-                  onClick: (e) => { e.target.value = "" }, // force onChange to fire every time
-                  onChange: this.loadFiles,
-                  accept,
-                  multiple,
-                  'aria-labelledby': name + '-label',
-                  'aria-describedby': hasInputError(meta) ? generateInputErrorId(name) : null,
-                }}
-              />
+          <div>
+            <input
+              {...{
+                id: name,
+                name,
+                type: 'file',
+                onClick: this.clearFileInput, // force onChange to fire _every_ time (use case: attempting to upload the same file after a failure)
+                onChange: async (e) => {
+                  this.setState({ errors: null })
+                  try {
+                    const files = [...e.target.files]
+                    const newFiles = removeExistingFiles(files, values)
+                    const filesWithUrls = await readFiles(newFiles)
+                    if (!filesWithUrls) return
+                    if (!multiple) return onChange(first(filesWithUrls))
+                    return onChange(filesWithUrls)
+                  } catch (e) {
+                    this.setState({ errors: e })
+                  }
+                },
+                accept,
+                multiple,
+                ref: this.setFileInputRef,
+                'aria-describedby': hasInputError(meta) ? generateInputErrorId(name) : null,
+              }}
+            />
+            {/* Include after input to allowing for styling with adjacent sibling selector */}
+            <label htmlFor={name} className={classnames("fileupload-exists", wrapperClass)}>{ labelText }</label>
           </div>
         </div>
       </LabeledField>
@@ -190,20 +189,38 @@ class FileInput extends React.Component {
   }
 }
 
+// Do not reload files that have been successfully loaded
+function removeExistingFiles (newFiles, existingFiles) {
+  return newFiles.filter((file) => {
+    return !existingFiles.some(({ name, lastModified }) => {
+      return name === file.name && lastModified === file.lastModified
+    })
+  })
+}
+
+function setInputErrors (meta, fieldWideErrors) {
+  if (meta.error || !fieldWideErrors) return meta
+  return {
+    ...meta,
+    error: isString(fieldWideErrors) ? fieldWideErrors : fieldWideErrors.message,
+    touched: true,
+    invalid: true,
+  }
+}
+
 // eslint-disable-next-line react/prop-types
 function RenderPreview ({
-  file,
   value,
   thumbnail,
   previewComponent: Component,
   children,
   ...rest
 }) {
-  if (Component) return <Component file={ file } value={ value } { ...rest } />
+  if (Component) return <Component value={ value } { ...rest } />
   if (children) return children
-  const renderImagePreview = isImageType(file) || thumbnail
-  if (renderImagePreview) return <ImagePreview image={ value || thumbnail } />
-  return <FilePreview file={ file } />
+  const renderImagePreview = isImageType(value) || thumbnail
+  if (renderImagePreview) return <ImagePreview image={ value.url || thumbnail } />
+  return <FilePreview name={ value.name } />
 }
 
 function RemoveButton ({ onRemove }) {

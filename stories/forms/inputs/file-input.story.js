@@ -23,7 +23,7 @@ function FilenamePreview ({ file }) {
 storiesOf('FileInput', module)
   .add('with defaults', () => (
     <FileInput
-      input={inputProps} 
+      input={inputProps}
       meta={{}}
     />
   ))
@@ -45,6 +45,6 @@ storiesOf('FileInput', module)
     <FileInput
       input={inputProps}
       meta={{}}
-      multiple
+      multiple={true}
     />
   ))

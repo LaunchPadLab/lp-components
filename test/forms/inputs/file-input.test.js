@@ -5,19 +5,16 @@ import { FileInput } from '../../../src/'
 const name = 'my.file.input'
 
 test('FileInput renders thumbnail with value as src when file is an image', () => {
-  const value = 'foo'
-  const file = { name: 'fileName', type: 'image/png' }
-  const props = { input: { name, value }, meta: {} }
+  const file = { name: 'fileName', type: 'image/png', url: 'foo' }
+  const props = { input: { name, value: file }, meta: {} }
   const wrapper = mount(<FileInput { ...props }/>)
-  wrapper.setState({ file })
-  expect(wrapper.find('img').props().src).toEqual(value)
+  expect(wrapper.find('img').props().src).toEqual(file.url)
 })
 
 test('FileInput renders file name when file is non-image type or value is empty', () => {
   const file = { name: 'fileName', type: 'application/pdf' }
-  const props = { input: { name, value: '' }, meta: {} }
+  const props = { input: { name, value: file }, meta: {} }
   const wrapper = mount(<FileInput { ...props } />)
-  wrapper.setState({ file })
   expect(wrapper.find('p').text()).toEqual('fileName')
 })
 
@@ -42,11 +39,10 @@ test('FileInput sets custom preview from children', () => {
 })
 
 test('FileInput sets custom preview from props', () => {
-  const Preview = ({ file, }) => <p>{ file && file.name }</p> // eslint-disable-line react/prop-types
-  const props = { input: { name, value: '' }, meta: {} }
+  const Preview = ({ value }) => <p>{ value && value.name }</p> // eslint-disable-line react/prop-types
+  const props = { input: { name, value: { name: 'fileName', type: 'image/png' } }, meta: {} }
   const wrapper = mount(<FileInput previewComponent={ Preview } { ...props }/>)
   expect(wrapper.find('p').exists()).toEqual(true)
-  wrapper.setState({ file: { name: 'fileName', type: 'image/png' } })
   expect(wrapper.find('p').text()).toEqual('fileName')
 })
 
@@ -58,25 +54,30 @@ test('FileInput passes extra props to custom preview', () => {
 })
 
 test('FileInput passes value to custom preview', () => {
-  const Preview = ({ value }) => <p>{ value }</p> // eslint-disable-line react/prop-types
-  const value = 'foo'
-  const props = { input: { name, value }, meta: {} }
+  const Preview = ({ value }) => <p>{ value.url }</p> // eslint-disable-line react/prop-types
+  const file = { name: 'fileName', url: 'foo' }
+  const props = { input: { name, value: file }, meta: {} }
   const wrapper = mount(<FileInput previewComponent={ Preview } { ...props }/>)
   expect(wrapper.find('p').exists()).toEqual(true)
-  expect(wrapper.find('p').text()).toEqual(value)
+  expect(wrapper.find('p').text()).toEqual(file.url)
 })
 
-test('FileInput reads files and calls change handlers correctly', () => {
+test('FileInput reads files and calls change handler correctly', () => {
   const FILE = { name: 'my file' }
   const FILEDATA = 'my file data'
   window.FileReader = createMockFileReader(FILEDATA)
-  const onLoad = jest.fn()
   const onChange = jest.fn()
-  const props = { input: { name, value: '', onChange }, meta: {}, onLoad }
+  const props = { input: { name, value: '', onChange }, meta: {} }
   const wrapper = mount(<FileInput { ...props }/>)
   wrapper.find('input').simulate('change', { target: { files: [FILE] }})
-  expect(onChange).toHaveBeenCalledWith(FILEDATA)
-  expect(onLoad).toHaveBeenCalledWith(FILEDATA, FILE)
+
+  // https://github.com/enzymejs/enzyme/issues/823#issuecomment-492984956
+  const asyncCheck = setImmediate(() => {
+    wrapper.update()
+    expect(onChange).toHaveBeenCalled()
+  })
+
+  global.clearImmediate(asyncCheck)
 })
 
 test('FileInput passes accept attribute to input component', () => {

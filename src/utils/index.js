@@ -1,11 +1,13 @@
 export {
   castArray,
   has,
+  first,
   identity,
   isNil,
   startCase,
   range,
   noop,
+  isString,
   union as addToArray,
   xor as removeFromArray,
 } from 'lodash'
