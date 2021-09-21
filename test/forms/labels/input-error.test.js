@@ -35,6 +35,12 @@ test('passes extra props to span element', () => {
   expect(wrapper.props().onClick).toBe(onClick)
 })
 
+test('filters invalid props passed to span element', () => {
+  const onClick = () => 'More info'
+  const wrapper = shallow(<InputError onClick={ onClick } onFancyClick={ onClick } error="Foo" touched invalid />)
+  expect(wrapper.props().onFancyClick).toBe(undefined)
+})
+
 test('is provided with an id containing the associated input name', () => {
   const inputName = "test-name"
   const wrapper = shallow(<InputError name={ inputName } invalid touched />)

@@ -1,9 +1,18 @@
 const path = require('path')
 const bourbonIncludePaths = require('bourbon').includePaths
 const neatIncludePaths = require('bourbon-neat').includePaths
-const datePickerIncludePaths = [ path.resolve(__dirname, '../node_modules/react-datepicker/src/stylesheets') ]
+const datePickerIncludePaths = [
+  path.resolve(__dirname, '../node_modules/react-datepicker/src/stylesheets'),
+]
 
 module.exports = async ({ config }) => {
+  // Storysource-addon
+  config.module.rules.push({
+    test: /\.story\.jsx?$/,
+    loaders: [require.resolve('@storybook/source-loader')],
+    enforce: 'pre',
+  })
+  // Sass
   config.module.rules.push({
     test: /\.scss$/,
     sideEffects: true,
@@ -13,20 +22,22 @@ module.exports = async ({ config }) => {
       {
         loader: 'sass-loader',
         options: {
-          includePaths: [
-            datePickerIncludePaths,
-            bourbonIncludePaths,
-            neatIncludePaths,
-          ]
-        }
-      }
-    ]
+          sassOptions: {
+            includePaths: [
+              datePickerIncludePaths,
+              bourbonIncludePaths,
+              neatIncludePaths,
+            ],
+          }
+        },
+      },
+    ],
   })
   config.resolve = {
     ...config.resolve,
     alias: {
-      'src': path.resolve(__dirname, '../src')
-    }
+      src: path.resolve(__dirname, '../src'),
+    },
   }
   return config
 }

@@ -70,14 +70,9 @@ test('FileInput reads files and calls change handler correctly', () => {
   const props = { input: { name, value: '', onChange }, meta: {} }
   const wrapper = mount(<FileInput { ...props }/>)
   wrapper.find('input').simulate('change', { target: { files: [FILE] }})
-
-  // https://github.com/enzymejs/enzyme/issues/823#issuecomment-492984956
-  const asyncCheck = setImmediate(() => {
-    wrapper.update()
-    expect(onChange).toHaveBeenCalled()
-  })
-
-  global.clearImmediate(asyncCheck)
+  // Needed since FileReader works asynchronously
+  await flushPromises()
+  expect(onChange).toHaveBeenCalledWith(FILEDATA)
 })
 
 test('FileInput passes accept attribute to input component', () => {
@@ -92,6 +87,8 @@ test('FileInput is given an aria-describedby attribute when there is an input er
   expect(wrapper.find('input').prop('aria-describedby')).toContain(name)
 })
 
+// HELPERS
+
 // Creates a mock FileReader that passes the given file data to its onload() handler
 export function createMockFileReader (fileData) {
   return class MockFileReader {
@@ -99,4 +96,10 @@ export function createMockFileReader (fileData) {
       this.onload({ target: { result: fileData } })
     }
   }
+}
+
+// Resolves when other ongoing promises have resolved
+// https://stackoverflow.com/a/51045733
+export function flushPromises () {
+  return new Promise(window.setImmediate) // eslint-disable-line no-undef
 }

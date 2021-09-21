@@ -1,4 +1,4 @@
-import { generateInputErrorId } from '../../src/utils'
+import { generateInputErrorId } from '../../src'
 
 test('when the name is empty - returns nothing', () => {
   const name = ''
@@ -6,7 +6,7 @@ test('when the name is empty - returns nothing', () => {
 })
 
 test('when the name is undefined - returns nothing', () => {
-  const name = undefined
+  const name = undefined  
   expect(generateInputErrorId(name)).toBe('')
 })
 

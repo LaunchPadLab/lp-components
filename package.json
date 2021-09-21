@@ -2,7 +2,7 @@
   "name": "@launchpadlab/lp-components",
   "version": "6.0.0",
   "engines": {
-    "node": "^8.0.0 || ^10.13.0"
+    "node": "^8.0.0 || ^10.13.0 || ^12.0.0"
   },
   "description": "Our Components",
   "main": "lib/index.js",
@@ -16,15 +16,15 @@
   },
   "license": "MIT",
   "scripts": {
-    "start": "yarn run build:development",
-    "build": "yarn build:cjs && yarn build:esm",
+    "start": "yarn && yarn build:development",
+    "build": "yarn build:cjs && yarn build:esm && yarn build:styles",
     "build:cjs": "babel src --out-dir lib",
     "build:esm": "BABEL_ENV=esm babel src --out-dir esm",
+    "build:styles": "cp -r src/styles lib/styles && node-sass src/styles/ -o lib/styles",
     "build:development": "BABEL_ENV=esm babel src --watch --out-dir esm",
-    "clean": "rm -rf lib",
+    "clean": "rm -rf lib esm",
     "docs": "documentation build src/index.js -f md -o docs.md",
     "lint": "eslint src",
-    "precommit": "yarn run docs && git add docs.md",
     "prepublish": "yarn run clean && yarn run build",
     "storybook": "yarn && start-storybook -p 6006",
     "test": "jest --coverage",
@@ -39,15 +39,18 @@
     "esm/"
   ],
   "dependencies": {
-    "@launchpadlab/lp-hoc": "^4.5.6",
+    "@launchpadlab/lp-hoc": "^5.0.4",
     "classnames": "^2.2.5",
+    "cleave.js": "^1.5.3",
     "filter-invalid-dom-props": "^2.0.0",
     "lodash": "^4.17.4",
     "moment": "^2.19.3",
     "prop-types": "^15.5.8",
     "react-color": "^2.14.0",
     "react-datepicker": "^1.0.3",
+    "react-modal": "^3.11.2",
     "react-router": "^3.2.1",
+    "react-switch": "^5.0.1",
     "redux-flash": "^2.0.1"
   },
   "devDependencies": {
@@ -56,9 +59,13 @@
     "@babel/polyfill": "^7.4.3",
     "@launchpadlab/babel-preset": "^2.1.0",
     "@launchpadlab/eslint-config": "^2.4.1",
-    "@size-limit/preset-small-lib": "^2.1.1",
+    "@size-limit/preset-small-lib": "^3.0.0",
+    "@storybook/addon-a11y": "^5.2.5",
     "@storybook/addon-actions": "^5.0.6",
+    "@storybook/addon-knobs": "^5.2.5",
     "@storybook/addon-links": "^5.0.6",
+    "@storybook/addon-storysource": "^5.2.5",
+    "@storybook/addon-viewport": "^5.2.5",
     "@storybook/addons": "^5.0.6",
     "@storybook/react": "^5.0.6",
     "babel-loader": "^8.0.0",
@@ -69,16 +76,15 @@
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.0",
     "eslint": "^6.2.1",
-    "husky": "^3.0.4",
-    "jest": "^24.7.0",
+    "husky": "^4.2.1",
+    "jest": "^25.1.0",
     "jest-canvas-mock": "^2.1.1",
     "node-sass": "^4.11.0",
-    "react": "^16.4.1",
+    "react": "^16.8.0",
     "react-dom": "^16.2.0",
     "recompose": "^0.30.0",
     "redux": "^4.0.0",
-    "sass-loader": "^7.3.1",
-    "size-limit": "^2.1.1",
+    "sass-loader": "^8.0.2",
     "style-loader": "^1.0.0",
     "webpack": "^4.39.2"
   },
@@ -86,17 +92,9 @@
     "documentation/chokidar": "^2.0.4"
   },
   "peerDependencies": {
-    "react": ">=15.5.0"
+    "react": "^16.8.0"
   },
-  "greenkeeper": {
-    "ignore": [
-      "bourbon",
-      "bourbon-neat",
-      "css-loader",
-      "react-router",
-      "sass-loader",
-      "style-loader",
-      "webpack"
-    ]
+  "husky": {
+    "pre-commit": "yarn run docs && git add docs.md"
   }
 }

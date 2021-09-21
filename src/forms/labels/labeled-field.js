@@ -80,8 +80,8 @@ const defaultProps = {
 
 function LabeledField ({
   id,
-  input: { name },
-  meta: { error, touched, invalid },
+  input,
+  meta,
   className,
   errorComponent: ErrorComponent = InputError,
   labelComponent: LabelComponent = InputLabel,
@@ -90,11 +90,13 @@ function LabeledField ({
   label,
   ...rest
 }) {
+  const { name } = input
+  const { touched, invalid } = meta
   return (
     <fieldset className={ classnames(className, { 'error': hasInputError({ touched, invalid }) }) }>
       <LabelComponent { ...{ name, id, label, ...rest } } />
         { children }
-      { !hideErrorLabel && <ErrorComponent { ...{ error, invalid, touched, name, ...rest } } /> }
+      { !hideErrorLabel && <ErrorComponent {...{ ...input, ...meta, ...rest }} /> }
     </fieldset>
   )
 }

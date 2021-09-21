@@ -56,3 +56,28 @@ test('Max button sets value to max', () => {
   expect(onChange).toHaveBeenCalledWith(10)
 })
 
+test('Current page is indicated via aria-current', () => {
+  const wrapper = mount(<Paginator value={ 5 } min={ 1 } max={ 10 } />)
+  expect(wrapper.find('.active > a').prop('aria-current')).toBe('page')
+  expect(wrapper.find('a').not('.active').first().prop('aria-current')).toBe(false)
+})
+
+test('Destination is indicated via aria-label', () => {
+  const wrapper = mount(<Paginator value={ 5 } min={ 1 } max={ 10 } />)
+  expect(wrapper.find('.active > a').prop('aria-label')).toBe('Go to page 5')
+})
+
+test('Page button is triggered via click or enter', () => {
+  const onChange = jest.fn()
+  const wrapper = mount(<Paginator value={ 5 } min={ 1 } max={ 10 } onChange={ onChange } />)
+  const link = wrapper.find('li > a').at(2)
+  link.simulate('click')
+  link.simulate('keypress', { keyCode: 13 })
+  
+  expect(onChange).toHaveBeenCalledTimes(2)
+})
+
+test('Can accept custom delimiter', () => {
+  const wrapper = mount(<Paginator value={ 1 } min={ 1 } max={ 10 } delimiter="foo" />)
+  expect(wrapper.find('.delimiter').contains('foo')).toBe(true)
+})

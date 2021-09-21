@@ -8,6 +8,9 @@ export {
   range,
   noop,
   isString,
+  orderBy,
+  first,
+  toLower,
   union as addToArray,
   xor as removeFromArray,
 } from 'lodash'
@@ -33,9 +36,4 @@ export togglePropTypes from '@launchpadlab/lp-hoc/lib/togglePropTypes'
 export onOutsideClick from '@launchpadlab/lp-hoc/lib/onOutsideClick'
 
 // Local
-export compareAtPath from './compare-at-path'
-export generateInputErrorId from './generate-input-error-id'
-export removeAt from './remove-at'
-export serializeOptions from './serialize-options'
-export serializeOptionGroups from './serialize-option-groups'
-export stripNamespace from './strip-namespace'
+export * from './local'

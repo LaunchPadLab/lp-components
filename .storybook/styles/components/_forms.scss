@@ -270,33 +270,28 @@ Uploader
   .button-secondary-light{
     overflow: hidden;
     position: relative;
-    vertical-align: middle;
-    background-color: $grey-base;
-    box-shadow: none;
-    border: none;
-    cursor: pointer;
-    color: $white-base;
-    text-align: center;
 
-    &:hover{
-      background-color: darken($grey-base, 8%);
-    }
-
-    .fileupload-exists{
+    span{
+      background-color: $grey-base;
+      cursor: pointer;
       color: $white-base;
+      text-align: center;
+      display: block;
+      @include rem(padding, 20px 0px);
+      color: $black-base;
+
+      &:hover{
+        background-color: darken($grey-base, 8%);
+      }
+
+      &.fileupload-exists{
+        color: $white-base;
+      }
     }
-  }
 
-  &.fileupload-exists{
-    div{
-      padding: 0px !important;
-
-      span{
-        //border: 1px solid $grey-base;
-        display: inline-block;
-        //@include rem(padding, 15px);
-        @include rem(margin, 20px 0px);
-        color: $black-base;
+    &.fileupload-exists{
+      div{
+        padding: 0px !important;
       }
     }
   }
@@ -310,6 +305,18 @@ Uploader
     filter:alpha(opacity=0);
     transform:translate(-300px, 0) scale(4);
     cursor: pointer;
+
+    &:focus + span{
+      outline-width: 2px;
+      outline-style: solid;
+      outline-color: Highlight;
+
+      /* WebKit gets its native focus styles. */
+      @media (-webkit-min-device-pixel-ratio:0){
+        outline-color: -webkit-focus-ring-color;
+        outline-style: auto;
+      }
+    }
   }
 }
 
