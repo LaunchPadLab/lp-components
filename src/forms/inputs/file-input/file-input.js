@@ -16,9 +16,9 @@ import { first, noop, generateInputErrorId, isString, removeAt } from '../../../
 import classnames from 'classnames'
 
 /**
- * A file input that can be used in a `redux-forms`-controlled form. 
+ * A file input that can be used in a `redux-forms`-controlled form.
  * The value of this input is a file object or an array of file objects with the `url` set to the base64 encoded data URL of the loaded file(s).
- * 
+ *
  * Allowing multiple files to be selected requires passing in the `multiple` prop set to `true`. Multiple files can then be uploaded either all at once or piecemeal. Once a file has successfully been loaded, it is possible to remove the file object from the current set of values. An optional callback can be fired when a file is removed: `onRemove(removedFile)`. To customize the component that receives this `onRemove` handler, pass in a cutom component to the `removeComponent` prop.
  *
  * By default, this component displays a thumbnail preview of the loaded file(s). This preview can be customized
@@ -26,7 +26,7 @@ import classnames from 'classnames'
  *
  * A component passed using `previewComponent` will receive the following props:
  * - `value`: the current value of the input (file object or array of file objects)
- * 
+ *
  * @name FileInput
  * @type Function
  * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
@@ -40,14 +40,13 @@ import classnames from 'classnames'
  * @param {String} [selectText] - An override for customizing the text that is displayed on the input's label. Defaults to 'Select File' or 'Select File(s)' depending on the `multiple` prop value
  *
  * @example
- * 
+ *
  * function HeadshotForm ({ handleSubmit, pristine, invalid, submitting }) {
  *   return (
  *     <form onSubmit={ handleSubmit }>
- *       <Field 
- *          name="headshot" 
- *          component={ FileInput } 
- *          onLoad={ (fileData, file) => console.log('Loaded file!', file) }
+ *       <Field
+ *          name="headshot"
+ *          component={ FileInput }
  *          selectText="Select profile picture"
  *       />
  *       <SubmitButton {...{ pristine, invalid, submitting }}>
@@ -73,6 +72,7 @@ const propTypes = {
 }
 
 const defaultProps = {
+  hidePreview: false,
   multiple: false,
   onRemove: noop,
   readFiles: readFilesAsDataUrls,
@@ -83,10 +83,10 @@ const defaultProps = {
 class FileInput extends React.Component {
   constructor (props) {
     super(props)
-    
+
     this.state = { errors: null }
     this.removeFile = this.removeFile.bind(this)
-    
+
     this.fileInput = null
     this.setFileInputRef = element => {
       this.fileInput = element
@@ -95,17 +95,17 @@ class FileInput extends React.Component {
       if (this.fileInput) this.fileInput.value = ""
     }
   }
-  
+
   async removeFile (idx) {
     const { input: { onChange, value }, multiple, onRemove } = this.props
     const [removedFile, remainingFiles] = removeAt(value, idx)
-    
+
     try {
       await onRemove(removedFile)
-      
+
       // If all files have been removed, then reset the native input
       if (!remainingFiles.length) this.clearFileInput()
-      
+
       if (multiple) return onChange(remainingFiles)
       return onChange(null)
     } catch (e) {
@@ -125,26 +125,34 @@ class FileInput extends React.Component {
       readFiles,
       removeComponent: RemoveComponent,
       selectText,
+      thumbnail,
       ...rest
     } = omitLabelProps(this.props)
     const inputMeta = setInputErrors(meta, this.state.errors)
     const wrapperClass = buttonClasses({ style: 'secondary-light', submitting })
     const labelText = selectText || (multiple ? 'Select File(s)' : 'Select File')
     const values = castFormValueToArray(value)
-    
+
     return (
       <LabeledField { ...this.props } meta={ inputMeta }>
         <div className="fileupload fileupload-exists">
-          { 
-            !hidePreview &&
-            values.map((value, idx) => {
+          {!hidePreview &&
+            <React.Fragment>
+              {values.length === 0 &&
+                <RenderPreview
+                  value={{}}
+                  thumbnail={thumbnail}
+                  {...rest}
+                />
+              }
+              {values.map((value, idx) => {
               return (
                 <div key={value.name} className="fileupload-preview-container">
-                  <RenderPreview value={value} {...rest} />
+                  <RenderPreview value={value} thumbnail={thumbnail} {...rest} />
                   { multiple && <RemoveComponent onRemove={ () => this.removeFile(idx) } /> }
                 </div>
-              )
-            })
+              )})}
+            </React.Fragment>
           }
           <div>
             <input
@@ -159,7 +167,6 @@ class FileInput extends React.Component {
                     const files = [...e.target.files]
                     const newFiles = removeExistingFiles(files, values)
                     const filesWithUrls = await readFiles(newFiles)
-
                     if (!filesWithUrls) return
                     if (!multiple) return onChange(first(filesWithUrls))
                     return onChange(filesWithUrls)
@@ -211,7 +218,7 @@ function RenderPreview ({
 }) {
   if (Component) return <Component value={ value } { ...rest } />
   if (children) return children
-  const renderImagePreview = isImageType(value.type) || thumbnail
+  const renderImagePreview = isImageType(value) || thumbnail
   if (renderImagePreview) return <ImagePreview image={ value.url || thumbnail } />
   return <FilePreview name={ value.name } />
 }
