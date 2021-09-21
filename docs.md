@@ -263,20 +263,22 @@ function ShowTabs ({ currentTab, setCurrentTab }) {
 
 A simple button component that can be used independently, or as part of a form.
 
-Conditionally adds classes and/or becomes disabled depending on passed props. If the button is `disabled` or `submitting`, the `onClick` handler will be overridden with a `noop`. This is especially helpful when preventing duplicate form submissions for **both** mouse and keyboard actions.
+Conditionally adds classes and/or sets aria-disabled depending on passed props. If the button is `disabled` or `submitting`, the `onClick` handler will be overridden with a `noop`. This is especially helpful when preventing duplicate form submissions for **both** mouse and keyboard actions.
 
 In addition to the props below, any extra props will be passed directly to the inner `<button>` element.
 
 If a className is provided to the component, it will be appended to the conditionally added classes.
 
+_Note: Instead of targeting the `:disabled` pseudo-class or `[disabled]` attribute, you can target `[aria-disabled=true]` to apply similar styling. Using the ARIA attribute keeps the `<button>` in the taborder and will be read as "disabled" or "dimmed" by screen reader technologies. You can also target `.is-disabled` which gets added as a class based on the same conditions that set `aria-disabled`._
+
 ### Parameters
 
--   `invalid` **[Boolean][151]?** Whether or not a related form is invalid (will disable when `true`)
--   `pristine` **[Boolean][151]?** Whether or not a related form is pristine (will disable when `true`)
--   `style` **[String][149]** A descriptive string that will be appended to the button's class with format `button-<type>` (optional, default `"primary"`)
--   `submitting` **[Boolean][151]?** Whether or not a related form is submitting (will give button class `'in-progress` when `true`)
--   `type` **[Boolean][151]** The [type][155] attribute of the button element (optional, default `"button"`)
--   `children` **[Function][150]?** Any React component(s) being wrapped by the button
+-   `invalid` **[Boolean][139]?** Whether or not a related form is invalid (will set aria-disabled when `true`)
+-   `pristine` **[Boolean][139]?** Whether or not a related form is pristine (will set aria-disabled when `true`)
+-   `variant` **[String][137]** A descriptive string that will be appended to the button's class with format `button-<type>` (optional, default `"primary"`)
+-   `submitting` **[Boolean][139]?** Whether or not a related form is submitting (will give button class `'in-progress` when `true`)
+-   `type` **[Boolean][139]** The [type][147] attribute of the button element (optional, default `"button"`)
+-   `children` **[Function][138]?** Any React component(s) being wrapped by the button
 
 ### Examples
 
@@ -284,9 +286,9 @@ If a className is provided to the component, it will be appended to the conditio
 function MessageButton ({ message }) {
   return (
      <Button
-       style="secondary"
+       variant="secondary"
        onClick={ () => console.log(message) }
-     > 
+     >
        Print Message
      </Button>
   )
@@ -325,7 +327,7 @@ function ButtonForm ({ handleSubmit }) {
 
 ## SubmitButton
 
-A wrapper around the [Button][12] component that adds `type="submit"`. Generally used in the context of forms. 
+A wrapper around the [Button][12] component that adds `type="submit"`. Generally used in the context of forms.
 
 With the exception of `type`, this component shares the same props as [Button][12].
 
@@ -349,7 +351,7 @@ function PersonForm ({ handleSubmit, pristine, invalid, submitting }) {
 
 ## Checkbox
 
-A checkbox input that can be used in a `redux-forms`-controlled form. 
+A checkbox input that can be used in a `redux-forms`-controlled form.
 
 This input only accepts and stores boolean values.
 
@@ -441,8 +443,8 @@ or via the `CLOUDINARY_CLOUD_NAME` and `CLOUDINARY_BUCKET` env vars (recommended
 function HeadshotForm ({ handleSubmit, pristine, invalid, submitting }) {
   return (
     <form onSubmit={ handleSubmit }>
-      <Field 
-         name="headshotUrl" 
+      <Field
+         name="headshotUrl"
          component={ CloudinaryFileInput }
          cloudName="my-cloudinary-cloud"
          bucket="my-cloudinary-bucket"
@@ -471,7 +473,7 @@ The value of this input is a hex color string.
 function UserForm ({ handleSubmit, pristine, invalid, submitting }) {
   return (
     <form onSubmit={ handleSubmit }>
-      <Field 
+      <Field
          name="favoriteColor"
          component={ ColorInput }
       />
@@ -492,7 +494,7 @@ This wrapper adds the following functionality to `DatePicker`:
 -   Converts value type from [moment][161] to [Date][162].
 -   Adds name and error labels.
 
-With the exception of the `input` and `meta` props, all props are passed down to the `DatePicker` component. 
+With the exception of the `input` and `meta` props, all props are passed down to the `DatePicker` component.
 A full list of props supported by this component can be found [here][163]. Note that unfortunately `aria-*` props are **not** supported.
 
 _Note: this component requires special styles in order to render correctly. To include these styles in your project, follow the directions in the main [README][164] file._
@@ -511,7 +513,7 @@ function BirthdayForm ({ handleSubmit }) {
       <Field
          name="birthday"
          component={DateInput}
-         placeholderText="mm/dd/yyyy" 
+         placeholderText="mm/dd/yyyy"
        />
     </form>
   )
@@ -522,7 +524,7 @@ function BirthdayForm ({ handleSubmit }) {
 
 ## DropdownCheckboxGroup
 
-A group of checkboxes that can be used in a `redux-forms`-controlled form. 
+A group of checkboxes that can be used in a `redux-forms`-controlled form.
 Wraps the [CheckboxGroup][23] component in a [DropdownSelect][165] component, which displays the selected values as a list.
 Options are displayed in a scrollable `Select`-style dropdown container.
 
@@ -567,10 +569,10 @@ export default TodoForm
 
 ## FileInput
 
-A file input that can be used in a `redux-forms`-controlled form. 
-The value of this input is the data URL of the loaded file. 
+A file input that can be used in a `redux-forms`-controlled form.
+The value of this input is the data URL of the loaded file.
 
-An optional callback can be fired when the file is loaded: `onLoad(fileData, file)`. 
+An optional callback can be fired when the file is loaded: `onLoad(fileData, file)`.
 This callback will be passed the data URL of the file, as well as the `File` object itself.
 
 By default, this component displays a thumbnail preview of the loaded file. This preview can be customized
@@ -595,9 +597,9 @@ A component passed using `previewComponent` will receive the following props:
 function HeadshotForm ({ handleSubmit, pristine, invalid, submitting }) {
   return (
     <form onSubmit={ handleSubmit }>
-      <Field 
-         name="headshot" 
-         component={ FileInput } 
+      <Field
+         name="headshot"
+         component={ FileInput }
          onLoad={ (fileData, file) => console.log('Loaded file!', file) }
       />
       <SubmitButton {...{ pristine, invalid, submitting }}>
@@ -610,7 +612,7 @@ function HeadshotForm ({ handleSubmit, pristine, invalid, submitting }) {
 
 ## HiddenInput
 
-An Input component that is hidden from the page. The input element is hidden with CSS instead 
+An Input component that is hidden from the page. The input element is hidden with CSS instead
 of using `type="hidden` so that Cypress can still access its value.
 
 Aside from being hidden, this component is identical to [Input][43],
@@ -636,7 +638,7 @@ function UserForm ({ handleSubmit }) {
 
 An input element that can be used in a `redux-forms`-controlled form.
 
-Note: The `input` tag is surrounded by a `div` with class `"input-wrapper"`. 
+Note: The `input` tag is surrounded by a `div` with class `"input-wrapper"`.
 Any children passed to this component will be rendered within this wrapper.
 
 ### Parameters
@@ -651,7 +653,7 @@ Any children passed to this component will be rendered within this wrapper.
 function UserForm ({ handleSubmit, pristine, invalid, submitting }) {
   return (
     <form onSubmit={ handleSubmit }>
-      <Field 
+      <Field
          name="firstName"
          component={ Input }
          placeholder="Your first name"
@@ -668,7 +670,7 @@ function UserForm ({ handleSubmit, pristine, invalid, submitting }) {
 
 A wrapper around the [Input][43] component that adds an icon to the input.
 
-This icon is rendered as an `<i>` tag, with a dynamic class based on the `icon` prop. 
+This icon is rendered as an `<i>` tag, with a dynamic class based on the `icon` prop.
 For example, given an `icon` prop of `"twitter"`, the component will render an [Input][43] with child `<i className="twitter-icon"/>`.
 
 Additionally, the fieldset of this [Input][43] will be given the class `"icon-label"` for styling purposes.
@@ -683,7 +685,7 @@ Additionally, the fieldset of this [Input][43] will be given the class `"icon-la
 function TwitterForm ({ handleSubmit, pristine, invalid, submitting }) {
   return (
     <form onSubmit={ handleSubmit }>
-      <Field 
+      <Field
          name="handle"
          component={ IconInput }
          icon="twitter"
@@ -713,7 +715,7 @@ A masked input that can be used in a `redux-forms`-controlled form. Built on top
 function PurchaseForm ({ handleSubmit, submitting }) {
   return (
     <form onSubmit={ handleSubmit }>
-      <Field 
+      <Field
          name="quantity"
          component={ MaskedInput }
          maskOptions={{ numeral: true }}
@@ -732,12 +734,12 @@ A range input that can be used in a `redux-forms`-controlled form.
 
 ### Parameters
 
--   `input` **[Object][156]** A `redux-forms` [input][157] object
--   `meta` **[Object][156]** A `redux-forms` [meta][158] object
--   `min` **[Number][153]** The minumum attribute of the slider control (optional, default `0`)
--   `max` **[Number][153]** The maximum attribute of the slider control (optional, default `100`)
--   `step` **[Number][153]** The step attribute of the slider control (optional, default `1`)
--   `hideLabel` **[Boolean][151]** A boolean representing whether or not to display the range value label element (optional, default `false`)
+-   `input` **[Object][145]** A `redux-forms` [input][143] object
+-   `meta` **[Object][145]** A `redux-forms` [meta][146] object
+-   `min` **[Number][141]** The minumum attribute of the slider control (optional, default `0`)
+-   `max` **[Number][141]** The maximum attribute of the slider control (optional, default `100`)
+-   `step` **[Number][141]** The step attribute of the slider control (optional, default `1`)
+-   `hideRangeLabel` **[Boolean][139]** A boolean representing whether or not to display the range value label element (optional, default `false`)
 
 ### Examples
 
@@ -745,9 +747,9 @@ A range input that can be used in a `redux-forms`-controlled form.
 function StudentForm ({ handleSubmit, pristine, invalid, submitting }) {
   return (
     <form onSubmit={ handleSubmit }>
-      <Field 
-         name="minGPA" 
-         component={ RangeInput } 
+      <Field
+         name="minGPA"
+         component={ RangeInput }
          step={ 0.5 }
          min={ 2.0 }
          max={ 4.0 }
@@ -825,12 +827,12 @@ The value of the `Select` component will be the same as the value of the selecte
 
 ### Parameters
 
--   `input` **[Object][156]** A `redux-forms` [input][157] object
--   `meta` **[Object][156]** A `redux-forms` [meta][158] object
--   `options` **[Array][154]** An array of option values (strings, numbers, or key-value pairs). This prop will be ignored if `optionGroups` is present.
--   `optionGroups` **[Array][154]** An array of option group objects
--   `placeholder` **[String][149]?** A string to display as a placeholder option
--   `enablePlaceholderOption` **[Boolean][151]** A flag indicating that the placeholder option should not be `disabled` (optional, default `false`)
+-   `input` **[Object][145]** A `redux-forms` [input][143] object
+-   `meta` **[Object][145]** A `redux-forms` [meta][146] object
+-   `options` **[Array][142]** An array of option values (strings, numbers, or key-value pairs). This prop will be ignored if `optionGroups` is present.
+-   `optionGroups` **[Array][142]** An array of option group objects
+-   `placeholder` **[String][137]** A string to display as a placeholder option. Pass in `false` to hide the placeholder option. (optional, default `'Select'`)
+-   `enablePlaceholderOption` **[Boolean][139]** A flag indicating that the placeholder option should not be `disabled` (optional, default `false`)
 
 ### Examples
 
@@ -942,7 +944,7 @@ export default CoolPersonForm
 
 ## Textarea
 
-A textarea input that can be used in a `redux-forms`-controlled form. Optionally displays a character count.
+A textarea input that can be used in a `redux-forms`-controlled form. Can forward ref down to textarea input and optionally displays a character count.
 
 ### Parameters
 
@@ -950,6 +952,7 @@ A textarea input that can be used in a `redux-forms`-controlled form. Optionally
 -   `meta` **[Object][156]** A `redux-forms` [meta][158] object
 -   `maxLength` **[Number][153]?** The maximum allowed length of the input
 -   `hideCharacterCount` **[Boolean][151]** Whether to hide the character count if given a maxLength (optional, default `false`)
+-   `forwardedRef` **[Ref][178]?** A ref to be forwarded to `textarea` input (standard `ref` cannot currently be forwarded)
 
 ### Examples
 
@@ -1026,7 +1029,7 @@ In addition to the props below, any extra props will be passed directly to the i
 ```javascript
 // A custom input to use with redux-forms
 
-function ValidatedInput ({  
+function ValidatedInput ({
   input: { name, value, onBlur, onChange },
   meta: { error, touched, invalid },
 }) {
@@ -1036,7 +1039,7 @@ function ValidatedInput ({
          name,
          value,
          onBlur,
-         onChange,   
+         onChange,
       }}
       <InputError { ...{ error, invalid, touched, name } } />
     </div>
@@ -1161,7 +1164,7 @@ function CustomLabelComponent ({ onClickLabel, ...rest }) {
 
 ## blurDirty
 
-A function that returns an HOC to wrap a `redux-forms`-controlled input. 
+A function that returns an HOC to wrap a `redux-forms`-controlled input.
 
 If the input is pristine, this HOC replaces the passed `onBlur` with an empty function.
 This prevents the form from being re-validated unless its value has changed.
@@ -1190,7 +1193,7 @@ export default compose(
 
 ## convertNameToLabel
 
-A helper function to transform a redux-form field name into a label string 
+A helper function to transform a redux-form field name into a label string
 by stripping its namespace and converting it to start case.
 
 ### Parameters
@@ -1303,7 +1306,7 @@ omitLabelProps(props)
 
 // {
 //   maxLength: 1000
-// } 
+// }
 
 // Use in a form input component
 
@@ -1313,8 +1316,8 @@ function Input (props) {
      type,
      ...rest
    } = omitLabelProps(props)
-   return ( 
-     ... 
+   return (
+     ...
    )
 }
 ```
@@ -1323,10 +1326,10 @@ Returns **[Object][156]** `props` object with [InputLabel][76] props omitted
 
 ## replaceEmptyStringValue
 
-A function that returns an HOC to wrap a `redux-forms`-controlled input. 
+A function that returns an HOC to wrap a `redux-forms`-controlled input.
 
 This HOC transforms empty string values into a different specified value.
-This helps inputs with non-string values avoid PropType errors when provided with 
+This helps inputs with non-string values avoid PropType errors when provided with
 the default redux-form initial value (an empty string).
 
 ### Parameters
@@ -1390,7 +1393,7 @@ This component's behavior is largely determined by the [TableColumn][107] compon
 -   `disableSort` **[Boolean][151]** A flag to disable sorting on all columns and hide sorting arrows. (optional, default `false`)
 -   `controlled` **[Boolean][151]** A flag to disable sorting on all columns, while keeping the sorting arrows. Used when sorting is controlled by an external source. (optional, default `false`)
 -   `onChange` **[Function][150]?** A callback that will be fired when the sorting state changes
--   `rowComponent` **[Function][150]?** A custom row component for the table. Will be passed the `data` for the row, as well as `children` to render.
+-   `rowComponent` **[Function][150]?** A custom row component for the table. Will be passed the `data` for the row, several internal table states (the current column being sorted (sortPath), whether ascending sort is active or not (ascending), the sorting function (sortFunc), and the value getter (valueGetter)) as well as `children` to render.
 -   `headerComponent` **[Function][150]?** A custom header component for the table. Will be passed the configuration of the corresponding column, as well as the current `sortPath` / `ascending` and an `onClick` handler. May be overridden by a custom `headerComponent` for a column.
 
 ### Examples
@@ -1513,7 +1516,7 @@ function Image ({ imgUrl }) {
 ## LoadingContainer
 
 A wrapper component that visually indicates whether a child component
-is loading, or loaded. 
+is loading, or loaded.
 
 LoadingContainer renders child components with modified opacity
 depending on whether `isLoading` is true or false
@@ -1557,8 +1560,8 @@ function isMember () {
 const MyRoutes = (
     <Route path="/" component={ Layout }>
        <Route path="/welcome" component={ WelcomePage } />
-       <AuthorizedRoute 
-          path="/members" 
+       <AuthorizedRoute
+          path="/members"
           component={ MembersPage }
           authFunction={ isMember }
           redirect="/welcome"
@@ -1586,8 +1589,8 @@ function isMember () {
 const MyRoutes = (
     <Route path="/" component={ Layout }>
        <Route path="/members" component={ MembersPage } />
-       <UnauthorizedRoute 
-          path="/welcome" 
+       <UnauthorizedRoute
+          path="/welcome"
           component={ WelcomePage }
           authFunction={ isMember }
           redirect="/members"
@@ -1598,7 +1601,7 @@ const MyRoutes = (
 
 ## compareAtPath
 
-A function which returns a comparison function that extracts values at a 
+A function which returns a comparison function that extracts values at a
 certain path, and runs given comparison function on those values.
 
 ### Parameters
@@ -1672,7 +1675,7 @@ Returns **[Array][154]** Array of object options
 
 ## serializeOptionGroups
 
-Function that transforms options within an option group array into 
+Function that transforms options within an option group array into
 object options with keys of `key` and `value`
 
 ### Parameters
@@ -1682,7 +1685,7 @@ object options with keys of `key` and `value`
 ### Examples
 
 ```javascript
-const optionGroups = [ 
+const optionGroups = [
  { name: 'fruits', options: ['apple', 'banana'] },
  { name: 'veggies', options: ['lettuce', 'pepper'] },
 ]
@@ -1690,13 +1693,13 @@ const optionGroups = [
 serializeOptionGroups(optionGroups)
 
 // [
-//   { 
-//     name: 'fruits', 
-//     options: [{ key: 'apple', value: 'apple' }, { key: 'banana', value: 'banana' }] 
-//   }, 
-//   { 
-//     name: 'veggies', 
-//     options: [{ key: 'lettuce', value: 'lettuce' }, { key: 'pepper', value: 'pepper' }] 
+//   {
+//     name: 'fruits',
+//     options: [{ key: 'apple', value: 'apple' }, { key: 'banana', value: 'banana' }]
+//   },
+//   {
+//     name: 'veggies',
+//     options: [{ key: 'lettuce', value: 'lettuce' }, { key: 'pepper', value: 'pepper' }]
 //   },
 // ]
 ```
@@ -2131,3 +2134,5 @@ function MyView () {
 [176]: https://github.com/reactjs/react-modal
 
 [177]: https://github.com/reactjs/react-modal/issues/25
+
+[178]: https://reactjs.org/docs/refs-and-the-dom.html

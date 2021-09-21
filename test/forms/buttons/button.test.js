@@ -2,14 +2,14 @@ import React from 'react'
 import { mount, shallow } from 'enzyme'
 import { Button } from '../../../src/'
 
-test('Button is disabled when form is invalid', () => {
+test('Button is aria-disabled when form is invalid', () => {
   const wrapper = shallow(<Button invalid={true}> Hi</Button>)
-  expect(wrapper.props().disabled).toBe(true)
+  expect(wrapper.props()['aria-disabled']).toBe(true)
 })
 
-test('Button is disabled when form is pristine', () => {
+test('Button is aria-disabled when form is pristine', () => {
   const wrapper = shallow(<Button pristine={true}> Hi</Button>)
-  expect(wrapper.props().disabled).toBe(true)
+  expect(wrapper.props()['aria-disabled']).toBe(true)
 })
 
 test('Button onClick is run when the form is not submitting, pristine, or invalid', () => {
@@ -49,8 +49,8 @@ test('Button onClick is not run when form is submitting', () => {
   expect(onClick).not.toHaveBeenCalled()
 })
 
-test('Button adds style string to class', () => {
-  const wrapper = shallow(<Button style="custom"> Hi</Button>)
+test('Button adds variant string to class', () => {
+  const wrapper = shallow(<Button variant="custom"> Hi</Button>)
   expect(wrapper.hasClass('button-custom')).toBe(true)
 })
 
@@ -70,8 +70,8 @@ test('Button passes extra props to button element', () => {
   expect(wrapper.props().onClick).toBe(onClick)
 })
 
-test('Specifying a class name prop does not override style class', () => {
-  const wrapper = shallow(<Button style="primary" className="button-large">Click Me</Button>)
+test('Specifying a class name prop does not override variant class', () => {
+  const wrapper = shallow(<Button variant="primary" className="button-large">Click Me</Button>)
   expect(wrapper.hasClass('button-primary')).toBe(true)
   expect(wrapper.hasClass('button-large')).toBe(true)
 })
@@ -86,4 +86,9 @@ test('Specifying a class name prop does not override in-progress class', () => {
   const wrapper = shallow(<Button className="button-large" submitting>Submit</Button>)
   expect(wrapper.hasClass('in-progress')).toBe(true)
   expect(wrapper.hasClass('button-large')).toBe(true)
+})
+
+test('Button can receive object style prop', () => {
+  const wrapper = shallow(<Button style={{ display: 'none' }}>Submit</Button>)
+  expect(wrapper.find('button').prop('style').display).toEqual('none')
 })

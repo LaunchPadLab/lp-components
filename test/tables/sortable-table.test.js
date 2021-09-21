@@ -151,15 +151,29 @@ test('column can have custom cell component', () => {
   expect(wrapper.find(MyCell).first().props()).toMatchObject(expectedProps)
 })
 
-test('column can have custom row component', () => {
+test('table can have custom row component initialized with table state props', () => {
   const MyRow = ({ children }) => <tr>{children}</tr> // eslint-disable-line
+  const mySort = jest.fn(compareAtPath('name', sortAscending))
+  const myValueGetter = jest.fn((data) => data.name.toUpperCase())
   const wrapper = mount(
-    <SortableTable data={tableData} rowComponent={MyRow}>
-      <Column name="name" />
+    <SortableTable
+      data={tableData}
+      rowComponent={MyRow}
+      initialAscending={false}
+      initialColumn={'name'}
+    >
+      <Column name="name" sortFunc={mySort} valueGetter={myValueGetter} />
     </SortableTable>
   )
   expect(wrapper.find(MyRow).exists()).toBe(true)
-  expect(wrapper.find(MyRow).first().props().data).toEqual({ name: 'Kim', test: true })
+  const expectedProps = {
+    data: { name: 'Tommy'},
+    ascending: false,
+    sortPath: 'name',
+    sortFunc: mySort,
+    valueGetter: myValueGetter,
+  }
+  expect(wrapper.find(MyRow).first().props()).toMatchObject(expectedProps)
 })
 
 test('column can have custom header component', () => {
@@ -334,4 +348,22 @@ test('table data is updated when data prop changes', () => {
   expect(wrapper.find('td').first().text()).toEqual('Kim')
   wrapper.setProps({ data: newTableData })
   expect(wrapper.find('td').first().text()).toEqual('Kortney')
+})
+
+test('arbitrary props passed to table element', () => {
+  const wrapper = mount(
+    <SortableTable data={tableData} aria-label="Annual Report">
+      <Column name="name" />
+    </SortableTable>
+  )
+  expect(wrapper.find('table').first().prop('aria-label')).toEqual('Annual Report')
+})
+
+test('invalid arbitrary props filtered out', () => {
+  const wrapper = mount(
+    <SortableTable data={tableData} aria-label="Annual Report" invalidProp="shouldFail">
+      <Column name="name" />
+    </SortableTable>
+  )
+  expect(wrapper.find('table').first().prop('invalidProp')).toBe(undefined)
 })

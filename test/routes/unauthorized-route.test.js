@@ -1,5 +1,5 @@
 import { getChildProps } from './helpers'
-import { UnauthorizedRoute } from '../../src/routes/unauthorized-route'
+import { UnauthorizedRouteWrapped } from '../../src/routes/unauthorized-route'
 
 // Fixtures
 const PREV_STATE_PATH = '/previous'
@@ -14,7 +14,7 @@ test('UnauthorizedRoute redirects when authorized', () => {
     redirect: REDIRECT_PATH
   }
   // Get change handler passed to child route and call it manually
-  const { onChange } = getChildProps(UnauthorizedRoute, props)
+  const { onChange } = getChildProps(UnauthorizedRouteWrapped, props)
   const replace = jest.fn()
   const callback = jest.fn()
   onChange(PREV_STATE, NEXT_STATE, replace, callback)
@@ -26,7 +26,7 @@ test('UnauthorizedRoute does not redirect when unauthorized', () => {
     authFunction: () => false,
     redirect: REDIRECT_PATH
   }
-  const { onChange } = getChildProps(UnauthorizedRoute, props)
+  const { onChange } = getChildProps(UnauthorizedRouteWrapped, props)
   const replace = jest.fn()
   const callback = jest.fn()
   onChange(PREV_STATE, NEXT_STATE, replace, callback)
