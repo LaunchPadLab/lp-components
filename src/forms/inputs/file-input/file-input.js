@@ -12,7 +12,7 @@ import {
 import { LabeledField } from '../../labels'
 import FilePreview from './file-preview'
 import ImagePreview from './image-preview';
-import { first, noop, generateInputErrorId isString, removeAt } from '../../../utils'
+import { first, noop, generateInputErrorId, isString, removeAt } from '../../../utils'
 import classnames from 'classnames'
 
 /**

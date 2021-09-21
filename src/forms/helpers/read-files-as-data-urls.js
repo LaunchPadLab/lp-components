@@ -1,10 +1,12 @@
+import { isServer } from '../../utils'
+
 // Reads files and returns objects with file information and base64 encoded string url
 async function readFilesAsDataUrls (files) {
   const filePromises = files.map(async (file) => {
     const fileData = await readFile(file)
     return createFileValueObject(file, fileData)
   })
-  
+
   return Promise.all(filePromises)
 }
 
@@ -13,12 +15,14 @@ async function readFilesAsDataUrls (files) {
 // Read a file and convert it to a base64 string (promisified)
 function readFile (file) {
   return new Promise((resolve, reject) => {
-    const reader = new FileReader()
+    if (isServer()) return resolve()
+    // eslint-disable-next-line no-undef
+    const reader = new window.FileReader()
     reader.onload = (readEvent) => {
       resolve(readEvent.target.result)
     }
     reader.onerror = reject
-    
+
     reader.readAsDataURL(file)
   })
 }

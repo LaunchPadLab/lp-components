@@ -67,18 +67,12 @@ test('CloudinaryFileInput calls success handler with array of responses on succe
   expect(onUploadSuccess.mock.calls[0][0][0].url).toBe(PUBLIC_URL)
 })
 
-test('CloudinaryFileInput calls error handler with error on failed upload', () => {
-  const fakeFileEvent = { target: { files: [{}] }}
-  internalOnChange(fakeFileEvent)
-  await flushPromises()
-  expect(onUploadSuccess).toHaveBeenCalledWith(uploadResponse)
-})
-
 test('CloudinaryFileInput calls error handler with error on failed upload', async () => {
-  const fakeFileEvent = { target: { files: [] }}
+  const fakeFileEvent = { target: { files: [{}] }}
   const onUploadFailure = jest.fn()
   const failureResponse = { errors: "Invalid filename" }
   const upload = () => Promise.reject(failureResponse)
+  // eslint-disable-next-line no-undef
   window.FileReader = createMockFileReader()
 
   const props = { input: { ...input, onChange: jest.fn() }, meta: {}, upload, cloudName, bucket, onUploadFailure }

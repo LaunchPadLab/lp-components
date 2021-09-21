@@ -62,9 +62,10 @@ test('FileInput passes value to custom preview', () => {
   expect(wrapper.find('p').text()).toEqual(file.url)
 })
 
-test('FileInput reads files and calls change handler correctly', () => {
+test('FileInput reads files and calls change handler correctly', async () => {
   const FILE = { name: 'my file' }
   const FILEDATA = 'my file data'
+  // eslint-disable-next-line no-undef
   window.FileReader = createMockFileReader(FILEDATA)
   const onChange = jest.fn()
   const props = { input: { name, value: '', onChange }, meta: {} }
@@ -72,7 +73,8 @@ test('FileInput reads files and calls change handler correctly', () => {
   wrapper.find('input').simulate('change', { target: { files: [FILE] }})
   // Needed since FileReader works asynchronously
   await flushPromises()
-  expect(onChange).toHaveBeenCalledWith(FILEDATA)
+  expect(onChange).toHaveBeenCalled()
+  expect(onChange.mock.calls[0][0].url).toBe(FILEDATA)
 })
 
 test('FileInput passes accept attribute to input component', () => {
