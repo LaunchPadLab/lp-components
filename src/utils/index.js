@@ -9,7 +9,6 @@ export {
   noop,
   isString,
   orderBy,
-  first,
   toLower,
   union as addToArray,
   xor as removeFromArray,
