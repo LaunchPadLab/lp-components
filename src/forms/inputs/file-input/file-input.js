@@ -116,10 +116,18 @@ class FileInput extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!this.props.multiple && prevProps.multiple) {
+    if (this.props.multiple !== prevProps.multiple) {
       const { value, onChange } = this.props.input
-      if (Array.isArray(value) && value.length > 1) {
-        onChange(first(value))
+      const hasValueArray = Array.isArray(value)
+
+      if (this.props.multiple) {
+        if (!hasValueArray) {
+          return onChange([value])
+        }
+      } else {
+        if (hasValueArray && value.length > 1) {
+          return onChange(first(value))
+        }
       }
     }
   }

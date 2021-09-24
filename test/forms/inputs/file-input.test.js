@@ -149,6 +149,19 @@ describe('FileInput', () => {
       expect(onChange).toHaveBeenCalled()
       expect(onChange.mock.calls[0][0]).toMatchObject(firstFile)
     })
+
+    test('modifies value to an array if prop changes from false to true', async () => {
+      const lastModified = Date.now()
+      const firstFile = { name: 'first', lastModified }
+      const onChange = jest.fn()
+      const props = { input: { name, value: firstFile, onChange }, meta: {}, multiple: false }
+      const wrapper = mount(<FileInput {...props} />)
+
+      wrapper.setProps({ multiple: true })
+      await flushPromises()
+      expect(onChange).toHaveBeenCalled()
+      expect(onChange.mock.calls[0][0]).toMatchObject([firstFile])
+    })
   })
 })
 
