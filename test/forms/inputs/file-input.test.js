@@ -78,7 +78,7 @@ describe('FileInput', () => {
     expect(onChange.mock.calls[0][0].url).toBe(FILEDATA)
   })
 
-  test("FileInput does not re-read existing files", async () => {
+  test("does not re-read existing files", async () => {
     const lastModified = Date.now()
     const firstFile = { name: 'first', lastModified }
     const readFiles = jest.fn()
@@ -161,6 +161,46 @@ describe('FileInput', () => {
       await flushPromises()
       expect(onChange).toHaveBeenCalled()
       expect(onChange.mock.calls[0][0]).toMatchObject([firstFile])
+    })
+
+    test('shows remove button component by default', () => {
+      const props = { input: { name, value: { name: 'fileName', type: 'image/png' } }, meta: {}, multiple: true }
+      const wrapper = mount(<FileInput { ...props }/>)
+      expect(wrapper.find('button.remove-file').exists()).toBe(true)
+    })
+
+    test('sets custom remove component from props', () => {
+      const RemoveComponent = () => <button className="remove-custom">Remove me!!!</button>
+      const props = { input: { name, value: { name: 'fileName', type: 'image/png' } }, meta: {}, multiple: true }
+      const wrapper = mount(<FileInput removeComponent={RemoveComponent} { ...props }/>)
+      expect(wrapper.find('button.remove-custom').exists()).toBe(true)
+      expect(wrapper.find('button.remove-file').exists()).toBe(false)
+    })
+
+    test('calls custom onRemove prop', async () => {
+      const onRemove = jest.fn()
+      const file = { name: 'fileName', type: 'image/png' }
+      const props = { input: { name, value: [file] }, meta: {}, multiple: true }
+      const wrapper = mount(<FileInput onRemove={onRemove} { ...props }/>)
+      wrapper.find('button.remove-file').simulate('click')
+      await flushPromises()
+
+      expect(onRemove).toHaveBeenCalledWith(file)
+    })
+
+    test('removes correct file', async () => {
+      const firstFile = { name: 'firstFile', type: 'image/png' }
+      const secondFile = { name: 'secondFile', type: 'image/png' }
+      const thirdFile = { name: 'thirdFile', type: 'image/png' }
+      const onChange = jest.fn()
+      const props = { input: { name, value: [firstFile, secondFile, thirdFile], onChange }, meta: {}, multiple: true }
+      const wrapper = mount(<FileInput { ...props }/>)
+      wrapper.find('button.remove-file').at(1).simulate('click') // note: at() is 0 indexed
+      await flushPromises()
+
+      expect(onChange).toHaveBeenCalled()
+      expect(onChange.mock.calls[0][0]).toHaveLength(2)
+      expect(onChange.mock.calls[0][0].find((f) => f.name === secondFile.name)).toBeUndefined()
     })
   })
 })

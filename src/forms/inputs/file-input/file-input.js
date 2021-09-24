@@ -98,7 +98,7 @@ class FileInput extends React.Component {
   }
 
   async removeFile (idx) {
-    const { input: { onChange, value }, multiple, onRemove } = this.props
+    const { input: { onChange, value }, onRemove } = this.props
     const [removedFile, remainingFiles] = removeAt(value, idx)
 
     try {
@@ -107,8 +107,8 @@ class FileInput extends React.Component {
       // If all files have been removed, then reset the native input
       if (!remainingFiles.length) this.clearFileInput()
 
-      if (multiple) return onChange(remainingFiles)
-      return onChange(null)
+      // This method is only available when multiple="true", so always set an array
+      return onChange(remainingFiles)
     } catch (e) {
       this.setState({ errors: e })
     }
