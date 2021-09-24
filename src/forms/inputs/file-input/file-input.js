@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useRef } from 'react'
+import React, { useState, useEffect, useCallback, useRef } from 'react'
 import PropTypes from 'prop-types'
 import {
   castFormValueToArray,
@@ -106,7 +106,7 @@ function FileInput(props) {
     ...rest
   } = omitLabelProps(props)
 
-  const [errors, setErrors] = React.useState(null)
+  const [errors, setErrors] = useState(null)
   const inputRef = useRef()
   const prevMultiple = usePrevious(multiple)
 
