@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  buttonClasses,
   castFormValueToArray,
   fileInputPropTypes,
   hasInputError,
@@ -148,8 +147,6 @@ class FileInput extends React.Component {
       ...rest
     } = omitLabelProps(this.props)
     const inputMeta = setInputErrors(meta, this.state.errors)
-    // Remove / replace
-    const wrapperClass = buttonClasses({ style: 'secondary-light', submitting })
     const labelText = selectText || (multiple ? 'Select File(s)' : 'Select File')
     const values = castFormValueToArray(value)
 
@@ -159,11 +156,13 @@ class FileInput extends React.Component {
           {!hidePreview &&
             <React.Fragment>
               {values.length === 0 &&
-                <RenderPreview
-                  value={{}}
-                  thumbnail={thumbnail}
-                  {...rest}
-                />
+                <div className="fileupload-preview-container">
+                  <RenderPreview
+                    value={{}}
+                    thumbnail={thumbnail}
+                    {...rest}
+                  />
+                </div>
               }
               {values.map((value, idx) => {
               return (
@@ -174,7 +173,7 @@ class FileInput extends React.Component {
               )})}
             </React.Fragment>
           }
-          <div className={wrapperClass}>
+          <div className={classnames('button-secondary-light', { 'in-progress': submitting })}>
             <input
               {...{
                 id: name,
@@ -201,7 +200,7 @@ class FileInput extends React.Component {
               }}
             />
             {/* Include after input to allowing for styling with adjacent sibling selector */}
-            <label htmlFor={name} className={classnames("fileupload-exists", wrapperClass)}>{ labelText }</label>
+            <label htmlFor={name} className="fileupload-exists">{ labelText }</label>
           </div>
         </div>
       </LabeledField>

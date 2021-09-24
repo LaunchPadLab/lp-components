@@ -40,7 +40,7 @@ const defaultProps = {
 }
 
 // Note: this component is exported directly for testing
-export function UnauthorizedRoute ({ authFunction, redirect, ...rest }) {
+export function UnauthorizedRouteWrapped ({ authFunction, redirect, ...rest }) {
   function handleRouteChange (prevState, nextState, replace, callback) {
     const isAuthenticated = authFunction()
     if (isAuthenticated) replace({ pathname: redirect })
@@ -55,9 +55,9 @@ export function UnauthorizedRoute ({ authFunction, redirect, ...rest }) {
   )
 }
 
-UnauthorizedRoute.propTypes = propTypes
-UnauthorizedRoute.defaultProps = defaultProps
+UnauthorizedRouteWrapped.propTypes = propTypes
+UnauthorizedRouteWrapped.defaultProps = defaultProps
 
 export default compose(
   adaptToReactRouter()
-)(UnauthorizedRoute)
+)(UnauthorizedRouteWrapped)

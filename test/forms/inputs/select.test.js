@@ -2,6 +2,8 @@ import React from 'react'
 import { mount } from 'enzyme'
 import { Select } from '../../../src/'
 
+const DEFAULT_PLACEHOLDER = 'Select'
+
 test('Select adds string options to select tag', () => {
   const OPTION = 'MY OPTION'
   const props = { 
@@ -11,6 +13,7 @@ test('Select adds string options to select tag', () => {
     }, 
     meta: {},
     options: [OPTION],
+    placeholder: false,
   }
   const wrapper = mount(<Select { ...props }/>)
   expect(wrapper.find('option').contains(OPTION)).toEqual(true)
@@ -27,6 +30,7 @@ test('Select adds object options to select tag', () => {
     }, 
     meta: {},
     options: [{ key: KEY, value: VALUE }],
+    placeholder: false,
   }
   const wrapper = mount(<Select { ...props }/>)
   expect(wrapper.find('option').contains(KEY)).toEqual(true)
@@ -75,11 +79,27 @@ test('Select renders option groups correctly', () => {
     }, 
     meta: {},
     optionGroups: [options],
+    placeholder: false,
   }
   const wrapper = mount(<Select { ...props }/>)
   expect(wrapper.find('optgroup').first().prop('label')).toEqual('groupName')
   expect(wrapper.find('option').first().prop('value')).toEqual('testOption')
 })
+
+test('Select has a placeholder by default', () => {
+  const props = {
+    input: {
+      name: 'test',
+      value: '',
+    },
+    options: [],
+    meta: {},
+  }
+  const wrapper = mount(<Select { ...props } />)
+  expect(wrapper.find('option').contains(DEFAULT_PLACEHOLDER)).toEqual(true)
+  expect(wrapper.find('option').prop('value')).toEqual('')
+})
+
 
 test('Select adds an aria-describedby attribute when there is an input error', () => {
   const OPTION = 'MY OPTION'
