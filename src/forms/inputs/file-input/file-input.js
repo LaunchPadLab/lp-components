@@ -19,7 +19,9 @@ import classnames from 'classnames'
  * A file input that can be used in a `redux-forms`-controlled form.
  * The value of this input is a file object or an array of file objects with the `url` set to the base64 encoded data URL of the loaded file(s).
  *
- * Allowing multiple files to be selected requires passing in the `multiple` prop set to `true`. Multiple files can then be uploaded either all at once or piecemeal. Once a file has successfully been loaded, it is possible to remove the file object from the current set of values. An optional callback can be fired when a file is removed: `onRemove(removedFile)`. To customize the component that receives this `onRemove` handler, pass in a cutom component to the `removeComponent` prop.
+ * Allowing multiple files to be selected requires passing in the `multiple` prop set to `true`. Multiple files can then be uploaded either all at once or piecemeal. This is different than the standard behavior of a file input, which will _replace_ any existing files with whatever is selected.
+ *
+ * Once a file has been read successfully, it is possible to remove the file object from the current set of values. An optional callback can be fired when a file is removed: `onRemove(removedFile)`. To customize the component that receives this `onRemove` handler, pass in a cutom component to the `removeComponent` prop.
  *
  * By default, this component displays a thumbnail preview of the loaded file(s). This preview can be customized
  * by using the `thumbnail` or `hidePreview` props, as well as by passing a custom preview via `previewComponent` or `children`.
@@ -113,6 +115,15 @@ class FileInput extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (!this.props.multiple && prevProps.multiple) {
+      const { value, onChange } = this.props.input
+      if (Array.isArray(value) && value.length > 1) {
+        onChange(first(value))
+      }
+    }
+  }
+
   render () {
     const {
       input: { name, onChange, value },
@@ -129,6 +140,7 @@ class FileInput extends React.Component {
       ...rest
     } = omitLabelProps(this.props)
     const inputMeta = setInputErrors(meta, this.state.errors)
+    // Remove / replace
     const wrapperClass = buttonClasses({ style: 'secondary-light', submitting })
     const labelText = selectText || (multiple ? 'Select File(s)' : 'Select File')
     const values = castFormValueToArray(value)
@@ -166,10 +178,10 @@ class FileInput extends React.Component {
                   try {
                     const files = [...e.target.files]
                     const newFiles = removeExistingFiles(files, values)
-                    const filesWithUrls = await readFiles(newFiles)
-                    if (!filesWithUrls) return
-                    if (!multiple) return onChange(first(filesWithUrls))
-                    return onChange(filesWithUrls)
+                    const newFilesWithUrls = await readFiles(newFiles)
+                    if (!newFilesWithUrls) return
+                    if (!multiple) return onChange(first(newFilesWithUrls))
+                    return onChange([...values, ...newFilesWithUrls])
                   } catch (e) {
                     this.setState({ errors: e })
                   }
