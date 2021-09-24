@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useCallback, useRef } from 'react'
 import PropTypes from 'prop-types'
 import {
   castFormValueToArray,
@@ -81,131 +81,132 @@ const defaultProps = {
   selectText: '',
 }
 
-class FileInput extends React.Component {
-  constructor (props) {
-    super(props)
+function usePrevious(value) {
+  const ref = useRef()
+  useEffect(() => {
+    ref.current = value
+  })
+  return ref.current
+}
 
-    this.state = { errors: null }
-    this.removeFile = this.removeFile.bind(this)
+function FileInput(props) {
+  const {
+    input,
+    meta,
+    className, // eslint-disable-line no-unused-vars
+    submitting,
+    accept,
+    hidePreview,
+    multiple,
+    readFiles,
+    removeComponent: RemoveComponent,
+    selectText,
+    thumbnail,
+    onRemove,
+    ...rest
+  } = omitLabelProps(props)
 
-    this.fileInput = null
-    this.setFileInputRef = element => {
-      this.fileInput = element
-    }
-    this.clearFileInput = () => {
-      if (this.fileInput) this.fileInput.value = ""
+  const [errors, setErrors] = React.useState(null)
+  const inputRef = useRef()
+  const prevMultiple = usePrevious(multiple)
+
+  const clearFileInput = () => {
+    if (inputRef.current) {
+      inputRef.current.value = ''
     }
   }
 
-  async removeFile (idx) {
-    const { input: { onChange, value }, onRemove } = this.props
+  const removeFile = useCallback(async (idx) => {
+    const { onChange, value } = input
     const [removedFile, remainingFiles] = removeAt(value, idx)
 
     try {
       await onRemove(removedFile)
 
       // If all files have been removed, then reset the native input
-      if (!remainingFiles.length) this.clearFileInput()
+      if (!remainingFiles.length) clearFileInput()
 
       // This method is only available when multiple="true", so always set an array
       return onChange(remainingFiles)
     } catch (e) {
-      this.setState({ errors: e })
+      setErrors(e)
     }
-  }
+  }, [input, onRemove])
 
-  componentDidUpdate(prevProps) {
-    if (this.props.multiple !== prevProps.multiple) {
-      const { value, onChange } = this.props.input
-      const hasValueArray = Array.isArray(value)
+  useEffect(() => {
+    // Only subscribe to _changes_ in the prop (not intial mount)
+    if (prevMultiple === undefined || prevMultiple === multiple) return
 
-      if (this.props.multiple) {
-        if (!hasValueArray) {
-          return onChange([value])
-        }
-      } else {
-        if (hasValueArray && value.length > 1) {
-          return onChange(first(value))
-        }
-      }
+    const { value, onChange } = input
+
+    if (multiple) {
+      const valueToUpdate = value ? [value] : []
+      onChange(valueToUpdate)
+    } else {
+      const valueToUpdate = first(value) || null
+      onChange(valueToUpdate)
     }
-  }
+  }, [prevMultiple, multiple])
 
-  render () {
-    const {
-      input: { name, onChange, value },
-      meta,
-      className, // eslint-disable-line no-unused-vars
-      submitting,
-      accept,
-      hidePreview,
-      multiple,
-      readFiles,
-      removeComponent: RemoveComponent,
-      selectText,
-      thumbnail,
-      ...rest
-    } = omitLabelProps(this.props)
-    const inputMeta = setInputErrors(meta, this.state.errors)
-    const labelText = selectText || (multiple ? 'Select File(s)' : 'Select File')
-    const values = castFormValueToArray(value)
+  const inputMeta = setInputErrors(meta, errors)
+  const labelText = selectText || (multiple ? 'Select File(s)' : 'Select File')
+  const values = castFormValueToArray(input.value)
 
-    return (
-      <LabeledField { ...this.props } meta={ inputMeta }>
-        <div className="fileupload fileupload-exists">
-          {!hidePreview &&
-            <React.Fragment>
-              {values.length === 0 &&
-                <div className="fileupload-preview-container">
-                  <RenderPreview
-                    value={{}}
-                    thumbnail={thumbnail}
-                    {...rest}
-                  />
-                </div>
-              }
-              {values.map((value, idx) => {
-              return (
-                <div key={value.name} className="fileupload-preview-container">
-                  <RenderPreview value={value} thumbnail={thumbnail} {...rest} />
-                  { multiple && <RemoveComponent onRemove={ () => this.removeFile(idx) } /> }
-                </div>
-              )})}
-            </React.Fragment>
-          }
-          <div className={classnames('button-secondary-light', { 'in-progress': submitting })}>
-            <input
-              {...{
-                id: name,
-                name,
-                type: 'file',
-                onClick: this.clearFileInput, // force onChange to fire _every_ time (use case: attempting to upload the same file after a failure)
-                onChange: async (e) => {
-                  this.setState({ errors: null })
-                  try {
-                    const files = [...e.target.files]
-                    const newFiles = removeExistingFiles(files, values)
-                    const newFilesWithUrls = await readFiles(newFiles)
-                    if (!newFilesWithUrls) return
-                    if (!multiple) return onChange(first(newFilesWithUrls))
-                    return onChange([...values, ...newFilesWithUrls])
-                  } catch (e) {
-                    this.setState({ errors: e })
-                  }
-                },
-                accept,
-                multiple,
-                ref: this.setFileInputRef,
-                'aria-describedby': hasInputError(meta) ? generateInputErrorId(name) : null,
-              }}
-            />
-            {/* Include after input to allowing for styling with adjacent sibling selector */}
-            <label htmlFor={name} className="fileupload-exists">{ labelText }</label>
-          </div>
+  return (
+  <LabeledField { ...props } meta={ inputMeta }>
+      <div className="fileupload fileupload-exists">
+        {!hidePreview &&
+          <React.Fragment>
+            {values.length === 0 &&
+              <div className="fileupload-preview-container">
+                <RenderPreview
+                  value={{}}
+                  thumbnail={thumbnail}
+                  {...rest}
+                />
+              </div>
+            }
+            {values.map((value, idx) => {
+            return (
+              <div key={value.name} className="fileupload-preview-container">
+                <RenderPreview value={value} thumbnail={thumbnail} {...rest} />
+                { multiple && <RemoveComponent onRemove={ () => removeFile(idx) } /> }
+              </div>
+            )})}
+          </React.Fragment>
+        }
+        <div className={classnames('button-secondary-light', { 'in-progress': submitting })}>
+          <input
+            {...{
+              id: input.name,
+              name: input.name,
+              type: 'file',
+              onClick: clearFileInput, // force onChange to fire _every_ time (use case: attempting to upload the same file after a failure)
+              onChange: async (e) => {
+                setErrors(null)
+                try {
+                  const files = [...e.target.files]
+                  const newFiles = removeExistingFiles(files, values)
+                  const newFilesWithUrls = await readFiles(newFiles)
+                  if (!newFilesWithUrls) return
+                  if (!multiple) return input.onChange(first(newFilesWithUrls))
+                  return input.onChange([...values, ...newFilesWithUrls])
+                } catch (e) {
+                  setErrors(e)
+                }
+              },
+              accept,
+              multiple,
+              ref: inputRef,
+              'aria-describedby': hasInputError(meta) ? generateInputErrorId(input.name) : null,
+            }}
+          />
+          {/* Include after input to allowing for styling with adjacent sibling selector */}
+          <label htmlFor={input.name} className="fileupload-exists">{ labelText }</label>
         </div>
-      </LabeledField>
-    )
-  }
+      </div>
+    </LabeledField>
+  )
 }
 
 // Do not reload files that have been successfully loaded
