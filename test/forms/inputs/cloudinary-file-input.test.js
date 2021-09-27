@@ -2,6 +2,7 @@ import React from 'react'
 import { mount } from 'enzyme'
 import { CloudinaryFileInput } from '../../../src/'
 import { mockFileReader, flushPromises } from './file-input.test'
+import { act } from 'react-dom/test-utils'
 
 const name = 'name.of.field'
 const value = { name: 'existingFileName', url: 'value of field' }
@@ -83,8 +84,8 @@ test('CloudinaryFileInput calls error handler with error on failed upload', asyn
   const props = { input: { ...input, onChange: jest.fn() }, meta: {}, upload, cloudName, bucket, onUploadFailure }
   const wrapper = mount(<CloudinaryFileInput {...props} />)
   const internalOnChange = wrapper.find('input').prop('onChange')
-  internalOnChange(fakeFileEvent)
 
-  await flushPromises()
+  // Ensure that any state changes have occurred before asserting (e.g., setErrors(e))
+  await act(() => internalOnChange(fakeFileEvent))
   expect(onUploadFailure).toHaveBeenCalledWith(failureResponse)
 })
