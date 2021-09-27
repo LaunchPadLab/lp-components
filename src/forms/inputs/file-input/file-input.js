@@ -111,6 +111,7 @@ function FileInput(props) {
   const prevMultiple = usePrevious(multiple)
 
   const clearFileInput = () => {
+    /* istanbul ignore next */
     if (inputRef.current) {
       inputRef.current.value = ''
     }

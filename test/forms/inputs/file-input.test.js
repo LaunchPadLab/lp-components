@@ -124,10 +124,27 @@ describe('FileInput', () => {
     expect(wrapper.find('input').prop('aria-describedby')).toContain(name)
   })
 
-  test('shows errors that occur from reading', async () => {
+  test('shows error messages that occur from reading', async () => {
     const ERROR_MESSAGE = 'cannot read'
     const file = { name: 'fileName' }
     const readFiles = jest.fn(() => Promise.reject(ERROR_MESSAGE))
+    const props = { input: { name, value: '', onChange: defaultOnChange }, meta: {}, readFiles }
+    const wrapper = mount(<FileInput {...props}/>)
+
+    await act(() => {
+      wrapper.find('input').simulate('change', { target: { files: [file] } })
+      return flushPromises().then(() => wrapper.update())
+    })
+
+    expect(wrapper.find('span.error-message').text()).toBe(ERROR_MESSAGE)
+  })
+
+  test('shows error that occurs from reading', async () => {
+    const ERROR_MESSAGE = 'cannot read'
+    const file = { name: 'fileName' }
+    const readFiles = jest.fn(() => {
+      throw new Error(ERROR_MESSAGE)
+    })
     const props = { input: { name, value: '', onChange: defaultOnChange }, meta: {}, readFiles }
     const wrapper = mount(<FileInput {...props}/>)
 
@@ -156,7 +173,7 @@ describe('FileInput', () => {
       expect(onChange.mock.calls[0][0]).toHaveLength(2)
     })
 
-    test('selects first file if prop changes from true to false', async () => {
+    test('selects first file when prop changes from true to false', async () => {
       const lastModified = Date.now()
       const firstFile = { name: 'first', lastModified }
       const secondFile = { name: 'second', lastModified }
@@ -170,7 +187,18 @@ describe('FileInput', () => {
       expect(onChange.mock.calls[0][0]).toMatchObject(firstFile)
     })
 
-    test('modifies value to an array if prop changes from false to true', async () => {
+    test('sets input to null when input has no values and prop changes from true to false', async () => {
+      const onChange = jest.fn()
+      const props = { input: { name, value: '', onChange }, meta: {}, multiple: true }
+      const wrapper = mount(<FileInput {...props} />)
+
+      wrapper.setProps({ multiple: false })
+      await flushPromises()
+      expect(onChange).toHaveBeenCalled()
+      expect(onChange.mock.calls[0][0]).toBeNull()
+    })
+
+    test('modifies value to an array of values when prop changes from false to true', async () => {
       const lastModified = Date.now()
       const firstFile = { name: 'first', lastModified }
       const onChange = jest.fn()
@@ -181,6 +209,17 @@ describe('FileInput', () => {
       await flushPromises()
       expect(onChange).toHaveBeenCalled()
       expect(onChange.mock.calls[0][0]).toMatchObject([firstFile])
+    })
+
+    test('modifies value to an empty array when input has no values and prop changes from false to true', async () => {
+      const onChange = jest.fn()
+      const props = { input: { name, value: '', onChange }, meta: {}, multiple: false }
+      const wrapper = mount(<FileInput {...props} />)
+
+      wrapper.setProps({ multiple: true })
+      await flushPromises()
+      expect(onChange).toHaveBeenCalled()
+      expect(onChange.mock.calls[0][0]).toEqual([])
     })
 
     test('shows remove button component by default', () => {
