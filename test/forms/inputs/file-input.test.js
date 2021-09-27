@@ -6,6 +6,10 @@ const name = 'my.file.input'
 const defaultOnChange = () => null
 
 describe('FileInput', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+
   test('renders thumbnail with value as src when file is an image', () => {
     const file = { name: 'fileName', type: 'image/png', url: 'foo' }
     const props = { input: { name, value: file, onChange: defaultOnChange }, meta: {} }
@@ -67,8 +71,7 @@ describe('FileInput', () => {
   test('reads files and calls change handler correctly', async () => {
     const FILE = { name: 'my file' }
     const FILEDATA = 'my file data'
-    // eslint-disable-next-line no-undef
-    window.FileReader = createMockFileReader(FILEDATA)
+    mockFileReader(FILEDATA)
     const onChange = jest.fn()
     const props = { input: { name, value: '', onChange }, meta: {} }
     const wrapper = mount(<FileInput { ...props }/>)
@@ -125,8 +128,7 @@ describe('FileInput', () => {
       const firstFile = { name: 'first', lastModified }
       const secondFile = { name: 'second', lastModified }
       const FILEDATA = 'my file data'
-      // eslint-disable-next-line no-undef
-      window.FileReader = createMockFileReader(FILEDATA)
+      mockFileReader(FILEDATA)
       const onChange = jest.fn()
       const props = { input: { name, value: firstFile, onChange }, meta: {}, multiple: true }
       const wrapper = mount(<FileInput {...props} />)
@@ -209,12 +211,18 @@ describe('FileInput', () => {
 // HELPERS
 
 // Creates a mock FileReader that passes the given file data to its onload() handler
-export function createMockFileReader (fileData) {
+function createMockFileReader (fileData) {
   return class MockFileReader {
     readAsDataURL () {
       this.onload({ target: { result: fileData } })
     }
   }
+}
+
+export function mockFileReader (fileData) {
+  const mockReader = createMockFileReader(fileData)
+  // eslint-disable-next-line no-undef
+  jest.spyOn(global, 'FileReader').mockImplementation(() => new mockReader())
 }
 
 // Resolves when other ongoing promises have resolved
