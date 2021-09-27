@@ -1,6 +1,7 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import { FileInput } from '../../../src/'
+import { act } from 'react-dom/test-utils'
 
 const name = 'my.file.input'
 const defaultOnChange = () => null
@@ -110,6 +111,7 @@ describe('FileInput', () => {
 
     expect(onChange.mock.calls[0][0].name).toBe(secondFile.name)
   })
+
   test('passes accept attribute to input component', () => {
     const props = { input: { name, value: '', onChange: defaultOnChange }, meta: {}, accept: 'image/*' }
     const wrapper = mount(<FileInput { ...props }/>)
@@ -120,6 +122,21 @@ describe('FileInput', () => {
     const props = { input: { name, value: '', onChange: defaultOnChange }, meta: { touched: true, invalid: true } }
     const wrapper = mount(<FileInput { ...props }/>)
     expect(wrapper.find('input').prop('aria-describedby')).toContain(name)
+  })
+
+  test('shows errors that occur from reading', async () => {
+    const ERROR_MESSAGE = 'cannot read'
+    const file = { name: 'fileName' }
+    const readFiles = jest.fn(() => Promise.reject(ERROR_MESSAGE))
+    const props = { input: { name, value: '', onChange: defaultOnChange }, meta: {}, readFiles }
+    const wrapper = mount(<FileInput {...props}/>)
+
+    await act(() => {
+      wrapper.find('input').simulate('change', { target: { files: [file] } })
+      return flushPromises().then(() => wrapper.update())
+    })
+
+    expect(wrapper.find('span.error-message').text()).toBe(ERROR_MESSAGE)
   })
 
   describe('with "multiple" enabled', () => {
@@ -204,6 +221,24 @@ describe('FileInput', () => {
       expect(onChange).toHaveBeenCalled()
       expect(onChange.mock.calls[0][0]).toHaveLength(2)
       expect(onChange.mock.calls[0][0].find((f) => f.name === secondFile.name)).toBeUndefined()
+    })
+
+    test('shows error when remove fails', async () => {
+      const ERROR_MESSAGE = 'cannot read'
+      const file = { name: 'fileName' }
+      const readFiles = jest.fn()
+      const onRemove = jest.fn(() => Promise.reject(ERROR_MESSAGE))
+
+      const props = { input: { name, value: [file], onChange: defaultOnChange }, meta: {}, multiple: true, readFiles, onRemove }
+      const wrapper = mount(<FileInput {...props}/>)
+      expect(wrapper.find('span.error-message').exists()).toBe(false)
+
+      await act(() => {
+        wrapper.find('button.remove-file').simulate('click')
+        return flushPromises().then(() => wrapper.update())
+      })
+
+      expect(wrapper.find('span.error-message').text()).toBe(ERROR_MESSAGE)
     })
   })
 })
