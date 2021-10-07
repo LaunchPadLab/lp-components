@@ -223,9 +223,16 @@ describe('FileInput', () => {
     })
 
     test('shows remove button component by default', () => {
-      const props = { input: { name, value: { name: 'fileName', type: 'image/png' }, onChange: defaultOnChange }, meta: {}, multiple: true }
+      const props = { input: { name, value: [{ name: 'fileName', type: 'image/png' }], onChange: defaultOnChange }, meta: {}, multiple: true }
       const wrapper = mount(<FileInput { ...props }/>)
       expect(wrapper.find('button.remove-file').exists()).toBe(true)
+    })
+
+    test('adds custom aria-label to default remove button', () => {
+      const file = { name: 'fileName.png', type: 'image/png' }
+      const props = { input: { name, value: [file], onChange: defaultOnChange }, meta: {}, multiple: true }
+      const wrapper = mount(<FileInput {...props} />)
+      expect(wrapper.find('button.remove-file').prop('aria-label')).toContain(file.name)
     })
 
     test('sets custom remove component from props', () => {
