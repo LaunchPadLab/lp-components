@@ -10,7 +10,7 @@ import {
 } from '../../helpers'
 import { LabeledField } from '../../labels'
 import FilePreview from './file-preview'
-import ImagePreview from './image-preview';
+import ImagePreview from './image-preview'
 import { first, noop, generateInputErrorId, isString, removeAt } from '../../../utils'
 import classnames from 'classnames'
 
@@ -20,7 +20,7 @@ import classnames from 'classnames'
  *
  * Allowing multiple files to be selected requires passing in the `multiple` prop set to `true`. Multiple files can then be uploaded either all at once or piecemeal. This is different than the standard behavior of a file input, which will _replace_ any existing files with whatever is selected.
  *
- * Once a file has been read successfully, it is possible to remove the file object from the current set of values. An optional callback can be fired when a file is removed: `onRemove(removedFile)`. To customize the component that receives this `onRemove` handler, pass in a cutom component to the `removeComponent` prop.
+ * Once a file has been read successfully, it is possible to remove the file object from the current set of values. An optional callback can be fired when a file is removed: `onRemove(removedFile)`. To customize the component that receives this `onRemove` handler, pass in a custom component to the `removeComponent` prop.
  *
  * By default, this component displays a thumbnail preview of the loaded file(s). This preview can be customized
  * by using the `thumbnail` or `hidePreview` props, as well as by passing a custom preview via `previewComponent` or `children`.
@@ -30,16 +30,21 @@ import classnames from 'classnames'
  *
  * @name FileInput
  * @type Function
- * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
- * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
- * @param {Function} [readFiles] - A callback that is fired with new files and is expected to return an array of file objects with the `url` key set to the "read" value. This can be either a data URL or the public URL from a 3rd party API
+ * @param {Object} input - A `redux-form` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
+ * @param {Object} meta - A `redux-form` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+ * @param {Function} [readFiles=readFilesAsDataUrls] - A callback that is fired with new files and is expected to return an array of file objects with the `url` key set to the "read" value. This can be either a data URL or the public URL from a 3rd party API
  * @param {Boolean} [multiple=false] - A flag indicating whether or not to accept multiple files
+ * @param {String} [accept] - Value that defines the file types the file input should accept (e.g., ".doc,.docx"). More info: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept
+ * @param {("user"|"environment")} [capture] - Value that specifies which camera to use, if the accept attribute indicates the input type of image or video. This is not available for all devices (e.g., desktops). More info: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#capture
  * @param {Function} [onRemove=noop] - A callback fired when the file is removed (only available when `multiple` is set to `true`)
- * @param {Function} [removeComponent=RemoveButton] - A custom component that receives the `onRemove` callback (only available when `multiple` is set to `true`)
+ * @param {Function} [previewComponent=RenderPreview] - A custom component that is used to display a preview of each attached file
+ * @param {Function} [removeComponent=RemoveButton] - A custom component that receives `value` and `onRemove` props (only available when `multiple` is set to `true`)
  * @param {String} [thumbnail] - A placeholder image to display before the file is loaded
  * @param {Boolean} [hidePreview=false] - A flag indicating whether or not to hide the file preview
  * @param {String} [selectText] - An override for customizing the text that is displayed on the input's label. Defaults to 'Select File' or 'Select File(s)' depending on the `multiple` prop value
  *
+ * Additionally, the file input will pass down the rest of the props 
+ * 
  * @example
  *
  * function HeadshotForm ({ handleSubmit, pristine, invalid, submitting }) {
@@ -96,6 +101,7 @@ function FileInput(props) {
     className, // eslint-disable-line no-unused-vars
     submitting,
     accept,
+    capture,
     hidePreview,
     multiple,
     readFiles,
@@ -171,7 +177,7 @@ function FileInput(props) {
             return (
               <div key={value.name} className="fileupload-preview-container">
                 <RenderPreview value={value} thumbnail={thumbnail} {...rest} />
-                { multiple && <RemoveComponent onRemove={ () => removeFile(idx) } /> }
+                { multiple && <RemoveComponent value={value} onRemove={ () => removeFile(idx) } /> }
               </div>
             )})}
           </React.Fragment>
@@ -198,6 +204,7 @@ function FileInput(props) {
               },
               accept,
               multiple,
+              capture,
               ref: inputRef,
               'aria-describedby': hasInputError(meta) ? generateInputErrorId(input.name) : null,
             }}
@@ -244,12 +251,13 @@ function RenderPreview ({
   return <FilePreview name={ value.name } />
 }
 
-function RemoveButton ({ onRemove }) {
+function RemoveButton ({ value, onRemove }) {
   return (
     <button
       type="button"
       className="remove-file"
       onClick={onRemove}
+      aria-label={`Remove ${value.name}`}
     >
       x
     </button>
