@@ -46,7 +46,7 @@ describe('FileInput', () => {
   })
 
   test('sets custom preview from props', () => {
-    const Preview = ({ value }) => <p>{ value && value.name }</p> // eslint-disable-line react/prop-types
+    const Preview = ({ file }) => <p>{ file && file.name }</p> // eslint-disable-line react/prop-types
     const props = { input: { name, value: { name: 'fileName', type: 'image/png' }, onChange: defaultOnChange }, meta: {} }
     const wrapper = mount(<FileInput previewComponent={ Preview } { ...props }/>)
     expect(wrapper.find('p').exists()).toEqual(true)
@@ -60,8 +60,8 @@ describe('FileInput', () => {
     expect(wrapper.find('p').text()).toEqual('FOO')
   })
 
-  test('passes value to custom preview', () => {
-    const Preview = ({ value }) => <p>{ value.url }</p> // eslint-disable-line react/prop-types
+  test('passes file to custom preview', () => {
+    const Preview = ({ file }) => <p>{ file.url }</p> // eslint-disable-line react/prop-types
     const file = { name: 'fileName', url: 'foo' }
     const props = { input: { name, value: file, onChange: defaultOnChange }, meta: {} }
     const wrapper = mount(<FileInput previewComponent={ Preview } { ...props }/>)
@@ -74,13 +74,13 @@ describe('FileInput', () => {
     const FILEDATA = 'my file data'
     mockFileReader(FILEDATA)
     const onChange = jest.fn()
-    const props = { input: { name, value: '', onChange }, meta: {} }
+    const props = { input: { name, value: [], onChange }, meta: {} }
     const wrapper = mount(<FileInput { ...props }/>)
     wrapper.find('input').simulate('change', { target: { files: [FILE] }})
     // Needed since FileReader works asynchronously
     await flushPromises()
     expect(onChange).toHaveBeenCalled()
-    expect(onChange.mock.calls[0][0].url).toBe(FILEDATA)
+    expect(onChange.mock.calls[0][0][0].url).toBe(FILEDATA)
   })
 
   test("does not re-read existing files", async () => {
@@ -103,13 +103,26 @@ describe('FileInput', () => {
     const secondFile = { name: 'second', lastModified }
     const readFiles = jest.fn((arr) => arr.map((file) => ({ ...file, url: 'my-data-url' })))
     const onChange = jest.fn()
-    const props = { input: { name, value: firstFile, onChange }, meta: {}, readFiles }
+    const props = { input: { name, value: [firstFile], onChange }, meta: {}, readFiles }
     const wrapper = mount(<FileInput {...props} />)
 
     wrapper.find('input').simulate('change', { target: { files: [secondFile] } })
     await flushPromises()
 
-    expect(onChange.mock.calls[0][0].name).toBe(secondFile.name)
+    expect(onChange.mock.calls[0][0][0].name).toBe(secondFile.name)
+  })
+
+  test('coerces initial value to an array', async () => {
+    const lastModified = Date.now()
+    const firstFile = { name: 'first', lastModified }
+    const readFiles = jest.fn((arr) => arr.map((file) => ({ ...file, url: 'my-data-url' })))
+    const onChange = jest.fn()
+    const props = { input: { name, value: firstFile, onChange }, meta: {}, readFiles }
+    
+    mount(<FileInput {...props} />)
+    await flushPromises()
+
+    expect(onChange.mock.calls[0][0]).toEqual([firstFile])
   })
 
   test('passes accept attribute to input component', () => {
@@ -164,7 +177,7 @@ describe('FileInput', () => {
       const FILEDATA = 'my file data'
       mockFileReader(FILEDATA)
       const onChange = jest.fn()
-      const props = { input: { name, value: firstFile, onChange }, meta: {}, multiple: true }
+      const props = { input: { name, value: [firstFile], onChange }, meta: {}, multiple: true }
       const wrapper = mount(<FileInput {...props} />)
 
       wrapper.find('input').simulate('change', { target: { files: [secondFile] } })
@@ -184,42 +197,7 @@ describe('FileInput', () => {
       wrapper.setProps({ multiple: false })
       await flushPromises()
       expect(onChange).toHaveBeenCalled()
-      expect(onChange.mock.calls[0][0]).toMatchObject(firstFile)
-    })
-
-    test('sets input to null when input has no values and prop changes from true to false', async () => {
-      const onChange = jest.fn()
-      const props = { input: { name, value: '', onChange }, meta: {}, multiple: true }
-      const wrapper = mount(<FileInput {...props} />)
-
-      wrapper.setProps({ multiple: false })
-      await flushPromises()
-      expect(onChange).toHaveBeenCalled()
-      expect(onChange.mock.calls[0][0]).toBeNull()
-    })
-
-    test('modifies value to an array of values when prop changes from false to true', async () => {
-      const lastModified = Date.now()
-      const firstFile = { name: 'first', lastModified }
-      const onChange = jest.fn()
-      const props = { input: { name, value: firstFile, onChange }, meta: {}, multiple: false }
-      const wrapper = mount(<FileInput {...props} />)
-
-      wrapper.setProps({ multiple: true })
-      await flushPromises()
-      expect(onChange).toHaveBeenCalled()
-      expect(onChange.mock.calls[0][0]).toMatchObject([firstFile])
-    })
-
-    test('modifies value to an empty array when input has no values and prop changes from false to true', async () => {
-      const onChange = jest.fn()
-      const props = { input: { name, value: '', onChange }, meta: {}, multiple: false }
-      const wrapper = mount(<FileInput {...props} />)
-
-      wrapper.setProps({ multiple: true })
-      await flushPromises()
-      expect(onChange).toHaveBeenCalled()
-      expect(onChange.mock.calls[0][0]).toEqual([])
+      expect(onChange.mock.calls[0][0][0]).toMatchObject(firstFile)
     })
 
     test('shows remove button component by default', () => {

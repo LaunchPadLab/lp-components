@@ -573,19 +573,17 @@ export default TodoForm
 
 ## FileInput
 
-A file input that can be used in a `redux-forms`-controlled form.
-The value of this input is a file object or an array of file objects with the `url` set to the base64 encoded data URL of the loaded file(s).
+A file input that can be used in a `redux-form`-controlled form.
+The value of this input is an array of file objects, with the `url` set to the base64 encoded Ddata URL of the loaded file(s) by default.
 
-Allowing multiple files to be selected requires passing in the `multiple` prop set to `true`. Multiple files can then be uploaded either all at once or piecemeal. This is different than the standard behavior of a file input, which will _replace_ any existing files with whatever is selected.
-
-Once a file has been read successfully, it is possible to remove the file object from the current set of values. An optional callback can be fired when a file is removed: `onRemove(removedFile)`. To customize the component that receives this `onRemove` handler, pass in a custom component to the `removeComponent` prop.
+Allowing multiple files to be selected requires setting the `multiple` prop to `true`. Multiple files can then be uploaded either all at once or piecemeal. This is different than the standard behavior of a file input, which will _replace_ any existing files with whatever is selected. Once a file has been read successfully, it is possible to remove the file object from the current set of files. An optional callback can be fired when a file is removed: `onRemove(removedFile)`. To customize the component that receives this `onRemove` handler, pass in a custom component to the `removeComponent` prop.
 
 By default, this component displays a thumbnail preview of the loaded file(s). This preview can be customized
 by using the `thumbnail` or `hidePreview` props, as well as by passing a custom preview via `previewComponent` or `children`.
 
 A component passed using `previewComponent` will receive the following props:
 
--   `value`: the current value of the input (file object or array of file objects)
+-   `value`: the current value of the input (an array of file objects)
 
 ### Parameters
 
@@ -600,7 +598,7 @@ A component passed using `previewComponent` will receive the following props:
 -   `removeComponent` **[Function][150]** A custom component that receives `value` and `onRemove` props (only available when `multiple` is set to `true`) (optional, default `RemoveButton`)
 -   `thumbnail` **[String][149]?** A placeholder image to display before the file is loaded
 -   `hidePreview` **[Boolean][151]** A flag indicating whether or not to hide the file preview (optional, default `false`)
--   `selectText` **[String][149]?** An override for customizing the text that is displayed on the input's label. Defaults to 'Select File' or 'Select File(s)' depending on the `multiple` prop valueAdditionally, the file input will pass down the rest of the props
+-   `selectText` **[String][149]?** An override for customizing the text that is displayed on the input's label. Defaults to 'Select File' or 'Select File(s)' depending on the `multiple` prop value
 
 ### Examples
 

@@ -15,11 +15,11 @@ const inputProps = {
 }
 
 // eslint-disable-next-line react/prop-types
-function FilenamePreview ({ value }) {
-  if (!value.name) return null
-  const lastModified = new Date(value.lastModified)
+function FilenamePreview ({ file }) {
+  if (!file) return null
+  const lastModified = new Date(file.lastModified)
   const formattedDate = `${lastModified.getMonth() + 1}/${lastModified.getDate()}/${lastModified.getFullYear()}`
-  return <p>{ value.name } <i>(Modified: { formattedDate })</i></p>
+  return <p>{ file.name } <i>(Modified: { formattedDate })</i></p>
 }
 
 storiesOf('FileInput', module)
