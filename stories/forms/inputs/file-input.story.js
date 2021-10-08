@@ -43,11 +43,11 @@ storiesOf('FileInput', module)
       previewComponent={FilenamePreview}
     />
   ))
-  .add('with multiple files', () => (
+  .add('with thumbnail', () => (
     <FileInput
       input={inputProps}
       meta={{}}
-      multiple={true}
+      thumbnail={"https://via.placeholder.com/150"}
     />
   ))
   .add('with accepting only images', () => (
@@ -55,5 +55,12 @@ storiesOf('FileInput', module)
       input={inputProps}
       meta={{}}
       accept="image/*"
+    />
+  ))
+  .add('with multiple files', () => (
+    <FileInput
+      input={inputProps}
+      meta={{}}
+      multiple={true}
     />
   ))
