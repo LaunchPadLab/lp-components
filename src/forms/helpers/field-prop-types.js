@@ -130,11 +130,11 @@ export const checkboxGroupPropTypes = fieldPropTypesWithValue(
 )
 
 const file = PropTypes.shape({
-  file: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-  }).isRequired,
-  fileUpload: PropTypes.object,
-  fileData: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+  size: PropTypes.number,
+  type: PropTypes.string,
+  lastModified: PropTypes.number,
 })
 
 export const fileInputPropTypes = fieldPropTypesWithValue(
