@@ -112,19 +112,6 @@ describe('FileInput', () => {
     expect(onChange.mock.calls[0][0][0].name).toBe(secondFile.name)
   })
 
-  test('coerces initial value to an array', async () => {
-    const lastModified = Date.now()
-    const firstFile = { name: 'first', lastModified }
-    const readFiles = jest.fn((arr) => arr.map((file) => ({ ...file, url: 'my-data-url' })))
-    const onChange = jest.fn()
-    const props = { input: { name, value: firstFile, onChange }, meta: {}, readFiles }
-    
-    mount(<FileInput {...props} />)
-    await flushPromises()
-
-    expect(onChange.mock.calls[0][0]).toEqual([firstFile])
-  })
-
   test('passes accept attribute to input component', () => {
     const props = { input: { name, value: '', onChange: defaultOnChange }, meta: {}, accept: 'image/*' }
     const wrapper = mount(<FileInput { ...props }/>)

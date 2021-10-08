@@ -146,39 +146,24 @@ function FileInput(props) {
     onChange(valueToUpdate)
   }, [multiple])
 
-  useEffect(() => {
-    const { value, onChange } = input
-    const values = castFormValueToArray(value)
-    
-    // Coerce form value to an array
-    if (value !== values) onChange(values)
-  }, [])
-
   const inputMeta = setInputErrors(meta, errors)
   const labelText = selectText || (multiple ? 'Select File(s)' : 'Select File')
   const values = castFormValueToArray(input.value)
+
+  // Support rendering a custom preview component, even if no value is selected or when `thumbnail` is present
+  const files = values.length > 0 ? values : [null]
 
   return (
   <LabeledField { ...props } meta={ inputMeta }>
       <div className="fileupload fileupload-exists">
         {!hidePreview &&
           <React.Fragment>
-            {values.length === 0 &&
-              <div className="fileupload-preview-container">
-                <RenderPreview
-                  file={null}
-                  thumbnail={thumbnail}
-                  {...rest}
-                />
+            {files.map((file, idx) => (
+              <div key={file?.name || idx} className="fileupload-preview-container">
+                <RenderPreview file={file} thumbnail={thumbnail} {...rest} />
+                {multiple && <RemoveComponent file={file} onRemove={() => removeFile(idx)} />}
               </div>
-            }
-            {values.map((value, idx) => {
-              return (
-                <div key={value.name} className="fileupload-preview-container">
-                  <RenderPreview file={value} thumbnail={thumbnail} {...rest} />
-                  { multiple && <RemoveComponent file={value} onRemove={ () => removeFile(idx) } /> }
-                </div>
-            )})}
+            ))}
           </React.Fragment>
         }
         <div className={classnames('button-secondary-light', { 'in-progress': submitting })}>
