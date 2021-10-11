@@ -12,7 +12,7 @@ import { serializeOptions } from '../../utils'
 
 /**
  *
- * A group of radio buttons that can be used in a `redux-forms`-controlled form.
+ * A group of radio buttons that can be used in a `redux-form`-controlled form.
  *
  * The value of each button is specified via the `options` prop. This prop can either be:
  * - An array of strings
@@ -23,8 +23,8 @@ import { serializeOptions } from '../../utils'
  *
  * @name RadioGroup
  * @type Function
- * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
- * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+ * @param {Object} input - A `redux-form` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
+ * @param {Object} meta - A `redux-form` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @param {Array} options - An array of button values (strings, numbers, or key-value pairs)
  * @example
  *

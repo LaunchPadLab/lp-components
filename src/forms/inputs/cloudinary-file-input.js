@@ -17,8 +17,8 @@ import classnames from 'classnames'
  *
  * @name CloudinaryFileInput
  * @type Function
- * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
- * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+ * @param {Object} input - A `redux-form` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
+ * @param {Object} meta - A `redux-form` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @param {Function} [fileInput=FileInput] - A component that gets wrapped with Cloudinary upload logic
  * @param {Boolean} [multiple=false] - A flag indicating whether or not to accept multiple files
  * @param {Function} [onUploadSuccess=noop] - A handler that gets invoked with the response from a successful upload to Cloudinary
