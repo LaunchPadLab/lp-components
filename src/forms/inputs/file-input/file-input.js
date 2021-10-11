@@ -16,7 +16,7 @@ import classnames from 'classnames'
 
 /**
  * A file input that can be used in a `redux-form`-controlled form.
- * The value of this input is an array of file objects, with the `url` set to the base64 encoded Ddata URL of the loaded file(s) by default.
+ * The value of this input is an array of file objects, with the `url` set to the base64 encoded data URL of the loaded file(s) by default.
  *
  * Allowing multiple files to be selected requires setting the `multiple` prop to `true`. Multiple files can then be uploaded either all at once or piecemeal. This is different than the standard behavior of a file input, which will _replace_ any existing files with whatever is selected. Once a file has been read successfully, it is possible to remove the file object from the current set of files. An optional callback can be fired when a file is removed: `onRemove(removedFile)`. To customize the component that receives this `onRemove` handler, pass in a custom component to the `removeComponent` prop.
  *
@@ -24,7 +24,7 @@ import classnames from 'classnames'
  * by using the `thumbnail` or `hidePreview` props, as well as by passing a custom preview via `previewComponent` or `children`.
  *
  * A component passed using `previewComponent` will receive the following props:
- * - `value`: the current value of the input (an array of file objects)
+ * - `file`: the current value of the input (an array of file objects)
  *
  * @name FileInput
  * @type Function
@@ -129,7 +129,6 @@ function FileInput(props) {
       // If all files have been removed, then reset the native input
       if (!remainingFiles.length) clearFileInput()
 
-      // This method is only available when multiple="true", so always set an array
       return onChange(remainingFiles)
     } catch (e) {
       setErrors(e)
@@ -161,7 +160,7 @@ function FileInput(props) {
             {files.map((file, idx) => (
               <div key={file?.name || idx} className="fileupload-preview-container">
                 <RenderPreview file={file} thumbnail={thumbnail} {...rest} />
-                {multiple && <RemoveComponent file={file} onRemove={() => removeFile(idx)} />}
+                {multiple && file && <RemoveComponent file={file} onRemove={() => removeFile(idx)} />}
               </div>
             ))}
           </React.Fragment>
