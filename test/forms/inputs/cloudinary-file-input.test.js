@@ -41,7 +41,7 @@ test('CloudinaryFileInput sets returned url within value', async () => {
 
   await flushPromises()
   expect(onChange).toHaveBeenCalled()
-  expect(onChange.mock.calls[0][0].url).toBe(PUBLIC_URL)
+  expect(onChange.mock.calls[0][0][0].url).toBe(PUBLIC_URL)
 })
 
 test('CloudinaryFileInput calls success handler with response on successful upload of a single file', async () => {
