@@ -30,8 +30,8 @@ const propTypes = {}
 
 const defaultProps = {}
 
-function Spinner(props) {
-  return <div className="spinner" {...filterInvalidDOMProps(props)} />
+function Spinner (props) {
+  return <div id="spinner" { ...filterInvalidDOMProps(props) } />
 }
 
 Spinner.propTypes = propTypes
