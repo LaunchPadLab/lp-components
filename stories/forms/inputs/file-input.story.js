@@ -17,13 +17,15 @@ const inputProps = {
 // eslint-disable-next-line react/prop-types
 function FilenamePreview ({ file }) {
   if (!file) return null
-  return <p>{ file.name }</p>
+  const lastModified = new Date(file.lastModified)
+  const formattedDate = `${lastModified.getMonth() + 1}/${lastModified.getDate()}/${lastModified.getFullYear()}`
+  return <p>{ file.name } <i>(Modified: { formattedDate })</i></p>
 }
 
 storiesOf('FileInput', module)
   .add('with defaults', () => (
     <FileInput
-      input={inputProps} 
+      input={inputProps}
       meta={{}}
     />
   ))
@@ -39,5 +41,26 @@ storiesOf('FileInput', module)
       input={inputProps}
       meta={{}}
       previewComponent={FilenamePreview}
+    />
+  ))
+  .add('with thumbnail', () => (
+    <FileInput
+      input={inputProps}
+      meta={{}}
+      thumbnail={"https://via.placeholder.com/150"}
+    />
+  ))
+  .add('with accepting only images', () => (
+    <FileInput
+      input={inputProps}
+      meta={{}}
+      accept="image/*"
+    />
+  ))
+  .add('with multiple files', () => (
+    <FileInput
+      input={inputProps}
+      meta={{}}
+      multiple={true}
     />
   ))

@@ -87,13 +87,14 @@ function LabeledField ({
   labelComponent: LabelComponent = InputLabel,
   children,
   hideErrorLabel,
+  label,
   ...rest
 }) {
   const { name } = input
   const { touched, invalid } = meta
   return (
     <fieldset className={ classnames(className, { 'error': hasInputError({ touched, invalid }) }) }>
-      <LabelComponent { ...{ name, id, ...rest } } />
+      <LabelComponent { ...{ name, id, label, ...rest } } />
         { children }
       { !hideErrorLabel && <ErrorComponent {...{ ...input, ...meta, ...rest }} /> }
     </fieldset>

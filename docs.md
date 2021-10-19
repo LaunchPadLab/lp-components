@@ -273,12 +273,12 @@ _Note: Instead of targeting the `:disabled` pseudo-class or `[disabled]` attribu
 
 ### Parameters
 
--   `invalid` **[Boolean][139]?** Whether or not a related form is invalid (will set aria-disabled when `true`)
--   `pristine` **[Boolean][139]?** Whether or not a related form is pristine (will set aria-disabled when `true`)
--   `variant` **[String][137]** A descriptive string that will be appended to the button's class with format `button-<type>` (optional, default `"primary"`)
--   `submitting` **[Boolean][139]?** Whether or not a related form is submitting (will give button class `'in-progress` when `true`)
--   `type` **[Boolean][139]** The [type][147] attribute of the button element (optional, default `"button"`)
--   `children` **[Function][138]?** Any React component(s) being wrapped by the button
+-   `invalid` **[Boolean][151]?** Whether or not a related form is invalid (will set aria-disabled when `true`)
+-   `pristine` **[Boolean][151]?** Whether or not a related form is pristine (will set aria-disabled when `true`)
+-   `variant` **[String][149]** A descriptive string that will be appended to the button's class with format `button-<type>` (optional, default `"primary"`)
+-   `submitting` **[Boolean][151]?** Whether or not a related form is submitting (will give button class `'in-progress` when `true`)
+-   `type` **[Boolean][151]** The [type][155] attribute of the button element (optional, default `"button"`)
+-   `children` **[Function][150]?** Any React component(s) being wrapped by the button
 
 ### Examples
 
@@ -288,7 +288,7 @@ function MessageButton ({ message }) {
      <Button
        variant="secondary"
        onClick={ () => console.log(message) }
-     >
+     > 
        Print Message
      </Button>
   )
@@ -327,7 +327,7 @@ function ButtonForm ({ handleSubmit }) {
 
 ## SubmitButton
 
-A wrapper around the [Button][12] component that adds `type="submit"`. Generally used in the context of forms.
+A wrapper around the [Button][12] component that adds `type="submit"`. Generally used in the context of forms. 
 
 With the exception of `type`, this component shares the same props as [Button][12].
 
@@ -351,14 +351,14 @@ function PersonForm ({ handleSubmit, pristine, invalid, submitting }) {
 
 ## Checkbox
 
-A checkbox input that can be used in a `redux-forms`-controlled form.
+A checkbox input that can be used in a `redux-form`-controlled form. 
 
 This input only accepts and stores boolean values.
 
 ### Parameters
 
--   `input` **[Object][156]** A `redux-forms` [input][157] object
--   `meta` **[Object][156]** A `redux-forms` [meta][158] object
+-   `input` **[Object][156]** A `redux-form` [input][157] object
+-   `meta` **[Object][156]** A `redux-form` [meta][158] object
 
 ### Examples
 
@@ -379,7 +379,7 @@ export default CoolPersonForm
 
 ## CheckboxGroup
 
-A group of checkboxes that can be used in a `redux-forms`-controlled form.
+A group of checkboxes that can be used in a `redux-form`-controlled form.
 
 The value of each checkbox is specified via the `options` prop. This prop can either be:
 
@@ -392,8 +392,8 @@ Clicking an unselected checkbox adds its value to this array, and clicking a sel
 
 ### Parameters
 
--   `input` **[Object][156]** A `redux-forms` [input][157] object
--   `meta` **[Object][156]** A `redux-forms` [meta][158] object
+-   `input` **[Object][156]** A `redux-form` [input][157] object
+-   `meta` **[Object][156]** A `redux-form` [meta][158] object
 -   `options` **[Array][154]** An array of checkbox values (strings, numbers, or key-value pairs)
 
 ### Examples
@@ -423,8 +423,10 @@ export default TodoForm
 
 ## CloudinaryFileInput
 
-A wrapper around the [FileInput][38] component that automatically uploads files to cloudinary via the [cloudinaryUploader][159] HOC.
-The value of this input is the public URL of the uploaded file.
+A wrapper around a file input component (defaults to [FileInput][38]) that automatically uploads files to cloudinary via the [cloudinaryUploader][159] HOC.
+
+The value of this input will only get set upon successful upload. The shape of the value will be of a file object or an array of file objects with the `url` set to the public URL of the uploaded file. The full response from Cloudinary is accessible via the value's `meta.cloudinary` key.
+
 Additionally, the `uploadStatus` passed down from `cloudinaryUploader` will be added as a class on the input.
 
 You can pass arguments to the instance of `cloudinaryUploader` via this component's props,
@@ -432,10 +434,12 @@ or via the `CLOUDINARY_CLOUD_NAME` and `CLOUDINARY_BUCKET` env vars (recommended
 
 ### Parameters
 
--   `input` **[Object][156]** A `redux-forms` [input][157] object
--   `meta` **[Object][156]** A `redux-forms` [meta][158] object
--   `onUploadSuccess` **[Function][150]?** A handler that gets invoked with the response from a successful upload to Cloudinary
--   `onUploadFailure` **[Function][150]?** A handler that gets invoked with the error from a failed upload to Cloudinary
+-   `input` **[Object][156]** A `redux-form` [input][157] object
+-   `meta` **[Object][156]** A `redux-form` [meta][158] object
+-   `fileInput` **[Function][150]** A component that gets wrapped with Cloudinary upload logic (optional, default `FileInput`)
+-   `multiple` **[Boolean][151]** A flag indicating whether or not to accept multiple files (optional, default `false`)
+-   `onUploadSuccess` **[Function][150]** A handler that gets invoked with the response from a successful upload to Cloudinary (optional, default `noop`)
+-   `onUploadFailure` **[Function][150]** A handler that gets invoked with the error from a failed upload to Cloudinary (optional, default `noop`)
 
 ### Examples
 
@@ -459,13 +463,13 @@ function HeadshotForm ({ handleSubmit, pristine, invalid, submitting }) {
 
 ## ColorInput
 
-An color input that can be used in a `redux-forms`-controlled form.
+An color input that can be used in a `redux-form`-controlled form.
 The value of this input is a hex color string.
 
 ### Parameters
 
--   `input` **[Object][156]** A `redux-forms` [input][157] object
--   `meta` **[Object][156]** A `redux-forms` [meta][158] object
+-   `input` **[Object][156]** A `redux-form` [input][157] object
+-   `meta` **[Object][156]** A `redux-form` [meta][158] object
 
 ### Examples
 
@@ -473,7 +477,7 @@ The value of this input is a hex color string.
 function UserForm ({ handleSubmit, pristine, invalid, submitting }) {
   return (
     <form onSubmit={ handleSubmit }>
-      <Field
+      <Field 
          name="favoriteColor"
          component={ ColorInput }
       />
@@ -490,19 +494,19 @@ function UserForm ({ handleSubmit, pristine, invalid, submitting }) {
 An input component that wraps a `DatePicker` component from the [react-datepicker][160] library.
 This wrapper adds the following functionality to `DatePicker`:
 
--   Adapts it to receive `redux-forms`-style input props.
+-   Adapts it to receive `redux-form`-style input props.
 -   Converts value type from [moment][161] to [Date][162].
 -   Adds name and error labels.
 
-With the exception of the `input` and `meta` props, all props are passed down to the `DatePicker` component.
+With the exception of the `input` and `meta` props, all props are passed down to the `DatePicker` component. 
 A full list of props supported by this component can be found [here][163]. Note that unfortunately `aria-*` props are **not** supported.
 
 _Note: this component requires special styles in order to render correctly. To include these styles in your project, follow the directions in the main [README][164] file._
 
 ### Parameters
 
--   `input` **[Object][156]** A `redux-forms` [input][157] object
--   `meta` **[Object][156]** A `redux-forms` [meta][158] object
+-   `input` **[Object][156]** A `redux-form` [input][157] object
+-   `meta` **[Object][156]** A `redux-form` [meta][158] object
 
 ### Examples
 
@@ -513,7 +517,7 @@ function BirthdayForm ({ handleSubmit }) {
       <Field
          name="birthday"
          component={DateInput}
-         placeholderText="mm/dd/yyyy"
+         placeholderText="mm/dd/yyyy" 
        />
     </form>
   )
@@ -524,7 +528,7 @@ function BirthdayForm ({ handleSubmit }) {
 
 ## DropdownCheckboxGroup
 
-A group of checkboxes that can be used in a `redux-forms`-controlled form.
+A group of checkboxes that can be used in a `redux-form`-controlled form. 
 Wraps the [CheckboxGroup][23] component in a [DropdownSelect][165] component, which displays the selected values as a list.
 Options are displayed in a scrollable `Select`-style dropdown container.
 
@@ -538,8 +542,8 @@ Clicking an unselected checkbox adds its value to this array, and clicking a sel
 
 ### Parameters
 
--   `input` **[Object][156]** A `redux-forms` [input][157] object
--   `meta` **[Object][156]** A `redux-forms` [meta][158] object
+-   `input` **[Object][156]** A `redux-form` [input][157] object
+-   `meta` **[Object][156]** A `redux-form` [meta][158] object
 -   `options` **[Array][154]** An array of checkbox values (strings or key-value pairs)
 
 ### Examples
@@ -569,27 +573,32 @@ export default TodoForm
 
 ## FileInput
 
-A file input that can be used in a `redux-forms`-controlled form.
-The value of this input is the data URL of the loaded file.
+A file input that can be used in a `redux-form`-controlled form.
+The value of this input is an array of file objects, with the `url` set to the base64 encoded data URL of the loaded file(s) by default.
 
-An optional callback can be fired when the file is loaded: `onLoad(fileData, file)`.
-This callback will be passed the data URL of the file, as well as the `File` object itself.
+Allowing multiple files to be selected requires setting the `multiple` prop to `true`. Multiple files can then be uploaded either all at once or piecemeal. This is different than the standard behavior of a file input, which will _replace_ any existing files with whatever is selected. Once a file has been read successfully, it is possible to remove the file object from the current set of files. An optional callback can be fired when a file is removed: `onRemove(removedFile)`. To customize the component that receives this `onRemove` handler, pass in a custom component to the `removeComponent` prop.
 
-By default, this component displays a thumbnail preview of the loaded file. This preview can be customized
+By default, this component displays a thumbnail preview of the loaded file(s). This preview can be customized
 by using the `thumbnail` or `hidePreview` props, as well as by passing a custom preview via `previewComponent` or `children`.
 
 A component passed using `previewComponent` will receive the following props:
 
--   `file`: the uploaded file object, or `null` if no file has been uploaded.
--   `value`: the current value of the input (data URL or empty string)
+-   `file`: the current value of the input (an array of file objects)
 
 ### Parameters
 
--   `input` **[Object][156]** A `redux-forms` [input][157] object
--   `meta` **[Object][156]** A `redux-forms` [meta][158] object
--   `onLoad` **[Function][150]?** A callback fired when the file is loaded
+-   `input` **[Object][156]** A `redux-form` [input][157] object
+-   `meta` **[Object][156]** A `redux-form` [meta][158] object
+-   `readFiles` **[Function][150]** A callback that is fired with new files and is expected to return an array of file objects with the `url` key set to the "read" value. This can be either a data URL or the public URL from a 3rd party API (optional, default `readFilesAsDataUrls`)
+-   `multiple` **[Boolean][151]** A flag indicating whether or not to accept multiple files (optional, default `false`)
+-   `accept` **[String][149]?** Value that defines the file types the file input should accept (e.g., ".doc,.docx"). More info: [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept][166]
+-   `capture` **(`"user"` \| `"environment"`)?** Value that specifies which camera to use, if the accept attribute indicates the input type of image or video. This is not available for all devices (e.g., desktops). More info: [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#capture][167]
+-   `onRemove` **[Function][150]** A callback fired when the file is removed (only available when `multiple` is set to `true`) (optional, default `noop`)
+-   `previewComponent` **[Function][150]** A custom component that is used to display a preview of each attached file (optional, default `RenderPreview`)
+-   `removeComponent` **[Function][150]** A custom component that receives `value` and `onRemove` props (only available when `multiple` is set to `true`) (optional, default `RemoveButton`)
 -   `thumbnail` **[String][149]?** A placeholder image to display before the file is loaded
--   `hidePreview` **[Boolean][151]?** A flag indicating whether or not to hide the file preview
+-   `hidePreview` **[Boolean][151]** A flag indicating whether or not to hide the file preview (optional, default `false`)
+-   `selectText` **[String][149]?** An override for customizing the text that is displayed on the input's label. Defaults to 'Select File' or 'Select File(s)' depending on the `multiple` prop value
 
 ### Examples
 
@@ -600,7 +609,7 @@ function HeadshotForm ({ handleSubmit, pristine, invalid, submitting }) {
       <Field
          name="headshot"
          component={ FileInput }
-         onLoad={ (fileData, file) => console.log('Loaded file!', file) }
+         selectText="Select profile picture"
       />
       <SubmitButton {...{ pristine, invalid, submitting }}>
         Submit
@@ -612,7 +621,7 @@ function HeadshotForm ({ handleSubmit, pristine, invalid, submitting }) {
 
 ## HiddenInput
 
-An Input component that is hidden from the page. The input element is hidden with CSS instead
+An Input component that is hidden from the page. The input element is hidden with CSS instead 
 of using `type="hidden` so that Cypress can still access its value.
 
 Aside from being hidden, this component is identical to [Input][43],
@@ -636,15 +645,15 @@ function UserForm ({ handleSubmit }) {
 
 ## Input
 
-An input element that can be used in a `redux-forms`-controlled form.
+An input element that can be used in a `redux-form`-controlled form.
 
-Note: The `input` tag is surrounded by a `div` with class `"input-wrapper"`.
+Note: The `input` tag is surrounded by a `div` with class `"input-wrapper"`. 
 Any children passed to this component will be rendered within this wrapper.
 
 ### Parameters
 
--   `input` **[Object][156]** A `redux-forms` [input][157] object
--   `meta` **[Object][156]** A `redux-forms` [meta][158] object
+-   `input` **[Object][156]** A `redux-form` [input][157] object
+-   `meta` **[Object][156]** A `redux-form` [meta][158] object
 -   `type` **[String][149]?** A string to specify the type of input element (defaults to `text`)
 
 ### Examples
@@ -653,7 +662,7 @@ Any children passed to this component will be rendered within this wrapper.
 function UserForm ({ handleSubmit, pristine, invalid, submitting }) {
   return (
     <form onSubmit={ handleSubmit }>
-      <Field
+      <Field 
          name="firstName"
          component={ Input }
          placeholder="Your first name"
@@ -670,7 +679,7 @@ function UserForm ({ handleSubmit, pristine, invalid, submitting }) {
 
 A wrapper around the [Input][43] component that adds an icon to the input.
 
-This icon is rendered as an `<i>` tag, with a dynamic class based on the `icon` prop.
+This icon is rendered as an `<i>` tag, with a dynamic class based on the `icon` prop. 
 For example, given an `icon` prop of `"twitter"`, the component will render an [Input][43] with child `<i className="twitter-icon"/>`.
 
 Additionally, the fieldset of this [Input][43] will be given the class `"icon-label"` for styling purposes.
@@ -685,7 +694,7 @@ Additionally, the fieldset of this [Input][43] will be given the class `"icon-la
 function TwitterForm ({ handleSubmit, pristine, invalid, submitting }) {
   return (
     <form onSubmit={ handleSubmit }>
-      <Field
+      <Field 
          name="handle"
          component={ IconInput }
          icon="twitter"
@@ -701,13 +710,13 @@ function TwitterForm ({ handleSubmit, pristine, invalid, submitting }) {
 
 ## MaskedInput
 
-A masked input that can be used in a `redux-forms`-controlled form. Built on top of [cleave.js][166].
+A masked input that can be used in a `redux-form`-controlled form. Built on top of [cleave.js][168].
 
 ### Parameters
 
--   `input` **[Object][156]** A `redux-forms` [input][157] object
--   `meta` **[Object][156]** A `redux-forms` [meta][158] object
--   `maskOptions` **[Object][156]?** An object of options to pass to the underlying `Cleave` instance. [(supported options)][167]
+-   `input` **[Object][156]** A `redux-form` [input][157] object
+-   `meta` **[Object][156]** A `redux-form` [meta][158] object
+-   `maskOptions` **[Object][156]?** An object of options to pass to the underlying `Cleave` instance. [(supported options)][169]
 
 ### Examples
 
@@ -715,7 +724,7 @@ A masked input that can be used in a `redux-forms`-controlled form. Built on top
 function PurchaseForm ({ handleSubmit, submitting }) {
   return (
     <form onSubmit={ handleSubmit }>
-      <Field
+      <Field 
          name="quantity"
          component={ MaskedInput }
          maskOptions={{ numeral: true }}
@@ -730,16 +739,16 @@ function PurchaseForm ({ handleSubmit, submitting }) {
 
 ## RangeInput
 
-A range input that can be used in a `redux-forms`-controlled form.
+A range input that can be used in a `redux-form`-controlled form.
 
 ### Parameters
 
--   `input` **[Object][145]** A `redux-forms` [input][143] object
--   `meta` **[Object][145]** A `redux-forms` [meta][146] object
--   `min` **[Number][141]** The minumum attribute of the slider control (optional, default `0`)
--   `max` **[Number][141]** The maximum attribute of the slider control (optional, default `100`)
--   `step` **[Number][141]** The step attribute of the slider control (optional, default `1`)
--   `hideRangeLabel` **[Boolean][139]** A boolean representing whether or not to display the range value label element (optional, default `false`)
+-   `input` **[Object][156]** A `redux-form` [input][157] object
+-   `meta` **[Object][156]** A `redux-form` [meta][158] object
+-   `min` **[Number][153]** The minumum attribute of the slider control (optional, default `0`)
+-   `max` **[Number][153]** The maximum attribute of the slider control (optional, default `100`)
+-   `step` **[Number][153]** The step attribute of the slider control (optional, default `1`)
+-   `hideRangeValue` **[Boolean][151]** A boolean representing whether or not to display the range value (optional, default `false`)
 
 ### Examples
 
@@ -764,7 +773,7 @@ function StudentForm ({ handleSubmit, pristine, invalid, submitting }) {
 
 ## RadioGroup
 
-A group of radio buttons that can be used in a `redux-forms`-controlled form.
+A group of radio buttons that can be used in a `redux-form`-controlled form.
 
 The value of each button is specified via the `options` prop. This prop can either be:
 
@@ -776,8 +785,8 @@ The value of the entire `RadioGroup` component is the value of the currently sel
 
 ### Parameters
 
--   `input` **[Object][156]** A `redux-forms` [input][157] object
--   `meta` **[Object][156]** A `redux-forms` [meta][158] object
+-   `input` **[Object][156]** A `redux-form` [input][157] object
+-   `meta` **[Object][156]** A `redux-form` [meta][158] object
 -   `options` **[Array][154]** An array of button values (strings, numbers, or key-value pairs)
 
 ### Examples
@@ -807,7 +816,7 @@ export default FavoriteFoodForm
 
 ## Select
 
-A select input that can be used in a `redux-forms`-controlled form.
+A select input that can be used in a `redux-form`-controlled form.
 
 The value of each option is specified via the `options` or the `optionGroups` prop.
 The `options` prop will be ignored if `optionGroups` is present.
@@ -827,12 +836,12 @@ The value of the `Select` component will be the same as the value of the selecte
 
 ### Parameters
 
--   `input` **[Object][145]** A `redux-forms` [input][143] object
--   `meta` **[Object][145]** A `redux-forms` [meta][146] object
--   `options` **[Array][142]** An array of option values (strings, numbers, or key-value pairs). This prop will be ignored if `optionGroups` is present.
--   `optionGroups` **[Array][142]** An array of option group objects
--   `placeholder` **[String][137]** A string to display as a placeholder option. Pass in `false` to hide the placeholder option. (optional, default `'Select'`)
--   `enablePlaceholderOption` **[Boolean][139]** A flag indicating that the placeholder option should not be `disabled` (optional, default `false`)
+-   `input` **[Object][156]** A `redux-form` [input][157] object
+-   `meta` **[Object][156]** A `redux-form` [meta][158] object
+-   `options` **[Array][154]** An array of option values (strings, numbers, or key-value pairs). This prop will be ignored if `optionGroups` is present.
+-   `optionGroups` **[Array][154]** An array of option group objects
+-   `placeholder` **[String][149]** A string to display as a placeholder option. Pass in `false` to hide the placeholder option. (optional, default `'Select'`)
+-   `enablePlaceholderOption` **[Boolean][151]** A flag indicating that the placeholder option should not be `disabled` (optional, default `false`)
 
 ### Examples
 
@@ -881,11 +890,11 @@ function EmployeeForm ({ handleSubmit, pristine, invalid, submitting }) {
 
 ## SetterLink
 
-A component that returns an `<a>` element that can be used to change the value of an input in a `redux-forms`-controlled form.
+A component that returns an `<a>` element that can be used to change the value of an input in a `redux-form`-controlled form.
 
 ### Parameters
 
--   `input` **[Object][156]** A `redux-forms` [input][157] object
+-   `input` **[Object][156]** A `redux-form` [input][157] object
 -   `label` **[String][149]** The link text
 -   `valueToSet` **Any** The value to set the input when clicked (optional, default `true`)
 
@@ -912,18 +921,18 @@ function FilterForm ({ handleSubmit, pristine, invalid, submitting }) {
 
 ## Switch
 
-A switch input that can be used in a `redux-forms`-controlled form.
+A switch input that can be used in a `redux-form`-controlled form.
 
 This input only accepts and stores boolean values.
 
-See the [react-switch][168] documentation for additional styling properties.
+See the [react-switch][170] documentation for additional styling properties.
 
 ### Parameters
 
--   `input` **[Object][156]** A `redux-forms` [input][157] object
--   `meta` **[Object][156]** A `redux-forms` [meta][158] object
--   `checkedIcon` **([Element][169] \| [Boolean][151])** An icon displayed when the switch is checked. Set to `false` if no check icon is desired.
--   `uncheckedIcon` **([Element][169] \| [Boolean][151])** An icon displayed when the switch is unchecked. Set to `false` if no uncheck icon is desired.
+-   `input` **[Object][156]** A `redux-form` [input][157] object
+-   `meta` **[Object][156]** A `redux-form` [meta][158] object
+-   `checkedIcon` **([Element][171] \| [Boolean][151])** An icon displayed when the switch is checked. Set to `false` if no check icon is desired.
+-   `uncheckedIcon` **([Element][171] \| [Boolean][151])** An icon displayed when the switch is unchecked. Set to `false` if no uncheck icon is desired.
 
 ### Examples
 
@@ -944,15 +953,16 @@ export default CoolPersonForm
 
 ## Textarea
 
-A textarea input that can be used in a `redux-forms`-controlled form. Can forward ref down to textarea input and optionally displays a character count.
+A textarea input that can be used in a `redux-form`-controlled form.
+Can forward ref down to textarea input and optionally displays a character count.
 
 ### Parameters
 
--   `input` **[Object][156]** A `redux-forms` [input][157] object
--   `meta` **[Object][156]** A `redux-forms` [meta][158] object
+-   `input` **[Object][156]** A `redux-form` [input][157] object
+-   `meta` **[Object][156]** A `redux-form` [meta][158] object
 -   `maxLength` **[Number][153]?** The maximum allowed length of the input
 -   `hideCharacterCount` **[Boolean][151]** Whether to hide the character count if given a maxLength (optional, default `false`)
--   `forwardedRef` **[Ref][178]?** A ref to be forwarded to `textarea` input (standard `ref` cannot currently be forwarded)
+-   `forwardedRef` **Ref?** A ref to be forwarded to `textarea` input (standard `ref` cannot currently be forwarded)
 
 ### Examples
 
@@ -1027,9 +1037,9 @@ In addition to the props below, any extra props will be passed directly to the i
 ### Examples
 
 ```javascript
-// A custom input to use with redux-forms
+// A custom input to use with redux-form
 
-function ValidatedInput ({
+function ValidatedInput ({  
   input: { name, value, onBlur, onChange },
   meta: { error, touched, invalid },
 }) {
@@ -1039,7 +1049,7 @@ function ValidatedInput ({
          name,
          value,
          onBlur,
-         onChange,
+         onChange,   
       }}
       <InputError { ...{ error, invalid, touched, name } } />
     </div>
@@ -1060,11 +1070,11 @@ The text of the label is set using the following rules:
 -   Else If the `label` prop is set to a string, the label will display that text
 -   Otherwise, the label will be set using the `name` prop.
 
-If `name` is used to set the text, it will be stripped of its prefixes and converted to [start case][170].
+If `name` is used to set the text, it will be stripped of its prefixes and converted to [start case][172].
 
 For instance: `'person.firstName'` becomes `'First Name'`
 
-Note: When using third party form libraries (e.g., [Redux Form][171]), it's likely that setting the `required` prop will turn on the browser's automatic validation, which could cause the library to behave unexpectedly. If the browser validation behavior is causing issues, then add a `noValidate` prop to the form to [turn off][172] automatic validation. (e.g., `<form noValidate></form>`)
+Note: When using third party form libraries (e.g., [Redux Form][173]), it's likely that setting the `required` prop will turn on the browser's automatic validation, which could cause the library to behave unexpectedly. If the browser validation behavior is causing issues, then add a `noValidate` prop to the form to [turn off][174] automatic validation. (e.g., `<form noValidate></form>`)
 
 ### Parameters
 
@@ -1079,7 +1089,7 @@ Note: When using third party form libraries (e.g., [Redux Form][171]), it's like
 ### Examples
 
 ```javascript
-// A custom input to use with redux-forms
+// A custom input to use with redux-form
 
 function EmailInput ({
   input: { name, value, onBlur, onChange },
@@ -1164,7 +1174,7 @@ function CustomLabelComponent ({ onClickLabel, ...rest }) {
 
 ## blurDirty
 
-A function that returns an HOC to wrap a `redux-forms`-controlled input.
+A function that returns an HOC to wrap a `redux-form`-controlled input. 
 
 If the input is pristine, this HOC replaces the passed `onBlur` with an empty function.
 This prevents the form from being re-validated unless its value has changed.
@@ -1193,7 +1203,7 @@ export default compose(
 
 ## convertNameToLabel
 
-A helper function to transform a redux-form field name into a label string
+A helper function to transform a redux-form field name into a label string 
 by stripping its namespace and converting it to start case.
 
 ### Parameters
@@ -1223,8 +1233,8 @@ Type: PropTypes
 
 ## fieldPropTypesWithValue
 
-A function that takes `PropTypes` for a `redux-forms` [input][157] object.
-Returns an object containing all `PropTypes` for `redux-forms` [Field][173] components.
+A function that takes `PropTypes` for a `redux-form` [input][157] object.
+Returns an object containing all `PropTypes` for `redux-form` [Field][175] components.
 
 ### Parameters
 
@@ -1254,18 +1264,18 @@ fieldPropTypesWithValue(valuePropType)
 // }
 ```
 
-Returns **[Object][156]** `PropTypes` for `redux-forms` [input][157] and [meta][158] objects
+Returns **[Object][156]** `PropTypes` for `redux-form` [input][157] and [meta][158] objects
 
 ## defaultValueTypes
 
-A constant representing default `PropTypes` for `redux-forms` [Field][173] values.
+A constant representing default `PropTypes` for `redux-form` [Field][175] values.
 Default types are either `number` or `string`.
 
 Type: PropTypes
 
 ## fieldPropTypes
 
-An object containing the default `PropTypes` for `redux-forms` [Field][173] components.
+An object containing the default `PropTypes` for `redux-form` [Field][175] components.
 
 Type: [Object][156]
 
@@ -1306,7 +1316,7 @@ omitLabelProps(props)
 
 // {
 //   maxLength: 1000
-// }
+// } 
 
 // Use in a form input component
 
@@ -1316,8 +1326,8 @@ function Input (props) {
      type,
      ...rest
    } = omitLabelProps(props)
-   return (
-     ...
+   return ( 
+     ... 
    )
 }
 ```
@@ -1326,10 +1336,10 @@ Returns **[Object][156]** `props` object with [InputLabel][76] props omitted
 
 ## replaceEmptyStringValue
 
-A function that returns an HOC to wrap a `redux-forms`-controlled input.
+A function that returns an HOC to wrap a `redux-form`-controlled input. 
 
 This HOC transforms empty string values into a different specified value.
-This helps inputs with non-string values avoid PropType errors when provided with
+This helps inputs with non-string values avoid PropType errors when provided with 
 the default redux-form initial value (an empty string).
 
 ### Parameters
@@ -1470,7 +1480,7 @@ function MyView () {
 
 ## FlashMessageContainer
 
-A component that displays multiple flash messages generated by [redux-flash][174].
+A component that displays multiple flash messages generated by [redux-flash][176].
 Most apps will need only one of these containers at the top level.
 Will pass down any additional props to the inner `FlashMessage` components.
 
@@ -1516,7 +1526,7 @@ function Image ({ imgUrl }) {
 ## LoadingContainer
 
 A wrapper component that visually indicates whether a child component
-is loading, or loaded.
+is loading, or loaded. 
 
 LoadingContainer renders child components with modified opacity
 depending on whether `isLoading` is true or false
@@ -1541,7 +1551,7 @@ function PatientIndex ({ patientProfiles }) {
 
 ## AuthorizedRoute
 
-A [react-router][175] `Route` component that requires an auth function to return `true` before it can be entered.
+A [react-router][177] `Route` component that requires an auth function to return `true` before it can be entered.
 
 Note: this component is only compatible with react-router ^3.0.0.
 
@@ -1560,8 +1570,8 @@ function isMember () {
 const MyRoutes = (
     <Route path="/" component={ Layout }>
        <Route path="/welcome" component={ WelcomePage } />
-       <AuthorizedRoute
-          path="/members"
+       <AuthorizedRoute 
+          path="/members" 
           component={ MembersPage }
           authFunction={ isMember }
           redirect="/welcome"
@@ -1589,8 +1599,8 @@ function isMember () {
 const MyRoutes = (
     <Route path="/" component={ Layout }>
        <Route path="/members" component={ MembersPage } />
-       <UnauthorizedRoute
-          path="/welcome"
+       <UnauthorizedRoute 
+          path="/welcome" 
           component={ WelcomePage }
           authFunction={ isMember }
           redirect="/members"
@@ -1601,7 +1611,7 @@ const MyRoutes = (
 
 ## compareAtPath
 
-A function which returns a comparison function that extracts values at a
+A function which returns a comparison function that extracts values at a 
 certain path, and runs given comparison function on those values.
 
 ### Parameters
@@ -1675,7 +1685,7 @@ Returns **[Array][154]** Array of object options
 
 ## serializeOptionGroups
 
-Function that transforms options within an option group array into
+Function that transforms options within an option group array into 
 object options with keys of `key` and `value`
 
 ### Parameters
@@ -1685,7 +1695,7 @@ object options with keys of `key` and `value`
 ### Examples
 
 ```javascript
-const optionGroups = [
+const optionGroups = [ 
  { name: 'fruits', options: ['apple', 'banana'] },
  { name: 'veggies', options: ['lettuce', 'pepper'] },
 ]
@@ -1693,13 +1703,13 @@ const optionGroups = [
 serializeOptionGroups(optionGroups)
 
 // [
-//   {
-//     name: 'fruits',
-//     options: [{ key: 'apple', value: 'apple' }, { key: 'banana', value: 'banana' }]
-//   },
-//   {
-//     name: 'veggies',
-//     options: [{ key: 'lettuce', value: 'lettuce' }, { key: 'pepper', value: 'pepper' }]
+//   { 
+//     name: 'fruits', 
+//     options: [{ key: 'apple', value: 'apple' }, { key: 'banana', value: 'banana' }] 
+//   }, 
+//   { 
+//     name: 'veggies', 
+//     options: [{ key: 'lettuce', value: 'lettuce' }, { key: 'pepper', value: 'pepper' }] 
 //   },
 // ]
 ```
@@ -1746,9 +1756,9 @@ Returns **[Function][150]** Returns a function that takes an event and watches f
 
 ## Modal
 
-A modal component with a built-in close button. Uses [`react-modal`][176] under the hood, and can accept any props `react-modal` does.
+A modal component with a built-in close button. Uses [`react-modal`][178] under the hood, and can accept any props `react-modal` does.
 
-Unlike `react-modal`, this component does not require an `isOpen` prop to render. However, that prop can still be used in the case where animations are necessary- see [this issue][177].
+Unlike `react-modal`, this component does not require an `isOpen` prop to render. However, that prop can still be used in the case where animations are necessary- see [this issue][179].
 
 Note: this component requires custom styles. These styles can be imported from the `lib/styles` folder as shown inn the example below.
 
@@ -2111,28 +2121,30 @@ function MyView () {
 
 [165]: DropdownSelect
 
-[166]: https://github.com/nosir/cleave.js
+[166]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept
 
-[167]: https://github.com/nosir/cleave.js/blob/master/doc/options.md
+[167]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#capture
 
-[168]: https://github.com/markusenglund/react-switch
+[168]: https://github.com/nosir/cleave.js
 
-[169]: https://developer.mozilla.org/docs/Web/API/Element
+[169]: https://github.com/nosir/cleave.js/blob/master/doc/options.md
 
-[170]: https://en.wikipedia.org/wiki/Letter_case#Stylistic_or_specialised_usage
+[170]: https://github.com/markusenglund/react-switch
 
-[171]: https://redux-form.com
+[171]: https://developer.mozilla.org/docs/Web/API/Element
 
-[172]: https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation#Validating_forms_using_JavaScript
+[172]: https://en.wikipedia.org/wiki/Letter_case#Stylistic_or_specialised_usage
 
-[173]: http://redux-form.com/6.5.0/docs/api/Field.md/
+[173]: https://redux-form.com
 
-[174]: https://github.com/LaunchPadLab/redux-flash
+[174]: https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation#Validating_forms_using_JavaScript
 
-[175]: https://github.com/ReactTraining/react-router
+[175]: http://redux-form.com/6.5.0/docs/api/Field.md/
 
-[176]: https://github.com/reactjs/react-modal
+[176]: https://github.com/LaunchPadLab/redux-flash
 
-[177]: https://github.com/reactjs/react-modal/issues/25
+[177]: https://github.com/ReactTraining/react-router
 
-[178]: https://reactjs.org/docs/refs-and-the-dom.html
+[178]: https://github.com/reactjs/react-modal
+
+[179]: https://github.com/reactjs/react-modal/issues/25

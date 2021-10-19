@@ -6,12 +6,12 @@ import { compose, filterInvalidDOMProps, generateInputErrorId } from '../../util
 
 /**
  *
- * A range input that can be used in a `redux-forms`-controlled form.
+ * A range input that can be used in a `redux-form`-controlled form.
  *
  * @name RangeInput
  * @type Function
- * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
- * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+ * @param {Object} input - A `redux-form` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
+ * @param {Object} meta - A `redux-form` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @param {Number} [min=0] - The minumum attribute of the slider control
  * @param {Number} [max=100] - The maximum attribute of the slider control
  * @param {Number} [step=1] - The step attribute of the slider control

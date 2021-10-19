@@ -20,7 +20,7 @@ import {
 
 /**
  *
- * A select input that can be used in a `redux-forms`-controlled form.
+ * A select input that can be used in a `redux-form`-controlled form.
  *
  * The value of each option is specified via the `options` or the `optionGroups` prop.
  * The `options` prop will be ignored if `optionGroups` is present.
@@ -38,8 +38,8 @@ import {
  *
  * @name Select
  * @type Function
- * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
- * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+ * @param {Object} input - A `redux-form` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
+ * @param {Object} meta - A `redux-form` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @param {Array} options - An array of option values (strings, numbers, or key-value pairs). This prop will be ignored if `optionGroups` is present.
  * @param {Array} optionGroups - An array of option group objects
  * @param {String} [placeholder='Select'] - A string to display as a placeholder option. Pass in `false` to hide the placeholder option.
