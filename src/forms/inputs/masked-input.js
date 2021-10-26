@@ -7,12 +7,12 @@ import Cleave from 'cleave.js/react'
 
 /**
  *
- * A masked input that can be used in a `redux-forms`-controlled form. Built on top of [cleave.js](https://github.com/nosir/cleave.js).
+ * A masked input that can be used in a `redux-form`-controlled form. Built on top of [cleave.js](https://github.com/nosir/cleave.js).
  * 
  * @name MaskedInput
  * @type Function
- * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
- * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+ * @param {Object} input - A `redux-form` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
+ * @param {Object} meta - A `redux-form` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @param {Object} [maskOptions] - An object of options to pass to the underlying `Cleave` instance. [(supported options)](https://github.com/nosir/cleave.js/blob/master/doc/options.md)
  * @example
  * 

@@ -1,6 +1,7 @@
 export compareAtPath from './compare-at-path'
 export generateInputErrorId from './generate-input-error-id'
 export isServer from './is-server'
+export removeAt from './remove-at'
 export serializeOptions from './serialize-options'
 export serializeOptionGroups from './serialize-option-groups'
 export stripNamespace from './strip-namespace'
