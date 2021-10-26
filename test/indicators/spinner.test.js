@@ -10,6 +10,13 @@ test('Spinner creates div with class "spinner"', () => {
   expect(wrapper.find('div.spinner').exists()).toBe(true)
 })
 
+test('Spinner can have custom className', () => {
+  const wrapper = mount(
+    <Spinner className="custom" />
+  )
+  expect(wrapper.find('div.custom').exists()).toBe(true)
+})
+
 test('Spinner passes props', () => {
   const wrapper = mount(
     <Spinner name="Bob" />
