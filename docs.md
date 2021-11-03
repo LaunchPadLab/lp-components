@@ -942,7 +942,8 @@ export default CoolPersonForm
 
 ## Textarea
 
-A textarea input that can be used in a `redux-forms`-controlled form. Can forward ref down to textarea input and optionally displays a character count.
+A textarea input that can be used in a `redux-forms`-controlled form.
+Can forward ref down to textarea input and optionally displays a character count.
 
 ### Parameters
 
@@ -950,7 +951,7 @@ A textarea input that can be used in a `redux-forms`-controlled form. Can forwar
 -   `meta` **[Object][156]** A `redux-forms` [meta][158] object
 -   `maxLength` **[Number][153]?** The maximum allowed length of the input
 -   `hideCharacterCount` **[Boolean][151]** Whether to hide the character count if given a maxLength (optional, default `false`)
--   `forwardedRef` **[Ref][178]?** A ref to be forwarded to `textarea` input (standard `ref` cannot currently be forwarded)
+-   `forwardedRef` **Ref?** A ref to be forwarded to `textarea` input (standard `ref` cannot currently be forwarded)
 
 ### Examples
 
@@ -1418,14 +1419,22 @@ A component used to pass column information to a [Table][101] or [SortableTable]
 -   `label` **[String][149]?** The text that will be displayed in the column header. Defaults to `name`.
 -   `sortFunc` **[Function][150]?** The function that will be used to sort the table data when the column is selected
 -   `component` **[Function][150]?** A custom cell component for the column. Will be passed the `key`, `name`, `value` and `data` for the row.
--   `headerComponent` **[Function][150]?** A custom header component for the column. Will be passed the configuration of the column, as well as the current `sortPath` / `ascending` and an `onClick` handler.
--   `onClick` **[Function][150]?** A function that will be called `onClick` on every cell in the column
+-   `headerComponent` **[Function][150]?** A custom header component for the column. Will be passed the configuration of the column, as well as the current `sortPath` / `ascending` and an `onClick` handler. onClick must be appended to allow for sorting functionality.
+-   `onClick` **[Function][150]?** A function that will be called `onClick` on every cell in the column.
 -   `format` **[Function][150]?** A function that formats the value displayed in each cell in the column
 -   `disabled` **[Boolean][151]?** A flag that disables sorting for the column
 -   `placeholder` **[String][149]?** A string that will be displayed if the value of the cell is `undefined` or `null`
 -   `valueGetter` **[Function][150]?** A function that will return a cell's value derived from each data object. Will be passed the `data` for the row.
 
 ### Examples
+
+```javascript
+function CustomHeader({ column: { name }, onClick }) {
+  return (
+    <th onClick={onClick}>{name.toUpperCase() + '!'}</th>
+  )
+}
+```
 
 ```javascript
 function PersonTable ({ people }) {
@@ -2132,5 +2141,3 @@ function MyView () {
 [176]: https://github.com/reactjs/react-modal
 
 [177]: https://github.com/reactjs/react-modal/issues/25
-
-[178]: https://reactjs.org/docs/refs-and-the-dom.html
