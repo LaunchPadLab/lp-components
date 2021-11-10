@@ -14,8 +14,8 @@ const propTypes = {
 }
 
 const DefaultRowComponent = ({ children }) => <tr>{ children }</tr> // eslint-disable-line
-const DefaultCellComponent = ({ className, onClick, placeholder, value }) => // eslint-disable-line
-  <td { ...{ className, onClick }}>{ isNil(value) ? placeholder : value }</td>
+const DefaultCellComponent = ({ className, onClick, placeholder, value, ...rest }) => // eslint-disable-line
+  <td { ...{ className, onClick, ...rest }}>{ isNil(value) ? placeholder : value }</td>
 
 function TableRow ({
   columns,
