@@ -28,7 +28,7 @@ import classnames from 'classnames'
  */
 
 const propTypes = {
-  className: PropTypes.string
+  className: ''
 }
 
 const defaultProps = {}
