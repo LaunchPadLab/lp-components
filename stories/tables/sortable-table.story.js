@@ -28,9 +28,9 @@ function CustomRow({ data: { active }, children }) {
 }
 
 // eslint-disable-next-line react/prop-types
-function CustomHeader({ column: { name } }) {
+function CustomHeader({ column: { name }, onClick }) {
   return (
-    <th>{name.toUpperCase() + '!'}</th>
+    <th onClick={onClick}>{name.toUpperCase() + '!'}</th>
   )
 }
 
