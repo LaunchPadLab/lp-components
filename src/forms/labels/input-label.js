@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { convertNameToLabel } from '../helpers'
-import { toggle, togglePropTypes } from '../../utils'
+import { toggle, togglePropTypes, filterInvalidDOMProps } from '../../utils'
 
 /**
  *
@@ -91,6 +91,7 @@ function InputLabel ({
   required,
   requiredIndicator,
   className,
+  ...rest
 }) {
   const labelToDisplay = children || label || convertNameToLabel(name)
   
@@ -98,7 +99,7 @@ function InputLabel ({
     <span>
       {
         label !== false &&
-        <label htmlFor={ id || name } className={ className }>
+        <label htmlFor={ id || name } className={ className } {...filterInvalidDOMProps(rest)}>
           { labelToDisplay }
           {
             required && requiredIndicator &&
