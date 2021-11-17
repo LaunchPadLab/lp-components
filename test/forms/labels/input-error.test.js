@@ -46,3 +46,8 @@ test('is provided with an id containing the associated input name', () => {
   const wrapper = shallow(<InputError name={ inputName } invalid touched />)
   expect(wrapper.find('span').prop('id')).toContain(inputName)
 })
+
+test('does not pass label prop on label={false}', () => {
+  const wrapper = shallow(<InputError label={false} invalid touched />)
+   expect(wrapper.prop('label')).toBe(undefined)
+})

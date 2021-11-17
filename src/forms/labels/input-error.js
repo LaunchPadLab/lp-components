@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { generateInputErrorId, filterInvalidDOMProps } from '../../utils'
 import { hasInputError } from '../helpers'
+import { omit } from 'lodash'
 
 /**
  *
@@ -70,12 +71,12 @@ const defaultProps = {
   name: '',
 }
 
-function InputError ({ error, invalid, touched, name, className, ...rest }) {
+function InputError ({ error, invalid, touched, name, className, label, ...rest }) {
   return hasInputError({ touched, invalid })
     ? <span
         id={ generateInputErrorId(name) }
         className={ classnames('error-message', className) }
-        { ...filterInvalidDOMProps(rest) }
+        { ...filterInvalidDOMProps(!label ? omit(rest, 'label') : rest) }
       >
         { formatError(error) }
       </span>
