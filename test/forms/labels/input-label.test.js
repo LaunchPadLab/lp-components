@@ -77,3 +77,13 @@ test('can accept a custom classname', () => {
   const wrapper = mount(<InputLabel name={name} className="foo" />)
   expect(wrapper.find('label').hasClass('foo')).toBe(true)
 })
+
+test('passes DOM props to inner label tag', () => {
+  const wrapper = mount(<InputLabel name={name} className="foo" aria-label="input-label" />)
+  expect(wrapper.find('label').prop('aria-label')).toEqual('input-label')
+})
+
+test('filter out invalid DOM props', () => {
+  const wrapper = mount(<InputLabel name={name} className="foo" invalidPropertyHere="input-label" />)
+  expect(wrapper.find('label').prop('invalidPropertyHere')).toBe(undefined)
+})
