@@ -48,7 +48,7 @@ function compareCustomValue(a, b) {
 storiesOf('SortableTable', module)
   .add('default', () => (
     <SortableTable data={tableData}>
-      <Column name="name"/>
+      <Column name="name" />
       <Column name="age" />
       <Column name="active" />
     </SortableTable>
