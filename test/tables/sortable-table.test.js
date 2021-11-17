@@ -367,3 +367,12 @@ test('invalid arbitrary props filtered out', () => {
   )
   expect(wrapper.find('table').first().prop('invalidProp')).toBe(undefined)
 })
+
+test('passes extra props to cells', () => {
+  const wrapper = mount(
+      <SortableTable data={tableData} aria-label="Annual Report" test="test">
+        <Column name="name" data-cy="name"/>
+      </SortableTable>
+    )
+  expect(wrapper.find('td').first().prop('data-cy')).toEqual('name')
+})
