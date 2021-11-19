@@ -7,28 +7,24 @@ import dynamicInput from '../../dynamic-input'
 const RadioGroup = dynamicInput({
   initialValue: '',
   valuePath: 'input.value',
-  onChangePath: 'input.onChange'
+  onChangePath: 'input.onChange',
 })(StaticRadioGroup)
 
 const inputProps = {
   name: 'person.radioOptions',
   value: '',
-  onChange: action('field changed')
+  onChange: action('field changed'),
 }
 
 const options = [
   { key: 'First Option', value: '1' },
   { key: 'Second Option', value: '2' },
-  { key: 'Third Option', value: '3' }
+  { key: 'Third Option', value: '3' },
 ]
 
 storiesOf('RadioGroup', module)
   .add('with default label', () => (
-    <RadioGroup
-      input={inputProps}
-      meta={{}}
-      options={options}
-    />
+    <RadioGroup input={inputProps} meta={{}} options={options} />
   ))
   .add('with custom label', () => (
     <RadioGroup
@@ -39,12 +35,7 @@ storiesOf('RadioGroup', module)
     />
   ))
   .add('with no label', () => (
-    <RadioGroup
-      input={inputProps}
-      meta={{}}
-      label={false}
-      options={options}
-    />
+    <RadioGroup input={inputProps} meta={{}} label={false} options={options} />
   ))
   .add('with error', () => (
     <RadioGroup
@@ -52,15 +43,10 @@ storiesOf('RadioGroup', module)
       meta={{
         invalid: true,
         touched: true,
-        error: 'Invalid input'
+        error: 'Invalid input',
       }}
       value="0000"
       options={options}
     />
   ))
-  .add('with empty options', () => (
-    <RadioGroup
-      input={inputProps}
-      meta={{}}
-    />
-  ))
+  .add('with empty options', () => <RadioGroup input={inputProps} meta={{}} />)

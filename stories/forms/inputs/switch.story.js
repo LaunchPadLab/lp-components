@@ -7,38 +7,25 @@ import dynamicInput from '../../dynamic-input'
 const Switch = dynamicInput({
   initialValue: false,
   valuePath: 'input.value',
-  onChangePath: 'input.onChange'
+  onChangePath: 'input.onChange',
 })(StaticSwitch)
 
 const inputProps = {
   name: 'person.selected',
-  onChange: action('switch clicked')
+  onChange: action('switch clicked'),
 }
 
 storiesOf('Switch', module)
-  .add('with default label', () => (
-    <Switch
-      input={ inputProps }
-      meta={{}}
-    />
-  ))
+  .add('with default label', () => <Switch input={inputProps} meta={{}} />)
   .add('with custom label', () => (
-    <Switch
-      input={ inputProps }
-      meta={{}}
-      label="Custom Label"
-    />
+    <Switch input={inputProps} meta={{}} label="Custom Label" />
   ))
   .add('with no label', () => (
-    <Switch
-      input={ inputProps }
-      meta={{}}
-      label={false}
-    />
+    <Switch input={inputProps} meta={{}} label={false} />
   ))
   .add('with no icons', () => (
     <Switch
-      input={ inputProps }
+      input={inputProps}
       meta={{}}
       checkedIcon={false}
       uncheckedIcon={false}
@@ -46,19 +33,15 @@ storiesOf('Switch', module)
   ))
   .add('with error', () => (
     <Switch
-      input={ inputProps }
+      input={inputProps}
       meta={{
         invalid: true,
         touched: true,
-        error: 'Invalid input'
+        error: 'Invalid input',
       }}
       value="0000"
     />
   ))
   .add('with a tooltip', () => (
-    <Switch
-      input={ inputProps }
-      meta={{}}
-      tooltip="I am a tooltip"
-    />
+    <Switch input={inputProps} meta={{}} tooltip="I am a tooltip" />
   ))

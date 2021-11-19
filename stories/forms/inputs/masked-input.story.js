@@ -6,30 +6,26 @@ import dynamicInput from '../../dynamic-input'
 
 const MaskedInput = dynamicInput({
   valuePath: 'input.value',
-  onChangePath: 'input.onChange'
+  onChangePath: 'input.onChange',
 })(StaticMaskedInput)
 
 const inputProps = {
   name: 'maskedInput',
-  onChange: action('field changed')
+  onChange: action('field changed'),
 }
 
 storiesOf('MaskedInput', module)
   .add('comma-separated number', () => (
-    <MaskedInput
-      input={inputProps}
-      meta={{}}
-      maskOptions={{ numeral: true }}
-    />
+    <MaskedInput input={inputProps} meta={{}} maskOptions={{ numeral: true }} />
   ))
   .add('phone number', () => (
     <MaskedInput
       input={inputProps}
       meta={{}}
-      maskOptions={{ 
+      maskOptions={{
         numericOnly: true,
         blocks: [0, 3, 0, 3, 4],
-        delimiters: ['(', ')', ' ', '-'], 
+        delimiters: ['(', ')', ' ', '-'],
       }}
     />
   ))

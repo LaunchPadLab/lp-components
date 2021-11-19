@@ -6,9 +6,6 @@ import dynamicInput from '../dynamic-input'
 
 const ColorPicker = dynamicInput()(StaticColorPicker)
 
-storiesOf('ColorPicker', module)
-  .add('default', () => (
-    <ColorPicker 
-      onChange={ action('selected color') }
-    />
-  ))
+storiesOf('ColorPicker', module).add('default', () => (
+  <ColorPicker onChange={action('selected color')} />
+))

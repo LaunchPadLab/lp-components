@@ -8,11 +8,9 @@ import dynamicInput from '../dynamic-input'
 const NavLink = dynamicInput()(StaticNavLink)
 
 storiesOf('NavLink', module)
-  .addDecorator(story => (
-    <Router history={ createMemoryHistory('/') }>
-      <Route path="/" component={ story } />
+  .addDecorator((story) => (
+    <Router history={createMemoryHistory('/')}>
+      <Route path="/" component={story} />
     </Router>
   ))
-  .add('default', () => (
-    <NavLink to="/">Home</NavLink>
-  ))
+  .add('default', () => <NavLink to="/">Home</NavLink>)
