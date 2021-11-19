@@ -98,7 +98,7 @@
     "react": "^16.8.0"
   },
   "husky": {
-    "pre-commit": "yarn run docs && git add docs.md"
+    "pre-commit": "yarn run docs && yarn run format && yarn run format-storybook && git add"
   },
   "prettier": "@launchpadlab/prettier-config"
 }
