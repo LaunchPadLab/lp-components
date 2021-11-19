@@ -30,7 +30,9 @@
     "test": "jest --coverage",
     "size": "yarn build && size-limit",
     "storybook:build": "build-storybook -o .storybook/static/storybook",
-    "heroku-postbuild": "yarn run storybook:build"
+    "heroku-postbuild": "yarn run storybook:build",
+    "format": "prettier --write \"src/**/*.+(js|jsx|json|scss)\"",
+    "format-storybook": "prettier --write \".storybook/**/*.+(js|jsx|json|scss)\""
   },
   "files": [
     "README.md",
