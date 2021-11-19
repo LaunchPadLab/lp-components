@@ -25,6 +25,8 @@ import {
  * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
  * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @param {String} [type] - A string to specify the type of input element (defaults to `text`)
+ * @param {String} [ariaLabel] - A string to specify the label of the input element to assistive technologies when a standard label is not provided (will be overriden by `ariaLabelledby`)
+ * @param {String} [ariaLabelledby] - A string that corresponds to the `id` of one or more elements used as the label of the input element for assistive technologies when a standard label is not provided (will override `ariaLabel`)
  * @example
  *
  * function UserForm ({ handleSubmit, pristine, invalid, submitting }) {
@@ -45,11 +47,15 @@ import {
 
 const propTypes = {
   ...fieldPropTypes,
+  ariaLabel: PropTypes.string,
+  ariaLabelledby: PropTypes.string,
   type: PropTypes.string,
   children: PropTypes.node,
 }
 
 const defaultProps = {
+  ariaLabel: null,
+  ariaLabelledby: null,
   type: 'text',
 }
 
@@ -59,6 +65,8 @@ function Input(props) {
     id,
     meta, // eslint-disable-line no-unused-vars
     className, // eslint-disable-line no-unused-vars
+    ariaLabel,
+    ariaLabelledby,
     type,
     children,
     ...rest
@@ -74,6 +82,8 @@ function Input(props) {
             value,
             onBlur,
             onChange,
+            'aria-label': ariaLabel,
+            'aria-labelledby': ariaLabelledby,
             'aria-describedby': hasInputError(meta)
               ? generateInputErrorId(name)
               : null,

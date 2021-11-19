@@ -19,8 +19,24 @@ storiesOf('Input', module)
   .add('with custom label', () => (
     <Input input={inputProps} meta={{}} label="Custom Label" />
   ))
-  .add('with no label', () => (
-    <Input input={inputProps} meta={{}} label={false} />
+  .add('with no label (using aria-label)', () => (
+    <Input
+      input={inputProps}
+      meta={{}}
+      label={false}
+      ariaLabel="Custom label"
+    />
+  ))
+  .add('with heading used as label (using aria-labelledby)', () => (
+    <React.Fragment>
+      <h3 id="input-label">Custom Label</h3>
+      <Input
+        input={inputProps}
+        meta={{}}
+        label={false}
+        ariaLabelledby="input-label"
+      />
+    </React.Fragment>
   ))
   .add('with required true custom indicator', () => (
     <Input
