@@ -12,19 +12,19 @@ storiesOf('LabeledField', module)
     <LabeledField
       {...{
         input: {
-          name: 'input name',
+          name: 'inputName',
         },
         meta: {},
       }}
     >
-      <Input />
+      <Input id="inputName" />
     </LabeledField>
   ))
   .add('with error', () => (
     <LabeledField
       {...{
         input: {
-          name: 'input name',
+          name: 'inputName',
         },
         meta: {
           touched: true,
@@ -33,14 +33,14 @@ storiesOf('LabeledField', module)
         },
       }}
     >
-      <Input />
+      <Input id="inputName" />
     </LabeledField>
   ))
   .add('hide error', () => (
     <LabeledField
       {...{
         input: {
-          name: 'input name',
+          name: 'inputName',
         },
         meta: {
           touched: true,
@@ -50,7 +50,7 @@ storiesOf('LabeledField', module)
         hideErrorLabel: true,
       }}
     >
-      <Input />
+      <Input id="inputName" />
     </LabeledField>
   ))
   .add('with custom label', () => {
