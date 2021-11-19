@@ -1685,6 +1685,11 @@
     query-string "^5.0.0"
     url-join "^4.0.0"
 
+"@launchpadlab/prettier-config@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@launchpadlab/prettier-config/-/prettier-config-1.0.0.tgz#cb1f0d0ae714d3faa4543bce89b82961f86bf340"
+  integrity sha512-YvTfVI4hnA4G/fJyeIGX1eivdTPZOB+JIOCdFm5zWRuijJ1V371tA/WeXxSSKYNhj1Tk6+eEZI0WFd++uHVFag==
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
