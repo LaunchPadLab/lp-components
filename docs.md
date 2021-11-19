@@ -942,7 +942,7 @@ export default CoolPersonForm
 
 ## Textarea
 
-A textarea input that can be used in a `redux-forms`-controlled form. Optionally displays a character count.
+A textarea input that can be used in a `redux-forms`-controlled form. Can forward ref down to textarea input and optionally displays a character count.
 
 ### Parameters
 
@@ -950,6 +950,7 @@ A textarea input that can be used in a `redux-forms`-controlled form. Optionally
 -   `meta` **[Object][156]** A `redux-forms` [meta][158] object
 -   `maxLength` **[Number][153]?** The maximum allowed length of the input
 -   `hideCharacterCount` **[Boolean][151]** Whether to hide the character count if given a maxLength (optional, default `false`)
+-   `forwardedRef` **[Ref][178]?** A ref to be forwarded to `textarea` input (standard `ref` cannot currently be forwarded)
 
 ### Examples
 
@@ -1390,7 +1391,7 @@ This component's behavior is largely determined by the [TableColumn][107] compon
 -   `disableSort` **[Boolean][151]** A flag to disable sorting on all columns and hide sorting arrows. (optional, default `false`)
 -   `controlled` **[Boolean][151]** A flag to disable sorting on all columns, while keeping the sorting arrows. Used when sorting is controlled by an external source. (optional, default `false`)
 -   `onChange` **[Function][150]?** A callback that will be fired when the sorting state changes
--   `rowComponent` **[Function][150]?** A custom row component for the table. Will be passed the `data` for the row, as well as `children` to render.
+-   `rowComponent` **[Function][150]?** A custom row component for the table. Will be passed the `data` for the row, several internal table states (the current column being sorted (sortPath), whether ascending sort is active or not (ascending), the sorting function (sortFunc), and the value getter (valueGetter)) as well as `children` to render.
 -   `headerComponent` **[Function][150]?** A custom header component for the table. Will be passed the configuration of the corresponding column, as well as the current `sortPath` / `ascending` and an `onClick` handler. May be overridden by a custom `headerComponent` for a column.
 
 ### Examples
@@ -2131,3 +2132,5 @@ function MyView () {
 [176]: https://github.com/reactjs/react-modal
 
 [177]: https://github.com/reactjs/react-modal/issues/25
+
+[178]: https://reactjs.org/docs/refs-and-the-dom.html
