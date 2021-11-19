@@ -1,57 +1,55 @@
 // Typography Mixin
 // ========================================
 
-
 // Font Sizes
-@mixin s-giga{
+@mixin s-giga {
   @include rem(font-size, $s-giga);
 }
 
-@mixin s-mega{
+@mixin s-mega {
   @include rem(font-size, $s-mega);
 }
 
-@mixin s-huge{
+@mixin s-huge {
   @include rem(font-size, $s-huge);
 }
 
-@mixin s-large{
+@mixin s-large {
   @include rem(font-size, $s-large);
   @include rem(line-height, $base-line-height);
 }
 
-@mixin s-bigger{
+@mixin s-bigger {
   @include rem(font-size, $s-bigger);
   @include rem(line-height, $base-line-height);
 }
 
-@mixin s-big{
+@mixin s-big {
   @include rem(font-size, $s-big);
   @include rem(line-height, $base-line-loose);
 }
 
-@mixin s-medium{
+@mixin s-medium {
   @include rem(font-size, $s-medium);
   line-height: normal;
 }
 
-@mixin s-base{
+@mixin s-base {
   @include rem(font-size, $s-base);
 }
 
-@mixin s-small{
+@mixin s-small {
   @include rem(font-size, $s-small);
 }
 
-@mixin s-tiny{
+@mixin s-tiny {
   @include rem(font-size, $s-tiny);
   @include rem(line-height, $base-line-small);
 }
 
-
 // Font Styles
-@mixin font-type($type, $style, $weight){
+@mixin font-type($type, $style, $weight) {
   font-family: $type;
-  font-style:  $style;
+  font-style: $style;
   font-weight: $weight;
 }

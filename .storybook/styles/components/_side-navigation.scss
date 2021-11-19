@@ -1,12 +1,12 @@
 $side-navigation: 245px;
 
-.side-navigation{
+.side-navigation {
   display: none;
 
   @include media($tablet-landscape) {
     display: block;
     background-color: $white-base;
-    box-shadow: 0 0 18px 0 rgba(232,232,232,0.50);
+    box-shadow: 0 0 18px 0 rgba(232, 232, 232, 0.5);
     @include position(fixed, 0px null 0px 0px);
     overflow: scroll;
     margin-top: $desktop-nav-height;
@@ -18,7 +18,7 @@ $side-navigation: 245px;
       border-left: 3px solid $green-base;
     }
 
-    a{
+    a {
       display: inline-block;
       @include font-type($primary-sans-serif, normal, $bold);
       @include rem(padding, 10px);

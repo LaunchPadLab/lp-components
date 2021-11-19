@@ -2,35 +2,34 @@
 Blade Header
 -----------------------*/
 
-.blade-header{
+.blade-header {
   color: $grey-base;
   @include rem(margin-bottom, 10px);
 }
 
-
 /*-----------------------
 Blade Contents
 -----------------------*/
-.blade{
+.blade {
   background-color: $white-base;
-  box-shadow: 0 0 17px 0 rgba(222,222,222,0.50);
+  box-shadow: 0 0 17px 0 rgba(222, 222, 222, 0.5);
   cursor: pointer;
   @include rem(margin-bottom, 10px);
   @include rem(padding, 15px);
   @include transition(all 0.3s ease-in-out);
 
-  &:hover{
+  &:hover {
     background-color: $blue-light;
   }
 
-  p{
+  p {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: normal;
   }
 
-  .profile-thumb{
+  .profile-thumb {
     background-color: $white-light;
     border-radius: 50%;
     display: inline-block;
@@ -39,38 +38,36 @@ Blade Contents
     width: 42px;
     vertical-align: -4px;
 
-    img{
+    img {
       border-radius: 50%;
     }
   }
 
-  .text-block{
+  .text-block {
     display: inline-block;
     width: calc(100% - 58px);
 
-    p{
+    p {
       margin: 0px;
     }
 
-    span{
+    span {
       color: $grey-base;
       @include s-small;
     }
   }
 }
 
-
-.blade{
-
-  .center{
+.blade {
+  .center {
     @include rem(margin-top, 10px);
   }
 
-  a{
+  a {
     @include rem(margin-top, 5px);
   }
 
-  span{
+  span {
     border-radius: 50%;
     display: inline-block;
     height: 10px;
@@ -79,35 +76,36 @@ Blade Contents
     @include rem(margin-right, 5px);
   }
 
-  .is-complete span{
+  .is-complete span {
     background-color: $green-base;
   }
 
-  .in-progress span{
+  .in-progress span {
     background-color: $yellow-base;
   }
 
-  .is-late span{
+  .is-late span {
     background-color: $red-base;
   }
 }
 
-.status{
-  li{
+.status {
+  li {
     @include font-type($primary-sans-serif, normal, $regular);
     @include s-small;
     color: $grey-base;
     display: inline-block;
     line-height: normal;
 
-    &:before{
-      content: "/";
+    &:before {
+      content: '/';
       display: inline-block;
       @include rem(margin, 0px 2px);
     }
 
-    &:first-child, &:nth-child(2){
-      &:before{
+    &:first-child,
+    &:nth-child(2) {
+      &:before {
         display: none;
       }
     }

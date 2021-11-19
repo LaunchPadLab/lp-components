@@ -1,32 +1,33 @@
 /*-----------------------
 Reminders
 -----------------------*/
-.reminder{
-  .row{
+.reminder {
+  .row {
     border-bottom: 1px solid $white-med;
     @include rem(padding, 10px);
 
-    &:first-child{
+    &:first-child {
       background-color: $blue-light;
     }
 
-    fieldset{
-
-      @include media($tablet){
+    fieldset {
+      @include media($tablet) {
         margin-top: 0px;
       }
 
-      &:first-of-type{
+      &:first-of-type {
         margin-top: 0px;
       }
     }
 
-    label, p, a{
+    label,
+    p,
+    a {
       @include rem(margin-top, 5px);
       margin-bottom: 0px;
     }
 
-    a{
+    a {
       @include s-bigger;
       text-align: right;
       text-decoration: none;

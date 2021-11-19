@@ -1,7 +1,7 @@
 // Base Typography
 // ========================================
 
-html{
+html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
@@ -21,18 +21,17 @@ h2,
 h3,
 h4,
 h5,
-h6
- {
+h6 {
   color: $black-base;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   letter-spacing: 1.75;
   line-height: 1.1;
 
-  a{
+  a {
     @include transition(all 0.3s ease-in-out);
 
-    &:hover{
+    &:hover {
       text-decoration: underline;
     }
   }
@@ -61,9 +60,15 @@ h3 {
   }
 }
 
-h4 { font-size: $s-bigger; }
-h5 { font-size: $s-big; }
-h6 { font-size: $s-big; }
+h4 {
+  font-size: $s-bigger;
+}
+h5 {
+  font-size: $s-big;
+}
+h6 {
+  font-size: $s-big;
+}
 
 h4 {
   text-transform: uppercase;
@@ -79,12 +84,13 @@ p {
     font-size: $s-base;
   }
 
-
-  &:last-child { @include rem(margin-bottom, 0); }
+  &:last-child {
+    @include rem(margin-bottom, 0);
+  }
 }
 
 li,
-dd{
+dd {
   color: $black-base;
   @include font-type($primary-sans-serif, normal, normal);
   line-height: $base-line-height;
@@ -99,7 +105,8 @@ a {
   border-bottom: 2px solid $blue-light;
   font-size: $s-small;
 
-  &:hover, &:focus  {
+  &:hover,
+  &:focus {
     border-bottom: 2px solid $blue-base;
   }
 
@@ -115,14 +122,21 @@ a {
   border-bottom: 2px solid $blue-light;
 }
 
-strong, b { font-weight: $bold; }
-i, em { font-style: italic; }
+strong,
+b {
+  font-weight: $bold;
+}
+i,
+em {
+  font-style: italic;
+}
 
-
-b, i {
+b,
+i {
   color: $black-base;
 }
 
-b, i {
+b,
+i {
   font-size: $s-base;
 }

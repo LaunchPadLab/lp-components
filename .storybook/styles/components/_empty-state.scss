@@ -2,12 +2,12 @@
 Empty State
 -----------------------*/
 
-.empty-state{
+.empty-state {
   @include center;
   max-width: 400px;
   text-align: center;
 
-  img{
+  img {
     @include rem(margin-bottom, 10px);
     max-width: 100px;
     opacity: 0.5;

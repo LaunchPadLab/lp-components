@@ -1,38 +1,40 @@
 /*-----------------------
 Summit List
 -----------------------*/
-.summit-list{
+.summit-list {
   display: inline-block;
   width: 100%;
 
-  .card-link{
+  .card-link {
     display: inline-block;
     @include rem(margin-bottom, 20px);
 
-    @include media($tablet){
+    @include media($tablet) {
       @include span-columns(6 of 12);
       @include omega(2n);
     }
 
-    &:hover{
-      .card{ background-color: $blue-light; }
+    &:hover {
+      .card {
+        background-color: $blue-light;
+      }
     }
 
     .card {
       @include transition(all 0.3s ease-in-out);
       @include rem(padding, 20px);
 
-      .text-block{
+      .text-block {
         @include rem(margin-top, 20px);
 
-        h4{
+        h4 {
           margin-bottom: 0px;
         }
       }
     }
   }
 
-  span{
+  span {
     border-radius: 20px;
     color: $white-base;
     display: inline-block;
@@ -45,20 +47,20 @@ Summit List
     width: 65px;
   }
 
-  .is-live{
+  .is-live {
     background-color: $green-base;
   }
 
-  .in-progress{
+  .in-progress {
     background-color: $yellow-base;
   }
 
-  .is-past{
+  .is-past {
     background-color: $blue-base;
   }
 }
 
-.summit-thumb{
+.summit-thumb {
   background-color: $grey-light;
   height: 100%;
   width: 100%;

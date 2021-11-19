@@ -23,9 +23,7 @@
       float: left;
     }
   }
-
 }
-
 
 .invites-accepted {
   span {
@@ -33,7 +31,8 @@
     height: 40px;
     display: block;
     @include rem(padding, 9px);
-    p, h2 {
+    p,
+    h2 {
       display: inline-block;
     }
 
@@ -57,11 +56,11 @@
 }
 
 .slush-fund {
-    border: 1px solid $green-base;
-    background-color: $green-light;
+  border: 1px solid $green-base;
+  background-color: $green-light;
 
-    h1 {
-      color: $green-base;
-      padding-bottom: 20px;
-    }
+  h1 {
+    color: $green-base;
+    padding-bottom: 20px;
   }
+}

@@ -14,7 +14,6 @@
   }
 }
 
-
 .recruiter-search {
   width: 340px;
   margin: 0 auto;
@@ -26,7 +25,7 @@
     @include rem(padding, 0px 20px 50px 20px);
     display: block;
     background-color: $white-base;
-    box-shadow: 0 0 18px 0 rgba(232,232,232,0.50);
+    box-shadow: 0 0 18px 0 rgba(232, 232, 232, 0.5);
     @include position(fixed, 0px null 0px 0px);
     overflow: scroll;
     margin-top: 70px;
@@ -39,7 +38,8 @@
     }
   }
 
-  .short-input, select#canSponsor {
+  .short-input,
+  select#canSponsor {
     width: 40%;
   }
 

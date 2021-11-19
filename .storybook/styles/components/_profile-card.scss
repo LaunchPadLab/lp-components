@@ -6,21 +6,20 @@
   }
 
   h3 {
-      text-transform: uppercase;
-    }
+    text-transform: uppercase;
+  }
 
   .student-info {
     text-align: center;
     @include media($tablet-landscape) {
       margin-left: 188px;
-      text-align: left
+      text-align: left;
     }
   }
 
   .student-info-edit {
     text-align: left;
     @include rem(margin, 0px 0 10px 0);
-
   }
 
   .profile-image {
@@ -43,7 +42,7 @@
   .image-banner {
     display: none;
     @include media($tablet-landscape) {
-      background-color: rgba(255, 190, 29, 0.7);;
+      background-color: rgba(255, 190, 29, 0.7);
       color: $white-base;
       width: 100%;
       font-weight: $bold;
@@ -74,7 +73,6 @@
     }
   }
 
-
   span {
     img {
       width: 15px;
@@ -83,12 +81,12 @@
       margin: 5px 0;
       display: inline-flex;
     }
-    img, p {
+    img,
+    p {
       vertical-align: middle;
       display: inline-block;
     }
   }
-
 
   h1 {
     @include rem(margin, 10px 0 5px);
@@ -98,7 +96,8 @@
     }
   }
 
-  h1, h2, {
+  h1,
+  h2 {
     @include rem(margin-bottom, 5px);
   }
 
@@ -154,20 +153,20 @@
   }
 }
 
-  .button-group {
-    @include rem(margin-top, 20px);
-    width: 100%;
-    text-align: center;
-    @include media($tablet-landscape) {
-     display: inline-block;
-    }
-   button {
+.button-group {
+  @include rem(margin-top, 20px);
+  width: 100%;
+  text-align: center;
+  @include media($tablet-landscape) {
+    display: inline-block;
+  }
+  button {
     @include rem(margin, 0 2px 2px 0);
     @include media($tablet-landscape) {
       width: 49.3%;
     }
-   }
   }
+}
 
 .button-profile-card {
   @include rem(margin-top, 2px);
@@ -183,7 +182,7 @@
 }
 
 .button-right {
-  float:right;
+  float: right;
   @include rem(margin-top, -2px);
 }
 
@@ -198,5 +197,4 @@
     @include rem(margin-top, 10px);
     width: 80px;
   }
-
 }

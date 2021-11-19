@@ -1,31 +1,30 @@
 /*-----------------------
 Footer
 -----------------------*/
-footer{
+footer {
   display: inline-block;
   @include rem(padding, 40px 20px);
   text-align: center;
   width: 100%;
 
-  p{ @include s-tiny; }
+  p {
+    @include s-tiny;
+  }
 }
-
-
-
 
 /*-----------------------
 Social Media
 -----------------------*/
-.social-media{
+.social-media {
   @include rem(margin-bottom, 20px);
 
-  li{
+  li {
     display: inline-block;
     @include transition(all 0.3s ease-in-out);
     opacity: 0.8;
     width: inherit;
 
-    &:hover{
+    &:hover {
       opacity: 1;
     }
   }

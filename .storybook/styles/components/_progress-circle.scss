@@ -7,7 +7,9 @@
   }
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   font-family: Rubik;
@@ -72,21 +74,48 @@ $half: round($loops / 2);
   .progress--circle.progress--#{$i * $step}:after {
     @if $i < $half {
       $nextDeg: 90deg + ($increment * $i);
-      background-image: linear-gradient(90deg, $grey-light 50%, transparent 50%, transparent), linear-gradient($nextDeg, $blue-base 50%, $grey-light 50%, $grey-light);
-    }
-    @else {
+      background-image: linear-gradient(
+          90deg,
+          $grey-light 50%,
+          transparent 50%,
+          transparent
+        ),
+        linear-gradient($nextDeg, $blue-base 50%, $grey-light 50%, $grey-light);
+    } @else {
       $nextDeg: -90deg + ($increment * ($i - $half));
-      background-image: linear-gradient($nextDeg, $blue-base 50%, transparent 50%, transparent), linear-gradient(270deg, $blue-base 50%, $grey-light 50%, $grey-light);
+      background-image: linear-gradient(
+          $nextDeg,
+          $blue-base 50%,
+          transparent 50%,
+          transparent
+        ),
+        linear-gradient(270deg, $blue-base 50%, $grey-light 50%, $grey-light);
     }
   }
   .progress--circle--complete.progress--#{$i * $step}:after {
     @if $i < $half {
       $nextDeg: 90deg + ($increment * $i);
-      background-image: linear-gradient(90deg, $grey-light 50%, transparent 50%, transparent), linear-gradient($nextDeg, $yellow-base 50%, $grey-light 50%, $grey-light);
-    }
-    @else {
+      background-image: linear-gradient(
+          90deg,
+          $grey-light 50%,
+          transparent 50%,
+          transparent
+        ),
+        linear-gradient(
+          $nextDeg,
+          $yellow-base 50%,
+          $grey-light 50%,
+          $grey-light
+        );
+    } @else {
       $nextDeg: -90deg + ($increment * ($i - $half));
-      background-image: linear-gradient($nextDeg, $yellow-base 50%, transparent 50%, transparent), linear-gradient(270deg, $yellow-base 50%, $grey-light 50%, $grey-light);
+      background-image: linear-gradient(
+          $nextDeg,
+          $yellow-base 50%,
+          transparent 50%,
+          transparent
+        ),
+        linear-gradient(270deg, $yellow-base 50%, $grey-light 50%, $grey-light);
     }
   }
 }

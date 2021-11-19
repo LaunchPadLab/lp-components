@@ -5,7 +5,7 @@ $desktop-nav-height: 70px;
 
 .navigation {
   background-color: $white-base;
-  box-shadow: 0 0 18px 0 rgba(131,131,131,0.50);
+  box-shadow: 0 0 18px 0 rgba(131, 131, 131, 0.5);
   height: $desktop-nav-height;
   @include rem(padding, 20px 20px);
   position: relative;
@@ -13,11 +13,10 @@ $desktop-nav-height: 70px;
   width: 100%;
 }
 
-
 /*-----------------------
 Logo
 -----------------------*/
-.logo{
+.logo {
   color: $black-base;
   @include rem(margin-bottom, 0px);
   text-decoration: none;
@@ -28,7 +27,7 @@ Logo
     float: left;
   }
 
-  a{
+  a {
     vertical-align: sub;
   }
 }
@@ -36,7 +35,7 @@ Logo
 /*-----------------------
 Primary Nav
 -----------------------*/
-.navigation{
+.navigation {
   @include position(fixed, 0 null null null);
   @include transition(all 0.3s ease-in-out);
   width: 100%;
@@ -70,7 +69,7 @@ Primary Nav
     vertical-align: top;
     border-left: 1px solid $grey-light;
 
-    a{
+    a {
       color: $black-base;
       @include s-small;
       text-decoration: none;
@@ -87,23 +86,21 @@ Primary Nav
   }
 }
 
-  .selected {
-      border-bottom: 4px solid $blue-base;
-      background-color: $grey-lighter;
-    }
-
-
+.selected {
+  border-bottom: 4px solid $blue-base;
+  background-color: $grey-lighter;
+}
 
 /*-----------------------
 Dropdown
 -----------------------*/
-.submenu{
+.submenu {
   background-color: $white-base;
-  box-shadow: 0 0 18px 0 rgba(232,232,232,0.50);
+  box-shadow: 0 0 18px 0 rgba(232, 232, 232, 0.5);
   @include animation(fade-in 0.2s ease-in);
   @include rem(margin-top, 10px);
 
-  li a{
+  li a {
     @include s-small;
     @include rem(padding, 5px 15px);
   }
@@ -140,7 +137,7 @@ Dropdown
     display: inline-block;
     text-align: right;
 
-    &:hover{
+    &:hover {
       color: $blue-base;
     }
   }
@@ -150,8 +147,6 @@ Dropdown
     display: block;
   }
 }
-
-
 
 /*-----------------------
 Mobile Menu
@@ -201,16 +196,15 @@ img.mobile-menu {
     background-color: $grey-lighter;
   }
 
-   @include media($tablet-landscape) {
+  @include media($tablet-landscape) {
     display: none;
   }
 }
 
-
 // Recruiter Nav
 
-
-li.recruiter-nav-item, li.search {
+li.recruiter-nav-item,
+li.search {
   border-left: none;
 }
 
@@ -230,7 +224,6 @@ li.search-selected {
   background-color: transparent;
   border-bottom: 3px solid $blue-light;
 }
-
 
 .bookmarked {
   border-radius: 50%;

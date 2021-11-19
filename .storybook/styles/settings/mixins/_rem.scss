@@ -14,21 +14,19 @@
   $rem-values: ();
 
   @each $value in $values {
-    @if $value == 0 or type-of($value) != "number" {
+    @if $value == 0 or type-of($value) != 'number' {
       $px-values: append($px-values, $value);
       $rem-values: append($rem-values, $value);
-    }
-
-    @else {
+    } @else {
       $unit: unit($value);
       $val: remove-unit($value);
 
-      @if $unit == "px" {
+      @if $unit == 'px' {
         $px-values: append($px-values, $val + px);
         $rem-values: append($rem-values, $val / $root + rem);
       }
 
-      @if $unit == "rem" {
+      @if $unit == 'rem' {
         $px-values: append($px-values, $val * $root + px);
         $rem-values: append($rem-values, $val + rem);
       }
@@ -37,9 +35,7 @@
 
   @if $rem-values == $px-values {
     #{$property}: $rem-values;
-  }
-
-  @else {
+  } @else {
     #{$property}: $px-values;
     #{$property}: $rem-values;
   }

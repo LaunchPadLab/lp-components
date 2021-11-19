@@ -1,5 +1,4 @@
 .activity {
-
   h3 {
     text-align: center;
     text-transform: uppercase;
@@ -18,7 +17,8 @@
     @include rem(margin-right, 5px);
   }
 
-  img, p {
+  img,
+  p {
     display: inline-block;
   }
 }

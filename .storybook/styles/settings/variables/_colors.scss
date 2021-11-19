@@ -1,55 +1,54 @@
 //MAIN COLORS
 
-  //BLACK
-    $black-base:   #5B5B5B;
+//BLACK
+$black-base: #5b5b5b;
 
-  //BLUE
-    $blue-light:   #BEE4FF;
-    $blue-base:    #6BC2FF;
+//BLUE
+$blue-light: #bee4ff;
+$blue-base: #6bc2ff;
 
-  //GREEN
-    $green-dark:   #56C852;
-    $green-base:   #7ED97A;
-    $green-light:  #E9FFE8;
+//GREEN
+$green-dark: #56c852;
+$green-base: #7ed97a;
+$green-light: #e9ffe8;
 
-  //GREY
-    $grey-lighter: #FAFAFA;
-    $grey-light:   #E7E7E7;
-    $grey-base:    #A9A9A9;
-    $grey-dark:    #767676;
+//GREY
+$grey-lighter: #fafafa;
+$grey-light: #e7e7e7;
+$grey-base: #a9a9a9;
+$grey-dark: #767676;
 
-  //RED
-    $red-base:     #FF715E;
-    $red-light:    #FFE8E5;
+//RED
+$red-base: #ff715e;
+$red-light: #ffe8e5;
 
-  //YELLOW
-    $yellow-light: #FFE196;
-    $yellow-base:  #FFBE1D;
-    $yellow-dark:  #F9B307;
+//YELLOW
+$yellow-light: #ffe196;
+$yellow-base: #ffbe1d;
+$yellow-dark: #f9b307;
 
-  //WHITE
-    $white-light:  #F8F8F8;
-    $white-base:   #FFFFFF;
-    $white-med:    #DEDEDE;
-    $white-dark:   #F7F7F7;
+//WHITE
+$white-light: #f8f8f8;
+$white-base: #ffffff;
+$white-med: #dedede;
+$white-dark: #f7f7f7;
 
-
-  //MAIN PALETTE LIST
-  $colors: (
-    black-base    $black-base,
-    blue-light    $blue-light,
-    blue-base     $blue-base,
-    grey-light    $grey-light,
-    grey-base     $grey-base,
-    grey-dark     $grey-dark,
-    green-dark    $green-dark,
-    green-base    $green-base,
-    green-light   $green-light,
-    red-light     $red-light,
-    red-base      $red-base,
-    yellow-base   $yellow-base,
-    yellow-dark   $yellow-dark,
-    white-light   $white-light,
-    white-base    $white-base,
-    white-dark    $white-dark
-  );
+//MAIN PALETTE LIST
+$colors: (
+  black-base $black-base,
+  blue-light $blue-light,
+  blue-base $blue-base,
+  grey-light $grey-light,
+  grey-base $grey-base,
+  grey-dark $grey-dark,
+  green-dark $green-dark,
+  green-base $green-base,
+  green-light $green-light,
+  red-light $red-light,
+  red-base $red-base,
+  yellow-base $yellow-base,
+  yellow-dark $yellow-dark,
+  white-light $white-light,
+  white-base $white-base,
+  white-dark $white-dark
+);

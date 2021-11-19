@@ -1,4 +1,5 @@
-.profile-section, .profile-blade {
+.profile-section,
+.profile-blade {
   h3 {
     letter-spacing: 1px;
     @include rem(margin-bottom, 20px);
@@ -6,7 +7,7 @@
   }
 
   .with-character-count {
-    @include rem(margin, 0 0 10px 0)
+    @include rem(margin, 0 0 10px 0);
   }
 
   .edit-section {
@@ -31,8 +32,8 @@
   }
 
   .line-item {
-    padding-left: 10px ;
-    text-indent: -10px ;
+    padding-left: 10px;
+    text-indent: -10px;
   }
 }
 
@@ -46,10 +47,11 @@
 
 .proficiencies {
   span {
-    @include rem(margin, 0 5px 5px 0 );
+    @include rem(margin, 0 5px 5px 0);
     display: inline-block;
   }
-  p, img {
+  p,
+  img {
     display: inline-block;
     vertical-align: top;
     background-color: $blue-light;

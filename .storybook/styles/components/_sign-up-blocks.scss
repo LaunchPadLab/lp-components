@@ -17,20 +17,20 @@
   .card-signup-content {
     background-color: $white-base;
     border-radius: 8px;
-    box-shadow: 0 0 18px 0 rgba(232,232,232,0.50);
+    box-shadow: 0 0 18px 0 rgba(232, 232, 232, 0.5);
   }
 
-    .headshot-preview {
-      width: 90px;
-      display: block;
-      margin: 0 auto;
-      @include rem(margin-bottom, -38px);
-      border-radius: 50%;
-    }
+  .headshot-preview {
+    width: 90px;
+    display: block;
+    margin: 0 auto;
+    @include rem(margin-bottom, -38px);
+    border-radius: 50%;
+  }
 
-    .headshot-header {
-      @include rem(padding-top, 50px);
-    }
+  .headshot-header {
+    @include rem(padding-top, 50px);
+  }
 
   .inner-content {
     @include rem(padding, 20px 20px 50px);
@@ -38,7 +38,8 @@
 
   span {
     @include rem(margin-top, -23px);
-    img, p {
+    img,
+    p {
       display: inline-block;
     }
     img {
@@ -61,9 +62,9 @@
     letter-spacing: 2px;
     text-align: center;
     @include rem(padding, 20px 0);
-    -webkit-box-shadow: 0px 4px 7px 0px rgba(145,145,145,0.09);
-    -moz-box-shadow: 0px 4px 7px 0px rgba(145,145,145,0.09);
-    box-shadow: 0px 4px 7px 0px rgba(145,145,145,0.09);
+    -webkit-box-shadow: 0px 4px 7px 0px rgba(145, 145, 145, 0.09);
+    -moz-box-shadow: 0px 4px 7px 0px rgba(145, 145, 145, 0.09);
+    box-shadow: 0px 4px 7px 0px rgba(145, 145, 145, 0.09);
   }
 
   .instruction-text {
@@ -74,7 +75,8 @@
     text-align: center;
     @include rem(margin-top, 40px);
 
-    p, a {
+    p,
+    a {
       color: $white-base;
       border: none;
     }
@@ -93,7 +95,7 @@
 
     img {
       width: 20px;
-      @include rem(margin,0 -5px 0 -8px);
+      @include rem(margin, 0 -5px 0 -8px);
     }
   }
 
@@ -108,9 +110,9 @@
     width: initial;
     @include rem(padding, 15px 20px);
     letter-spacing: 1px;
-    background-image: linear-gradient(0deg, #35AA31 0%, #4AC346 90%);
+    background-image: linear-gradient(0deg, #35aa31 0%, #4ac346 90%);
     background-color: $green-base;
-    box-shadow: 0 16px 32px 0 rgba(9, 73, 7, .35);
+    box-shadow: 0 16px 32px 0 rgba(9, 73, 7, 0.35);
     transition: all 0.5s ease;
     opacity: 1 !important;
 
@@ -121,7 +123,6 @@
     }
   }
 }
-
 
 .log-in {
   max-width: 500px !important;
@@ -136,15 +137,14 @@
   @include rem(margin-top, 20px);
 }
 
-
 // Recruiter Styles
 
 .recruiter-card-signup {
   background-color: $blue-base;
 
   button.button-primary {
-    background-image: linear-gradient(0deg, #509BD0 0%, #6BC2FF 90%);
+    background-image: linear-gradient(0deg, #509bd0 0%, #6bc2ff 90%);
     background-color: $blue-base;
-    box-shadow: 0 16px 32px 0 rgba(23, 99, 152, .35);
+    box-shadow: 0 16px 32px 0 rgba(23, 99, 152, 0.35);
   }
 }

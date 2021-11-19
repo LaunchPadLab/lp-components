@@ -1,12 +1,11 @@
 /*-----------------------
 Due Dates
 -----------------------*/
-.due-dates{
-
-  .date-block{
+.due-dates {
+  .date-block {
     @include rem(margin-bottom, 10px);
 
-    span{
+    span {
       border: 1px solid $grey-base;
       border-radius: 50%;
       display: inline-block;
@@ -16,12 +15,12 @@ Due Dates
       vertical-align: 16px;
     }
 
-    .is-complete{
+    .is-complete {
       border-color: $green-base;
       position: relative;
 
-      &:before{
-        content: "";
+      &:before {
+        content: '';
         color: $green-base;
         // background-image: asset-url("checkmark-success.svg");
         background-repeat: no-repeat;
@@ -33,14 +32,14 @@ Due Dates
       }
     }
 
-    .text-block{
+    .text-block {
       display: inline-block;
 
-      h6{
+      h6 {
         color: $grey-base;
       }
 
-      a{
+      a {
         text-decoration: none;
         margin: 0px;
         text-transform: uppercase;
@@ -48,7 +47,7 @@ Due Dates
         @include s-small;
       }
 
-      p{
+      p {
         @include s-small;
       }
     }

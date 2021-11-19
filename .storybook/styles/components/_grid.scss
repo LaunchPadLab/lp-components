@@ -2,14 +2,14 @@
 Column Width
 -----------------------*/
 
-.row{
+.row {
   //display: inline-block;
   //width: 100%;
   margin: 20px;
 
   @for $i from 1 through 12 {
     .col-#{$i} {
-      @include media($tablet){
+      @include media($tablet) {
         @include span-columns($i of 12);
       }
     }
@@ -22,4 +22,3 @@ Column Width
     @include span-columns(12 of 12);
   }
 }
-

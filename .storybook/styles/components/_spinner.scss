@@ -6,13 +6,13 @@ Spinner
   @include rem(margin-top, 50px);
   text-align: center;
 
-  &:after{
+  &:after {
     border: 3px solid $green-base;
     border-radius: 50%;
     border-top-color: $blue-base;
     border-right-color: transparent;
     border-top-color: transparent;
-    content:"";
+    content: '';
     display: inline-block;
     height: 30px;
     @include animation(spin 0.5s linear infinite);
@@ -21,5 +21,7 @@ Spinner
 }
 
 @include keyframes(spin) {
-  to { @include transform(rotate(360deg)); }
+  to {
+    @include transform(rotate(360deg));
+  }
 }

@@ -3,7 +3,7 @@
   background-color: $green-light;
 
   a {
-    font-size:$s-small;
+    font-size: $s-small;
     font-weight: $bold;
     @include media($tablet) {
       font-size: $s-base;

@@ -2,11 +2,11 @@
 // ========================================
 
 // Main Button
-@mixin button{
+@mixin button {
   display: inline-block;
   font-weight: $bold;
   @include rem(padding, 10px);
-  @include transition (all 0.3s ease-in-out);
+  @include transition(all 0.3s ease-in-out);
   letter-spacing: 1px;
   line-height: normal;
   position: relative;
@@ -15,19 +15,21 @@
   text-transform: uppercase;
   width: 100%;
 
-  &[class*=-outline]{
+  &[class*='-outline'] {
     box-shadow: none;
   }
 
-  text{
+  text {
     align: center;
     decoration: none;
   }
   -webkit-appearance: none;
 
-  &:hover{ cursor: pointer; }
+  &:hover {
+    cursor: pointer;
+  }
 
-  &:focus{
+  &:focus {
     border: none;
     outline: none;
     text-decoration: none;
@@ -47,72 +49,73 @@ button.button-chill:hover {
   color: $white-base;
 }
 
-
 // Button Styles
-@each $button in $buttons{
-  $type:        nth($button, 1);
-  $bg-1:        nth($button, 2);
-  $border:      nth($button, 3);
-  $color:       nth($button, 4);
-  $hover-bg:    nth($button, 5);
+@each $button in $buttons {
+  $type: nth($button, 1);
+  $bg-1: nth($button, 2);
+  $border: nth($button, 3);
+  $color: nth($button, 4);
+  $hover-bg: nth($button, 5);
   $hover-color: nth($button, 6);
 
-  .button-#{$type}{
+  .button-#{$type} {
     background-color: $bg-1;
     border: 1px solid $border;
     color: $color;
     @include button;
 
-    &:hover{
+    &:hover {
       background-color: $hover-bg;
       border: 1px solid $hover-bg;
       color: $hover-color;
       opacity: 1;
     }
 
-    &:active{
+    &:active {
       background-color: $hover-bg;
       border: 1px solid $hover-bg;
       color: darken($hover-color, 5%);
     }
 
-    &:focus{ border: 1px solid $hover-bg; }
+    &:focus {
+      border: 1px solid $hover-bg;
+    }
 
-    &.is-disabled{
+    &.is-disabled {
       opacity: 0.4;
       cursor: not-allowed;
     }
 
-    &.in-progress{
+    &.in-progress {
       pointer-events: none;
       color: transparent;
       position: relative;
 
-      &:after{
-         border: 2px solid rgba(255,255,255,1);
-         border-radius: 50%;
-         border-right-color: transparent;
-         border-top-color: transparent;
-         content:"";
-         display: block;
-         height: 20px;
-         @include animation(spin 0.5s linear infinite);
-         margin: 0 calc((100% - 40px)/2);
-         position: absolute;
-         top: 12px;
-         width: 20px;
+      &:after {
+        border: 2px solid rgba(255, 255, 255, 1);
+        border-radius: 50%;
+        border-right-color: transparent;
+        border-top-color: transparent;
+        content: '';
+        display: block;
+        height: 20px;
+        @include animation(spin 0.5s linear infinite);
+        margin: 0 calc((100% - 40px) / 2);
+        position: absolute;
+        top: 12px;
+        width: 20px;
       }
 
-      &[class*=-primary-outline]{
-        &:after{
+      &[class*='-primary-outline'] {
+        &:after {
           border: 2px solid $blue-base;
           border-right-color: transparent;
           border-top-color: transparent;
         }
       }
 
-      &[class*=-alert-outline]{
-        &:after{
+      &[class*='-alert-outline'] {
+        &:after {
           border: 2px solid $yellow-base;
           border-right-color: transparent;
           border-top-color: transparent;
@@ -122,7 +125,7 @@ button.button-chill:hover {
   }
 
   // Links
-  .link-#{$type}{
+  .link-#{$type} {
     color: $bg-1;
     display: inline-block;
     @include s-base;
@@ -132,12 +135,11 @@ button.button-chill:hover {
     @include rem(padding-bottom, 3px);
     text-decoration: none;
 
-    &:hover{
+    &:hover {
       color: $hover-bg;
     }
   }
 }
-
 
 // Buton Sizes
 .button-small {
@@ -148,10 +150,9 @@ button.button-chill:hover {
 }
 
 .button-large {
-   @include rem(padding, 15px 12px);
+  @include rem(padding, 15px 12px);
 }
 
 .button-arrow {
-    padding: 15px 14px;
+  padding: 15px 14px;
 }
-
