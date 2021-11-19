@@ -67,7 +67,7 @@ const defaultControls = {
 function getInitialSortControls(initialColumn, columns) {
   if (!initialColumn) return defaultControls
 
-  const initialProps = columns.filter(col => col.name === initialColumn).pop()
+  const initialProps = columns.filter((col) => col.name === initialColumn).pop()
   // Exceptional situation-- an initial column was specified but no column data
   // exists for the named column...
   if (!initialProps) throw new Error('initial column has no column definition')
@@ -78,7 +78,6 @@ function getInitialSortControls(initialColumn, columns) {
     initialValueGetter: initialProps.valueGetter,
   }
 }
-
 
 function SortableTable({
   className,
@@ -95,8 +94,11 @@ function SortableTable({
   ...rest
 }) {
   const columns = getColumnData(children, disableSort)
-  const { initialSortPath, initialSortFunc, initialValueGetter } =
-    getInitialSortControls(initialColumn, columns)
+  const {
+    initialSortPath,
+    initialSortFunc,
+    initialValueGetter,
+  } = getInitialSortControls(initialColumn, columns)
   const [ascending, setAscending] = useState(initialAscending)
   const [sortPath, setSortPath] = useState(initialSortPath)
 
@@ -112,17 +114,25 @@ function SortableTable({
       const sorted = [...unsortedData].sort(sortFunc)
       if (!ascending && !disableReverse) sorted.reverse()
       return sorted
-    }
-    else {
+    } else {
       const order = ascending ? 'asc' : 'desc'
       const sorted = orderBy(
         unsortedData,
-        (item) => valueGetter ? valueGetter(item) : get(sortPath, item),
+        (item) => (valueGetter ? valueGetter(item) : get(sortPath, item)),
         order
       )
       return sorted
     }
-  }, [ascending, sortPath, sortFunc, valueGetter, controlled, disableSort, disableReverse, unsortedData])
+  }, [
+    ascending,
+    sortPath,
+    sortFunc,
+    valueGetter,
+    controlled,
+    disableSort,
+    disableReverse,
+    unsortedData,
+  ])
 
   const handleColumnChange = (column) => {
     if (column.disabled) return
@@ -140,36 +150,42 @@ function SortableTable({
     setSortFunc(() => newSortFunc)
     setValueGetter(() => newValueGetter)
 
-    if (onChange) onChange({
-      ascending: newAscending,
-      sortPath: newSortPath,
-      sortFunc: newSortFunc
-    })
+    if (onChange)
+      onChange({
+        ascending: newAscending,
+        sortPath: newSortPath,
+        sortFunc: newSortFunc,
+      })
   }
 
   return (
-    <table className={classnames(className, { 'sortable-table': !disableSort })} {...filterInvalidDOMProps(rest)}>
+    <table
+      className={classnames(className, { 'sortable-table': !disableSort })}
+      {...filterInvalidDOMProps(rest)}
+    >
       <thead>
         <tr>
           {columns.map((column, key) => {
-              const Header = column.headerComponent || headerComponent || DefaultHeader
-              return (
-                <Header {...{
+            const Header =
+              column.headerComponent || headerComponent || DefaultHeader
+            return (
+              <Header
+                {...{
                   key,
                   column,
                   sortPath,
                   ascending,
-                  onClick: () => handleColumnChange(column)
-                }} />
-              )
-            }
-          )}
+                  onClick: () => handleColumnChange(column),
+                }}
+              />
+            )
+          })}
         </tr>
       </thead>
       <tbody>
-        {
-          data.map((rowData, key) =>
-            <Row {...{
+        {data.map((rowData, key) => (
+          <Row
+            {...{
               key,
               rowData,
               columns,
@@ -178,9 +194,9 @@ function SortableTable({
               sortPath,
               sortFunc,
               valueGetter,
-            }} />
-          )
-        }
+            }}
+          />
+        ))}
       </tbody>
     </table>
   )

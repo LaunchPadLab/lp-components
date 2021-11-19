@@ -11,9 +11,9 @@ const defaultProps = {
   file: {},
 }
 
-function FilePreview ({ file }) {
+function FilePreview({ file }) {
   if (!file) return null
-  return <p>{ file.name }</p>
+  return <p>{file.name}</p>
 }
 
 FilePreview.propTypes = propTypes

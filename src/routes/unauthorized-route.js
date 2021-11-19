@@ -12,7 +12,7 @@ import { adaptToReactRouter, compose } from '../utils'
  * @param {Function} authFunction - A function that returns true or false, indicating whether the current user is authenticated
  * @param {String} [redirect='/'] - A redirect path if the user is authenticated
  * @example
- * 
+ *
  * function isMember () {
  *    return someUser.isMember()
  * }
@@ -20,8 +20,8 @@ import { adaptToReactRouter, compose } from '../utils'
  * const MyRoutes = (
  *     <Route path="/" component={ Layout }>
  *        <Route path="/members" component={ MembersPage } />
- *        <UnauthorizedRoute 
- *           path="/welcome" 
+ *        <UnauthorizedRoute
+ *           path="/welcome"
  *           component={ WelcomePage }
  *           authFunction={ isMember }
  *           redirect="/members"
@@ -36,21 +36,27 @@ const propTypes = {
 }
 
 const defaultProps = {
-  redirect: '/'
+  redirect: '/',
 }
 
 // Note: this component is exported directly for testing
-export function UnauthorizedRoute ({ authFunction, redirect, ...rest }) {
-  function handleRouteChange (prevState, nextState, replace, callback) {
+export function UnauthorizedRoute({ authFunction, redirect, ...rest }) {
+  function handleRouteChange(prevState, nextState, replace, callback) {
     const isAuthenticated = authFunction()
     if (isAuthenticated) replace({ pathname: redirect })
     return callback()
   }
   return (
     <Route
-    onEnter={ (...args) => handleRouteChange('', ...args) /* onEnter isn't called with prevState, so we add it here */ }
-    onChange={ handleRouteChange }
-    { ...rest }
+      onEnter={
+        (...args) =>
+          handleRouteChange(
+            '',
+            ...args
+          ) /* onEnter isn't called with prevState, so we add it here */
+      }
+      onChange={handleRouteChange}
+      {...rest}
     />
   )
 }
@@ -58,6 +64,4 @@ export function UnauthorizedRoute ({ authFunction, redirect, ...rest }) {
 UnauthorizedRoute.propTypes = propTypes
 UnauthorizedRoute.defaultProps = defaultProps
 
-export default compose(
-  adaptToReactRouter()
-)(UnauthorizedRoute)
+export default compose(adaptToReactRouter())(UnauthorizedRoute)

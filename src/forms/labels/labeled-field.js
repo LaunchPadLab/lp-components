@@ -43,13 +43,13 @@ import { hasInputError } from '../helpers'
  *     </LabeledField>
  *   )
  * }
- * 
+ *
  * // A custom label to pass in as a label component (using <InputLabel /> and redux-form)
- * 
+ *
  * import LabeledPhoneInput from './LabeledPhoneInput'
  * import { InputLabel } from 'lp-components'
  * import { Field } from 'redux-form'
- * 
+ *
  * function CustomLabelComponent ({ onClickLabel, ...rest }) {
  *  return (
  *    <InputLabel { ...rest }>
@@ -57,7 +57,7 @@ import { hasInputError } from '../helpers'
  *    </InputLabel>
  *  )
  * }
- * 
+ *
  * <Field
  *   name="phoneNumber"
  *   component={ LabeledPhoneInput }
@@ -78,7 +78,7 @@ const defaultProps = {
   hideErrorLabel: false,
 }
 
-function LabeledField ({
+function LabeledField({
   id,
   input,
   meta,
@@ -92,10 +92,16 @@ function LabeledField ({
   const { name } = input
   const { touched, invalid } = meta
   return (
-    <fieldset className={ classnames(className, { 'error': hasInputError({ touched, invalid }) }) }>
-      <LabelComponent { ...{ name, id, ...rest } } />
-        { children }
-      { !hideErrorLabel && <ErrorComponent {...{ ...input, ...meta, ...rest }} /> }
+    <fieldset
+      className={classnames(className, {
+        error: hasInputError({ touched, invalid }),
+      })}
+    >
+      <LabelComponent {...{ name, id, ...rest }} />
+      {children}
+      {!hideErrorLabel && (
+        <ErrorComponent {...{ ...input, ...meta, ...rest }} />
+      )}
     </fieldset>
   )
 }

@@ -1,6 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { buttonClasses, fieldPropTypes, hasInputError, isImageType, omitLabelProps } from '../../helpers'
+import {
+  buttonClasses,
+  fieldPropTypes,
+  hasInputError,
+  isImageType,
+  omitLabelProps,
+} from '../../helpers'
 import { LabeledField } from '../../labels'
 import FilePreview from './file-preview'
 import ImagePreview from './image-preview'
@@ -8,10 +14,10 @@ import { noop, generateInputErrorId, isServer } from '../../../utils'
 
 /**
  *
- * A file input that can be used in a `redux-forms`-controlled form. 
- * The value of this input is the data URL of the loaded file. 
+ * A file input that can be used in a `redux-forms`-controlled form.
+ * The value of this input is the data URL of the loaded file.
  *
- * An optional callback can be fired when the file is loaded: `onLoad(fileData, file)`. 
+ * An optional callback can be fired when the file is loaded: `onLoad(fileData, file)`.
  * This callback will be passed the data URL of the file, as well as the `File` object itself.
  *
  * By default, this component displays a thumbnail preview of the loaded file. This preview can be customized
@@ -20,7 +26,7 @@ import { noop, generateInputErrorId, isServer } from '../../../utils'
  * A component passed using `previewComponent` will receive the following props:
  * - `file`: the uploaded file object, or `null` if no file has been uploaded.
  * - `value`: the current value of the input (data URL or empty string)
- * 
+ *
  * @name FileInput
  * @type Function
  * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
@@ -29,13 +35,13 @@ import { noop, generateInputErrorId, isServer } from '../../../utils'
  * @param {String} [thumbnail] - A placeholder image to display before the file is loaded
  * @param {Boolean} [hidePreview] - A flag indicating whether or not to hide the file preview
  * @example
- * 
+ *
  * function HeadshotForm ({ handleSubmit, pristine, invalid, submitting }) {
  *   return (
  *     <form onSubmit={ handleSubmit }>
- *       <Field 
- *          name="headshot" 
- *          component={ FileInput } 
+ *       <Field
+ *          name="headshot"
+ *          component={ FileInput }
  *          onLoad={ (fileData, file) => console.log('Loaded file!', file) }
  *       />
  *       <SubmitButton {...{ pristine, invalid, submitting }}>
@@ -61,7 +67,7 @@ const defaultProps = {
 }
 
 // Promise wrapper around FileReader
-function readFileAsDataUrl (file) {
+function readFileAsDataUrl(file) {
   // eslint-disable-next-line no-undef
   const fileReader = new window.FileReader()
   return new Promise((resolve, reject) => {
@@ -73,35 +79,38 @@ function readFileAsDataUrl (file) {
 }
 
 class FileInput extends React.Component {
-
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = { file: null }
     this.loadFile = this.loadFile.bind(this)
     this.onChange = this.onChange.bind(this)
   }
 
-  loadFile (e) {
+  loadFile(e) {
     // Don't attempt file reading in SSR mode
     if (isServer()) return
     // Read file as data URL and call change handlers
     const file = e.target.files[0]
-    return readFileAsDataUrl(file)
-      .then((fileData) => this.onChange(fileData, file))
+    return readFileAsDataUrl(file).then((fileData) =>
+      this.onChange(fileData, file)
+    )
   }
 
-  onChange (fileData, file) {
+  onChange(fileData, file) {
     // Call redux forms onChange and onLoad callback
-    const { input: { onChange }, onLoad } = this.props
+    const {
+      input: { onChange },
+      onLoad,
+    } = this.props
     onChange(fileData)
     onLoad(fileData, file)
     this.setState({ file })
   }
 
-  render () {
+  render() {
     const {
       input: { name, value },
-      meta,   // eslint-disable-line no-unused-vars
+      meta, // eslint-disable-line no-unused-vars
       onLoad, // eslint-disable-line no-unused-vars
       className, // eslint-disable-line no-unused-vars
       submitting,
@@ -112,7 +121,7 @@ class FileInput extends React.Component {
     const { file } = this.state
     const wrapperClass = buttonClasses({ style: 'secondary-light', submitting })
     return (
-      <LabeledField { ...this.props }>
+      <LabeledField {...this.props}>
         <div className="fileupload fileupload-exists">
           {!hidePreview && renderPreview({ file, value, ...rest })}
           <div className={wrapperClass}>
@@ -130,7 +139,10 @@ class FileInput extends React.Component {
               }}
             />
             {/* Include after input to allowing for styling with adjacent sibling selector */}
-            <span className='fileupload-exists' id={name + '-label'}> Select File </span>
+            <span className="fileupload-exists" id={name + '-label'}>
+              {' '}
+              Select File{' '}
+            </span>
           </div>
         </div>
       </LabeledField>
@@ -139,12 +151,19 @@ class FileInput extends React.Component {
 }
 
 // eslint-disable-next-line react/prop-types
-function renderPreview ({ file, value, thumbnail, previewComponent: Component, children, ...rest }) {
-  if (Component) return <Component file={ file } value={ value } { ...rest } />
+function renderPreview({
+  file,
+  value,
+  thumbnail,
+  previewComponent: Component,
+  children,
+  ...rest
+}) {
+  if (Component) return <Component file={file} value={value} {...rest} />
   if (children) return children
   const renderImagePreview = isImageType(file) || thumbnail
-  if (renderImagePreview) return <ImagePreview image={ value || thumbnail } />
-  return <FilePreview file={ file } />
+  if (renderImagePreview) return <ImagePreview image={value || thumbnail} />
+  return <FilePreview file={file} />
 }
 
 FileInput.propTypes = propTypes

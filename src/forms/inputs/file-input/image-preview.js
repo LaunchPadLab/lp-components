@@ -11,10 +11,10 @@ const defaultProps = {
   image: '',
 }
 
-function ImagePreview ({ image }) {
+function ImagePreview({ image }) {
   return (
     <div className="thumbnail">
-      <img src={ image } />
+      <img src={image} />
     </div>
   )
 }

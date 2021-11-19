@@ -6,11 +6,11 @@ import { filterInvalidDOMProps } from '../utils'
  *
  * A UI component that displays a 'spinner'.
  *
- * 
+ *
  * @name Spinner
  * @type Function
  * @example
- * 
+ *
  * function Image ({ imgUrl }) {
  *   return (
  *      <div>
@@ -30,8 +30,8 @@ const propTypes = {}
 
 const defaultProps = {}
 
-function Spinner (props) {
-  return <div id="spinner" { ...filterInvalidDOMProps(props) } />
+function Spinner(props) {
+  return <div id="spinner" {...filterInvalidDOMProps(props)} />
 }
 
 Spinner.propTypes = propTypes

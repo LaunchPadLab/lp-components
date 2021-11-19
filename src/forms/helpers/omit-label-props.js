@@ -10,13 +10,13 @@ import { omit } from '../../utils'
  * - `tooltip`
  * - `label`
  * - `requiredIndicator`
- * 
+ *
  * @name omitLabelProps
  * @type Function
  * @param {Object} props - A props object
  * @returns {Object} `props` object with {@link InputLabel} props omitted
  * @example
- * 
+ *
  * const props = {
  *    label: 'Biography',
  *    hint: 'A short biography',
@@ -24,12 +24,12 @@ import { omit } from '../../utils'
  *    requiredIndicator: '*',
  *    maxLength: 1000
  * }
- * 
+ *
  * omitLabelProps(props)
  *
  * // {
  * //   maxLength: 1000
- * // } 
+ * // }
  *
  * // Use in a form input component
  *
@@ -39,22 +39,25 @@ import { omit } from '../../utils'
  *      type,
  *      ...rest
  *    } = omitLabelProps(props)
- *    return ( 
- *      ... 
+ *    return (
+ *      ...
  *    )
  * }
  *
  */
 
-function omitLabelProps (props) {
-  return omit([
-    'hint',
-    'tooltip',
-    'label',
-    'requiredIndicator',
-    'errorComponent',
-    'labelComponent',
-  ], props)
+function omitLabelProps(props) {
+  return omit(
+    [
+      'hint',
+      'tooltip',
+      'label',
+      'requiredIndicator',
+      'errorComponent',
+      'labelComponent',
+    ],
+    props
+  )
 }
 
 export default omitLabelProps

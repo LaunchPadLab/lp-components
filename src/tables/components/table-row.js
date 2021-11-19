@@ -13,11 +13,12 @@ const propTypes = {
   valueGetter: PropTypes.func,
 }
 
-const DefaultRowComponent = ({ children }) => <tr>{ children }</tr> // eslint-disable-line
-const DefaultCellComponent = ({ className, onClick, placeholder, value }) => // eslint-disable-line
-  <td { ...{ className, onClick }}>{ isNil(value) ? placeholder : value }</td>
+const DefaultRowComponent = ({ children }) => <tr>{children}</tr> // eslint-disable-line
+const DefaultCellComponent = (
+  { className, onClick, placeholder, value } // eslint-disable-line
+) => <td {...{ className, onClick }}>{isNil(value) ? placeholder : value}</td>
 
-function TableRow ({
+function TableRow({
   columns,
   rowComponent: RowComponent = DefaultRowComponent,
   rowData,
@@ -27,24 +28,37 @@ function TableRow ({
   valueGetter,
 }) {
   return (
-    <RowComponent { ...{ data: rowData, ascending, sortPath, sortFunc, valueGetter } }>
-      {
-        columns.map((column, key) => {
-          const { name, component: CellComponent=DefaultCellComponent, format=identity, onClick=noop, valueGetter, ...rest } = column
-          const cellValue =
-            valueGetter ? valueGetter(rowData) : get(name, rowData)
-          const formattedValue = format(cellValue)
-          const onColClick = column.disabled ? noop : () => onClick(rowData)
-          return <CellComponent { ...{ // eslint-disable-line
-            key,
-            value: formattedValue,
-            name,
-            data: rowData,
-            onClick: onColClick,
-            ...rest
-          } } />
-        })
-      }
+    <RowComponent
+      {...{ data: rowData, ascending, sortPath, sortFunc, valueGetter }}
+    >
+      {columns.map((column, key) => {
+        const {
+          name,
+          component: CellComponent = DefaultCellComponent,
+          format = identity,
+          onClick = noop,
+          valueGetter,
+          ...rest
+        } = column
+        const cellValue = valueGetter
+          ? valueGetter(rowData)
+          : get(name, rowData)
+        const formattedValue = format(cellValue)
+        const onColClick = column.disabled ? noop : () => onClick(rowData)
+        return (
+          <CellComponent
+            {...{
+              // eslint-disable-line
+              key,
+              value: formattedValue,
+              name,
+              data: rowData,
+              onClick: onColClick,
+              ...rest,
+            }}
+          />
+        )
+      })}
     </RowComponent>
   )
 }

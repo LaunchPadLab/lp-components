@@ -26,7 +26,7 @@ import { compose, toggle, togglePropTypes, modifyProps, noop } from '../utils'
  *     </div>
  *   )
  * }
- * 
+ *
  */
 
 const propTypes = {
@@ -45,7 +45,7 @@ const defaultProps = {
   onClose: noop,
 }
 
-function ColorPicker ({
+function ColorPicker({
   value,
   onChange,
   onOpen,
@@ -56,18 +56,17 @@ function ColorPicker ({
 }) {
   return (
     <div className="color-picker">
-      <span 
+      <span
         className="swatch"
-        style={{ background: value || 'black' }} 
-        onClick={ () => {
+        style={{ background: value || 'black' }}
+        onClick={() => {
           toggleExpanded()
           return onOpen()
-        }} 
+        }}
       />
-      {
-        expanded &&
-         <div className="popover">
-          <div 
+      {expanded && (
+        <div className="popover">
+          <div
             className="cover"
             onClick={() => {
               toggleExpanded()
@@ -75,13 +74,13 @@ function ColorPicker ({
             }}
           />
           <ChromePicker
-            color={ value }
-            onChange={ ({ hex }) => onChange(hex) }
-            disableAlpha={ true }
-            { ...rest }
+            color={value}
+            onChange={({ hex }) => onChange(hex)}
+            disableAlpha={true}
+            {...rest}
           />
         </div>
-      }
+      )}
     </div>
   )
 }
@@ -90,13 +89,13 @@ ColorPicker.propTypes = propTypes
 ColorPicker.defaultProps = defaultProps
 
 // Active should override expanded (allow external control)
-function modify ({ active, expanded }) {
+function modify({ active, expanded }) {
   return {
-    expanded: (active === undefined) ? expanded : active
+    expanded: active === undefined ? expanded : active,
   }
 }
 
 export default compose(
   toggle('expanded'),
-  modifyProps(modify),
+  modifyProps(modify)
 )(ColorPicker)

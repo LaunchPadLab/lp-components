@@ -1,11 +1,7 @@
 import React from 'react'
 // import PropTypes from 'prop-types'
 import Input from './input'
-import {
-  fieldPropTypes,
-  fieldOptionsType,
-  omitLabelProps,
-} from '../helpers'
+import { fieldPropTypes, fieldOptionsType, omitLabelProps } from '../helpers'
 import { LabeledField } from '../labels'
 import { serializeOptions } from '../../utils'
 
@@ -51,14 +47,14 @@ import { serializeOptions } from '../../utils'
 
 const propTypes = {
   ...fieldPropTypes,
-  options: fieldOptionsType
+  options: fieldOptionsType,
 }
 
 const defaultProps = {
-  options: []
+  options: [],
 }
 
-function RadioGroup (props) {
+function RadioGroup(props) {
   const {
     input: { value, onChange, name },
     meta, // eslint-disable-line no-unused-vars
@@ -67,29 +63,27 @@ function RadioGroup (props) {
   } = omitLabelProps(props)
   const optionObjects = serializeOptions(options)
   return (
-    <LabeledField className="RadioGroup" { ...props }>
-      {
-        optionObjects.map((option, i) => {
-          return (
-            <Input // eslint-disable-line react/jsx-key
-              {...{
-                key: i,
-                type: 'radio',
-                input: {
-                  name, // all radio inputs must share the same name
-                  value: '',
-                  onChange: () => onChange(option.value),
-                },
-                id: `${ name }.${ option.value }`, // override Input default behavior to assign id to input: { name }
-                meta: {},
-                checked: value === option.value,
-                label: option.key,
-                ...rest
-              }}
-            />
-          )
-        })
-      }
+    <LabeledField className="RadioGroup" {...props}>
+      {optionObjects.map((option, i) => {
+        return (
+          <Input // eslint-disable-line react/jsx-key
+            {...{
+              key: i,
+              type: 'radio',
+              input: {
+                name, // all radio inputs must share the same name
+                value: '',
+                onChange: () => onChange(option.value),
+              },
+              id: `${name}.${option.value}`, // override Input default behavior to assign id to input: { name }
+              meta: {},
+              checked: value === option.value,
+              label: option.key,
+              ...rest,
+            }}
+          />
+        )
+      })}
     </LabeledField>
   )
 }

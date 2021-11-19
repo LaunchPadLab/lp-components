@@ -1,5 +1,5 @@
 import React from 'react'
-import { 
+import {
   blurDirty,
   fieldPropTypes,
   omitLabelProps,
@@ -8,28 +8,28 @@ import {
 } from '../helpers'
 import { LabeledField } from '../labels'
 import { ColorPicker } from '../../controls'
-import { 
-  compose, 
-  toggle, 
-  togglePropTypes, 
-  filterInvalidDOMProps 
+import {
+  compose,
+  toggle,
+  togglePropTypes,
+  filterInvalidDOMProps,
 } from '../../utils'
 
 /**
  *
  * An color input that can be used in a `redux-forms`-controlled form.
  * The value of this input is a hex color string.
- * 
+ *
  * @name ColorInput
  * @type Function
  * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
  * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @example
- * 
+ *
  * function UserForm ({ handleSubmit, pristine, invalid, submitting }) {
  *   return (
  *     <form onSubmit={ handleSubmit }>
- *       <Field 
+ *       <Field
  *          name="favoriteColor"
  *          component={ ColorInput }
  *       />
@@ -43,12 +43,12 @@ import {
 
 const propTypes = {
   ...fieldPropTypes,
-  ...togglePropTypes('showDropdown')
+  ...togglePropTypes('showDropdown'),
 }
 
 const defaultProps = {}
 
-function ColorInput (props) {
+function ColorInput(props) {
   const {
     input: { value, onBlur, onChange },
     showDropdown,
@@ -56,12 +56,12 @@ function ColorInput (props) {
     ...rest
   } = omitLabelProps(props)
   return (
-    <LabeledField className="color-input" { ...props }>
+    <LabeledField className="color-input" {...props}>
       <ColorPicker
-        value={ value }
-        onChange={ onChange }
-        active={ showDropdown }
-        onOpen={ () => setShowDropdown(true) }
+        value={value}
+        onChange={onChange}
+        active={showDropdown}
+        onOpen={() => setShowDropdown(true)}
         onClose={() => {
           setShowDropdown(false)
           onBlur()
@@ -71,11 +71,11 @@ function ColorInput (props) {
         type="text"
         className="hex-input"
         placeholder="6 digit hex value"
-        value={ fromHex(value) }
-        onChange={ (e) => onChange(toHex(e.target.value)) }
-        onFocus={ () => setShowDropdown(true) }
-        onBlur={ onBlur }
-        { ...filterInvalidDOMProps(rest) }
+        value={fromHex(value)}
+        onChange={(e) => onChange(toHex(e.target.value))}
+        onFocus={() => setShowDropdown(true)}
+        onBlur={onBlur}
+        {...filterInvalidDOMProps(rest)}
       />
       <span className="hex"> # </span>
     </LabeledField>
@@ -87,5 +87,5 @@ ColorInput.defaultProps = defaultProps
 
 export default compose(
   blurDirty(),
-  toggle('showDropdown'),
+  toggle('showDropdown')
 )(ColorInput)

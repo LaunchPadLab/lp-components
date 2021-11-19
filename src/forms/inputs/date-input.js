@@ -14,24 +14,24 @@ import { compose } from '../../utils'
  * - Converts value type from [moment](https://github.com/moment/moment) to [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date).
  * - Adds name and error labels.
  *
- * With the exception of the `input` and `meta` props, all props are passed down to the `DatePicker` component. 
+ * With the exception of the `input` and `meta` props, all props are passed down to the `DatePicker` component.
  * A full list of props supported by this component can be found [here](https://github.com/Hacker0x01/react-datepicker/blob/master/docs/datepicker.md). Note that unfortunately `aria-*` props are **not** supported.
  *
  * _Note: this component requires special styles in order to render correctly. To include these styles in your project, follow the directions in the main [README](README.md#dateinput-styles) file._
- * 
+ *
  * @name DateInput
  * @type Function
  * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
  * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @example
- * 
+ *
  * function BirthdayForm ({ handleSubmit }) {
  *   return (
  *     <form onSubmit={ handleSubmit }>
  *       <Field
  *          name="birthday"
  *          component={DateInput}
- *          placeholderText="mm/dd/yyyy" 
+ *          placeholderText="mm/dd/yyyy"
  *        />
  *     </form>
  *   )
@@ -42,20 +42,19 @@ import { compose } from '../../utils'
  */
 
 const propTypes = {
-  ...fieldPropTypesWithValue(PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string,
-  ])),
+  ...fieldPropTypesWithValue(
+    PropTypes.oneOfType([PropTypes.object, PropTypes.string])
+  ),
 }
 
 const defaultProps = {
-  placeholderText: 'MM/DD/YY'
+  placeholderText: 'MM/DD/YY',
 }
 
 /* Ignore test coverage: */
 /* istanbul ignore next */
 
-function DateInput (props) {
+function DateInput(props) {
   const {
     input: { name, value, onBlur, onChange },
     meta, // eslint-disable-line no-unused-vars,
@@ -64,15 +63,15 @@ function DateInput (props) {
   } = omitLabelProps(props)
   const momentValue = value ? moment(value) : null
   return (
-    <LabeledField { ...props }>
-      <DatePicker 
-        {...{ 
+    <LabeledField {...props}>
+      <DatePicker
+        {...{
           id: name,
           name,
           selected: momentValue,
           onBlur: () => onBlur(value),
           onChange: (val) => onChange(val ? val.toDate() : ''),
-          ...rest
+          ...rest,
         }}
       />
     </LabeledField>
@@ -82,6 +81,4 @@ function DateInput (props) {
 DateInput.defaultProps = defaultProps
 DateInput.propTypes = propTypes
 
-export default compose(
-  blurDirty()
-)(DateInput)
+export default compose(blurDirty())(DateInput)

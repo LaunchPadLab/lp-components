@@ -7,7 +7,7 @@ import { hasInputError } from '../helpers'
 /**
  *
  * A dynamic error label associated with an input component.
- * 
+ *
  * NOTE: direct use of this component is deprecated as of v4.1.0 due to its dependency on redux-form. Please use {@link ErrorLabel} instead.
  *
  * This component is used within {@link LabeledField}, and therefore is incorporated into most `lp-components` input components by default.
@@ -16,7 +16,7 @@ import { hasInputError } from '../helpers'
  * - If the input is `invalid` and `touched`, the label will be shown
  * - If the `error` prop is set to a string, the label will display that text
  * - If the `error` prop is set to an array of strings, the label will display those errors separated by commas
- * 
+ *
  * This label supports accessibility by adding a uniquely generated id to the span which should be referenced by the input using `aria-describedby`.
  *
  * In addition to the props below, any extra props will be passed directly to the inner `<span>` element.
@@ -29,10 +29,10 @@ import { hasInputError } from '../helpers'
  * @param {String} name - The name of the input (used to generate a unique ID)
  *
  * @example
- * 
+ *
  * // A custom input to use with redux-forms
- * 
- * function ValidatedInput ({  
+ *
+ * function ValidatedInput ({
  *   input: { name, value, onBlur, onChange },
  *   meta: { error, touched, invalid },
  * }) {
@@ -42,7 +42,7 @@ import { hasInputError } from '../helpers'
  *          name,
  *          value,
  *          onBlur,
- *          onChange,   
+ *          onChange,
  *       }}
  *       <InputError { ...{ error, invalid, touched, name } } />
  *     </div>
@@ -70,19 +70,19 @@ const defaultProps = {
   name: '',
 }
 
-function InputError ({ error, invalid, touched, name, className, ...rest }) {
-  return hasInputError({ touched, invalid })
-    ? <span
-        id={ generateInputErrorId(name) }
-        className={ classnames('error-message', className) }
-        { ...filterInvalidDOMProps(rest) }
-      >
-        { formatError(error) }
-      </span>
-    : null
+function InputError({ error, invalid, touched, name, className, ...rest }) {
+  return hasInputError({ touched, invalid }) ? (
+    <span
+      id={generateInputErrorId(name)}
+      className={classnames('error-message', className)}
+      {...filterInvalidDOMProps(rest)}
+    >
+      {formatError(error)}
+    </span>
+  ) : null
 }
 
-function formatError (error) {
+function formatError(error) {
   return Array.isArray(error) ? error.join(', ') : error
 }
 

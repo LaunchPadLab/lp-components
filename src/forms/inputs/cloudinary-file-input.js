@@ -10,10 +10,10 @@ import classnames from 'classnames'
  * A wrapper around the {@link FileInput} component that automatically uploads files to cloudinary via the [cloudinaryUploader](https://github.com/LaunchPadLab/lp-hoc/blob/master/docs.md#cloudinaryuploader) HOC.
  * The value of this input is the public URL of the uploaded file.
  * Additionally, the `uploadStatus` passed down from `cloudinaryUploader` will be added as a class on the input.
- * 
+ *
  * You can pass arguments to the instance of `cloudinaryUploader` via this component's props,
  * or via the `CLOUDINARY_CLOUD_NAME` and `CLOUDINARY_BUCKET` env vars (recommended).
- * 
+ *
  *
  * @name CloudinaryFileInput
  * @type Function
@@ -22,12 +22,12 @@ import classnames from 'classnames'
  * @param {Function} [onUploadSuccess] - A handler that gets invoked with the response from a successful upload to Cloudinary
  * @param {Function} [onUploadFailure] - A handler that gets invoked with the error from a failed upload to Cloudinary
  * @example
- * 
+ *
  * function HeadshotForm ({ handleSubmit, pristine, invalid, submitting }) {
  *   return (
  *     <form onSubmit={ handleSubmit }>
- *       <Field 
- *          name="headshotUrl" 
+ *       <Field
+ *          name="headshotUrl"
  *          component={ CloudinaryFileInput }
  *          cloudName="my-cloudinary-cloud"
  *          bucket="my-cloudinary-bucket"
@@ -53,27 +53,30 @@ const defaultProps = {
   onUploadFailure: noop,
 }
 
-function CloudinaryFileInput ({ 
+function CloudinaryFileInput({
   input,
   className,
   onUploadFailure,
   onUploadSuccess,
-  upload, 
-  uploadStatus, 
-  ...rest 
+  upload,
+  uploadStatus,
+  ...rest
 }) {
   const { onChange } = input
   return (
-     <FileInput
+    <FileInput
       input={{ ...input, onChange: noop }}
-      onLoad={ (fileData, file) => upload(fileData, file)
-        .then((res) => {
-          onChange(res.url)
-          return onUploadSuccess(res)
-        }, (err) => onUploadFailure(err))
+      onLoad={(fileData, file) =>
+        upload(fileData, file).then(
+          (res) => {
+            onChange(res.url)
+            return onUploadSuccess(res)
+          },
+          (err) => onUploadFailure(err)
+        )
       }
-      className={ classnames(uploadStatus, className) }
-      { ...rest }
+      className={classnames(uploadStatus, className)}
+      {...rest}
     />
   )
 }
@@ -81,6 +84,4 @@ function CloudinaryFileInput ({
 CloudinaryFileInput.propTypes = propTypes
 CloudinaryFileInput.defaultProps = defaultProps
 
-export default compose(
-  cloudinaryUploader(),
-)(CloudinaryFileInput)
+export default compose(cloudinaryUploader())(CloudinaryFileInput)

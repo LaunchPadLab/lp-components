@@ -43,22 +43,22 @@ const defaultProps = {
   valueToSet: true,
 }
 
-function SetterLink ({
+function SetterLink({
   input: { name, onChange, onBlur },
   label,
   valueToSet,
-  className
+  className,
 }) {
   return (
     <a
-      id={ name }
+      id={name}
       onClick={() => {
         onChange(valueToSet)
         onBlur()
       }}
-      className={ className }
+      className={className}
     >
-      { label }
+      {label}
     </a>
   )
 }

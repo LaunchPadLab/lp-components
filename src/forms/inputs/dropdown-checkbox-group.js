@@ -5,11 +5,11 @@ import {
   DropdownSelect,
   fieldOptionsType,
 } from '../helpers'
-import { InputLabel }from '../labels'
+import { InputLabel } from '../labels'
 
 /**
  *
- * A group of checkboxes that can be used in a `redux-forms`-controlled form. 
+ * A group of checkboxes that can be used in a `redux-forms`-controlled form.
  * Wraps the {@link CheckboxGroup} component in a {@link DropdownSelect} component, which displays the selected values as a list.
  * Options are displayed in a scrollable `Select`-style dropdown container.
  *
@@ -51,16 +51,19 @@ import { InputLabel }from '../labels'
 
 const propTypes = {
   ...checkboxGroupPropTypes,
-  options: fieldOptionsType
+  options: fieldOptionsType,
 }
 
-function DropdownCheckboxGroup (props) {
-  const { input: { name, value }, label } = props
+function DropdownCheckboxGroup(props) {
+  const {
+    input: { name, value },
+    label,
+  } = props
   return (
     <fieldset>
-      <InputLabel { ...{ label, name } } />
-      <DropdownSelect selectedValues={ value } className="checkboxes">
-        <CheckboxGroup { ...props } label={ false } />
+      <InputLabel {...{ label, name }} />
+      <DropdownSelect selectedValues={value} className="checkboxes">
+        <CheckboxGroup {...props} label={false} />
       </DropdownSelect>
     </fieldset>
   )
@@ -68,4 +71,4 @@ function DropdownCheckboxGroup (props) {
 
 DropdownCheckboxGroup.propTypes = propTypes
 
-export default DropdownCheckboxGroup 
+export default DropdownCheckboxGroup

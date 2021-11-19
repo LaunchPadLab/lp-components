@@ -8,13 +8,13 @@ import { adaptToReactRouter, compose } from '../utils'
  * A [react-router](https://github.com/ReactTraining/react-router) `Route` component that requires an auth function to return `true` before it can be entered.
  *
  * Note: this component is only compatible with react-router ^3.0.0.
- * 
+ *
  * @name AuthorizedRoute
  * @type Function
  * @param {Function} authFunction - A function that returns true or false, indicating whether the current user is authenticated
  * @param {String} [redirect='/sign-in'] - A redirect path if the user is not authenticated
  * @example
- * 
+ *
  * function isMember () {
  *    return someUser.isMember()
  * }
@@ -22,8 +22,8 @@ import { adaptToReactRouter, compose } from '../utils'
  * const MyRoutes = (
  *     <Route path="/" component={ Layout }>
  *        <Route path="/welcome" component={ WelcomePage } />
- *        <AuthorizedRoute 
- *           path="/members" 
+ *        <AuthorizedRoute
+ *           path="/members"
  *           component={ MembersPage }
  *           authFunction={ isMember }
  *           redirect="/welcome"
@@ -38,20 +38,30 @@ const propTypes = {
 }
 
 const defaultProps = {
-  redirect: '/sign-in'
+  redirect: '/sign-in',
 }
 
 // Note: this component is exported directly for testing
-export function AuthorizedRoute ({ authFunction, redirect, ...rest }) {
-  function handleRouteChange (prevState, nextState, replace) {
+export function AuthorizedRoute({ authFunction, redirect, ...rest }) {
+  function handleRouteChange(prevState, nextState, replace) {
     const isAuthenticated = authFunction()
-    if (!isAuthenticated) return replace({ pathname: redirect, state: { redirectUrl: nextState.location.pathname }})
+    if (!isAuthenticated)
+      return replace({
+        pathname: redirect,
+        state: { redirectUrl: nextState.location.pathname },
+      })
   }
   return (
     <Route
-      onEnter={ (...args) => handleRouteChange('', ...args) /* onEnter isn't called with prevState, so we add it here */ }
-      onChange={ handleRouteChange }
-      { ...rest }
+      onEnter={
+        (...args) =>
+          handleRouteChange(
+            '',
+            ...args
+          ) /* onEnter isn't called with prevState, so we add it here */
+      }
+      onChange={handleRouteChange}
+      {...rest}
     />
   )
 }
@@ -59,6 +69,4 @@ export function AuthorizedRoute ({ authFunction, redirect, ...rest }) {
 AuthorizedRoute.propTypes = propTypes
 AuthorizedRoute.defaultProps = defaultProps
 
-export default compose(
-  adaptToReactRouter()
-)(AuthorizedRoute)
+export default compose(adaptToReactRouter())(AuthorizedRoute)

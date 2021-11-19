@@ -2,7 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { fieldOptionsType } from '../../forms/helpers/field-prop-types'
-import { serializeOptions, noop, get, first, toLower, triggerOnKeys, KeyCodes } from '../../utils'
+import {
+  serializeOptions,
+  noop,
+  get,
+  first,
+  toLower,
+  triggerOnKeys,
+  KeyCodes,
+} from '../../utils'
 import manageFocus from './focus'
 
 /**
@@ -48,41 +56,50 @@ const defaultProps = {
   activeClassName: 'active',
 }
 
-function TabBar ({ vertical, options, value, onChange, className, activeClassName }) {
+function TabBar({
+  vertical,
+  options,
+  value,
+  onChange,
+  className,
+  activeClassName,
+}) {
   const optionObjects = serializeOptions(options)
   const activeValue = value || get('value', first(optionObjects)) // a11y dictates that a tab must be active, so default to the first option
   const alignment = vertical ? 'vertical' : 'horizontal'
-  
+
   return (
     <ul
-      className={ classnames('tabs', `${alignment}-tabs`, className) }
+      className={classnames('tabs', `${alignment}-tabs`, className)}
       role="tablist"
       aria-orientation={alignment}
     >
-      {
-        optionObjects.map(({ key, value: optionValue }) => {
-          const isActive = optionValue === activeValue
-          return (
-            <li
-              className={ classnames({ [activeClassName]: isActive }) }
-              key={ key }
-              role="presentation"
-              onKeyDown={(e) => manageFocus(e, { vertical })}
+      {optionObjects.map(({ key, value: optionValue }) => {
+        const isActive = optionValue === activeValue
+        return (
+          <li
+            className={classnames({ [activeClassName]: isActive })}
+            key={key}
+            role="presentation"
+            onKeyDown={(e) => manageFocus(e, { vertical })}
+          >
+            <a
+              id={'tab-' + toLower(optionValue)} // allow sections to reference tab using `aria-labelledby`
+              onClick={() => {
+                onChange(optionValue)
+              }}
+              onKeyPress={triggerOnKeys(() => {
+                onChange(optionValue)
+              }, [KeyCodes.ENTER, KeyCodes.SPACE])}
+              tabIndex={isActive ? '0' : '-1'} // remove inactive tabs from tab order (controlled with arrow keys)
+              role="tab"
+              aria-selected={isActive}
             >
-              <a
-                id={'tab-'+ toLower(optionValue)} // allow sections to reference tab using `aria-labelledby`
-                onClick={() => { onChange(optionValue) }}
-                onKeyPress={triggerOnKeys(() => { onChange(optionValue) }, [KeyCodes.ENTER, KeyCodes.SPACE])}
-                tabIndex={ isActive ? '0' : '-1' } // remove inactive tabs from tab order (controlled with arrow keys)
-                role="tab"
-                aria-selected={ isActive }
-              >
-                { key }
-              </a>
-            </li>
-          )
-        })
-      }
+              {key}
+            </a>
+          </li>
+        )
+      })}
     </ul>
   )
 }

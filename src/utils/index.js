@@ -13,12 +13,7 @@ export {
   xor as removeFromArray,
 } from 'lodash'
 
-export {
-  compose,
-  omit,
-  set,
-  get,
-} from 'lodash/fp'
+export { compose, omit, set, get } from 'lodash/fp'
 
 export filterInvalidDOMProps from 'filter-invalid-dom-props'
 export wrapDisplayName from 'recompose/wrapDisplayName'

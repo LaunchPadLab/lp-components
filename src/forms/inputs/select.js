@@ -7,7 +7,7 @@ import {
   fieldOptionGroupsType,
   fieldOptionsType,
   hasInputError,
-  omitLabelProps
+  omitLabelProps,
 } from '../helpers'
 import { LabeledField } from '../labels'
 import {
@@ -15,7 +15,7 @@ import {
   filterInvalidDOMProps,
   generateInputErrorId,
   serializeOptions,
-  serializeOptionGroups
+  serializeOptionGroups,
 } from '../../utils'
 
 /**
@@ -102,7 +102,7 @@ const defaultProps = {
   optionGroups: [],
 }
 
-function Select (props) {
+function Select(props) {
   const {
     input: { name, value, onBlur, onChange },
     meta, // eslint-disable-line no-unused-vars
@@ -116,44 +116,47 @@ function Select (props) {
   const optionObjects = serializeOptions(options)
   const optionGroupObjects = serializeOptionGroups(optionGroups)
   return (
-    <LabeledField { ...props }>
+    <LabeledField {...props}>
       <select
         {...{
           id: name,
-          className: classnames({ 'unselected': value === '' }),
+          className: classnames({ unselected: value === '' }),
           name,
           value,
           onBlur,
           onChange,
-          'aria-describedby': hasInputError(meta) ? generateInputErrorId(name) : null,
-          ...filterInvalidDOMProps(rest)
+          'aria-describedby': hasInputError(meta)
+            ? generateInputErrorId(name)
+            : null,
+          ...filterInvalidDOMProps(rest),
         }}
       >
-        {
-          placeholder &&
-          <option value='' disabled={ !enablePlaceholderOption }>
-            { placeholder }
+        {placeholder && (
+          <option value="" disabled={!enablePlaceholderOption}>
+            {placeholder}
           </option>
-        }
-        {
-          optionGroupObjects.length
-          ? optionGroupObjects.map(({ name, options }, idx) =>
-              <optgroup key={ idx } label={ name }>
-                {
-                  options.map(({ key, value }) => <option key={ value } value={ value }>{ key }</option>)
-                }
+        )}
+        {optionGroupObjects.length
+          ? optionGroupObjects.map(({ name, options }, idx) => (
+              <optgroup key={idx} label={name}>
+                {options.map(({ key, value }) => (
+                  <option key={value} value={value}>
+                    {key}
+                  </option>
+                ))}
               </optgroup>
-            )
-          : optionObjects.map(({ key, value }) => <option key={ value } value={ value }>{ key }</option>)
-        }
+            ))
+          : optionObjects.map(({ key, value }) => (
+              <option key={value} value={value}>
+                {key}
+              </option>
+            ))}
       </select>
-     </LabeledField>
+    </LabeledField>
   )
 }
 
 Select.propTypes = propTypes
 Select.defaultProps = defaultProps
 
-export default compose(
-  blurDirty()
-)(Select)
+export default compose(blurDirty())(Select)

@@ -3,7 +3,7 @@ import curry from 'lodash/fp/curry'
 
 /**
  *
- * A function which returns a comparison function that extracts values at a 
+ * A function which returns a comparison function that extracts values at a
  * certain path, and runs given comparison function on those values.
  *
  * @name compareAtPath
@@ -13,18 +13,18 @@ import curry from 'lodash/fp/curry'
  * @returns {Function} Comparison function
  *
  * @example
- * 
+ *
  * const people = [
  *  { name: 'Brad', age: 66 },
  *  { name: 'Georgina', age: 35 }
  * ]
- * 
+ *
  * const sortAscending = (a, b) => a - b
  *
  * const ageComparator = compareAtPath('age', sortAscending)
  *
  * people.sort(ageComparator)
- * 
+ *
  * // [
  * //   { name: 'Georgina', age: 35 },
  * //   { name: 'Brad', age: 66 },
@@ -32,10 +32,10 @@ import curry from 'lodash/fp/curry'
  *
  */
 
-function compareAtPath (path, func) {
+function compareAtPath(path, func) {
   const getter = get(path)
-  return function compare (a, b) {
-    const [ aValue, bValue ] = [a, b].map(getter)
+  return function compare(a, b) {
+    const [aValue, bValue] = [a, b].map(getter)
     return func(aValue, bValue)
   }
 }

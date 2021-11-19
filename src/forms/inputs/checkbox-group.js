@@ -7,7 +7,12 @@ import {
   replaceEmptyStringValue,
 } from '../helpers'
 import { LabeledField } from '../labels'
-import { addToArray, removeFromArray, serializeOptions, compose } from '../../utils'
+import {
+  addToArray,
+  removeFromArray,
+  serializeOptions,
+  compose,
+} from '../../utils'
 
 /**
  *
@@ -52,14 +57,14 @@ import { addToArray, removeFromArray, serializeOptions, compose } from '../../ut
 
 const propTypes = {
   ...checkboxGroupPropTypes,
-  options: fieldOptionsType
+  options: fieldOptionsType,
 }
 
 const defaultProps = {
-  options: []
+  options: [],
 }
 
-function CheckboxGroup (props) {
+function CheckboxGroup(props) {
   const {
     input: { value, onChange, name },
     meta, // eslint-disable-line no-unused-vars
@@ -68,34 +73,34 @@ function CheckboxGroup (props) {
   } = omitLabelProps(props)
   const optionObjects = serializeOptions(options)
   // Build change handler
-  const handleChange = function (option) {
-    return function (checked) {
+  const handleChange = function(option) {
+    return function(checked) {
       // Add or remove option value from array of values, depending on whether it's checked
-      const newValueArray = checked ? addToArray([option.value], value) : removeFromArray([option.value], value)
+      const newValueArray = checked
+        ? addToArray([option.value], value)
+        : removeFromArray([option.value], value)
       return onChange(newValueArray)
     }
   }
   return (
-    <LabeledField className="CheckboxGroup" { ...props }>
-      {
-        optionObjects.map((option, i) => {
-          return (
-            <Checkbox // eslint-disable-line react/jsx-key
-              {...{
-                key: i,
-                input: {
-                  name: `${ name }.${ option.value }`,
-                  value: value.includes(option.value),
-                  onChange: handleChange(option)
-                },
-                meta: {},
-                label: option.key,
-                ...rest
-              }}
-            />
-          )
-        })
-      }
+    <LabeledField className="CheckboxGroup" {...props}>
+      {optionObjects.map((option, i) => {
+        return (
+          <Checkbox // eslint-disable-line react/jsx-key
+            {...{
+              key: i,
+              input: {
+                name: `${name}.${option.value}`,
+                value: value.includes(option.value),
+                onChange: handleChange(option),
+              },
+              meta: {},
+              label: option.key,
+              ...rest,
+            }}
+          />
+        )
+      })}
     </LabeledField>
   )
 }
@@ -103,6 +108,4 @@ function CheckboxGroup (props) {
 CheckboxGroup.propTypes = propTypes
 CheckboxGroup.defaultProps = defaultProps
 
-export default compose(
-  replaceEmptyStringValue([]),
-)(CheckboxGroup)
+export default compose(replaceEmptyStringValue([]))(CheckboxGroup)
