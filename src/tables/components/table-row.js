@@ -47,9 +47,8 @@ function TableRow({
         const onColClick = column.disabled ? noop : () => onClick(rowData)
         return (
           <CellComponent
+            key={key}
             {...{
-              // eslint-disable-line
-              key,
               value: formattedValue,
               name,
               data: rowData,
