@@ -92,7 +92,7 @@ function LabeledField({
   const { name } = input
   const { touched, invalid } = meta
   return (
-    <fieldset
+    <div
       className={classnames(className, {
         error: hasInputError({ touched, invalid }),
       })}
@@ -102,7 +102,7 @@ function LabeledField({
       {!hideErrorLabel && (
         <ErrorComponent {...{ ...input, ...meta, ...rest }} />
       )}
-    </fieldset>
+    </div>
   )
 }
 
