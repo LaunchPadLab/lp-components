@@ -139,14 +139,23 @@ Checkbox
 -----------------------*/
 .checkbox{
   @include rem(margin-top, 15px);
-  width: 100%;
+  width: auto;
 
   label{
     cursor: pointer;
-    float: right;
     @include rem(margin-top, 4px);
     line-height: normal;
+  }
+
+  span{
+    float: right;
+    display: inline-block;
     width: calc(100% - 32px);
+  }
+
+  .tooltip-trigger{
+    float: initial;
+    width: auto;
   }
 }
 
