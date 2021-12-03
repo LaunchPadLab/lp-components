@@ -39,6 +39,7 @@ import { isServer } from './utils'
  */
 
 const propTypes = {
+  className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   onClose: PropTypes.func.isRequired,
   hideCloseButton: PropTypes.bool,
   children: PropTypes.node,
@@ -55,15 +56,28 @@ function getRootElement() {
   return window.document.querySelector('body')
 }
 
+function buildClassName(main, additional) {
+  // No className specefied or className property is empty
+  if (!additional)
+    return main
+  // A nice and clean className, nothing special to do
+  if (typeof additional === 'string')
+    return `${main} ${additional}`
+  // react-modal will handle it
+  // see http://reactcommunity.org/react-modal/styles/classes/
+  if (typeof additional === 'object')
+    return additional
+}
+
 // A wrapper for react-modal that adds some styles and a close button.
 // See https://github.com/reactjs/react-modal for usage.
-function Modal({ onClose, hideCloseButton, children, ...rest }) {
+function Modal({ onClose, hideCloseButton, children, className, ...rest }) {
   return (
     <ReactModal
       isOpen
       onRequestClose={onClose}
       portalClassName="modal"
-      className="modal-inner"
+      className={buildClassName("modal-inner", className)}
       overlayClassName="modal-fade-screen"
       bodyOpenClassName="modal-open"
       appElement={getRootElement()}

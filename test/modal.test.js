@@ -24,3 +24,14 @@ test('Modal hides close button when hideCloseButton=true', () => {
   const wrapper = mount(<Modal hideCloseButton onClose={noop} />)
   expect(wrapper.find('.modal-close').exists()).toEqual(false)
 })
+
+test('Modal adds className property to default class', () => {
+  const wrapper = mount(<Modal onClose={noop} className='foo-bar' />)
+  expect(wrapper.find('.modal-inner.foo-bar').exists()).toEqual(true)
+})
+
+test('Modal object className overwrites default class', () => {
+  const wrapper = mount(<Modal onClose={noop} className={{ base: 'modal-custom', afterOpen: 'modal-is-open', beforeClose: 'modal-is-close'}} />)
+  expect(wrapper.find('.modal-custom.modal-is-open').exists()).toEqual(true)
+  expect(wrapper.find('.modal-inner').exists()).toEqual(false)
+})
