@@ -32,15 +32,16 @@ const propTypes = {
 }
 
 const defaultProps = {
-  className: 'spinner'
+  className: ''
 }
 
-function Spinner(props) {
-  return <div className={classnames('spinner', props.className)}
-    {...filterInvalidDOMProps(props)} />
+function Spinner({ className, ...rest }) {
+  return <div className={classnames('spinner', className)}
+    {...filterInvalidDOMProps(rest)} />
 }
 
 Spinner.propTypes = propTypes
 Spinner.defaultProps = defaultProps
 
 export default Spinner
+
