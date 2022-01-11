@@ -5,7 +5,7 @@ import { Spinner } from '../../src/'
 
 test('Spinner creates div with id "spinner"', () => {
   const wrapper = mount(
-    <Spinner/>
+    <Spinner />
   )
   expect(wrapper.find('div#spinner').exists()).toBe(true)
 })
@@ -28,5 +28,5 @@ test('Spinner can have custom className', () => {
   const wrapper = mount(
     <Spinner className="custom" />
   )
-  expect(wrapper.find('div.custom').exists()).toBe(true)
+  expect(wrapper.find('div#spinner.custom').exists()).toBe(true)
 })
