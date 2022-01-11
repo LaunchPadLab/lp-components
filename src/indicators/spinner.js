@@ -28,10 +28,12 @@ import classnames from 'classnames'
  */
 
 const propTypes = {
-  className: ''
+  className: PropTypes.string,
 }
 
-const defaultProps = {}
+const defaultProps = {
+  className: 'spinner'
+}
 
 function Spinner(props) {
   return <div className={classnames('spinner', props.className)}
