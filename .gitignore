@@ -8,6 +8,7 @@ npm-debug.log*
 node_modules
 yarn-error.log
 coverage
+.DS_Store
 
 # compiled storybook dir
 .storybook/static/storybook

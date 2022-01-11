@@ -20,6 +20,16 @@ function CustomCell({ value }) {
   )
 }
 
+function CustomCellWithRowData({ data: { name, active } }) {
+  const checkIfActive = (active) => {
+    if (active === 'yes') return 'active'
+    return 'not active'
+  }
+  return (
+    <td style={{ color: colorForStatus(active) }}>{name} is {checkIfActive(active)}</td>
+  )
+}
+
 // eslint-disable-next-line react/prop-types
 function CustomRow({ data: { active }, children }) {
   return (
@@ -28,9 +38,9 @@ function CustomRow({ data: { active }, children }) {
 }
 
 // eslint-disable-next-line react/prop-types
-function CustomHeader({ column: { name } }) {
+function CustomHeader({ column: { name }, onClick }) {
   return (
-    <th>{name.toUpperCase() + '!'}</th>
+    <th onClick={onClick}>{name.toUpperCase() + '!'}</th>
   )
 }
 
@@ -89,6 +99,13 @@ storiesOf('SortableTable', module)
       <Column name="name" />
       <Column name="age" />
       <Column name="active" component={CustomCell} />
+    </SortableTable>
+  ))
+  .add('with custom cell component and its row data', () => (
+    <SortableTable data={tableData}>
+      <Column name="name" />
+      <Column name="age" />
+      <Column name="active" component={CustomCellWithRowData} />
     </SortableTable>
   ))
   .add('with custom row component', () => (
