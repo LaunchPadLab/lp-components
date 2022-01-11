@@ -5,7 +5,7 @@ import { Spinner } from '../../src/'
 
 test('Spinner creates div with id "spinner"', () => {
   const wrapper = mount(
-    <Spinner />
+    <Spinner/>
   )
   expect(wrapper.find('div#spinner').exists()).toBe(true)
 })
