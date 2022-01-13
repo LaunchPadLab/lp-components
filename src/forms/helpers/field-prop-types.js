@@ -39,13 +39,13 @@ export const fieldOptionGroupsType = PropTypes.arrayOf(
 
 /**
  *
- * A function that takes `PropTypes` for a `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object.
- * Returns an object containing all `PropTypes` for `redux-forms` [Field](http://redux-form.com/6.5.0/docs/api/Field.md/) components.
+ * A function that takes `PropTypes` for a `redux-form` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object.
+ * Returns an object containing all `PropTypes` for `redux-form` [Field](http://redux-form.com/6.5.0/docs/api/Field.md/) components.
  * 
  * @name fieldPropTypesWithValue
  * @type Function
  * @param {PropTypes} value - `PropTypes` object
- * @returns {Object} `PropTypes` for `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) and [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) objects
+ * @returns {Object} `PropTypes` for `redux-form` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) and [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) objects
  * @example
  * 
  * const valuePropType = PropTypes.string
@@ -90,7 +90,7 @@ export function fieldPropTypesWithValue (value) {
 
 /** 
  *
- * A constant representing default `PropTypes` for `redux-forms` [Field](http://redux-form.com/6.5.0/docs/api/Field.md/) values.
+ * A constant representing default `PropTypes` for `redux-form` [Field](http://redux-form.com/6.5.0/docs/api/Field.md/) values.
  * Default types are either `number` or `string`.
  * 
  * @constant {PropTypes} defaultValueTypes
@@ -104,7 +104,7 @@ const defaultValueTypes = PropTypes.oneOfType([
 
 /** 
  *
- * An object containing the default `PropTypes` for `redux-forms` [Field](http://redux-form.com/6.5.0/docs/api/Field.md/) components.
+ * An object containing the default `PropTypes` for `redux-form` [Field](http://redux-form.com/6.5.0/docs/api/Field.md/) components.
  * 
  * @constant {Object} fieldPropTypes
  *
@@ -127,4 +127,16 @@ export const checkboxGroupPropTypes = fieldPropTypesWithValue(
       PropTypes.number
     ])
   )
+)
+
+const file = PropTypes.shape({
+  name: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+  size: PropTypes.number,
+  type: PropTypes.string,
+  lastModified: PropTypes.number,
+})
+
+export const fileInputPropTypes = fieldPropTypesWithValue(
+  PropTypes.arrayOf(file).isRequired,
 )

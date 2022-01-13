@@ -17,13 +17,13 @@ import {
 
 /**
  *
- * An color input that can be used in a `redux-forms`-controlled form.
+ * An color input that can be used in a `redux-form`-controlled form.
  * The value of this input is a hex color string.
  * 
  * @name ColorInput
  * @type Function
- * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
- * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+ * @param {Object} input - A `redux-form` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
+ * @param {Object} meta - A `redux-form` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @example
  * 
  * function UserForm ({ handleSubmit, pristine, invalid, submitting }) {

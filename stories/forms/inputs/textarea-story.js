@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { createRef } from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { Textarea as StaticTextarea } from 'src'
@@ -13,6 +13,8 @@ const inputProps = {
   name: 'person.biography',
   onChange: action('text area changed')
 }
+
+const inputRef = createRef()
 
 storiesOf('Textarea', module)
   .add('default', () => (
@@ -34,5 +36,12 @@ storiesOf('Textarea', module)
       meta={{}}
       maxLength={50}
       hideCharacterCount={true}
+    />
+  ))
+  .add('with a forwardedRef', () => (
+    <Textarea
+      input={inputProps}
+      meta={{}}
+      forwardedRef={inputRef}
     />
   ))

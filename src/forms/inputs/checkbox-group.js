@@ -8,10 +8,11 @@ import {
 } from '../helpers'
 import { LabeledField } from '../labels'
 import { addToArray, removeFromArray, serializeOptions, compose } from '../../utils'
+import { convertNameToLabel } from '../helpers'
 
 /**
  *
- * A group of checkboxes that can be used in a `redux-forms`-controlled form.
+ * A group of checkboxes that can be used in a `redux-form`-controlled form.
  *
  * The value of each checkbox is specified via the `options` prop. This prop can either be:
  * - An array of strings
@@ -23,8 +24,8 @@ import { addToArray, removeFromArray, serializeOptions, compose } from '../../ut
  *
  * @name CheckboxGroup
  * @type Function
- * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
- * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+ * @param {Object} input - A `redux-form` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
+ * @param {Object} meta - A `redux-form` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @param {Array} options - An array of checkbox values (strings, numbers, or key-value pairs)
  * @example
  *
@@ -59,6 +60,12 @@ const defaultProps = {
   options: []
 }
 
+function CheckboxGroupLegend ({ name, label }) {
+  return (
+    <legend>{ label || convertNameToLabel(name) }</legend>
+  )
+}
+
 function CheckboxGroup (props) {
   const {
     input: { value, onChange, name },
@@ -76,7 +83,11 @@ function CheckboxGroup (props) {
     }
   }
   return (
-    <LabeledField className="CheckboxGroup" { ...props }>
+    <LabeledField
+      className="CheckboxGroup"
+      labelComponent={ CheckboxGroupLegend }
+      { ...props }
+    >
       {
         optionObjects.map((option, i) => {
           return (

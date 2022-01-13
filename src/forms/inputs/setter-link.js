@@ -4,11 +4,11 @@ import { fieldPropTypes } from '../helpers'
 
 /**
  *
- * A component that returns an `<a>` element that can be used to change the value of an input in a `redux-forms`-controlled form.
+ * A component that returns an `<a>` element that can be used to change the value of an input in a `redux-form`-controlled form.
  *
  * @name SetterLink
  * @type Function
- * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
+ * @param {Object} input - A `redux-form` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
  * @param {String} label - The link text
  * @param {Any} [valueToSet=true] - The value to set the input when clicked
  * @example
