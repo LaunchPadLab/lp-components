@@ -11,8 +11,8 @@ import manageFocus from './focus'
  * @type Function
  * @description A control component for navigating among multiple tabs
  * @param {Boolean} [vertical] A boolean setting the `className` of the `ul` to 'horizontal' (default), or 'vertical', which determines the alignment of the tabs (optional, default `false`)
- * @param {Array} [options] An array of tab values (strings or key-value pairs)
- * @param {String|Number} [value] - The value of the current tab
+ * @param {Array} options An array of tab values (strings or key-value pairs)
+ * @param {String|Number} value - The value of the current tab
  * @param {Function} [onChange] - A function called with the new value when a tab is clicked
  * @param {String} [activeClassName] - The class of the active tab, (optional, default `active`)
  * @example
@@ -41,8 +41,6 @@ const propTypes = {
 
 const defaultProps = {
   vertical: false,
-  options: [],
-  value: '',
   onChange: noop,
   className: '',
   activeClassName: 'active',
@@ -50,7 +48,6 @@ const defaultProps = {
 
 function TabBar ({ vertical, options, value, onChange, className, activeClassName }) {
   const optionObjects = serializeOptions(options)
-  const activeValue = value || get('value', first(optionObjects)) // a11y dictates that a tab must be active, so default to the first option
   const alignment = vertical ? 'vertical' : 'horizontal'
   
   return (
@@ -61,7 +58,7 @@ function TabBar ({ vertical, options, value, onChange, className, activeClassNam
     >
       {
         optionObjects.map(({ key, value: optionValue }) => {
-          const isActive = optionValue === activeValue
+          const isActive = optionValue === value
           return (
             <li
               className={ classnames({ [activeClassName]: isActive }) }
