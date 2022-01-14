@@ -5,10 +5,10 @@ import {
   fieldOptionsType,
   omitLabelProps,
   replaceEmptyStringValue,
+  convertNameToLabel,
 } from '../helpers'
 import { LabeledField } from '../labels'
 import { addToArray, removeFromArray, serializeOptions, compose } from '../../utils'
-import { convertNameToLabel } from '../helpers'
 
 /**
  *
