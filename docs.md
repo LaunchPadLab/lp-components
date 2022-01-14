@@ -238,8 +238,8 @@ A control component for navigating among multiple tabs
 ### Parameters
 
 -   `vertical` **[Boolean][151]?** A boolean setting the `className` of the `ul` to 'horizontal' (default), or 'vertical', which determines the alignment of the tabs (optional, default `false`)
--   `options` **[Array][154]?** An array of tab values (strings or key-value pairs)
--   `value` **([String][149] \| [Number][153])?** The value of the current tab
+-   `options` **[Array][154]** An array of tab values (strings or key-value pairs)
+-   `value` **([String][149] \| [Number][153])** The value of the current tab
 -   `onChange` **[Function][150]?** A function called with the new value when a tab is clicked
 -   `activeClassName` **[String][149]?** The class of the active tab, (optional, default `active`)
 
