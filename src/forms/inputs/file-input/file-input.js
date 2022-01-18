@@ -197,7 +197,8 @@ function FileInput(props) {
           <label htmlFor={input.name} className="fileupload-exists">{ labelText }</label>
         </div>
         {shouldShowClearInputButton && (
-            <RemoveButton file={files[0]} 
+            <RemoveButton 
+              file={files[0]} 
               onRemove={() => {
                 removeFile(0)
               }}
