@@ -12,6 +12,7 @@ const DateInput = dynamicInput({
 const inputProps = {
   name: 'person.birthDate',
   onChange: action('date input changed'),
+  onBlur: action('blurred'),
 }
 
 storiesOf('DateInput', module)

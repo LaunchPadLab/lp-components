@@ -1430,8 +1430,8 @@ A component used to pass column information to a [Table][101] or [SortableTable]
 -   `label` **[String][149]?** The text that will be displayed in the column header. Defaults to `name`.
 -   `sortFunc` **[Function][150]?** The function that will be used to sort the table data when the column is selected
 -   `component` **[Function][150]?** A custom cell component for the column. Will be passed the `key`, `name`, `value` and `data` for the row.
--   `headerComponent` **[Function][150]?** A custom header component for the column. Will be passed the configuration of the column, as well as the current `sortPath` / `ascending` and an `onClick` handler.
--   `onClick` **[Function][150]?** A function that will be called `onClick` on every cell in the column
+-   `headerComponent` **[Function][150]?** A custom header component for the column. Will be passed the configuration of the column, as well as the current `sortPath` / `ascending` and an `onClick` handler. `onClick` must be appended to allow for sorting functionality.
+-   `onClick` **[Function][150]?** A function that will be called `onClick` on every cell in the column.
 -   `format` **[Function][150]?** A function that formats the value displayed in each cell in the column
 -   `disabled` **[Boolean][151]?** A flag that disables sorting for the column
 -   `placeholder` **[String][149]?** A string that will be displayed if the value of the cell is `undefined` or `null`
@@ -1447,6 +1447,14 @@ function PersonTable ({ people }) {
       <TableColumn name="age" label="Years alive" disabled />
       <TableColumn name="status" component={ StatusCell } />
     </SortableTable>
+  )
+}
+```
+
+```javascript
+function CustomHeader({ column: { name }, onClick }) {
+  return (
+    <th onClick={onClick}>{name.toUpperCase() + '!'}</th>
   )
 }
 ```
