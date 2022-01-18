@@ -151,6 +151,7 @@ function FileInput(props) {
 
   // Support rendering a custom preview component, even if no value is selected or when `thumbnail` is present
   const files = values.length > 0 ? values : [null]
+  const shouldShowClearInputButton = !multiple && files[0]
 
   return (
   <LabeledField { ...props } meta={ inputMeta }>
@@ -195,6 +196,13 @@ function FileInput(props) {
           {/* Include after input to allowing for styling with adjacent sibling selector */}
           <label htmlFor={input.name} className="fileupload-exists">{ labelText }</label>
         </div>
+        {shouldShowClearInputButton && (
+            <RemoveButton file={files[0]} 
+              onRemove={() => {
+                removeFile(0)
+              }}
+            />
+          )}
       </div>
     </LabeledField>
   )
