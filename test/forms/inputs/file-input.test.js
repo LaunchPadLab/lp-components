@@ -193,6 +193,18 @@ describe('FileInput', () => {
       expect(wrapper.find('button.remove-file').exists()).toBe(true)
     })
 
+    test('shows a clear input button component when multiple prop is false and a file is selected', () => {
+      const props = { input: { name, value: [{ name: 'fileName', type: 'image/png' }], onChange: defaultOnChange }, meta: {}, multiple: false }
+      const wrapper = mount(<FileInput { ...props }/>)
+      expect(wrapper.find('button.remove-file').exists()).toBe(true)
+    })
+
+    test('does not show a clear input button component when multiple prop is false and a file is not selected', () => {
+      const props = { input: { name, value: [], onChange: defaultOnChange }, meta: {}, multiple: false }
+      const wrapper = mount(<FileInput { ...props }/>)
+      expect(wrapper.find('button.remove-file').exists()).toBe(false)
+    })
+
     test('adds custom aria-label to default remove button', () => {
       const file = { name: 'fileName.png', type: 'image/png' }
       const props = { input: { name, value: [file], onChange: defaultOnChange }, meta: {}, multiple: true }
