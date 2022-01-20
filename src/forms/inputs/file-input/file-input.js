@@ -34,9 +34,9 @@ import classnames from 'classnames'
  * @param {Boolean} [multiple=false] - A flag indicating whether or not to accept multiple files
  * @param {String} [accept] - Value that defines the file types the file input should accept (e.g., ".doc,.docx"). More info: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept
  * @param {("user"|"environment")} [capture] - Value that specifies which camera to use, if the accept attribute indicates the input type of image or video. This is not available for all devices (e.g., desktops). More info: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#capture
- * @param {Function} [onRemove=noop] - A callback fired when the file is removed (only available when `multiple` is set to `true`)
+ * @param {Function} [onRemove=noop] - A callback fired when a file is removed
  * @param {Function} [previewComponent=RenderPreview] - A custom component that is used to display a preview of each attached file
- * @param {Function} [removeComponent=RemoveButton] - A custom component that receives `value` and `onRemove` props (only available when `multiple` is set to `true`)
+ * @param {Function} [removeComponent=RemoveButton] - A custom component that receives `value` and `onRemove` props
  * @param {String} [thumbnail] - A placeholder image to display before the file is loaded
  * @param {Boolean} [hidePreview=false] - A flag indicating whether or not to hide the file preview
  * @param {String} [selectText] - An override for customizing the text that is displayed on the input's label. Defaults to 'Select File' or 'Select File(s)' depending on the `multiple` prop value
