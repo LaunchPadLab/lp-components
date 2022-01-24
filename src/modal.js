@@ -13,6 +13,7 @@ import { isServer } from './utils'
  * @name Modal
  * @type Function
  * @param {Function} onClose - A handler for closing the modal. May be triggered via the close button, and outside click, or a key press.
+ * @param {Boolean} [isOpen=true] - A flag for showing the modal.
  * @param {Boolean} [preventClose=false] - A flag for preventing the modal from being closed (close button, escape, or overlay click).
  *
  * @example
@@ -40,11 +41,13 @@ import { isServer } from './utils'
 
 const propTypes = {
   onClose: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool,
   preventClose: PropTypes.bool,
   children: PropTypes.node,
 }
 
 const defaultProps = {
+  isOpen: true,
   preventClose: false,
 }
 
@@ -57,11 +60,11 @@ function getRootElement() {
 
 // A wrapper for react-modal that adds some styles and a close button.
 // See https://github.com/reactjs/react-modal for usage.
-function Modal({ onClose, preventClose, children, ...rest }) {
+function Modal({ isOpen, onClose, preventClose, children, ...rest }) {
   const canClose = !preventClose
   return (
     <ReactModal
-      isOpen={true}
+      isOpen={isOpen}
       onRequestClose={onClose}
       portalClassName="modal"
       className="modal-inner"
@@ -75,16 +78,14 @@ function Modal({ onClose, preventClose, children, ...rest }) {
     >
       <div className="modal-content">{children}</div>
       {canClose && (
-        <>
-          <button
-            type="button"
-            onClick={onClose}
-            className="modal-close"
-            aria-label="Close Modal"
-          >
-            ×
-          </button>
-        </>
+        <button
+          type="button"
+          onClick={onClose}
+          className="modal-close"
+          aria-label="Close Modal"
+        >
+          ×
+      </button>
       )}
     </ReactModal>
   )
