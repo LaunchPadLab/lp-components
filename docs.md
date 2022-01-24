@@ -584,18 +584,18 @@ A component passed using `previewComponent` will receive the following props:
 
 ### Parameters
 
--   `input` **[Object][153]** A `redux-form` [input][154] object
--   `meta` **[Object][153]** A `redux-form` [meta][155] object
--   `readFiles` **[Function][147]** A callback that is fired with new files and is expected to return an array of file objects with the `url` key set to the "read" value. This can be either a data URL or the public URL from a 3rd party API (optional, default `readFilesAsDataUrls`)
--   `multiple` **[Boolean][148]** A flag indicating whether or not to accept multiple files (optional, default `false`)
--   `accept` **[String][146]?** Value that defines the file types the file input should accept (e.g., ".doc,.docx"). More info: [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept][163]
--   `capture` **(`"user"` \| `"environment"`)?** Value that specifies which camera to use, if the accept attribute indicates the input type of image or video. This is not available for all devices (e.g., desktops). More info: [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#capture][164]
--   `onRemove` **[Function][147]** A callback fired when the file is removed (only available when `multiple` is set to `true`) (optional, default `noop`)
--   `previewComponent` **[Function][147]** A custom component that is used to display a preview of each attached file (optional, default `RenderPreview`)
--   `removeComponent` **[Function][147]** A custom component that receives `value` and `onRemove` props (only available when `multiple` is set to `true`) (optional, default `RemoveButton`)
--   `thumbnail` **[String][146]?** A placeholder image to display before the file is loaded
--   `hidePreview` **[Boolean][148]** A flag indicating whether or not to hide the file preview (optional, default `false`)
--   `selectText` **[String][146]?** An override for customizing the text that is displayed on the input's label. Defaults to 'Select File' or 'Select File(s)' depending on the `multiple` prop value
+-   `input` **[Object][156]** A `redux-form` [input][157] object
+-   `meta` **[Object][156]** A `redux-form` [meta][158] object
+-   `readFiles` **[Function][150]** A callback that is fired with new files and is expected to return an array of file objects with the `url` key set to the "read" value. This can be either a data URL or the public URL from a 3rd party API (optional, default `readFilesAsDataUrls`)
+-   `multiple` **[Boolean][151]** A flag indicating whether or not to accept multiple files (optional, default `false`)
+-   `accept` **[String][149]?** Value that defines the file types the file input should accept (e.g., ".doc,.docx"). More info: [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept][166]
+-   `capture` **(`"user"` \| `"environment"`)?** Value that specifies which camera to use, if the accept attribute indicates the input type of image or video. This is not available for all devices (e.g., desktops). More info: [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#capture][167]
+-   `onRemove` **[Function][150]** A callback fired when a file is removed (optional, default `noop`)
+-   `previewComponent` **[Function][150]** A custom component that is used to display a preview of each attached file (optional, default `RenderPreview`)
+-   `removeComponent` **[Function][150]** A custom component that receives `value` and `onRemove` props (optional, default `RemoveButton`)
+-   `thumbnail` **[String][149]?** A placeholder image to display before the file is loaded
+-   `hidePreview` **[Boolean][151]** A flag indicating whether or not to hide the file preview (optional, default `false`)
+-   `selectText` **[String][149]?** An override for customizing the text that is displayed on the input's label. Defaults to 'Select File' or 'Select File(s)' depending on the `multiple` prop value
 
 ### Examples
 
