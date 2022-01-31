@@ -3,6 +3,7 @@ import { mount } from 'enzyme'
 import { DropdownNavBar } from '../../src/'
 import { first, last } from 'lodash'
 
+// test data
 const parentTitles = ['Experiences', 'Wildlife', 'Visit Us']
 const childTitles = [
   ['Animal Encounters', 'Zoo Keeper for a Day', 'Wildlife Photos'],
@@ -11,17 +12,6 @@ const childTitles = [
 
 const path = '/'
 const externalPath = 'https://goo.gl/maps/oGeajN5N1Ycy1D4J8'
-
-function createChildItems(childTitles) {
-  if (!childTitles) return
-
-  return childTitles.map((childTitle) => {
-    return {
-      name: childTitle,
-      path,
-    }
-  })
-}
 
 const menuItems = parentTitles.map((parentTitle, index) => {
   return {
@@ -32,34 +22,7 @@ const menuItems = parentTitles.map((parentTitle, index) => {
   }
 })
 
-function getMenuItem(wrapper, { last, position } = {}) {
-  const menuItems = wrapper.find('li.parent-menu')
-
-  if (position) return menuItems.at(position)
-  if (last) return menuItems.last()
-
-  return menuItems.first()
-}
-
-function getMenuItemLink(wrapper, { last, position } = {}) {
-  const menuItem = getMenuItem(wrapper, { last, position })
-  return menuItem.find('a').first()
-}
-
-function getChildMenuItem(parentMenuItem, { last, position } = {}) {
-  const childMenuItems = parentMenuItem.find('li.sub-menu-item')
-
-  if (position) return childMenuItems.at(position)
-  if (last) return childMenuItems.last()
-
-  return childMenuItems.first()
-}
-
-function getChildMenuItemLink(parentMenuItem, { last, position } = {}) {
-  const menuItem = getChildMenuItem(parentMenuItem, { last, position })
-  return menuItem.find('a').first()
-}
-
+// tests
 describe('DropdownNavBar', () => {
   test('assigns a default mobile breakpoint number value', () => {
     const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
@@ -308,3 +271,43 @@ describe('DropdownNavBar', () => {
     expect(firstMenuItem.hasClass('submenu-open')).toBe(true)
   })
 })
+
+// helpers
+function createChildItems(childTitles) {
+  if (!childTitles) return
+
+  return childTitles.map((childTitle) => {
+    return {
+      name: childTitle,
+      path,
+    }
+  })
+}
+
+function getMenuItem(wrapper, { last, position } = {}) {
+  const menuItems = wrapper.find('li.parent-menu')
+
+  if (position) return menuItems.at(position)
+  if (last) return menuItems.last()
+
+  return menuItems.first()
+}
+
+function getMenuItemLink(wrapper, { last, position } = {}) {
+  const menuItem = getMenuItem(wrapper, { last, position })
+  return menuItem.find('a').first()
+}
+
+function getChildMenuItem(parentMenuItem, { last, position } = {}) {
+  const childMenuItems = parentMenuItem.find('li.sub-menu-item')
+
+  if (position) return childMenuItems.at(position)
+  if (last) return childMenuItems.last()
+
+  return childMenuItems.first()
+}
+
+function getChildMenuItemLink(parentMenuItem, { last, position } = {}) {
+  const menuItem = getChildMenuItem(parentMenuItem, { last, position })
+  return menuItem.find('a').first()
+}
