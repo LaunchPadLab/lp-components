@@ -1,33 +1,67 @@
 import React from 'react'
 import { mount } from 'enzyme'
-import { Link } from 'react-router'
 import { DropdownNavBar } from '../../src/'
+import { first, last } from 'lodash'
 
-const path = '/'
-
-const menuItems = [
-  {
-    name: 'Experiences',
-    path,
-    childItems: [
-      {
-        name: 'Animal Encounters',
-        path,
-      },
-      {
-        name: 'Zoo Keeper for a Day',
-        path,
-      },
-    ],
-  },
-  {
-    name: 'Visit Us',
-    path: 'https://goo.gl/maps/oGeajN5N1Ycy1D4J8',
-  },
+const parentTitles = ['Experiences', 'Wildlife', 'Visit Us']
+const childTitles = [
+  ['Animal Encounters', 'Zoo Keeper for a Day', 'Wildlife Photos'],
+  ['Our Animals', 'Zoo Flora', 'Top 10 Highlights'],
 ]
 
+const path = '/'
+const externalPath = 'https://goo.gl/maps/oGeajN5N1Ycy1D4J8'
+
+function createChildItems(childTitles) {
+  if (!childTitles) return
+
+  return childTitles.map((childTitle) => {
+    return {
+      name: childTitle,
+      path,
+    }
+  })
+}
+
+const menuItems = parentTitles.map((parentTitle, index) => {
+  return {
+    name: parentTitle,
+    // Third parent item must be an external link for tests to pass
+    path: index === 2 ? externalPath : path,
+    childItems: createChildItems(childTitles[index]),
+  }
+})
+
+function getMenuItem(wrapper, { last, position } = {}) {
+  const menuItems = wrapper.find('li.parent-menu')
+
+  if (position) return menuItems.at(position)
+  if (last) return menuItems.last()
+
+  return menuItems.first()
+}
+
+function getMenuItemLink(wrapper, { last, position } = {}) {
+  const menuItem = getMenuItem(wrapper, { last, position })
+  return menuItem.find('a').first()
+}
+
+function getChildMenuItem(parentMenuItem, { last, position } = {}) {
+  const childMenuItems = parentMenuItem.find('li.sub-menu-item')
+
+  if (position) return childMenuItems.at(position)
+  if (last) return childMenuItems.last()
+
+  return childMenuItems.first()
+}
+
+function getChildMenuItemLink(parentMenuItem, { last, position } = {}) {
+  const menuItem = getChildMenuItem(parentMenuItem, { last, position })
+  return menuItem.find('a').first()
+}
+
 describe('DropdownNavBar', () => {
-  test('assigns default mobile breakpoint number value', () => {
+  test('assigns a default mobile breakpoint number value', () => {
     const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
     expect(wrapper.props().mobileBreakpoint).toEqual(expect.any(Number))
   })
@@ -45,61 +79,37 @@ describe('DropdownNavBar', () => {
   test('renders anchors with correct local path or external url', () => {
     const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
     expect(wrapper.find('a').exists()).toBe(true)
-    expect(
-      wrapper
-        .find(Link)
-        .first()
-        .prop('to')
-    ).toEqual('/')
-    expect(
-      wrapper
-        .find('a')
-        .at(3)
-        .prop('href')
-    ).toContain('https://')
+    expect(getMenuItemLink(wrapper).prop('href')).toEqual(path)
+    expect(getMenuItemLink(wrapper, { position: 2 }).prop('href')).toEqual(
+      externalPath
+    )
   })
 
   test('renders menuItems', () => {
     const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
-    const firstMenuItemLink = wrapper
-      .find('li')
-      .first()
-      .render()
-    const lastMenuItem = wrapper
-      .find('li')
-      .last()
-      .render()
+    const firstMenuItem = getMenuItem(wrapper)
+    const firstMenuItemLink = getMenuItemLink(wrapper)
+    const lastMenuItemLink = getMenuItemLink(wrapper, { last: true })
+    const firstChildMenuItemLink = getChildMenuItemLink(firstMenuItem)
+    const lastChildMenuItemLink = getChildMenuItemLink(firstMenuItem, {
+      last: true,
+    })
 
-    expect(
-      firstMenuItemLink
-        .find('a')
-        .first()
-        .text()
-    ).toEqual('Experiences')
-    expect(
-      firstMenuItemLink
-        .find('ul > li')
-        .first()
-        .text()
-    ).toEqual('Animal Encounters')
-    expect(
-      firstMenuItemLink
-        .find('ul > li')
-        .last()
-        .text()
-    ).toEqual('Zoo Keeper for a Day')
-    expect(
-      lastMenuItem
-        .find('a')
-        .first()
-        .text()
-    ).toEqual('Visit Us')
+    expect(firstMenuItemLink.text()).toEqual(first(parentTitles))
+    expect(firstChildMenuItemLink.text()).toEqual(first(first(childTitles)))
+    expect(lastChildMenuItemLink.text()).toEqual(last(first(childTitles)))
+    expect(lastMenuItemLink.text()).toEqual(last(parentTitles))
   })
 
   test('assigns appropriate aria roles', () => {
     const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
     expect(wrapper.find('ul.dropdown-nav-menu').prop('role')).toBe('menubar')
-    expect(wrapper.find('ul.sub-menu').prop('role')).toBe('menu')
+    expect(
+      wrapper
+        .find('ul.sub-menu')
+        .first()
+        .prop('role')
+    ).toBe('menu')
     expect(wrapper.find('li > a').every('[role="menuitem"]')).toBe(true)
   })
 
@@ -121,54 +131,48 @@ describe('DropdownNavBar', () => {
       <DropdownNavBar menuItems={menuItems} hideSubmenuArrowsBeforeFocus />
     )
 
-    expect(
-      wrapper
-        .find('li.parent-menu a')
-        .first()
-        .hasClass('down-arrow')
-    ).toBe(true)
-    expect(
-      hideButtonsWrapper
-        .find('li.parent-menu a')
-        .first()
-        .hasClass('down-arrow')
-    ).toBe(false)
+    expect(getMenuItemLink(wrapper).hasClass('down-arrow')).toBe(true)
+    expect(getMenuItemLink(hideButtonsWrapper).hasClass('down-arrow')).toBe(
+      false
+    )
   })
 
-  test('displays submenu arrow on focus of parent menu link', () => {
+  test('displays submenu arrow on focus of parent menu link when initially hidden', () => {
     const hideButtonsWrapper = mount(
       <DropdownNavBar menuItems={menuItems} hideSubmenuArrowsBeforeFocus />
     )
-    const firstMenuItemLink = hideButtonsWrapper
-      .find('li.parent-menu a')
-      .first()
+    const firstMenuItemLink = getMenuItemLink(hideButtonsWrapper)
 
     expect(firstMenuItemLink.hasClass('down-arrow')).toBe(false)
     firstMenuItemLink.simulate('focus')
     expect(firstMenuItemLink.hasClass('down-arrow')).toBe(true)
   })
 
-  test('moves focus between parent menu links when triggered via right arrow on parent menu link', () => {
+  test('moves focus between parent menu links when triggered via right or left arrow on parent menu link', () => {
     const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
-    const firstMenuItemLink = wrapper.find('li.parent-menu a').first()
+    const firstMenuItemLink = getMenuItemLink(wrapper)
+    const secondMenuItemLink = getMenuItemLink(wrapper, { position: 1 })
 
+    // right arrow
     expect(firstMenuItemLink.prop('tabindex')).toEqual('0')
     firstMenuItemLink.simulate('keyDown', { key: 'ArrowRight' })
     // removed focus from first parent menu link
     expect(firstMenuItemLink.prop('tabindex')).toEqual('-1')
     // added focus to second parent menu link
-    expect(
-      wrapper
-        .find('li.parent-menu a')
-        .at(1)
-        .prop('tabindex')
-    ).toEqual('0')
+    expect(secondMenuItemLink.prop('tabindex')).toEqual('0')
+
+    // left arrow
+    secondMenuItemLink.simulate('keyDown', { key: 'ArrowLeft' })
+    // removed focus from second parent menu link
+    expect(secondMenuItemLink.prop('tabindex')).toEqual('-1')
+    // added focus to first parent menu link
+    expect(firstMenuItemLink.prop('tabindex')).toEqual('0')
   })
 
   test('moves focus to first or last parent menu link when triggered via home or end on parent menu link', () => {
     const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
-    const firstMenuItemLink = wrapper.find('li.parent-menu a').first()
-    const lastMenuItemLink = wrapper.find('li.parent-menu:last-child a').first()
+    const firstMenuItemLink = getMenuItemLink(wrapper)
+    const lastMenuItemLink = getMenuItemLink(wrapper, { last: true })
 
     // end
     expect(firstMenuItemLink.prop('tabindex')).toEqual('0')
@@ -184,198 +188,123 @@ describe('DropdownNavBar', () => {
 
   test('opens submenu and focuses first submenu link when triggered via down arrow on parent menu link', () => {
     const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
+    const firstMenuItem = getMenuItem(wrapper)
+    const firstMenuItemLink = getMenuItemLink(wrapper)
+    const firstChildMenuItemLink = getChildMenuItemLink(firstMenuItem)
 
-    expect(
-      wrapper
-        .find('li.parent-menu')
-        .first()
-        .hasClass('submenu-open')
-    ).toBe(false)
-    wrapper
-      .find('li.parent-menu a')
-      .first()
-      .simulate('keyDown', { key: 'ArrowDown' })
-    expect(
-      wrapper
-        .find('li.parent-menu')
-        .first()
-        .hasClass('submenu-open')
-    ).toBe(true)
+    expect(firstMenuItem.hasClass('submenu-open')).toBe(false)
+    firstMenuItemLink.simulate('keyDown', { key: 'ArrowDown' })
+    expect(firstMenuItem.hasClass('submenu-open')).toBe(true)
     // removed focus from parent menu link
-    expect(
-      wrapper
-        .find('li.parent-menu a')
-        .first()
-        .prop('tabindex')
-    ).toEqual('-1')
+    expect(firstMenuItemLink.prop('tabindex')).toEqual('-1')
     // added focus to first submenu link
-    expect(
-      wrapper
-        .find('li.sub-menu-item a')
-        .first()
-        .prop('tabindex')
-    ).toEqual('0')
+    expect(firstChildMenuItemLink.prop('tabindex')).toEqual('0')
   })
 
   test('closes submenu when triggered via Escape on submenu link', () => {
     const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
+    const firstMenuItem = getMenuItem(wrapper)
+    const firstMenuItemLink = getMenuItemLink(wrapper)
+    const firstChildMenuItemLink = getChildMenuItemLink(firstMenuItem)
 
     // open submenu first
-    wrapper
-      .find('li.parent-menu a')
-      .first()
-      .simulate('keyDown', { key: 'ArrowDown' })
+    firstMenuItemLink.simulate('keyDown', { key: 'ArrowDown' })
 
-    expect(
-      wrapper
-        .find('li.parent-menu')
-        .first()
-        .hasClass('submenu-open')
-    ).toBe(true)
-    wrapper
-      .find('li.sub-menu-item a')
-      .first()
-      .simulate('keyDown', { key: 'Escape' })
-    expect(
-      wrapper
-        .find('li.parent-menu')
-        .first()
-        .hasClass('submenu-open')
-    ).toBe(false)
+    expect(firstMenuItem.hasClass('submenu-open')).toBe(true)
+    firstChildMenuItemLink.simulate('keyDown', { key: 'Escape' })
+    expect(firstMenuItem.hasClass('submenu-open')).toBe(false)
   })
 
   test('moves focus between submenu links when triggered via down or up arrow on submenu link', () => {
     const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
-    const firstSubmenuLink = wrapper.find('li.sub-menu-item a').first()
-    const secondSubmenuLink = wrapper.find('li.sub-menu-item a').at(1)
+    const firstMenuItem = getMenuItem(wrapper)
+    const firstMenuItemLink = getMenuItemLink(wrapper)
+    const firstChildMenuItemLink = getChildMenuItemLink(firstMenuItem)
+    const secondChildMenuItemLink = getChildMenuItemLink(firstMenuItem, {
+      position: 1,
+    })
 
     // open submenu first
-    wrapper
-      .find('li.parent-menu a')
-      .first()
-      .simulate('keyDown', { key: 'ArrowDown' })
+    firstMenuItemLink.simulate('keyDown', { key: 'ArrowDown' })
 
     // down arrow
-    expect(firstSubmenuLink.prop('tabindex')).toEqual('0')
-    firstSubmenuLink.simulate('keyDown', { key: 'ArrowDown' })
-    expect(firstSubmenuLink.prop('tabindex')).toEqual('-1')
-    expect(secondSubmenuLink.prop('tabindex')).toBe('0')
+    expect(firstChildMenuItemLink.prop('tabindex')).toEqual('0')
+    firstChildMenuItemLink.simulate('keyDown', { key: 'ArrowDown' })
+    expect(firstChildMenuItemLink.prop('tabindex')).toEqual('-1')
+    expect(secondChildMenuItemLink.prop('tabindex')).toBe('0')
 
     // up arrow
-    secondSubmenuLink.simulate('keyDown', { key: 'ArrowUp' })
-    expect(firstSubmenuLink.prop('tabindex')).toEqual('0')
-    expect(secondSubmenuLink.prop('tabindex')).toBe('-1')
+    secondChildMenuItemLink.simulate('keyDown', { key: 'ArrowUp' })
+    expect(firstChildMenuItemLink.prop('tabindex')).toEqual('0')
+    expect(secondChildMenuItemLink.prop('tabindex')).toBe('-1')
   })
 
   test('moves focus to first or last submenu link when triggered via home or end on submenu link', () => {
     const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
-    const firstMenuItem = wrapper.find('li.parent-menu').first()
-    const firstSubmenuLink = firstMenuItem.find('.sub-menu-item a').first()
-    const lastSubmenuLink = firstMenuItem.find('.sub-menu-item a').last()
+    const firstMenuItem = getMenuItem(wrapper)
+    const firstChildMenuItemLink = getChildMenuItemLink(firstMenuItem)
+    const lastChildMenuItemLink = getChildMenuItemLink(firstMenuItem, {
+      last: true,
+    })
 
     // end
-    expect(firstSubmenuLink.prop('tabindex')).toEqual('0')
-    firstSubmenuLink.simulate('keyDown', { key: 'End' })
-    expect(firstSubmenuLink.prop('tabindex')).toEqual('-1')
-    expect(lastSubmenuLink.prop('tabindex')).toEqual('0')
+    expect(firstChildMenuItemLink.prop('tabindex')).toEqual('0')
+    firstChildMenuItemLink.simulate('keyDown', { key: 'End' })
+    expect(firstChildMenuItemLink.prop('tabindex')).toEqual('-1')
+    expect(lastChildMenuItemLink.prop('tabindex')).toEqual('0')
 
     // home
-    lastSubmenuLink.simulate('keyDown', { key: 'Home' })
-    expect(firstSubmenuLink.prop('tabindex')).toEqual('0')
-    expect(lastSubmenuLink.prop('tabindex')).toEqual('-1')
+    lastChildMenuItemLink.simulate('keyDown', { key: 'Home' })
+    expect(firstChildMenuItemLink.prop('tabindex')).toEqual('0')
+    expect(lastChildMenuItemLink.prop('tabindex')).toEqual('-1')
   })
 
   test('moves focus to next parent menu link and opens submenu when triggered via right or left arrow on submenu link', () => {
     const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
-    const firstMenuItem = wrapper.find('li.parent-menu').first()
-    const secondMenuItem = wrapper.find('li.parent-menu').at(1)
+    const firstMenuItem = getMenuItem(wrapper)
+    const firstMenuItemLink = getMenuItemLink(wrapper)
+    const secondMenuItem = getMenuItem(wrapper, { position: 1 })
+    const secondMenuItemLink = getMenuItemLink(wrapper, { position: 1 })
+    const firstChildMenuItemLink = getChildMenuItemLink(firstMenuItem)
+    const secondChildMenuItemLink = getChildMenuItemLink(secondMenuItem)
 
     // open submenu first
-    wrapper
-      .find('li.parent-menu a')
-      .first()
-      .simulate('keyDown', { key: 'ArrowDown' })
+    firstMenuItemLink.simulate('keyDown', { key: 'ArrowDown' })
 
     // right arrow
-    expect(
-      secondMenuItem
-        .find('a')
-        .first()
-        .prop('tabindex')
-    ).toEqual('-1')
+    expect(secondMenuItemLink.prop('tabindex')).toEqual('-1')
     expect(secondMenuItem.hasClass('submenu-open')).toBe(false)
-    firstMenuItem
-      .find('li.sub-menu-item a')
-      .first()
-      .simulate('keyDown', { key: 'ArrowRight' })
-    expect(
-      secondMenuItem
-        .find('a')
-        .first()
-        .prop('tabindex')
-    ).toEqual('0')
+    firstChildMenuItemLink.simulate('keyDown', { key: 'ArrowRight' })
+    expect(secondMenuItemLink.prop('tabindex')).toEqual('0')
     expect(secondMenuItem.hasClass('submenu-open')).toBe(true)
 
     // left arrow
-    expect(
-      firstMenuItem
-        .find('a')
-        .first()
-        .prop('tabindex')
-    ).toEqual('-1')
+    expect(firstMenuItemLink.prop('tabindex')).toEqual('-1')
     expect(firstMenuItem.hasClass('submenu-open')).toBe(false)
-    secondMenuItem
-      .find('li.sub-menu-item a')
-      .first()
-      .simulate('keyDown', { key: 'ArrowLeft' })
-    expect(
-      firstMenuItem
-        .find('a')
-        .first()
-        .prop('tabindex')
-    ).toEqual('0')
+    secondChildMenuItemLink.simulate('keyDown', { key: 'ArrowLeft' })
+    expect(firstMenuItemLink.prop('tabindex')).toEqual('0')
     expect(firstMenuItem.hasClass('submenu-open')).toBe(true)
   })
 
   test('opens submenu when parent menu link is tapped once (does not navigate to link)', () => {
     const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
+    const firstMenuItem = getMenuItem(wrapper)
+    const firstMenuItemLink = getMenuItemLink(wrapper)
 
-    expect(
-      wrapper
-        .find('li.parent-menu')
-        .first()
-        .hasClass('submenu-open')
-    ).toBe(false)
-    wrapper
-      .find('li.parent-menu a')
-      .first()
-      .simulate('touchend')
-    expect(
-      wrapper
-        .find('li.parent-menu')
-        .first()
-        .hasClass('submenu-open')
-    ).toBe(true)
+    expect(firstMenuItem.hasClass('submenu-open')).toBe(false)
+    firstMenuItemLink.simulate('touchend')
+    expect(firstMenuItem.hasClass('submenu-open')).toBe(true)
   })
 
   test('displays submenu when mobile submenu button is clicked', () => {
     const wrapper = mount(<DropdownNavBar menuItems={menuItems} />)
+    const firstMenuItem = getMenuItem(wrapper)
 
-    expect(
-      wrapper
-        .find('li.parent-menu')
-        .first()
-        .hasClass('submenu-open')
-    ).toBe(false)
+    expect(firstMenuItem.hasClass('submenu-open')).toBe(false)
     wrapper
       .find('button')
       .first()
       .simulate('click')
-    expect(
-      wrapper
-        .find('li.parent-menu')
-        .first()
-        .hasClass('submenu-open')
-    ).toBe(true)
+    expect(firstMenuItem.hasClass('submenu-open')).toBe(true)
   })
 })
