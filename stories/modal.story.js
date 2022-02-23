@@ -16,12 +16,12 @@ storiesOf('Modal', module)
       </div>
     )
   })
-  .add('without close button', () => {
+  .add('with close prevented', () => {
     const [modalShown, setModalShown] = useState(true)
     return (
       <div>
         {modalShown && (
-          <Modal onClose={() => setModalShown(false)} hideCloseButton>
+          <Modal onClose={() => setModalShown(false)} preventClose={true}>
             This is the modal content!
           </Modal>
         )}
