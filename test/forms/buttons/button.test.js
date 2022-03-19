@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { createRef } from 'react'
 import { mount, shallow } from 'enzyme'
 import { Button } from '../../../src/'
 
@@ -91,4 +91,10 @@ test('Specifying a class name prop does not override in-progress class', () => {
 test('Button can receive object style prop', () => {
   const wrapper = shallow(<Button style={{ display: 'none' }}>Submit</Button>)
   expect(wrapper.find('button').prop('style').display).toEqual('none')
+})
+
+test('Button passes down forwardedRef to button', () => {
+  const ref = createRef()
+  const wrapper = mount(<Button id="my-button" ref={ref}>Click Me</Button>)
+  expect(wrapper.find('button').prop('id')).toEqual(ref.current.id)
 })

@@ -71,7 +71,7 @@ function calculateClassName ({ className, variant, pristine, invalid, submitting
 
 
 // eslint-disable-next-line no-unused-vars
-function Button ({
+const Button = React.forwardRef(function Button({
   children,
   type,
   variant,
@@ -81,11 +81,12 @@ function Button ({
   className,
   onClick,
   ...rest
-}) {
+}, ref) {
   const disabled = pristine || invalid
   return (
     <button
       type={ type }
+      ref={ref}
       className={ calculateClassName({ className, variant, pristine, invalid, submitting }) }
       aria-disabled={ pristine || invalid }
       onClick={ (disabled || submitting) ? noop : onClick }
@@ -94,7 +95,7 @@ function Button ({
       { children }
     </button>
   )
-}
+})
 
 Button.propTypes = propTypes
 Button.defaultProps = defaultProps
