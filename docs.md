@@ -539,6 +539,7 @@ Clicking an unselected checkbox adds its value to this array, and clicking a sel
 -   `input` **[Object][156]** A `redux-forms` [input][157] object
 -   `meta` **[Object][156]** A `redux-forms` [meta][158] object
 -   `options` **[Array][154]** An array of checkbox values (strings or key-value pairs)
+-   `selectedOptionsDisplayFormatter` **[Function][]** A function that receives an array of selected values and returns a string or HTML to render those values
 
 ### Examples
 

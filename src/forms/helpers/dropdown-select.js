@@ -7,12 +7,14 @@ const propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   selectedValues: PropTypes.arrayOf(PropTypes.string),
+  selectedOptionsDisplayFormatter: PropTypes.func,
   ...togglePropTypes('expanded'),
 }
 
 const defaultProps = {
   className: '',
   selectedValues: [],
+  selectedOptionsDisplayFormatter: getLabel,
 }
 
 // Wraps the `DropdownCheckboxGroup` component
@@ -22,12 +24,13 @@ function DropdownSelect ({
   className,
   expanded, 
   selectedValues, 
-  toggleExpanded, 
+  toggleExpanded,
+  selectedOptionsDisplayFormatter,
 }) {
   return (
     <div className="dropdown-select">
       <div className="select-input" onClick={ toggleExpanded }>
-        <p>{ getLabel(selectedValues) }</p>
+        <p>{selectedOptionsDisplayFormatter(selectedValues)}</p>
       </div>
       <div 
         className={ classnames(

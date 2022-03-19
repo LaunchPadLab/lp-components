@@ -37,3 +37,26 @@ test('DropdownCheckboxGroup removes value to array when selected option clicked'
   const newValue = onChange.mock.calls[0][0]
   expect(newValue).toEqual([])
 })
+
+test('DropdownCheckboxGroup allows custom selected option formatting', () => {
+  const selectedOptionsDisplayFormatter = (values) => {
+    return values.length ? values.join('; ') : 'Empty'
+  }
+  const onChange = jest.fn()
+  const TOGGLED_OPTION = 'TOGGLED_OPTION'
+  const props = {
+    input: {
+      name: 'test',
+      value: [],
+      onChange,
+    },
+    meta: {},
+    options: [TOGGLED_OPTION],
+    selectedOptionsDisplayFormatter,
+  }
+  const wrapper = mount(<DropdownCheckboxGroup { ...props } />)
+  wrapper.find('input').simulate('change')
+  const newValues = onChange.mock.calls[0]
+  const displayOptionsHtml = wrapper.find('.select-input').innerHTML
+  expect(displayOptionsHtml).toEqual(`<p>${selectedOptionsDisplayFormatter(newValues)}</p>`)
+})
