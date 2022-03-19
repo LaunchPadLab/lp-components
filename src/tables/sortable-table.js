@@ -47,6 +47,7 @@ const propTypes = {
   onChange: PropTypes.func,
   rowComponent: Types.component,
   headerComponent: Types.component,
+  caption: PropTypes.node,
 }
 const defaultProps = {
   className: '',
@@ -57,6 +58,7 @@ const defaultProps = {
   disableSort: false,
   controlled: false,
   onChange: noop,
+  caption: null,
 }
 const defaultControls = {
   initialSortPath: '',
@@ -92,6 +94,7 @@ function SortableTable({
   onChange,
   rowComponent,
   headerComponent,
+  caption,
   ...rest
 }) {
   const columns = getColumnData(children, disableSort)
@@ -148,41 +151,49 @@ function SortableTable({
   }
 
   return (
-    <table className={classnames(className, { 'sortable-table': !disableSort })} {...filterInvalidDOMProps(rest)}>
-      <thead>
-        <tr>
-          {columns.map((column, key) => {
-              const Header = column.headerComponent || headerComponent || DefaultHeader
+    <>
+      {caption && <caption>{caption}</caption>}
+      <table
+        className={classnames(className, { 'sortable-table': !disableSort })}
+        {...filterInvalidDOMProps(rest)}
+      >
+        <thead>
+          <tr>
+            {columns.map((column, key) => {
+              const Header =
+                column.headerComponent || headerComponent || DefaultHeader;
               return (
-                <Header {...{
-                  key,
-                  column,
-                  sortPath,
-                  ascending,
-                  onClick: () => handleColumnChange(column)
-                }} />
-              )
-            }
-          )}
-        </tr>
-      </thead>
-      <tbody>
-        {
-          data.map((rowData, key) =>
-            <Row {...{
-              key,
-              rowData,
-              columns,
-              rowComponent,
-              ascending,
-              sortPath,
-              sortFunc,
-              valueGetter,
-            }} />
-          )
-        }
-      </tbody>
-    </table>
+                <Header
+                  {...{
+                    key,
+                    column,
+                    sortPath,
+                    ascending,
+                    onClick: () => handleColumnChange(column),
+                  }}
+                />
+              );
+            })}
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((rowData, key) => (
+            <Row
+              {...{
+                key,
+                rowData,
+                columns,
+                rowComponent,
+                ascending,
+                sortPath,
+                sortFunc,
+                valueGetter,
+              }}
+            />
+          ))}
+        </tbody>
+      </table>
+    </>
   )
 }
 
