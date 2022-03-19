@@ -161,7 +161,7 @@ function SortableTable({
           <tr>
             {columns.map((column, key) => {
               const Header =
-                column.headerComponent || headerComponent || DefaultHeader;
+                column.headerComponent || headerComponent || DefaultHeader
               return (
                 <Header
                   {...{
@@ -172,7 +172,7 @@ function SortableTable({
                     onClick: () => handleColumnChange(column),
                   }}
                 />
-              );
+              )
             })}
           </tr>
         </thead>
