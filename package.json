@@ -51,7 +51,7 @@
     "react-modal": "^3.14.4",
     "react-router": "^3.2.1",
     "react-switch": "^5.0.1",
-    "redux-flash": "^2.0.1"
+    "redux-flash": "^2.0.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",

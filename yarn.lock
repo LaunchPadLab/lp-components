@@ -13639,7 +13639,7 @@ redux-actions@^2.6.5:
     reduce-reducers "^0.4.3"
     to-camel-case "^1.0.0"
 
-redux-flash@^2.0.1:
+redux-flash@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/redux-flash/-/redux-flash-2.0.2.tgz#34e365a592cdc2258a048de9841ccbe19f0e9539"
   integrity sha512-tX8Yxf13uy2IVvQm5VpiGabirGySZhM9DZGzDsmU818px5bpmbUsxqCnUy/NtTmUEJnFuU+vL6IYejkbwHr/Dw==
