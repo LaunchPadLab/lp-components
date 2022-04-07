@@ -58,7 +58,7 @@
     "@babel/core": "^7.17.9",
     "@launchpadlab/babel-preset": "^2.1.1",
     "@launchpadlab/eslint-config": "^2.4.1",
-    "@size-limit/preset-small-lib": "^3.0.0",
+    "@size-limit/preset-small-lib": "^7.0.8",
     "@storybook/addon-a11y": "^6.4.20",
     "@storybook/addon-actions": "^6.4.20",
     "@storybook/addon-knobs": "^6.4.0",
@@ -86,6 +86,7 @@
     "redux": "^4.0.0",
     "regenerator-runtime": "^0.13.9",
     "sass-loader": "10.2.1",
+    "size-limit": "^7.0.8",
     "style-loader": "2.0.0",
     "webpack": "^4.39.2"
   },
