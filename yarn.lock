@@ -2715,7 +2715,7 @@
     "@babel/preset-react" "^7.0.0"
     babel-plugin-lodash "^3.3.4"
 
-"@launchpadlab/eslint-config@^2.4.1":
+"@launchpadlab/eslint-config@^2.7.0":
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/@launchpadlab/eslint-config/-/eslint-config-2.7.0.tgz#0f5b8ef73994b8bd974032b2624eb2cc38f9be75"
   integrity sha512-m4uNlnHlvFW5hfxBYBpWDNTGySNYb71oWKwH/FAM7o5mj/YLf38UaBI+votVBT8I+pRdAQ679RWT1lBtIL0xhg==

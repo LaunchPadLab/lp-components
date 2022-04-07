@@ -57,7 +57,7 @@
     "@babel/cli": "^7.17.6",
     "@babel/core": "^7.17.9",
     "@launchpadlab/babel-preset": "^2.1.1",
-    "@launchpadlab/eslint-config": "^2.4.1",
+    "@launchpadlab/eslint-config": "^2.7.0",
     "@size-limit/preset-small-lib": "^7.0.8",
     "@storybook/addon-a11y": "^6.4.20",
     "@storybook/addon-actions": "^6.4.20",
