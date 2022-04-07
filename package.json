@@ -92,8 +92,5 @@
   },
   "peerDependencies": {
     "react": "^16.14.0"
-  },
-  "husky": {
-    "pre-commit": "yarn run docs && git add docs.md"
   }
 }
