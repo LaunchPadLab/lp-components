@@ -1,5 +1,5 @@
 import React from 'react'
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import { filterInvalidDOMProps } from '../utils'
 
 /**
@@ -26,9 +26,13 @@ import { filterInvalidDOMProps } from '../utils'
  *
  */
 
-const propTypes = {}
+const propTypes = {
+  className: PropTypes.string,
+}
 
-const defaultProps = {}
+const defaultProps = {
+  className: null,
+}
 
 function Spinner({ className, ...rest }) {
   return <div id="spinner" className={className} {...filterInvalidDOMProps(rest)} />

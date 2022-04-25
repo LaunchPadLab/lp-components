@@ -1,7 +1,7 @@
 module.exports = [
   {
     path: 'lib/index.js',
-    limit: '200 KB',
+    limit: '250 KB',
     ignore: ['react-dom'],
   },
 ]
