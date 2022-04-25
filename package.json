@@ -24,7 +24,7 @@
     "build:development": "BABEL_ENV=esm babel src --watch --out-dir esm",
     "clean": "rm -rf lib esm",
     "docs": "documentation build src/index.js -f md -o docs.md",
-    "lint": "eslint src",
+    "lint": "eslint src --max-warnings=0",
     "prepublish": "yarn run clean && yarn run build",
     "storybook": "yarn && start-storybook -p 6006",
     "test": "jest --coverage",
