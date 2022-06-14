@@ -370,7 +370,7 @@ test('invalid arbitrary props filtered out', () => {
 
 test('passes valid DOM props to cells', () => {
   const wrapper = mount(
-      <SortableTable data={tableData} aria-label="Annual Report" test="test">
+      <SortableTable data={tableData}>
         <Column name="name" data-cy="name"/>
       </SortableTable>
     )
@@ -379,9 +379,9 @@ test('passes valid DOM props to cells', () => {
 
 test('does not pass invalid DOM props to cells', () => {
   const wrapper = mount(
-      <SortableTable data={tableData} aria-label="Annual Report" test="test">
-        <Column name="name" customCellClass="custom"/>
+      <SortableTable data={tableData}>
+        <Column name="name" customAttribute="custom"/>
       </SortableTable>
     )
-  expect(wrapper.find('td').first().prop('customCellClass')).toBe(undefined)
+  expect(wrapper.find('td').first().prop('customAttribute')).toBe(undefined)
 })
