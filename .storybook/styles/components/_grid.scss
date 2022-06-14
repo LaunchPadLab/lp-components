@@ -9,17 +9,17 @@ Column Width
 
   @for $i from 1 through 12 {
     .col-#{$i} {
-      @include media($tablet){
-        @include span-columns($i of 12);
+      @media($tablet){
+        @include grid-column($i of 12);
       }
     }
   }
 }
 
 .settings-content {
-  @include span-columns(12 of 12);
-  @include media($tablet-landscape) {
-    @include span-columns(12 of 12);
+  @include grid-column(12 of 12);
+  @media($tablet-landscape) {
+    @include grid-column(12 of 12);
   }
 }
 

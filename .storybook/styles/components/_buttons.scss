@@ -6,7 +6,7 @@
   display: inline-block;
   font-weight: $bold;
   @include rem(padding, 10px);
-  @include transition (all 0.3s ease-in-out);
+  transition: all 0.3s ease-in-out;
   letter-spacing: 1px;
   line-height: normal;
   position: relative;
@@ -96,7 +96,7 @@ button.button-chill:hover {
          content:"";
          display: block;
          height: 20px;
-         @include animation(spin 0.5s linear infinite);
+         animation: spin 0.5s linear infinite;
          margin: 0 calc((100% - 40px)/2);
          position: absolute;
          top: 12px;
@@ -127,7 +127,7 @@ button.button-chill:hover {
     display: inline-block;
     @include s-base;
     @include font-type($primary-sans-serif, normal, $bold);
-    @include transition(all 0.3s ease-in-out);
+    transition: all 0.3s ease-in-out;
     @include rem(margin-top, 15px);
     @include rem(padding-bottom, 3px);
     text-decoration: none;
