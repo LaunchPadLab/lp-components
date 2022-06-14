@@ -24,7 +24,7 @@ Logo
   border-bottom: none;
   font-size: $s-large;
 
-  @include media($tablet) {
+  @media ($tablet) {
     float: left;
   }
 
@@ -38,7 +38,7 @@ Primary Nav
 -----------------------*/
 .navigation{
   @include position(fixed, 0 null null null);
-  @include transition(all 0.3s ease-in-out);
+  transition: all 0.3s ease-in-out;
   width: 100%;
   z-index: 2;
 
@@ -50,7 +50,7 @@ Primary Nav
   }
 
   nav {
-    @include media($tablet-landscape) {
+    @media ($tablet-landscape) {
       text-align: right;
     }
   }
@@ -58,7 +58,7 @@ Primary Nav
   ul {
     @include rem(margin-right, -17px);
     display: none;
-    @include media($tablet-landscape) {
+    @media ($tablet-landscape) {
       display: block;
     }
   }
@@ -100,7 +100,7 @@ Dropdown
 .submenu{
   background-color: $white-base;
   box-shadow: 0 0 18px 0 rgba(232,232,232,0.50);
-  @include animation(fade-in 0.2s ease-in);
+  animation: fade-in 0.2s ease-in;
   @include rem(margin-top, 10px);
 
   li a{
@@ -159,7 +159,7 @@ Mobile Menu
 
 .mobile-menu {
   float: right;
-  @include media($tablet-landscape) {
+  @media ($tablet-landscape) {
     display: none;
   }
 }
@@ -201,7 +201,7 @@ img.mobile-menu {
     background-color: $grey-lighter;
   }
 
-   @include media($tablet-landscape) {
+   @media ($tablet-landscape) {
     display: none;
   }
 }

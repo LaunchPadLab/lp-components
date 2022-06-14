@@ -30,7 +30,7 @@ $page-header-offset-mobile: 90px;
 
 @mixin header-offset {
   margin-top: $page-header-offset-mobile;
-  @include media($tablet) { margin-top: $page-header-offset; }
+  @media ($tablet) { margin-top: $page-header-offset; }
 }
 
 @mixin center {
@@ -43,7 +43,7 @@ $page-header-offset-mobile: 90px;
 @mixin base-padding {
   @include rem(padding, 20px);
 
-  @include media($tablet) { @include rem(padding, 30px); }
+  @media ($tablet) { @include rem(padding, 30px); }
 }
 
 @mixin secondary-padding {
@@ -73,7 +73,7 @@ $page-header-offset-mobile: 90px;
 }
 
 @mixin hover-zoom {
-  @include transition(all 1s ease);
+  transition: all 1s ease;
   background-size: 100%;
 
   &:hover { background-size: 120%; }
@@ -89,7 +89,7 @@ img { width: 100%; }
 
 @mixin mobile-hide {
   display: none;
-  @include media($tablet) { display: block; }
+  @media ($tablet) { display: block; }
 }
 
 @mixin desktop-hide{

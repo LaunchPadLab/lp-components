@@ -35,6 +35,20 @@ test('A RadioGroup\'s inputs all have the same name', () => {
   expect(wrapper.find('input').last().prop('name')).toEqual(name)
 })
 
+test('A RadioGroup input has a value that matches the corresponding option\'s value', () => {
+  const props = {
+    input: {
+      name: 'test',
+      value: '',
+    },
+    meta: {},
+    options: ['Option 1', 'Option 2'],
+  }
+  const wrapper = mount(<RadioGroup {...props} />)
+  expect(wrapper.find('input').first().prop('value')).toEqual('Option 1')
+  expect(wrapper.find('input').last().prop('value')).toEqual('Option 2')
+})
+
 test('A RadioGroup has a legend with the group\'s name by default', () => {
   const name = "sameName"
   const props = { 
@@ -67,3 +81,4 @@ test('A RadioGroup has a legend with the group\'s label (when provided)', () => 
   expect(legend).toBeTruthy()
   expect(legend.text()).toEqual('Different Name')
 })
+
