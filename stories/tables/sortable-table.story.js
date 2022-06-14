@@ -97,16 +97,16 @@ storiesOf('SortableTable', module)
   .add('with custom cell component', () => (
     <SortableTable data={tableData}>
       <Column name="name" />
-      <Column name="age"  />
+      <Column name="age" />
       <Column name="active" component={CustomCell} />
     </SortableTable>
   ))
-  .add('with valid DOM properties on cell component per column', () => (
+  .add('with additional valid DOM properties on cell component (per column)', () => (
     <SortableTable data={tableData}>
       <Column name="name" tabIndex="-1" />
       <Column name="age"  data-cy="age" />
       <Column name="active" aria-label="Active" />
-      </SortableTable>
+    </SortableTable>
   ))
   .add('with custom cell component and its row data', () => (
     <SortableTable data={tableData}>
