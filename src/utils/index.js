@@ -1,13 +1,14 @@
 export {
   castArray,
   has,
+  first,
   identity,
   isNil,
   startCase,
   range,
   noop,
+  isString,
   orderBy,
-  first,
   toLower,
   union as addToArray,
   xor as removeFromArray,
@@ -24,7 +25,6 @@ export filterInvalidDOMProps from 'filter-invalid-dom-props'
 export wrapDisplayName from 'recompose/wrapDisplayName'
 
 // LP Utils
-export adaptToReactRouter from '@launchpadlab/lp-hoc/lib/adaptToReactRouter'
 export cloudinaryUploader from '@launchpadlab/lp-hoc/lib/cloudinaryUploader'
 export modifyProps from '@launchpadlab/lp-hoc/lib/modifyProps'
 export sortable from '@launchpadlab/lp-hoc/lib/sortable'

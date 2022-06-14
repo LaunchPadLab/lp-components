@@ -36,15 +36,15 @@ textarea{
   border: none;
   border-bottom: 3px solid $grey-light;
   box-sizing: border-box;
-  @include appearance(none);
-  @include transition (all 0.3s ease-in-out);
+  appearance: none;
+  transition: all 0.3s ease-in-out;
   @include font-type($primary-sans-serif, normal, 400);
   @include s-base;
   width: 100%;
   -webkit-font-smoothing: antialiased;
   border-radius: 0;
 
-  @include placeholder{
+  &::placeholder{
     color: $white-med;
     font-style: italic;
   }
@@ -139,20 +139,29 @@ Checkbox
 -----------------------*/
 .checkbox{
   @include rem(margin-top, 15px);
-  width: 100%;
+  width: auto;
 
   label{
     cursor: pointer;
-    float: right;
     @include rem(margin-top, 4px);
     line-height: normal;
+  }
+
+  span{
+    float: right;
+    display: inline-block;
     width: calc(100% - 32px);
+  }
+
+  .tooltip-trigger{
+    float: initial;
+    width: auto;
   }
 }
 
 input[type="checkbox"]{
-  @include appearance(none);
-  @include transition (all 0.3s ease-in-out);
+  appearance: none;
+  transition: all 0.3s ease-in-out;
   background-color: $white-base;
   border: 1px solid $white-med;
   border-radius: 2px;
@@ -177,7 +186,7 @@ input[type="checkbox"]{
       font-size: 17px;
       font-weight: $bold;
       height: 12px;
-      @include transition(all 0.2s ease-in);
+      transition: all 0.2s ease-in;
       margin-left: 1px;
       @include position(absolute, 1px null null 1px);
       text-align: center;
@@ -214,7 +223,7 @@ textarea.textarea-error {
   display: inline-block;
   @include rem(margin-top, 4px);
   @include s-tiny;
-  @include transition (all 0.3s ease-in-out);
+  transition: all 0.3s ease-in-out;
 }
 
 
@@ -296,7 +305,7 @@ Uploader
     }
   }
 
-  .button-secondary-light>input{
+  input[type="file"]{
     position:absolute;
     top:0;
     right:0;
@@ -346,7 +355,7 @@ Button Area
   button{
     width: 100%;
 
-    @include media($tablet){
+    @media ($tablet){
       //width: inherit;
     }
   }
@@ -357,7 +366,7 @@ Button Area
     text-align: center;
     width: 100%;
 
-    @include media($tablet){
+    @media ($tablet){
       @include rem(margin-top, 10px);
       float: right;
       width: inherit;
@@ -408,8 +417,8 @@ Custom Dropdown Select
     border-radius: 5px;
     box-sizing: border-box;
     cursor: pointer;
-    @include appearance(none);
-    @include transition (all 0.3s ease-in-out);
+    appearance: none;
+    transition: all 0.3s ease-in-out;
     @include font-type($primary-sans-serif, normal, 400);
     @include s-base;
     @include rem(padding, 7px 13px);
@@ -507,7 +516,7 @@ Custom Dropdown Select
 .dropdown{
   @include rem(margin-bottom, 10px);
 
-  @include media($tablet){
+  @media ($tablet){
     @include rem(margin-bottom, 0px);
   }
 

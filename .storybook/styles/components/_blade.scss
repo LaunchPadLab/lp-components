@@ -17,7 +17,7 @@ Blade Contents
   cursor: pointer;
   @include rem(margin-bottom, 10px);
   @include rem(padding, 15px);
-  @include transition(all 0.3s ease-in-out);
+  transition: all 0.3s ease-in-out;
 
   &:hover{
     background-color: $blue-light;

@@ -24,9 +24,9 @@ module.exports = async ({ config }) => {
         options: {
           sassOptions: {
             includePaths: [
-              datePickerIncludePaths,
-              bourbonIncludePaths,
-              neatIncludePaths,
+              ...datePickerIncludePaths,
+              ...bourbonIncludePaths,
+              ...neatIncludePaths,
             ],
           }
         },
