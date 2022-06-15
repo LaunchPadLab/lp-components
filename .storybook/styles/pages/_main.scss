@@ -3,7 +3,7 @@
   //@include outer-container;
   display: inline-block;
   width: 100%;
-  @include media($tablet-landscape) {
+  @media ($tablet-landscape) {
   width: calc(100% - 245px);
   }
 }
@@ -29,7 +29,7 @@ Card
   @include rem(padding, 20px);
   @include rem(margin-bottom, 20px);
 
-  @include media($tablet) {
+  @media ($tablet) {
     //@include rem(padding, 40px);
   }
 
@@ -44,20 +44,20 @@ Content
 -----------------------*/
 .content{
   display: inline-block;
-  @include animation(fade-in 0.5s ease-in);
+  animation: fade-in 0.5s ease-in;
   margin-top: $desktop-nav-height;
   position: relative;
   width: 100%;
 
   &.with-sidebar{
-    @include media($tablet-landscape) {
+    @media ($tablet-landscape) {
       margin-left: $side-navigation;
       width: calc(100% - $side-navigation);
 
       .content-container{
         .card{
-          @include media($tablet-landscape){
-            @include span-columns(8 of 12);
+          @media($tablet-landscape){
+            @include grid-column(8 of 12);
           }
         }
       }
@@ -78,7 +78,7 @@ Content
 
 .content-right {
   @include rem(margin-top, 0);
-  @include media($tablet) {
+  @media ($tablet) {
     @include rem(margin-top, 61px);
   }
 }

@@ -15,8 +15,8 @@
  */
 
 // Imports
-@import "~bourbon/app/assets/stylesheets/bourbon";
-@import "~bourbon-neat/app/assets/stylesheets/neat";
+@import "../../node_modules/bourbon/core/bourbon";
+@import "../../node_modules/bourbon-neat/core/neat";
  @import "datepicker";
 
  $output-bourbon-deprecation-warnings: false;
@@ -45,24 +45,12 @@
  @import "components/empty-state";
  @import "components/expander";
  @import "components/blade";
- @import "components/due-dates";
- @import "components/reminders";
- @import "components/summit-list";
- @import "components/profile-card";
- @import "components/profile-section";
- @import "components/invites";
  @import "components/loading-container";
- @import "components/activity";
  @import "components/progress-circle";
- @import "components/sign-up-blocks";
- @import "components/emails";
  @import "components/login";
  @import "components/pagination";
  @import "components/sidebar-content";
  @import "components/radio";
- @import "components/purchased-profile-blade";
- @import "components/search-results-and-filtering";
- @import "components/recruiter-search";
  @import "components/tabs";
 
  // Page Styles

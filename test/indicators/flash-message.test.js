@@ -17,6 +17,19 @@ test('FlashMessage only shows dismiss button when callback is provided', () => {
   expect(dismissWrapper.find('button.dismiss').exists()).toBe(true)
 })
 
+test('FlashMessage dismiss button includes label for screenreaders', () => {
+  const dismissWrapper = mount(
+    <FlashMessage
+      onDismiss={() => {
+        /* do something */
+      }}
+    >
+      Success!
+    </FlashMessage>
+  )
+  expect(dismissWrapper.find('button.dismiss').prop('aria-label')).toBeDefined()
+})
+
 test('FlashMessage sets class based on isError prop', () => {
   const wrapper = mount(<FlashMessage>Success!</FlashMessage>)
   expect(wrapper.find('div.success').exists()).toBe(true)

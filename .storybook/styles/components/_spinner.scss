@@ -2,7 +2,7 @@
 Spinner
 -----------------------*/
 
-#spinner {
+.spinner {
   @include rem(margin-top, 50px);
   text-align: center;
 
@@ -15,11 +15,11 @@ Spinner
     content:"";
     display: inline-block;
     height: 30px;
-    @include animation(spin 0.5s linear infinite);
+    animation: spin 0.5s linear infinite;
     width: 30px;
   }
 }
 
-@include keyframes(spin) {
-  to { @include transform(rotate(360deg)); }
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
