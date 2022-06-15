@@ -6,6 +6,7 @@ import dynamicInput from '../../dynamic-input'
 
 const FileInput = dynamicInput({
   valuePath: 'input.value',
+  initialValue: [],
   onChangePath: 'input.onChange'
 })(StaticFileInput)
 
