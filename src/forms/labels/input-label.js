@@ -93,6 +93,7 @@ function InputLabel ({
   className,
 }) {
   const labelToDisplay = children || label || convertNameToLabel(name)
+  
   return (
     <span>
       {
