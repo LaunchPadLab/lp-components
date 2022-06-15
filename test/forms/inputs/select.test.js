@@ -3,6 +3,7 @@ import { mount } from 'enzyme'
 import { Select } from '../../../src/'
 
 const DEFAULT_PLACEHOLDER = 'Select'
+const onChange = () => {}
 
 test('Select adds string options to select tag', () => {
   const OPTION = 'MY OPTION'
@@ -10,27 +11,29 @@ test('Select adds string options to select tag', () => {
     input: {
       name: 'test',
       value: '',
-    }, 
+      onChange,
+    },
     meta: {},
     options: [OPTION],
-    placeholder: false,
+    placeholder: '',
   }
   const wrapper = mount(<Select { ...props }/>)
   expect(wrapper.find('option').contains(OPTION)).toEqual(true)
   expect(wrapper.find('option').prop('value')).toEqual(OPTION)
 })
 
-test('Select adds object options to select tag', () => {
+test  ('Select adds object options to select tag', () => {
   const KEY = 'MY KEY'
   const VALUE = 'MY OPTION'
   const props = { 
     input: {
       name: 'test',
       value: '',
+      onChange,
     }, 
     meta: {},
     options: [{ key: KEY, value: VALUE }],
-    placeholder: false,
+    placeholder: '',
   }
   const wrapper = mount(<Select { ...props }/>)
   expect(wrapper.find('option').contains(KEY)).toEqual(true)
@@ -43,6 +46,7 @@ test('Select adds placeholder option to select tag', () => {
     input: {
       name: 'test',
       value: '',
+      onChange,
     }, 
     meta: {},
     options: [],
@@ -59,6 +63,7 @@ test('Select enables the placeholder option to be selected correctly', () => {
     input: {
       name: 'test',
       value: '',
+      onChange,
     }, 
     meta: {},
     options: [],
@@ -76,10 +81,11 @@ test('Select renders option groups correctly', () => {
     input: {
       name: 'test',
       value: '',
+      onChange,
     }, 
     meta: {},
     optionGroups: [options],
-    placeholder: false,
+    placeholder: '',
   }
   const wrapper = mount(<Select { ...props }/>)
   expect(wrapper.find('optgroup').first().prop('label')).toEqual('groupName')
@@ -91,6 +97,7 @@ test('Select has a placeholder by default', () => {
     input: {
       name: 'test',
       value: '',
+      onChange,
     },
     options: [],
     meta: {},
@@ -108,6 +115,7 @@ test('Select adds an aria-describedby attribute when there is an input error', (
     input: {
       name,
       value: '',
+      onChange,
     }, 
     meta: {
       touched: true,
@@ -126,6 +134,7 @@ test('Select does not receive invalid dom attributes', () => {
     input: {
       name,
       value: '',
+      onChange,
     }, 
     meta: {},
     options: [OPTION],
