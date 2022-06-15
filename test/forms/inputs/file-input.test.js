@@ -19,7 +19,7 @@ describe('FileInput', () => {
   })
 
   test('renders file name when file is non-image type or value is empty', () => {
-    const file = { name: 'fileName', type: 'application/pdf' }
+    const file = { name: 'fileName', url: 'data:,', type: 'application/pdf' }
     const props = { input: { name, value: file, onChange: defaultOnChange }, meta: {} }
     const wrapper = mount(<FileInput { ...props } />)
     expect(wrapper.find('p').text()).toEqual('fileName')
@@ -47,7 +47,7 @@ describe('FileInput', () => {
 
   test('sets custom preview from props', () => {
     const Preview = ({ file }) => <p>{ file && file.name }</p> // eslint-disable-line react/prop-types
-    const props = { input: { name, value: { name: 'fileName', type: 'image/png' }, onChange: defaultOnChange }, meta: {} }
+    const props = { input: { name, value: { name: 'fileName', url: 'data:,', type: 'image/png' }, onChange: defaultOnChange }, meta: {} }
     const wrapper = mount(<FileInput previewComponent={ Preview } { ...props }/>)
     expect(wrapper.find('p').exists()).toEqual(true)
     expect(wrapper.find('p').text()).toEqual('fileName')
@@ -70,7 +70,7 @@ describe('FileInput', () => {
   })
 
   test('reads files and calls change handler correctly', async () => {
-    const FILE = { name: 'my file' }
+    const FILE = { name: 'my file', url: 'data:,' }
     const FILEDATA = 'my file data'
     mockFileReader(FILEDATA)
     const onChange = jest.fn()
@@ -85,7 +85,7 @@ describe('FileInput', () => {
 
   test("does not re-read existing files", async () => {
     const lastModified = Date.now()
-    const firstFile = { name: 'first', lastModified }
+    const firstFile = { name: 'first', url: 'data:,', lastModified }
     const readFiles = jest.fn()
     const onChange = jest.fn()
     const props = { input: { name, value: firstFile, onChange }, meta: {}, readFiles }
@@ -99,8 +99,8 @@ describe('FileInput', () => {
 
   test('only allows one file by default', async () => {
     const lastModified = Date.now()
-    const firstFile = { name: 'first', lastModified }
-    const secondFile = { name: 'second', lastModified }
+    const firstFile = { name: 'first', url: 'data:,', lastModified }
+    const secondFile = { name: 'second', url: 'data:,', lastModified }
     const readFiles = jest.fn((arr) => arr.map((file) => ({ ...file, url: 'my-data-url' })))
     const onChange = jest.fn()
     const props = { input: { name, value: [firstFile], onChange }, meta: {}, readFiles }
@@ -126,7 +126,7 @@ describe('FileInput', () => {
 
   test('shows error messages that occur from reading', async () => {
     const ERROR_MESSAGE = 'cannot read'
-    const file = { name: 'fileName' }
+    const file = { name: 'fileName', url: 'data:,' }
     const readFiles = jest.fn(() => Promise.reject(ERROR_MESSAGE))
     const props = { input: { name, value: '', onChange: defaultOnChange }, meta: {}, readFiles }
     const wrapper = mount(<FileInput {...props}/>)
@@ -141,7 +141,7 @@ describe('FileInput', () => {
 
   test('shows error that occurs from reading', async () => {
     const ERROR_MESSAGE = 'cannot read'
-    const file = { name: 'fileName' }
+    const file = { name: 'fileName', url: 'data:,' }
     const readFiles = jest.fn(() => {
       throw new Error(ERROR_MESSAGE)
     })
@@ -159,8 +159,8 @@ describe('FileInput', () => {
   describe('with "multiple" enabled', () => {
     test('allows multiple files to be added incrementally', async () => {
       const lastModified = Date.now()
-      const firstFile = { name: 'first', lastModified }
-      const secondFile = { name: 'second', lastModified }
+      const firstFile = { name: 'first', url: 'data:,', lastModified }
+      const secondFile = { name: 'second', url: 'data:,', lastModified }
       const FILEDATA = 'my file data'
       mockFileReader(FILEDATA)
       const onChange = jest.fn()
@@ -175,8 +175,8 @@ describe('FileInput', () => {
 
     test('selects first file when prop changes from true to false', async () => {
       const lastModified = Date.now()
-      const firstFile = { name: 'first', lastModified }
-      const secondFile = { name: 'second', lastModified }
+      const firstFile = { name: 'first', url: 'data:,', lastModified }
+      const secondFile = { name: 'second', url: 'data:,', lastModified }
       const onChange = jest.fn()
       const props = { input: { name, value: [firstFile, secondFile], onChange }, meta: {}, multiple: true }
       const wrapper = mount(<FileInput {...props} />)
@@ -188,13 +188,13 @@ describe('FileInput', () => {
     })
 
     test('shows remove button component by default', () => {
-      const props = { input: { name, value: [{ name: 'fileName', type: 'image/png' }], onChange: defaultOnChange }, meta: {}, multiple: true }
+      const props = { input: { name, value: [{ name: 'fileName', url: 'data:,', type: 'image/png' }], onChange: defaultOnChange }, meta: {}, multiple: true }
       const wrapper = mount(<FileInput { ...props }/>)
       expect(wrapper.find('button.remove-file').exists()).toBe(true)
     })
 
     test('shows a clear input button component when multiple prop is false and a file is selected', () => {
-      const props = { input: { name, value: [{ name: 'fileName', type: 'image/png' }], onChange: defaultOnChange }, meta: {}, multiple: false }
+      const props = { input: { name, value: [{ name: 'fileName', url: 'data:,', type: 'image/png' }], onChange: defaultOnChange }, meta: {}, multiple: false }
       const wrapper = mount(<FileInput { ...props }/>)
       expect(wrapper.find('button.remove-file').exists()).toBe(true)
     })
@@ -206,7 +206,7 @@ describe('FileInput', () => {
     })
 
     test('adds custom aria-label to default remove button', () => {
-      const file = { name: 'fileName.png', type: 'image/png' }
+      const file = { name: 'fileName.png', url: 'data:,', type: 'image/png' }
       const props = { input: { name, value: [file], onChange: defaultOnChange }, meta: {}, multiple: true }
       const wrapper = mount(<FileInput {...props} />)
       expect(wrapper.find('button.remove-file').prop('aria-label')).toContain(file.name)
@@ -214,7 +214,7 @@ describe('FileInput', () => {
 
     test('sets custom remove component from props', () => {
       const RemoveComponent = () => <button className="remove-custom">Remove me!!!</button>
-      const props = { input: { name, value: { name: 'fileName', type: 'image/png' }, onChange: defaultOnChange }, meta: {}, multiple: true }
+      const props = { input: { name, value: { name: 'fileName', url: 'data:,', type: 'image/png' }, onChange: defaultOnChange }, meta: {}, multiple: true }
       const wrapper = mount(<FileInput removeComponent={RemoveComponent} { ...props }/>)
       expect(wrapper.find('button.remove-custom').exists()).toBe(true)
       expect(wrapper.find('button.remove-file').exists()).toBe(false)
@@ -222,7 +222,7 @@ describe('FileInput', () => {
 
     test('calls custom onRemove prop', async () => {
       const onRemove = jest.fn()
-      const file = { name: 'fileName', type: 'image/png' }
+      const file = { name: 'fileName', url: 'data:,', type: 'image/png' }
       const props = { input: { name, value: [file], onChange: defaultOnChange }, meta: {}, multiple: true }
       const wrapper = mount(<FileInput onRemove={onRemove} { ...props }/>)
       wrapper.find('button.remove-file').simulate('click')
@@ -232,9 +232,9 @@ describe('FileInput', () => {
     })
 
     test('removes correct file', async () => {
-      const firstFile = { name: 'firstFile', type: 'image/png' }
-      const secondFile = { name: 'secondFile', type: 'image/png' }
-      const thirdFile = { name: 'thirdFile', type: 'image/png' }
+      const firstFile = { name: 'firstFile', url: 'data:,', type: 'image/png' }
+      const secondFile = { name: 'secondFile', url: 'data:,', type: 'image/png' }
+      const thirdFile = { name: 'thirdFile', url: 'data:,', type: 'image/png' }
       const onChange = jest.fn()
       const props = { input: { name, value: [firstFile, secondFile, thirdFile], onChange }, meta: {}, multiple: true }
       const wrapper = mount(<FileInput { ...props }/>)
@@ -248,7 +248,7 @@ describe('FileInput', () => {
 
     test('shows error when remove fails', async () => {
       const ERROR_MESSAGE = 'cannot read'
-      const file = { name: 'fileName' }
+      const file = { name: 'fileName', url: 'data:,' }
       const readFiles = jest.fn()
       const onRemove = jest.fn(() => Promise.reject(ERROR_MESSAGE))
 
