@@ -6,15 +6,15 @@ import { compose, filterInvalidDOMProps, generateInputErrorId } from '../../util
 
 /**
  *
- * An input element that can be used in a `redux-forms`-controlled form.
+ * An input element that can be used in a `redux-form`-controlled form.
  *
  * Note: The `input` tag is surrounded by a `div` with class `"input-wrapper"`. 
  * Any children passed to this component will be rendered within this wrapper.
  * 
  * @name Input
  * @type Function
- * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
- * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+ * @param {Object} input - A `redux-form` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
+ * @param {Object} meta - A `redux-form` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @param {String} [type] - A string to specify the type of input element (defaults to `text`)
  * @example
  * 

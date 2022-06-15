@@ -34,7 +34,7 @@ import { toggle, togglePropTypes, filterInvalidDOMProps } from '../../utils'
 
  * @example
  *
- * // A custom input to use with redux-forms
+ * // A custom input to use with redux-form
  *
  * function EmailInput ({
  *   input: { name, value, onBlur, onChange },

@@ -1,16 +1,17 @@
-import React from 'react'
-// import PropTypes from 'prop-types'
-import { filterInvalidDOMProps } from '../utils'
+import React from "react"
+import PropTypes from "prop-types"
+import { filterInvalidDOMProps } from "../utils"
+import classnames from "classnames"
 
 /**
  *
  * A UI component that displays a 'spinner'.
  *
- * 
+ *
  * @name Spinner
  * @type Function
  * @example
- * 
+ *
  * function Image ({ imgUrl }) {
  *   return (
  *      <div>
@@ -26,12 +27,21 @@ import { filterInvalidDOMProps } from '../utils'
  *
  */
 
-const propTypes = {}
+const propTypes = {
+  className: PropTypes.string,
+}
 
-const defaultProps = {}
+const defaultProps = {
+  className: "",
+}
 
-function Spinner (props) {
-  return <div id="spinner" { ...filterInvalidDOMProps(props) } />
+function Spinner({ className, ...rest }) {
+  return (
+    <div
+      className={classnames("spinner", className)}
+      {...filterInvalidDOMProps(rest)}
+    />
+  )
 }
 
 Spinner.propTypes = propTypes

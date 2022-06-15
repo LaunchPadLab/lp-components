@@ -10,7 +10,7 @@ import { compose } from '../../utils'
  *
  * An input component that wraps a `DatePicker` component from the [react-datepicker](https://github.com/Hacker0x01/react-datepicker) library.
  * This wrapper adds the following functionality to `DatePicker`:
- * - Adapts it to receive `redux-forms`-style input props.
+ * - Adapts it to receive `redux-form`-style input props.
  * - Converts value type from [moment](https://github.com/moment/moment) to [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date).
  * - Adds name and error labels.
  *
@@ -21,8 +21,8 @@ import { compose } from '../../utils'
  * 
  * @name DateInput
  * @type Function
- * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
- * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+ * @param {Object} input - A `redux-form` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
+ * @param {Object} meta - A `redux-form` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @example
  * 
  * function BirthdayForm ({ handleSubmit }) {

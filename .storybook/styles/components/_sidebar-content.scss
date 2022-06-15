@@ -1,7 +1,7 @@
 .sidebar-content {
   display: none;
 
-  @include media($tablet-landscape) {
+  @media ($tablet-landscape) {
     display: block;
     background-color: $white-base;
     box-shadow: 0 0 18px 0 rgba(232,232,232,0.50);
@@ -89,7 +89,7 @@
     .mobile-credits {
       display: block;
 
-      @include media($tablet-landscape) {
+      @media ($tablet-landscape) {
         display: none;
       }
 
