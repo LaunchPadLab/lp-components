@@ -35,10 +35,10 @@ storiesOf('InputLabel', module)
       requiredIndicator={ '*' }
     />
   ))
-  .add('pass DOM props to inner label tag', () => (
+  .add('with additional attributes for label element', () => (
     <InputLabel
       name="nameOfInput"
-      aria-label="testAriaLabel"
+      data-cy="name-label"
     />
   ))
   .add('with hint', () => (
