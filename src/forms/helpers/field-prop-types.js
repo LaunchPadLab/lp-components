@@ -138,5 +138,5 @@ const file = PropTypes.shape({
 })
 
 export const fileInputPropTypes = fieldPropTypesWithValue(
-  PropTypes.arrayOf(file).isRequired,
+  PropTypes.oneOfType([PropTypes.oneOf([""]), file, PropTypes.arrayOf(file)])
 )
