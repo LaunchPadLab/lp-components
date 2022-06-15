@@ -1,6 +1,6 @@
 {
   "name": "@launchpadlab/lp-components",
-  "version": "6.0.2",
+  "version": "6.0.3",
   "engines": {
     "node": "^14.19 || ^16.14"
   },
@@ -25,7 +25,7 @@
     "clean": "rm -rf lib esm",
     "docs": "documentation build src/index.js -f md -o docs.md",
     "lint": "eslint src --max-warnings=0",
-    "prepublish": "yarn run clean && yarn run build",
+    "prepublishOnly": "yarn run clean && yarn run build",
     "storybook": "yarn && start-storybook -p 6006",
     "test": "jest --coverage",
     "size": "yarn build && size-limit",
