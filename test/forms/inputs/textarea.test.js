@@ -2,11 +2,14 @@ import React, { createRef } from 'react'
 import { mount } from 'enzyme'
 import { Textarea } from '../../../src/'
 
+const onChange = () => {}
+
 test('Textarea passes down defaults and does not show character count', () => {
   const props = {
     input: {
       name: 'test',
       value: '',
+      onChange,
     },
     meta: {},
   }
@@ -20,6 +23,7 @@ test('Textarea passes down max length and shows character count correctly', () =
     input: {
       name: 'test',
       value: '',
+      onChange,
     },
     meta: {},
     maxLength: 5,
@@ -34,6 +38,7 @@ test('Textarea hides character count correctly', () => {
     input: {
       name: 'test',
       value: '',
+      onChange,
     },
     meta: {},
     maxLength: 5,
@@ -50,6 +55,7 @@ test('Textarea is given an aria-describedby attribute when there is an input err
     input: {
       name,
       value: '',
+      onChange,
     },
     meta: {
       touched: true,
@@ -68,6 +74,7 @@ test('Textarea does not receive invalid dom attributes', () => {
     input: {
       name,
       value: '',
+      onChange,
     },
     meta: {},
     maxLength: 5,
@@ -85,6 +92,7 @@ test('Textarea passes down forwardedRef to input correctly', () => {
     input: {
       name: 'test',
       value: '',
+      onChange,
     },
     meta: {},
     forwardedRef: inputRef,
