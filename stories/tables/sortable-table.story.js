@@ -179,7 +179,7 @@ storiesOf('SortableTable', module)
       </SortableTable>
     </div>
   ))
-  .add('with custom value getter, custom sorter, iniital column', () => (
+  .add('with custom value getter, custom sorter, initial column', () => (
     <div>
       <h2>"Name and Age" column combines name and age, sorted by age portion, initial column</h2>
       <SortableTable data={tableData} initialColumn="nameAndAge">
