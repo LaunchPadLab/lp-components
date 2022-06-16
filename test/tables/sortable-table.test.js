@@ -203,7 +203,7 @@ test('column can have a column-specific custom header component', () => {
   expect(wrapper.find(MyHeader).first().props().column.name).toEqual('name')
 })
 
-test('initialColumn determines inital sortPath and sortFunc', () => {
+test('initialColumn determines initial sortPath and sortFunc', () => {
   const mySort = jest.fn(compareAtPath('name', sortAscending))
   const wrapper = mount(
     <SortableTable data={tableData} initialColumn="name">
@@ -273,7 +273,7 @@ test('`placeholder` option is displayed if value is `null` or `undefined`', () =
   expect(wrapper.find('td').last().text()).toEqual('placeholder')
 })
 
-test('can recieve custom class name', () => {
+test('can receive custom class name', () => {
   const data = [
     { name: null },
     { name: undefined },
