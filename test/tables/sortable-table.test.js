@@ -385,3 +385,30 @@ test('does not pass invalid DOM props to cells', () => {
     )
   expect(wrapper.find('td').first().prop('customAttribute')).toBe(undefined)
 })
+
+test('does not render a caption element by default', () => {
+  const wrapper = mount(
+    <SortableTable data={tableData}>
+      <Column name="name" />
+    </SortableTable>
+  )
+  expect(wrapper.find('caption').exists()).toBe(false)
+})
+
+test('renders a caption element when provided as the first descendant', () => {
+  const wrapper = mount(
+    <SortableTable data={tableData} caption="My Table">
+      <Column name="name" />
+    </SortableTable>
+  )
+  expect(wrapper.find('table').childAt(0).type()).toBe('caption')
+})
+
+test('renders a caption element with whatever is provided', () => {
+  const wrapper = mount(
+    <SortableTable data={tableData} caption={<span className="custom-caption">My Table</span>}>
+      <Column name="name" />
+    </SortableTable>
+  )
+  expect(wrapper.find('.custom-caption').text()).toBe('My Table')
+})
