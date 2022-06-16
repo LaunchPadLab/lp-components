@@ -151,49 +151,47 @@ function SortableTable({
   }
 
   return (
-    <>
+    <table
+      className={classnames(className, { 'sortable-table': !disableSort })}
+      {...filterInvalidDOMProps(rest)}
+    >
       {caption && <caption>{caption}</caption>}
-      <table
-        className={classnames(className, { 'sortable-table': !disableSort })}
-        {...filterInvalidDOMProps(rest)}
-      >
-        <thead>
-          <tr>
-            {columns.map((column, key) => {
-              const Header =
-                column.headerComponent || headerComponent || DefaultHeader
-              return (
-                <Header
-                  {...{
-                    key,
-                    column,
-                    sortPath,
-                    ascending,
-                    onClick: () => handleColumnChange(column),
-                  }}
-                />
-              )
-            })}
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((rowData, key) => (
-            <Row
-              {...{
-                key,
-                rowData,
-                columns,
-                rowComponent,
-                ascending,
-                sortPath,
-                sortFunc,
-                valueGetter,
-              }}
-            />
-          ))}
-        </tbody>
-      </table>
-    </>
+      <thead>
+        <tr>
+          {columns.map((column, key) => {
+            const Header =
+              column.headerComponent || headerComponent || DefaultHeader
+            return (
+              <Header
+                {...{
+                  key,
+                  column,
+                  sortPath,
+                  ascending,
+                  onClick: () => handleColumnChange(column),
+                }}
+              />
+            )
+          })}
+        </tr>
+      </thead>
+      <tbody>
+        {data.map((rowData, key) => (
+          <Row
+            {...{
+              key,
+              rowData,
+              columns,
+              rowComponent,
+              ascending,
+              sortPath,
+              sortFunc,
+              valueGetter,
+            }}
+          />
+        ))}
+      </tbody>
+    </table>
   )
 }
 
