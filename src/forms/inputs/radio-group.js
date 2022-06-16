@@ -88,7 +88,7 @@ function RadioGroup (props) {
                 type: 'radio',
                 input: {
                   name, // all radio inputs must share the same name
-                  value: '',
+                  value: option.value,
                   onChange: () => onChange(option.value),
                 },
                 id: `${ name }.${ option.value }`, // override Input default behavior to assign id to input: { name }

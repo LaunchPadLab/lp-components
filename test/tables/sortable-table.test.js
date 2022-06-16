@@ -367,3 +367,21 @@ test('invalid arbitrary props filtered out', () => {
   )
   expect(wrapper.find('table').first().prop('invalidProp')).toBe(undefined)
 })
+
+test('passes valid DOM props to cells', () => {
+  const wrapper = mount(
+      <SortableTable data={tableData}>
+        <Column name="name" data-cy="name"/>
+      </SortableTable>
+    )
+  expect(wrapper.find('td').first().prop('data-cy')).toEqual('name')
+})
+
+test('does not pass invalid DOM props to cells', () => {
+  const wrapper = mount(
+      <SortableTable data={tableData}>
+        <Column name="name" customAttribute="custom"/>
+      </SortableTable>
+    )
+  expect(wrapper.find('td').first().prop('customAttribute')).toBe(undefined)
+})

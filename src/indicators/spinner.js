@@ -1,7 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { filterInvalidDOMProps } from "../utils";
-import classnames from "classnames";
+import React from "react"
+import PropTypes from "prop-types"
+import { filterInvalidDOMProps } from "../utils"
+import classnames from "classnames"
 
 /**
  *
@@ -29,11 +29,11 @@ import classnames from "classnames";
 
 const propTypes = {
   className: PropTypes.string,
-};
+}
 
 const defaultProps = {
   className: "",
-};
+}
 
 function Spinner({ className, ...rest }) {
   return (
@@ -41,10 +41,10 @@ function Spinner({ className, ...rest }) {
       className={classnames("spinner", className)}
       {...filterInvalidDOMProps(rest)}
     />
-  );
+  )
 }
 
-Spinner.propTypes = propTypes;
-Spinner.defaultProps = defaultProps;
+Spinner.propTypes = propTypes
+Spinner.defaultProps = defaultProps
 
-export default Spinner;
+export default Spinner

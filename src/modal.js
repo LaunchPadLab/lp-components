@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import ReactModal from 'react-modal'
 import { isServer } from './utils'
+import classnames from 'classnames'
 
 /**
  * A modal component with a built-in close button. Uses [`react-modal`](https://github.com/reactjs/react-modal) under the hood, and can accept any props `react-modal` does.
@@ -39,11 +40,19 @@ import { isServer } from './utils'
  * }
  */
 
+const classNameObject = PropTypes.shape({
+  base: PropTypes.string.isRequired,
+  afterOpen: PropTypes.string.isRequired,
+  beforeClose: PropTypes.string.isRequired,
+})
+
 const propTypes = {
-  onClose: PropTypes.func.isRequired,
-  isOpen: PropTypes.bool,
-  preventClose: PropTypes.bool,
   children: PropTypes.node,
+  className: PropTypes.oneOfType([PropTypes.string, classNameObject]),
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func.isRequired,
+  overlayClassName: PropTypes.oneOfType([PropTypes.string, classNameObject]),
+  preventClose: PropTypes.bool,
 }
 
 const defaultProps = {
@@ -58,17 +67,25 @@ function getRootElement() {
   return window.document.querySelector('body')
 }
 
+function wrapClassName(base, additional) {
+  if (typeof additional === 'object') {
+    return { ...additional, base: classnames(base, additional.base) }
+  }
+
+  return classnames(base, additional)
+}
+
 // A wrapper for react-modal that adds some styles and a close button.
 // See https://github.com/reactjs/react-modal for usage.
-function Modal({ isOpen, onClose, preventClose, children, ...rest }) {
+function Modal({ isOpen, onClose, preventClose, children, className, overlayClassName, ...rest }) {
   const canClose = !preventClose
   return (
     <ReactModal
       isOpen={isOpen}
       onRequestClose={onClose}
       portalClassName="modal"
-      className="modal-inner"
-      overlayClassName="modal-fade-screen"
+      className={wrapClassName("modal-inner", className)}
+      overlayClassName={wrapClassName("modal-fade-screen", overlayClassName)}
       bodyOpenClassName="modal-open"
       appElement={getRootElement()}
       ariaHideApp={isServer()} // Opt out of setting appElement on the server.
