@@ -687,7 +687,9 @@ A masked input that can be used in a `redux-form`-controlled form. Built on top 
 
 *   `input` **[Object][144]** A `redux-form` [input][145] object
 *   `meta` **[Object][144]** A `redux-form` [meta][146] object
-*   `maskOptions` **[Object][144]?** An object of options to pass to the underlying `Cleave` instance. [(supported options)][157]
+*   `maskOptions` **[Object][144]** An object of options to pass to the underlying `Cleave` instance. [(supported options)][157] (optional, default `{}`)
+*   `onInit` **[Function][139]** A function that will be invoked with the object representing the class when the input is initialized (optional, default `null`)
+*   `htmlRef` **([Function][139] | [Object][144])** A stable reference that can be used to access the DOM node of the underlying input (optional, default `null`)
 
 ### Examples
 
