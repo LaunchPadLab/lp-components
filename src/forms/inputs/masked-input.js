@@ -36,10 +36,17 @@ const propTypes = {
   ...fieldPropTypes,
   maskOptions: PropTypes.object,
   children: PropTypes.node,
+  onInit: PropTypes.func,
+  htmlRef: PropTypes.shape({
+    // eslint-disable-next-line no-undef
+    current: PropTypes.instanceOf(Element),
+  }),
 }
 
 const defaultProps = {
-  maskOptions: {}
+  maskOptions: {},
+  onInit: null,
+  htmlRef: null,
 }
 
 function MaskedInput (props) {
@@ -50,8 +57,11 @@ function MaskedInput (props) {
     className, // eslint-disable-line no-unused-vars
     children,
     maskOptions,
+    onInit,
+    htmlRef,
     ...rest
   } = omitLabelProps(props)
+
   return (
     <LabeledField { ...props }>
       <div className="input-wrapper">
@@ -64,6 +74,8 @@ function MaskedInput (props) {
             onChange,
             'aria-describedby': hasInputError(meta) ? generateInputErrorId(name) : null,
             options: maskOptions,
+            onInit,
+            htmlRef: htmlRef ? (hRef) => htmlRef.current = hRef : null,
             ...filterInvalidDOMProps(rest)
           }}
         />
