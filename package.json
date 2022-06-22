@@ -47,7 +47,7 @@
     "lodash": "^4.17.21",
     "prop-types": "^15.8.1",
     "react-color": "^2.19.3",
-    "react-datepicker": "^3.0.0",
+    "react-datepicker": "^4.8.0",
     "react-modal": "^3.14.4",
     "react-switch": "^6.0.0",
     "redux-flash": "^2.0.2"

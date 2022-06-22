@@ -41,3 +41,11 @@ test('DateInput invokes onChange with a Date object', () => {
   expect(onChange).toHaveBeenCalledTimes(1)
   expect(onChange.mock.calls[0][0] instanceof Date).toBe(true)
 })
+
+test('DateInput defaults tabbable item to today\'s date', () => {
+  const props = { input: { ...input, value: '' }, meta: {} }
+  const wrapper = mount(<DateInput {...props} />)
+  wrapper.find('input').simulate('click')
+  const current = wrapper.find('[aria-current="date"]')
+  expect(current.prop('tabIndex')).toBe(0)
+})

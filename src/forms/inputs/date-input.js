@@ -69,19 +69,49 @@ function DateInput (props) {
     ...rest
   } = omitLabelProps(props)
   const dateValue = parseDate(value)
+  const inputRef = React.useRef()
+  const shouldRefocus = React.useRef(false)
+
+  const CustomInput = React.forwardRef(function TextInput(props, ref) {
+    return (
+      <input type="text" {...props} ref={(el) => {
+          inputRef.current = el
+          ref.current = el
+        }}
+      />
+    )
+  })
 
   return (
     <LabeledField { ...props }>
-      <DatePicker 
-        {...{ 
-          id: name,
-          name,
-          selected: dateValue,
-          onBlur: () => onBlur(value),
-          onChange: (val) => onChange(val ?? ''),
-          ...rest
-        }}
-      />
+      <div
+        className="date-input-wrapper"
+      >
+        <DatePicker 
+          {...{ 
+            id: name,
+            name,
+            selected: dateValue || null, // passing in an empty string will not default the tabbable element to today
+            onBlur: () => onBlur(value),
+            onChange: (val) => {
+              return onChange(val ?? '')
+            },
+            onCalendarClose: () => {
+              // onBlur isn't called after the user has selected an option. This isn't ideal because many form libraries validate onBlur.
+              // This is a temporary workaround which manually refocuses the element so that blur is triggered as expected.
+              // https://github.com/Hacker0x01/react-datepicker/issues/2028
+              if (shouldRefocus.current) {
+                inputRef.current.focus()
+              }
+            },
+            onSelect: () => {
+              shouldRefocus.current = true
+            },
+            customInput: <CustomInput />,
+            ...rest
+          }}
+        />
+      </div>
     </LabeledField>
   )
 }
