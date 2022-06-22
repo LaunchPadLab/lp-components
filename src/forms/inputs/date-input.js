@@ -69,18 +69,8 @@ function DateInput (props) {
     ...rest
   } = omitLabelProps(props)
   const dateValue = parseDate(value)
-  const inputRef = React.useRef()
+  const calendarRef = React.useRef()
   const shouldRefocus = React.useRef(false)
-
-  const CustomInput = React.forwardRef(function TextInput(props, ref) {
-    return (
-      <input type="text" {...props} ref={(el) => {
-          inputRef.current = el
-          ref.current = el
-        }}
-      />
-    )
-  })
 
   return (
     <LabeledField { ...props }>
@@ -89,6 +79,7 @@ function DateInput (props) {
           {...{ 
             id: name,
             name,
+            ref: calendarRef,
             selected: dateValue || null, // passing in an empty string will not default the tabbable element to today
             onBlur: () => onBlur(value),
             onChange: (val) => {
@@ -99,13 +90,12 @@ function DateInput (props) {
               // This is a temporary workaround which manually refocuses the element so that blur is triggered as expected.
               // https://github.com/Hacker0x01/react-datepicker/issues/2028
               if (shouldRefocus.current) {
-                inputRef.current.focus()
+                setTimeout(() => calendarRef.current.setFocus(), 0) // deferFocusInput accomplishes this, but it's likely eliminated during tree shaking since it's never used internally
               }
             },
             onSelect: () => {
               shouldRefocus.current = true
             },
-            customInput: <CustomInput />,
             ...rest
           }}
         />
