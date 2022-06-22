@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
 import DatePicker from 'react-datepicker'
 import { blurDirty, fieldPropTypesWithValue, omitLabelProps } from '../helpers'
@@ -69,8 +69,7 @@ function DateInput (props) {
     ...rest
   } = omitLabelProps(props)
   const dateValue = parseDate(value)
-  const calendarRef = React.useRef()
-  const shouldRefocus = React.useRef(false)
+  const calendarRef = useRef()
 
   return (
     <LabeledField { ...props }>
@@ -82,19 +81,12 @@ function DateInput (props) {
             ref: calendarRef,
             selected: dateValue || null, // passing in an empty string will not default the tabbable element to today
             onBlur: () => onBlur(value),
-            onChange: (val) => {
-              return onChange(val ?? '')
-            },
-            onCalendarClose: () => {
+            onChange: (val) => onChange(val ?? ''),
+            onSelect: () => {
               // onBlur isn't called after the user has selected an option. This isn't ideal because many form libraries validate onBlur.
               // This is a temporary workaround which manually refocuses the element so that blur is triggered as expected.
               // https://github.com/Hacker0x01/react-datepicker/issues/2028
-              if (shouldRefocus.current) {
-                setTimeout(() => calendarRef.current.setFocus(), 0) // deferFocusInput accomplishes this, but it's likely eliminated during tree shaking since it's never used internally
-              }
-            },
-            onSelect: () => {
-              shouldRefocus.current = true
+              setTimeout(() => calendarRef.current.setFocus(), 0) // deferFocusInput accomplishes this, but it's likely eliminated during tree shaking since it's never used internally
             },
             ...rest
           }}
