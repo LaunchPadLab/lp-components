@@ -84,9 +84,7 @@ function DateInput (props) {
 
   return (
     <LabeledField { ...props }>
-      <div
-        className="date-input-wrapper"
-      >
+      <div className="date-input-wrapper">
         <DatePicker 
           {...{ 
             id: name,
