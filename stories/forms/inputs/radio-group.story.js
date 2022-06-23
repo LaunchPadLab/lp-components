@@ -64,3 +64,11 @@ storiesOf('RadioGroup', module)
       meta={{}}
     />
   ))
+  .add('with disabled options', () => (
+    <RadioGroup
+      input={inputProps}
+      meta={{}}
+      options={options}
+      disabled={true}
+    />
+  ))
