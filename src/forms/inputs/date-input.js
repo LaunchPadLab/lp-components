@@ -83,9 +83,14 @@ function DateInput (props) {
             onBlur: () => onBlur(value),
             onChange: (val) => onChange(val ?? ''),
             onSelect: () => {
-              // onBlur isn't called after the user has selected an option. This isn't ideal because many form libraries validate onBlur.
-              // This is a temporary workaround which manually refocuses the element so that blur is triggered as expected.
-              // https://github.com/Hacker0x01/react-datepicker/issues/2028
+              /* After a user selects a date and then clicks on another element, 
+                 we expect onBlur to fire. However, that is _not_ happening
+                 because focus is not reset to the input. We're hooking into this
+                 lifecycle method to force the input to receive focus, which
+                 will then fire a blur event when it loses focus (and thus trigger onBlur).
+
+                 This is a temporary workaround until https://github.com/Hacker0x01/react-datepicker/issues/2028 is resolved.
+              */
               setTimeout(() => calendarRef.current.setFocus(), 0) // deferFocusInput accomplishes this, but it's likely eliminated during tree shaking since it's never used internally
             },
             ...rest
