@@ -1655,6 +1655,8 @@ Note: this component requires custom styles. These styles can be imported from t
 ### Parameters
 
 *   `onClose` **[Function][139]** A handler for closing the modal. May be triggered via the close button, and outside click, or a key press.
+*   `className` **([String][138] | [Object][144])** Additional class to append to the base class of the modal (modal-inner). See [React Modal's style documentation][167] for more details. (optional, default `""`)
+*   `overlayClassName` **([String][138] | [Object][144])** Additional class to append to the base class of the modal overlay (modal-fade-screen). See [React Modal's style documentation][167] for more details. (optional, default `""`)
 *   `isOpen` **[Boolean][140]** A flag for showing the modal. (optional, default `true`)
 *   `preventClose` **[Boolean][140]** A flag for preventing the modal from being closed (close button, escape, or overlay click). (optional, default `false`)
 
@@ -2013,3 +2015,5 @@ function MyView () {
 [165]: https://github.com/reactjs/react-modal
 
 [166]: https://github.com/reactjs/react-modal/issues/25
+
+[167]: http://reactcommunity.org/react-modal/styles/classes/#for-the-content-and-overlay
