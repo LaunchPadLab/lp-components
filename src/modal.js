@@ -88,7 +88,7 @@ function Modal({ isOpen, onClose, preventClose, children, className, overlayClas
       overlayClassName={wrapClassName("modal-fade-screen", overlayClassName)}
       bodyOpenClassName="modal-open"
       appElement={getRootElement()}
-      ariaHideApp={isServer()} // Opt out of setting appElement on the server.
+      ariaHideApp={!isServer()} // Opt out of manipulating appElement on the server.
       shouldCloseOnEsc={canClose}
       shouldCloseOnOverlayClick={canClose}
       {...rest}
