@@ -26,9 +26,6 @@ export wrapDisplayName from 'recompose/wrapDisplayName'
 
 // LP Utils
 export cloudinaryUploader from '@launchpadlab/lp-hoc/lib/cloudinaryUploader'
-export toggle from '@launchpadlab/lp-hoc/lib/toggle'
-export togglePropTypes from '@launchpadlab/lp-hoc/lib/togglePropTypes'
-export onOutsideClick from '@launchpadlab/lp-hoc/lib/onOutsideClick'
 
 // Local
 export * from './local'

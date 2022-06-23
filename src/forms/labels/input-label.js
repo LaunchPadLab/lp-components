@@ -110,7 +110,7 @@ function InputLabel ({
       }
       {
         tooltip &&
-        <span className="tooltip-trigger" onClick={ toggleTooltipShown }/>
+        <span className="tooltip-trigger" onClick={() => toggleTooltipShown()}/>
       }
       {
         tooltip &&

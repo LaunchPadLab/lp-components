@@ -60,7 +60,7 @@ function DropdownCheckboxGroup (props) {
     <fieldset>
       <InputLabel { ...{ label, name } } />
       <DropdownSelect selectedValues={ value } className="checkboxes">
-        <CheckboxGroup { ...props } label={ false } />
+        <CheckboxGroup { ...props } label={false} />
       </DropdownSelect>
     </fieldset>
   )
