@@ -686,7 +686,9 @@ A masked input that can be used in a `redux-form`-controlled form. Built on top 
 
 *   `input` **[Object][144]** A `redux-form` [input][145] object
 *   `meta` **[Object][144]** A `redux-form` [meta][146] object
-*   `maskOptions` **[Object][144]?** An object of options to pass to the underlying `Cleave` instance. [(supported options)][155]
+*   `maskOptions` **[Object][144]** An object of options to pass to the underlying `Cleave` instance. [(supported options)][157] (optional, default `{}`)
+*   `onInit` **[Function][139]** A function that will be invoked with the object representing the class when the input is initialized (optional, default `null`)
+*   `htmlRef` **([Function][139] | [Object][144])** A stable reference that can be used to access the DOM node of the underlying input (optional, default `null`)
 
 ### Examples
 
@@ -1652,6 +1654,8 @@ Note: this component requires custom styles. These styles can be imported from t
 ### Parameters
 
 *   `onClose` **[Function][139]** A handler for closing the modal. May be triggered via the close button, and outside click, or a key press.
+*   `className` **([String][138] | [Object][144])** Additional class to append to the base class of the modal (modal-inner). See [React Modal's style documentation][167] for more details. (optional, default `""`)
+*   `overlayClassName` **([String][138] | [Object][144])** Additional class to append to the base class of the modal overlay (modal-fade-screen). See [React Modal's style documentation][167] for more details. (optional, default `""`)
 *   `isOpen` **[Boolean][140]** A flag for showing the modal. (optional, default `true`)
 *   `preventClose` **[Boolean][140]** A flag for preventing the modal from being closed (close button, escape, or overlay click). (optional, default `false`)
 
@@ -2005,4 +2009,10 @@ function MyView () {
 
 [163]: https://github.com/reactjs/react-modal
 
-[164]: https://github.com/reactjs/react-modal/issues/25
+[164]: https://github.com/LaunchPadLab/redux-flash
+
+[165]: https://github.com/reactjs/react-modal
+
+[166]: https://github.com/reactjs/react-modal/issues/25
+
+[167]: http://reactcommunity.org/react-modal/styles/classes/#for-the-content-and-overlay
