@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { 
   blurDirty,
   fieldPropTypes,
@@ -10,9 +10,7 @@ import { LabeledField } from '../labels'
 import { ColorPicker } from '../../controls'
 import { 
   compose, 
-  toggle, 
-  togglePropTypes, 
-  filterInvalidDOMProps 
+  filterInvalidDOMProps,
 } from '../../utils'
 
 /**
@@ -43,7 +41,6 @@ import {
 
 const propTypes = {
   ...fieldPropTypes,
-  ...togglePropTypes('showDropdown')
 }
 
 const defaultProps = {}
@@ -51,10 +48,10 @@ const defaultProps = {}
 function ColorInput (props) {
   const {
     input: { value, onBlur, onChange },
-    showDropdown,
-    setShowDropdown,
     ...rest
   } = omitLabelProps(props)
+  const [showDropdown, setShowDropdown] = useState(false)
+  
   return (
     <LabeledField className="color-input" { ...props }>
       <ColorPicker
@@ -87,5 +84,4 @@ ColorInput.defaultProps = defaultProps
 
 export default compose(
   blurDirty(),
-  toggle('showDropdown'),
 )(ColorInput)
