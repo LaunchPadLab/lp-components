@@ -466,13 +466,12 @@ An input component that wraps a `DatePicker` component from the [react-datepicke
 This wrapper adds the following functionality to `DatePicker`:
 
 *   Adapts it to receive `redux-form`-style input props.
-*   Converts value type from [moment][149] to [Date][150].
 *   Adds name and error labels.
 
 With the exception of the `input` and `meta` props, all props are passed down to the `DatePicker` component.
-A full list of props supported by this component can be found [here][151]. Note that unfortunately `aria-*` props are **not** supported.
+A full list of props supported by this component can be found [here][149]. Note that unfortunately `aria-*` props are **not** supported.
 
-*Note: this component requires special styles in order to render correctly. To include these styles in your project, follow the directions in the main [README][152] file.*
+*Note: this component requires special styles in order to render correctly. To include these styles in your project, follow the directions in the main [README][150] file.*
 
 ### Parameters
 
@@ -500,7 +499,7 @@ function BirthdayForm ({ handleSubmit }) {
 ## DropdownCheckboxGroup
 
 A group of checkboxes that can be used in a `redux-form`-controlled form.
-Wraps the [CheckboxGroup][21] component in a [DropdownSelect][153] component, which displays the selected values as a list.
+Wraps the [CheckboxGroup][21] component in a [DropdownSelect][151] component, which displays the selected values as a list.
 Options are displayed in a scrollable `Select`-style dropdown container.
 
 The value of each checkbox is specified via the `options` prop. This prop can either be:
@@ -562,8 +561,8 @@ A component passed using `previewComponent` will receive the following props:
 *   `meta` **[Object][144]** A `redux-form` [meta][146] object
 *   `readFiles` **[Function][139]** A callback that is fired with new files and is expected to return an array of file objects with the `url` key set to the "read" value. This can be either a data URL or the public URL from a 3rd party API (optional, default `readFilesAsDataUrls`)
 *   `multiple` **[Boolean][140]** A flag indicating whether or not to accept multiple files (optional, default `false`)
-*   `accept` **[String][138]?** Value that defines the file types the file input should accept (e.g., ".doc,.docx"). More info: [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept][154]
-*   `capture` **(`"user"` | `"environment"`)?** Value that specifies which camera to use, if the accept attribute indicates the input type of image or video. This is not available for all devices (e.g., desktops). More info: [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#capture][155]
+*   `accept` **[String][138]?** Value that defines the file types the file input should accept (e.g., ".doc,.docx"). More info: [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept][152]
+*   `capture` **(`"user"` | `"environment"`)?** Value that specifies which camera to use, if the accept attribute indicates the input type of image or video. This is not available for all devices (e.g., desktops). More info: [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#capture][153]
 *   `onRemove` **[Function][139]** A callback fired when a file is removed (optional, default `noop`)
 *   `previewComponent` **[Function][139]** A custom component that is used to display a preview of each attached file (optional, default `RenderPreview`)
 *   `removeComponent` **[Function][139]** A custom component that receives `value` and `onRemove` props (optional, default `RemoveButton`)
@@ -681,13 +680,13 @@ function TwitterForm ({ handleSubmit, pristine, invalid, submitting }) {
 
 ## MaskedInput
 
-A masked input that can be used in a `redux-form`-controlled form. Built on top of [cleave.js][156].
+A masked input that can be used in a `redux-form`-controlled form. Built on top of [cleave.js][154].
 
 ### Parameters
 
 *   `input` **[Object][144]** A `redux-form` [input][145] object
 *   `meta` **[Object][144]** A `redux-form` [meta][146] object
-*   `maskOptions` **[Object][144]** An object of options to pass to the underlying `Cleave` instance. [(supported options)][157] (optional, default `{}`)
+*   `maskOptions` **[Object][144]** An object of options to pass to the underlying `Cleave` instance. [(supported options)][155] (optional, default `{}`)
 *   `onInit` **[Function][139]** A function that will be invoked with the object representing the class when the input is initialized (optional, default `null`)
 *   `htmlRef` **([Function][139] | [Object][144])** A stable reference that can be used to access the DOM node of the underlying input (optional, default `null`)
 
@@ -867,14 +866,14 @@ A switch input that can be used in a `redux-form`-controlled form.
 
 This input only accepts and stores boolean values.
 
-See the [react-switch][158] documentation for additional styling properties.
+See the [react-switch][156] documentation for additional styling properties.
 
 ### Parameters
 
 *   `input` **[Object][144]** A `redux-form` [input][145] object
 *   `meta` **[Object][144]** A `redux-form` [meta][146] object
-*   `checkedIcon` **([Element][159] | [Boolean][140])** An icon displayed when the switch is checked. Set to `false` if no check icon is desired.
-*   `uncheckedIcon` **([Element][159] | [Boolean][140])** An icon displayed when the switch is unchecked. Set to `false` if no uncheck icon is desired.
+*   `checkedIcon` **([Element][157] | [Boolean][140])** An icon displayed when the switch is checked. Set to `false` if no check icon is desired.
+*   `uncheckedIcon` **([Element][157] | [Boolean][140])** An icon displayed when the switch is unchecked. Set to `false` if no uncheck icon is desired.
 
 ### Examples
 
@@ -1012,11 +1011,11 @@ The text of the label is set using the following rules:
 *   Else If the `label` prop is set to a string, the label will display that text
 *   Otherwise, the label will be set using the `name` prop.
 
-If `name` is used to set the text, it will be stripped of its prefixes and converted to [start case][160].
+If `name` is used to set the text, it will be stripped of its prefixes and converted to [start case][158].
 
 For instance: `'person.firstName'` becomes `'First Name'`
 
-Note: When using third party form libraries (e.g., [Redux Form][161]), it's likely that setting the `required` prop will turn on the browser's automatic validation, which could cause the library to behave unexpectedly. If the browser validation behavior is causing issues, then add a `noValidate` prop to the form to [turn off][162] automatic validation. (e.g., `<form noValidate></form>`)
+Note: When using third party form libraries (e.g., [Redux Form][159]), it's likely that setting the `required` prop will turn on the browser's automatic validation, which could cause the library to behave unexpectedly. If the browser validation behavior is causing issues, then add a `noValidate` prop to the form to [turn off][160] automatic validation. (e.g., `<form noValidate></form>`)
 
 ### Parameters
 
@@ -1176,7 +1175,7 @@ Type: PropTypes
 ## fieldPropTypesWithValue
 
 A function that takes `PropTypes` for a `redux-form` [input][145] object.
-Returns an object containing all `PropTypes` for `redux-form` [Field][163] components.
+Returns an object containing all `PropTypes` for `redux-form` [Field][161] components.
 
 ### Parameters
 
@@ -1210,14 +1209,14 @@ Returns **[Object][144]** `PropTypes` for `redux-form` [input][145] and [meta][1
 
 ## defaultValueTypes
 
-A constant representing default `PropTypes` for `redux-form` [Field][163] values.
+A constant representing default `PropTypes` for `redux-form` [Field][161] values.
 Default types are either `number` or `string`.
 
 Type: PropTypes
 
 ## fieldPropTypes
 
-An object containing the default `PropTypes` for `redux-form` [Field][163] components.
+An object containing the default `PropTypes` for `redux-form` [Field][161] components.
 
 Type: [Object][144]
 
@@ -1430,7 +1429,7 @@ function MyView () {
 
 ## FlashMessageContainer
 
-A component that displays multiple flash messages generated by [redux-flash][164].
+A component that displays multiple flash messages generated by [redux-flash][162].
 Most apps will need only one of these containers at the top level.
 Will pass down any additional props to the inner `FlashMessage` components.
 
@@ -1646,17 +1645,17 @@ Returns **[Function][139]** Returns a function that takes an event and watches f
 
 ## Modal
 
-A modal component with a built-in close button. Uses [`react-modal`][165] under the hood, and can accept any props `react-modal` does.
+A modal component with a built-in close button. Uses [`react-modal`][163] under the hood, and can accept any props `react-modal` does.
 
-Unlike `react-modal`, this component does not require an `isOpen` prop to render. However, that prop can still be used in the case where animations are necessary- see [this issue][166].
+Unlike `react-modal`, this component does not require an `isOpen` prop to render. However, that prop can still be used in the case where animations are necessary- see [this issue][164].
 
 Note: this component requires custom styles. These styles can be imported from the `lib/styles` folder as shown inn the example below.
 
 ### Parameters
 
 *   `onClose` **[Function][139]** A handler for closing the modal. May be triggered via the close button, and outside click, or a key press.
-*   `className` **([String][138] | [Object][144])** Additional class to append to the base class of the modal (modal-inner). See [React Modal's style documentation][167] for more details. (optional, default `""`)
-*   `overlayClassName` **([String][138] | [Object][144])** Additional class to append to the base class of the modal overlay (modal-fade-screen). See [React Modal's style documentation][167] for more details. (optional, default `""`)
+*   `className` **([String][138] | [Object][144])** Additional class to append to the base class of the modal (modal-inner). See [React Modal's style documentation][165] for more details. (optional, default `""`)
+*   `overlayClassName` **([String][138] | [Object][144])** Additional class to append to the base class of the modal overlay (modal-fade-screen). See [React Modal's style documentation][165] for more details. (optional, default `""`)
 *   `isOpen` **[Boolean][140]** A flag for showing the modal. (optional, default `true`)
 *   `preventClose` **[Boolean][140]** A flag for preventing the modal from being closed (close button, escape, or overlay click). (optional, default `false`)
 
@@ -1980,40 +1979,36 @@ function MyView () {
 
 [148]: https://github.com/Hacker0x01/react-datepicker
 
-[149]: https://github.com/moment/moment
+[149]: https://github.com/Hacker0x01/react-datepicker/blob/master/docs/datepicker.md
 
-[150]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
+[150]: README.md#dateinput-styles
 
-[151]: https://github.com/Hacker0x01/react-datepicker/blob/master/docs/datepicker.md
+[151]: DropdownSelect
 
-[152]: README.md#dateinput-styles
+[152]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept
 
-[153]: DropdownSelect
+[153]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#capture
 
-[154]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept
+[154]: https://github.com/nosir/cleave.js
 
-[155]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#capture
+[155]: https://github.com/nosir/cleave.js/blob/master/doc/options.md
 
-[156]: https://github.com/nosir/cleave.js
+[156]: https://github.com/markusenglund/react-switch
 
-[157]: https://github.com/nosir/cleave.js/blob/master/doc/options.md
+[157]: https://developer.mozilla.org/docs/Web/API/Element
 
-[158]: https://github.com/markusenglund/react-switch
+[158]: https://en.wikipedia.org/wiki/Letter_case#Stylistic_or_specialised_usage
 
-[159]: https://developer.mozilla.org/docs/Web/API/Element
+[159]: https://redux-form.com
 
-[160]: https://en.wikipedia.org/wiki/Letter_case#Stylistic_or_specialised_usage
+[160]: https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation#Validating_forms_using_JavaScript
 
-[161]: https://redux-form.com
+[161]: http://redux-form.com/6.5.0/docs/api/Field.md/
 
-[162]: https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation#Validating_forms_using_JavaScript
+[162]: https://github.com/LaunchPadLab/redux-flash
 
-[163]: http://redux-form.com/6.5.0/docs/api/Field.md/
+[163]: https://github.com/reactjs/react-modal
 
-[164]: https://github.com/LaunchPadLab/redux-flash
+[164]: https://github.com/reactjs/react-modal/issues/25
 
-[165]: https://github.com/reactjs/react-modal
-
-[166]: https://github.com/reactjs/react-modal/issues/25
-
-[167]: http://reactcommunity.org/react-modal/styles/classes/#for-the-content-and-overlay
+[165]: http://reactcommunity.org/react-modal/styles/classes/#for-the-content-and-overlay

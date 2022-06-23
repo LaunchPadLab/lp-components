@@ -4,8 +4,8 @@ import { DateInput } from '../../../src/'
 
 const name = 'name.of.field'
 const value = '2020-01-01'
-const onChange = jest.fn()
-const input = { name, value, onChange }
+const noop = () => {}
+const input = { name, value, onChange: noop }
 const error = 'input error'
 
 test('DateInput renders the error message when provided', () => {
@@ -30,3 +30,22 @@ test('DateInput sets the placeholder text correctly', () => {
   expect(wrapper.find('input').props().placeholder).toEqual('Test Placeholder')
 })
 
+test('DateInput invokes onChange with a Date object', () => {
+  const onChange = jest.fn()
+  const props = { input: { ...input, onChange, onBlur: noop }, meta: {} }
+  const wrapper = mount(<DateInput { ...props }/>)  
+
+  wrapper.find('input').simulate('click')
+  wrapper.find('.react-datepicker__day').at(0).simulate('click')
+
+  expect(onChange).toHaveBeenCalledTimes(1)
+  expect(onChange.mock.calls[0][0] instanceof Date).toBe(true)
+})
+
+test('DateInput defaults tabbable item to today\'s date', () => {
+  const props = { input: { ...input, value: '' }, meta: {} }
+  const wrapper = mount(<DateInput {...props} />)
+  wrapper.find('input').simulate('click')
+  const current = wrapper.find('[aria-current="date"]')
+  expect(current.prop('tabIndex')).toBe(0)
+})
