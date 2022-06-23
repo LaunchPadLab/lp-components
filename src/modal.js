@@ -64,7 +64,7 @@ function getRootElement() {
   // Skip in SSR mode
   if (isServer()) return
   // eslint-disable-next-line no-undef
-  return window.document.querySelector('body')
+  return window.document.querySelector('#root')
 }
 
 function wrapClassName(base, additional) {
