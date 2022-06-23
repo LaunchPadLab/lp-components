@@ -14,6 +14,8 @@ import classnames from 'classnames'
  * @name Modal
  * @type Function
  * @param {Function} onClose - A handler for closing the modal. May be triggered via the close button, and outside click, or a key press.
+ * @param {String|Object} [className=""] - Additional class to append to the base class of the modal (modal-inner). See [React Modal's style documentation](http://reactcommunity.org/react-modal/styles/classes/#for-the-content-and-overlay) for more details.
+ * @param {String|Object} [overlayClassName=""] - Additional class to append to the base class of the modal overlay (modal-fade-screen). See [React Modal's style documentation](http://reactcommunity.org/react-modal/styles/classes/#for-the-content-and-overlay) for more details.
  * @param {Boolean} [isOpen=true] - A flag for showing the modal.
  * @param {Boolean} [preventClose=false] - A flag for preventing the modal from being closed (close button, escape, or overlay click).
  *
@@ -56,6 +58,8 @@ const propTypes = {
 }
 
 const defaultProps = {
+  className: "",
+  overlayClassName: "",
   isOpen: true,
   preventClose: false,
 }
