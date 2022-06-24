@@ -12,11 +12,13 @@ export const fieldOptionsType = PropTypes.arrayOf(
   PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
+    PropTypes.bool,
     PropTypes.shape({
       key: PropTypes.string.isRequired,
       value: PropTypes.oneOfType([
         PropTypes.string,
-        PropTypes.number
+        PropTypes.number,
+        PropTypes.bool,
       ]).isRequired
     })
   ])
@@ -112,6 +114,22 @@ const defaultValueTypes = PropTypes.oneOfType([
 
 export const fieldPropTypes = fieldPropTypesWithValue(defaultValueTypes)
 
+ /** 
+ *
+ * A constant representing the `PropTypes` of the `input` prop for the radio group component, e.g., {@link RadioGroup}
+ * 
+ * @constant {PropTypes} radioGroupPropTypes
+ *
+ */
+
+export const radioGroupPropTypes = fieldPropTypesWithValue(
+  PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.bool,
+  ])
+)
+
 /** 
  *
  * A constant representing the `PropTypes` of the `input` prop for checkbox group components, e.g., {@link CheckboxGroup} and {@link DropdownCheckboxGroup}
@@ -124,7 +142,8 @@ export const checkboxGroupPropTypes = fieldPropTypesWithValue(
   PropTypes.arrayOf(
     PropTypes.oneOfType([
       PropTypes.string,
-      PropTypes.number
+      PropTypes.number,
+      PropTypes.bool,
     ])
   )
 )

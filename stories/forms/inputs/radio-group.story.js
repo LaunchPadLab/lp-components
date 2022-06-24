@@ -72,3 +72,11 @@ storiesOf('RadioGroup', module)
       disabled={true}
     />
   ))
+  .add('with boolean options', () => (
+    <RadioGroup
+      input={inputProps}
+      label="Are you sure?"
+      meta={{}}
+      options={[{ key: 'Yes', value: true }, { key: 'No', value: false }]}
+    />
+  ))
