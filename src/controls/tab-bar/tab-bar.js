@@ -31,14 +31,14 @@ import manageFocus from './focus'
 
 const propTypes = {
   vertical: PropTypes.bool,
-  options: PropTypes.oneOfType([
+  options: PropTypes.arrayOf(PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
     PropTypes.shape({
       key: PropTypes.string.isRequired,
       value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     })
-  ]).isRequired,
+  ])).isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   onChange: PropTypes.func,
   className: PropTypes.string,
