@@ -2,7 +2,6 @@ import React from 'react'
 import { mount } from 'enzyme'
 import { Modal } from '../src/'
 import { noop } from 'lodash'
-import ReactModal from 'react-modal'
 
 describe('Modal', () => {
   // requestAnimationFrame is async, so the callback fails to trigger
