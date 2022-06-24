@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import DefaultFileInput from './file-input'
-import { fileInputPropTypes, readFilesAsDataUrls } from '../helpers'
-import { compose, cloudinaryUploader, first, noop, set } from '../../utils'
+import DefaultFileInput from '../file-input'
+import { fileInputPropTypes, readFilesAsDataUrls } from '../../helpers'
+import { compose, cloudinaryUploader, first, noop, set } from '../../../utils'
 import classnames from 'classnames'
 
 /**
