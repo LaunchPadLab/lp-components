@@ -1,10 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import Input from './input'
+// import PropTypes from 'prop-types'
 import {
   convertNameToLabel,
   radioGroupPropTypes,
-  fieldPropTypesWithValue,
   fieldOptionsType,
   omitLabelProps,
 } from '../helpers'
@@ -92,11 +90,7 @@ function RadioButton (props) {
 }
 
 RadioButton.propTypes = {
-  ...fieldPropTypesWithValue(PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.number,
-    PropTypes.string,
-  ])),
+  ...radioGroupPropTypes,
 }
 
 function RadioGroup (props) {
