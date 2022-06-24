@@ -1,4 +1,4 @@
-import { first, last } from 'lodash'
+import { first, last } from '../../../../utils'
 
 // Adds extension to file name
 function addExtension (fileName, file) {

@@ -1,5 +1,4 @@
-import { get } from 'lodash/fp'
-import { isServer } from '../../../../utils'
+import { get, isServer } from '../../../../utils'
 
 // Attempts to retrieve an environment variable from process.env 
 function getEnvVar (varName) {

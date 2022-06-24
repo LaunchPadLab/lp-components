@@ -2,6 +2,7 @@ export {
   castArray,
   has,
   first,
+  last,
   identity,
   isNil,
   startCase,
@@ -23,9 +24,6 @@ export {
 
 export filterInvalidDOMProps from 'filter-invalid-dom-props'
 export wrapDisplayName from 'recompose/wrapDisplayName'
-
-// LP Utils
-export cloudinaryUploader from '@launchpadlab/lp-hoc/lib/cloudinaryUploader'
 
 // Local
 export * from './local'
