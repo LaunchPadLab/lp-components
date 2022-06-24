@@ -14,7 +14,7 @@ import { addExtension, getEnvVar, removeExtension } from './helpers'
  * @type Function
  * @param {string} cloudName - The name of the Cloudinary cloud to upload to. Can also be set via `CLOUDINARY_CLOUD_NAME` in `process.env`.
  * @param {string} bucket - The name of the Cloudinary bucket to upload to. Can also be set via `CLOUDINARY_BUCKET` in `process.env`.
- * @param {Function} upload - Function that must send a POST request to the cloudinary API, using whichever adapter you'd like.
+ * @param {Function} apiAdapter - Function that responds to `post`
  * @param {string} [uploadPreset=default] - The name of the Cloudinary upload preset. Can also be set via `CLOUDINARY_UPLOAD_PRESET` in `process.env`.
  * @param {string} [endpoint=https://api.cloudinary.com/v1_1/] - The endpoint for the upload request. Can also be set via `CLOUDINARY_ENDPOINT` in `process.env`.
  * @param {string} [fileType=auto] - The type of file.
@@ -153,7 +153,7 @@ function cloudinaryUploader (options={}) {
           bucket=getEnvVar('CLOUDINARY_BUCKET') || requireParam('bucket', 'cloudinaryUploader'),
           uploadPreset=getEnvVar('CLOUDINARY_UPLOAD_PRESET') || DEFAULT_UPLOAD_PRESET,
           endpoint=getEnvVar('CLOUDINARY_ENDPOINT') || DEFAULT_ENDPOINT,
-          upload=requireParam('upload', 'cloudinaryUploader'),
+          apiAdapter=requireParam('apiAdapter', 'cloudinaryUploader'),
           fileType=DEFAULT_FILE_TYPE,
           requestOptions=DEFAULT_REQUEST_OPTIONS,
           createPublicId=defaultCreatePublicId,
@@ -163,8 +163,13 @@ function cloudinaryUploader (options={}) {
         this.cloudinaryRequest = function (fileData, file) {
           const publicId = cloudinaryPublicId || createPublicId(file)
           const url = `${ endpoint }/${ cloudName }/${ fileType }/upload`
-          const body = { file: fileData, folder: bucket, uploadPreset, publicId: serializePublicId(publicId, file) }
-          return upload(url, body, requestOptions)
+          const body = {
+            file: fileData,
+            folder: bucket,
+            upload_preset: uploadPreset,
+            public_id: serializePublicId(publicId, file)
+          }
+          return apiAdapter.post(url, body, requestOptions)
         }
         this.upload = this.upload.bind(this)
         this.state = { uploadStatus: '' }
