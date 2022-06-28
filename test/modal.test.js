@@ -2,18 +2,22 @@ import React from 'react'
 import { mount } from 'enzyme'
 import { Modal } from '../src/'
 import { noop } from 'lodash'
-import ReactModal from 'react-modal'
 
 describe('Modal', () => {
-  // requestAnimationFrame is async, so the callback fails to trigger
-  // https://github.com/reactjs/react-modal/issues/903
   beforeEach(() => {
-    jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => cb());
-  });
+    // requestAnimationFrame is async, so the callback fails to trigger
+    // https://github.com/reactjs/react-modal/issues/903
+    jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => cb())
+
+    // Ignore warnings about the app element not being defined
+    jest.spyOn(console, 'error').mockImplementation(() => {})
+  })
   
   afterEach(() => {
-    window.requestAnimationFrame.mockRestore();
-  });
+    window.requestAnimationFrame.mockRestore()
+    // eslint-disable-next-line
+    console.error.mockRestore()
+  })
 
   test('is shown by default', () => {
     const wrapper = mount(<Modal onClose={noop} />)
