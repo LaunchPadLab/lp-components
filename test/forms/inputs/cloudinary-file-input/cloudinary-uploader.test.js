@@ -37,7 +37,7 @@ const mockApi = {
     // Simulate server response
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        if (!response.ok) return reject('Failed')
+        if (!response.ok) return reject(new Error('Failed'))
         return resolve(response)
       }, 10)
     })
@@ -249,9 +249,7 @@ test('cloudinaryUploader throws an error if request fails', () => {
 
   expect.assertions(1)
 
-  return upload(fileData, file).catch(err => {
-    expect(err).toBeTruthy() // TODO: Make this better
-  })
+  return expect(upload(fileData, file)).rejects.toThrow()
 })
 
 test('cloudinaryUploader updates the `uploadStatus` prop if request fails', () => {
