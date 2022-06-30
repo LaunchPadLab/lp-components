@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { fieldOptionsType } from '../../forms/helpers/field-prop-types'
 import { serializeOptions, noop, toLower, triggerOnKeys, KeyCodes } from '../../utils'
 import manageFocus from './focus'
 
@@ -32,7 +31,14 @@ import manageFocus from './focus'
 
 const propTypes = {
   vertical: PropTypes.bool,
-  options: fieldOptionsType.isRequired,
+  options: PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.shape({
+      key: PropTypes.string.isRequired,
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    })
+  ])).isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   onChange: PropTypes.func,
   className: PropTypes.string,
