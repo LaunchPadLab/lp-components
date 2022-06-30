@@ -14,7 +14,7 @@ import { addExtension, getEnvVar, removeExtension } from './helpers'
  * @type Function
  * @param {string} cloudName - The name of the Cloudinary cloud to upload to. Can also be set via `CLOUDINARY_CLOUD_NAME` in `process.env`.
  * @param {string} bucket - The name of the Cloudinary bucket to upload to. Can also be set via `CLOUDINARY_BUCKET` in `process.env`.
- * @param {Function} apiAdapter - Function that responds to `post`
+ * @param {Object} apiAdapter - Adapter that responds to `post` with a Promise
  * @param {string} [uploadPreset=default] - The name of the Cloudinary upload preset. Can also be set via `CLOUDINARY_UPLOAD_PRESET` in `process.env`.
  * @param {string} [endpoint=https://api.cloudinary.com/v1_1/] - The endpoint for the upload request. Can also be set via `CLOUDINARY_ENDPOINT` in `process.env`.
  * @param {string} [fileType=auto] - The type of file.
