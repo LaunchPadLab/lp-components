@@ -67,6 +67,7 @@ const defaultProps = {
 }
 
 function CheckboxGroupLegend ({ name, label }) {
+  if (label === false) return null
   return (
     <legend>{ label || convertNameToLabel(name) }</legend>
   )

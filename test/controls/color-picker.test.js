@@ -18,3 +18,10 @@ test('ColorPicker collapses when background is clicked', () => {
   wrapper.find('.cover').simulate('click')
   expect(wrapper.find('.popover').exists()).toBe(false)
 })
+
+test('ColorPicker can be externally controlled', () => {
+  const wrapper = mount(<ColorPicker active={true} />)
+  expect(wrapper.find('.popover').exists()).toBe(true)
+  wrapper.setProps({ active: false })
+  expect(wrapper.find('.popover').exists()).toBe(false)
+})
