@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Checkbox from './checkbox'
 import {
   checkboxGroupPropTypes,
@@ -27,6 +28,7 @@ import { addToArray, removeFromArray, serializeOptions, compose } from '../../ut
  * @param {Object} input - A `redux-form` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
  * @param {Object} meta - A `redux-form` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @param {Array} options - An array of checkbox values (strings, numbers, or key-value pairs)
+ * @param {Object} [checkboxInputProps={}] - An object of key-value pairs representing props to pass down to all checkbox inputs
  * @example
  *
  * function TodoForm ({ handleSubmit, pristine, invalid, submitting }) {
@@ -53,11 +55,15 @@ import { addToArray, removeFromArray, serializeOptions, compose } from '../../ut
 
 const propTypes = {
   ...checkboxGroupPropTypes,
+  className: PropTypes.string,
+  checkboxInputProps: PropTypes.object,
   options: fieldOptionsType
 }
 
 const defaultProps = {
-  options: []
+  className: 'CheckboxGroup',
+  checkboxInputProps: {},
+  options: [],
 }
 
 function CheckboxGroupLegend ({ name, label }) {
@@ -71,6 +77,8 @@ function CheckboxGroup (props) {
     input: { value, onChange, name },
     meta, // eslint-disable-line no-unused-vars
     options,
+    className,
+    checkboxInputProps,
     ...rest
   } = omitLabelProps(props)
   const optionObjects = serializeOptions(options)
@@ -84,8 +92,8 @@ function CheckboxGroup (props) {
   }
   return (
     <LabeledField
-      className="CheckboxGroup"
-      labelComponent={ CheckboxGroupLegend }
+      className={className}
+      labelComponent={CheckboxGroupLegend}
       { ...props }
     >
       {
@@ -101,7 +109,8 @@ function CheckboxGroup (props) {
                 },
                 meta: {},
                 label: option.key,
-                ...rest
+                ...rest,
+                ...checkboxInputProps,
               }}
             />
           )

@@ -68,3 +68,35 @@ test('CheckboxGroup has a legend with the group\'s label (when provided)', () =>
   expect(legend).toBeTruthy()
   expect(legend.text()).toEqual('Checkbox Group')
 })
+
+test('CheckboxGroup does not pass class to children', () => {
+  const props = { 
+    input: {
+      name: 'testGroup',
+      value: '',
+    }, 
+    meta: {},
+    options: ['TOGGLED_OPTION'],
+    className:'custom-class'
+  }
+  const wrapper = mount(<CheckboxGroup { ...props }/>)
+  expect(wrapper.find('.custom-class').hostNodes().length).toBe(1)
+})
+
+test('CheckboxGroup passes down props to children', () => {
+  const props = { 
+    input: {
+      name: 'testGroup',
+      value: '',
+    }, 
+    meta: {},
+    options: ['TOGGLED_OPTION'],
+    className:'custom-group-class',
+    checkboxInputProps: {
+      className: 'custom-input-class',
+    }
+  }
+  const wrapper = mount(<CheckboxGroup { ...props }/>)
+  expect(wrapper.find('input.custom-group-class').exists()).toBe(false)
+  expect(wrapper.find('input.custom-input-class').exists()).toBe(true)
+})
