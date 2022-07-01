@@ -367,6 +367,7 @@ Clicking an unselected checkbox adds its value to this array, and clicking a sel
 *   `input` **[Object][145]** A `redux-form` [input][146] object
 *   `meta` **[Object][145]** A `redux-form` [meta][147] object
 *   `options` **[Array][143]** An array of checkbox values (strings, numbers, or key-value pairs)
+*   `checkboxInputProps` **[Object][145]** An object of key-value pairs representing props to pass down to all checkbox inputs (optional, default `{}`)
 
 ### Examples
 
@@ -762,6 +763,7 @@ The value of the entire `RadioGroup` component is the value of the currently sel
 *   `input` **[Object][145]** A `redux-form` [input][146] object
 *   `meta` **[Object][145]** A `redux-form` [meta][147] object
 *   `options` **[Array][143]** An array of radio button values (strings, numbers, booleans, or key-value pairs)
+*   `radioInputProps` **[Object][145]** An object of key-value pairs representing props to pass down to all radio inputs (optional, default `{}`)
 
 ### Examples
 
