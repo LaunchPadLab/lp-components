@@ -15,6 +15,8 @@ const uploadStatus = 'upload-success'
 const cloudName = 'cloudName'
 const bucket = 'bucket'
 
+jest.mock('../../../src/forms/inputs/cloudinary-file-input/cloudinary-uploader.js')
+
 // These tests rely on the mock implementation of cloudinaryUploader in __mocks__,
 // which just passes all props through to its child.
 
@@ -49,7 +51,7 @@ test('CloudinaryFileInput calls success handler with response on successful uplo
   const onUploadSuccess = jest.fn()
   mockFileReader()
 
-  const props = { input: { ...input, onChange: jest.fn() }, meta: {}, upload, cloudName, bucket, onUploadSuccess }
+  const props = { input: { ...input, onChange: jest.fn() }, meta: {}, upload, uploadStatus, cloudName, bucket, onUploadSuccess }
   const wrapper = mount(<CloudinaryFileInput {...props} />)
   const internalOnChange = wrapper.find('input').prop('onChange')
   internalOnChange(fakeFileEvent)
@@ -64,7 +66,7 @@ test('CloudinaryFileInput calls success handler with array of responses on succe
   const onUploadSuccess = jest.fn()
   mockFileReader()
 
-  const props = { input: { ...input, onChange: jest.fn() }, meta: {}, upload, cloudName, bucket, onUploadSuccess, multiple: true }
+  const props = { input: { ...input, onChange: jest.fn() }, meta: {}, upload, uploadStatus, cloudName, bucket, onUploadSuccess, multiple: true }
   const wrapper = mount(<CloudinaryFileInput {...props} />)
   const internalOnChange = wrapper.find('input').prop('onChange')
   internalOnChange(fakeFileEvent)
@@ -81,7 +83,7 @@ test('CloudinaryFileInput calls error handler with error on failed upload', asyn
   const upload = () => Promise.reject(failureResponse)
   mockFileReader()
 
-  const props = { input: { ...input, onChange: jest.fn() }, meta: {}, upload, cloudName, bucket, onUploadFailure }
+  const props = { input: { ...input, onChange: jest.fn() }, meta: {}, upload, uploadStatus, cloudName, bucket, onUploadFailure }
   const wrapper = mount(<CloudinaryFileInput {...props} />)
   const internalOnChange = wrapper.find('input').prop('onChange')
 

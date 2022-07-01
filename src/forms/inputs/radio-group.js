@@ -60,6 +60,7 @@ const defaultProps = {
 }
 
 function RadioGroupLegend ({ label, name }) {
+  if (label === false) return null
   return (
     <legend>{ label || convertNameToLabel(name) }</legend>
   )

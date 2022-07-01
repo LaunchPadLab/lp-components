@@ -2,6 +2,7 @@ export {
   castArray,
   has,
   first,
+  last,
   identity,
   isNil,
   startCase,
@@ -24,14 +25,7 @@ export {
 export filterInvalidDOMProps from 'filter-invalid-dom-props'
 export wrapDisplayName from 'recompose/wrapDisplayName'
 
-// LP Utils
-export cloudinaryUploader from '@launchpadlab/lp-hoc/lib/cloudinaryUploader'
-export modifyProps from '@launchpadlab/lp-hoc/lib/modifyProps'
-export sortable from '@launchpadlab/lp-hoc/lib/sortable'
-export sortablePropTypes from '@launchpadlab/lp-hoc/lib/sortablePropTypes'
-export toggle from '@launchpadlab/lp-hoc/lib/toggle'
-export togglePropTypes from '@launchpadlab/lp-hoc/lib/togglePropTypes'
-export onOutsideClick from '@launchpadlab/lp-hoc/lib/onOutsideClick'
+export cloudinaryUploader from '../forms/inputs/cloudinary-file-input/cloudinary-uploader'
 
 // Local
 export * from './local'
