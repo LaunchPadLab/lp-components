@@ -51,6 +51,31 @@ import { addToArray, removeFromArray, serializeOptions, compose } from '../../ut
  * }
  *
  * export default TodoForm
+ * 
+ * @example
+ * function TodoForm ({ handleSubmit, pristine, invalid, submitting }) {
+ *   return (
+ *     <form onSubmit={ handleSubmit }>
+ *       <Field
+ *          name="completedTodos"
+ *          component={ CheckboxGroup }
+ *          options={[
+ *            'Eat breakfast',
+ *            'Respond to emails',
+ *            'Take out the trash',
+ *          ]}
+ *          checkboxInputProps={{
+ *            className: 'checkbox-input--secondary',
+ *          }}
+ *       />
+ *       <SubmitButton {...{ pristine, invalid, submitting }}>
+ *         Submit
+ *       </SubmitButton>
+ *     </form>
+ *   )
+ * }
+ *
+ * export default TodoForm
  */
 
 const propTypes = {

@@ -397,6 +397,32 @@ function TodoForm ({ handleSubmit, pristine, invalid, submitting }) {
 export default TodoForm
 ```
 
+```javascript
+function TodoForm ({ handleSubmit, pristine, invalid, submitting }) {
+  return (
+    <form onSubmit={ handleSubmit }>
+      <Field
+         name="completedTodos"
+         component={ CheckboxGroup }
+         options={[
+           'Eat breakfast',
+           'Respond to emails',
+           'Take out the trash',
+         ]}
+         checkboxInputProps={{
+           className: 'checkbox-input--secondary',
+         }}
+      />
+      <SubmitButton {...{ pristine, invalid, submitting }}>
+        Submit
+      </SubmitButton>
+    </form>
+  )
+}
+
+export default TodoForm
+```
+
 ## CloudinaryFileInput
 
 A wrapper around a file input component (defaults to [FileInput][36]) that automatically uploads files to cloudinary via the [cloudinaryUploader][151] HOC.
@@ -782,6 +808,32 @@ function FavoriteFoodForm ({ handleSubmit, pristine, invalid, submitting }) {
            'Pineapples',
            'Potatoes',
          ]}
+      />
+      <SubmitButton {...{ pristine, invalid, submitting }}>
+        Submit
+      </SubmitButton>
+    </form>
+  )
+}
+
+export default FavoriteFoodForm
+```
+
+```javascript
+function FavoriteFoodForm ({ handleSubmit, pristine, invalid, submitting }) {
+  return (
+    <form onSubmit={ handleSubmit }>
+      <Field
+         name="favoriteFood"
+         component={ RadioGroup }
+         options={[
+           'Bananas',
+           'Pineapples',
+           'Potatoes',
+         ]}
+         radioInputProps={{
+           className: 'radio-input--secondary',
+         }}
       />
       <SubmitButton {...{ pristine, invalid, submitting }}>
         Submit

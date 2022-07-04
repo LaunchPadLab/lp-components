@@ -49,6 +49,31 @@ import { serializeOptions, filterInvalidDOMProps } from '../../utils'
  * }
  *
  * export default FavoriteFoodForm
+ * 
+ * @example
+ * function FavoriteFoodForm ({ handleSubmit, pristine, invalid, submitting }) {
+ *   return (
+ *     <form onSubmit={ handleSubmit }>
+ *       <Field
+ *          name="favoriteFood"
+ *          component={ RadioGroup }
+ *          options={[
+ *            'Bananas',
+ *            'Pineapples',
+ *            'Potatoes',
+ *          ]}
+ *          radioInputProps={{
+ *            className: 'radio-input--secondary',
+ *          }}
+ *       />
+ *       <SubmitButton {...{ pristine, invalid, submitting }}>
+ *         Submit
+ *       </SubmitButton>
+ *     </form>
+ *   )
+ * }
+ *
+ * export default FavoriteFoodForm
  */
 
 const propTypes = {
