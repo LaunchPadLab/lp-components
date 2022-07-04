@@ -370,6 +370,7 @@ Clicking an unselected checkbox adds its value to this array, and clicking a sel
 *   `input` **[Object][148]** A `redux-form` [input][149] object
 *   `meta` **[Object][148]** A `redux-form` [meta][150] object
 *   `options` **[Array][146]** An array of checkbox values (strings, numbers, or key-value pairs)
+*   `checkboxInputProps` **[Object][148]** An object of key-value pairs representing props to pass down to all checkbox inputs (optional, default `{}`)
 
 ### Examples
 
@@ -385,6 +386,32 @@ function TodoForm ({ handleSubmit, pristine, invalid, submitting }) {
            'Respond to emails',
            'Take out the trash',
          ]}
+      />
+      <SubmitButton {...{ pristine, invalid, submitting }}>
+        Submit
+      </SubmitButton>
+    </form>
+  )
+}
+
+export default TodoForm
+```
+
+```javascript
+function TodoForm ({ handleSubmit, pristine, invalid, submitting }) {
+  return (
+    <form onSubmit={ handleSubmit }>
+      <Field
+         name="completedTodos"
+         component={ CheckboxGroup }
+         options={[
+           'Eat breakfast',
+           'Respond to emails',
+           'Take out the trash',
+         ]}
+         checkboxInputProps={{
+           className: 'checkbox-input--secondary',
+         }}
       />
       <SubmitButton {...{ pristine, invalid, submitting }}>
         Submit
@@ -765,6 +792,7 @@ The value of the entire `RadioGroup` component is the value of the currently sel
 *   `input` **[Object][148]** A `redux-form` [input][149] object
 *   `meta` **[Object][148]** A `redux-form` [meta][150] object
 *   `options` **[Array][146]** An array of radio button values (strings, numbers, booleans, or key-value pairs)
+*   `radioInputProps` **[Object][148]** An object of key-value pairs representing props to pass down to all radio inputs (optional, default `{}`)
 
 ### Examples
 
@@ -780,6 +808,32 @@ function FavoriteFoodForm ({ handleSubmit, pristine, invalid, submitting }) {
            'Pineapples',
            'Potatoes',
          ]}
+      />
+      <SubmitButton {...{ pristine, invalid, submitting }}>
+        Submit
+      </SubmitButton>
+    </form>
+  )
+}
+
+export default FavoriteFoodForm
+```
+
+```javascript
+function FavoriteFoodForm ({ handleSubmit, pristine, invalid, submitting }) {
+  return (
+    <form onSubmit={ handleSubmit }>
+      <Field
+         name="favoriteFood"
+         component={ RadioGroup }
+         options={[
+           'Bananas',
+           'Pineapples',
+           'Potatoes',
+         ]}
+         radioInputProps={{
+           className: 'radio-input--secondary',
+         }}
       />
       <SubmitButton {...{ pristine, invalid, submitting }}>
         Submit

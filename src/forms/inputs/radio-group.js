@@ -1,5 +1,5 @@
 import React from 'react'
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import {
   convertNameToLabel,
   radioGroupPropTypes,
@@ -26,6 +26,7 @@ import { serializeOptions, filterInvalidDOMProps } from '../../utils'
  * @param {Object} input - A `redux-form` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
  * @param {Object} meta - A `redux-form` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @param {Array} options - An array of radio button values (strings, numbers, booleans, or key-value pairs)
+ * @param {Object} [radioInputProps={}] - An object of key-value pairs representing props to pass down to all radio inputs
  * @example
  *
  * function FavoriteFoodForm ({ handleSubmit, pristine, invalid, submitting }) {
@@ -48,15 +49,44 @@ import { serializeOptions, filterInvalidDOMProps } from '../../utils'
  * }
  *
  * export default FavoriteFoodForm
+ * 
+ * @example
+ * function FavoriteFoodForm ({ handleSubmit, pristine, invalid, submitting }) {
+ *   return (
+ *     <form onSubmit={ handleSubmit }>
+ *       <Field
+ *          name="favoriteFood"
+ *          component={ RadioGroup }
+ *          options={[
+ *            'Bananas',
+ *            'Pineapples',
+ *            'Potatoes',
+ *          ]}
+ *          radioInputProps={{
+ *            className: 'radio-input--secondary',
+ *          }}
+ *       />
+ *       <SubmitButton {...{ pristine, invalid, submitting }}>
+ *         Submit
+ *       </SubmitButton>
+ *     </form>
+ *   )
+ * }
+ *
+ * export default FavoriteFoodForm
  */
 
 const propTypes = {
   ...radioGroupPropTypes,
-  options: fieldOptionsType
+  className: PropTypes.string,
+  options: fieldOptionsType,
+  radioInputProps: PropTypes.object,
 }
 
 const defaultProps = {
-  options: []
+  options: [],
+  className: 'RadioGroup',
+  radioInputProps: {},
 }
 
 function RadioGroupLegend ({ label, name }) {
@@ -99,12 +129,14 @@ function RadioGroup (props) {
     input: { value, onChange, name },
     meta, // eslint-disable-line no-unused-vars
     options,
+    className,
+    radioInputProps,
     ...rest
   } = omitLabelProps(props)
   const optionObjects = serializeOptions(options)
   return (
     <LabeledField
-      className="RadioGroup"
+      className={className}
       labelComponent={ RadioGroupLegend }
       { ...props }
     >
@@ -124,7 +156,8 @@ function RadioGroup (props) {
                 meta: {},
                 checked: value === option.value,
                 label: option.key,
-                ...rest
+                ...rest,
+                ...radioInputProps,
               }}
             />
           )
