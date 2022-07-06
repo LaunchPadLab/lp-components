@@ -98,6 +98,7 @@
   },
   "prettier": "@launchpadlab/prettier-config",
   "lint-staged": {
+    "src/**/*.{js,jsx}": "eslint --fix --max-warnings=0",
     "src/**/*.{js,jsx,json,scss}": "prettier --write"
   },
   "resolutions": {
