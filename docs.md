@@ -263,7 +263,7 @@ function MessageButton ({ message }) {
      <Button
        variant="secondary"
        onClick={ () => console.log(message) }
-     > 
+     >
        Print Message
      </Button>
   )
@@ -479,7 +479,7 @@ The value of this input is a hex color string.
 function UserForm ({ handleSubmit, pristine, invalid, submitting }) {
   return (
     <form onSubmit={ handleSubmit }>
-      <Field 
+      <Field
          name="favoriteColor"
          component={ ColorInput }
       />
@@ -518,7 +518,7 @@ function BirthdayForm ({ handleSubmit }) {
       <Field
          name="birthday"
          component={DateInput}
-         placeholderText="mm/dd/yyyy" 
+         placeholderText="mm/dd/yyyy"
        />
     </form>
   )
@@ -663,7 +663,7 @@ Any children passed to this component will be rendered within this wrapper.
 function UserForm ({ handleSubmit, pristine, invalid, submitting }) {
   return (
     <form onSubmit={ handleSubmit }>
-      <Field 
+      <Field
          name="firstName"
          component={ Input }
          placeholder="Your first name"
@@ -695,7 +695,7 @@ Additionally, the fieldset of this [Input][41] will be given the class `"icon-la
 function TwitterForm ({ handleSubmit, pristine, invalid, submitting }) {
   return (
     <form onSubmit={ handleSubmit }>
-      <Field 
+      <Field
          name="handle"
          component={ IconInput }
          icon="twitter"
@@ -727,7 +727,7 @@ A masked input that can be used in a `redux-form`-controlled form. Built on top 
 function PurchaseForm ({ handleSubmit, submitting }) {
   return (
     <form onSubmit={ handleSubmit }>
-      <Field 
+      <Field
          name="quantity"
          component={ MaskedInput }
          maskOptions={{ numeral: true }}
@@ -1039,7 +1039,7 @@ In addition to the props below, any extra props will be passed directly to the i
 ```javascript
 // A custom input to use with redux-form
 
-function ValidatedInput ({  
+function ValidatedInput ({
   input: { name, value, onBlur, onChange },
   meta: { error, touched, invalid },
 }) {
@@ -1049,7 +1049,7 @@ function ValidatedInput ({
          name,
          value,
          onBlur,
-         onChange,   
+         onChange,
       }}
       <InputError { ...{ error, invalid, touched, name } } />
     </div>
@@ -1322,7 +1322,7 @@ omitLabelProps(props)
 
 // {
 //   maxLength: 1000
-// } 
+// }
 
 // Use in a form input component
 
@@ -1332,8 +1332,8 @@ function Input (props) {
      type,
      ...rest
    } = omitLabelProps(props)
-   return ( 
-     ... 
+   return (
+     ...
    )
 }
 ```
@@ -1649,7 +1649,7 @@ object options with keys of `key` and `value`
 ### Examples
 
 ```javascript
-const optionGroups = [ 
+const optionGroups = [
  { name: 'fruits', options: ['apple', 'banana'] },
  { name: 'veggies', options: ['lettuce', 'pepper'] },
 ]
@@ -1657,13 +1657,13 @@ const optionGroups = [
 serializeOptionGroups(optionGroups)
 
 // [
-//   { 
-//     name: 'fruits', 
-//     options: [{ key: 'apple', value: 'apple' }, { key: 'banana', value: 'banana' }] 
-//   }, 
-//   { 
-//     name: 'veggies', 
-//     options: [{ key: 'lettuce', value: 'lettuce' }, { key: 'pepper', value: 'pepper' }] 
+//   {
+//     name: 'fruits',
+//     options: [{ key: 'apple', value: 'apple' }, { key: 'banana', value: 'banana' }]
+//   },
+//   {
+//     name: 'veggies',
+//     options: [{ key: 'lettuce', value: 'lettuce' }, { key: 'pepper', value: 'pepper' }]
 //   },
 // ]
 ```
@@ -1776,7 +1776,7 @@ function CloudinaryFileInput ({ upload, uploadStatus, input, meta ... }) {
   const { onChange } = input
   const { submit } = meta
   return (
-     <FileInput 
+     <FileInput
        input={ input }
        meta={ meta }
        onLoad={ (fileData, file) => upload(fileData, file).then(() => submit(form)) }

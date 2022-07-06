@@ -50,9 +50,9 @@ function TableRow({
         const formattedValue = format(cellValue)
         const onColClick = column.disabled ? noop : () => onClick(rowData)
         return (
+          // eslint-disable-next-line react/jsx-key
           <CellComponent
             {...{
-              // eslint-disable-line
               key,
               value: formattedValue,
               name,
