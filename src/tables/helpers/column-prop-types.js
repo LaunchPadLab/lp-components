@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 
-const componentType = PropTypes.oneOfType([ PropTypes.func, PropTypes.object ])
+const componentType = PropTypes.oneOfType([PropTypes.func, PropTypes.object])
 
 export const columnPropTypes = {
   name: PropTypes.string.isRequired,

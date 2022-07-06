@@ -4,8 +4,7 @@ import { action } from '@storybook/addon-actions'
 import { TabBar as StaticTabBar } from 'src'
 import dynamicInput from '../dynamic-input'
 
-const TabBar = dynamicInput({
-})(StaticTabBar)
+const TabBar = dynamicInput({})(StaticTabBar)
 
 storiesOf('TabBar', module)
   .add('horizontal', () => (
@@ -23,4 +22,3 @@ storiesOf('TabBar', module)
       onChange={action('tabbed vertically')}
     />
   ))
-

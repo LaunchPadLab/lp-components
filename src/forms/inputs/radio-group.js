@@ -49,7 +49,7 @@ import { serializeOptions, filterInvalidDOMProps } from '../../utils'
  * }
  *
  * export default FavoriteFoodForm
- * 
+ *
  * @example
  * function FavoriteFoodForm ({ handleSubmit, pristine, invalid, submitting }) {
  *   return (
@@ -89,15 +89,13 @@ const defaultProps = {
   radioInputProps: {},
 }
 
-function RadioGroupLegend ({ label, name }) {
+function RadioGroupLegend({ label, name }) {
   if (label === false) return null
-  return (
-    <legend>{ label || convertNameToLabel(name) }</legend>
-  )
+  return <legend>{label || convertNameToLabel(name)}</legend>
 }
 
 // This should never be used by itself, so it does not exist as a separate export
-function RadioButton (props) {
+function RadioButton(props) {
   const {
     input: { id, name, value, onBlur, onChange },
     meta, // eslint-disable-line no-unused-vars
@@ -124,7 +122,7 @@ RadioButton.propTypes = {
   ...radioGroupPropTypes,
 }
 
-function RadioGroup (props) {
+function RadioGroup(props) {
   const {
     input: { value, onChange, name },
     meta, // eslint-disable-line no-unused-vars
@@ -137,32 +135,30 @@ function RadioGroup (props) {
   return (
     <LabeledField
       className={className}
-      labelComponent={ RadioGroupLegend }
-      { ...props }
+      labelComponent={RadioGroupLegend}
+      {...props}
     >
-      {
-        optionObjects.map((option, i) => {
-          return (
-            <RadioButton // eslint-disable-line react/jsx-key
-              {...{
-                key: i,
-                type: 'radio',
-                input: {
-                  name, // all radio inputs must share the same name
-                  value: option.value,
-                  onChange: () => onChange(option.value),
-                },
-                id: `${ name }.${ option.value }`, // override Input default behavior to assign id to input: { name }
-                meta: {},
-                checked: value === option.value,
-                label: option.key,
-                ...rest,
-                ...radioInputProps,
-              }}
-            />
-          )
-        })
-      }
+      {optionObjects.map((option, i) => {
+        return (
+          <RadioButton // eslint-disable-line react/jsx-key
+            {...{
+              key: i,
+              type: 'radio',
+              input: {
+                name, // all radio inputs must share the same name
+                value: option.value,
+                onChange: () => onChange(option.value),
+              },
+              id: `${name}.${option.value}`, // override Input default behavior to assign id to input: { name }
+              meta: {},
+              checked: value === option.value,
+              label: option.key,
+              ...rest,
+              ...radioInputProps,
+            }}
+          />
+        )
+      })}
     </LabeledField>
   )
 }

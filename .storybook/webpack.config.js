@@ -28,7 +28,7 @@ module.exports = async ({ config }) => {
               ...bourbonIncludePaths,
               ...neatIncludePaths,
             ],
-          }
+          },
         },
       },
     ],

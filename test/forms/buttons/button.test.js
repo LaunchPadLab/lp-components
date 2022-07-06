@@ -19,33 +19,53 @@ test('Button onClick is run when the form is not submitting, pristine, or invali
     pristine: false,
     submitting: false,
   }
-  const wrapper = shallow(<Button onClick={onClick} {...formProps}> Hi</Button>)
+  const wrapper = shallow(
+    <Button onClick={onClick} {...formProps}>
+      {' '}
+      Hi
+    </Button>
+  )
   wrapper.find('button').simulate('click')
-  
+
   expect(onClick).toHaveBeenCalled()
 })
 
 test('Button onClick is not run when form is invalid', () => {
   const onClick = jest.fn()
-  const wrapper = mount(<Button onClick={onClick} invalid={true}> Hi</Button>)
+  const wrapper = mount(
+    <Button onClick={onClick} invalid={true}>
+      {' '}
+      Hi
+    </Button>
+  )
   wrapper.find('button').simulate('click')
-  
+
   expect(onClick).not.toHaveBeenCalled()
 })
 
 test('Button onClick is not run when form is pristine', () => {
   const onClick = jest.fn()
-  const wrapper = mount(<Button onClick={onClick} pristine={true}> Hi</Button>)
+  const wrapper = mount(
+    <Button onClick={onClick} pristine={true}>
+      {' '}
+      Hi
+    </Button>
+  )
   wrapper.find('button').simulate('click')
-  
+
   expect(onClick).not.toHaveBeenCalled()
 })
 
 test('Button onClick is not run when form is submitting', () => {
   const onClick = jest.fn()
-  const wrapper = mount(<Button onClick={onClick} submitting={true}> Hi</Button>)
+  const wrapper = mount(
+    <Button onClick={onClick} submitting={true}>
+      {' '}
+      Hi
+    </Button>
+  )
   wrapper.find('button').simulate('click')
-  
+
   expect(onClick).not.toHaveBeenCalled()
 })
 
@@ -71,19 +91,31 @@ test('Button passes extra props to button element', () => {
 })
 
 test('Specifying a class name prop does not override variant class', () => {
-  const wrapper = shallow(<Button variant="primary" className="button-large">Click Me</Button>)
+  const wrapper = shallow(
+    <Button variant="primary" className="button-large">
+      Click Me
+    </Button>
+  )
   expect(wrapper.hasClass('button-primary')).toBe(true)
   expect(wrapper.hasClass('button-large')).toBe(true)
 })
 
 test('Specifying a class name prop does not override is-disabled class', () => {
-  const wrapper = shallow(<Button className="button-large" invalid>Click Me</Button>)
+  const wrapper = shallow(
+    <Button className="button-large" invalid>
+      Click Me
+    </Button>
+  )
   expect(wrapper.hasClass('is-disabled')).toBe(true)
   expect(wrapper.hasClass('button-large')).toBe(true)
 })
 
 test('Specifying a class name prop does not override in-progress class', () => {
-  const wrapper = shallow(<Button className="button-large" submitting>Submit</Button>)
+  const wrapper = shallow(
+    <Button className="button-large" submitting>
+      Submit
+    </Button>
+  )
   expect(wrapper.hasClass('in-progress')).toBe(true)
   expect(wrapper.hasClass('button-large')).toBe(true)
 })
@@ -95,6 +127,10 @@ test('Button can receive object style prop', () => {
 
 test('Button passes down forwardedRef to button', () => {
   const ref = createRef()
-  const wrapper = mount(<Button id="my-button" ref={ref}>Click Me</Button>)
+  const wrapper = mount(
+    <Button id="my-button" ref={ref}>
+      Click Me
+    </Button>
+  )
   expect(wrapper.find('button').prop('id')).toEqual(ref.current.id)
 })

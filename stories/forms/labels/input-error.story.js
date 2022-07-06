@@ -4,14 +4,10 @@ import { InputError } from 'src'
 
 storiesOf('InputError', module)
   .add('with a single error', () => (
-    <InputError 
-      error="An error occurred"
-      invalid={true}
-      touched={true}
-    />
+    <InputError error="An error occurred" invalid={true} touched={true} />
   ))
   .add('with multiple errors', () => (
-    <InputError 
+    <InputError
       error={['An error occurred', 'Another error occurred']}
       invalid={true}
       touched={true}

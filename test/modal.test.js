@@ -7,12 +7,12 @@ describe('Modal', () => {
   beforeEach(() => {
     // requestAnimationFrame is async, so the callback fails to trigger
     // https://github.com/reactjs/react-modal/issues/903
-    jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => cb())
+    jest.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => cb())
 
     // Ignore warnings about the app element not being defined
     jest.spyOn(console, 'error').mockImplementation(() => {})
   })
-  
+
   afterEach(() => {
     window.requestAnimationFrame.mockRestore()
     // eslint-disable-next-line
@@ -23,12 +23,12 @@ describe('Modal', () => {
     const wrapper = mount(<Modal onClose={noop} />)
     expect(wrapper.find('.modal-content').exists()).toEqual(true)
   })
-  
+
   test('can be hidden/animated by manually passing isOpen', () => {
     const wrapper = mount(<Modal isOpen={false} onClose={noop} />)
     expect(wrapper.find('.modal-content').exists()).toEqual(false)
   })
-  
+
   test('calls close handler when close button is clicked', () => {
     const onClose = jest.fn()
     const wrapper = mount(<Modal onClose={onClose} />)
@@ -42,18 +42,46 @@ describe('Modal', () => {
   })
 
   test('adds additional overlay class string to default overlay class', () => {
-    const wrapper = mount(<Modal onClose={noop} overlayClassName="custom-overlay" />)
-    expect(wrapper.find('.modal-fade-screen.custom-overlay').exists()).toEqual(true)
+    const wrapper = mount(
+      <Modal onClose={noop} overlayClassName="custom-overlay" />
+    )
+    expect(wrapper.find('.modal-fade-screen.custom-overlay').exists()).toEqual(
+      true
+    )
   })
 
   test('adds additional class object to default class', () => {
-    const wrapper = mount(<Modal isOpen={true} onClose={noop} className={{ base: 'custom', afterOpen: 'modal-is-open', beforeClose: 'modal-before-close' }} />)
-    expect(wrapper.find('.modal-inner.custom.modal-is-open').exists()).toEqual(true)
+    const wrapper = mount(
+      <Modal
+        isOpen={true}
+        onClose={noop}
+        className={{
+          base: 'custom',
+          afterOpen: 'modal-is-open',
+          beforeClose: 'modal-before-close',
+        }}
+      />
+    )
+    expect(wrapper.find('.modal-inner.custom.modal-is-open').exists()).toEqual(
+      true
+    )
   })
 
   test('adds additional overlay class object to default overlay class', () => {
-    const wrapper = mount(<Modal isOpen={true} onClose={noop} overlayClassName={{ base: 'custom', afterOpen: 'modal-is-open', beforeClose: 'modal-before-close' }} />)
-    expect(wrapper.find('.modal-fade-screen.custom.modal-is-open').exists()).toEqual(true)
+    const wrapper = mount(
+      <Modal
+        isOpen={true}
+        onClose={noop}
+        overlayClassName={{
+          base: 'custom',
+          afterOpen: 'modal-is-open',
+          beforeClose: 'modal-before-close',
+        }}
+      />
+    )
+    expect(
+      wrapper.find('.modal-fade-screen.custom.modal-is-open').exists()
+    ).toEqual(true)
   })
 
   describe('when preventClose=true', () => {
@@ -72,7 +100,13 @@ describe('Modal', () => {
     test('does not close by overlay click', () => {
       const onClose = jest.fn()
       const overlayClass = 'test-overlay'
-      const wrapper = mount(<Modal preventClose={true} onClose={onClose} overlayClassName={overlayClass} />)
+      const wrapper = mount(
+        <Modal
+          preventClose={true}
+          onClose={onClose}
+          overlayClassName={overlayClass}
+        />
+      )
       wrapper.find('.' + overlayClass).simulate('click')
       expect(onClose).not.toHaveBeenCalled()
       expect(wrapper.find('.modal-content').exists()).toEqual(true)
@@ -80,7 +114,9 @@ describe('Modal', () => {
 
     test('allows individual prop overrides', () => {
       const onClose = jest.fn()
-      const wrapper = mount(<Modal preventClose={true} onClose={onClose} shouldCloseOnEsc={true} />)
+      const wrapper = mount(
+        <Modal preventClose={true} onClose={onClose} shouldCloseOnEsc={true} />
+      )
       wrapper.find('.modal-content').simulate('keydown', { keyCode: 27 })
       expect(onClose).toHaveBeenCalled()
     })

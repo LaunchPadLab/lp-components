@@ -9,7 +9,7 @@ storiesOf('Button', module)
   .add('default', () => (
     <Button
       {...{
-        onClick
+        onClick,
       }}
     >
       Click Me
@@ -19,7 +19,7 @@ storiesOf('Button', module)
     <Button
       {...{
         onClick,
-        style: 'small'
+        style: 'small',
       }}
     >
       Click Me
@@ -29,7 +29,7 @@ storiesOf('Button', module)
     <Button
       {...{
         onClick,
-        pristine: true
+        pristine: true,
       }}
     >
       Click Me
@@ -39,7 +39,7 @@ storiesOf('Button', module)
     <Button
       {...{
         onClick,
-        submitting: true
+        submitting: true,
       }}
     >
       Click Me

@@ -17,6 +17,8 @@ test('when the argument is an array of objects - returns the argument', () => {
 
 test('when the argument is an array of strings - returns the strings as array of objects', () => {
   const optionArray = ['foo', 'bar']
-  expect(serializeOptions(optionArray)).toEqual([{ key: 'foo', value: 'foo' }, { key: 'bar', value: 'bar' }])
+  expect(serializeOptions(optionArray)).toEqual([
+    { key: 'foo', value: 'foo' },
+    { key: 'bar', value: 'bar' },
+  ])
 })
-

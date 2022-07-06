@@ -60,14 +60,14 @@ const defaultProps = {
   onUploadFailure: noop,
 }
 
-function mapCloudinaryResponse (file, response) {
+function mapCloudinaryResponse(file, response) {
   return compose(
     set('url', response.url),
     set('meta.cloudinary', response)
   )(file)
 }
 
-function CloudinaryFileInput ({
+function CloudinaryFileInput({
   input,
   className,
   onUploadFailure,
@@ -80,7 +80,7 @@ function CloudinaryFileInput ({
 }) {
   return (
     <FileInput
-      input={ input }
+      input={input}
       readFiles={async (files) => {
         let uploadedFiles = null
         try {
@@ -100,9 +100,9 @@ function CloudinaryFileInput ({
         onUploadSuccess(successResponse)
         return uploadedFiles
       }}
-      className={ classnames(uploadStatus, className) }
+      className={classnames(uploadStatus, className)}
       multiple={multiple}
-      { ...rest }
+      {...rest}
     />
   )
 }
@@ -110,6 +110,4 @@ function CloudinaryFileInput ({
 CloudinaryFileInput.propTypes = propTypes
 CloudinaryFileInput.defaultProps = defaultProps
 
-export default compose(
-  cloudinaryUploader(),
-)(CloudinaryFileInput)
+export default compose(cloudinaryUploader())(CloudinaryFileInput)

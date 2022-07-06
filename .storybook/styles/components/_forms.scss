@@ -1,7 +1,7 @@
 /*-----------------------
 Fieldset
 -----------------------*/
-fieldset{
+fieldset {
   display: inline-block;
   @include rem(margin-top, 15px);
   position: relative;
@@ -14,13 +14,13 @@ fieldset{
 /*-----------------------
 Labels
 -----------------------*/
-label{
+label {
   color: $black-base;
   display: inline-block;
   font-size: $s-small;
   @include rem(margin-bottom, 6px);
 
-  i{
+  i {
     font-style: italic;
     font-weight: $light;
   }
@@ -31,7 +31,7 @@ Inputs
 -----------------------*/
 #{$all-text-inputs},
 select,
-textarea{
+textarea {
   background-color: $white-base;
   border: none;
   border-bottom: 3px solid $grey-light;
@@ -44,12 +44,12 @@ textarea{
   -webkit-font-smoothing: antialiased;
   border-radius: 0;
 
-  &::placeholder{
+  &::placeholder {
     color: $white-med;
     font-style: italic;
   }
 
-  &:focus{
+  &:focus {
     border-color: $green-base;
     outline: none;
   }
@@ -58,13 +58,13 @@ textarea{
 /*-----------------------
 Input Icon
 -----------------------*/
-.icon-label{
+.icon-label {
   position: relative;
-  input{
+  input {
     @include rem(padding-left, 30px);
   }
 
-  i{
+  i {
     @include position(absolute, 1px null null 10px);
     background-repeat: no-repeat;
     background-size: 15px;
@@ -72,17 +72,17 @@ Input Icon
     width: 20px;
   }
 
-  .mail-icon:after{
+  .mail-icon:after {
     content: '📧';
     // background-image: asset-url("mail.svg");
   }
-  .phone-icon{
+  .phone-icon {
     // background-image: asset-url("phone.svg");
   }
-  .linkedin-icon{
+  .linkedin-icon {
     // background-image: asset-url("linkedin.svg");
   }
-  .web-icon{
+  .web-icon {
     // background-image: asset-url("web.svg");
   }
 }
@@ -91,7 +91,7 @@ Input Icon
 Textarea
 -----------------------*/
 textarea,
-textarea[type="text"]{
+textarea[type='text'] {
   height: 100px;
   resize: none;
   border: 1px solid $grey-light;
@@ -102,12 +102,12 @@ textarea:focus {
   border-color: $black-base;
 }
 
-.with-character-count{
-  label{
+.with-character-count {
+  label {
     @include rem(padding-right, 108px);
   }
 
-  .character-count{
+  .character-count {
     color: $grey-base;
     float: right;
     @include position(absolute, 0px 0px null null);
@@ -115,11 +115,10 @@ textarea:focus {
   }
 }
 
-
 /*-----------------------
 Select
 -----------------------*/
-select{
+select {
   // background-image: asset-url("down-arrow.svg");
   background-position: right 0px top 50%;
   background-repeat: no-repeat;
@@ -129,7 +128,7 @@ select{
   text-overflow: ellipsis;
   width: 100%;
   &.unselected {
-    color: gray
+    color: gray;
   }
 }
 
@@ -145,29 +144,29 @@ Radio
 /*-----------------------
 Checkbox
 -----------------------*/
-.checkbox{
+.checkbox {
   @include rem(margin-top, 15px);
   width: auto;
 
-  label{
+  label {
     cursor: pointer;
     @include rem(margin-top, 4px);
     line-height: normal;
   }
 
-  span{
+  span {
     float: right;
     display: inline-block;
     width: calc(100% - 32px);
   }
 
-  .tooltip-trigger{
+  .tooltip-trigger {
     float: initial;
     width: auto;
   }
 }
 
-input[type="checkbox"]{
+input[type='checkbox'] {
   appearance: none;
   transition: all 0.3s ease-in-out;
   background-color: $white-base;
@@ -181,12 +180,12 @@ input[type="checkbox"]{
   display: inline-block;
   @include rem(margin, 0px 8px 0px 0px);
 
-  &:focus{
+  &:focus {
     outline: none;
   }
 
-  &:checked{
-    &:after{
+  &:checked {
+    &:after {
       background-size: 17px;
       color: $green-base;
       content: '✓';
@@ -214,7 +213,8 @@ Disabled
     cursor: default;
   }
 
-  input[type="checkbox"], input[type="radio"] {
+  input[type='checkbox'],
+  input[type='radio'] {
     cursor: not-allowed;
   }
 }
@@ -222,12 +222,14 @@ Disabled
 /*-----------------------
 Error
 -----------------------*/
-.error{
-  input, textarea, select{
+.error {
+  input,
+  textarea,
+  select {
     border: none;
     border-bottom: 3px solid $red-base;
 
-    &:focus{
+    &:focus {
       border-color: $black-base;
       outline: none;
     }
@@ -239,7 +241,7 @@ textarea.textarea-error {
   border: 1px solid $red-base;
 }
 
-.error-message{
+.error-message {
   color: $red-base;
   display: inline-block;
   @include rem(margin-top, 4px);
@@ -247,16 +249,15 @@ textarea.textarea-error {
   transition: all 0.3s ease-in-out;
 }
 
-
 /*-----------------------
 Input Tooltip
 -----------------------*/
-.tooltip-trigger:after{
+.tooltip-trigger:after {
   background-color: $white-light;
   border: 1px solid $white-med;
   border-radius: 50%;
   color: $grey-base;
-  content:"?";
+  content: '?';
   cursor: pointer;
   display: inline-block;
   height: 18px;
@@ -268,40 +269,40 @@ Input Tooltip
   width: 18px;
 }
 
-.tooltip-content{
+.tooltip-content {
   display: none;
   @include rem(margin-bottom, 8px);
 
-  p{
+  p {
     line-height: 1.5;
   }
 
-  &.is-active{ display: block; }
+  &.is-active {
+    display: block;
+  }
 }
-
 
 /*-----------------------
 Uploader
 -----------------------*/
-.fileupload{
-
-  .thumbnail{
+.fileupload {
+  .thumbnail {
     display: inline-block;
     @include rem(margin-right, 15px);
     width: 70px;
     vertical-align: middle;
 
-    img{
+    img {
       border-radius: 50%;
       height: 70px;
     }
   }
 
-  .button-secondary-light{
+  .button-secondary-light {
     overflow: hidden;
     position: relative;
 
-    span{
+    span {
       background-color: $grey-base;
       cursor: pointer;
       color: $white-base;
@@ -310,39 +311,39 @@ Uploader
       @include rem(padding, 20px 0px);
       color: $black-base;
 
-      &:hover{
+      &:hover {
         background-color: darken($grey-base, 8%);
       }
 
-      &.fileupload-exists{
+      &.fileupload-exists {
         color: $white-base;
       }
     }
 
-    &.fileupload-exists{
-      div{
+    &.fileupload-exists {
+      div {
         padding: 0px !important;
       }
     }
   }
 
-  input[type="file"]{
-    position:absolute;
-    top:0;
-    right:0;
-    margin:0;
-    opacity:0;
-    filter:alpha(opacity=0);
-    transform:translate(-300px, 0) scale(4);
+  input[type='file'] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    transform: translate(-300px, 0) scale(4);
     cursor: pointer;
 
-    &:focus + span{
+    &:focus + span {
       outline-width: 2px;
       outline-style: solid;
       outline-color: Highlight;
 
       /* WebKit gets its native focus styles. */
-      @media (-webkit-min-device-pixel-ratio:0){
+      @media (-webkit-min-device-pixel-ratio: 0) {
         outline-color: -webkit-focus-ring-color;
         outline-style: auto;
       }
@@ -350,44 +351,44 @@ Uploader
   }
 }
 
-.fileupload-exists .fileupload-new,.fileupload-new .fileupload-exists{
+.fileupload-exists .fileupload-new,
+.fileupload-new .fileupload-exists {
   display: none;
 }
 
-.fileupload-preview{
+.fileupload-preview {
   @include rem(margin, 0px 10px);
   @include s-tiny;
   //color: $grey-base
 }
 
-.close{
+.close {
   text-decoration: none;
   vertical-align: text-bottom;
   // border: none;
 }
 
-
 /*-----------------------
 Button Area
 -----------------------*/
-.button-area{
+.button-area {
   @include rem(margin-top, 20px);
 
-  button{
+  button {
     width: 100%;
 
-    @media ($tablet){
+    @media ($tablet) {
       //width: inherit;
     }
   }
 
-  a{
+  a {
     display: inline-block;
     @include rem(margin-top, 20px);
     text-align: center;
     width: 100%;
 
-    @media ($tablet){
+    @media ($tablet) {
       @include rem(margin-top, 10px);
       float: right;
       width: inherit;
@@ -401,21 +402,19 @@ Button Area
   width: 135px;
 }
 
-
-
 /*-----------------------
 Input Icon
 -----------------------*/
-.icon-label{
+.icon-label {
   position: relative;
-  input{
+  input {
     @include rem(padding-left, 30px);
   }
 
-  .input-wrapper{
+  .input-wrapper {
     position: relative;
 
-    i{
+    i {
       @include position(absolute, 3px null null 10px);
       background-repeat: no-repeat;
       background-size: 15px;
@@ -429,10 +428,11 @@ Input Icon
 /*-----------------------
 Custom Dropdown Select
 -----------------------*/
-.dropdown-select, .dropdown{
+.dropdown-select,
+.dropdown {
   position: relative;
 
-  .select-input{
+  .select-input {
     background-color: $white-base;
     border: 1px solid $white-med;
     border-radius: 5px;
@@ -444,44 +444,45 @@ Custom Dropdown Select
     @include s-base;
     @include rem(padding, 7px 13px);
 
-    &:after{
+    &:after {
       // background-image: asset-url('dropdown.svg');
       background-position: right 10px top 50%;
       background-repeat: no-repeat;
       background-size: 15px;
-      content: "";
+      content: '';
       @include position(absolute, 15px 5px null null);
       @include rem(padding, 8px 32px 8px 8px);
       width: 100%;
     }
 
-    p{
+    p {
       margin: 0px;
     }
   }
 
-  a{
+  a {
     text-decoration: none;
   }
 
-  label, a{
+  label,
+  a {
     font-weight: normal;
   }
 
-  .options{
+  .options {
     display: none;
 
-    &.is-active{
+    &.is-active {
       display: inline-block;
 
-      .scroll-box{
+      .scroll-box {
         max-height: 150px;
         overflow: scroll;
       }
     }
   }
 
-  .scroll-box{
+  .scroll-box {
     background-color: $white-base;
     border: 1px solid $white-med;
     @include position(absolute, 41px 0px null 0px);
@@ -495,81 +496,82 @@ Custom Dropdown Select
       margin-bottom: 0;
     }
 
-    .expander{
+    .expander {
       padding: 0px;
     }
 
-    .expander-trigger{
+    .expander-trigger {
       @include rem(padding, 5px);
       border: none;
     }
 
-    .expander .is-active + .expander-content{
+    .expander .is-active + .expander-content {
       padding: 5px;
       display: inline-block;
-        width: 100%;
+      width: 100%;
     }
   }
 
-  .checkboxes{
-    li{
+  .checkboxes {
+    li {
       display: inline-block;
       @include rem(padding, 0px 15px);
       width: 100%;
 
-      .checkbox{
+      .checkbox {
         @include rem(margin, 5px 0px 0px);
 
-        label{
+        label {
           font-weight: normal;
         }
 
-        span{
+        span {
           float: none;
         }
-
       }
     }
-
   }
 }
 
-.dropdown{
+.dropdown {
   @include rem(margin-bottom, 10px);
 
-  @media ($tablet){
+  @media ($tablet) {
     @include rem(margin-bottom, 0px);
   }
 
-  .select-input{
+  .select-input {
     background-color: $white-light;
     height: 56px;
     @include rem(padding, 18px);
 
-    &:after{
+    &:after {
       @include position(absolute, 22px 15px null null);
     }
   }
 }
 
-.scroll-box{
-  .toggle{
+.scroll-box {
+  .toggle {
     display: block;
     height: 27px;
     @include rem(margin, 10px 10px 0px);
     @include s-small;
     padding: 0px;
 
-    .is-active, li, li:hover{
+    .is-active,
+    li,
+    li:hover {
       height: 25px;
       line-height: 2;
     }
   }
 
-  fieldset.checkbox, fieldset.CheckboxGroup{
+  fieldset.checkbox,
+  fieldset.CheckboxGroup {
     width: 100% !important;
 
-    input{
+    input {
       border: 1px solid $white-med;
     }
   }
@@ -578,8 +580,8 @@ Custom Dropdown Select
 /*-----------------------
 Color Picker
 -----------------------*/
-.color-picker{
-  .swatch{
+.color-picker {
+  .swatch {
     cursor: pointer;
     border: 1px solid $white-med;
     height: 20px;
@@ -602,11 +604,11 @@ Color Picker
   }
 }
 
-.color-input{
-  .hex-input{
+.color-input {
+  .hex-input {
     @include rem(padding-left, 50px);
   }
-  .hex{
+  .hex {
     @include position(absolute, 35px null null 38px);
   }
 }

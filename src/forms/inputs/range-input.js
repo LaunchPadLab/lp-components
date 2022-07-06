@@ -1,8 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { blurDirty, fieldPropTypes, hasInputError, omitLabelProps } from '../helpers'
+import {
+  blurDirty,
+  fieldPropTypes,
+  hasInputError,
+  omitLabelProps,
+} from '../helpers'
 import { LabeledField } from '../labels'
-import { compose, filterInvalidDOMProps, generateInputErrorId } from '../../utils'
+import {
+  compose,
+  filterInvalidDOMProps,
+  generateInputErrorId,
+} from '../../utils'
 
 /**
  *
@@ -41,17 +50,17 @@ const propTypes = {
   min: PropTypes.number,
   max: PropTypes.number,
   step: PropTypes.number,
-  hideRangeValue: PropTypes.bool
+  hideRangeValue: PropTypes.bool,
 }
 
 const defaultProps = {
   min: 0,
   max: 100,
   step: 1,
-  hideRangeValue: false
+  hideRangeValue: false,
 }
 
-function RangeInput (props) {
+function RangeInput(props) {
   const {
     input: { name, value, onBlur, onChange },
     meta, // eslint-disable-line no-unused-vars
@@ -63,12 +72,9 @@ function RangeInput (props) {
     ...rest
   } = omitLabelProps(props)
   return (
-    <LabeledField { ...props }>
+    <LabeledField {...props}>
       <div>
-      {
-        !hideRangeValue &&
-        <label className="range-value">{value}</label>
-      }
+        {!hideRangeValue && <label className="range-value">{value}</label>}
       </div>
       <input
         {...{
@@ -81,8 +87,10 @@ function RangeInput (props) {
           min,
           max,
           step,
-          'aria-describedby': hasInputError(meta) ? generateInputErrorId(name) : null,
-          ...filterInvalidDOMProps(rest)
+          'aria-describedby': hasInputError(meta)
+            ? generateInputErrorId(name)
+            : null,
+          ...filterInvalidDOMProps(rest),
         }}
       />
     </LabeledField>
@@ -92,6 +100,4 @@ function RangeInput (props) {
 RangeInput.defaultProps = defaultProps
 RangeInput.propTypes = propTypes
 
-export default compose(
-  blurDirty()
-)(RangeInput)
+export default compose(blurDirty())(RangeInput)

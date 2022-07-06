@@ -13,24 +13,24 @@ import { parseISO } from 'date-fns'
  * - Adapts it to receive `redux-form`-style input props.
  * - Adds name and error labels.
  *
- * With the exception of the `input` and `meta` props, all props are passed down to the `DatePicker` component. 
+ * With the exception of the `input` and `meta` props, all props are passed down to the `DatePicker` component.
  * A full list of props supported by this component can be found [here](https://github.com/Hacker0x01/react-datepicker/blob/master/docs/datepicker.md). Note that unfortunately `aria-*` props are **not** supported.
  *
  * _Note: this component requires special styles in order to render correctly. To include these styles in your project, follow the directions in the main [README](README.md#dateinput-styles) file._
- * 
+ *
  * @name DateInput
  * @type Function
  * @param {Object} input - A `redux-form` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
  * @param {Object} meta - A `redux-form` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @example
- * 
+ *
  * function BirthdayForm ({ handleSubmit }) {
  *   return (
  *     <form onSubmit={ handleSubmit }>
  *       <Field
  *          name="birthday"
  *          component={DateInput}
- *          placeholderText="mm/dd/yyyy" 
+ *          placeholderText="mm/dd/yyyy"
  *        />
  *     </form>
  *   )
@@ -41,14 +41,13 @@ import { parseISO } from 'date-fns'
  */
 
 const propTypes = {
-  ...fieldPropTypesWithValue(PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string,
-  ])),
+  ...fieldPropTypesWithValue(
+    PropTypes.oneOfType([PropTypes.object, PropTypes.string])
+  ),
 }
 
 const defaultProps = {
-  placeholderText: 'MM/DD/YY'
+  placeholderText: 'MM/DD/YY',
 }
 
 /* Ignore test coverage: */
@@ -61,7 +60,7 @@ function parseDate(value) {
   return parseISO(value)
 }
 
-function DateInput (props) {
+function DateInput(props) {
   const {
     input: { name, value, onBlur, onChange },
     meta, // eslint-disable-line no-unused-vars,
@@ -72,10 +71,10 @@ function DateInput (props) {
   const calendarRef = useRef()
 
   return (
-    <LabeledField { ...props }>
+    <LabeledField {...props}>
       <div className="date-input-wrapper">
-        <DatePicker 
-          {...{ 
+        <DatePicker
+          {...{
             id: name,
             name,
             ref: calendarRef,
@@ -93,7 +92,7 @@ function DateInput (props) {
               */
               setTimeout(() => calendarRef.current.setFocus(), 0) // deferFocusInput accomplishes this, but it's likely eliminated during tree shaking since it's never used internally
             },
-            ...rest
+            ...rest,
           }}
         />
       </div>
@@ -104,6 +103,4 @@ function DateInput (props) {
 DateInput.defaultProps = defaultProps
 DateInput.propTypes = propTypes
 
-export default compose(
-  blurDirty()
-)(DateInput)
+export default compose(blurDirty())(DateInput)

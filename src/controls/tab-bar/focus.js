@@ -2,10 +2,10 @@ import { KeyCodes } from '../../utils'
 
 // Funnction that can be passed to event handlers (e.g., onKeyPress) that manages which element should be focused
 // Note: Expected keyboard interaction with arrow keys changes depending on the orientation of the tab list
-function manageFocus (e, { vertical=false }) {
+function manageFocus(e, { vertical = false }) {
   // If not activated while on a tab, then ignore
   if (!isTabControl(e.target)) return
-  
+
   const key = (e.which || e.keyCode || '').toString()
   switch (key) {
     case KeyCodes.DOWN: {
@@ -31,7 +31,7 @@ function manageFocus (e, { vertical=false }) {
       return focusLastControl(e)
     }
     default:
-      // do nothing
+    // do nothing
   }
 }
 
@@ -64,23 +64,27 @@ function focusPreviousControl(e) {
 // ----- PRIVATE HELPERS -----
 
 // Checks if the element is a tab
-function isTabControl (el) {
+function isTabControl(el) {
   return el && el.matches('[role="tab"]')
 }
 
 // Returns the _closest_ adjacent control
 // Note: will wrap around the array (e.g., the closest previous control to the first item is the last item)
-function getAdjacentControl (control, { previous=false }={}) {
+function getAdjacentControl(control, { previous = false } = {}) {
   const controls = getTabs(control)
   const currentIndex = controls.indexOf(control)
-  
-  return previous ? getNthValue(controls, currentIndex - 1) : getNthValue(controls, currentIndex + 1)
+
+  return previous
+    ? getNthValue(controls, currentIndex - 1)
+    : getNthValue(controls, currentIndex + 1)
 }
 
 // Recursively searches for the closest parent tab list
-function getClosestTabList (el) {
+function getClosestTabList(el) {
   if (!el) return
-  return el.matches('[role="tablist"]') ? el : getClosestTabList(el.parentElement)
+  return el.matches('[role="tablist"]')
+    ? el
+    : getClosestTabList(el.parentElement)
 }
 
 // Returns the value at a "safe" index by accounting for indices that exceed the bounds
@@ -92,7 +96,7 @@ function getNthValue(arr, newIndex) {
 }
 
 // Returns an array of tab elements in the tab list corresponding to the target element
-function getTabs (control) {
+function getTabs(control) {
   const tabList = getClosestTabList(control)
   return Array.from(tabList.querySelectorAll('[role="tab"]'))
 }

@@ -16,16 +16,7 @@ const inputProps = {
 }
 
 storiesOf('DateInput', module)
-  .add('default', () => (
-    <DateInput 
-      input={inputProps} 
-      meta={{}}
-    />
-  ))
+  .add('default', () => <DateInput input={inputProps} meta={{}} />)
   .add('custom placeholder', () => (
-    <DateInput 
-      input={inputProps} 
-      meta={{}}
-      placeholderText={'custom'}
-    />
+    <DateInput input={inputProps} meta={{}} placeholderText={'custom'} />
   ))

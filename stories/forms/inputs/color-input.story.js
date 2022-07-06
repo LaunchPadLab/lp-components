@@ -6,20 +6,15 @@ import dynamicInput from '../../dynamic-input'
 
 const ColorInput = dynamicInput({
   valuePath: 'input.value',
-  onChangePath: 'input.onChange'
+  onChangePath: 'input.onChange',
 })(StaticColorInput)
 
 const inputProps = {
   name: 'primaryColor',
   onChange: action('field changed'),
-  onBlur: () => {}
+  onBlur: () => {},
 }
 
-storiesOf('ColorInput', module)
-  .add('default', () => (
-    <ColorInput
-      input={inputProps} 
-      meta={{}}
-    />
-  ))
-  
+storiesOf('ColorInput', module).add('default', () => (
+  <ColorInput input={inputProps} meta={{}} />
+))

@@ -1,9 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { blurDirty, fieldPropTypes, hasInputError, omitLabelProps } from '../helpers'
+import {
+  blurDirty,
+  fieldPropTypes,
+  hasInputError,
+  omitLabelProps,
+} from '../helpers'
 import { LabeledField } from '../labels'
-import { compose, filterInvalidDOMProps, generateInputErrorId } from '../../utils'
+import {
+  compose,
+  filterInvalidDOMProps,
+  generateInputErrorId,
+} from '../../utils'
 
 /**
  *
@@ -54,7 +63,7 @@ const defaultProps = {
   forwardedRef: null,
 }
 
-function Textarea (props) {
+function Textarea(props) {
   const {
     input: { name, value, onBlur, onChange },
     meta,
@@ -66,15 +75,16 @@ function Textarea (props) {
   } = omitLabelProps(props)
   return (
     <LabeledField
-      className={ classnames(className, { 'with-character-count': !hideCharacterCount }) }
-      { ...props }
+      className={classnames(className, {
+        'with-character-count': !hideCharacterCount,
+      })}
+      {...props}
     >
-      {
-        maxLength !== null && !hideCharacterCount &&
+      {maxLength !== null && !hideCharacterCount && (
         <span className="character-count">
-          { `${ value.length }/${ maxLength } characters` }
+          {`${value.length}/${maxLength} characters`}
         </span>
-      }
+      )}
       <textarea
         {...{
           id: name,
@@ -84,7 +94,9 @@ function Textarea (props) {
           onBlur,
           onChange,
           ref: forwardedRef,
-          'aria-describedby': hasInputError(meta) ? generateInputErrorId(name) : null,
+          'aria-describedby': hasInputError(meta)
+            ? generateInputErrorId(name)
+            : null,
           ...filterInvalidDOMProps(rest),
         }}
       />
@@ -95,6 +107,4 @@ function Textarea (props) {
 Textarea.propTypes = propTypes
 Textarea.defaultProps = defaultProps
 
-export default compose(
-  blurDirty()
-)(Textarea)
+export default compose(blurDirty())(Textarea)

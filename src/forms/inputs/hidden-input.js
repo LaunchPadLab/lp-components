@@ -2,7 +2,7 @@ import React from 'react'
 import Input from './input'
 
 /**
- * An Input component that is hidden from the page. The input element is hidden with CSS instead 
+ * An Input component that is hidden from the page. The input element is hidden with CSS instead
  * of using `type="hidden` so that Cypress can still access its value.
  *
  * Aside from being hidden, this component is identical to {@link Input},
@@ -32,10 +32,10 @@ const hiddenStyle = {
   visibility: 'hidden', // removes from tab order AND screen reader
 }
 
-function HiddenInput (props) {
+function HiddenInput(props) {
   return (
-    <div style={ hiddenStyle }>
-      <Input { ...props } />
+    <div style={hiddenStyle}>
+      <Input {...props} />
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import { isServer } from '../../utils'
 
 // Reads files and returns objects with file information and base64 encoded string url
-async function readFilesAsDataUrls (files) {
+async function readFilesAsDataUrls(files) {
   const filePromises = files.map(async (file) => {
     const fileData = await readFile(file)
     return createFileValueObject(file, fileData)
@@ -13,7 +13,7 @@ async function readFilesAsDataUrls (files) {
 // ----- PRIVATE ------
 
 // Read a file and convert it to a base64 string (promisified)
-function readFile (file) {
+function readFile(file) {
   return new Promise((resolve, reject) => {
     if (isServer()) return resolve()
     // eslint-disable-next-line no-undef
@@ -29,7 +29,7 @@ function readFile (file) {
 
 // Copy metadata related to a file, but not the actual File object. These
 // properties are not enumerable / visible in Redux.
-function createFileValueObject (file, dataUrl='') {
+function createFileValueObject(file, dataUrl = '') {
   return {
     name: file.name,
     size: file.size,
@@ -40,4 +40,3 @@ function createFileValueObject (file, dataUrl='') {
 }
 
 export default readFilesAsDataUrls
-

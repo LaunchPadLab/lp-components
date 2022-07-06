@@ -17,30 +17,21 @@ const defaultProps = {
 
 // Wraps the `DropdownCheckboxGroup` component
 
-function DropdownSelect ({ 
-  children,
-  className,
-  selectedValues, 
-}) {
+function DropdownSelect({ children, className, selectedValues }) {
   const [expanded, toggleExpanded] = useToggle()
 
   return (
     <OutsideClickHandler onOutsideClick={() => toggleExpanded(false)}>
       <div className="dropdown-select">
         <div className="select-input" onClick={() => toggleExpanded()}>
-          <p>{ getLabel(selectedValues) }</p>
+          <p>{getLabel(selectedValues)}</p>
         </div>
-        <div 
-          className={ classnames(
-            className,
-            'options', 
-            { 
-              'is-active': expanded,
-            }
-        )}>
-          <div className="scroll-box">
-            { children }
-          </div>
+        <div
+          className={classnames(className, 'options', {
+            'is-active': expanded,
+          })}
+        >
+          <div className="scroll-box">{children}</div>
         </div>
       </div>
     </OutsideClickHandler>
@@ -51,7 +42,7 @@ DropdownSelect.propTypes = propTypes
 
 DropdownSelect.defaultProps = defaultProps
 
-function getLabel (values) {
+function getLabel(values) {
   return values.length ? values.join(', ') : 'None'
 }
 

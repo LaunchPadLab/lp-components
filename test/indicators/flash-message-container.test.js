@@ -21,17 +21,11 @@ test('FlashMessageContainer displays all provided redux-flash messages', () => {
   )
   expect(wrapper.find('div.flash-message.success').exists()).toBe(true)
   expect(
-    wrapper
-      .find('div.flash-message.success > p')
-      .first()
-      .contains('Success!')
+    wrapper.find('div.flash-message.success > p').first().contains('Success!')
   ).toBe(true)
   expect(wrapper.find('div.flash-message.failure').exists()).toBe(true)
   expect(
-    wrapper
-      .find('div.flash-message.failure > p')
-      .first()
-      .contains('Failure!')
+    wrapper.find('div.flash-message.failure > p').first().contains('Failure!')
   ).toBe(true)
 })
 
@@ -48,7 +42,7 @@ test('FlashMessageContainer passes down additional props to each message', () =>
 test('FlashMessageContainer props get overridden by message props', () => {
   const specialFailureMessage = {
     ...failureMessage,
-    props: { 'data-test': 'error-flash' }
+    props: { 'data-test': 'error-flash' },
   }
   const wrapper = mount(
     <FlashMessageContainer
@@ -57,7 +51,9 @@ test('FlashMessageContainer props get overridden by message props', () => {
     />
   )
   expect(wrapper.find('div.flash-message[data-test="flash"]').length).toEqual(1)
-  expect(wrapper.find('div.flash-message[data-test="error-flash"]').length).toEqual(1)
+  expect(
+    wrapper.find('div.flash-message[data-test="error-flash"]').length
+  ).toEqual(1)
 })
 
 test('FlashMessageContainer onDismiss gets invoked with message', () => {

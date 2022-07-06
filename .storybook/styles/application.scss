@@ -15,45 +15,43 @@
  */
 
 // Imports
-@import "../../node_modules/bourbon/core/bourbon";
-@import "../../node_modules/bourbon-neat/core/neat";
- @import "datepicker";
+@import '../../node_modules/bourbon/core/bourbon';
+@import '../../node_modules/bourbon-neat/core/neat';
+@import 'datepicker';
 
- $output-bourbon-deprecation-warnings: false;
+$output-bourbon-deprecation-warnings: false;
 
 // Settings
- @import "settings/settings";
+@import 'settings/settings';
 
+// Base Styles
+@import 'base/typography';
 
- // Base Styles
- @import "base/typography";
+// Exported component styles
+@import '../../src/styles/modal';
 
- // Exported component styles
- @import "../../src/styles/modal";
+// Components List
+@import 'components/buttons';
+@import 'components/footer';
+@import 'components/navigation';
+@import 'components/side-navigation';
+@import 'components/page-header';
+@import 'components/forms';
+@import 'components/table';
+@import 'components/spinner';
+@import 'components/flash';
+@import 'components/grid';
+@import 'components/empty-state';
+@import 'components/expander';
+@import 'components/blade';
+@import 'components/loading-container';
+@import 'components/progress-circle';
+@import 'components/login';
+@import 'components/pagination';
+@import 'components/sidebar-content';
+@import 'components/radio';
+@import 'components/tabs';
 
- // Components List
- @import "components/buttons";
- @import "components/footer";
- @import "components/navigation";
- @import "components/side-navigation";
- @import "components/page-header";
- @import "components/forms";
- @import "components/table";
- @import "components/spinner";
- @import "components/flash";
- @import "components/grid";
- @import "components/empty-state";
- @import "components/expander";
- @import "components/blade";
- @import "components/loading-container";
- @import "components/progress-circle";
- @import "components/login";
- @import "components/pagination";
- @import "components/sidebar-content";
- @import "components/radio";
- @import "components/tabs";
-
- // Page Styles
- @import "pages/main";
- @import "pages/styleguide";
-
+// Page Styles
+@import 'pages/main';
+@import 'pages/styleguide';

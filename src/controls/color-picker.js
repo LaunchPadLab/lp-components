@@ -26,7 +26,7 @@ import { noop, useToggle } from '../utils'
  *     </div>
  *   )
  * }
- * 
+ *
  */
 
 const propTypes = {
@@ -44,31 +44,23 @@ const defaultProps = {
   onClose: noop,
 }
 
-function ColorPicker ({
-  active,
-  value,
-  onChange,
-  onOpen,
-  onClose,
-  ...rest
-}) {
+function ColorPicker({ active, value, onChange, onOpen, onClose, ...rest }) {
   const [expanded, toggleExpanded] = useToggle()
   const isExpanded = active === undefined ? expanded : active
 
   return (
     <div className="color-picker">
-      <span 
+      <span
         className="swatch"
-        style={{ background: value || 'black' }} 
-        onClick={ () => {
+        style={{ background: value || 'black' }}
+        onClick={() => {
           toggleExpanded()
           return onOpen()
-        }} 
+        }}
       />
-      {
-        isExpanded &&
-         <div className="popover">
-          <div 
+      {isExpanded && (
+        <div className="popover">
+          <div
             className="cover"
             onClick={() => {
               toggleExpanded()
@@ -76,13 +68,13 @@ function ColorPicker ({
             }}
           />
           <ChromePicker
-            color={ value }
-            onChange={ ({ hex }) => onChange(hex) }
-            disableAlpha={ true }
-            { ...rest }
+            color={value}
+            onChange={({ hex }) => onChange(hex)}
+            disableAlpha={true}
+            {...rest}
           />
         </div>
-      }
+      )}
     </div>
   )
 }
