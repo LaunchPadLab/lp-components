@@ -101,6 +101,13 @@ storiesOf('SortableTable', module)
       <Column name="active" component={CustomCell} />
     </SortableTable>
   ))
+  .add('with additional valid DOM properties on cell component (per column)', () => (
+    <SortableTable data={tableData}>
+      <Column name="name" tabIndex="-1" />
+      <Column name="age"  data-cy="age" />
+      <Column name="active" aria-label="Active" />
+    </SortableTable>
+  ))
   .add('with custom cell component and its row data', () => (
     <SortableTable data={tableData}>
       <Column name="name" />
@@ -172,7 +179,7 @@ storiesOf('SortableTable', module)
       </SortableTable>
     </div>
   ))
-  .add('with custom value getter, custom sorter, iniital column', () => (
+  .add('with custom value getter, custom sorter, initial column', () => (
     <div>
       <h2>"Name and Age" column combines name and age, sorted by age portion, initial column</h2>
       <SortableTable data={tableData} initialColumn="nameAndAge">

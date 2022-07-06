@@ -3,7 +3,7 @@ import { wrapDisplayName, set } from '../../utils'
 
 /**
  *
- * A function that returns an HOC to wrap a `redux-forms`-controlled input. 
+ * A function that returns an HOC to wrap a `redux-form`-controlled input. 
  *
  * This HOC transforms empty string values into a different specified value.
  * This helps inputs with non-string values avoid PropType errors when provided with 

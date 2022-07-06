@@ -203,7 +203,7 @@ test('column can have a column-specific custom header component', () => {
   expect(wrapper.find(MyHeader).first().props().column.name).toEqual('name')
 })
 
-test('initialColumn determines inital sortPath and sortFunc', () => {
+test('initialColumn determines initial sortPath and sortFunc', () => {
   const mySort = jest.fn(compareAtPath('name', sortAscending))
   const wrapper = mount(
     <SortableTable data={tableData} initialColumn="name">
@@ -273,7 +273,7 @@ test('`placeholder` option is displayed if value is `null` or `undefined`', () =
   expect(wrapper.find('td').last().text()).toEqual('placeholder')
 })
 
-test('can recieve custom class name', () => {
+test('can receive custom class name', () => {
   const data = [
     { name: null },
     { name: undefined },
@@ -366,4 +366,49 @@ test('invalid arbitrary props filtered out', () => {
     </SortableTable>
   )
   expect(wrapper.find('table').first().prop('invalidProp')).toBe(undefined)
+})
+
+test('passes valid DOM props to cells', () => {
+  const wrapper = mount(
+      <SortableTable data={tableData}>
+        <Column name="name" data-cy="name"/>
+      </SortableTable>
+    )
+  expect(wrapper.find('td').first().prop('data-cy')).toEqual('name')
+})
+
+test('does not pass invalid DOM props to cells', () => {
+  const wrapper = mount(
+      <SortableTable data={tableData}>
+        <Column name="name" customAttribute="custom"/>
+      </SortableTable>
+    )
+  expect(wrapper.find('td').first().prop('customAttribute')).toBe(undefined)
+})
+
+test('does not render a caption element by default', () => {
+  const wrapper = mount(
+    <SortableTable data={tableData}>
+      <Column name="name" />
+    </SortableTable>
+  )
+  expect(wrapper.find('caption').exists()).toBe(false)
+})
+
+test('renders a caption element when provided as the first descendant', () => {
+  const wrapper = mount(
+    <SortableTable data={tableData} caption="My Table">
+      <Column name="name" />
+    </SortableTable>
+  )
+  expect(wrapper.find('table').childAt(0).type()).toBe('caption')
+})
+
+test('renders a caption element with whatever is provided', () => {
+  const wrapper = mount(
+    <SortableTable data={tableData} caption={<span className="custom-caption">My Table</span>}>
+      <Column name="name" />
+    </SortableTable>
+  )
+  expect(wrapper.find('.custom-caption').text()).toBe('My Table')
 })

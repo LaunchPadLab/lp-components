@@ -1,7 +1,7 @@
 language: node_js
 cache: yarn
 before_script:
-  - 'yarn lint'
+  - 'yarn lint --max-warnings=0'
   - 'yarn size'
 notifications:
   email: false

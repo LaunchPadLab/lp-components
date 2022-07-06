@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import ReactModal from 'react-modal'
 import { isServer } from './utils'
+import classnames from 'classnames'
 
 /**
  * A modal component with a built-in close button. Uses [`react-modal`](https://github.com/reactjs/react-modal) under the hood, and can accept any props `react-modal` does.
@@ -13,7 +14,10 @@ import { isServer } from './utils'
  * @name Modal
  * @type Function
  * @param {Function} onClose - A handler for closing the modal. May be triggered via the close button, and outside click, or a key press.
- * @param {Boolean} [hideCloseButton] - A flag for hiding the default close button.
+ * @param {String|Object} [className=""] - Additional class to append to the base class of the modal (modal-inner). See [React Modal's style documentation](http://reactcommunity.org/react-modal/styles/classes/#for-the-content-and-overlay) for more details.
+ * @param {String|Object} [overlayClassName=""] - Additional class to append to the base class of the modal overlay (modal-fade-screen). See [React Modal's style documentation](http://reactcommunity.org/react-modal/styles/classes/#for-the-content-and-overlay) for more details.
+ * @param {Boolean} [isOpen=true] - A flag for showing the modal.
+ * @param {Boolean} [preventClose=false] - A flag for preventing the modal from being closed (close button, escape, or overlay click).
  *
  * @example
  *
@@ -38,49 +42,71 @@ import { isServer } from './utils'
  * }
  */
 
+const classNameObject = PropTypes.shape({
+  base: PropTypes.string.isRequired,
+  afterOpen: PropTypes.string.isRequired,
+  beforeClose: PropTypes.string.isRequired,
+})
+
 const propTypes = {
-  onClose: PropTypes.func.isRequired,
-  hideCloseButton: PropTypes.bool,
   children: PropTypes.node,
+  className: PropTypes.oneOfType([PropTypes.string, classNameObject]),
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func.isRequired,
+  overlayClassName: PropTypes.oneOfType([PropTypes.string, classNameObject]),
+  preventClose: PropTypes.bool,
 }
 
 const defaultProps = {
-  hideCloseButton: false,
+  className: "",
+  overlayClassName: "",
+  isOpen: true,
+  preventClose: false,
 }
 
 function getRootElement() {
   // Skip in SSR mode
   if (isServer()) return
   // eslint-disable-next-line no-undef
-  return window.document.querySelector('body')
+  return window.document.querySelector('#root')
+}
+
+function wrapClassName(base, additional) {
+  if (typeof additional === 'object') {
+    return { ...additional, base: classnames(base, additional.base) }
+  }
+
+  return classnames(base, additional)
 }
 
 // A wrapper for react-modal that adds some styles and a close button.
 // See https://github.com/reactjs/react-modal for usage.
-function Modal({ onClose, hideCloseButton, children, ...rest }) {
+function Modal({ isOpen, onClose, preventClose, children, className, overlayClassName, ...rest }) {
+  const canClose = !preventClose
   return (
     <ReactModal
-      isOpen
+      isOpen={isOpen}
       onRequestClose={onClose}
       portalClassName="modal"
-      className="modal-inner"
-      overlayClassName="modal-fade-screen"
+      className={wrapClassName("modal-inner", className)}
+      overlayClassName={wrapClassName("modal-fade-screen", overlayClassName)}
       bodyOpenClassName="modal-open"
       appElement={getRootElement()}
-      ariaHideApp={isServer()} // Opt out of setting appElement on the server.
+      ariaHideApp={!isServer()} // Opt out of manipulating appElement on the server.
+      shouldCloseOnEsc={canClose}
+      shouldCloseOnOverlayClick={canClose}
       {...rest}
     >
       <div className="modal-content">{children}</div>
-      {!!onClose && !hideCloseButton && (
-        <>
-          <button
-            onClick={onClose}
-            className="modal-close"
-            aria-label="Close Modal"
-          >
-            ×
-          </button>
-        </>
+      {canClose && (
+        <button
+          type="button"
+          onClick={onClose}
+          className="modal-close"
+          aria-label="Close Modal"
+        >
+          ×
+      </button>
       )}
     </ReactModal>
   )

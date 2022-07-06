@@ -29,26 +29,34 @@ import FlashMessage from './flash-message'
 const propTypes = {
   messages: PropTypes.arrayOf(flashMessageType).isRequired,
   limit: PropTypes.number,
+  onDismiss: PropTypes.func,
 }
 
 const defaultProps = {
   limit: 5,
+  onDismiss: null,
 }
 
-function FlashMessageContainer({ messages, limit, ...rest }) {
+function FlashMessageContainer({ messages, limit, onDismiss, ...rest }) {
   const messagesToDisplay = messages.slice(0, limit)
   return (
     <div className="flash-message-container" role="alert">
-      {messagesToDisplay.map((message) => (
-        <FlashMessage
-          key={message.id}
-          isError={message.isError}
-          {...message.props}
-          {...rest}
-        >
-          <p>{message.message}</p>
-        </FlashMessage>
-      ))}
+      {messagesToDisplay.map((message) => {
+        const _onDismiss = message.props.onDismiss || onDismiss
+        const onMessageDismiss = _onDismiss ? () => _onDismiss(message) : null
+        return (
+          <FlashMessage
+            key={message.id}
+            message={message}
+            isError={message.isError}
+            {...rest}
+            {...message.props}
+            onDismiss={onMessageDismiss}
+          >
+            <p>{message.message}</p>
+          </FlashMessage>
+        )
+      })}
     </div>
   )
 }

@@ -9,7 +9,7 @@ import { InputLabel }from '../labels'
 
 /**
  *
- * A group of checkboxes that can be used in a `redux-forms`-controlled form. 
+ * A group of checkboxes that can be used in a `redux-form`-controlled form. 
  * Wraps the {@link CheckboxGroup} component in a {@link DropdownSelect} component, which displays the selected values as a list.
  * Options are displayed in a scrollable `Select`-style dropdown container.
  *
@@ -22,8 +22,8 @@ import { InputLabel }from '../labels'
  *
  * @name DropdownCheckboxGroup
  * @type Function
- * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
- * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+ * @param {Object} input - A `redux-form` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
+ * @param {Object} meta - A `redux-form` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @param {Array} options - An array of checkbox values (strings or key-value pairs)
  * @example
  *
@@ -60,7 +60,7 @@ function DropdownCheckboxGroup (props) {
     <fieldset>
       <InputLabel { ...{ label, name } } />
       <DropdownSelect selectedValues={ value } className="checkboxes">
-        <CheckboxGroup { ...props } label={ false } />
+        <CheckboxGroup { ...props } label={false} />
       </DropdownSelect>
     </fieldset>
   )

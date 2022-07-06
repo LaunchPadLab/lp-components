@@ -133,6 +133,14 @@ select{
   }
 }
 
+/*-----------------------
+Radio
+-----------------------*/
+.RadioGroup {
+  label {
+    cursor: pointer;
+  }
+}
 
 /*-----------------------
 Checkbox
@@ -197,6 +205,19 @@ input[type="checkbox"]{
   }
 }
 
+/*-----------------------
+Disabled
+-----------------------*/
+
+.disabled {
+  label {
+    cursor: default;
+  }
+
+  input[type="checkbox"], input[type="radio"] {
+    cursor: not-allowed;
+  }
+}
 
 /*-----------------------
 Error
@@ -305,7 +326,7 @@ Uploader
     }
   }
 
-  .button-secondary-light>input{
+  input[type="file"]{
     position:absolute;
     top:0;
     right:0;

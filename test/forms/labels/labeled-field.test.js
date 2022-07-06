@@ -17,6 +17,13 @@ test('adds error class when touched and invalid', () => {
   expect(wrapper.find('fieldset').hasClass('error')).toEqual(true)
 })
 
+test('adds disabled class when disabled', () => {
+  const Wrapped = () => <input name="test"/>
+  const props = { input: { name: 'foo' }, meta: {}, disabled: true }
+  const wrapper = mount(<LabeledField { ...props } ><Wrapped /></LabeledField>)
+  expect(wrapper.find('fieldset').hasClass('disabled')).toEqual(true)
+})
+
 test('adds InputLabel and InputError', () => {
   const Wrapped = () => <input name="test"/>
   const props = { input: { name: 'foo' }, meta: { touched: true, invalid: true } }
