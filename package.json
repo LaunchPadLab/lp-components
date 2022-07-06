@@ -24,7 +24,7 @@
     "build:development": "BABEL_ENV=esm babel src --watch --out-dir esm",
     "clean": "rm -rf lib esm",
     "docs": "documentation build src/index.js -f md -o docs.md",
-    "format": "prettier --write \"./**/*.+(js|jsx|json|scss)\"",
+    "format": "prettier --write \"(src|test|stories|.storybook)/**/*.+(js|jsx|json|scss)\"",
     "lint": "eslint src --max-warnings=0",
     "prepare": "husky install",
     "prepublishOnly": "yarn run clean && yarn run build",
