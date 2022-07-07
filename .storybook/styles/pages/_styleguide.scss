@@ -1,32 +1,32 @@
 /*-----------------------
 Styleguide
 -----------------------*/
-.styleguide{
-  .styleguide-fields fieldset{
+.styleguide {
+  .styleguide-fields fieldset {
     margin-top: 0px;
   }
 
-  h5:not(:first-child){
+  h5:not(:first-child) {
     @include rem(margin-top, 20px);
   }
 
-  .styleguide-sidebar{
-    .side-navigation{
+  .styleguide-sidebar {
+    .side-navigation {
       margin-top: 0px;
       position: relative;
     }
   }
-  .styleguide-header{
-    .navigation{
+  .styleguide-header {
+    .navigation {
       position: relative;
     }
   }
 
-  &.content{
-    &.with-sidebar{
-      .content-container{
-        .card{
-          @media ($tablet-landscape){
+  &.content {
+    &.with-sidebar {
+      .content-container {
+        .card {
+          @media ($tablet-landscape) {
             float: inherit;
             width: 100%;
           }
@@ -36,17 +36,17 @@ Styleguide
   }
 }
 
-.code-header{
+.code-header {
   border-bottom: 1px solid $white-med;
   @include rem(margin-bottom, 20px);
   @include rem(padding-bottom, 20px);
 
-  &:not(:first-child){
+  &:not(:first-child) {
     @include rem(margin-top, 60px);
   }
 }
 
-xmp{
+xmp {
   background-color: rgba(lighten($blue-base, 35%), 0.5);
   @include rem(padding, 20px);
   white-space: pre-wrap;

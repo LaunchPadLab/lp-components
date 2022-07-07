@@ -1,33 +1,32 @@
 // Typography Variables
 // ========================================
 
-  // Font Families
+// Font Families
 
-  $primary-sans-serif: 'Rubik', sans-serif;
+$primary-sans-serif: 'Rubik', sans-serif;
 
+// Sizes
+$font-size-base: 14px;
 
-  // Sizes
-  $font-size-base: 14px;
+$s-giga: 60px;
+$s-mega: 38px;
 
-  $s-giga:    60px;
-  $s-mega:    38px;
+$s-huge: 36px;
+$s-large: 27px;
+$s-bigger: 20px;
+$s-big: 20px;
+$s-medium: 16px;
+$s-base: 14px;
+$s-small: 12px;
+$s-tiny: 10px;
 
-  $s-huge:    36px;
-  $s-large:   27px;
-  $s-bigger:  20px;
-  $s-big:     20px;
-  $s-medium:  16px;
-  $s-base:    14px;
-  $s-small:   12px;
-  $s-tiny:    10px;
+// Line Heights
+$base-line-height: $font-size-base * 1.9;
+$base-line-loose: $font-size-base * 2.2;
+$base-line-small: $font-size-base;
 
-  // Line Heights
-  $base-line-height: $font-size-base * 1.9;
-  $base-line-loose: $font-size-base * 2.2;
-  $base-line-small:  $font-size-base;
-
-  // Font Weights
-  $light: 300;
-  $regular: 400;
-  $bold: 700;
-  $heavy: 900;
+// Font Weights
+$light: 300;
+$regular: 400;
+$bold: 700;
+$heavy: 900;

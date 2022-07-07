@@ -10,16 +10,16 @@
  * @returns {String} String with namespace removed
  *
  * @example
- * 
+ *
  * const namespace = 'user.profile.name'
- * 
+ *
  * stripNamespace(namespace)
  *
  * // 'name'
  *
  */
 
-function stripNamespace (str) {
+function stripNamespace(str) {
   if (!str || typeof str !== 'string') return str
   return str.split('.').pop()
 }

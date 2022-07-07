@@ -40,7 +40,7 @@ import classnames from 'classnames'
  * @param {String} [thumbnail] - A placeholder image to display before the file is loaded
  * @param {Boolean} [hidePreview=false] - A flag indicating whether or not to hide the file preview
  * @param {String} [selectText] - An override for customizing the text that is displayed on the input's label. Defaults to 'Select File' or 'Select File(s)' depending on the `multiple` prop value
- * 
+ *
  * @example
  *
  * function HeadshotForm ({ handleSubmit, pristine, invalid, submitting }) {
@@ -119,26 +119,30 @@ function FileInput(props) {
     }
   }
 
-  const removeFile = useCallback(async (idx) => {
-    const { onChange, value } = input
-    const [removedFile, remainingFiles] = removeAt(value, idx)
+  const removeFile = useCallback(
+    async (idx) => {
+      const { onChange, value } = input
+      const [removedFile, remainingFiles] = removeAt(value, idx)
 
-    try {
-      await onRemove(removedFile)
+      try {
+        await onRemove(removedFile)
 
-      // If all files have been removed, then reset the native input
-      if (!remainingFiles.length) clearFileInput()
+        // If all files have been removed, then reset the native input
+        if (!remainingFiles.length) clearFileInput()
 
-      return onChange(remainingFiles)
-    } catch (e) {
-      setErrors(e)
-    }
-  }, [input, onRemove])
+        return onChange(remainingFiles)
+      } catch (e) {
+        setErrors(e)
+      }
+    },
+    [input, onRemove]
+  )
 
   // Automatically select only the first file if `multiple` changes to false
   useEffect(() => {
     // Only subscribe to _changes_ in the prop (not initial mount)
-    if (multiple || prevMultiple === undefined || prevMultiple === multiple) return
+    if (multiple || prevMultiple === undefined || prevMultiple === multiple)
+      return
 
     const { value, onChange } = input
     const valueToUpdate = value.slice(0, 1)
@@ -153,19 +157,31 @@ function FileInput(props) {
   const files = values.length > 0 ? values : [null]
 
   return (
-  <LabeledField { ...props } meta={ inputMeta }>
+    <LabeledField {...props} meta={inputMeta}>
       <div className="fileupload fileupload-exists">
-        {!hidePreview &&
+        {!hidePreview && (
           <React.Fragment>
             {files.map((file, idx) => (
-              <div key={file?.name || idx} className="fileupload-preview-container">
+              <div
+                key={file?.name || idx}
+                className="fileupload-preview-container"
+              >
                 <RenderPreview file={file} thumbnail={thumbnail} {...rest} />
-                {file && <RemoveComponent file={file} onRemove={() => removeFile(idx)} />}
+                {file && (
+                  <RemoveComponent
+                    file={file}
+                    onRemove={() => removeFile(idx)}
+                  />
+                )}
               </div>
             ))}
           </React.Fragment>
-        }
-        <div className={classnames('button-secondary-light', { 'in-progress': submitting })}>
+        )}
+        <div
+          className={classnames('button-secondary-light', {
+            'in-progress': submitting,
+          })}
+        >
           <input
             {...{
               id: input.name,
@@ -179,7 +195,8 @@ function FileInput(props) {
                   const newFiles = removeExistingFiles(files, values)
                   const newFilesWithUrls = await readFiles(newFiles)
                   if (!newFilesWithUrls) return
-                  if (!multiple) return input.onChange(newFilesWithUrls.slice(0, 1))
+                  if (!multiple)
+                    return input.onChange(newFilesWithUrls.slice(0, 1))
                   return input.onChange([...values, ...newFilesWithUrls])
                 } catch (e) {
                   setErrors(e)
@@ -189,11 +206,15 @@ function FileInput(props) {
               multiple,
               capture,
               ref: inputRef,
-              'aria-describedby': hasInputError(meta) ? generateInputErrorId(input.name) : null,
+              'aria-describedby': hasInputError(meta)
+                ? generateInputErrorId(input.name)
+                : null,
             }}
           />
           {/* Include after input to allowing for styling with adjacent sibling selector */}
-          <label htmlFor={input.name} className="fileupload-exists">{ labelText }</label>
+          <label htmlFor={input.name} className="fileupload-exists">
+            {labelText}
+          </label>
         </div>
       </div>
     </LabeledField>
@@ -201,7 +222,7 @@ function FileInput(props) {
 }
 
 // Do not reload files that have been successfully loaded
-function removeExistingFiles (newFiles, existingFiles) {
+function removeExistingFiles(newFiles, existingFiles) {
   return newFiles.filter((file) => {
     return !existingFiles.some(({ name, lastModified }) => {
       return name === file.name && lastModified === file.lastModified
@@ -209,32 +230,34 @@ function removeExistingFiles (newFiles, existingFiles) {
   })
 }
 
-function setInputErrors (meta, fieldWideErrors) {
+function setInputErrors(meta, fieldWideErrors) {
   if (meta.error || !fieldWideErrors) return meta
   return {
     ...meta,
-    error: isString(fieldWideErrors) ? fieldWideErrors : fieldWideErrors.message,
+    error: isString(fieldWideErrors)
+      ? fieldWideErrors
+      : fieldWideErrors.message,
     touched: true,
     invalid: true,
   }
 }
 
 // eslint-disable-next-line react/prop-types
-function RenderPreview ({
+function RenderPreview({
   file,
   thumbnail,
   previewComponent: Component,
   children,
   ...rest
 }) {
-  if (Component) return <Component file={ file } { ...rest } />
+  if (Component) return <Component file={file} {...rest} />
   if (children) return children
   const renderImagePreview = isImageType(file) || thumbnail
-  if (renderImagePreview) return <ImagePreview image={ file?.url || thumbnail } />
-  return <FilePreview name={ file?.name } />
+  if (renderImagePreview) return <ImagePreview image={file?.url || thumbnail} />
+  return <FilePreview name={file?.name} />
 }
 
-function RemoveButton ({ file, onRemove }) {
+function RemoveButton({ file, onRemove }) {
   return (
     <button
       type="button"

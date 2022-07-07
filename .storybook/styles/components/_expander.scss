@@ -9,13 +9,13 @@ Expander
     text-decoration: none;
     @include rem(margin, 0px -20px);
 
-    @media ($tablet){
+    @media ($tablet) {
       @include rem(margin, 0px -40px);
       @include rem(padding, 10px 40px);
     }
 
     &:before {
-      content: "+";
+      content: '+';
       color: $grey-light;
       height: 34px;
       display: inline-block;
@@ -27,13 +27,13 @@ Expander
     }
   }
 
-  .expander-content{
+  .expander-content {
     display: none;
   }
 
   .is-active {
     &:before {
-      content: "–";
+      content: '–';
       color: $green-base;
       font-weight: $bold;
     }

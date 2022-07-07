@@ -7,35 +7,32 @@ import dynamicInput from '../../dynamic-input'
 const FileInput = dynamicInput({
   valuePath: 'input.value',
   initialValue: [],
-  onChangePath: 'input.onChange'
+  onChangePath: 'input.onChange',
 })(StaticFileInput)
 
 const inputProps = {
   name: 'person.firstName',
-  onChange: action('field changed')
+  onChange: action('field changed'),
 }
 
 // eslint-disable-next-line react/prop-types
-function FilenamePreview ({ file }) {
+function FilenamePreview({ file }) {
   if (!file) return null
   const lastModified = new Date(file.lastModified)
-  const formattedDate = `${lastModified.getMonth() + 1}/${lastModified.getDate()}/${lastModified.getFullYear()}`
-  return <p>{ file.name } <i>(Modified: { formattedDate })</i></p>
+  const formattedDate = `${
+    lastModified.getMonth() + 1
+  }/${lastModified.getDate()}/${lastModified.getFullYear()}`
+  return (
+    <p>
+      {file.name} <i>(Modified: {formattedDate})</i>
+    </p>
+  )
 }
 
 storiesOf('FileInput', module)
-  .add('with defaults', () => (
-    <FileInput
-      input={inputProps}
-      meta={{}}
-    />
-  ))
+  .add('with defaults', () => <FileInput input={inputProps} meta={{}} />)
   .add('with hidden preview', () => (
-    <FileInput
-      input={inputProps}
-      meta={{}}
-      hidePreview
-    />
+    <FileInput input={inputProps} meta={{}} hidePreview />
   ))
   .add('with custom preview', () => (
     <FileInput
@@ -48,20 +45,12 @@ storiesOf('FileInput', module)
     <FileInput
       input={inputProps}
       meta={{}}
-      thumbnail={"https://via.placeholder.com/150"}
+      thumbnail={'https://via.placeholder.com/150'}
     />
   ))
   .add('with accepting only images', () => (
-    <FileInput
-      input={inputProps}
-      meta={{}}
-      accept="image/*"
-    />
+    <FileInput input={inputProps} meta={{}} accept="image/*" />
   ))
   .add('with multiple files', () => (
-    <FileInput
-      input={inputProps}
-      meta={{}}
-      multiple={true}
-    />
+    <FileInput input={inputProps} meta={{}} multiple={true} />
   ))

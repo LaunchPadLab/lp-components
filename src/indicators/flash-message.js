@@ -49,7 +49,12 @@ function FlashMessage({ children, isError, onDismiss, className, ...rest }) {
       {...rest}
     >
       {onDismiss && (
-        <button type="button" className="dismiss" onClick={() => onDismiss()} aria-label="Dismiss">
+        <button
+          type="button"
+          className="dismiss"
+          onClick={() => onDismiss()}
+          aria-label="Dismiss"
+        >
           ×
         </button>
       )}

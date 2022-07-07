@@ -1,10 +1,9 @@
-
 .pagination {
   margin: 0 auto;
   display: table;
   padding: 2px 2px 3px 1px;
 
-  ul{
+  ul {
     margin: 0;
     padding: 0;
     list-style: none;
@@ -43,11 +42,11 @@
     padding: 4px 10px;
     border: 1px solid #d9d9d9;
     border-top-color: $grey-light;
-    box-shadow: 0 3px 5px rgba(0,0,0,0.14);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.14);
     color: #666;
     text-decoration: none;
   }
-  
+
   a:focus {
     outline: auto;
     outline-color: $blue-base;

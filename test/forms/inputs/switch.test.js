@@ -10,16 +10,16 @@ test('Switch toggles value when clicked', () => {
       value: false,
       onChange,
     },
-    meta: {}
+    meta: {},
   }
-  const wrapper = mount(<Switch { ...props }/>)
+  const wrapper = mount(<Switch {...props} />)
   wrapper.find('input').simulate('change')
   const newValue = onChange.mock.calls[0][0]
   expect(newValue).toEqual(true)
 })
 
 test('Switch is given an aria-describedby attribute when there is an input error', () => {
-  const name = "test"
+  const name = 'test'
   const props = {
     input: {
       name,
@@ -28,8 +28,8 @@ test('Switch is given an aria-describedby attribute when there is an input error
     meta: {
       touched: true,
       invalid: true,
-    }
+    },
   }
-  const wrapper = mount(<Switch { ...props }/>)
+  const wrapper = mount(<Switch {...props} />)
   expect(wrapper.find('input').prop('aria-describedby')).toContain(name)
 })

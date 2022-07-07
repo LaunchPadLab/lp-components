@@ -1,7 +1,7 @@
 import { castArray } from '../../utils'
 
 // Casts value(s) to an array
-function castFormValueToArray (value) {
+function castFormValueToArray(value) {
   if (!value) return []
   return castArray(value)
 }

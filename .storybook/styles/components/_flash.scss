@@ -1,18 +1,18 @@
 /*-----------------------
 Flash
 -----------------------*/
-.flash-message-container{
+.flash-message-container {
   @include position(absolute, 0px 0px null 0px);
 }
 
-.flash-message{
+.flash-message {
   @include rem(padding, 10px 20px);
   animation: fade-in 0.5s ease-in;
   width: 50%;
   margin: 0 auto;
   text-align: center;
 
-  p{
+  p {
     text-align: center;
   }
 
@@ -24,26 +24,28 @@ Flash
     font-size: $s-base;
   }
 
-  &.success{
+  &.success {
     background-color: $green-light;
     border: 1px solid $green-base;
 
-    p, button{
+    p,
+    button {
       color: $green-base;
     }
   }
 
-  &.failure{
+  &.failure {
     background-color: $red-light;
     border: 1px solid $red-base;
 
-    p, button{
+    p,
+    button {
       color: $red-base;
     }
   }
 }
 
-.styleguide-flash{
+.styleguide-flash {
   position: relative;
   height: 50px;
 }

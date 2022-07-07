@@ -18,8 +18,8 @@
  *
  */
 
-export default function serializeOptions (optionArray) {
+export default function serializeOptions(optionArray) {
   return optionArray.map((option) => {
-    return (typeof option === 'object') ? option : { key: option, value: option }
+    return typeof option === 'object' ? option : { key: option, value: option }
   })
 }

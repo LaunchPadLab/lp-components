@@ -8,13 +8,13 @@ import classnames from 'classnames'
  * A simple button component that can be used independently, or as part of a form.
  *
  * Conditionally adds classes and/or sets aria-disabled depending on passed props. If the button is `disabled` or `submitting`, the `onClick` handler will be overridden with a `noop`. This is especially helpful when preventing duplicate form submissions for **both** mouse and keyboard actions.
- * 
+ *
  * In addition to the props below, any extra props will be passed directly to the inner `<button>` element.
- * 
+ *
  * If a className is provided to the component, it will be appended to the conditionally added classes.
- * 
+ *
  * _Note: Instead of targeting the `:disabled` pseudo-class or `[disabled]` attribute, you can target `[aria-disabled=true]` to apply similar styling. Using the ARIA attribute keeps the `<button>` in the taborder and will be read as "disabled" or "dimmed" by screen reader technologies. You can also target `.is-disabled` which gets added as a class based on the same conditions that set `aria-disabled`._
- * 
+ *
  * @name Button
  * @type Function
  * @param {Boolean} [invalid] - Whether or not a related form is invalid (will set aria-disabled when `true`)
@@ -24,13 +24,13 @@ import classnames from 'classnames'
  * @param {Boolean} [type="button"] - The [type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type) attribute of the button element
  * @param {Function} [children] - Any React component(s) being wrapped by the button
  * @example
- * 
+ *
  * function MessageButton ({ message }) {
  *   return (
  *      <Button
  *        variant="secondary"
  *        onClick={ () => console.log(message) }
- *      > 
+ *      >
  *        Print Message
  *      </Button>
  *   )
@@ -41,14 +41,14 @@ import classnames from 'classnames'
  */
 
 const propTypes = {
-  invalid:    PropTypes.bool,
-  pristine:   PropTypes.bool,
-  variant:    PropTypes.string,
+  invalid: PropTypes.bool,
+  pristine: PropTypes.bool,
+  variant: PropTypes.string,
   submitting: PropTypes.bool,
-  type:       PropTypes.string.isRequired,
-  children:   PropTypes.node,
-  className:  PropTypes.string,
-  onClick:    PropTypes.func,
+  type: PropTypes.string.isRequired,
+  children: PropTypes.node,
+  className: PropTypes.string,
+  onClick: PropTypes.func,
 }
 
 const defaultProps = {
@@ -58,41 +58,55 @@ const defaultProps = {
   onClick: noop,
 }
 
-function calculateClassName ({ className, variant, pristine, invalid, submitting }) {
+function calculateClassName({
+  className,
+  variant,
+  pristine,
+  invalid,
+  submitting,
+}) {
   return classnames(
     `button-${variant}`,
     {
       'is-disabled': pristine || invalid,
       'in-progress': submitting,
     },
-    className,
+    className
   )
 }
 
-
 // eslint-disable-next-line no-unused-vars
-const Button = React.forwardRef(function Button({
-  children,
-  type,
-  variant,
-  pristine,
-  invalid,
-  submitting,
-  className,
-  onClick,
-  ...rest
-}, ref) {
+const Button = React.forwardRef(function Button(
+  {
+    children,
+    type,
+    variant,
+    pristine,
+    invalid,
+    submitting,
+    className,
+    onClick,
+    ...rest
+  },
+  ref
+) {
   const disabled = pristine || invalid
   return (
     <button
-      type={ type }
+      type={type}
       ref={ref}
-      className={ calculateClassName({ className, variant, pristine, invalid, submitting }) }
-      aria-disabled={ pristine || invalid }
-      onClick={ (disabled || submitting) ? noop : onClick }
-      { ...rest }
+      className={calculateClassName({
+        className,
+        variant,
+        pristine,
+        invalid,
+        submitting,
+      })}
+      aria-disabled={pristine || invalid}
+      onClick={disabled || submitting ? noop : onClick}
+      {...rest}
     >
-      { children }
+      {children}
     </button>
   )
 })

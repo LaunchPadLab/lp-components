@@ -9,33 +9,31 @@ const tableData = [
 ]
 
 // eslint-disable-next-line react/prop-types
-function CustomCell ({ value }) {
+function CustomCell({ value }) {
   const color = value === 'yes' ? 'green' : 'red'
-  return (
-    <td style={{ color }}>{ value }</td>
-  )
+  return <td style={{ color }}>{value}</td>
 }
 
 storiesOf('Table', module)
   .add('default', () => (
-    <Table data={ tableData }>
+    <Table data={tableData}>
       <Column name="name" />
       <Column name="age" />
       <Column name="active" />
     </Table>
   ))
   .add('with custom labels', () => (
-    <Table data={ tableData }>
+    <Table data={tableData}>
       <Column name="name" label="FIRST NAME" />
       <Column name="age" label="AGE" />
       <Column name="active" label="IS ACTIVE" />
     </Table>
   ))
   .add('with custom component', () => (
-    <Table data={ tableData }>
+    <Table data={tableData}>
       <Column name="name" />
       <Column name="age" />
-      <Column name="active" component={ CustomCell } />
+      <Column name="active" component={CustomCell} />
     </Table>
   ))
   .add('with caption', () => (
@@ -46,7 +44,10 @@ storiesOf('Table', module)
     </Table>
   ))
   .add('with customized caption', () => (
-    <Table data={tableData} caption={<span className="custom-caption">Participant Attributes</span>}>
+    <Table
+      data={tableData}
+      caption={<span className="custom-caption">Participant Attributes</span>}
+    >
       <Column name="name" />
       <Column name="age" />
       <Column name="active" />

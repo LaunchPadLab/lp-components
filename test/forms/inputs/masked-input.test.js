@@ -24,8 +24,10 @@ test('MaskedInput accepts forwarded ref attribute', () => {
 
 test('MaskedInput accepts forwarded callback ref', () => {
   const ref = React.createRef()
-  const callbackRef = (el) => ref.current = el
-  const wrapper = mount(<MaskedInput input={input} meta={{}} htmlRef={callbackRef} />)
+  const callbackRef = (el) => (ref.current = el)
+  const wrapper = mount(
+    <MaskedInput input={input} meta={{}} htmlRef={callbackRef} />
+  )
   expect(wrapper.find('input').prop('id')).toEqual(ref.current.id)
 })
 

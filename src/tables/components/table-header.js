@@ -11,25 +11,25 @@ const propTypes = {
   onClick: PropTypes.func,
 }
 
-function TableHeader ({ 
+function TableHeader({
   column: { name, label, disabled },
   sortPath,
   ascending,
   onClick,
 }) {
-  const active = (sortPath === name)
+  const active = sortPath === name
   const arrowClass = getArrowClass(active, ascending)
   return (
     <th
-      onClick={ onClick }
-      className={ classnames(arrowClass, { 'sortable': !disabled }) }
+      onClick={onClick}
+      className={classnames(arrowClass, { sortable: !disabled })}
     >
-      { label || startCase(name) }
+      {label || startCase(name)}
     </th>
   )
 }
 
-function getArrowClass (active, ascending) {
+function getArrowClass(active, ascending) {
   if (!active) return ''
   return ascending ? 'order-ascend' : 'order-descend'
 }

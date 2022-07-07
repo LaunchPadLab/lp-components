@@ -60,7 +60,7 @@ const propTypes = {
   children: PropTypes.node,
   hint: PropTypes.string,
   id: PropTypes.string,
-  label: PropTypes.oneOfType([ PropTypes.string, PropTypes.bool ]),
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   name: PropTypes.string.isRequired,
   tooltip: PropTypes.string,
   required: PropTypes.bool,
@@ -78,7 +78,7 @@ const defaultProps = {
   className: '',
 }
 
-function InputLabel ({
+function InputLabel({
   children,
   hint,
   id,
@@ -91,33 +91,35 @@ function InputLabel ({
 }) {
   const [tooltipShown, toggleTooltipShown] = useToggle()
   const labelToDisplay = children || label || convertNameToLabel(name)
-  
+
   return (
     <span>
-      {
-        label !== false &&
-        <label htmlFor={ id || name } className={ className }>
-          { labelToDisplay }
-          {
-            required && requiredIndicator &&
-            <span className="required-indicator" aria-hidden="true">{ requiredIndicator }</span>
-          }
-          {
-            hint &&
-            <i>{ hint }</i>
-          }
+      {label !== false && (
+        <label htmlFor={id || name} className={className}>
+          {labelToDisplay}
+          {required && requiredIndicator && (
+            <span className="required-indicator" aria-hidden="true">
+              {requiredIndicator}
+            </span>
+          )}
+          {hint && <i>{hint}</i>}
         </label>
-      }
-      {
-        tooltip &&
-        <span className="tooltip-trigger" onClick={() => toggleTooltipShown()}/>
-      }
-      {
-        tooltip &&
-        <div className={ classnames('tooltip-content', { 'is-active': tooltipShown }) }>
-          { tooltip }
+      )}
+      {tooltip && (
+        <span
+          className="tooltip-trigger"
+          onClick={() => toggleTooltipShown()}
+        />
+      )}
+      {tooltip && (
+        <div
+          className={classnames('tooltip-content', {
+            'is-active': tooltipShown,
+          })}
+        >
+          {tooltip}
         </div>
-      }
+      )}
     </span>
   )
 }

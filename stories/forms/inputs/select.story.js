@@ -7,19 +7,19 @@ import dynamicInput from '../../dynamic-input'
 const Select = dynamicInput({
   initialValue: '',
   valuePath: 'input.value',
-  onChangePath: 'input.onChange'
+  onChangePath: 'input.onChange',
 })(StaticSelect)
 
 const inputProps = {
   name: 'person.selectOptions',
   value: '',
-  onChange: action('field changed')
+  onChange: action('field changed'),
 }
 
 const options = [
   { key: 'First Option', value: '1' },
   { key: 'Second Option', value: '2' },
-  { key: 'Third Option', value: '3' }
+  { key: 'Third Option', value: '3' },
 ]
 
 const optionGroups = [
@@ -30,11 +30,7 @@ const optionGroups = [
 
 storiesOf('Select', module)
   .add('default', () => (
-    <Select
-      input={inputProps}
-      meta={{}}
-      options={options}
-    />
+    <Select input={inputProps} meta={{}} options={options} />
   ))
   .add('with custom placeholder', () => (
     <Select
@@ -45,12 +41,7 @@ storiesOf('Select', module)
     />
   ))
   .add('with empty placeholder', () => (
-    <Select
-      input={inputProps}
-      meta={{}}
-      options={options}
-      placeholder=" "
-    />
+    <Select input={inputProps} meta={{}} options={options} placeholder=" " />
   ))
   .add('with enabled placeholder option', () => (
     <Select
@@ -62,9 +53,5 @@ storiesOf('Select', module)
     />
   ))
   .add('with option groups', () => (
-    <Select
-      input={inputProps}
-      meta={{}}
-      optionGroups={optionGroups}
-    />
+    <Select input={inputProps} meta={{}} optionGroups={optionGroups} />
   ))

@@ -4,7 +4,7 @@
   @media ($tablet-landscape) {
     display: block;
     background-color: $white-base;
-    box-shadow: 0 0 18px 0 rgba(232,232,232,0.50);
+    box-shadow: 0 0 18px 0 rgba(232, 232, 232, 0.5);
     //@include position(fixed, 0px null 0px 0px);
     overflow: scroll;
     margin-top: 70px;
@@ -12,7 +12,8 @@
     @include rem(padding, 20px);
   }
 
-  input, select {
+  input,
+  select {
     border: 1px solid $grey-base;
     height: 50px;
     @include rem(padding-left, 8px);
@@ -36,7 +37,6 @@
       display: inline-block;
       width: 42%;
       vertical-align: bottom;
-
     }
   }
   h3 {
@@ -51,58 +51,57 @@
 }
 
 .purchase-credits {
-
   hr {
-      @include rem(margin, 50px 0 40px )
+    @include rem(margin, 50px 0 40px);
+  }
+
+  .content-center {
+    h3 {
+      font-weight: $bold;
     }
 
-    .content-center {
-      h3 {
-        font-weight: $bold;
-      }
-
-      p {
-        @include rem(margin-bottom, 0);
-      }
-
-      li:first-child {
-        font-weight: $bold;
-        float: left;
-        font-size: $s-big;
-      }
-
-      li:last-child {
-        color: $green-base;
-        float: right;
-        font-size: $s-large;
-      }
-
-      ul {
-        @include rem(margin-bottom, 23px);
-      }
+    p {
+      @include rem(margin-bottom, 0);
     }
 
-    .selected-credits {
-      border: 1px solid $green-base;
+    li:first-child {
+      font-weight: $bold;
+      float: left;
+      font-size: $s-big;
     }
 
-    .mobile-credits {
-      display: block;
+    li:last-child {
+      color: $green-base;
+      float: right;
+      font-size: $s-large;
+    }
 
-      @media ($tablet-landscape) {
-        display: none;
-      }
+    ul {
+      @include rem(margin-bottom, 23px);
+    }
+  }
 
-      p {
-        @include rem(margin-bottom, 0px);
-      }
+  .selected-credits {
+    border: 1px solid $green-base;
+  }
 
-      h3 {
+  .mobile-credits {
+    display: block;
+
+    @media ($tablet-landscape) {
+      display: none;
+    }
+
+    p {
+      @include rem(margin-bottom, 0px);
+    }
+
+    h3 {
       font-size: 20px;
       @include rem(margin-bottom, 20px);
       text-transform: uppercase;
       letter-spacing: 1px;
       text-align: center;
-      }
     }
   }
+}

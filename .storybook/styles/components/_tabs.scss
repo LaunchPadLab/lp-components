@@ -1,13 +1,13 @@
 /*-----------------------
 Shared
 -----------------------*/
-.tabs{
+.tabs {
   cursor: pointer;
 
-  li{
+  li {
     transition: all 0.3s ease-in-out;
 
-    &:hover{
+    &:hover {
       color: darken($black-base, 100%);
     }
   }
@@ -16,28 +16,27 @@ Shared
 /*-----------------------
 Horizontal Tabs
 -----------------------*/
-.horizontal-tabs{
-  li{
+.horizontal-tabs {
+  li {
     display: inline-block;
     @include rem(padding, 10px 20px);
     border-bottom: 2px solid transparent;
 
-    &.active{
+    &.active {
       border-bottom: 2px solid $black-base;
     }
   }
 }
 
-
 /*-----------------------
 Veritcal Tabs
 -----------------------*/
-.vertical-tabs{
-  li{
+.vertical-tabs {
+  li {
     @include rem(padding, 10px 20px);
     border-left: 2px solid transparent;
 
-    &.active{
+    &.active {
       border-left: 2px solid $black-base;
       background-color: $white-light;
     }

@@ -6,34 +6,21 @@ import dynamicInput from '../../dynamic-input'
 
 const Input = dynamicInput({
   valuePath: 'input.value',
-  onChangePath: 'input.onChange'
+  onChangePath: 'input.onChange',
 })(StaticInput)
 
 const inputProps = {
   name: 'person.firstName',
-  onChange: action('field changed')
+  onChange: action('field changed'),
 }
 
 storiesOf('Input', module)
-  .add('with default label', () => (
-    <Input
-      input={inputProps}
-      meta={{}}
-    />
-  ))
+  .add('with default label', () => <Input input={inputProps} meta={{}} />)
   .add('with custom label', () => (
-    <Input
-      input={inputProps}
-      meta={{}}
-      label="Custom Label"
-    />
+    <Input input={inputProps} meta={{}} label="Custom Label" />
   ))
   .add('with no label', () => (
-    <Input
-      input={inputProps}
-      meta={{}}
-      label={false}
-    />
+    <Input input={inputProps} meta={{}} label={false} />
   ))
   .add('with required true custom indicator', () => (
     <Input
@@ -41,7 +28,7 @@ storiesOf('Input', module)
       meta={{}}
       label="Custom Label"
       required
-      requiredIndicator={ '*' }
+      requiredIndicator={'*'}
     />
   ))
   .add('with error', () => (
@@ -50,7 +37,7 @@ storiesOf('Input', module)
       meta={{
         invalid: true,
         touched: true,
-        error: 'Invalid input'
+        error: 'Invalid input',
       }}
       value="0000"
     />

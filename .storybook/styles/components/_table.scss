@@ -2,12 +2,13 @@
 Table
 -----------------------*/
 
-table{
+table {
   background-color: $grey-lighter;
   table-layout: fixed;
   width: 100%;
 
-  th, td {
+  th,
+  td {
     display: table-cell;
     @include rem(margin, 15px 5px);
     @include rem(padding, 10px);
@@ -18,13 +19,14 @@ table{
     vertical-align: middle;
   }
 
-  th, td:before {
+  th,
+  td:before {
     color: $grey-base;
     font-weight: $bold;
     font-size: $s-small;
   }
 
-  td{
+  td {
     max-width: 300px;
     white-space: nowrap;
     overflow: hidden;
@@ -32,18 +34,19 @@ table{
     font-size: $s-small;
   }
 
-  th, thead{
+  th,
+  thead {
     background-color: $yellow-light;
     color: $black-base;
     cursor: pointer;
     width: 100%;
   }
 
-  tbody{
+  tbody {
     overflow: auto;
 
-    tr{
-      &:nth-child(even){
+    tr {
+      &:nth-child(even) {
         background-color: rgba(lighten($blue-base, 35%), 0.7);
       }
     }
@@ -53,36 +56,36 @@ table{
 /*-----------------------
 Filter Table Arrows
 -----------------------*/
-th{
-  &:after{
+th {
+  &:after {
     display: inline-block;
     font-size: 8px;
     @include rem(margin-left, 10px);
     opacity: 0.4;
   }
 
-  &:hover:after{
-    content:"▼";
+  &:hover:after {
+    content: '▼';
   }
 }
 
-.order-ascend{
-  &:after{
-    content:"▲";
+.order-ascend {
+  &:after {
+    content: '▲';
   }
 
-  &:hover:after{
-   content:"▼";
+  &:hover:after {
+    content: '▼';
   }
 }
 
-.order-descend{
-  &:after{
-    content:"▼";
+.order-descend {
+  &:after {
+    content: '▼';
   }
 
-  &:hover:after{
-    content:"▲";
+  &:hover:after {
+    content: '▲';
   }
 }
 

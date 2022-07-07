@@ -122,8 +122,10 @@ function Paginator({
 
         {/* First delimiter */}
 
-        {// If there are hidden pages between first page and first "middle" page
-        middlePages[0] > min + 1 && <Delimiter>{delimiter}</Delimiter>}
+        {
+          // If there are hidden pages between first page and first "middle" page
+          middlePages[0] > min + 1 && <Delimiter>{delimiter}</Delimiter>
+        }
 
         {/* Middle pages */}
 
@@ -142,10 +144,12 @@ function Paginator({
 
         {/* Second delimiter */}
 
-        {// If there are hidden pages between last "middle" page and last page
-        middlePages[middlePages.length - 1] < max - 1 && (
-          <Delimiter>{delimiter}</Delimiter>
-        )}
+        {
+          // If there are hidden pages between last "middle" page and last page
+          middlePages[middlePages.length - 1] < max - 1 && (
+            <Delimiter>{delimiter}</Delimiter>
+          )
+        }
 
         {/* Last page */}
 

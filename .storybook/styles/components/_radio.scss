@@ -1,6 +1,6 @@
 .radio {
   margin: 0.5rem;
-  input[type="radio"] {
+  input[type='radio'] {
     position: absolute;
     opacity: 0;
     + .radio-label {

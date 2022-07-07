@@ -15,7 +15,9 @@ const uploadStatus = 'upload-success'
 const cloudName = 'cloudName'
 const bucket = 'bucket'
 
-jest.mock('../../../src/forms/inputs/cloudinary-file-input/cloudinary-uploader.js')
+jest.mock(
+  '../../../src/forms/inputs/cloudinary-file-input/cloudinary-uploader.js'
+)
 
 // These tests rely on the mock implementation of cloudinaryUploader in __mocks__,
 // which just passes all props through to its child.
@@ -26,17 +28,34 @@ beforeEach(() => {
 
 test('CloudinaryFileInput adds uploadStatus to className', () => {
   const className = 'foo'
-  const props = { input, meta: {}, className, upload, uploadStatus, cloudName, bucket }
-  const wrapper = mount(<CloudinaryFileInput { ...props }/>)
+  const props = {
+    input,
+    meta: {},
+    className,
+    upload,
+    uploadStatus,
+    cloudName,
+    bucket,
+  }
+  const wrapper = mount(<CloudinaryFileInput {...props} />)
   expect(wrapper.find('fieldset.foo.upload-success').exists()).toEqual(true)
 })
 
 test('CloudinaryFileInput sets returned url within value', async () => {
-  const fakeFileEvent = { target: { files: [{ name: 'fileName', type: 'image/png' }] }}
+  const fakeFileEvent = {
+    target: { files: [{ name: 'fileName', type: 'image/png' }] },
+  }
   mockFileReader('data')
   const onChange = jest.fn()
-  const props = { input: { ...input, onChange }, meta: {}, upload, uploadStatus, cloudName, bucket }
-  const wrapper = mount(<CloudinaryFileInput { ...props }/>)
+  const props = {
+    input: { ...input, onChange },
+    meta: {},
+    upload,
+    uploadStatus,
+    cloudName,
+    bucket,
+  }
+  const wrapper = mount(<CloudinaryFileInput {...props} />)
   const internalOnChange = wrapper.find('input').prop('onChange')
   // internally calls upload, which resolves with file
   internalOnChange(fakeFileEvent)
@@ -47,11 +66,19 @@ test('CloudinaryFileInput sets returned url within value', async () => {
 })
 
 test('CloudinaryFileInput calls success handler with response on successful upload of a single file', async () => {
-  const fakeFileEvent = { target: { files: [{ name: 'fileName' }] }}
+  const fakeFileEvent = { target: { files: [{ name: 'fileName' }] } }
   const onUploadSuccess = jest.fn()
   mockFileReader()
 
-  const props = { input: { ...input, onChange: jest.fn() }, meta: {}, upload, uploadStatus, cloudName, bucket, onUploadSuccess }
+  const props = {
+    input: { ...input, onChange: jest.fn() },
+    meta: {},
+    upload,
+    uploadStatus,
+    cloudName,
+    bucket,
+    onUploadSuccess,
+  }
   const wrapper = mount(<CloudinaryFileInput {...props} />)
   const internalOnChange = wrapper.find('input').prop('onChange')
   internalOnChange(fakeFileEvent)
@@ -62,11 +89,20 @@ test('CloudinaryFileInput calls success handler with response on successful uplo
 })
 
 test('CloudinaryFileInput calls success handler with array of responses on successful uploads of multiple files', async () => {
-  const fakeFileEvent = { target: { files: [{ name: 'fileName' }] }}
+  const fakeFileEvent = { target: { files: [{ name: 'fileName' }] } }
   const onUploadSuccess = jest.fn()
   mockFileReader()
 
-  const props = { input: { ...input, onChange: jest.fn() }, meta: {}, upload, uploadStatus, cloudName, bucket, onUploadSuccess, multiple: true }
+  const props = {
+    input: { ...input, onChange: jest.fn() },
+    meta: {},
+    upload,
+    uploadStatus,
+    cloudName,
+    bucket,
+    onUploadSuccess,
+    multiple: true,
+  }
   const wrapper = mount(<CloudinaryFileInput {...props} />)
   const internalOnChange = wrapper.find('input').prop('onChange')
   internalOnChange(fakeFileEvent)
@@ -77,13 +113,21 @@ test('CloudinaryFileInput calls success handler with array of responses on succe
 })
 
 test('CloudinaryFileInput calls error handler with error on failed upload', async () => {
-  const fakeFileEvent = { target: { files: [{}] }}
+  const fakeFileEvent = { target: { files: [{}] } }
   const onUploadFailure = jest.fn()
-  const failureResponse = { errors: "Invalid filename" }
+  const failureResponse = { errors: 'Invalid filename' }
   const upload = () => Promise.reject(failureResponse)
   mockFileReader()
 
-  const props = { input: { ...input, onChange: jest.fn() }, meta: {}, upload, uploadStatus, cloudName, bucket, onUploadFailure }
+  const props = {
+    input: { ...input, onChange: jest.fn() },
+    meta: {},
+    upload,
+    uploadStatus,
+    cloudName,
+    bucket,
+    onUploadFailure,
+  }
   const wrapper = mount(<CloudinaryFileInput {...props} />)
   const internalOnChange = wrapper.find('input').prop('onChange')
 

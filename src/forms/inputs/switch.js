@@ -47,31 +47,31 @@ const propTypes = {
   label: PropTypes.node,
 }
 
-function Switch (props) {
+function Switch(props) {
   const {
     input: { name, value, onBlur, onChange },
     meta, // eslint-disable-line no-unused-vars
     ...rest
   } = omitLabelProps(props)
   return (
-    <LabeledField className="switch" { ...props }>
-      <BaseSwitch {...{
-        id: name,
-        name,
-        checked: value,
-        onBlur,
-        onChange: (checked) => onChange(checked),
-        'aria-describedby': hasInputError(meta) ? generateInputErrorId(name) : null,
-        ...rest
-      }}
-    />
+    <LabeledField className="switch" {...props}>
+      <BaseSwitch
+        {...{
+          id: name,
+          name,
+          checked: value,
+          onBlur,
+          onChange: (checked) => onChange(checked),
+          'aria-describedby': hasInputError(meta)
+            ? generateInputErrorId(name)
+            : null,
+          ...rest,
+        }}
+      />
     </LabeledField>
   )
 }
 
 Switch.propTypes = propTypes
 
-export default compose(
-  blurDirty(),
-  replaceEmptyStringValue(false),
-)(Switch)
+export default compose(blurDirty(), replaceEmptyStringValue(false))(Switch)

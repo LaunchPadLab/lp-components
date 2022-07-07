@@ -7,50 +7,33 @@ import dynamicInput from '../../dynamic-input'
 const Checkbox = dynamicInput({
   initialValue: false,
   valuePath: 'input.value',
-  onChangePath: 'input.onChange'
+  onChangePath: 'input.onChange',
 })(StaticCheckbox)
 
 const inputProps = {
   name: 'person.selected',
-  onChange: action('checkbox clicked')
+  onChange: action('checkbox clicked'),
 }
 
 storiesOf('Checkbox', module)
-  .add('with default label', () => (
-    <Checkbox
-      input={ inputProps }
-      meta={{}}
-    />
-  ))
+  .add('with default label', () => <Checkbox input={inputProps} meta={{}} />)
   .add('with custom label', () => (
-    <Checkbox
-      input={ inputProps }
-      meta={{}}
-      label="Custom Label"
-    />
+    <Checkbox input={inputProps} meta={{}} label="Custom Label" />
   ))
   .add('with no label', () => (
-    <Checkbox
-      input={ inputProps }
-      meta={{}}
-      label={false}
-    />
+    <Checkbox input={inputProps} meta={{}} label={false} />
   ))
   .add('with error', () => (
     <Checkbox
-      input={ inputProps }
+      input={inputProps}
       meta={{
         invalid: true,
         touched: true,
-        error: 'Invalid input'
+        error: 'Invalid input',
       }}
       value="0000"
     />
   ))
   .add('with a tooltip', () => (
-    <Checkbox
-      input={ inputProps }
-      meta={{}}
-      tooltip="I am a tooltip"
-    />
+    <Checkbox input={inputProps} meta={{}} tooltip="I am a tooltip" />
   ))

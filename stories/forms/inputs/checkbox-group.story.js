@@ -7,34 +7,32 @@ import dynamicInput from '../../dynamic-input'
 const CheckboxGroup = dynamicInput({
   initialValue: '',
   valuePath: 'input.value',
-  onChangePath: 'input.onChange'
+  onChangePath: 'input.onChange',
 })(StaticCheckboxGroup)
 
 const inputProps = {
   name: 'person.checkboxOptions',
   value: '',
-  onChange: action('field changed')
+  onChange: action('field changed'),
 }
 
 const options = [
   { key: 'First Option', value: '1' },
   { key: 'Second Option', value: '2' },
-  { key: 'Third Option', value: '3' }
+  { key: 'Third Option', value: '3' },
 ]
 
 const SpecialLabel = ({ id, label }) => (
   <span>
-    <label htmlFor={id}><em>{label}</em></label>
+    <label htmlFor={id}>
+      <em>{label}</em>
+    </label>
   </span>
 )
 
 storiesOf('CheckboxGroup', module)
   .add('with default label', () => (
-    <CheckboxGroup
-      input={inputProps}
-      meta={{}}
-      options={options}
-    />
+    <CheckboxGroup input={inputProps} meta={{}} options={options} />
   ))
   .add('with custom label', () => (
     <CheckboxGroup
@@ -58,17 +56,14 @@ storiesOf('CheckboxGroup', module)
       meta={{
         invalid: true,
         touched: true,
-        error: 'Invalid input'
+        error: 'Invalid input',
       }}
       value="0000"
       options={options}
     />
   ))
   .add('with empty options', () => (
-    <CheckboxGroup
-      input={inputProps}
-      meta={{}}
-    />
+    <CheckboxGroup input={inputProps} meta={{}} />
   ))
   .add('with input props specified', () => (
     <CheckboxGroup
@@ -76,7 +71,7 @@ storiesOf('CheckboxGroup', module)
       meta={{}}
       options={options}
       checkboxInputProps={{
-        labelComponent: SpecialLabel
+        labelComponent: SpecialLabel,
       }}
     />
   ))

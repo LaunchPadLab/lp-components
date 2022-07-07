@@ -18,17 +18,17 @@ const defaultProps = {
   onClick: noop,
 }
 
-function PageLink ({ className, active, onClick, children, ...rest }) {
+function PageLink({ className, active, onClick, children, ...rest }) {
   return (
-    <li className={ classnames(className, { 'active': active }) }>
+    <li className={classnames(className, { active: active })}>
       <a
-        onClick={ onClick }
-        onKeyPress={ triggerOnKeys(onClick, ENTER_KEY_CODE) } // keyboard interaction requirement
-        aria-current={ active ? 'page' : false }
+        onClick={onClick}
+        onKeyPress={triggerOnKeys(onClick, ENTER_KEY_CODE)} // keyboard interaction requirement
+        aria-current={active ? 'page' : false}
         tabIndex="0" // add back to natural tab order (automatically removed without an href)
-        { ...rest }
+        {...rest}
       >
-        { children }
+        {children}
       </a>
     </li>
   )
@@ -38,4 +38,3 @@ PageLink.propTypes = propTypes
 PageLink.defaultProps = defaultProps
 
 export default PageLink
-

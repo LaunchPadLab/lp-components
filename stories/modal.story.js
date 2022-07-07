@@ -36,7 +36,11 @@ storiesOf('Modal', module)
         {modalShown && (
           <Modal
             onClose={() => setModalShown(false)}
-            className={{ base: 'custom', afterOpen: 'custom--after-open', beforeClose: '' }}
+            className={{
+              base: 'custom',
+              afterOpen: 'custom--after-open',
+              beforeClose: '',
+            }}
           >
             This is the modal content!
           </Modal>

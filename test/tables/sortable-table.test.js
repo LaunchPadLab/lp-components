@@ -9,7 +9,7 @@ const tableData = [
   { name: 'Lorax' },
 ]
 
-const sortAscending = (a, b) => (a > b) ? 1 : -1
+const sortAscending = (a, b) => (a > b ? 1 : -1)
 
 test('Column data is pulled out via name', () => {
   const wrapper = mount(
@@ -52,9 +52,12 @@ test('onChange is fired when sorting state changes', () => {
     </SortableTable>
   )
   wrapper.find('th').first().simulate('click')
-  expect(onChange).toHaveBeenCalledWith({ ascending: true, sortPath: 'name', sortFunc: null })
+  expect(onChange).toHaveBeenCalledWith({
+    ascending: true,
+    sortPath: 'name',
+    sortFunc: null,
+  })
 })
-
 
 test('Clicking on column header twice toggles ascending', () => {
   const wrapper = mount(
@@ -167,7 +170,7 @@ test('table can have custom row component initialized with table state props', (
   )
   expect(wrapper.find(MyRow).exists()).toBe(true)
   const expectedProps = {
-    data: { name: 'Tommy'},
+    data: { name: 'Tommy' },
     ascending: false,
     sortPath: 'name',
     sortFunc: mySort,
@@ -260,10 +263,7 @@ test('`format` updates the cell value', () => {
 })
 
 test('`placeholder` option is displayed if value is `null` or `undefined`', () => {
-  const data = [
-    { name: null },
-    { name: undefined },
-  ]
+  const data = [{ name: null }, { name: undefined }]
   const wrapper = mount(
     <SortableTable data={data}>
       <Column name="name" placeholder="placeholder" />
@@ -274,10 +274,7 @@ test('`placeholder` option is displayed if value is `null` or `undefined`', () =
 })
 
 test('can receive custom class name', () => {
-  const data = [
-    { name: null },
-    { name: undefined },
-  ]
+  const data = [{ name: null }, { name: undefined }]
   const wrapper = mount(
     <SortableTable data={data} className="foo">
       <Column name="name" placeholder="placeholder" />
@@ -293,7 +290,7 @@ test('`valueGetter` derives the cell value', () => {
   ]
   const myValueGetter = jest.fn((data) => `${data.name} - ${data.accountName}`)
   const wrapper = mount(
-    <SortableTable data={data} >
+    <SortableTable data={data}>
       <Column name="opportunityName" valueGetter={myValueGetter} />
     </SortableTable>
   )
@@ -309,7 +306,7 @@ test('`valueGetter` can utilize the default sort', () => {
   ]
   const myValueGetter = jest.fn((data) => `${data.name} - ${data.accountName}`)
   const wrapper = mount(
-    <SortableTable data={data} >
+    <SortableTable data={data}>
       <Column name="opportunityName" valueGetter={myValueGetter} />
     </SortableTable>
   )
@@ -356,12 +353,18 @@ test('arbitrary props passed to table element', () => {
       <Column name="name" />
     </SortableTable>
   )
-  expect(wrapper.find('table').first().prop('aria-label')).toEqual('Annual Report')
+  expect(wrapper.find('table').first().prop('aria-label')).toEqual(
+    'Annual Report'
+  )
 })
 
 test('invalid arbitrary props filtered out', () => {
   const wrapper = mount(
-    <SortableTable data={tableData} aria-label="Annual Report" invalidProp="shouldFail">
+    <SortableTable
+      data={tableData}
+      aria-label="Annual Report"
+      invalidProp="shouldFail"
+    >
       <Column name="name" />
     </SortableTable>
   )
@@ -370,19 +373,19 @@ test('invalid arbitrary props filtered out', () => {
 
 test('passes valid DOM props to cells', () => {
   const wrapper = mount(
-      <SortableTable data={tableData}>
-        <Column name="name" data-cy="name"/>
-      </SortableTable>
-    )
+    <SortableTable data={tableData}>
+      <Column name="name" data-cy="name" />
+    </SortableTable>
+  )
   expect(wrapper.find('td').first().prop('data-cy')).toEqual('name')
 })
 
 test('does not pass invalid DOM props to cells', () => {
   const wrapper = mount(
-      <SortableTable data={tableData}>
-        <Column name="name" customAttribute="custom"/>
-      </SortableTable>
-    )
+    <SortableTable data={tableData}>
+      <Column name="name" customAttribute="custom" />
+    </SortableTable>
+  )
   expect(wrapper.find('td').first().prop('customAttribute')).toBe(undefined)
 })
 
@@ -406,7 +409,10 @@ test('renders a caption element when provided as the first descendant', () => {
 
 test('renders a caption element with whatever is provided', () => {
   const wrapper = mount(
-    <SortableTable data={tableData} caption={<span className="custom-caption">My Table</span>}>
+    <SortableTable
+      data={tableData}
+      caption={<span className="custom-caption">My Table</span>}
+    >
       <Column name="name" />
     </SortableTable>
   )

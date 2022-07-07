@@ -6,10 +6,10 @@ import { addExtension, getEnvVar, removeExtension } from './helpers'
 /**
  * A function that returns a React HOC for uploading files to (Cloudinary)[https://cloudinary.com].
  *
- * `cloudinaryUploader` exposes the following props to the wrapped component: 
+ * `cloudinaryUploader` exposes the following props to the wrapped component:
  * - `upload`: A function that submits a `POST` request to the Cloudinary endpoint with the `file` object and `fileData`.
  * - `uploadStatus`: A string representing the status of the `upload` request, either `uploading`, `upload-success`, or `upload-failure`.
- * 
+ *
  * @name cloudinaryUploader
  * @type Function
  * @param {string} cloudName - The name of the Cloudinary cloud to upload to. Can also be set via `CLOUDINARY_CLOUD_NAME` in `process.env`.
@@ -30,7 +30,7 @@ import { addExtension, getEnvVar, removeExtension } from './helpers'
  *   const { onChange } = input
  *   const { submit } = meta
  *   return (
- *      <FileInput 
+ *      <FileInput
  *        input={ input }
  *        meta={ meta }
  *        onLoad={ (fileData, file) => upload(fileData, file).then(() => submit(form)) }
@@ -38,7 +38,7 @@ import { addExtension, getEnvVar, removeExtension } from './helpers'
  *      />
  *   )
  * }
- * 
+ *
  * CloudinaryFileInput.propTypes = {
  *   ...formPropTypes,
  *   upload: PropTypes.func.isRequired,
@@ -52,7 +52,7 @@ import { addExtension, getEnvVar, removeExtension } from './helpers'
  *    }),
  * )(CloudinaryFileInput)
  *
-*/
+ */
 
 // Status enum
 export const CloudinaryUploadStatus = {
@@ -67,7 +67,7 @@ const DEFAULT_FILE_TYPE = 'auto'
 const DEFAULT_UPLOAD_PRESET = 'default'
 const DEFAULT_REQUEST_OPTIONS = {
   headers: {
-    'Accept': 'application/json',
+    Accept: 'application/json',
     'X-Requested-With': 'XMLHttpRequest',
     'Content-Type': 'application/json',
   },
@@ -78,17 +78,17 @@ const DEFAULT_REQUEST_OPTIONS = {
 const FILE_NAME_PATTERN = /[\s?&#\\%<>]/gi
 
 // Throws an error when a required param is not found
-function requireParam (paramName, context='Error') {
-  throw new Error(`${ context }: required param ${ paramName } not provided`)
+function requireParam(paramName, context = 'Error') {
+  throw new Error(`${context}: required param ${paramName} not provided`)
 }
 
 // Returns true when an a file is a pdf.
 function isPdf(file) {
-  return (file.type === 'application/pdf')
+  return file.type === 'application/pdf'
 }
 
 function isImage(file) {
-  return (file.type.split('/')[0] === 'image')
+  return file.type.split('/')[0] === 'image'
 }
 
 /*
@@ -96,16 +96,16 @@ function isImage(file) {
  * replacing invalid characters (incl. those that may be html escaped).
  * Cloudinary does _not_ handle html escaping well via the API our their
  * dashboard so it's best to avoid it entirely.
- * 
+ *
  * Source: https://support.cloudinary.com/hc/en-us/articles/115001317409--Legal-naming-conventions
  */
-function defaultCreatePublicId (file) {
+function defaultCreatePublicId(file) {
   const fileName = getFileName(file)
   const decodedFileName = decodeFileName(fileName)
   return sanitizeFileName(decodedFileName)
 }
 
-function getFileName (file) {
+function getFileName(file) {
   if (file.name) return file.name
   return 'file_upload_' + Date.now()
 }
@@ -113,7 +113,7 @@ function getFileName (file) {
 // Attempts to decode html escaped characters. If this fails, attempts to strip
 // percentages not acting as valid html escaping and tries again. If all else
 // fails, returns the original name.
-function decodeFileName (name) {
+function decodeFileName(name) {
   try {
     try {
       return decodeURIComponent(name)
@@ -126,7 +126,7 @@ function decodeFileName (name) {
 }
 
 // Replaces forbidden characters with '_' and removes duplicate underscores
-function sanitizeFileName (name) {
+function sanitizeFileName(name) {
   const validFileName = name.trim().replace(FILE_NAME_PATTERN, '_')
   return validFileName.replace(/_+/gi, '_')
 }
@@ -134,65 +134,68 @@ function sanitizeFileName (name) {
 // Removes file extension from file name if asset is an image or pdf
 // Otherwise, Cloudinary will add an extra extension to the file name
 // Ensure extension is present on "raw" file types (e.g., .xls)
-function serializePublicId (publicId, file) {
+function serializePublicId(publicId, file) {
   if (!publicId) return
-  return (isPdf(file) || isImage(file)) 
-    ? removeExtension(publicId) 
+  return isPdf(file) || isImage(file)
+    ? removeExtension(publicId)
     : addExtension(publicId, file)
 }
 
-function cloudinaryUploader (options={}) {
-  return Wrapped =>
+function cloudinaryUploader(options = {}) {
+  return (Wrapped) =>
     class Wrapper extends Component {
       static displayName = wrapDisplayName(Wrapped, 'cloudinaryUploader')
-      constructor (props) {
+      constructor(props) {
         super(props)
         const config = { ...options, ...props }
         const {
-          cloudName=getEnvVar('CLOUDINARY_CLOUD_NAME') || requireParam('cloudName', 'cloudinaryUploader'),
-          bucket=getEnvVar('CLOUDINARY_BUCKET') || requireParam('bucket', 'cloudinaryUploader'),
-          uploadPreset=getEnvVar('CLOUDINARY_UPLOAD_PRESET') || DEFAULT_UPLOAD_PRESET,
-          endpoint=getEnvVar('CLOUDINARY_ENDPOINT') || DEFAULT_ENDPOINT,
-          apiAdapter=requireParam('apiAdapter', 'cloudinaryUploader'),
-          fileType=DEFAULT_FILE_TYPE,
-          requestOptions=DEFAULT_REQUEST_OPTIONS,
-          createPublicId=defaultCreatePublicId,
+          cloudName = getEnvVar('CLOUDINARY_CLOUD_NAME') ||
+            requireParam('cloudName', 'cloudinaryUploader'),
+          bucket = getEnvVar('CLOUDINARY_BUCKET') ||
+            requireParam('bucket', 'cloudinaryUploader'),
+          uploadPreset = getEnvVar('CLOUDINARY_UPLOAD_PRESET') ||
+            DEFAULT_UPLOAD_PRESET,
+          endpoint = getEnvVar('CLOUDINARY_ENDPOINT') || DEFAULT_ENDPOINT,
+          apiAdapter = requireParam('apiAdapter', 'cloudinaryUploader'),
+          fileType = DEFAULT_FILE_TYPE,
+          requestOptions = DEFAULT_REQUEST_OPTIONS,
+          createPublicId = defaultCreatePublicId,
           cloudinaryPublicId,
         } = config
         // Build request function using config
         this.cloudinaryRequest = function (fileData, file) {
           const publicId = cloudinaryPublicId || createPublicId(file)
-          const url = `${ endpoint }/${ cloudName }/${ fileType }/upload`
+          const url = `${endpoint}/${cloudName}/${fileType}/upload`
           const body = {
             file: fileData,
             folder: bucket,
             upload_preset: uploadPreset,
-            public_id: serializePublicId(publicId, file)
+            public_id: serializePublicId(publicId, file),
           }
           return apiAdapter.post(url, body, requestOptions)
         }
         this.upload = this.upload.bind(this)
         this.state = { uploadStatus: '' }
       }
-      upload (fileData, file) {
+      upload(fileData, file) {
         this.setState({ uploadStatus: CloudinaryUploadStatus.LOADING })
         return this.cloudinaryRequest(fileData, file)
-          .then(res => {
+          .then((res) => {
             this.setState({ uploadStatus: CloudinaryUploadStatus.SUCCESS })
             return res
           })
-          .catch(error => {
+          .catch((error) => {
             this.setState({ uploadStatus: CloudinaryUploadStatus.FAILURE })
             throw error
           })
       }
-      render () {
+      render() {
         const { uploadStatus } = this.state
         return (
-          <Wrapped 
-            upload={ this.upload }
-            uploadStatus={ uploadStatus }
-            { ...this.props }
+          <Wrapped
+            upload={this.upload}
+            uploadStatus={uploadStatus}
+            {...this.props}
           />
         )
       }

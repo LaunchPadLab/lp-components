@@ -58,8 +58,8 @@ const propTypes = {
 }
 
 const defaultProps = {
-  className: "",
-  overlayClassName: "",
+  className: '',
+  overlayClassName: '',
   isOpen: true,
   preventClose: false,
 }
@@ -81,15 +81,23 @@ function wrapClassName(base, additional) {
 
 // A wrapper for react-modal that adds some styles and a close button.
 // See https://github.com/reactjs/react-modal for usage.
-function Modal({ isOpen, onClose, preventClose, children, className, overlayClassName, ...rest }) {
+function Modal({
+  isOpen,
+  onClose,
+  preventClose,
+  children,
+  className,
+  overlayClassName,
+  ...rest
+}) {
   const canClose = !preventClose
   return (
     <ReactModal
       isOpen={isOpen}
       onRequestClose={onClose}
       portalClassName="modal"
-      className={wrapClassName("modal-inner", className)}
-      overlayClassName={wrapClassName("modal-fade-screen", overlayClassName)}
+      className={wrapClassName('modal-inner', className)}
+      overlayClassName={wrapClassName('modal-fade-screen', overlayClassName)}
       bodyOpenClassName="modal-open"
       appElement={getRootElement()}
       ariaHideApp={!isServer()} // Opt out of manipulating appElement on the server.
@@ -106,7 +114,7 @@ function Modal({ isOpen, onClose, preventClose, children, className, overlayClas
           aria-label="Close Modal"
         >
           ×
-      </button>
+        </button>
       )}
     </ReactModal>
   )

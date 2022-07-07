@@ -1,21 +1,23 @@
 //GRID SETTINGS
-  $grid-columns: 12;
+$grid-columns: 12;
 
 //MEDIA QUERIES
 
-  //DEFINED VARIABLES
-  $mobile-size:em(320);
-  $tablet-size:em(720);
-  $desktop-size:em(1200);
+//DEFINED VARIABLES
+$mobile-size: em(320);
+$tablet-size: em(720);
+$desktop-size: em(1200);
 
-  // SPECIAL VARIABLES
-  $tablet-landscape: em(1024);
+// SPECIAL VARIABLES
+$tablet-landscape: em(1024);
 
-  // Bourbon Neat Breakpoints
-  $mobile: new-breakpoint(min-width $mobile-size 4);
-  $tablet: new-breakpoint(min-width $tablet-size 9);
-  $tablet-landscape: new-breakpoint(min-width $tablet-landscape orientation landscape 9); //LPL Added
-  $desktop: new-breakpoint(min-width $desktop-size 12);
+// Bourbon Neat Breakpoints
+$mobile: new-breakpoint(min-width $mobile-size 4);
+$tablet: new-breakpoint(min-width $tablet-size 9);
+$tablet-landscape: new-breakpoint(
+  min-width $tablet-landscape orientation landscape 9
+); //LPL Added
+$desktop: new-breakpoint(min-width $desktop-size 12);
 
 //BORDERS
 $blue-border: 1px solid $blue-base;
@@ -27,10 +29,11 @@ $blue-border-thick: 4px solid $blue-base;
 $page-header-offset: 112px;
 $page-header-offset-mobile: 90px;
 
-
 @mixin header-offset {
   margin-top: $page-header-offset-mobile;
-  @media ($tablet) { margin-top: $page-header-offset; }
+  @media ($tablet) {
+    margin-top: $page-header-offset;
+  }
 }
 
 @mixin center {
@@ -43,7 +46,9 @@ $page-header-offset-mobile: 90px;
 @mixin base-padding {
   @include rem(padding, 20px);
 
-  @media ($tablet) { @include rem(padding, 30px); }
+  @media ($tablet) {
+    @include rem(padding, 30px);
+  }
 }
 
 @mixin secondary-padding {
@@ -76,10 +81,14 @@ $page-header-offset-mobile: 90px;
   transition: all 1s ease;
   background-size: 100%;
 
-  &:hover { background-size: 120%; }
+  &:hover {
+    background-size: 120%;
+  }
 }
 
-img { width: 100%; }
+img {
+  width: 100%;
+}
 
 @mixin clickable-block {
   display: inline-block;
@@ -89,11 +98,15 @@ img { width: 100%; }
 
 @mixin mobile-hide {
   display: none;
-  @media ($tablet) { display: block; }
+  @media ($tablet) {
+    display: block;
+  }
 }
 
-@mixin desktop-hide{
-  @include media ($tablet){ display: none; }
+@mixin desktop-hide {
+  @include media($tablet) {
+    display: none;
+  }
 }
 
 .horizontal-divider {
@@ -109,7 +122,10 @@ $fg-column: $column;
 $fg-gutter: $gutter;
 
 @mixin omega-reset($nth) {
-  &:nth-child(#{$nth}) { margin-right: flex-gutter(); }
-  &:nth-child(#{$nth}+1) { clear: none }
+  &:nth-child(#{$nth}) {
+    margin-right: flex-gutter();
+  }
+  &:nth-child(#{$nth} + 1) {
+    clear: none;
+  }
 }
-

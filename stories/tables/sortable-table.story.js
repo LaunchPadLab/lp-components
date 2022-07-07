@@ -15,9 +15,7 @@ function colorForStatus(active) {
 
 // eslint-disable-next-line react/prop-types
 function CustomCell({ value }) {
-  return (
-    <td style={{ color: colorForStatus(value) }}>{value}</td>
-  )
+  return <td style={{ color: colorForStatus(value) }}>{value}</td>
 }
 
 function CustomCellWithRowData({ data: { name, active } }) {
@@ -26,22 +24,20 @@ function CustomCellWithRowData({ data: { name, active } }) {
     return 'not active'
   }
   return (
-    <td style={{ color: colorForStatus(active) }}>{name} is {checkIfActive(active)}</td>
+    <td style={{ color: colorForStatus(active) }}>
+      {name} is {checkIfActive(active)}
+    </td>
   )
 }
 
 // eslint-disable-next-line react/prop-types
 function CustomRow({ data: { active }, children }) {
-  return (
-    <tr style={{ backgroundColor: colorForStatus(active) }}>{children}</tr>
-  )
+  return <tr style={{ backgroundColor: colorForStatus(active) }}>{children}</tr>
 }
 
 // eslint-disable-next-line react/prop-types
 function CustomHeader({ column: { name }, onClick }) {
-  return (
-    <th onClick={onClick}>{name.toUpperCase() + '!'}</th>
-  )
+  return <th onClick={onClick}>{name.toUpperCase() + '!'}</th>
 }
 
 function createCustomValue(data) {
@@ -52,7 +48,7 @@ function compareCustomValue(a, b) {
   const ageA = Number(a)
   const ageB = Number(b)
 
-  return (ageA > ageB) ? 1 : -1
+  return ageA > ageB ? 1 : -1
 }
 
 storiesOf('SortableTable', module)
@@ -101,13 +97,16 @@ storiesOf('SortableTable', module)
       <Column name="active" component={CustomCell} />
     </SortableTable>
   ))
-  .add('with additional valid DOM properties on cell component (per column)', () => (
-    <SortableTable data={tableData}>
-      <Column name="name" tabIndex="-1" />
-      <Column name="age"  data-cy="age" />
-      <Column name="active" aria-label="Active" />
-    </SortableTable>
-  ))
+  .add(
+    'with additional valid DOM properties on cell component (per column)',
+    () => (
+      <SortableTable data={tableData}>
+        <Column name="name" tabIndex="-1" />
+        <Column name="age" data-cy="age" />
+        <Column name="active" aria-label="Active" />
+      </SortableTable>
+    )
+  )
   .add('with custom cell component and its row data', () => (
     <SortableTable data={tableData}>
       <Column name="name" />
@@ -149,8 +148,8 @@ storiesOf('SortableTable', module)
   .add('with formatted column values', () => (
     <SortableTable data={tableData}>
       <Column name="name" format={lowerCase} />
-      <Column name="age" format={val => val.toFixed(1)} />
-      <Column name="active" format={val => val === 'yes' ? 'Y' : 'N'} />
+      <Column name="age" format={(val) => val.toFixed(1)} />
+      <Column name="active" format={(val) => (val === 'yes' ? 'Y' : 'N')} />
     </SortableTable>
   ))
   .add('with custom value getter', () => (
@@ -158,19 +157,21 @@ storiesOf('SortableTable', module)
       <h2>"Name And Age" column combines name and age values</h2>
       <SortableTable data={tableData}>
         <Column name="name" format={lowerCase} />
-        <Column name="age" format={val => val.toFixed(1)} />
-        <Column name="active" format={val => val === 'yes' ? 'Y' : 'N'} />
+        <Column name="age" format={(val) => val.toFixed(1)} />
+        <Column name="active" format={(val) => (val === 'yes' ? 'Y' : 'N')} />
         <Column name="nameAndAge" valueGetter={createCustomValue} />
       </SortableTable>
     </div>
   ))
   .add('with custom value getter and custom sorter', () => (
     <div>
-      <h2>"Name and Age" column combines name and age, sorted by age portion</h2>
+      <h2>
+        "Name and Age" column combines name and age, sorted by age portion
+      </h2>
       <SortableTable data={tableData}>
         <Column name="name" format={lowerCase} />
-        <Column name="age" format={val => val.toFixed(1)} />
-        <Column name="active" format={val => val === 'yes' ? 'Y' : 'N'} />
+        <Column name="age" format={(val) => val.toFixed(1)} />
+        <Column name="active" format={(val) => (val === 'yes' ? 'Y' : 'N')} />
         <Column
           name="nameAndAge"
           sortFunc={compareAtPath('age', compareCustomValue)}
@@ -181,11 +182,14 @@ storiesOf('SortableTable', module)
   ))
   .add('with custom value getter, custom sorter, initial column', () => (
     <div>
-      <h2>"Name and Age" column combines name and age, sorted by age portion, initial column</h2>
+      <h2>
+        "Name and Age" column combines name and age, sorted by age portion,
+        initial column
+      </h2>
       <SortableTable data={tableData} initialColumn="nameAndAge">
         <Column name="name" format={lowerCase} />
-        <Column name="age" format={val => val.toFixed(1)} />
-        <Column name="active" format={val => val === 'yes' ? 'Y' : 'N'} />
+        <Column name="age" format={(val) => val.toFixed(1)} />
+        <Column name="active" format={(val) => (val === 'yes' ? 'Y' : 'N')} />
         <Column
           name="nameAndAge"
           sortFunc={compareAtPath('age', compareCustomValue)}
