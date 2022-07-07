@@ -88,7 +88,7 @@
     "recompose": "^0.30.0",
     "redux": "^4.1.2",
     "regenerator-runtime": "^0.13.9",
-    "sass-loader": "^10.2.1",
+    "sass-loader": "^13.0.0",
     "size-limit": "^7.0.8",
     "style-loader": "^2.0.0",
     "webpack": "^4.39.2"
