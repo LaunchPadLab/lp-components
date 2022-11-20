@@ -2,7 +2,7 @@
   "name": "@launchpadlab/lp-components",
   "version": "7.0.2",
   "engines": {
-    "node": "^14.19 || ^16.14"
+    "node": "^18.0.0"
   },
   "description": "Our Components",
   "main": "lib/index.js",
