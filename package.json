@@ -1,8 +1,8 @@
 {
   "name": "@launchpadlab/lp-components",
-  "version": "7.1.0",
+  "version": "8.0.0",
   "engines": {
-    "node": "^14.19 || ^16.14 || ^18.12"
+    "node": "^18.12"
   },
   "description": "Our Components",
   "main": "lib/index.js",
@@ -20,7 +20,7 @@
     "build": "yarn build:cjs && yarn build:esm && yarn build:styles",
     "build:cjs": "babel src --out-dir lib",
     "build:esm": "BABEL_ENV=esm babel src --out-dir esm",
-    "build:styles": "cp -r src/styles lib/styles && node-sass src/styles/ -o lib/styles",
+    "build:styles": "cp -r src/styles lib/styles && sass src/styles:lib/styles",
     "build:development": "BABEL_ENV=esm babel src --watch --out-dir esm",
     "clean": "rm -rf lib esm",
     "docs": "documentation build src/index.js -f md -o docs.md",
@@ -67,13 +67,15 @@
     "@storybook/addon-storysource": "^6.4.22",
     "@storybook/addon-viewport": "^6.4.22",
     "@storybook/addons": "^6.4.22",
+    "@storybook/builder-webpack5": "^6.5.14",
+    "@storybook/manager-webpack5": "^6.5.14",
     "@storybook/react": "^6.4.22",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.7",
-    "babel-loader": "^8.2.4",
+    "babel-loader": "^9.1.0",
     "bourbon": "^7.2.0",
     "bourbon-neat": "^4.0.0",
     "core-js": "^3.21.1",
-    "css-loader": "^5.2.7",
+    "css-loader": "^6.7.2",
     "documentation": "^13.2.5",
     "enzyme": "^3.2.0",
     "eslint": "^7.32.0",
@@ -81,17 +83,17 @@
     "jest": "^25.1.0",
     "jest-canvas-mock": "^2.1.1",
     "lint-staged": "^13.0.3",
-    "node-sass": "^6.0.1",
     "prettier": "^2.7.1",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "recompose": "^0.30.0",
     "redux": "^4.1.2",
     "regenerator-runtime": "^0.13.9",
-    "sass-loader": "^10.2.1",
+    "sass": "^1.56.1",
+    "sass-loader": "^13.2.0",
     "size-limit": "^7.0.8",
-    "style-loader": "^2.0.0",
-    "webpack": "^4.39.2"
+    "style-loader": "^3.3.1",
+    "webpack": "^5.75.0"
   },
   "peerDependencies": {
     "react": "^16.14.0 || ^17.0.0"
