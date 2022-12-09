@@ -43,7 +43,7 @@ module.exports = async ({ config }) => {
       src: path.resolve(__dirname, '../src'),
     },
   }
-  // Required for Node ^18.12.1 to resolve an OpenSSL configuraiton deprecation.
+  // Required for Node ^18.12.1 to resolve an OpenSSL configuration deprecation.
   // See: https://stackoverflow.com/questions/69692842/error-message-error0308010cdigital-envelope-routinesunsupported/73465262#73465262
   config.output = {
     ...config.output,
