@@ -1,8 +1,8 @@
 <!-- Include description and link to resolved issue(s) here. -->
 
 ## Release Notes
-<!-- Optional description of the resolve issue(s) that will be included in the -->
-<!-- Github release description of this library. -->
+<!-- Optional description of the resolved issue(s) that will be included in the -->
+<!-- GitHub release description of this library. -->
 
 ## Author Checklist
 
