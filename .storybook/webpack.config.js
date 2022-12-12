@@ -9,7 +9,11 @@ module.exports = async ({ config }) => {
   // Storysource-addon
   config.module.rules.push({
     test: /\.story\.jsx?$/,
-    loaders: [require.resolve('@storybook/source-loader')],
+    use: [
+      {
+        loader: require.resolve('@storybook/source-loader')
+      }
+    ],
     enforce: 'pre',
   })
   // Sass
@@ -39,5 +43,12 @@ module.exports = async ({ config }) => {
       src: path.resolve(__dirname, '../src'),
     },
   }
+  // Required for Node ^18.12.1 to resolve an OpenSSL configuration deprecation.
+  // See: https://stackoverflow.com/questions/69692842/error-message-error0308010cdigital-envelope-routinesunsupported/73465262#73465262
+  config.output = {
+    ...config.output,
+    hashFunction: 'xxhash64',
+  }
+
   return config
 }
