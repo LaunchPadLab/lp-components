@@ -87,6 +87,7 @@ function LabeledField({
   labelComponent: LabelComponent = InputLabel,
   children,
   hideErrorLabel,
+  label,
   ...rest
 }) {
   const { name } = input
@@ -95,9 +96,10 @@ function LabeledField({
     <div
       className={classnames(className, {
         error: hasInputError({ touched, invalid }),
+        disabled: rest.disabled,
       })}
     >
-      <LabelComponent {...{ name, id, ...rest }} />
+      <LabelComponent {...{ name, id, label, ...rest }} />
       {children}
       {!hideErrorLabel && (
         <ErrorComponent {...{ ...input, ...meta, ...rest }} />

@@ -22,7 +22,7 @@ storiesOf('RangeInput', module)
     <RangeInput input={rangeInputProps} meta={{}} min={20} max={80} step={5} />
   ))
   .add('with the value label hidden', () => (
-    <RangeInput input={rangeInputProps} meta={{}} hideLabel={true} />
+    <RangeInput input={rangeInputProps} meta={{}} hideRangeLabel />
   ))
   .add('with error', () => (
     <RangeInput

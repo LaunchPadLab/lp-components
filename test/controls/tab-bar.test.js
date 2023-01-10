@@ -3,91 +3,113 @@ import { mount } from 'enzyme'
 import { TabBar } from '../../src/'
 
 const defaultOptions = ['Home', 'Account']
-const objectOptions = [{key: 'Home', value: 'home'}, {key: 'Account', value: 4}]
+const objectOptions = [
+  { key: 'Home', value: 'home' },
+  { key: 'Account', value: 4 },
+]
 
 test('TabBar defaults to horizontal alignment', () => {
-  const wrapper = mount(<TabBar options={defaultOptions} />)
+  const wrapper = mount(<TabBar options={defaultOptions} value="home" />)
   expect(wrapper.find('ul').hasClass('horizontal-tabs')).toEqual(true)
 })
 
 test('TabBar aligns vertically with vertical option', () => {
-  const wrapper = mount(<TabBar options={defaultOptions} vertical={true} />)
+  const wrapper = mount(
+    <TabBar options={defaultOptions} vertical={true} value="home" />
+  )
   expect(wrapper.find('ul').hasClass('vertical-tabs')).toEqual(true)
 })
 
 test('TabBar renders defaultOptions', () => {
-  const wrapper = mount(<TabBar options={defaultOptions} />)
+  const wrapper = mount(<TabBar options={defaultOptions} value="home" />)
   expect(wrapper.find('li').first().text()).toEqual('Home')
   expect(wrapper.find('li').last().text()).toEqual('Account')
 })
 
 test('TabBar renders objectOptions', () => {
-  const wrapper = mount(<TabBar options={objectOptions} />)
+  const wrapper = mount(<TabBar options={objectOptions} value="home" />)
   expect(wrapper.find('li').first().text()).toEqual('Home')
   expect(wrapper.find('li').last().text()).toEqual('Account')
 })
 
 test('TabBar adds Active class', () => {
-  const wrapper = mount(<TabBar options={objectOptions} value='home' />)
+  const wrapper = mount(<TabBar options={objectOptions} value="home" />)
   expect(wrapper.find('li').first().hasClass('active')).toEqual(true)
 })
 
 test('TabBar calls onChange', () => {
   const onChange = jest.fn()
-  const wrapper = mount(<TabBar options={objectOptions} onChange={ onChange } />)
+  const wrapper = mount(
+    <TabBar options={objectOptions} value="home" onChange={onChange} />
+  )
   wrapper.find('li > a').first().simulate('click')
   expect(onChange).toHaveBeenCalledWith('home')
 })
 
 test('TabBar passes down custom className to ul', () => {
-  const wrapper = mount(<TabBar className="custom" />)
+  const wrapper = mount(
+    <TabBar options={objectOptions} value="home" className="custom" />
+  )
   expect(wrapper.find('ul').hasClass('custom')).toEqual(true)
 })
 
 test('TabBar passes down custom activeClassName to li', () => {
-  const wrapper = mount(<TabBar options={objectOptions} value='home' activeClassName="custom" />)
+  const wrapper = mount(
+    <TabBar options={objectOptions} value="home" activeClassName="custom" />
+  )
   expect(wrapper.find('li').first().hasClass('custom')).toEqual(true)
 })
 
 test('TabBar assigns appropriate aria roles', () => {
-  const wrapper = mount(<TabBar options={defaultOptions} />)
+  const wrapper = mount(<TabBar options={defaultOptions} value="home" />)
   expect(wrapper.find('ul').prop('role')).toBe('tablist')
   expect(wrapper.find('li > a').every('[role="tab"]')).toBe(true)
 })
 
 test('TabBar assigns appropriate aria orientation', () => {
-  const horizontalWrapper = mount(<TabBar options={defaultOptions} vertical={false} />)
-  const verticalWrapper = mount(<TabBar options={defaultOptions} vertical />)
-  
-  expect(horizontalWrapper.find('[role="tablist"]').prop('aria-orientation')).toBe('horizontal')
-  expect(verticalWrapper.find('[role="tablist"]').prop('aria-orientation')).toBe('vertical')
+  const horizontalWrapper = mount(
+    <TabBar options={defaultOptions} vertical={false} value="home" />
+  )
+  const verticalWrapper = mount(
+    <TabBar options={defaultOptions} vertical value="home" />
+  )
+
+  expect(
+    horizontalWrapper.find('[role="tablist"]').prop('aria-orientation')
+  ).toBe('horizontal')
+  expect(
+    verticalWrapper.find('[role="tablist"]').prop('aria-orientation')
+  ).toBe('vertical')
 })
 
 test('TabBar assigns unique id to tab', () => {
-  const wrapper = mount(<TabBar options={defaultOptions} />)
-  expect(wrapper.find('li > a').first().prop('id')).toContain(defaultOptions[0].toLowerCase())
-})
-
-test('TabBar mounts with the first tab active by default', () => {
-  const wrapper = mount(<TabBar options={defaultOptions} />)
-  expect(wrapper.find('li.active').length).toBe(1)
+  const wrapper = mount(<TabBar options={defaultOptions} value="home" />)
+  expect(wrapper.find('li > a').first().prop('id')).toContain(
+    defaultOptions[0].toLowerCase()
+  )
 })
 
 test('Inactive tabs are explicitly removed from the natural tab order', () => {
-  const wrapper = mount(<TabBar options={defaultOptions} />)
-  expect(wrapper.find('li').not('.active').find('a').every('[tabIndex="-1"]')).toBe(true)
+  const wrapper = mount(<TabBar options={defaultOptions} value="home" />)
+  expect(
+    wrapper.find('li').not('.active').find('a').every('[tabIndex="-1"]')
+  ).toBe(true)
 })
 
 test('Tab to show is triggered via Enter', () => {
   const onChange = jest.fn()
-  const wrapper = mount(<TabBar options={objectOptions} onChange={ onChange } />)
+  const wrapper = mount(
+    <TabBar options={objectOptions} value="home" onChange={onChange} />
+  )
   wrapper.find('li > a').first().simulate('keyPress', { keyCode: 13 })
   expect(onChange).toHaveBeenCalledWith('home')
 })
 
 test('Tab to show is triggered via Space', () => {
   const onChange = jest.fn()
-  const wrapper = mount(<TabBar options={objectOptions} onChange={ onChange } />)
+  const wrapper = mount(
+    <TabBar options={objectOptions} value="home" onChange={onChange} />
+  )
   wrapper.find('li > a').first().simulate('keyPress', { keyCode: 32 })
   expect(onChange).toHaveBeenCalledWith('home')
 })

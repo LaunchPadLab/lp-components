@@ -30,7 +30,7 @@ import { hasInputError } from '../helpers'
  *
  * @example
  *
- * // A custom input to use with redux-forms
+ * // A custom input to use with redux-form
  *
  * function ValidatedInput ({
  *   input: { name, value, onBlur, onChange },

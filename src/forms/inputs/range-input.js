@@ -15,16 +15,16 @@ import {
 
 /**
  *
- * A range input that can be used in a `redux-forms`-controlled form.
+ * A range input that can be used in a `redux-form`-controlled form.
  *
  * @name RangeInput
  * @type Function
- * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
- * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+ * @param {Object} input - A `redux-form` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
+ * @param {Object} meta - A `redux-form` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @param {Number} [min=0] - The minumum attribute of the slider control
  * @param {Number} [max=100] - The maximum attribute of the slider control
  * @param {Number} [step=1] - The step attribute of the slider control
- * @param {Boolean} [hideLabel=false] - A boolean representing whether or not to display the range value label element
+ * @param {Boolean} [hideRangeValue=false] - A boolean representing whether or not to display the range value
  * @example
  *
  * function StudentForm ({ handleSubmit, pristine, invalid, submitting }) {
@@ -50,14 +50,14 @@ const propTypes = {
   min: PropTypes.number,
   max: PropTypes.number,
   step: PropTypes.number,
-  hideLabel: PropTypes.bool,
+  hideRangeValue: PropTypes.bool,
 }
 
 const defaultProps = {
   min: 0,
   max: 100,
   step: 1,
-  hideLabel: false,
+  hideRangeValue: false,
 }
 
 function RangeInput(props) {
@@ -65,15 +65,17 @@ function RangeInput(props) {
     input: { name, value, onBlur, onChange },
     meta, // eslint-disable-line no-unused-vars
     className, // eslint-disable-line no-unused-vars
+    hideRangeValue,
     min,
     max,
     step,
-    hideLabel,
     ...rest
   } = omitLabelProps(props)
   return (
     <LabeledField {...props}>
-      <div>{!hideLabel && <label className="range-value">{value}</label>}</div>
+      <div>
+        {!hideRangeValue && <label className="range-value">{value}</label>}
+      </div>
       <input
         {...{
           id: name,

@@ -4,20 +4,19 @@ import PropTypes from 'prop-types'
 // Default FileInput preview component for non-image files
 
 const propTypes = {
-  file: PropTypes.object,
+  name: PropTypes.string,
 }
 
 const defaultProps = {
-  file: {},
+  name: '',
 }
 
-function FilePreview({ file }) {
-  if (!file) return null
-  return <p>{file.name}</p>
+function FilePreview({ name }) {
+  if (!name) return null
+  return <p>{name}</p>
 }
 
 FilePreview.propTypes = propTypes
-
 FilePreview.defaultProps = defaultProps
 
 export default FilePreview

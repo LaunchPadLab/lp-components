@@ -22,6 +22,14 @@ const options = [
   { key: 'Third Option', value: '3' },
 ]
 
+const SpecialLabel = ({ id, label }) => (
+  <span>
+    <label htmlFor={id}>
+      <em>{label}</em>
+    </label>
+  </span>
+)
+
 storiesOf('RadioGroup', module)
   .add('with default label', () => (
     <RadioGroup input={inputProps} meta={{}} options={options} />
@@ -50,3 +58,32 @@ storiesOf('RadioGroup', module)
     />
   ))
   .add('with empty options', () => <RadioGroup input={inputProps} meta={{}} />)
+  .add('with disabled options', () => (
+    <RadioGroup
+      input={inputProps}
+      meta={{}}
+      options={options}
+      disabled={true}
+    />
+  ))
+  .add('with boolean options', () => (
+    <RadioGroup
+      input={inputProps}
+      label="Are you sure?"
+      meta={{}}
+      options={[
+        { key: 'Yes', value: true },
+        { key: 'No', value: false },
+      ]}
+    />
+  ))
+  .add('with input props specified', () => (
+    <RadioGroup
+      input={inputProps}
+      meta={{}}
+      options={options}
+      radioInputProps={{
+        labelComponent: SpecialLabel,
+      }}
+    />
+  ))

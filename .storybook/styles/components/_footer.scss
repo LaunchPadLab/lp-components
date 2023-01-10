@@ -20,7 +20,7 @@ Social Media
 
   li {
     display: inline-block;
-    @include transition(all 0.3s ease-in-out);
+    transition: all 0.3s ease-in-out;
     opacity: 0.8;
     width: inherit;
 

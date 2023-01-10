@@ -4,7 +4,7 @@ import { wrapDisplayName, noop, set, omit } from '../../utils'
 
 /**
  *
- * A function that returns an HOC to wrap a `redux-forms`-controlled input.
+ * A function that returns an HOC to wrap a `redux-form`-controlled input.
  *
  * If the input is pristine, this HOC replaces the passed `onBlur` with an empty function.
  * This prevents the form from being re-validated unless its value has changed.

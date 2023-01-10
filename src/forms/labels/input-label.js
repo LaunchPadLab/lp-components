@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { convertNameToLabel } from '../helpers'
-import { toggle, togglePropTypes } from '../../utils'
+import { useToggle } from '../../utils'
 
 /**
  *
@@ -12,7 +12,7 @@ import { toggle, togglePropTypes } from '../../utils'
  *
  * The text of the label is set using the following rules:
  * - If the `label` prop is set to `false`, the label is hidden completely
- * - Else If the component is passed childen, the children will be displayed within the `label`
+ * - Else If the component is passed children, the children will be displayed within the `label`
  * - Else If the `label` prop is set to a string, the label will display that text
  * - Otherwise, the label will be set using the `name` prop.
  *
@@ -34,7 +34,7 @@ import { toggle, togglePropTypes } from '../../utils'
 
  * @example
  *
- * // A custom input to use with redux-forms
+ * // A custom input to use with redux-form
  *
  * function EmailInput ({
  *   input: { name, value, onBlur, onChange },
@@ -66,7 +66,6 @@ const propTypes = {
   required: PropTypes.bool,
   requiredIndicator: PropTypes.string,
   className: PropTypes.string,
-  ...togglePropTypes('tooltipShown'),
 }
 
 const defaultProps = {
@@ -86,12 +85,11 @@ function InputLabel({
   label,
   name,
   tooltip,
-  tooltipShown,
-  toggleTooltipShown,
   required,
   requiredIndicator,
   className,
 }) {
+  const [tooltipShown, toggleTooltipShown] = useToggle()
   const labelToDisplay = children || label || convertNameToLabel(name)
 
   return (
@@ -108,7 +106,10 @@ function InputLabel({
         </label>
       )}
       {tooltip && (
-        <span className="tooltip-trigger" onClick={toggleTooltipShown} />
+        <span
+          className="tooltip-trigger"
+          onClick={() => toggleTooltipShown()}
+        />
       )}
       {tooltip && (
         <div
@@ -126,4 +127,4 @@ function InputLabel({
 InputLabel.propTypes = propTypes
 InputLabel.defaultProps = defaultProps
 
-export default toggle('tooltipShown')(InputLabel)
+export default InputLabel

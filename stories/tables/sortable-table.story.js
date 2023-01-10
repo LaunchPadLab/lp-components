@@ -18,6 +18,18 @@ function CustomCell({ value }) {
   return <td style={{ color: colorForStatus(value) }}>{value}</td>
 }
 
+function CustomCellWithRowData({ data: { name, active } }) {
+  const checkIfActive = (active) => {
+    if (active === 'yes') return 'active'
+    return 'not active'
+  }
+  return (
+    <td style={{ color: colorForStatus(active) }}>
+      {name} is {checkIfActive(active)}
+    </td>
+  )
+}
+
 // eslint-disable-next-line react/prop-types
 function CustomRow({ data: { active }, children }) {
   return <tr style={{ backgroundColor: colorForStatus(active) }}>{children}</tr>
@@ -83,6 +95,23 @@ storiesOf('SortableTable', module)
       <Column name="name" />
       <Column name="age" />
       <Column name="active" component={CustomCell} />
+    </SortableTable>
+  ))
+  .add(
+    'with additional valid DOM properties on cell component (per column)',
+    () => (
+      <SortableTable data={tableData}>
+        <Column name="name" tabIndex="-1" />
+        <Column name="age" data-cy="age" />
+        <Column name="active" aria-label="Active" />
+      </SortableTable>
+    )
+  )
+  .add('with custom cell component and its row data', () => (
+    <SortableTable data={tableData}>
+      <Column name="name" />
+      <Column name="age" />
+      <Column name="active" component={CustomCellWithRowData} />
     </SortableTable>
   ))
   .add('with custom row component', () => (
@@ -151,7 +180,7 @@ storiesOf('SortableTable', module)
       </SortableTable>
     </div>
   ))
-  .add('with custom value getter, custom sorter, iniital column', () => (
+  .add('with custom value getter, custom sorter, initial column', () => (
     <div>
       <h2>
         "Name and Age" column combines name and age, sorted by age portion,

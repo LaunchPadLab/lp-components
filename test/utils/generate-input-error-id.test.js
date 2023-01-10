@@ -6,12 +6,12 @@ test('when the name is empty - returns nothing', () => {
 })
 
 test('when the name is undefined - returns nothing', () => {
-  const name = undefined  
+  const name = undefined
   expect(generateInputErrorId(name)).toBe('')
 })
 
 test('when the name is provided - appends a string', () => {
   const name = 'foo'
   const strToAppend = 'Error'
-  expect(generateInputErrorId(name)).toBe(name+strToAppend)
+  expect(generateInputErrorId(name)).toBe(name + strToAppend)
 })

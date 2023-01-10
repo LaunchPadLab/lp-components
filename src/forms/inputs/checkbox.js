@@ -16,14 +16,14 @@ import {
 
 /**
  *
- * A checkbox input that can be used in a `redux-forms`-controlled form.
+ * A checkbox input that can be used in a `redux-form`-controlled form.
  *
  * This input only accepts and stores boolean values.
  *
  * @name Checkbox
  * @type Function
- * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
- * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+ * @param {Object} input - A `redux-form` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
+ * @param {Object} meta - A `redux-form` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @example
  *
  * function CoolPersonForm ({ handleSubmit, pristine, invalid, submitting }) {
@@ -74,7 +74,4 @@ function Checkbox(props) {
 
 Checkbox.propTypes = propTypes
 
-export default compose(
-  blurDirty(),
-  replaceEmptyStringValue(false)
-)(Checkbox)
+export default compose(blurDirty(), replaceEmptyStringValue(false))(Checkbox)

@@ -4,33 +4,33 @@ import { Checkbox } from '../../../src/'
 
 test('Checkbox toggles value when clicked', () => {
   const onChange = jest.fn()
-  const props = { 
+  const props = {
     input: {
       name: 'test',
       value: false,
       onChange,
-    }, 
-    meta: {} 
+    },
+    meta: {},
   }
-  const wrapper = mount(<Checkbox { ...props }/>)
+  const wrapper = mount(<Checkbox {...props} />)
   wrapper.find('input').simulate('change')
   const newValue = onChange.mock.calls[0][0]
   expect(newValue).toEqual(true)
 })
 
 test('Checkbox is given an aria-describedby attribute when there is an input error', () => {
-  const name = "test"
-  const props = { 
+  const name = 'test'
+  const props = {
     input: {
       name,
       value: false,
-    }, 
+    },
     meta: {
       touched: true,
       invalid: true,
-    } 
+    },
   }
-  const wrapper = mount(<Checkbox { ...props }/>)
+  const wrapper = mount(<Checkbox {...props} />)
   expect(wrapper.find('input').prop('aria-describedby')).toContain(name)
 })
 
@@ -41,9 +41,9 @@ test('Checkbox does not receive invalid dom attributes', () => {
       value: false,
     },
     meta: {},
-    onClickLabel: () => 'foo'
+    onClickLabel: () => 'foo',
   }
-  
+
   const wrapper = mount(<Checkbox {...props} />)
   expect(wrapper.find('input').prop('onClickLabel')).toBe(undefined)
 })

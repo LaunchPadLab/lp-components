@@ -36,3 +36,20 @@ storiesOf('Table', module)
       <Column name="active" component={CustomCell} />
     </Table>
   ))
+  .add('with caption', () => (
+    <Table data={tableData} caption="Participant Attributes">
+      <Column name="name" />
+      <Column name="age" />
+      <Column name="active" />
+    </Table>
+  ))
+  .add('with customized caption', () => (
+    <Table
+      data={tableData}
+      caption={<span className="custom-caption">Participant Attributes</span>}
+    >
+      <Column name="name" />
+      <Column name="age" />
+      <Column name="active" />
+    </Table>
+  ))

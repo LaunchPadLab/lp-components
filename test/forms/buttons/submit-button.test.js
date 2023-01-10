@@ -8,8 +8,13 @@ test('SubmitButton adds type="submit" to button', () => {
 })
 
 test('SubmitButton passes down other props to button', () => {
-  const wrapper = shallow(<SubmitButton pristine={true} style="custom"> Hi</SubmitButton>)
+  const wrapper = shallow(
+    <SubmitButton pristine={true} variant="custom">
+      {' '}
+      Hi
+    </SubmitButton>
+  )
   const button = wrapper.dive()
-  expect(button.props().disabled).toBe(true)
+  expect(button.props()['aria-disabled']).toBe(true)
   expect(button.hasClass('button-custom')).toBe(true)
 })

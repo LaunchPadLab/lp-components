@@ -26,8 +26,12 @@ test('shows pages to left and right of current page', () => {
   const max = 10
   const min = 1
   const numPagesShown = 3
-  expect(calculateMiddlePages(currentPage, min, max, numPagesShown)).toEqual([4, 5, 6])
-  expect(calculateMiddlePages(currentPage, min, max, 5)).toEqual([3, 4, 5, 6, 7])
+  expect(calculateMiddlePages(currentPage, min, max, numPagesShown)).toEqual([
+    4, 5, 6,
+  ])
+  expect(calculateMiddlePages(currentPage, min, max, 5)).toEqual([
+    3, 4, 5, 6, 7,
+  ])
   expect(calculateMiddlePages(currentPage, min, max, 4)).toEqual([3, 4, 5, 6])
 })
 
@@ -36,8 +40,12 @@ test('trims pages to min and offsets last page accordingly', () => {
   const max = 10
   const min = 1
   const numPagesShown = 5
-  expect(calculateMiddlePages(currentPage, min, max, numPagesShown)).toEqual([2, 3, 4, 5])
-  expect(calculateMiddlePages(currentPage, min, 5, numPagesShown)).toEqual([2, 3, 4])
+  expect(calculateMiddlePages(currentPage, min, max, numPagesShown)).toEqual([
+    2, 3, 4, 5,
+  ])
+  expect(calculateMiddlePages(currentPage, min, 5, numPagesShown)).toEqual([
+    2, 3, 4,
+  ])
 })
 
 test('trims pages to max and offsets first page accordingly', () => {
@@ -45,6 +53,10 @@ test('trims pages to max and offsets first page accordingly', () => {
   const max = 10
   const min = 1
   const numPagesShown = 5
-  expect(calculateMiddlePages(currentPage, min, max, numPagesShown)).toEqual([6, 7, 8, 9])
-  expect(calculateMiddlePages(currentPage, 5, max, numPagesShown)).toEqual([6, 7, 8, 9])
+  expect(calculateMiddlePages(currentPage, min, max, numPagesShown)).toEqual([
+    6, 7, 8, 9,
+  ])
+  expect(calculateMiddlePages(currentPage, 5, max, numPagesShown)).toEqual([
+    6, 7, 8, 9,
+  ])
 })

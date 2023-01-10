@@ -29,7 +29,7 @@ h6 {
   line-height: 1.1;
 
   a {
-    @include transition(all 0.3s ease-in-out);
+    transition: all 0.3s ease-in-out;
 
     &:hover {
       text-decoration: underline;
@@ -39,14 +39,14 @@ h6 {
 
 h1 {
   font-size: $s-bigger;
-  @include media($tablet) {
+  @media ($tablet) {
     font-size: $s-large;
   }
 }
 
 h2 {
   font-size: $s-medium;
-  @include media($tablet-landscape) {
+  @media ($tablet-landscape) {
     font-size: $s-bigger;
     font-weight: 500;
   }
@@ -54,7 +54,7 @@ h2 {
 
 h3 {
   font-size: $s-base;
-  @include media($tablet) {
+  @media ($tablet) {
     font-size: $s-big;
     @include rem(margin-bottom, 20px);
   }
@@ -80,7 +80,7 @@ p {
   //@include rem(margin-bottom, 12px);
   line-height: 22px;
   color: $black-base;
-  @include media($tablet) {
+  @media ($tablet) {
     font-size: $s-base;
   }
 
@@ -100,7 +100,7 @@ dd {
 a {
   color: $black-base;
   cursor: pointer;
-  @include transition(all 0.3s ease-in-out);
+  transition: all 0.3s ease-in-out;
   text-decoration: none;
   border-bottom: 2px solid $blue-light;
   font-size: $s-small;

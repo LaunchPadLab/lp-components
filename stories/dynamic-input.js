@@ -5,7 +5,7 @@ import get from 'lodash/fp/get'
 import noop from 'lodash/noop'
 import compose from 'lodash/fp/compose'
 
-// From redux-forms
+// From redux-form
 const isEvent = (obj) => !!(obj && obj.stopPropagation && obj.preventDefault)
 
 // A HOC that provides a value and onChange to its wrapped component
@@ -36,13 +36,7 @@ export default function dynamicInput(options = {}) {
         const givenOnChange = get(onChangePath, this.props) || noop
         const props = compose(
           set(valuePath, value),
-          set(
-            onChangePath,
-            compose(
-              givenOnChange,
-              this.onChange
-            )
-          )
+          set(onChangePath, compose(givenOnChange, this.onChange))
         )(this.props)
         return <Wrapped {...props} />
       }

@@ -26,7 +26,7 @@ Styleguide
     &.with-sidebar {
       .content-container {
         .card {
-          @include media($tablet-landscape) {
+          @media ($tablet-landscape) {
             float: inherit;
             width: 100%;
           }

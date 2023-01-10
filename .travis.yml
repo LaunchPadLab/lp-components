@@ -1,7 +1,8 @@
 language: node_js
+dist: focal
 cache: yarn
 before_script:
-  - 'yarn lint'
+  - 'yarn lint --max-warnings=0'
   - 'yarn size'
 notifications:
   email: false

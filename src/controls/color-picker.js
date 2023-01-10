@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ChromePicker from 'react-color/lib/Chrome'
-import { compose, toggle, togglePropTypes, modifyProps, noop } from '../utils'
+import { noop, useToggle } from '../utils'
 
 /**
  *
@@ -35,7 +35,6 @@ const propTypes = {
   onOpen: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
   active: PropTypes.bool,
-  ...togglePropTypes('expanded'),
 }
 
 const defaultProps = {
@@ -45,15 +44,10 @@ const defaultProps = {
   onClose: noop,
 }
 
-function ColorPicker({
-  value,
-  onChange,
-  onOpen,
-  onClose,
-  expanded,
-  toggleExpanded,
-  ...rest
-}) {
+function ColorPicker({ active, value, onChange, onOpen, onClose, ...rest }) {
+  const [expanded, toggleExpanded] = useToggle()
+  const isExpanded = active === undefined ? expanded : active
+
   return (
     <div className="color-picker">
       <span
@@ -64,7 +58,7 @@ function ColorPicker({
           return onOpen()
         }}
       />
-      {expanded && (
+      {isExpanded && (
         <div className="popover">
           <div
             className="cover"
@@ -88,14 +82,4 @@ function ColorPicker({
 ColorPicker.propTypes = propTypes
 ColorPicker.defaultProps = defaultProps
 
-// Active should override expanded (allow external control)
-function modify({ active, expanded }) {
-  return {
-    expanded: active === undefined ? expanded : active,
-  }
-}
-
-export default compose(
-  toggle('expanded'),
-  modifyProps(modify)
-)(ColorPicker)
+export default ColorPicker

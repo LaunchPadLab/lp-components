@@ -6,6 +6,7 @@ import dynamicInput from '../../dynamic-input'
 
 const FileInput = dynamicInput({
   valuePath: 'input.value',
+  initialValue: [],
   onChangePath: 'input.onChange',
 })(StaticFileInput)
 
@@ -17,7 +18,15 @@ const inputProps = {
 // eslint-disable-next-line react/prop-types
 function FilenamePreview({ file }) {
   if (!file) return null
-  return <p>{file.name}</p>
+  const lastModified = new Date(file.lastModified)
+  const formattedDate = `${
+    lastModified.getMonth() + 1
+  }/${lastModified.getDate()}/${lastModified.getFullYear()}`
+  return (
+    <p>
+      {file.name} <i>(Modified: {formattedDate})</i>
+    </p>
+  )
 }
 
 storiesOf('FileInput', module)
@@ -31,4 +40,17 @@ storiesOf('FileInput', module)
       meta={{}}
       previewComponent={FilenamePreview}
     />
+  ))
+  .add('with thumbnail', () => (
+    <FileInput
+      input={inputProps}
+      meta={{}}
+      thumbnail={'https://via.placeholder.com/150'}
+    />
+  ))
+  .add('with accepting only images', () => (
+    <FileInput input={inputProps} meta={{}} accept="image/*" />
+  ))
+  .add('with multiple files', () => (
+    <FileInput input={inputProps} meta={{}} multiple={true} />
   ))

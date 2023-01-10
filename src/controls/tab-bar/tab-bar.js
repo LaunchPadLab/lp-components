@@ -1,12 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { fieldOptionsType } from '../../forms/helpers/field-prop-types'
 import {
   serializeOptions,
   noop,
-  get,
-  first,
   toLower,
   triggerOnKeys,
   KeyCodes,
@@ -18,9 +15,9 @@ import manageFocus from './focus'
  * @name TabBar
  * @type Function
  * @description A control component for navigating among multiple tabs
- * @param {Boolean} [vertical] A boolean setting the `className` of the `ul` to 'horizontal' (default), or 'vertical', which determines the alignment of the tabs (optional, default `false`)
- * @param {Array} [options] An array of tab values (strings or key-value pairs)
- * @param {String|Number} [value] - The value of the current tab
+ * @param {Boolean} [vertical] - A boolean setting the `className` of the `ul` to 'horizontal' (default), or 'vertical', which determines the alignment of the tabs (optional, default `false`)
+ * @param {Array} options - An array of tab values (strings or key-value pairs)
+ * @param {String|Number} value - The value of the current tab
  * @param {Function} [onChange] - A function called with the new value when a tab is clicked
  * @param {String} [activeClassName] - The class of the active tab, (optional, default `active`)
  * @example
@@ -40,8 +37,18 @@ import manageFocus from './focus'
 
 const propTypes = {
   vertical: PropTypes.bool,
-  options: fieldOptionsType,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  options: PropTypes.arrayOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.shape({
+        key: PropTypes.string.isRequired,
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+          .isRequired,
+      }),
+    ])
+  ).isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   onChange: PropTypes.func,
   className: PropTypes.string,
   activeClassName: PropTypes.string,
@@ -49,8 +56,6 @@ const propTypes = {
 
 const defaultProps = {
   vertical: false,
-  options: [],
-  value: '',
   onChange: noop,
   className: '',
   activeClassName: 'active',
@@ -65,7 +70,6 @@ function TabBar({
   activeClassName,
 }) {
   const optionObjects = serializeOptions(options)
-  const activeValue = value || get('value', first(optionObjects)) // a11y dictates that a tab must be active, so default to the first option
   const alignment = vertical ? 'vertical' : 'horizontal'
 
   return (
@@ -75,7 +79,7 @@ function TabBar({
       aria-orientation={alignment}
     >
       {optionObjects.map(({ key, value: optionValue }) => {
-        const isActive = optionValue === activeValue
+        const isActive = optionValue === value
         return (
           <li
             className={classnames({ [activeClassName]: isActive })}

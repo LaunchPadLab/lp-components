@@ -3,7 +3,7 @@ $side-navigation: 245px;
 .side-navigation {
   display: none;
 
-  @include media($tablet-landscape) {
+  @media ($tablet-landscape) {
     display: block;
     background-color: $white-base;
     box-shadow: 0 0 18px 0 rgba(232, 232, 232, 0.5);

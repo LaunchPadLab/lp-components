@@ -7,7 +7,7 @@ Flash
 
 .flash-message {
   @include rem(padding, 10px 20px);
-  @include animation(fade-in 0.5s ease-in);
+  animation: fade-in 0.5s ease-in;
   width: 50%;
   margin: 0 auto;
   text-align: center;

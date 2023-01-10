@@ -47,6 +47,7 @@ const propTypes = {
   onChange: PropTypes.func,
   rowComponent: Types.component,
   headerComponent: Types.component,
+  caption: PropTypes.node,
 }
 const defaultProps = {
   className: '',
@@ -57,6 +58,7 @@ const defaultProps = {
   disableSort: false,
   controlled: false,
   onChange: noop,
+  caption: null,
 }
 const defaultControls = {
   initialSortPath: '',
@@ -91,14 +93,12 @@ function SortableTable({
   onChange,
   rowComponent,
   headerComponent,
+  caption,
   ...rest
 }) {
   const columns = getColumnData(children, disableSort)
-  const {
-    initialSortPath,
-    initialSortFunc,
-    initialValueGetter,
-  } = getInitialSortControls(initialColumn, columns)
+  const { initialSortPath, initialSortFunc, initialValueGetter } =
+    getInitialSortControls(initialColumn, columns)
   const [ascending, setAscending] = useState(initialAscending)
   const [sortPath, setSortPath] = useState(initialSortPath)
 
@@ -163,6 +163,7 @@ function SortableTable({
       className={classnames(className, { 'sortable-table': !disableSort })}
       {...filterInvalidDOMProps(rest)}
     >
+      {caption && <caption>{caption}</caption>}
       <thead>
         <tr>
           {columns.map((column, key) => {

@@ -22,6 +22,14 @@ const options = [
   { key: 'Third Option', value: '3' },
 ]
 
+const SpecialLabel = ({ id, label }) => (
+  <span>
+    <label htmlFor={id}>
+      <em>{label}</em>
+    </label>
+  </span>
+)
+
 storiesOf('CheckboxGroup', module)
   .add('with default label', () => (
     <CheckboxGroup input={inputProps} meta={{}} options={options} />
@@ -56,4 +64,14 @@ storiesOf('CheckboxGroup', module)
   ))
   .add('with empty options', () => (
     <CheckboxGroup input={inputProps} meta={{}} />
+  ))
+  .add('with input props specified', () => (
+    <CheckboxGroup
+      input={inputProps}
+      meta={{}}
+      options={options}
+      checkboxInputProps={{
+        labelComponent: SpecialLabel,
+      }}
+    />
   ))

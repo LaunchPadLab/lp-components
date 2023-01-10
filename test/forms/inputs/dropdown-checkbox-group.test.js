@@ -12,9 +12,9 @@ test('DropdownCheckboxGroup adds value to array when unselected option clicked',
       onChange,
     },
     meta: {},
-    options: [TOGGLED_OPTION]
+    options: [TOGGLED_OPTION],
   }
-  const wrapper = mount(<DropdownCheckboxGroup { ...props } />)
+  const wrapper = mount(<DropdownCheckboxGroup {...props} />)
   wrapper.find('input').simulate('change')
   const newValue = onChange.mock.calls[0][0]
   expect(newValue).toEqual([TOGGLED_OPTION])
@@ -30,9 +30,9 @@ test('DropdownCheckboxGroup removes value to array when selected option clicked'
       onChange,
     },
     meta: {},
-    options: [TOGGLED_OPTION]
+    options: [TOGGLED_OPTION],
   }
-  const wrapper = mount(<DropdownCheckboxGroup { ...props } />)
+  const wrapper = mount(<DropdownCheckboxGroup {...props} />)
   wrapper.find('input').simulate('change')
   const newValue = onChange.mock.calls[0][0]
   expect(newValue).toEqual([])

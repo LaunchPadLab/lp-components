@@ -1,10 +1,12 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Checkbox from './checkbox'
 import {
   checkboxGroupPropTypes,
   fieldOptionsType,
   omitLabelProps,
   replaceEmptyStringValue,
+  convertNameToLabel,
 } from '../helpers'
 import { LabeledField } from '../labels'
 import {
@@ -16,7 +18,7 @@ import {
 
 /**
  *
- * A group of checkboxes that can be used in a `redux-forms`-controlled form.
+ * A group of checkboxes that can be used in a `redux-form`-controlled form.
  *
  * The value of each checkbox is specified via the `options` prop. This prop can either be:
  * - An array of strings
@@ -28,9 +30,10 @@ import {
  *
  * @name CheckboxGroup
  * @type Function
- * @param {Object} input - A `redux-forms` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
- * @param {Object} meta - A `redux-forms` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
+ * @param {Object} input - A `redux-form` [input](http://redux-form.com/6.5.0/docs/api/Field.md/#input-props) object
+ * @param {Object} meta - A `redux-form` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @param {Array} options - An array of checkbox values (strings, numbers, or key-value pairs)
+ * @param {Object} [checkboxInputProps={}] - An object of key-value pairs representing props to pass down to all checkbox inputs
  * @example
  *
  * function TodoForm ({ handleSubmit, pristine, invalid, submitting }) {
@@ -53,15 +56,49 @@ import {
  * }
  *
  * export default TodoForm
+ *
+ * @example
+ * function TodoForm ({ handleSubmit, pristine, invalid, submitting }) {
+ *   return (
+ *     <form onSubmit={ handleSubmit }>
+ *       <Field
+ *          name="completedTodos"
+ *          component={ CheckboxGroup }
+ *          options={[
+ *            'Eat breakfast',
+ *            'Respond to emails',
+ *            'Take out the trash',
+ *          ]}
+ *          checkboxInputProps={{
+ *            className: 'checkbox-input--secondary',
+ *          }}
+ *       />
+ *       <SubmitButton {...{ pristine, invalid, submitting }}>
+ *         Submit
+ *       </SubmitButton>
+ *     </form>
+ *   )
+ * }
+ *
+ * export default TodoForm
  */
 
 const propTypes = {
   ...checkboxGroupPropTypes,
+  className: PropTypes.string,
+  checkboxInputProps: PropTypes.object,
   options: fieldOptionsType,
 }
 
 const defaultProps = {
+  className: 'CheckboxGroup',
+  checkboxInputProps: {},
   options: [],
+}
+
+function CheckboxGroupLegend({ name, label }) {
+  if (label === false) return null
+  return <legend>{label || convertNameToLabel(name)}</legend>
 }
 
 function CheckboxGroup(props) {
@@ -69,12 +106,14 @@ function CheckboxGroup(props) {
     input: { value, onChange, name },
     meta, // eslint-disable-line no-unused-vars
     options,
+    className,
+    checkboxInputProps,
     ...rest
   } = omitLabelProps(props)
   const optionObjects = serializeOptions(options)
   // Build change handler
-  const handleChange = function(option) {
-    return function(checked) {
+  const handleChange = function (option) {
+    return function (checked) {
       // Add or remove option value from array of values, depending on whether it's checked
       const newValueArray = checked
         ? addToArray([option.value], value)
@@ -83,7 +122,11 @@ function CheckboxGroup(props) {
     }
   }
   return (
-    <LabeledField className="CheckboxGroup" {...props}>
+    <LabeledField
+      className={className}
+      labelComponent={CheckboxGroupLegend}
+      {...props}
+    >
       {optionObjects.map((option, i) => {
         return (
           <Checkbox // eslint-disable-line react/jsx-key
@@ -97,6 +140,7 @@ function CheckboxGroup(props) {
               meta: {},
               label: option.key,
               ...rest,
+              ...checkboxInputProps,
             }}
           />
         )

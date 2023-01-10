@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { compose, onOutsideClick, toggle, togglePropTypes } from '../../utils'
+import { useToggle } from '../../utils'
+import OutsideClickHandler from 'react-outside-click-handler'
 import classnames from 'classnames'
 
 const propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   selectedValues: PropTypes.arrayOf(PropTypes.string),
-  ...togglePropTypes('expanded'),
 }
 
 const defaultProps = {
@@ -17,26 +17,24 @@ const defaultProps = {
 
 // Wraps the `DropdownCheckboxGroup` component
 
-function DropdownSelect({
-  children,
-  className,
-  expanded,
-  selectedValues,
-  toggleExpanded,
-}) {
+function DropdownSelect({ children, className, selectedValues }) {
+  const [expanded, toggleExpanded] = useToggle()
+
   return (
-    <div className="dropdown-select">
-      <div className="select-input" onClick={toggleExpanded}>
-        <p>{getLabel(selectedValues)}</p>
+    <OutsideClickHandler onOutsideClick={() => toggleExpanded(false)}>
+      <div className="dropdown-select">
+        <div className="select-input" onClick={() => toggleExpanded()}>
+          <p>{getLabel(selectedValues)}</p>
+        </div>
+        <div
+          className={classnames(className, 'options', {
+            'is-active': expanded,
+          })}
+        >
+          <div className="scroll-box">{children}</div>
+        </div>
       </div>
-      <div
-        className={classnames(className, 'options', {
-          'is-active': expanded,
-        })}
-      >
-        <div className="scroll-box">{children}</div>
-      </div>
-    </div>
+    </OutsideClickHandler>
   )
 }
 
@@ -48,11 +46,4 @@ function getLabel(values) {
   return values.length ? values.join(', ') : 'None'
 }
 
-function handleClickOutside({ setExpanded }) {
-  return setExpanded(false)
-}
-
-export default compose(
-  toggle('expanded'),
-  onOutsideClick(handleClickOutside)
-)(DropdownSelect)
+export default DropdownSelect

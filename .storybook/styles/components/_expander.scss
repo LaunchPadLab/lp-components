@@ -9,7 +9,7 @@ Expander
     text-decoration: none;
     @include rem(margin, 0px -20px);
 
-    @include media($tablet) {
+    @media ($tablet) {
       @include rem(margin, 0px -40px);
       @include rem(padding, 10px 40px);
     }
