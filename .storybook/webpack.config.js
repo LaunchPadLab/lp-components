@@ -11,8 +11,8 @@ module.exports = async ({ config }) => {
     test: /\.story\.jsx?$/,
     use: [
       {
-        loader: require.resolve('@storybook/source-loader')
-      }
+        loader: require.resolve('@storybook/source-loader'),
+      },
     ],
     enforce: 'pre',
   })
