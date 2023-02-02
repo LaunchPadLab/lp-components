@@ -77,8 +77,10 @@ const globalAttributes = htmlElementAttributes['*'] // an array of HTML global a
 
 function InputError({ error, invalid, touched, name, className, ...rest }) {
   // Only the global attributes are allowed for span tags
-  const validProps = pickBy(rest, (_, key) =>
-    globalAttributes.includes(htmlAttributes[key])
+  const validProps = pickBy(
+    rest,
+    (_, key) =>
+      globalAttributes.includes(htmlAttributes[key]) || /^data-/.test(key)
   )
   return hasInputError({ touched, invalid }) ? (
     <span
