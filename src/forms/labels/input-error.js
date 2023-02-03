@@ -1,11 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { generateInputErrorId } from '../../utils'
+import { generateInputErrorId, filterInvalidHtmlProps } from '../../utils'
 import { hasInputError } from '../helpers'
-import { htmlElementAttributes } from 'html-element-attributes'
-import htmlAttributes from 'html-attributes' // an object of all HTML attributes with the JSX prop (e.g., "className", "tabIndex") as keys and the JavaScript prop (e.g., "class", "tabindex") as values
-import { pickBy } from 'lodash'
 
 /**
  *
@@ -73,20 +70,12 @@ const defaultProps = {
   name: '',
 }
 
-const globalAttributes = htmlElementAttributes['*'] // an array of HTML global attributes (https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes) in plain JavaScript (e.g., "class", "tabindex")
-
 function InputError({ error, invalid, touched, name, className, ...rest }) {
-  // Only the global attributes are allowed for span tags
-  const validProps = pickBy(
-    rest,
-    (_, key) =>
-      globalAttributes.includes(htmlAttributes[key]) || /^data-/.test(key)
-  )
   return hasInputError({ touched, invalid }) ? (
     <span
       id={generateInputErrorId(name)}
       className={classnames('error-message', className)}
-      {...validProps}
+      {...filterInvalidHtmlProps('span', rest)}
     >
       {formatError(error)}
     </span>
