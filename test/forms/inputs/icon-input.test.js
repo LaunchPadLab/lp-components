@@ -7,10 +7,10 @@ const value = 'value of field'
 const onChange = () => {}
 const input = { name, value, onChange }
 
-test('IconInput adds class "icon-label" to surrounding fieldset', () => {
+test('IconInput adds class "icon-label" to surrounding div', () => {
   const props = { input, meta: {}, icon: 'foo' }
   const wrapper = mount(<IconInput {...props} />)
-  expect(wrapper.find('fieldset').hasClass('icon-label')).toEqual(true)
+  expect(wrapper.find('div').first().hasClass('icon-label')).toEqual(true)
 })
 
 test('IconInput renders <i> tag with correct class', () => {

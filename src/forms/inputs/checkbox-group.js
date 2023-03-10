@@ -6,9 +6,8 @@ import {
   fieldOptionsType,
   omitLabelProps,
   replaceEmptyStringValue,
-  convertNameToLabel,
 } from '../helpers'
-import { LabeledField } from '../labels'
+import { LabeledFieldset } from '../labels'
 import {
   addToArray,
   removeFromArray,
@@ -96,11 +95,6 @@ const defaultProps = {
   options: [],
 }
 
-function CheckboxGroupLegend({ name, label }) {
-  if (label === false) return null
-  return <legend>{label || convertNameToLabel(name)}</legend>
-}
-
 function CheckboxGroup(props) {
   const {
     input: { value, onChange, name },
@@ -122,16 +116,12 @@ function CheckboxGroup(props) {
     }
   }
   return (
-    <LabeledField
-      className={className}
-      labelComponent={CheckboxGroupLegend}
-      {...props}
-    >
-      {optionObjects.map((option, i) => {
+    <LabeledFieldset className={className} {...props}>
+      {optionObjects.map((option) => {
         return (
-          <Checkbox // eslint-disable-line react/jsx-key
+          <Checkbox
+            key={option.value}
             {...{
-              key: i,
               input: {
                 name: `${name}.${option.value}`,
                 value: value.includes(option.value),
@@ -145,7 +135,7 @@ function CheckboxGroup(props) {
           />
         )
       })}
-    </LabeledField>
+    </LabeledFieldset>
   )
 }
 

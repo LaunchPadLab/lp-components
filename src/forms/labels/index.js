@@ -1,4 +1,6 @@
 export ErrorLabel from './error-label'
+export FieldsetLegend from './fieldset-legend'
 export InputError from './input-error'
 export InputLabel from './input-label'
 export LabeledField from './labeled-field'
+export LabeledFieldset from './labeled-fieldset'

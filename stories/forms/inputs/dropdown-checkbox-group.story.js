@@ -12,7 +12,7 @@ const DropdownCheckboxGroup = dynamicInput({
 
 const inputProps = {
   name: 'person.checkboxOptions',
-  value: '',
+  value: [],
   onChange: action('field changed'),
 }
 

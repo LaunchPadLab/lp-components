@@ -59,13 +59,14 @@ function DropdownCheckboxGroup(props) {
     input: { name, value },
     label,
   } = props
+  const inputId = `${name}-label`
   return (
-    <fieldset>
-      <InputLabel {...{ label, name }} />
+    <div>
+      <InputLabel {...{ label, name }} id={inputId} isFieldsetLabel />
       <DropdownSelect selectedValues={value} className="checkboxes">
-        <CheckboxGroup {...props} label={false} />
+        <CheckboxGroup {...props} label={false} ariaLabelledby={inputId} />
       </DropdownSelect>
-    </fieldset>
+    </div>
   )
 }
 

@@ -1,17 +1,17 @@
 import React from 'react'
 import { mount } from 'enzyme'
-import { LabeledField } from '../../../src/'
+import { LabeledFieldset } from '../../../src'
 
-test('wraps children in div', () => {
+test('wraps children in fieldset', () => {
   const Wrapped = () => <input name="test" />
   const props = { input: { name: 'foo' }, meta: {} }
   const wrapper = mount(
-    <LabeledField {...props}>
+    <LabeledFieldset {...props}>
       <Wrapped />
-    </LabeledField>
+    </LabeledFieldset>
   )
-  expect(wrapper.find('div').exists()).toEqual(true)
-  expect(wrapper.find('div').hasClass('error')).toEqual(false)
+  expect(wrapper.find('fieldset').exists()).toEqual(true)
+  expect(wrapper.find('fieldset').hasClass('error')).toEqual(false)
 })
 
 test('adds error class when touched and invalid', () => {
@@ -21,37 +21,37 @@ test('adds error class when touched and invalid', () => {
     meta: { touched: true, invalid: true },
   }
   const wrapper = mount(
-    <LabeledField {...props}>
+    <LabeledFieldset {...props}>
       <Wrapped />
-    </LabeledField>
+    </LabeledFieldset>
   )
-  expect(wrapper.find('div').hasClass('error')).toEqual(true)
+  expect(wrapper.find('fieldset').hasClass('error')).toEqual(true)
 })
 
 test('adds disabled class when disabled', () => {
   const Wrapped = () => <input name="test" />
   const props = { input: { name: 'foo' }, meta: {}, disabled: true }
   const wrapper = mount(
-    <LabeledField {...props}>
+    <LabeledFieldset {...props}>
       <Wrapped />
-    </LabeledField>
+    </LabeledFieldset>
   )
-  expect(wrapper.find('div').hasClass('disabled')).toEqual(true)
+  expect(wrapper.find('fieldset').hasClass('disabled')).toEqual(true)
 })
 
-test('adds InputLabel and InputError', () => {
+test('adds FieldsetLegend and InputError', () => {
   const Wrapped = () => <input name="test" />
   const props = {
     input: { name: 'foo' },
     meta: { touched: true, invalid: true },
   }
   const wrapper = mount(
-    <LabeledField {...props}>
+    <LabeledFieldset {...props}>
       <Wrapped />
-    </LabeledField>
+    </LabeledFieldset>
   )
-  // InputLabel
-  expect(wrapper.find('label').text()).toEqual('Foo')
+  // FieldsetLegend
+  expect(wrapper.find('legend').text()).toEqual('Foo')
   // InputError
   expect(wrapper.find('.error-message').exists()).toEqual(true)
 })
@@ -64,9 +64,9 @@ test('hides error label with hideErrorLabel option', () => {
     hideErrorLabel: true,
   }
   const wrapper = mount(
-    <LabeledField {...props}>
+    <LabeledFieldset {...props}>
       <Wrapped />
-    </LabeledField>
+    </LabeledFieldset>
   )
   // InputError
   expect(wrapper.find('.error-message').exists()).toEqual(false)
@@ -74,7 +74,7 @@ test('hides error label with hideErrorLabel option', () => {
 
 test('adds a custom label component', () => {
   const Wrapped = () => <input name="test" />
-  const LabelComponent = () => <label>This is a custom label</label>
+  const LabelComponent = () => <legend>This is a custom legend</legend>
   const props = {
     input: {
       name: 'foo',
@@ -84,20 +84,20 @@ test('adds a custom label component', () => {
   }
 
   const wrapper = mount(
-    <LabeledField {...props}>
+    <LabeledFieldset {...props}>
       <Wrapped />
-    </LabeledField>
+    </LabeledFieldset>
   )
-  expect(wrapper.find('label').text()).toEqual('This is a custom label')
+  expect(wrapper.find('legend').text()).toEqual('This is a custom legend')
 })
 
 test('passes custom props to a custom label component', () => {
   const Wrapped = () => <input name="test" />
   // eslint-disable-next-line
   const LabelComponent = ({ customHint }) => (
-    <label>
-      This is a custom label<span>{customHint}</span>
-    </label>
+    <legend>
+      This is a custom legend. <span>{customHint}</span>
+    </legend>
   )
   const props = {
     input: {
@@ -109,16 +109,16 @@ test('passes custom props to a custom label component', () => {
   }
 
   const wrapper = mount(
-    <LabeledField {...props}>
+    <LabeledFieldset {...props}>
       <Wrapped />
-    </LabeledField>
+    </LabeledFieldset>
   )
-  expect(wrapper.find('label > span').text()).toEqual('Hi!')
+  expect(wrapper.find('legend > span').text()).toEqual('Hi!')
 })
 
 test('considers a custom label component to have higher precedence than a label prop', () => {
   const Wrapped = () => <input name="test" />
-  const LabelComponent = () => <label>This is a custom label</label>
+  const LabelComponent = () => <legend>This is a custom legend</legend>
   const props = {
     input: {
       name: 'foo',
@@ -129,11 +129,11 @@ test('considers a custom label component to have higher precedence than a label 
   }
 
   const wrapper = mount(
-    <LabeledField {...props}>
+    <LabeledFieldset {...props}>
       <Wrapped />
-    </LabeledField>
+    </LabeledFieldset>
   )
-  expect(wrapper.find('label').text()).toEqual('This is a custom label')
+  expect(wrapper.find('legend').text()).toEqual('This is a custom legend')
 })
 
 test('adds a custom error component', () => {
@@ -150,9 +150,9 @@ test('adds a custom error component', () => {
   }
 
   const wrapper = mount(
-    <LabeledField {...props}>
+    <LabeledFieldset {...props}>
       <Wrapped />
-    </LabeledField>
+    </LabeledFieldset>
   )
   expect(wrapper.find('span.error').text()).toEqual(
     'This is a custom error message'
@@ -177,9 +177,9 @@ test('passes custom props to a custom error component', () => {
   }
 
   const wrapper = mount(
-    <LabeledField {...props}>
+    <LabeledFieldset {...props}>
       <Wrapped />
-    </LabeledField>
+    </LabeledFieldset>
   )
   expect(wrapper.find('span > span').text()).toEqual('Hi!')
 })

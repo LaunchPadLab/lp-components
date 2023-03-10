@@ -38,7 +38,7 @@ test('CloudinaryFileInput adds uploadStatus to className', () => {
     bucket,
   }
   const wrapper = mount(<CloudinaryFileInput {...props} />)
-  expect(wrapper.find('fieldset.foo.upload-success').exists()).toEqual(true)
+  expect(wrapper.find('div.foo.upload-success').exists()).toEqual(true)
 })
 
 test('CloudinaryFileInput sets returned url within value', async () => {

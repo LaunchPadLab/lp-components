@@ -1,12 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  convertNameToLabel,
   radioGroupPropTypes,
   fieldOptionsType,
   omitLabelProps,
 } from '../helpers'
-import { LabeledField } from '../labels'
+import { LabeledField, LabeledFieldset } from '../labels'
 import { serializeOptions, filterInvalidDOMProps } from '../../utils'
 
 /**
@@ -89,11 +88,6 @@ const defaultProps = {
   radioInputProps: {},
 }
 
-function RadioGroupLegend({ label, name }) {
-  if (label === false) return null
-  return <legend>{label || convertNameToLabel(name)}</legend>
-}
-
 // This should never be used by itself, so it does not exist as a separate export
 function RadioButton(props) {
   const {
@@ -133,16 +127,12 @@ function RadioGroup(props) {
   } = omitLabelProps(props)
   const optionObjects = serializeOptions(options)
   return (
-    <LabeledField
-      className={className}
-      labelComponent={RadioGroupLegend}
-      {...props}
-    >
-      {optionObjects.map((option, i) => {
+    <LabeledFieldset className={className} {...props}>
+      {optionObjects.map((option) => {
         return (
-          <RadioButton // eslint-disable-line react/jsx-key
+          <RadioButton
+            key={option.value}
             {...{
-              key: i,
               type: 'radio',
               input: {
                 name, // all radio inputs must share the same name
@@ -159,7 +149,7 @@ function RadioGroup(props) {
           />
         )
       })}
-    </LabeledField>
+    </LabeledFieldset>
   )
 }
 
