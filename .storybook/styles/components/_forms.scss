@@ -1,7 +1,8 @@
 /*-----------------------
-Fieldset
+Field Wrappers
 -----------------------*/
-fieldset {
+fieldset,
+.field-wrapper {
   display: inline-block;
   @include rem(margin-top, 15px);
   position: relative;
@@ -14,7 +15,8 @@ fieldset {
 /*-----------------------
 Labels
 -----------------------*/
-label {
+label,
+legend {
   color: $black-base;
   display: inline-block;
   font-size: $s-small;
@@ -85,6 +87,19 @@ Input Icon
   .web-icon {
     // background-image: asset-url("web.svg");
   }
+
+  .input-wrapper {
+    position: relative;
+
+    i {
+      @include position(absolute, 3px null null 10px);
+      background-repeat: no-repeat;
+      background-size: 15px;
+      display: inline-block;
+      height: 20px;
+      width: 20px;
+    }
+  }
 }
 
 /*-----------------------
@@ -145,8 +160,7 @@ Radio
 Checkbox
 -----------------------*/
 .checkbox {
-  @include rem(margin-top, 15px);
-  width: auto;
+  @include rem(margin-top, 3px);
 
   label {
     cursor: pointer;
@@ -403,29 +417,6 @@ Button Area
 }
 
 /*-----------------------
-Input Icon
------------------------*/
-.icon-label {
-  position: relative;
-  input {
-    @include rem(padding-left, 30px);
-  }
-
-  .input-wrapper {
-    position: relative;
-
-    i {
-      @include position(absolute, 3px null null 10px);
-      background-repeat: no-repeat;
-      background-size: 15px;
-      display: inline-block;
-      height: 20px;
-      width: 20px;
-    }
-  }
-}
-
-/*-----------------------
 Custom Dropdown Select
 -----------------------*/
 .dropdown-select,
@@ -567,7 +558,7 @@ Custom Dropdown Select
     }
   }
 
-  fieldset.checkbox,
+  .field-wrapper.checkbox,
   fieldset.CheckboxGroup {
     width: 100% !important;
 

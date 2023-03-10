@@ -94,7 +94,7 @@ function LabeledField({
   const { touched, invalid } = meta
   return (
     <div
-      className={classnames(className, {
+      className={classnames('field-wrapper', className, {
         error: hasInputError({ touched, invalid }),
         disabled: rest.disabled,
       })}
