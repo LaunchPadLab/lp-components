@@ -1153,7 +1153,6 @@ Note: When using third party form libraries (e.g., [Redux Form][169]), it's like
 *   `hint` **[String][148]?** A usage hint for the associated input
 *   `label` **([String][148] | [Boolean][150])?** Custom text for the label
 *   `tooltip` **[String][148]?** A message to display in a tooltip
-*   `isFieldsetLabel` **[Boolean][150]?** A boolean value to indicate whether this input is used for a group of inputs (a fieldset) instead of tied to one input (option, default `false`)
 *   `required` **[Boolean][150]?** A boolean value to indicate whether the field is required
 *   `requiredIndicator` **[String][148]?** Custom character to denote a field is required (optional, default `''`)
 

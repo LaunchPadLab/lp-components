@@ -29,7 +29,6 @@ import { useToggle } from '../../utils'
  * @param {String} [hint] - A usage hint for the associated input
  * @param {String|Boolean} [label] - Custom text for the label
  * @param {String} [tooltip] - A message to display in a tooltip
- * @param {Boolean} [isFieldsetLabel] - A boolean value to indicate whether this input is used for a group of inputs (a fieldset) instead of tied to one input (option, default `false`)
  * @param {Boolean} [required] - A boolean value to indicate whether the field is required
  * @param {String} [requiredIndicator] - Custom character to denote a field is required (optional, default `''`)
 
@@ -67,7 +66,6 @@ const propTypes = {
   required: PropTypes.bool,
   requiredIndicator: PropTypes.string,
   className: PropTypes.string,
-  isFieldsetLabel: PropTypes.bool,
 }
 
 const defaultProps = {
@@ -78,7 +76,6 @@ const defaultProps = {
   tooltip: '',
   requiredIndicator: '',
   className: '',
-  isFieldsetLabel: false,
 }
 
 function InputLabel({
@@ -91,16 +88,14 @@ function InputLabel({
   required,
   requiredIndicator,
   className,
-  isFieldsetLabel,
 }) {
   const [tooltipShown, toggleTooltipShown] = useToggle()
   const labelToDisplay = children || label || convertNameToLabel(name)
-  const htmlFor = isFieldsetLabel ? null : id || name
 
   return (
     <span>
       {label !== false && (
-        <label id={id} htmlFor={htmlFor} className={className}>
+        <label htmlFor={id || name} className={className}>
           {labelToDisplay}
           {required && requiredIndicator && (
             <span className="required-indicator" aria-hidden="true">

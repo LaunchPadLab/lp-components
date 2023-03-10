@@ -87,14 +87,6 @@ test('when id is provided - renders a label associated to the input id', () => {
   expect(wrapper.find('label').prop('htmlFor')).toBe(id)
 })
 
-test('when isFieldsetLabel is true - does not render an htmlFor attribute', () => {
-  const id = 'testId'
-  const wrapper = mount(
-    <InputLabel name={name} id={id} label="foo" isFieldsetLabel />
-  )
-  expect(wrapper.find('label').prop('htmlFor')).toBe(null)
-})
-
 test('can accept a custom classname', () => {
   const wrapper = mount(<InputLabel name={name} className="foo" />)
   expect(wrapper.find('label').hasClass('foo')).toBe(true)

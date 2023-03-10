@@ -5,7 +5,7 @@ import {
   DropdownSelect,
   fieldOptionsType,
 } from '../helpers'
-import { InputLabel } from '../labels'
+import { FieldsetLegend } from '../labels'
 
 /**
  *
@@ -62,7 +62,7 @@ function DropdownCheckboxGroup(props) {
   const inputId = `${name}-label`
   return (
     <div>
-      <InputLabel {...{ label, name }} id={inputId} isFieldsetLabel />
+      <FieldsetLegend {...{ label, name }} id={inputId} />
       <DropdownSelect selectedValues={value} className="checkboxes">
         <CheckboxGroup {...props} label={false} ariaLabelledby={inputId} />
       </DropdownSelect>
