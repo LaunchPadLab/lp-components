@@ -10,3 +10,6 @@ enzyme.configure({ adapter: new Adapter() })
 
 // Mock browser canvas
 import 'jest-canvas-mock'
+
+// Testing library
+import '@testing-library/jest-dom'
