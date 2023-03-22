@@ -1,5 +1,4 @@
 import React from 'react'
-import { shallow } from 'enzyme'
 import { ButtonArea } from '../../../src/'
 import { render, screen } from '@testing-library/react'
 
