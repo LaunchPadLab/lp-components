@@ -1,7 +1,6 @@
 import React from 'react'
-import { shallow } from 'enzyme'
 import { SubmitButton } from '../../../src/'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 
 test('SubmitButton adds type="submit" to button', () => {
   render(
