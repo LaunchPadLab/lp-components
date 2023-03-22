@@ -1,18 +1,24 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { ButtonArea } from '../../../src/'
+import { render, screen, fireEvent } from '@testing-library/react'
 
 test('ButtonArea creates div with class "button-area"', () => {
-  const wrapper = shallow(
+  render(
     <ButtonArea>
       <button>Hi</button>
     </ButtonArea>
   )
-  expect(wrapper.find('div').hasClass('button-area')).toBe(true)
-  expect(wrapper.find('button').contains('Hi')).toBe(true)
+
+  expect(screen.getByRole('button')).toBeInTheDocument()
+  expect(screen.getByRole('button').closest('div')).toHaveClass('button-area')
 })
 
 test('ButtonArea merges classes correctly', () => {
-  const wrapper = shallow(<ButtonArea className="extra classes" />)
-  expect(wrapper.find('div').hasClass('button-area extra classes')).toBe(true)
+  render(
+    <ButtonArea>
+      <button>Hi</button>
+    </ButtonArea>
+  )
+  expect(screen.getByRole('button').closest('div')).toHaveClass('extra classes')
 })
