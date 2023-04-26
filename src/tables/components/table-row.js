@@ -6,6 +6,7 @@ import { Types } from '../helpers'
 const propTypes = {
   columns: PropTypes.arrayOf(Types.column).isRequired,
   rowComponent: Types.component,
+  rowComponentProps: PropTypes.object,
   rowData: PropTypes.any,
   ascending: PropTypes.bool,
   sortPath: PropTypes.string,
@@ -25,6 +26,7 @@ const DefaultCellComponent = (
 function TableRow({
   columns,
   rowComponent: RowComponent = DefaultRowComponent,
+  rowComponentProps: rowComponentProps = {},
   rowData,
   ascending,
   sortPath,
@@ -33,7 +35,14 @@ function TableRow({
 }) {
   return (
     <RowComponent
-      {...{ data: rowData, ascending, sortPath, sortFunc, valueGetter }}
+      {...{
+        data: rowData,
+        ascending,
+        sortPath,
+        sortFunc,
+        valueGetter,
+        ...rowComponentProps,
+      }}
     >
       {columns.map((column, key) => {
         const {

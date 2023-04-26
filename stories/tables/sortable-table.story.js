@@ -31,8 +31,8 @@ function CustomCellWithRowData({ data: { name, active } }) {
 }
 
 // eslint-disable-next-line react/prop-types
-function CustomRow({ data: { active }, children }) {
-  return <tr style={{ backgroundColor: colorForStatus(active) }}>{children}</tr>
+function CustomRow({ data: { active }, children, onClick }) {
+  return <tr onClick={onClick} style={{ backgroundColor: colorForStatus(active) }}>{children}</tr>
 }
 
 // eslint-disable-next-line react/prop-types
@@ -114,8 +114,8 @@ storiesOf('SortableTable', module)
       <Column name="active" component={CustomCellWithRowData} />
     </SortableTable>
   ))
-  .add('with custom row component', () => (
-    <SortableTable data={tableData} rowComponent={CustomRow}>
+  .add('with custom row component and props', () => (
+    <SortableTable data={tableData} rowComponent={CustomRow} rowComponentProps={{onClick: () => { console.log('Clicked') }}}>
       <Column name="name" />
       <Column name="age" />
       <Column name="active" />
