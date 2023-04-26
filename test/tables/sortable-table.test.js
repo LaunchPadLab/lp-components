@@ -154,21 +154,29 @@ test('column can have custom cell component', () => {
   expect(wrapper.find(MyCell).first().props()).toMatchObject(expectedProps)
 })
 
-test('table can have custom row component initialized with table state props', () => {
-  const MyRow = ({ children }) => <tr>{children}</tr> // eslint-disable-line
+test('table can have custom row component initialized with table state props and custom props', () => {
+  const MyRow = ({ children, onClick }) => <tr onClick={onClick}>{children}</tr> // eslint-disable-line
   const mySort = jest.fn(compareAtPath('name', sortAscending))
   const myValueGetter = jest.fn((data) => data.name.toUpperCase())
+  const onRowClickSpy = jest.fn()
   const wrapper = mount(
     <SortableTable
       data={tableData}
       rowComponent={MyRow}
+      rowComponentProps={{ onClick: onRowClickSpy }}
       initialAscending={false}
       initialColumn={'name'}
     >
       <Column name="name" sortFunc={mySort} valueGetter={myValueGetter} />
     </SortableTable>
   )
-  expect(wrapper.find(MyRow).exists()).toBe(true)
+
+  const myRow = wrapper.find(MyRow)
+  expect(myRow.exists()).toBe(true)
+
+  myRow.at(0).simulate('click')
+  expect(onRowClickSpy).toHaveBeenCalled()
+
   const expectedProps = {
     data: { name: 'Tommy' },
     ascending: false,
