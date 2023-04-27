@@ -15,7 +15,7 @@ test('ButtonArea creates div with class "button-area"', () => {
 
 test('ButtonArea merges classes correctly', () => {
   render(
-    <ButtonArea>
+    <ButtonArea className="extra classes">
       <button>Hi</button>
     </ButtonArea>
   )
