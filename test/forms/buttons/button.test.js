@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button } from '../../../src/'
 import { render, screen, fireEvent } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
 // test('Button is aria-disabled when form is invalid', () => {
 //   const wrapper = shallow(<Button invalid={true}> Hi</Button>)
@@ -20,7 +21,7 @@ test('Button is aria-disabled when form is pristine', () => {
   expect(screen.getByRole('button')).toHaveAttribute('aria-disabled')
 })
 
-test('Button onClick is run when the form is not submitting, pristine, or invalid', () => {
+test('Button onClick is run when the form is not submitting, pristine, or invalid', async () => {
   const onClick = jest.fn()
 
   const formProps = {
@@ -36,12 +37,14 @@ test('Button onClick is run when the form is not submitting, pristine, or invali
   )
   const button = screen.getByRole('button')
 
-  fireEvent.click(button)
+  const user = userEvent.setup()
+
+  await user.click(button);
 
   expect(onClick).toHaveBeenCalled()
 })
 
-test('Button onClick is not run when form is invalid', () => {
+test('Button onClick is not run when form is invalid', async () => {
   const onClick = jest.fn()
   render(
     <Button onClick={onClick} invalid={true}>
@@ -51,12 +54,14 @@ test('Button onClick is not run when form is invalid', () => {
   )
   const button = screen.getByRole('button')
 
-  fireEvent.click(button)
+  const user = userEvent.setup()
+
+  await user.click(button);
 
   expect(onClick).not.toHaveBeenCalled()
 })
 
-test('Button onClick is not run when form is pristine', () => {
+test('Button onClick is not run when form is pristine', async () => {
   const onClick = jest.fn()
   render(
     <Button onClick={onClick} pristine={true}>
@@ -67,12 +72,14 @@ test('Button onClick is not run when form is pristine', () => {
 
   const button = screen.getByRole('button')
 
-  fireEvent.click(button)
+  const user = userEvent.setup()
+
+  await user.click(button);
 
   expect(onClick).not.toHaveBeenCalled()
 })
 
-test('Button onClick is not run when form is submitting', () => {
+test('Button onClick is not run when form is submitting', async () => {
   const onClick = jest.fn()
   render(
     <Button onClick={onClick} submitting={true}>
@@ -83,7 +90,9 @@ test('Button onClick is not run when form is submitting', () => {
 
   const button = screen.getByRole('button')
 
-  fireEvent.click(button)
+  const user = userEvent.setup()
+
+  await user.click(button);
 
   expect(onClick).not.toHaveBeenCalled()
 })
