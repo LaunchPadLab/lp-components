@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import { mount } from 'enzyme'
 import { CheckboxGroup } from '../../../src/'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { logRoles, within } from '@testing-library/dom'
+import { within } from '@testing-library/dom'
 
 const WrappedCheckboxGroup = (props) => {
   const [value, setValue] = useState([])

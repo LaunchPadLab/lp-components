@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from '../../../src/'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 // test('Button is aria-disabled when form is invalid', () => {

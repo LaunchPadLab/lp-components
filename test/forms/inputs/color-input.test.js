@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { mount } from 'enzyme'
 import { ColorInput } from '../../../src/'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
