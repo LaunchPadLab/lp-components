@@ -16,9 +16,6 @@ test('SubmitButton passes down other props to button', () => {
       Hi
     </SubmitButton>
   )
-  screen.debug()
   expect(screen.getByRole('button')).toHaveAttribute('aria-disabled')
   expect(screen.getByRole('button')).toHaveClass('button-custom')
-  // expect(button.props()['aria-disabled']).toBe(true)
-  // expect(button.hasClass('button-custom')).toBe(true)
 })

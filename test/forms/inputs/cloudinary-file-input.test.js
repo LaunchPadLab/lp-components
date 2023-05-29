@@ -3,10 +3,11 @@ import { mount } from 'enzyme'
 import { CloudinaryFileInput } from '../../../src/'
 import { mockFileReader, flushPromises } from './file-input.test'
 import { act } from 'react-dom/test-utils'
+import { render, screen } from '@testing-library/react'
 
 const name = 'name.of.field'
 const value = { name: 'existingFileName', url: 'value of field' }
-const onChange = () => {}
+const onChange = () => { }
 const input = { name, value, onChange }
 const PUBLIC_URL = 'url-of-uploaded-file'
 const uploadResponse = { url: PUBLIC_URL }
@@ -37,8 +38,8 @@ test('CloudinaryFileInput adds uploadStatus to className', () => {
     cloudName,
     bucket,
   }
-  const wrapper = mount(<CloudinaryFileInput {...props} />)
-  expect(wrapper.find('fieldset.foo.upload-success').exists()).toEqual(true)
+  const { container } = render(<CloudinaryFileInput {...props} />)
+  expect(container.firstChild).toHaveClass('upload-success')
 })
 
 test('CloudinaryFileInput sets returned url within value', async () => {
