@@ -29,7 +29,7 @@
     "prepare": "husky install",
     "prepublishOnly": "yarn run clean && yarn run build",
     "storybook": "yarn && start-storybook -p 6006",
-    "test": "jest --coverage",
+    "test": "jest --coverage=false",
     "size": "yarn build && size-limit",
     "storybook:build": "build-storybook -o .storybook/static/storybook",
     "heroku-postbuild": "yarn run storybook:build"

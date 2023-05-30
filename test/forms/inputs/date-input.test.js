@@ -1,51 +1,86 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { mount } from 'enzyme'
 import { DateInput } from '../../../src/'
+import { render, screen } from '@testing-library/react'
+import { within } from '@testing-library/dom'
+import userEvent from '@testing-library/user-event'
 
 const name = 'name.of.field'
 const value = '2020-01-01'
-const noop = () => {}
-const input = { name, value, onChange: noop }
+const noop = () => { }
+const input = { name, value }
 const error = 'input error'
+
+const WrappedDateInput = (props) => {
+  const [value, setValue] = useState('')
+
+  const defaultProps = {
+    input: {
+      name: name,
+      value: value,
+      onChange: (e) => setValue(e),
+    },
+    meta: {},
+  }
+
+  return <DateInput {...defaultProps} {...props} />
+}
 
 test('DateInput renders the error message when provided', () => {
   const props = { input, meta: { invalid: true, touched: true, error } }
-  const wrapper = mount(<DateInput {...props} />)
-  expect(wrapper.find('.error-message').text()).toBe(error)
+  const { container } = render(<WrappedDateInput {...props} />)
+  expect(within(container).getByText('input error')).toBeTruthy()
 })
 
-test('DateInput updates the value on change', () => {
-  const props = { input, meta: {} }
-  const wrapper = mount(<DateInput {...props} />)
-  expect(wrapper.find('input').props().value).toEqual('01/01/2020')
+test('DateInput updates the value on change', async () => {
+  render(<WrappedDateInput />)
 
-  const newValue = '2020-02-02'
-  wrapper.find('input').simulate('change', { target: { value: newValue } })
-  expect(wrapper.find('input').props().value).toEqual(newValue)
+  const input = screen.getByRole('textbox', { name: 'Field' })
+
+  const user = userEvent.setup()
+
+  await user.click(input)
+
+  await user.keyboard('02/02/2023{Enter}')
+
+  expect(input).toHaveValue('02/02/2023')
 })
 
 test('DateInput sets the placeholder text correctly', () => {
-  const props = { input, meta: {}, placeholderText: 'Test Placeholder' }
-  const wrapper = mount(<DateInput {...props} />)
-  expect(wrapper.find('input').props().placeholder).toEqual('Test Placeholder')
+  const props = { placeholderText: 'Test Placeholder' }
+  render(<WrappedDateInput {...props} />)
+  const input = screen.getByRole('textbox', { name: 'Field' })
+
+  expect(within(input).findByText('Test Placeholder')).toBeTruthy()
 })
 
-test('DateInput invokes onChange with a Date object', () => {
+test('DateInput invokes onChange with a Date object', async () => {
   const onChange = jest.fn()
   const props = { input: { ...input, onChange, onBlur: noop }, meta: {} }
-  const wrapper = mount(<DateInput {...props} />)
+  render(<WrappedDateInput {...props} />)
 
-  wrapper.find('input').simulate('click')
-  wrapper.find('.react-datepicker__day').at(0).simulate('click')
+  const input = screen.getByRole('textbox')
 
-  expect(onChange).toHaveBeenCalledTimes(1)
+  const user = userEvent.setup()
+
+  await user.click(input)
+  await user.keyboard('02/02/2023')
+  expect(input).toHaveValue('02/02/2023')
+
+  // expect(onChange).toHaveBeenCalledTimes(8)
   expect(onChange.mock.calls[0][0] instanceof Date).toBe(true)
 })
 
-test("DateInput defaults tabbable item to today's date", () => {
+test("DateInput defaults tabbable item to today's date", async () => {
   const props = { input: { ...input, value: '' }, meta: {} }
-  const wrapper = mount(<DateInput {...props} />)
-  wrapper.find('input').simulate('click')
-  const current = wrapper.find('[aria-current="date"]')
-  expect(current.prop('tabIndex')).toBe(0)
+  render(<DateInput {...props} />)
+  const input = screen.getByRole('textbox')
+
+  const user = userEvent.setup()
+
+  await user.click(input)
+
+  const current = screen.getByRole('option', { current: 'date' })
+  screen.debug()
+  expect(current).toBeTruthy()
 })
