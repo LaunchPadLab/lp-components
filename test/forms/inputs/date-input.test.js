@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { mount } from 'enzyme'
 import { DateInput } from '../../../src/'
 import { render, screen } from '@testing-library/react'
 import { within } from '@testing-library/dom'
