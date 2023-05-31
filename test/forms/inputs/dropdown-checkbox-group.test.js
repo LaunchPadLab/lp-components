@@ -1,39 +1,62 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { mount } from 'enzyme'
 import { DropdownCheckboxGroup } from '../../../src/'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
-test('DropdownCheckboxGroup adds value to array when unselected option clicked', () => {
-  const onChange = jest.fn()
-  const TOGGLED_OPTION = 'TOGGLED_OPTION'
-  const props = {
+const WrappedDropdownCheckboxGroup = (props) => {
+  const [value, setValue] = useState(props.value || [])
+
+  const options = [
+    { key: 'First Option', value: '1' },
+    { key: 'Second Option', value: '2' },
+    { key: 'Third Option', value: '3' },
+  ]
+
+  const defaultProps = {
     input: {
       name: 'test',
-      value: [],
-      onChange,
+      value: value,
+      onChange: (e) => setValue(e)
     },
     meta: {},
-    options: [TOGGLED_OPTION],
+    options: options,
   }
-  const wrapper = mount(<DropdownCheckboxGroup {...props} />)
-  wrapper.find('input').simulate('change')
-  const newValue = onChange.mock.calls[0][0]
-  expect(newValue).toEqual([TOGGLED_OPTION])
+
+  return <DropdownCheckboxGroup {...defaultProps} {...props} />
+}
+
+test('DropdownCheckboxGroup adds checkbox value to select array when unselected option clicked', async () => {
+  render(<WrappedDropdownCheckboxGroup />)
+
+  const input = screen.getAllByRole('group')[0]
+  const user = userEvent.setup()
+
+  await user.click(input)
+
+  const firstCheckbox = screen.getByLabelText('First Option')
+
+  await user.click(firstCheckbox)
+
+  expect(firstCheckbox).toBeChecked()
+
+  const selectValueLabel = screen.getByText('1')
+  expect(selectValueLabel).toBeTruthy
 })
 
-test('DropdownCheckboxGroup removes value to array when selected option clicked', () => {
-  const onChange = jest.fn()
-  const TOGGLED_OPTION = 'TOGGLED_OPTION'
-  const props = {
-    input: {
-      name: 'test',
-      value: [TOGGLED_OPTION],
-      onChange,
-    },
-    meta: {},
-    options: [TOGGLED_OPTION],
-  }
-  const wrapper = mount(<DropdownCheckboxGroup {...props} />)
-  wrapper.find('input').simulate('change')
-  const newValue = onChange.mock.calls[0][0]
-  expect(newValue).toEqual([])
+test('DropdownCheckboxGroup removes value to array when selected option clicked', async () => {
+
+  render(<WrappedDropdownCheckboxGroup value={['1']} />)
+
+  const input = screen.getAllByRole('group')[0]
+  const user = userEvent.setup()
+
+  await user.click(input)
+
+  const firstCheckbox = screen.getByLabelText('First Option')
+
+  await user.click(firstCheckbox)
+  expect(firstCheckbox).not.toBeChecked()
+  const selectValueLabel = screen.getByText('None')
+  expect(selectValueLabel).toBeTruthy()
 })
