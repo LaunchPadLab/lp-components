@@ -1,20 +1,21 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import { IconInput } from '../../../src/'
+import { render, screen } from '@testing-library/react'
 
 const name = 'name.of.field'
 const value = 'value of field'
-const onChange = () => {}
-const input = { name, value, onChange }
+const onChange = () => { }
+const props = { input: { name, value, onChange }, meta: {}, icon: 'foo' }
 
 test('IconInput adds class "icon-label" to surrounding fieldset', () => {
-  const props = { input, meta: {}, icon: 'foo' }
-  const wrapper = mount(<IconInput {...props} />)
-  expect(wrapper.find('fieldset').hasClass('icon-label')).toEqual(true)
+  render(<IconInput {...props} />)
+  const input = screen.getByRole('textbox')
+  expect(input.parentElement?.parentElement).toHaveClass('icon-label')
 })
 
 test('IconInput renders <i> tag with correct class', () => {
-  const props = { input, meta: {}, icon: 'foo' }
-  const wrapper = mount(<IconInput {...props} />)
-  expect(wrapper.find('i').hasClass('foo-icon')).toEqual(true)
+  const { container } = render(<IconInput {...props} />)
+  const icon = container.querySelector('i')
+  expect(icon).toHaveClass('foo-icon')
 })
