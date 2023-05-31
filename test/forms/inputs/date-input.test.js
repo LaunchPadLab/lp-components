@@ -4,6 +4,7 @@ import { DateInput } from '../../../src/'
 import { render, screen } from '@testing-library/react'
 import { within } from '@testing-library/dom'
 import userEvent from '@testing-library/user-event'
+import moment from 'moment'
 
 const name = 'name.of.field'
 const value = '2020-01-01'
@@ -81,6 +82,8 @@ test("DateInput defaults tabbable item to today's date", async () => {
   await user.click(input)
 
   const current = screen.getByRole('option', { current: 'date' })
-  screen.debug()
+  const today = moment().format('dddd, MMMM Do, YYYY')
+  const currentDateAriaALabel = screen.getByLabelText(`Choose ${today}`)
   expect(current).toBeTruthy()
+  expect(currentDateAriaALabel).toBeTruthy()
 })

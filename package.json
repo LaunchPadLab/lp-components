@@ -46,6 +46,7 @@
     "date-fns": "^2.28.0",
     "filter-invalid-dom-props": "^2.1.0",
     "lodash": "^4.17.21",
+    "moment": "^2.29.4",
     "prop-types": "^15.8.1",
     "react-color": "^2.19.3",
     "react-datepicker": "^4.8.0",
