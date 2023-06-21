@@ -143,7 +143,7 @@ function serializePublicId(publicId, file) {
 function cloudinaryUploader(options = {}) {
   return (Wrapped) =>
     class Wrapper extends Component {
-      static displayName = `${Wrapped.name}CloudinaryUploader`
+      static displayName = `cloudinaryUploader(${Wrapped.name})`
       constructor(props) {
         super(props)
         const config = { ...options, ...props }

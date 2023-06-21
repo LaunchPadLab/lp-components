@@ -43,7 +43,7 @@ function replaceEmptyStringValue(replacement = '') {
         value === '' ? set('input.value', replacement, props) : props
       return <Wrapped {...passedProps} />
     }
-    Wrapper.displayName = `${Wrapped.name}ReplaceEmptyStringValue`
+    Wrapper.displayName = `replaceEmptyStringValue(${Wrapped.name})`
     return Wrapper
   }
 }

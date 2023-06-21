@@ -45,7 +45,7 @@ function blurDirty() {
       const passedProps = disableBlur ? set('input.onBlur', noop, props) : props
       return <Wrapped {...omit('alwaysBlur', passedProps)} />
     }
-    Wrapper.displayName = `${Wrapped.name}BlurDirty`
+    Wrapper.displayName = `blurDirty(${Wrapped.name})`
     Wrapper.propTypes = {
       alwaysBlur: PropTypes.bool,
     }

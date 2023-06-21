@@ -40,7 +40,7 @@ export default function dynamicInput(options = {}) {
         return <Wrapped {...props} />
       }
     }
-    Wrapper.displayName = `${Wrapped.name}DynamicInput`
+    Wrapper.displayName = `dynamicInput(${Wrapped.name})`
     return Wrapper
   }
 }
