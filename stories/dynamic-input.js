@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import wrapDisplayName from 'recompose/wrapDisplayName'
 import set from 'lodash/fp/set'
 import get from 'lodash/fp/get'
 import noop from 'lodash/noop'
@@ -41,7 +40,7 @@ export default function dynamicInput(options = {}) {
         return <Wrapped {...props} />
       }
     }
-    Wrapper.displayName = wrapDisplayName(Wrapped, 'dynamicInput')
+    Wrapper.displayName = `${Wrapped.name}DynamicInput`
     return Wrapper
   }
 }
