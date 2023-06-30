@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
-import set from 'lodash/fp/set'
-import get from 'lodash/fp/get'
-import noop from 'lodash/noop'
-import compose from 'lodash/fp/compose'
+import { wrapDisplayName, set, get, noop, compose } from '../src/utils'
 
 // From redux-form
 const isEvent = (obj) => !!(obj && obj.stopPropagation && obj.preventDefault)
@@ -40,7 +37,7 @@ export default function dynamicInput(options = {}) {
         return <Wrapped {...props} />
       }
     }
-    Wrapper.displayName = `dynamicInput(${Wrapped.name})`
+    Wrapper.displayName = wrapDisplayName(Wrapped, 'dynamicInput')
     return Wrapper
   }
 }

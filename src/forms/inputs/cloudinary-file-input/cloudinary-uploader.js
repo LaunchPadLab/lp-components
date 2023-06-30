@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 // import PropTypes from 'prop-types'
+import { wrapDisplayName } from '../../../utils'
 import { addExtension, getEnvVar, removeExtension } from './helpers'
 
 /**
@@ -143,7 +144,7 @@ function serializePublicId(publicId, file) {
 function cloudinaryUploader(options = {}) {
   return (Wrapped) =>
     class Wrapper extends Component {
-      static displayName = `cloudinaryUploader(${Wrapped.name})`
+      static displayName = wrapDisplayName(Wrapped, 'cloudinaryUploader')
       constructor(props) {
         super(props)
         const config = { ...options, ...props }

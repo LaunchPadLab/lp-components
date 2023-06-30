@@ -1,5 +1,5 @@
 import React from 'react'
-import { set } from '../../utils'
+import { wrapDisplayName, set } from '../../utils'
 
 /**
  *
@@ -43,7 +43,7 @@ function replaceEmptyStringValue(replacement = '') {
         value === '' ? set('input.value', replacement, props) : props
       return <Wrapped {...passedProps} />
     }
-    Wrapper.displayName = `replaceEmptyStringValue(${Wrapped.name})`
+    Wrapper.displayName = wrapDisplayName(Wrapped, 'replaceEmptyStringValue')
     return Wrapper
   }
 }

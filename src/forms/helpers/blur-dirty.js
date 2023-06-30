@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { noop, set, omit } from '../../utils'
+import { wrapDisplayName, noop, set, omit } from '../../utils'
 
 /**
  *
@@ -45,7 +45,7 @@ function blurDirty() {
       const passedProps = disableBlur ? set('input.onBlur', noop, props) : props
       return <Wrapped {...omit('alwaysBlur', passedProps)} />
     }
-    Wrapper.displayName = `blurDirty(${Wrapped.name})`
+    Wrapper.displayName = wrapDisplayName(Wrapped, 'blurDirty')
     Wrapper.propTypes = {
       alwaysBlur: PropTypes.bool,
     }
