@@ -2,7 +2,7 @@ import React from 'react'
 import { wrapDisplayName } from '../../src/utils'
 
 describe('Wrap Display Name', () => {
-  test('wraps the display name of a React component with the name of an HoC', () => {
+  test('wraps the name of a React component with the name of an HoC', () => {
     class SomeComponent extends React.Component {
       render() {
         return <div />
