@@ -7213,12 +7213,10 @@ fill-range@^7.0.1:
   dependencies:
     to-regex-range "^5.0.1"
 
-filter-invalid-dom-props@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/filter-invalid-dom-props/-/filter-invalid-dom-props-2.1.0.tgz#7690bb72e9213a09e8429c07f3aea21468f43ee5"
-  integrity sha512-M+1dTOodTQwB9Ncin+EwfgksarMCeAW1V2BjPeC5THFSs56rtEX/VF/Mrur9C9A8eyaY+2h25VFAiVr+bkVkwA==
-  dependencies:
-    html-attributes "1.1.0"
+filter-invalid-dom-props@^3.0.0:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/filter-invalid-dom-props/-/filter-invalid-dom-props-3.0.1.tgz#d4a1740c3c56a1acf0442651518682fcb2af5991"
+  integrity sha512-+n6cgQxx6dgZxWCV94pqAO/Jq9G/QwuHw4RPM8bk2INSQLnNVwjw/ljTEtAjL0HGCvAv9dHucOq1tHQ2bMoxDA==
 
 finalhandler@1.2.0:
   version "1.2.0"
@@ -8068,11 +8066,6 @@ hosted-git-info@^4.0.0, hosted-git-info@^4.0.1:
   integrity sha512-kyCuEOWjJqZuDbRHzL8V93NzQhwIB71oFWSyzVo+KPZI+pnQPPxucdkrOZvkLRnrf5URsQM+IJ09Dw29cRALIA==
   dependencies:
     lru-cache "^6.0.0"
-
-html-attributes@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/html-attributes/-/html-attributes-1.1.0.tgz#82027a4fac7a6070ea6c18cc3886aea18d6dea09"
-  integrity sha1-ggJ6T6x6YHDqbBjMOIauoY1t6gk=
 
 html-element-map@^1.2.0:
   version "1.3.1"
