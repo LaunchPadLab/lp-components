@@ -79,7 +79,7 @@
     "documentation": "^13.2.5",
     "enzyme": "^3.2.0",
     "eslint": "^7.32.0",
-    "husky": "^7.0.4",
+    "husky": "^8.0.0",
     "jest": "^25.1.0",
     "jest-canvas-mock": "^2.1.1",
     "lint-staged": "^13.0.3",
