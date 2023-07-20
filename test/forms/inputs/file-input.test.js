@@ -8,7 +8,7 @@ const name = 'my.file.input'
 const defaultOnChange = () => null
 
 describe('FileInput', () => {
-  test('renders thumbnail with value as src when file is an image', () => {
+  test('renders thumbnail with value as src when file is an image', async () => {
     const file = { name: 'fileName', type: 'image/png', url: 'foo' }
     const props = {
       input: { name, value: file, onChange: defaultOnChange },
@@ -50,7 +50,7 @@ describe('FileInput', () => {
   })
 
   test('sets custom preview from children', () => {
-    const Preview = () => <p> My preview </p>
+    const Preview = () => <p>My preview</p>
     const props = {
       input: { name, value: '', onChange: defaultOnChange },
       meta: {},
@@ -100,7 +100,7 @@ describe('FileInput', () => {
   })
 
   test('reads files and calls change handler correctly', async () => {
-    const file = { name: 'fileName', url: 'data:,' }
+    const file = new File(['content'], 'fileName.png', { type: 'image/png' })
     const filedata = 'my file data'
     mockFileReader(filedata)
 
@@ -113,9 +113,10 @@ describe('FileInput', () => {
     await user.upload(input, file)
 
     expect(input.files).toHaveLength(1)
-    expect(input.files[0]).toEqual(file)
-    expect(onChange).toHaveBeenCalled()
-    expect(onChange.mock.calls[0][0][0].url).toBe(filedata)
+    expect(input.files[0]).toBe(file)
+    expect(onChange).toHaveBeenCalledWith([
+      expect.objectContaining({ url: filedata }),
+    ])
   })
 
   test('does not re-read existing files', async () => {
@@ -135,21 +136,20 @@ describe('FileInput', () => {
     await user.upload(input, firstFile)
 
     expect(input.files).toHaveLength(1)
-    expect(input.files[0]).toEqual(firstFile)
+    expect(input.files[0]).toBe(firstFile)
     expect(readFiles).toHaveBeenCalled()
-    expect(readFiles.mock.calls[0][0]).toStrictEqual([])
+    expect(readFiles).toHaveBeenCalledWith([])
   })
 
   test('only allows one file by default', async () => {
-    const lastModified = Date.now()
-    const firstFile = { name: 'first', url: 'data:,', lastModified }
-    const secondFile = { name: 'second', url: 'data:,', lastModified }
+    const firstFile = new File(['content'], 'first', { type: 'image/png' })
+    const secondFile = new File(['content'], 'second', { type: 'image/png' })
     const readFiles = jest.fn((arr) =>
       arr.map((file) => ({ ...file, url: 'my-data-url' }))
     )
     const onChange = jest.fn()
     const props = {
-      input: { name, value: [firstFile], onChange },
+      input: { name, value: '', onChange },
       meta: {},
       readFiles,
     }
@@ -157,10 +157,12 @@ describe('FileInput', () => {
 
     const user = userEvent.setup()
     const input = screen.getByLabelText(/select file/i)
+
+    await user.upload(input, firstFile)
     await user.upload(input, secondFile)
 
     expect(input.files).toHaveLength(1)
-    expect(input.files[0]).toEqual(secondFile)
+    expect(input.files[0]).toBe(secondFile)
   })
 
   test('passes accept attribute to input component', () => {
@@ -191,7 +193,7 @@ describe('FileInput', () => {
 
   test('shows error messages that occur from reading', async () => {
     const ERROR_MESSAGE = 'cannot read'
-    const file = { name: 'fileName', url: 'data:,' }
+    const file = new File(['content'], 'fileName.png', { type: 'image/png' })
     const readFiles = jest.fn(() => Promise.reject(ERROR_MESSAGE))
     const props = {
       input: { name, value: '', onChange: defaultOnChange },
@@ -209,7 +211,7 @@ describe('FileInput', () => {
 
   test('shows error that occurs from reading', async () => {
     const ERROR_MESSAGE = 'cannot read'
-    const file = { name: 'fileName', url: 'data:,' }
+    const file = new File(['content'], 'fileName.png', { type: 'image/png' })
     const readFiles = jest.fn(() => {
       throw new Error(ERROR_MESSAGE)
     })
@@ -232,8 +234,6 @@ describe('FileInput', () => {
       const lastModified = Date.now()
       const firstFile = { name: 'first', url: 'data:,', lastModified }
       const secondFile = { name: 'second', url: 'data:,', lastModified }
-      const filedata = 'my file data'
-      mockFileReader(filedata)
 
       const onChange = jest.fn()
       const props = {
@@ -380,9 +380,10 @@ describe('FileInput', () => {
       render(<FileInput {...props} />)
 
       const user = userEvent.setup()
-      await user.click(
-        screen.getByRole('button', { name: /remove secondFile/i })
-      )
+      const removeButton = screen.getByRole('button', {
+        name: /remove secondFile/i,
+      })
+      await user.click(removeButton)
 
       expect(onChange).toHaveBeenCalled()
       expect(onChange.mock.calls[0][0]).toHaveLength(2)
@@ -431,10 +432,4 @@ export function mockFileReader(fileData) {
   const mockReader = createMockFileReader(fileData)
   // eslint-disable-next-line no-undef
   jest.spyOn(global, 'FileReader').mockImplementation(() => new mockReader())
-}
-
-// Resolves when other ongoing promises have resolved
-// https://stackoverflow.com/a/51045733
-export function flushPromises() {
-  return new Promise(window.setImmediate) // eslint-disable-line no-undef
 }
