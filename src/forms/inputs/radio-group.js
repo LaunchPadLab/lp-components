@@ -136,6 +136,7 @@ function RadioGroup(props) {
     <LabeledField
       className={className}
       labelComponent={RadioGroupLegend}
+      as="fieldset"
       {...props}
     >
       {optionObjects.map((option, i) => {

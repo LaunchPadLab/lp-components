@@ -20,6 +20,7 @@ import { hasInputError } from '../helpers'
  * @param {Boolean} [hideErrorLabel] - A boolean determining whether to hide the error label on input error (optional, default `false`)
  * @param {Function} [labelComponent=InputLabel] - A custom label component for the input
  * @param {Function} [errorComponent=InputError] - A custom error component for the input
+ * @param {Element Type} [as] - A string that determines the element type of the component (optional, default `div`)
  *
  * @example
  *
@@ -72,10 +73,12 @@ const propTypes = {
   ...InputError.propTypes,
   children: PropTypes.node,
   hideErrorLabel: PropTypes.bool,
+  as: PropTypes.elementType,
 }
 
 const defaultProps = {
   hideErrorLabel: false,
+  as: 'div',
 }
 
 function LabeledField({
@@ -88,12 +91,13 @@ function LabeledField({
   children,
   hideErrorLabel,
   label,
+  as: Component,
   ...rest
 }) {
   const { name } = input
   const { touched, invalid } = meta
   return (
-    <fieldset
+    <Component
       className={classnames(className, {
         error: hasInputError({ touched, invalid }),
         disabled: rest.disabled,
@@ -104,7 +108,7 @@ function LabeledField({
       {!hideErrorLabel && (
         <ErrorComponent {...{ ...input, ...meta, ...rest }} />
       )}
-    </fieldset>
+    </Component>
   )
 }
 

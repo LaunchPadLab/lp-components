@@ -125,6 +125,7 @@ function CheckboxGroup(props) {
     <LabeledField
       className={className}
       labelComponent={CheckboxGroupLegend}
+      as="fieldset"
       {...props}
     >
       {optionObjects.map((option, i) => {
