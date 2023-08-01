@@ -97,10 +97,22 @@ const defaultProps = {
   options: [],
 }
 
-function CheckboxGroupLegend({ name, label }) {
+function CheckboxGroupLegend({
+  label,
+  name,
+  required,
+  requiredIndicator,
+  hint,
+}) {
   return (
     <legend className={classnames({ 'visually-hidden': label === false })}>
       {label || convertNameToLabel(name)}
+      {required && requiredIndicator && (
+        <span className="required-indicator" aria-hidden="true">
+          {requiredIndicator}
+        </span>
+      )}
+      {hint && <i>{hint}</i>}
     </legend>
   )
 }

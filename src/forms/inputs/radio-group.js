@@ -90,10 +90,16 @@ const defaultProps = {
   radioInputProps: {},
 }
 
-function RadioGroupLegend({ label, name }) {
+function RadioGroupLegend({ label, name, required, requiredIndicator, hint }) {
   return (
     <legend className={classnames({ 'visually-hidden': label === false })}>
       {label || convertNameToLabel(name)}
+      {required && requiredIndicator && (
+        <span className="required-indicator" aria-hidden="true">
+          {requiredIndicator}
+        </span>
+      )}
+      {hint && <i>{hint}</i>}
     </legend>
   )
 }
