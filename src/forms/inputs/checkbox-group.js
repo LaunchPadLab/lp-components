@@ -15,6 +15,7 @@ import {
   serializeOptions,
   compose,
 } from '../../utils'
+import classnames from 'classnames'
 
 /**
  *
@@ -97,8 +98,11 @@ const defaultProps = {
 }
 
 function CheckboxGroupLegend({ name, label }) {
-  if (label === false) return null
-  return <legend>{label || convertNameToLabel(name)}</legend>
+  return (
+    <legend className={classnames({ 'visually-hidden': label === false })}>
+      {label || convertNameToLabel(name)}
+    </legend>
+  )
 }
 
 function CheckboxGroup(props) {

@@ -8,6 +8,7 @@ import {
 } from '../helpers'
 import { LabeledField } from '../labels'
 import { serializeOptions, filterInvalidDOMProps } from '../../utils'
+import classnames from 'classnames'
 
 /**
  *
@@ -90,8 +91,11 @@ const defaultProps = {
 }
 
 function RadioGroupLegend({ label, name }) {
-  if (label === false) return null
-  return <legend>{label || convertNameToLabel(name)}</legend>
+  return (
+    <legend className={classnames({ 'visually-hidden': label === false })}>
+      {label || convertNameToLabel(name)}
+    </legend>
+  )
 }
 
 // This should never be used by itself, so it does not exist as a separate export
