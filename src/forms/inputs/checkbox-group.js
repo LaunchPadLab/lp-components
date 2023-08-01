@@ -7,6 +7,7 @@ import {
   omitLabelProps,
   replaceEmptyStringValue,
   convertNameToLabel,
+  DropdownSelect,
 } from '../helpers'
 import { LabeledField } from '../labels'
 import {
@@ -35,6 +36,7 @@ import classnames from 'classnames'
  * @param {Object} meta - A `redux-form` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @param {Array} options - An array of checkbox values (strings, numbers, or key-value pairs)
  * @param {Object} [checkboxInputProps={}] - An object of key-value pairs representing props to pass down to all checkbox inputs
+ * @param {Boolean} [isDropdown] - A boolean that determines whether the checkbox options are displayed in a dropdown container or not (optional, default `false`)
  * @example
  *
  * function TodoForm ({ handleSubmit, pristine, invalid, submitting }) {
@@ -89,12 +91,14 @@ const propTypes = {
   className: PropTypes.string,
   checkboxInputProps: PropTypes.object,
   options: fieldOptionsType,
+  isDropdown: PropTypes.bool,
 }
 
 const defaultProps = {
   className: 'CheckboxGroup',
   checkboxInputProps: {},
   options: [],
+  isDropdown: false,
 }
 
 function CheckboxGroupLegend({
@@ -124,6 +128,7 @@ function CheckboxGroup(props) {
     options,
     className,
     checkboxInputProps,
+    isDropdown,
     ...rest
   } = omitLabelProps(props)
   const optionObjects = serializeOptions(options)
@@ -137,6 +142,27 @@ function CheckboxGroup(props) {
       return onChange(newValueArray)
     }
   }
+
+  const CheckboxOptions = () =>
+    optionObjects.map((option, i) => {
+      return (
+        <Checkbox // eslint-disable-line react/jsx-key
+          {...{
+            key: i,
+            input: {
+              name: `${name}.${option.value}`,
+              value: value.includes(option.value),
+              onChange: handleChange(option),
+            },
+            meta: {},
+            label: option.key,
+            ...rest,
+            ...checkboxInputProps,
+          }}
+        />
+      )
+    })
+
   return (
     <LabeledField
       className={className}
@@ -144,24 +170,13 @@ function CheckboxGroup(props) {
       as="fieldset"
       {...props}
     >
-      {optionObjects.map((option, i) => {
-        return (
-          <Checkbox // eslint-disable-line react/jsx-key
-            {...{
-              key: i,
-              input: {
-                name: `${name}.${option.value}`,
-                value: value.includes(option.value),
-                onChange: handleChange(option),
-              },
-              meta: {},
-              label: option.key,
-              ...rest,
-              ...checkboxInputProps,
-            }}
-          />
-        )
-      })}
+      {isDropdown ? (
+        <DropdownSelect selectedValues={value} className="checkboxes">
+          <CheckboxOptions />
+        </DropdownSelect>
+      ) : (
+        <CheckboxOptions />
+      )}
     </LabeledField>
   )
 }
