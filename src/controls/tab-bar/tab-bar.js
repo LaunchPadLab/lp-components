@@ -82,6 +82,7 @@ function TabBar({
             onKeyDown={(e) => manageFocus(e, { vertical })}
           >
             <button
+              type="button"
               id={'tab-' + toLower(optionValue)} // allow sections to reference tab using `aria-labelledby`
               onClick={() => {
                 onChange(optionValue)
