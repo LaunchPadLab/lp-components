@@ -22,8 +22,9 @@ function PageLink({ className, active, onClick, children, ...rest }) {
   return (
     <li className={classnames(className, { active: active })}>
       <a
+        role="link"
         onClick={onClick}
-        onKeyPress={triggerOnKeys(onClick, ENTER_KEY_CODE)} // keyboard interaction requirement
+        onKeyDown={triggerOnKeys(onClick, ENTER_KEY_CODE)} // keyboard interaction requirement
         aria-current={active ? 'page' : false}
         tabIndex="0" // add back to natural tab order (automatically removed without an href)
         {...rest}
