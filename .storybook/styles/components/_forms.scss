@@ -443,6 +443,8 @@ Custom Dropdown Select
     @include font-type($primary-sans-serif, normal, 400);
     @include s-base;
     @include rem(padding, 7px 13px);
+    width: 100%;
+    text-align: left;
 
     &:after {
       // background-image: asset-url('dropdown.svg');
