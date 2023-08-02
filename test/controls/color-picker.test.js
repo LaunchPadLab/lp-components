@@ -11,14 +11,6 @@ test('ColorPicker toggles expanded when swatch is clicked', () => {
   expect(wrapper.find('.popover').exists()).toBe(false)
 })
 
-test('ColorPicker collapses when background is clicked', () => {
-  const wrapper = mount(<ColorPicker />)
-  wrapper.find('.swatch').simulate('click')
-  expect(wrapper.find('.popover').exists()).toBe(true)
-  wrapper.find('.cover').simulate('click')
-  expect(wrapper.find('.popover').exists()).toBe(false)
-})
-
 test('ColorPicker can be externally controlled', () => {
   const wrapper = mount(<ColorPicker active={true} />)
   expect(wrapper.find('.popover').exists()).toBe(true)

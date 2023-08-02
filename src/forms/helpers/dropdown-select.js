@@ -23,7 +23,11 @@ function DropdownSelect({ children, className, selectedValues }) {
   return (
     <OutsideClickHandler onOutsideClick={() => toggleExpanded(false)}>
       <div className="dropdown-select">
-        <button className="select-input" onClick={() => toggleExpanded()}>
+        <button
+          type="button"
+          className="select-input"
+          onClick={() => toggleExpanded()}
+        >
           <p>{getLabel(selectedValues)}</p>
         </button>
         <div
