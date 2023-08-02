@@ -1,13 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import {
-  serializeOptions,
-  noop,
-  toLower,
-  triggerOnKeys,
-  KeyCodes,
-} from '../../utils'
+import { serializeOptions, noop, toLower } from '../../utils'
 import manageFocus from './focus'
 
 /**
@@ -87,20 +81,17 @@ function TabBar({
             role="presentation"
             onKeyDown={(e) => manageFocus(e, { vertical })}
           >
-            <a
+            <button
               id={'tab-' + toLower(optionValue)} // allow sections to reference tab using `aria-labelledby`
               onClick={() => {
                 onChange(optionValue)
               }}
-              onKeyPress={triggerOnKeys(() => {
-                onChange(optionValue)
-              }, [KeyCodes.ENTER, KeyCodes.SPACE])}
               tabIndex={isActive ? '0' : '-1'} // remove inactive tabs from tab order (controlled with arrow keys)
               role="tab"
               aria-selected={isActive}
             >
               {key}
-            </a>
+            </button>
           </li>
         )
       })}
