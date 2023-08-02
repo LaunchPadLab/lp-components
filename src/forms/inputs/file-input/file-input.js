@@ -64,8 +64,8 @@ const propTypes = {
   thumbnail: PropTypes.string,
   hidePreview: PropTypes.bool,
   className: PropTypes.string,
-  previewComponent: PropTypes.func,
-  children: PropTypes.node,
+  previewComponent: PropTypes.func, // eslint-disable-line react/no-unused-prop-types
+  children: PropTypes.node, // eslint-disable-line react/no-unused-prop-types
   multiple: PropTypes.bool,
   onRemove: PropTypes.func,
   readFiles: PropTypes.func,
@@ -106,7 +106,8 @@ function FileInput(props) {
     thumbnail,
     onRemove,
     ...rest
-  } = omitLabelProps(props)
+  } = props
+  const previewProps = omitLabelProps(rest)
 
   const [errors, setErrors] = useState(null)
   const inputRef = useRef()
@@ -147,7 +148,7 @@ function FileInput(props) {
     const { value, onChange } = input
     const valueToUpdate = value.slice(0, 1)
     onChange(valueToUpdate)
-  }, [multiple])
+  }, [multiple, prevMultiple, input])
 
   const inputMeta = setInputErrors(meta, errors)
   const labelText = selectText || (multiple ? 'Select File(s)' : 'Select File')
@@ -166,7 +167,11 @@ function FileInput(props) {
                 key={file?.name || idx}
                 className="fileupload-preview-container"
               >
-                <RenderPreview file={file} thumbnail={thumbnail} {...rest} />
+                <RenderPreview
+                  file={file}
+                  thumbnail={thumbnail}
+                  {...previewProps}
+                />
                 {file && (
                   <RemoveComponent
                     file={file}

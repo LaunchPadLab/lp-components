@@ -1302,6 +1302,8 @@ Omits the following props:
 *   `tooltip`
 *   `label`
 *   `requiredIndicator`
+*   `errorComponent`
+*   `labelComponent`
 
 ### Parameters
 
@@ -1331,7 +1333,8 @@ function Input (props) {
      input: { name, value, onBlur, onChange },
      type,
      ...rest
-   } = omitLabelProps(props)
+   } = props
+   const inputProps = omitLabelProps(rest)
    return (
      ...
    )
