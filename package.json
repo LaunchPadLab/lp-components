@@ -18,8 +18,8 @@
   "scripts": {
     "start": "yarn && yarn build:development",
     "build": "yarn build:cjs && yarn build:esm && yarn build:styles",
-    "build:cjs": "babel src --out-dir lib",
-    "build:esm": "BABEL_ENV=esm babel src --out-dir esm",
+    "build:cjs": "babel src --out-dir lib --ignore src/**/__mocks__/**/*.js",
+    "build:esm": "BABEL_ENV=esm babel src --out-dir esm --ignore src/**/__mocks__/**/*.js",
     "build:styles": "cp -r src/styles lib/styles && sass src/styles:lib/styles",
     "build:development": "BABEL_ENV=esm babel src --watch --out-dir esm",
     "clean": "rm -rf lib esm",
