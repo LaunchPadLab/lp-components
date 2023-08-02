@@ -163,6 +163,10 @@ Checkbox
   .tooltip-trigger {
     float: initial;
     width: auto;
+    padding: 0;
+    border: none;
+    background: none;
+    margin-left: 10px;
   }
 }
 
@@ -262,10 +266,8 @@ Input Tooltip
   display: inline-block;
   height: 18px;
   font-size: 12px;
-  margin-left: 10px;
   text-align: center;
   line-height: 1.4;
-  vertical-align: text-top;
   width: 18px;
 }
 
