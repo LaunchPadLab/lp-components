@@ -1934,10 +1934,10 @@
     eslint-plugin-import "^2.13.0"
     eslint-plugin-react "^7.10.0"
 
-"@launchpadlab/prettier-config@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@launchpadlab/prettier-config/-/prettier-config-1.0.0.tgz#cb1f0d0ae714d3faa4543bce89b82961f86bf340"
-  integrity sha512-YvTfVI4hnA4G/fJyeIGX1eivdTPZOB+JIOCdFm5zWRuijJ1V371tA/WeXxSSKYNhj1Tk6+eEZI0WFd++uHVFag==
+"@launchpadlab/prettier-config@^2.0.0":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@launchpadlab/prettier-config/-/prettier-config-2.0.1.tgz#0f2a5b9617f5518f228cf6251c2aa0835bfbe174"
+  integrity sha512-sbTYdNV818VvhpxTObq0Ga6w0bZTgTSh4pIhRLx6ZQkOa57VFV2Doa/bxBzI+JsVCqG42HrJUNMv/c6wN578aw==
 
 "@mdx-js/mdx@^1.6.22":
   version "1.6.22"
