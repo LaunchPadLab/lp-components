@@ -267,35 +267,35 @@ describe('SortableTable', () => {
 
   test('`format` updates the cell value', () => {
     const format = jest.fn(lowerCase)
-    const wrapper = mount(
+    render(
       <SortableTable data={tableData} initialColumn="name">
         <Column name="name" format={format} />
       </SortableTable>
     )
-    expect(wrapper.find('td').first().text()).toEqual('kim')
-    expect(wrapper.find('td').last().text()).toEqual('tommy')
+    const cells = screen.getAllByRole('cell')
+    expect(cells.at(0).textContent).toEqual('kim')
+    expect(cells.at(-1).textContent).toEqual('tommy')
     expect(format).toHaveBeenCalled()
   })
 
   test('`placeholder` option is displayed if value is `null` or `undefined`', () => {
     const data = [{ name: null }, { name: undefined }]
-    const wrapper = mount(
+    render(
       <SortableTable data={data}>
         <Column name="name" placeholder="placeholder" />
       </SortableTable>
     )
-    expect(wrapper.find('td').first().text()).toEqual('placeholder')
-    expect(wrapper.find('td').last().text()).toEqual('placeholder')
+    expect(screen.getAllByRole('cell', { name: 'placeholder' }).length).toEqual(data.length)
   })
 
-  test('can receive custom class name', () => {
+  test('Can receive custom class name', () => {
     const data = [{ name: null }, { name: undefined }]
-    const wrapper = mount(
+    render(
       <SortableTable data={data} className="foo">
         <Column name="name" placeholder="placeholder" />
       </SortableTable>
     )
-    expect(wrapper.find('table.foo').exists()).toBe(true)
+    expect(screen.getByRole('table')).toHaveClass('sortable-table', 'foo')
   })
 
   test('`valueGetter` derives the cell value', () => {
@@ -350,31 +350,32 @@ describe('SortableTable', () => {
     expect(myValueGetter).toHaveBeenCalled()
   })
 
-  test('table data is updated when data prop changes', () => {
-    const newTableData = [{ name: 'Kortney' }]
-    const wrapper = mount(
+  test('Table data is updated when data prop changes', () => {
+    const { rerender } = render(
       <SortableTable data={tableData}>
         <Column name="name" />
       </SortableTable>
     )
-    expect(wrapper.find('td').first().text()).toEqual('Kim')
-    wrapper.setProps({ data: newTableData })
-    expect(wrapper.find('td').first().text()).toEqual('Kortney')
+    expect(screen.getAllByRole('cell').at(0).textContent).toEqual('Kim')
+    rerender(
+      <SortableTable data={[{ name: 'Kortney' }]}>
+        <Column name="name" />
+      </SortableTable>
+    )
+    expect(screen.getAllByRole('cell').at(0).textContent).toEqual('Kortney')
   })
 
-  test('arbitrary props passed to table element', () => {
-    const wrapper = mount(
+  test('Valid arbitrary props are passed to table element', () => {
+    render(
       <SortableTable data={tableData} aria-label="Annual Report">
         <Column name="name" />
       </SortableTable>
     )
-    expect(wrapper.find('table').first().prop('aria-label')).toEqual(
-      'Annual Report'
-    )
+    expect(screen.getByRole('table')).toHaveAttribute('aria-label', 'Annual Report')
   })
 
-  test('invalid arbitrary props filtered out', () => {
-    const wrapper = mount(
+  test('Invalid arbitrary props are filtered out', () => {
+    render(
       <SortableTable
         data={tableData}
         aria-label="Annual Report"
@@ -383,47 +384,49 @@ describe('SortableTable', () => {
         <Column name="name" />
       </SortableTable>
     )
-    expect(wrapper.find('table').first().prop('invalidProp')).toBe(undefined)
+    expect(screen.getByRole('table')).not.toHaveAttribute('invalidProp')
   })
 
-  test('passes valid DOM props to cells', () => {
-    const wrapper = mount(
+  test('Passes valid DOM props to cells', () => {
+    render(
       <SortableTable data={tableData}>
         <Column name="name" data-cy="name" />
       </SortableTable>
     )
-    expect(wrapper.find('td').first().prop('data-cy')).toEqual('name')
+    expect(screen.getAllByRole('cell').at(0)).toHaveAttribute('data-cy', 'name')
   })
 
-  test('does not pass invalid DOM props to cells', () => {
-    const wrapper = mount(
+  test('Does not pass invalid DOM props to cells', () => {
+    render(
       <SortableTable data={tableData}>
         <Column name="name" customAttribute="custom" />
       </SortableTable>
     )
-    expect(wrapper.find('td').first().prop('customAttribute')).toBe(undefined)
+    expect(screen.getAllByRole('cell').at(0)).not.toHaveAttribute('customAttribute')
   })
 
-  test('does not render a caption element by default', () => {
-    const wrapper = mount(
+  test('Does not render a caption element by default', () => {
+    render(
       <SortableTable data={tableData}>
         <Column name="name" />
       </SortableTable>
     )
-    expect(wrapper.find('caption').exists()).toBe(false)
+    const table = screen.getByRole('table')
+    expect(table.firstChild.tagName).not.toEqual('CAPTION')
   })
 
-  test('renders a caption element when provided as the first descendant', () => {
-    const wrapper = mount(
+  test('Renders a caption element when provided as the first descendant', () => {
+    render(
       <SortableTable data={tableData} caption="My Table">
         <Column name="name" />
       </SortableTable>
     )
-    expect(wrapper.find('table').childAt(0).type()).toBe('caption')
+    const table = screen.getByRole('table', { name: 'My Table' })
+    expect(table.firstChild.tagName).toEqual('CAPTION')
   })
 
-  test('renders a caption element with whatever is provided', () => {
-    const wrapper = mount(
+  test('Renders a caption element with whatever is provided', () => {
+    render(
       <SortableTable
         data={tableData}
         caption={<span className="custom-caption">My Table</span>}
@@ -431,6 +434,6 @@ describe('SortableTable', () => {
         <Column name="name" />
       </SortableTable>
     )
-    expect(wrapper.find('.custom-caption').text()).toBe('My Table')
+    expect(screen.getByText('My Table')).toHaveClass('custom-caption')
   })
 })
