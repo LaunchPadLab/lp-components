@@ -304,32 +304,33 @@ describe('SortableTable', () => {
       { name: 'Opportunity 2', accountName: 'Dealer 2' },
     ]
     const myValueGetter = jest.fn((data) => `${data.name} - ${data.accountName}`)
-    const wrapper = mount(
+    render(
       <SortableTable data={data}>
         <Column name="opportunityName" valueGetter={myValueGetter} />
       </SortableTable>
     )
-    expect(wrapper.find('td').first().text()).toEqual('Opportunity 1 - Dealer 1')
-    expect(wrapper.find('td').last().text()).toEqual('Opportunity 2 - Dealer 2')
+    expect(screen.getByText('Opportunity 1 - Dealer 1')).toBeInTheDocument()
+    expect(screen.getByText('Opportunity 2 - Dealer 2')).toBeInTheDocument()
     expect(myValueGetter).toHaveBeenCalled()
   })
 
-  test('`valueGetter` can utilize the default sort', () => {
+  test('`valueGetter` can utilize the default sort', async () => {
+    const user = userEvent.setup()
     const data = [
       { name: 'Opportunity 2', accountName: 'Dealer 2' },
       { name: 'Opportunity 1', accountName: 'Dealer 1' },
     ]
     const myValueGetter = jest.fn((data) => `${data.name} - ${data.accountName}`)
-    const wrapper = mount(
+    render(
       <SortableTable data={data}>
         <Column name="opportunityName" valueGetter={myValueGetter} />
       </SortableTable>
     )
-    wrapper.find('th').first().simulate('click')
+    await user.click(screen.getByRole('columnheader'))
     // Data should now be sorted by derived data values
-    expect(wrapper.find('td').first().text()).toEqual('Opportunity 1 - Dealer 1')
-    expect(wrapper.find('td').last().text()).toEqual('Opportunity 2 - Dealer 2')
-
+    const cells = screen.getAllByRole('cell')
+    expect(cells.at(0).textContent).toEqual('Opportunity 1 - Dealer 1')
+    expect(cells.at(-1).textContent).toEqual('Opportunity 2 - Dealer 2')
     expect(myValueGetter).toHaveBeenCalled()
   })
 
@@ -339,14 +340,14 @@ describe('SortableTable', () => {
       { name: 'Opportunity 1', accountName: 'Dealer 1' },
     ]
     const myValueGetter = jest.fn((data) => `${data.name} - ${data.accountName}`)
-    const wrapper = mount(
+    render(
       <SortableTable data={data} initialColumn="opportunityName">
         <Column name="opportunityName" valueGetter={myValueGetter} />
         <Column name="accountName" />
         <Column name="name" />
       </SortableTable>
     )
-    expect(wrapper.find('td').first().text()).toEqual('Opportunity 1 - Dealer 1')
+    expect(screen.getAllByRole('cell').at(0).textContent).toEqual('Opportunity 1 - Dealer 1')
     expect(myValueGetter).toHaveBeenCalled()
   })
 
