@@ -1,11 +1,11 @@
 import React from 'react'
-import { mount } from 'enzyme'
+import { render, screen } from '@testing-library/react'
 import { FlashMessage } from '../../src/'
 
 test('FlashMessage only shows dismiss button when callback is provided', () => {
-  const wrapper = mount(<FlashMessage>Success!</FlashMessage>)
-  expect(wrapper.find('button.dismiss').exists()).toBe(false)
-  const dismissWrapper = mount(
+  render(<FlashMessage>Success!</FlashMessage>)
+  expect(screen.queryByRole('button')).not.toBeInTheDocument()
+  render(
     <FlashMessage
       onDismiss={() => {
         /* do something */
@@ -14,11 +14,11 @@ test('FlashMessage only shows dismiss button when callback is provided', () => {
       Success!
     </FlashMessage>
   )
-  expect(dismissWrapper.find('button.dismiss').exists()).toBe(true)
+  expect(screen.getByRole('button')).toBeInTheDocument()
 })
 
 test('FlashMessage dismiss button includes label for screenreaders', () => {
-  const dismissWrapper = mount(
+  render(
     <FlashMessage
       onDismiss={() => {
         /* do something */
@@ -27,14 +27,17 @@ test('FlashMessage dismiss button includes label for screenreaders', () => {
       Success!
     </FlashMessage>
   )
-  expect(dismissWrapper.find('button.dismiss').prop('aria-label')).toBeDefined()
+  expect(screen.getByRole('button')).toHaveAttribute('aria-label')
 })
 
 test('FlashMessage sets class based on isError prop', () => {
-  const wrapper = mount(<FlashMessage>Success!</FlashMessage>)
-  expect(wrapper.find('div.success').exists()).toBe(true)
-  expect(wrapper.find('div.failure').exists()).toBe(false)
-  const errorWrapper = mount(<FlashMessage isError>Failure!</FlashMessage>)
-  expect(errorWrapper.find('div.success').exists()).toBe(false)
-  expect(errorWrapper.find('div.failure').exists()).toBe(true)
+  render(<FlashMessage data-testid="1">Success!</FlashMessage>)
+  const successMessage = screen.getByTestId("1")
+  expect(successMessage).toHaveClass('success')
+  expect(successMessage).not.toHaveClass('failure')
+
+  render(<FlashMessage isError data-testid="2">Failure!</FlashMessage>)
+  const errorMessage = screen.getByTestId("2")
+  expect(errorMessage).not.toHaveClass('success')
+  expect(errorMessage).toHaveClass('failure')
 })
