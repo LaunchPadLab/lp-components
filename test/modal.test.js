@@ -1,7 +1,9 @@
 import React from 'react'
-import { mount } from 'enzyme'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { Modal } from '../src/'
 import { noop } from 'lodash'
+
 
 describe('Modal', () => {
   beforeEach(() => {
@@ -20,38 +22,42 @@ describe('Modal', () => {
   })
 
   test('is shown by default', () => {
-    const wrapper = mount(<Modal onClose={noop} />)
-    expect(wrapper.find('.modal-content').exists()).toEqual(true)
+    const content = Date.now()
+    render(<Modal onClose={noop}><span>{content}</span></Modal>)
+    expect(screen.getByText(content)).toBeInTheDocument()
   })
 
   test('can be hidden/animated by manually passing isOpen', () => {
-    const wrapper = mount(<Modal isOpen={false} onClose={noop} />)
-    expect(wrapper.find('.modal-content').exists()).toEqual(false)
+    const content = Date.now()
+    render(<Modal isOpen={false} onClose={noop}><span>{content}</span></Modal>)
+    expect(screen.queryByText(content)).not.toBeInTheDocument()
   })
 
-  test('calls close handler when close button is clicked', () => {
+  test('calls close handler when close button is clicked', async () => {
     const onClose = jest.fn()
-    const wrapper = mount(<Modal onClose={onClose} />)
-    wrapper.find('.modal-close').simulate('click')
+    const user = userEvent.setup()
+    render(<Modal onClose={onClose} />)
+
+    await user.click(screen.getByRole('button', { name: 'Close Modal' }))
     expect(onClose).toHaveBeenCalled()
   })
 
   test('adds additional class string to default class', () => {
-    const wrapper = mount(<Modal onClose={noop} className="custom" />)
-    expect(wrapper.find('.modal-inner.custom').exists()).toEqual(true)
+    render(<Modal onClose={noop} className="custom" />)
+    expect(screen.getByRole('dialog')).toHaveClass('modal-inner', 'custom')
   })
 
   test('adds additional overlay class string to default overlay class', () => {
-    const wrapper = mount(
+    render(
       <Modal onClose={noop} overlayClassName="custom-overlay" />
     )
-    expect(wrapper.find('.modal-fade-screen.custom-overlay').exists()).toEqual(
-      true
-    )
+
+    const overlay = screen.getByRole('dialog').parentElement
+    expect(overlay).toHaveClass('modal-fade-screen', 'custom-overlay')
   })
 
   test('adds additional class object to default class', () => {
-    const wrapper = mount(
+    render(
       <Modal
         isOpen={true}
         onClose={noop}
@@ -62,13 +68,11 @@ describe('Modal', () => {
         }}
       />
     )
-    expect(wrapper.find('.modal-inner.custom.modal-is-open').exists()).toEqual(
-      true
-    )
+    expect(screen.getByRole('dialog')).toHaveClass('modal-inner', 'custom', 'modal-is-open')
   })
 
   test('adds additional overlay class object to default overlay class', () => {
-    const wrapper = mount(
+    render(
       <Modal
         isOpen={true}
         onClose={noop}
@@ -79,45 +83,46 @@ describe('Modal', () => {
         }}
       />
     )
-    expect(
-      wrapper.find('.modal-fade-screen.custom.modal-is-open').exists()
-    ).toEqual(true)
+    const overlay = screen.getByRole('dialog').parentElement
+    expect(overlay).toHaveClass('modal-fade-screen', 'custom', 'modal-is-open')
   })
 
   describe('when preventClose=true', () => {
     test('hides close button', () => {
-      const wrapper = mount(<Modal preventClose={true} onClose={noop} />)
-      expect(wrapper.find('.modal-close').exists()).toEqual(false)
+      render(<Modal preventClose={true} onClose={noop} />)
+      expect(screen.queryByRole('button', { name: 'Close Modal' })).not.toBeInTheDocument()
     })
 
-    test('does not close by escape key', () => {
+    test('does not close by escape key', async () => {
       const onClose = jest.fn()
-      const wrapper = mount(<Modal preventClose={true} onClose={onClose} />)
-      wrapper.find('.modal-content').simulate('keydown', { keyCode: 27 })
+      const user = userEvent.setup()
+      render(<Modal preventClose={true} onClose={onClose} />)
+
+      await user.keyboard('{Escape}')
       expect(onClose).not.toHaveBeenCalled()
     })
 
-    test('does not close by overlay click', () => {
+    test('does not close by overlay click', async () => {
       const onClose = jest.fn()
-      const overlayClass = 'test-overlay'
-      const wrapper = mount(
+      const user = userEvent.setup()
+      render(
         <Modal
           preventClose={true}
           onClose={onClose}
-          overlayClassName={overlayClass}
         />
       )
-      wrapper.find('.' + overlayClass).simulate('click')
+      const overlay = screen.getByRole('dialog').parentElement
+      await user.click(overlay)
       expect(onClose).not.toHaveBeenCalled()
-      expect(wrapper.find('.modal-content').exists()).toEqual(true)
     })
 
-    test('allows individual prop overrides', () => {
+    test('allows individual prop overrides', async () => {
       const onClose = jest.fn()
-      const wrapper = mount(
+      const user = userEvent.setup()
+      render(
         <Modal preventClose={true} onClose={onClose} shouldCloseOnEsc={true} />
       )
-      wrapper.find('.modal-content').simulate('keydown', { keyCode: 27 })
+      await user.keyboard('{Escape}')
       expect(onClose).toHaveBeenCalled()
     })
   })
