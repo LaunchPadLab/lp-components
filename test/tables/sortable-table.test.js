@@ -1,7 +1,6 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { mount } from 'enzyme'
 import { lowerCase } from 'lodash'
 import { SortableTable, TableColumn as Column, compareAtPath } from '../../src/'
 
@@ -171,29 +170,23 @@ describe('SortableTable', () => {
     expect(screen.queryByText(/^Kim$/)).not.toBeInTheDocument()
   })
 
-  test.skip('Table can have custom row component initialized with table state props', () => {
+  test('Table can have custom row component initialized with table state props', () => {
     const MyRow = ({ children }) => <tr>{children}</tr> // eslint-disable-line
     const mySort = jest.fn(compareAtPath('name', sortAscending))
     const myValueGetter = jest.fn((data) => data.name.toUpperCase())
-    const wrapper = mount(
+    render(
       <SortableTable
         data={tableData}
         rowComponent={MyRow}
         initialAscending={false}
-        initialColumn={'name'}
+        initialColumn="name"
       >
         <Column name="name" sortFunc={mySort} valueGetter={myValueGetter} />
       </SortableTable>
     )
-    expect(wrapper.find(MyRow).exists()).toBe(true)
-    const expectedProps = {
-      data: { name: 'Tommy' },
-      ascending: false,
-      sortPath: 'name',
-      sortFunc: mySort,
-      valueGetter: myValueGetter,
-    }
-    expect(wrapper.find(MyRow).first().props()).toMatchObject(expectedProps)
+    expect(mySort).toHaveBeenCalled()
+    expect(myValueGetter).toHaveBeenCalled()
+    expect(screen.getAllByRole('cell').at(0).textContent).toEqual('TOMMY')
   })
 
   test('Column can have custom header component', () => {
