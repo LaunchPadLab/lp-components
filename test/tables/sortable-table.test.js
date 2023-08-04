@@ -134,7 +134,9 @@ describe('SortableTable', () => {
         <Column name="name" label="FOO" />
       </SortableTable>
     )
-    expect(screen.getByRole('columnheader', { name: 'FOO' })).toBeInTheDocument()
+    expect(
+      screen.getByRole('columnheader', { name: 'FOO' })
+    ).toBeInTheDocument()
   })
 
   test('Column can have custom sort function', async () => {
@@ -195,7 +197,9 @@ describe('SortableTable', () => {
   })
 
   test('Column can have custom header component', () => {
-    const MyHeader = ({ column: { name } }) => <th data-testid={`h-${name}`}>{name}</th> // eslint-disable-line
+    const MyHeader = ({ column: { name } }) => (
+      <th data-testid={`h-${name}`}>{name}</th>
+    ) // eslint-disable-line
     render(
       <SortableTable data={tableData} headerComponent={MyHeader}>
         <Column name="name" />
@@ -207,7 +211,9 @@ describe('SortableTable', () => {
   })
 
   test('Column can have a column-specific custom header component', () => {
-    const MyHeader = ({ column: { name } }) => <th data-testid={`h-${name}`}>{name}</th> // eslint-disable-line
+    const MyHeader = ({ column: { name } }) => (
+      <th data-testid={`h-${name}`}>{name}</th>
+    ) // eslint-disable-line
     render(
       <SortableTable data={tableData}>
         <Column name="name" headerComponent={MyHeader} />
@@ -285,7 +291,9 @@ describe('SortableTable', () => {
         <Column name="name" placeholder="placeholder" />
       </SortableTable>
     )
-    expect(screen.getAllByRole('cell', { name: 'placeholder' }).length).toEqual(data.length)
+    expect(screen.getAllByRole('cell', { name: 'placeholder' }).length).toEqual(
+      data.length
+    )
   })
 
   test('Can receive custom class name', () => {
@@ -303,7 +311,9 @@ describe('SortableTable', () => {
       { name: 'Opportunity 1', accountName: 'Dealer 1' },
       { name: 'Opportunity 2', accountName: 'Dealer 2' },
     ]
-    const myValueGetter = jest.fn((data) => `${data.name} - ${data.accountName}`)
+    const myValueGetter = jest.fn(
+      (data) => `${data.name} - ${data.accountName}`
+    )
     render(
       <SortableTable data={data}>
         <Column name="opportunityName" valueGetter={myValueGetter} />
@@ -320,7 +330,9 @@ describe('SortableTable', () => {
       { name: 'Opportunity 2', accountName: 'Dealer 2' },
       { name: 'Opportunity 1', accountName: 'Dealer 1' },
     ]
-    const myValueGetter = jest.fn((data) => `${data.name} - ${data.accountName}`)
+    const myValueGetter = jest.fn(
+      (data) => `${data.name} - ${data.accountName}`
+    )
     render(
       <SortableTable data={data}>
         <Column name="opportunityName" valueGetter={myValueGetter} />
@@ -339,7 +351,9 @@ describe('SortableTable', () => {
       { name: 'Opportunity 2', accountName: 'Dealer 2' },
       { name: 'Opportunity 1', accountName: 'Dealer 1' },
     ]
-    const myValueGetter = jest.fn((data) => `${data.name} - ${data.accountName}`)
+    const myValueGetter = jest.fn(
+      (data) => `${data.name} - ${data.accountName}`
+    )
     render(
       <SortableTable data={data} initialColumn="opportunityName">
         <Column name="opportunityName" valueGetter={myValueGetter} />
@@ -347,7 +361,9 @@ describe('SortableTable', () => {
         <Column name="name" />
       </SortableTable>
     )
-    expect(screen.getAllByRole('cell').at(0).textContent).toEqual('Opportunity 1 - Dealer 1')
+    expect(screen.getAllByRole('cell').at(0).textContent).toEqual(
+      'Opportunity 1 - Dealer 1'
+    )
     expect(myValueGetter).toHaveBeenCalled()
   })
 
@@ -372,7 +388,10 @@ describe('SortableTable', () => {
         <Column name="name" />
       </SortableTable>
     )
-    expect(screen.getByRole('table')).toHaveAttribute('aria-label', 'Annual Report')
+    expect(screen.getByRole('table')).toHaveAttribute(
+      'aria-label',
+      'Annual Report'
+    )
   })
 
   test('Invalid arbitrary props are filtered out', () => {
@@ -403,7 +422,9 @@ describe('SortableTable', () => {
         <Column name="name" customAttribute="custom" />
       </SortableTable>
     )
-    expect(screen.getAllByRole('cell').at(0)).not.toHaveAttribute('customAttribute')
+    expect(screen.getAllByRole('cell').at(0)).not.toHaveAttribute(
+      'customAttribute'
+    )
   })
 
   test('Does not render a caption element by default', () => {
