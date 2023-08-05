@@ -1,5 +1,4 @@
 import React from 'react'
-import { mount } from 'enzyme'
 import { IconInput } from '../../../src/'
 import { render, screen } from '@testing-library/react'
 
