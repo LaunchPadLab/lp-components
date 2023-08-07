@@ -27,7 +27,7 @@ test('FlashMessage dismiss button includes label for screenreaders', () => {
       Success!
     </FlashMessage>
   )
-  expect(screen.getByRole('button')).toHaveAttribute('aria-label')
+  expect(screen.getByLabelText('Dismiss')).toBeInTheDocument()
 })
 
 test('FlashMessage sets class based on isError prop', () => {
