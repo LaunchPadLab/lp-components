@@ -4,52 +4,53 @@ import userEvent from '@testing-library/user-event'
 import { Modal } from '../src/'
 import { noop } from 'lodash'
 
+// Wrap modal to avoid console bloat
+function MyModal(props) {
+  return <Modal {...props} ariaHideApp={false} />
+}
 
 describe('Modal', () => {
   beforeEach(() => {
     // requestAnimationFrame is async, so the callback fails to trigger
     // https://github.com/reactjs/react-modal/issues/903
+    // eslint-disable-next-line
     jest.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => cb())
-
-    // Ignore warnings about the app element not being defined
-    jest.spyOn(console, 'error').mockImplementation(() => {})
   })
 
   afterEach(() => {
-    window.requestAnimationFrame.mockRestore()
     // eslint-disable-next-line
-    console.error.mockRestore()
+    window.requestAnimationFrame.mockRestore()
   })
 
   test('is shown by default', () => {
     const content = Date.now()
-    render(<Modal onClose={noop}><span>{content}</span></Modal>)
+    render(<MyModal onClose={noop}><span>{content}</span></MyModal>)
     expect(screen.getByText(content)).toBeInTheDocument()
   })
 
   test('can be hidden/animated by manually passing isOpen', () => {
     const content = Date.now()
-    render(<Modal isOpen={false} onClose={noop}><span>{content}</span></Modal>)
+    render(<MyModal isOpen={false} onClose={noop}><span>{content}</span></MyModal>)
     expect(screen.queryByText(content)).not.toBeInTheDocument()
   })
 
   test('calls close handler when close button is clicked', async () => {
     const onClose = jest.fn()
     const user = userEvent.setup()
-    render(<Modal onClose={onClose} />)
+    render(<MyModal onClose={onClose} />)
 
     await user.click(screen.getByRole('button', { name: 'Close Modal' }))
     expect(onClose).toHaveBeenCalled()
   })
 
   test('adds additional class string to default class', () => {
-    render(<Modal onClose={noop} className="custom" />)
+    render(<MyModal onClose={noop} className="custom" />)
     expect(screen.getByRole('dialog')).toHaveClass('modal-inner', 'custom')
   })
 
   test('adds additional overlay class string to default overlay class', () => {
     render(
-      <Modal onClose={noop} overlayClassName="custom-overlay" />
+      <MyModal onClose={noop} overlayClassName="custom-overlay" />
     )
 
     const overlay = screen.getByRole('dialog').parentElement
@@ -58,7 +59,7 @@ describe('Modal', () => {
 
   test('adds additional class object to default class', () => {
     render(
-      <Modal
+      <MyModal
         isOpen={true}
         onClose={noop}
         className={{
@@ -73,7 +74,7 @@ describe('Modal', () => {
 
   test('adds additional overlay class object to default overlay class', () => {
     render(
-      <Modal
+      <MyModal
         isOpen={true}
         onClose={noop}
         overlayClassName={{
@@ -89,14 +90,14 @@ describe('Modal', () => {
 
   describe('when preventClose=true', () => {
     test('hides close button', () => {
-      render(<Modal preventClose={true} onClose={noop} />)
+      render(<MyModal preventClose={true} onClose={noop} />)
       expect(screen.queryByRole('button', { name: 'Close Modal' })).not.toBeInTheDocument()
     })
 
     test('does not close by escape key', async () => {
       const onClose = jest.fn()
       const user = userEvent.setup()
-      render(<Modal preventClose={true} onClose={onClose} />)
+      render(<MyModal preventClose={true} onClose={onClose} />)
 
       await user.keyboard('{Escape}')
       expect(onClose).not.toHaveBeenCalled()
@@ -106,7 +107,7 @@ describe('Modal', () => {
       const onClose = jest.fn()
       const user = userEvent.setup()
       render(
-        <Modal
+        <MyModal
           preventClose={true}
           onClose={onClose}
         />
@@ -120,7 +121,7 @@ describe('Modal', () => {
       const onClose = jest.fn()
       const user = userEvent.setup()
       render(
-        <Modal preventClose={true} onClose={onClose} shouldCloseOnEsc={true} />
+        <MyModal preventClose={true} onClose={onClose} shouldCloseOnEsc={true} />
       )
       await user.keyboard('{Escape}')
       expect(onClose).toHaveBeenCalled()
