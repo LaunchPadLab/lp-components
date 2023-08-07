@@ -1,70 +1,74 @@
 import React from 'react'
-import { mount } from 'enzyme'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { within } from '@testing-library/dom'
 import { FlashMessageContainer } from '../../src'
 
 const successMessage = {
   id: '0',
   message: 'Success!',
   isError: false,
-  props: {},
+  props: {
+    'data-testid': 'success'
+  },
 }
 const failureMessage = {
   id: '1',
   message: 'Failure!',
   isError: true,
-  props: {},
+  props: {
+    'data-testid': 'failure'
+  },
 }
 
-test('FlashMessageContainer displays all provided redux-flash messages', () => {
-  const wrapper = mount(
+test('FlashMessageContainer displays all provided flash messages', () => {
+  render(
     <FlashMessageContainer messages={[successMessage, failureMessage]} />
   )
-  expect(wrapper.find('div.flash-message.success').exists()).toBe(true)
-  expect(
-    wrapper.find('div.flash-message.success > p').first().contains('Success!')
-  ).toBe(true)
-  expect(wrapper.find('div.flash-message.failure').exists()).toBe(true)
-  expect(
-    wrapper.find('div.flash-message.failure > p').first().contains('Failure!')
-  ).toBe(true)
+
+  expect(screen.getByText(successMessage.message)).toBeInTheDocument()
+  expect(screen.getByText(failureMessage.message)).toBeInTheDocument()
 })
 
 test('FlashMessageContainer passes down additional props to each message', () => {
-  const wrapper = mount(
+  render(
     <FlashMessageContainer
       messages={[successMessage, failureMessage]}
       data-test="flash"
     />
   )
-  expect(wrapper.find('div.flash-message[data-test="flash"]').length).toEqual(2)
+  expect(screen.getByTestId('success')).toHaveAttribute('data-test', 'flash')
+  expect(screen.getByTestId('failure')).toHaveAttribute('data-test', 'flash')
 })
 
 test('FlashMessageContainer props get overridden by message props', () => {
   const specialFailureMessage = {
     ...failureMessage,
-    props: { 'data-test': 'error-flash' },
+    props: { ...failureMessage.props, 'data-test': 'error-flash' },
   }
-  const wrapper = mount(
+  render(
     <FlashMessageContainer
       messages={[successMessage, specialFailureMessage]}
       data-test="flash"
     />
   )
-  expect(wrapper.find('div.flash-message[data-test="flash"]').length).toEqual(1)
-  expect(
-    wrapper.find('div.flash-message[data-test="error-flash"]').length
-  ).toEqual(1)
+  expect(screen.getByTestId('success')).toHaveAttribute('data-test', 'flash')
+  expect(screen.getByTestId('failure')).toHaveAttribute('data-test', 'error-flash')
 })
 
-test('FlashMessageContainer onDismiss gets invoked with message', () => {
+test('FlashMessageContainer onDismiss gets invoked with message', async () => {
   const onDismiss = jest.fn()
-  const wrapper = mount(
+  const user = userEvent.setup()
+
+  render(
     <FlashMessageContainer
       messages={[successMessage, failureMessage]}
       onDismiss={onDismiss}
     />
   )
-  wrapper.find('div.flash-message.success > button').simulate('click')
+
+  await user.click(within(screen.getByTestId('success')).getByRole('button', { name: 'Dismiss' }))
+
   expect(onDismiss).toHaveBeenCalledTimes(1)
   expect(onDismiss).toHaveBeenCalledWith(successMessage)
 })
