@@ -1,5 +1,6 @@
 import React from 'react'
-import { mount } from 'enzyme'
+import { render, screen } from '@testing-library/react'
+import { within } from '@testing-library/dom'
 import { Select } from '../../../src/'
 
 const DEFAULT_PLACEHOLDER = 'Select'
@@ -17,9 +18,8 @@ test('Select adds string options to select tag', () => {
     options: [OPTION],
     placeholder: '',
   }
-  const wrapper = mount(<Select {...props} />)
-  expect(wrapper.find('option').contains(OPTION)).toEqual(true)
-  expect(wrapper.find('option').prop('value')).toEqual(OPTION)
+  render(<Select {...props} />)
+  expect(screen.getByRole('option')).toHaveValue(OPTION)
 })
 
 test('Select adds object options to select tag', () => {
@@ -35,9 +35,8 @@ test('Select adds object options to select tag', () => {
     options: [{ key: KEY, value: VALUE }],
     placeholder: '',
   }
-  const wrapper = mount(<Select {...props} />)
-  expect(wrapper.find('option').contains(KEY)).toEqual(true)
-  expect(wrapper.find('option').prop('value')).toEqual(VALUE)
+  render(<Select {...props} />)
+  expect(screen.getByRole('option', { name: KEY })).toHaveValue(VALUE)
 })
 
 test('Select adds placeholder option to select tag', () => {
@@ -52,9 +51,8 @@ test('Select adds placeholder option to select tag', () => {
     options: [],
     placeholder: PLACEHOLDER,
   }
-  const wrapper = mount(<Select {...props} />)
-  expect(wrapper.find('option').contains(PLACEHOLDER)).toEqual(true)
-  expect(wrapper.find('option').prop('value')).toEqual('')
+  render(<Select {...props} />)
+  expect(screen.getByRole('option', { name: PLACEHOLDER })).toHaveValue('')
 })
 
 test('Select enables the placeholder option to be selected correctly', () => {
@@ -70,9 +68,22 @@ test('Select enables the placeholder option to be selected correctly', () => {
     placeholder: PLACEHOLDER,
     enablePlaceholderOption: true,
   }
-  const wrapper = mount(<Select {...props} />)
-  expect(wrapper.find('option').first().prop('value')).toEqual('')
-  expect(wrapper.find('option').first().prop('disabled')).toEqual(false)
+  render(<Select {...props} />)
+  expect(screen.getByRole('option', { name: PLACEHOLDER })).toBeEnabled()
+})
+
+test('Select has a disabled placeholder by default', () => {
+  const props = {
+    input: {
+      name: 'test',
+      value: '',
+      onChange,
+    },
+    options: [],
+    meta: {},
+  }
+  render(<Select {...props} />)
+  expect(screen.getByRole('option', { name: DEFAULT_PLACEHOLDER })).toBeDisabled()
 })
 
 test('Select renders option groups correctly', () => {
@@ -87,24 +98,9 @@ test('Select renders option groups correctly', () => {
     optionGroups: [options],
     placeholder: '',
   }
-  const wrapper = mount(<Select {...props} />)
-  expect(wrapper.find('optgroup').first().prop('label')).toEqual('groupName')
-  expect(wrapper.find('option').first().prop('value')).toEqual('testOption')
-})
-
-test('Select has a placeholder by default', () => {
-  const props = {
-    input: {
-      name: 'test',
-      value: '',
-      onChange,
-    },
-    options: [],
-    meta: {},
-  }
-  const wrapper = mount(<Select {...props} />)
-  expect(wrapper.find('option').contains(DEFAULT_PLACEHOLDER)).toEqual(true)
-  expect(wrapper.find('option').prop('value')).toEqual('')
+  render(<Select {...props} />)
+  const optionGroup = screen.getByRole('group', { name: options.name })
+  expect(within(optionGroup).getByRole('option', { name: 'testOption'})).toBeInTheDocument()
 })
 
 test('Select adds an aria-describedby attribute when there is an input error', () => {
@@ -122,8 +118,8 @@ test('Select adds an aria-describedby attribute when there is an input error', (
     },
     options: [OPTION],
   }
-  const wrapper = mount(<Select {...props} />)
-  expect(wrapper.find('select').prop('aria-describedby')).toContain(name)
+  render(<Select {...props} />)
+  expect(screen.getByRole('combobox').getAttribute('aria-describedby')).toContain(name)
 })
 
 test('Select does not receive invalid dom attributes', () => {
@@ -140,6 +136,6 @@ test('Select does not receive invalid dom attributes', () => {
     onClickLabel: () => 'foo',
   }
 
-  const wrapper = mount(<Select {...props} />)
-  expect(wrapper.find('select').prop('onClickLabel')).toBe(undefined)
+  render(<Select {...props} />)
+  expect(screen.getByRole('combobox')).not.toHaveAttribute('onClickLabel')
 })
