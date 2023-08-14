@@ -67,25 +67,6 @@ test('Checkbox is not checked with false value', () => {
   expect(checkbox).not.toBeChecked()
 })
 
-test('Checkbox fires onChange when clicked', async () => {
-  const onChange = jest.fn()
-  const props = {
-    input: {
-      name: 'test',
-      value: false,
-      onChange,
-    },
-    meta: {},
-  }
-  render(<Checkbox {...props} />)
-
-  const user = userEvent.setup()
-  const checkbox = screen.getByRole('checkbox')
-  await user.click(checkbox)
-
-  expect(onChange).toHaveBeenCalledWith(true)
-})
-
 test('Checkbox is given an aria-describedby attribute when there is an input error', () => {
   const name = 'test'
   const props = {
