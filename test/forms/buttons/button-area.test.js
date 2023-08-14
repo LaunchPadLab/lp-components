@@ -19,5 +19,7 @@ test('ButtonArea merges classes correctly', () => {
       <button>Hi</button>
     </ButtonArea>
   )
-  expect(screen.getByRole('button').closest('div')).toHaveClass('extra classes')
+  expect(screen.getByRole('button').closest('div')).toHaveClass(
+    'button-area extra classes'
+  )
 })
