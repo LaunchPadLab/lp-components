@@ -9,14 +9,17 @@ const props = { input: { name, value, onChange }, meta: {} }
 
 test('HiddenInput renders an input', () => {
   render(<HiddenInput {...props} />)
-  const input = screen.getByLabelText('Input')
-  expect(input).toBeDefined()
+  const input = screen.getByRole('textbox', { hidden: true })
+
+  expect(input).toBeInTheDocument()
 })
 
 test('HiddenInput renders a div the correct styles', () => {
   render(<HiddenInput {...props} data-testid="test" />)
 
-  expect(screen.getByTestId('test')).parentElement?.parentElement?.parentElement?.toHaveStyle('visibility: hidden')
-  expect(screen.getByTestId('test')).parentElement?.parentElement?.parentElement?.toHaveStyle('left: -9999px')
-  expect(screen.getByTestId('test')).parentElement?.parentElement?.parentElement?.toHaveStyle('position: absolute')
+  const wrapper = screen.getByTestId('hidden-input-wrapper')
+
+  expect(wrapper).toHaveStyle('visibility: hidden')
+  expect(wrapper).toHaveStyle('left: -9999px')
+  expect(wrapper).toHaveStyle('position: absolute')
 })
