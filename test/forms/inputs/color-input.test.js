@@ -20,28 +20,23 @@ const WrappedColorInput = (props) => {
 }
 
 test('ColorInput hex input adds hash to value', async () => {
-
   render(<WrappedColorInput />)
 
+  const user = userEvent.setup()
   const input = screen.getByRole('textbox')
 
-  const user = userEvent.setup()
-
-  await user.click(input)
-
-  await user.keyboard('{0}{0}{0}{Enter}');
+  await user.type(input, '000{Enter}')
 
   expect(input).toHaveValue('000')
 })
 
 test('ColorInput expands dropdown when hex input is focused', async () => {
-  const { container } = render(<WrappedColorInput />)
-
-  const input = screen.getByRole('textbox')
+  render(<WrappedColorInput />)
 
   const user = userEvent.setup()
+  const input = screen.getByRole('textbox')
 
   await user.click(input)
 
-  expect(within(container).getByText('hex')).toBeTruthy()
+  expect(screen.getByRole('dialog')).toBeInTheDocument()
 })
