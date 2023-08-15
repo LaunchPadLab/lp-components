@@ -18,7 +18,6 @@ export {
 export { compose, omit, set, get } from 'lodash/fp'
 
 export filterInvalidDOMProps from 'filter-invalid-dom-props'
-export wrapDisplayName from 'recompose/wrapDisplayName'
 
 export cloudinaryUploader from '../forms/inputs/cloudinary-file-input/cloudinary-uploader'
 
