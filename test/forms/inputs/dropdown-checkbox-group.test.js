@@ -16,7 +16,7 @@ const WrappedDropdownCheckboxGroup = (props) => {
     input: {
       name: 'test',
       value: value,
-      onChange: (e) => setValue(e),
+      onChange: setValue,
     },
     meta: {},
     options,
@@ -26,11 +26,11 @@ const WrappedDropdownCheckboxGroup = (props) => {
 }
 
 test('DropdownCheckboxGroup adds value to array when unselected option clicked', async () => {
+  const user = userEvent.setup()
+
   render(<WrappedDropdownCheckboxGroup />)
 
-  const user = userEvent.setup()
   const select = screen.getAllByRole('group')[0]
-
   await user.click(select)
 
   const firstCheckbox = screen.getByLabelText('First Option')
@@ -47,11 +47,11 @@ test('DropdownCheckboxGroup adds value to array when unselected option clicked',
 })
 
 test('DropdownCheckboxGroup removes value from array when selected option clicked', async () => {
+  const user = userEvent.setup()
+
   render(<WrappedDropdownCheckboxGroup value={['1']} />)
 
   const select = screen.getAllByRole('group')[0]
-  const user = userEvent.setup()
-
   await user.click(select)
 
   const firstCheckbox = screen.getByLabelText('First Option')

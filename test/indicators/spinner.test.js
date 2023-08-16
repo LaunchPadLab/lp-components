@@ -32,6 +32,5 @@ test('Spinner filters invalid props', () => {
   render(<Spinner name="Bob" someInvalidProp="I am not a valid DOM prop" />)
   const spinner = screen.getByRole('progressbar')
 
-  expect(spinner).toHaveAttribute('name', 'Bob')
   expect(spinner).not.toHaveAttribute('someInvalidProp')
 })

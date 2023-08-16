@@ -34,7 +34,7 @@ const hiddenStyle = {
 
 function HiddenInput(props) {
   return (
-    <div style={hiddenStyle} data-testid="hidden-input-wrapper">
+    <div style={hiddenStyle}>
       <Input {...props} />
     </div>
   )

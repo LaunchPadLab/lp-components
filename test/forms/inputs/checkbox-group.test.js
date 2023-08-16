@@ -16,7 +16,7 @@ const WrappedCheckboxGroup = (props) => {
     input: {
       name: 'test',
       value: value,
-      onChange: (e) => setValue(e),
+      onChange: setValue,
     },
     meta: {},
     options: options,
@@ -26,12 +26,13 @@ const WrappedCheckboxGroup = (props) => {
 }
 
 test('CheckboxGroup adds value to array when unselected option clicked', async () => {
+  const user = userEvent.setup()
+
   render(<WrappedCheckboxGroup />)
 
   const checkbox1 = screen.getByRole('checkbox', { name: 'First Option' })
   const checkbox2 = screen.getByRole('checkbox', { name: 'Second Option' })
   const checkbox3 = screen.getByRole('checkbox', { name: 'Third Option' })
-  const user = userEvent.setup()
 
   await user.click(checkbox2)
   await user.click(checkbox3)
@@ -42,10 +43,11 @@ test('CheckboxGroup adds value to array when unselected option clicked', async (
 })
 
 test('CheckboxGroup removes value to array when selected option clicked', async () => {
+  const user = userEvent.setup()
+
   render(<WrappedCheckboxGroup />)
 
   const checkbox2 = screen.getByRole('checkbox', { name: 'Second Option' })
-  const user = userEvent.setup()
   await user.click(checkbox2)
 
   expect(checkbox2).toBeChecked()
@@ -64,7 +66,8 @@ test("CheckboxGroup has a legend with the group's name by default", () => {
     meta: {},
   }
   render(<CheckboxGroup {...props} />)
-  expect(screen.getByText('Test Group')).toBeTruthy()
+
+  expect(screen.getByText('Test Group')).toBeInTheDocument()
 })
 
 test("CheckboxGroup has a legend with the group's label (when provided)", () => {
@@ -77,7 +80,8 @@ test("CheckboxGroup has a legend with the group's label (when provided)", () => 
     meta: {},
   }
   render(<CheckboxGroup {...props} />)
-  expect(screen.getByText('Checkbox Group')).toBeTruthy()
+
+  expect(screen.getByText('Checkbox Group')).toBeInTheDocument()
 })
 
 test('CheckboxGroup does not pass class to children', () => {

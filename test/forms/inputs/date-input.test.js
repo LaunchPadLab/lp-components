@@ -16,7 +16,7 @@ const WrappedDateInput = (props) => {
     input: {
       name: name,
       value: value,
-      onChange: (e) => setValue(e),
+      onChange: setValue,
       onBlur: noop,
     },
     meta: {},
@@ -33,11 +33,11 @@ test('DateInput renders the error message when provided', () => {
 })
 
 test('DateInput updates the value on change', async () => {
+  const user = userEvent.setup()
+
   render(<WrappedDateInput />)
 
-  const user = userEvent.setup()
   const input = screen.getByRole('textbox', { name: 'Field' })
-
   await user.type(input, '02/02/2023{Enter}')
 
   expect(input).toHaveValue('02/02/2023')
@@ -51,9 +51,10 @@ test('DateInput sets the placeholder text correctly', () => {
 })
 
 test('DateInput invokes onChange with a Date object', async () => {
+  const user = userEvent.setup()
   const onChange = jest.fn()
   const props = { input: { ...input, onChange, onBlur: noop }, meta: {} }
-  const user = userEvent.setup()
+
   render(<WrappedDateInput {...props} />)
 
   await user.click(screen.getByRole('textbox'))
@@ -68,12 +69,12 @@ test('DateInput invokes onChange with a Date object', async () => {
 })
 
 test("DateInput defaults tabbable item to today's date", async () => {
-  const props = { input: { ...input, value: '' }, meta: {} }
   const user = userEvent.setup()
+  const props = { input: { ...input, value: '' }, meta: {} }
 
   render(<DateInput {...props} />)
-  const dateInput = screen.getByRole('textbox')
 
+  const dateInput = screen.getByRole('textbox')
   await user.click(dateInput)
   const current = screen.getByRole('option', { current: 'date' })
 

@@ -1,6 +1,6 @@
 import React, { createRef } from 'react'
 import { Button } from '../../../src/'
-import { render, screen, act } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 test('Button is aria-disabled when form is invalid', () => {
@@ -18,6 +18,7 @@ test('Button is aria-disabled when form is pristine', () => {
 })
 
 test('Button onClick is run when the form is not submitting, pristine, or invalid', async () => {
+  const user = userEvent.setup()
   const onClick = jest.fn()
 
   const formProps = {
@@ -31,7 +32,6 @@ test('Button onClick is run when the form is not submitting, pristine, or invali
     </Button>
   )
 
-  const user = userEvent.setup()
   const button = screen.getByRole('button')
   await user.click(button)
 
@@ -39,14 +39,15 @@ test('Button onClick is run when the form is not submitting, pristine, or invali
 })
 
 test('Button onClick is not run when form is invalid', async () => {
+  const user = userEvent.setup()
   const onClick = jest.fn()
+
   render(
     <Button onClick={onClick} invalid={true}>
       Hi
     </Button>
   )
 
-  const user = userEvent.setup()
   const button = screen.getByRole('button')
   await user.click(button)
 
@@ -54,14 +55,15 @@ test('Button onClick is not run when form is invalid', async () => {
 })
 
 test('Button onClick is not run when form is pristine', async () => {
+  const user = userEvent.setup()
   const onClick = jest.fn()
+
   render(
     <Button onClick={onClick} pristine={true}>
       Hi
     </Button>
   )
 
-  const user = userEvent.setup()
   const button = screen.getByRole('button')
   await user.click(button)
 
@@ -69,14 +71,15 @@ test('Button onClick is not run when form is pristine', async () => {
 })
 
 test('Button onClick is not run when form is submitting', async () => {
+  const user = userEvent.setup()
   const onClick = jest.fn()
+
   render(
     <Button onClick={onClick} submitting={true}>
       Hi
     </Button>
   )
 
-  const user = userEvent.setup()
   const button = screen.getByRole('button')
   await user.click(button)
 
@@ -119,8 +122,7 @@ test('Specifying a class name prop does not override variant class', () => {
   )
   const button = screen.getByRole('button')
 
-  expect(button).toHaveClass('button-primary')
-  expect(button).toHaveClass('button-large')
+  expect(button).toHaveClass('button-primary', 'button-large')
 })
 
 test('Specifying a class name prop does not override is-disabled class', () => {
@@ -131,8 +133,7 @@ test('Specifying a class name prop does not override is-disabled class', () => {
   )
   const button = screen.getByRole('button')
 
-  expect(button).toHaveClass('is-disabled')
-  expect(button).toHaveClass('button-large')
+  expect(button).toHaveClass('is-disabled', 'button-large')
 })
 
 test('Specifying a class name prop does not override in-progress class', () => {
@@ -143,8 +144,7 @@ test('Specifying a class name prop does not override in-progress class', () => {
   )
   const button = screen.getByRole('button')
 
-  expect(button).toHaveClass('in-progress')
-  expect(button).toHaveClass('button-large')
+  expect(button).toHaveClass('in-progress', 'button-large')
 })
 
 test('Button passes down forwardedRef to button', () => {

@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { ColorInput } from '../../../src/'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { within } from '@testing-library/dom'
 
 const WrappedColorInput = (props) => {
   const [value, setValue] = useState('')
@@ -10,8 +9,8 @@ const WrappedColorInput = (props) => {
   const defaultProps = {
     input: {
       name: 'test',
-      value: value,
-      onChange: (e) => setValue(e),
+      value,
+      onChange: setValue,
     },
     meta: {},
   }
@@ -20,22 +19,22 @@ const WrappedColorInput = (props) => {
 }
 
 test('ColorInput hex input adds hash to value', async () => {
+  const user = userEvent.setup()
+
   render(<WrappedColorInput />)
 
-  const user = userEvent.setup()
   const input = screen.getByRole('textbox')
-
   await user.type(input, '000{Enter}')
 
   expect(input).toHaveValue('000')
 })
 
 test('ColorInput expands dropdown when hex input is focused', async () => {
+  const user = userEvent.setup()
+
   render(<WrappedColorInput />)
 
-  const user = userEvent.setup()
   const input = screen.getByRole('textbox')
-
   await user.click(input)
 
   expect(screen.getByRole('dialog')).toBeInTheDocument()

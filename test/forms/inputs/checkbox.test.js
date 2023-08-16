@@ -19,9 +19,10 @@ const WrappedCheckbox = () => {
 }
 
 test('Checkbox toggles value when clicked', async () => {
+  const user = userEvent.setup()
+
   render(<WrappedCheckbox />)
 
-  const user = userEvent.setup()
   const checkbox = screen.getByRole('checkbox')
 
   expect(checkbox).not.toBeChecked()
@@ -82,7 +83,7 @@ test('Checkbox is given an aria-describedby attribute when there is an input err
   render(<Checkbox {...props} />)
   const checkbox = screen.getByRole('checkbox')
 
-  expect(checkbox.getAttribute('aria-describedby')).toContain(name)
+  expect(checkbox).toHaveAttribute('aria-describedby', 'testError')
 })
 
 test('Checkbox does not receive invalid dom attributes', () => {
