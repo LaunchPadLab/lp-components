@@ -1,5 +1,4 @@
 import React from 'react'
-import { mount } from 'enzyme'
 import { InputLabel } from '../../../src/'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
@@ -9,37 +8,33 @@ const formattedName = 'First Name'
 
 test('when label is false - does not render a label', () => {
   render(<InputLabel name={name} label={false} />)
-  const label = screen.queryByText(formattedName)
-  expect(label).toBeNull()
+  expect(screen.queryByText(formattedName)).not.toBeInTheDocument()
 })
 
 test('when label not provided - renders a label with content equal to formatted input name', () => {
   render(<InputLabel name={name} />)
-  const label = screen.getByText(formattedName)
-  expect(label).not.toBeEmptyDOMElement()
+  expect(screen.getByText(formattedName)).toBeInTheDocument()
 })
 
 test('when label provided - renders a label with content equal to string', () => {
   render(<InputLabel name={name} label="foo" />)
-  const label = screen.queryByText('foo')
-  expect(label).toHaveTextContent('foo')
+  expect(screen.getByText('foo')).toBeInTheDocument()
 })
 
 test('when children are provided, renders a label with content equal to children', () => {
-  const onClick = jest.fn()
-  const { container, getByTestId } = render(
+  render(
     <InputLabel name={name}>
-      Are you <span data-testid="child-span" onClick={onClick}>sure</span>?
+      Are you sure?
     </InputLabel>
   )
 
-  const renderedChildHTML = getByTestId('child-span')
-  expect(renderedChildHTML).toHaveTextContent('sure')
+  expect(screen.getByText('Are you sure?')).toBeInTheDocument()
 })
 
 test('when children are provided, renders a label with custom interactions intact', async () => {
+  const user = userEvent.setup()
   const onClick = jest.fn()
-  const { getByTestId } = render(
+  render(
     <InputLabel name={name}>
       Are you{' '}
       <span data-testid="click" onClick={onClick}>
@@ -48,58 +43,67 @@ test('when children are provided, renders a label with custom interactions intac
       ?
     </InputLabel>
   )
-  const clickable = getByTestId('click')
 
-  const user = userEvent.setup()
-
-  await user.click(clickable)
+  await user.click(screen.getByTestId('click'))
 
   expect(onClick).toHaveBeenCalled()
 })
 
 test('when hint provided - shows hint', () => {
-  const { container } = render(<InputLabel name={name} hint="hint" />)
-  expect(container).toHaveTextContent('hint')
+  render(<InputLabel name={name} hint="hint" />)
+  expect(screen.getByText(formattedName)).toHaveTextContent('hint')
 })
 
-// test('when tooltip provided - shows tooltip trigger', () => {
-//   const wrapper = mount(<InputLabel name={name} tooltip="tooltip" />)
-//   expect(wrapper.find('span.tooltip-trigger').exists()).toEqual(true)
-// })
+test('when tooltip provided - shows tooltip trigger', () => {
+  render(<InputLabel name={name} tooltip="tooltip" />)
+  expect(screen.getByText(formattedName).nextSibling).toHaveClass('tooltip-trigger')
+})
 
-// test('when tooltip provided - toggle tooltip', () => {
-//   const wrapper = mount(<InputLabel name={name} tooltip="tooltip" />)
-//   expect(wrapper.find('div.tooltip-content.is-active').exists()).toEqual(false)
-//   wrapper.find('span.tooltip-trigger').simulate('click')
-//   expect(wrapper.find('div.tooltip-content.is-active').exists()).toEqual(true)
-//   wrapper.find('span.tooltip-trigger').simulate('click')
-//   expect(wrapper.find('div.tooltip-content.is-active').exists()).toEqual(false)
-// })
+test('when tooltip provided - toggle tooltip', async () => {
+  const user = userEvent.setup()
+  const tooltipText = 'tooltippy'
+  render(<InputLabel name={name} tooltip={tooltipText} />)
+  const trigger = screen.queryByText(formattedName).nextSibling
+  const content = screen.queryByText(tooltipText)
 
-// test('when no custom required indicator provided, do not show required indicator', () => {
-//   const wrapper = mount(<InputLabel name={name} required />)
-//   expect(wrapper.find('span.required-indicator').exists()).toEqual(false)
-// })
+  expect(content).not.toHaveClass('is-active')
+  await user.click(trigger)
+  expect(content).toHaveClass('is-active')
+  await user.click(trigger)
+  expect(content).not.toHaveClass('is-active')
+})
 
-// test('when required true and custom requiredIndicator provided, show custom indicator', () => {
-//   const wrapper = mount(
-//     <InputLabel name={name} required requiredIndicator={'*'} />
-//   )
-//   expect(wrapper.find('label > span').text()).toEqual('*')
-// })
+test('when no custom required indicator provided, do not show required indicator', () => {
+  render(<InputLabel name={name} required />)
+  expect(screen.getByText(formattedName).textContent).toEqual(formattedName)
+})
 
-// test('when id is _not_ provided - renders a label associated to the input name', () => {
-//   const wrapper = mount(<InputLabel name={name} label="foo" />)
-//   expect(wrapper.find('label').prop('htmlFor')).toBe(name)
-// })
+test('when required true and custom requiredIndicator provided, show custom indicator', () => {
+  render(
+    <InputLabel name={name} required requiredIndicator={'*'} />
+  )
+  expect(screen.getByText('*')).toBeInTheDocument()
+})
 
-// test('when id is provided - renders a label associated to the input id', () => {
-//   const id = 'testId'
-//   const wrapper = mount(<InputLabel name={name} id={id} label="foo" />)
-//   expect(wrapper.find('label').prop('htmlFor')).toBe(id)
-// })
+test('when required false and custom requiredIndicator provided, hide custom indicator', () => {
+  render(
+    <InputLabel name={name} required={false} requiredIndicator={'*'} />
+  )
+  expect(screen.queryByText('*')).not.toBeInTheDocument()
+})
 
-// test('can accept a custom classname', () => {
-//   const wrapper = mount(<InputLabel name={name} className="foo" />)
-//   expect(wrapper.find('label').hasClass('foo')).toBe(true)
-// })
+test('when id is _not_ provided - renders a label associated to the input name', () => {
+  render(<InputLabel name={name} label="foo" />)
+  expect(screen.getByText('foo')).toHaveAttribute('for', name)
+})
+
+test('when id is provided - renders a label associated to the input id', () => {
+  const id = 'testId'
+  render(<InputLabel name={name} id={id} label="foo" />)
+  expect(screen.getByText('foo')).toHaveAttribute('for', id)
+})
+
+test('can accept a custom class name', () => {
+  render(<InputLabel name={name} className="foo" />)
+  expect(screen.getByText(formattedName)).toHaveClass('foo')
+})
