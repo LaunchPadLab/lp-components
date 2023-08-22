@@ -52,15 +52,15 @@ test('when hint provided - shows hint', () => {
 
 test('when tooltip provided - shows tooltip trigger', () => {
   const wrapper = mount(<InputLabel name={name} tooltip="tooltip" />)
-  expect(wrapper.find('span.tooltip-trigger').exists()).toEqual(true)
+  expect(wrapper.find('.tooltip-trigger').exists()).toEqual(true)
 })
 
 test('when tooltip provided - toggle tooltip', () => {
   const wrapper = mount(<InputLabel name={name} tooltip="tooltip" />)
   expect(wrapper.find('div.tooltip-content.is-active').exists()).toEqual(false)
-  wrapper.find('span.tooltip-trigger').simulate('click')
+  wrapper.find('.tooltip-trigger').simulate('click')
   expect(wrapper.find('div.tooltip-content.is-active').exists()).toEqual(true)
-  wrapper.find('span.tooltip-trigger').simulate('click')
+  wrapper.find('.tooltip-trigger').simulate('click')
   expect(wrapper.find('div.tooltip-content.is-active').exists()).toEqual(false)
 })
 

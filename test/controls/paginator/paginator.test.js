@@ -86,7 +86,7 @@ test('Page button is triggered via click or enter', () => {
   )
   const link = wrapper.find('li > a').at(2)
   link.simulate('click')
-  link.simulate('keypress', { keyCode: 13 })
+  link.simulate('keydown', { keyCode: 13 })
 
   expect(onChange).toHaveBeenCalledTimes(2)
 })

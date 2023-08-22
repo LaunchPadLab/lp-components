@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ChromePicker from 'react-color/lib/Chrome'
+import OutsideClickHandler from 'react-outside-click-handler'
 import { noop, useToggle } from '../utils'
 
 /**
@@ -35,6 +36,7 @@ const propTypes = {
   onOpen: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
   active: PropTypes.bool,
+  containerRef: PropTypes.shape({ current: PropTypes.any }),
 }
 
 const defaultProps = {
@@ -42,39 +44,52 @@ const defaultProps = {
   onChange: noop,
   onOpen: noop,
   onClose: noop,
+  containerRef: null,
 }
 
-function ColorPicker({ active, value, onChange, onOpen, onClose, ...rest }) {
+function ColorPicker({
+  active,
+  value,
+  onChange,
+  onOpen,
+  onClose,
+  containerRef,
+  ...rest
+}) {
   const [expanded, toggleExpanded] = useToggle()
   const isExpanded = active === undefined ? expanded : active
 
   return (
     <div className="color-picker">
-      <span
-        className="swatch"
-        style={{ background: value || 'black' }}
-        onClick={() => {
-          toggleExpanded()
-          return onOpen()
+      <OutsideClickHandler
+        onOutsideClick={(e) => {
+          if (containerRef && containerRef.current.contains(e.target)) {
+            return
+          }
+          toggleExpanded(false)
+          return onClose()
         }}
-      />
-      {isExpanded && (
-        <div className="popover">
-          <div
-            className="cover"
-            onClick={() => {
-              toggleExpanded()
-              return onClose()
-            }}
-          />
-          <ChromePicker
-            color={value}
-            onChange={({ hex }) => onChange(hex)}
-            disableAlpha={true}
-            {...rest}
-          />
-        </div>
-      )}
+      >
+        <button
+          type="button"
+          className="swatch"
+          style={{ background: value || 'black' }}
+          onClick={() => {
+            toggleExpanded()
+            return isExpanded ? onClose() : onOpen()
+          }}
+        />
+        {isExpanded && (
+          <div className="popover">
+            <ChromePicker
+              color={value}
+              onChange={({ hex }) => onChange(hex)}
+              disableAlpha={true}
+              {...rest}
+            />
+          </div>
+        )}
+      </OutsideClickHandler>
     </div>
   )
 }

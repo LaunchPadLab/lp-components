@@ -43,6 +43,7 @@ const propTypes = {
 const defaultProps = {}
 
 function ColorInput(props) {
+  const ref = React.useRef()
   const {
     input: { value, onBlur, onChange },
     ...rest
@@ -51,27 +52,30 @@ function ColorInput(props) {
 
   return (
     <LabeledField className="color-input" {...props}>
-      <ColorPicker
-        value={value}
-        onChange={onChange}
-        active={showDropdown}
-        onOpen={() => setShowDropdown(true)}
-        onClose={() => {
-          setShowDropdown(false)
-          onBlur()
-        }}
-      />
-      <input
-        type="text"
-        className="hex-input"
-        placeholder="6 digit hex value"
-        value={fromHex(value)}
-        onChange={(e) => onChange(toHex(e.target.value))}
-        onFocus={() => setShowDropdown(true)}
-        onBlur={onBlur}
-        {...filterInvalidDOMProps(rest)}
-      />
-      <span className="hex"> # </span>
+      <div ref={ref}>
+        <ColorPicker
+          value={value}
+          onChange={onChange}
+          active={showDropdown}
+          onOpen={() => setShowDropdown(true)}
+          onClose={() => {
+            setShowDropdown(false)
+            onBlur()
+          }}
+          containerRef={ref}
+        />
+        <input
+          type="text"
+          className="hex-input"
+          placeholder="6 digit hex value"
+          value={fromHex(value)}
+          onChange={(e) => onChange(toHex(e.target.value))}
+          onFocus={() => setShowDropdown(true)}
+          onBlur={onBlur}
+          {...filterInvalidDOMProps(rest)}
+        />
+        <span className="hex"> # </span>
+      </div>
     </LabeledField>
   )
 }

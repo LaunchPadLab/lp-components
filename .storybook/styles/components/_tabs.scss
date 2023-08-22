@@ -2,13 +2,19 @@
 Shared
 -----------------------*/
 .tabs {
-  cursor: pointer;
+  [role="tab"] {
+    border: none;
+    cursor: pointer;
+    background: none;
+    @include rem(padding, 10px 20px);
+    height: 100%;
+    display: inline-block;
 
-  li {
     transition: all 0.3s ease-in-out;
 
     &:hover {
-      color: darken($black-base, 100%);
+      color: $white-base;
+      background-color: darken($black-base, 5%);
     }
   }
 }
@@ -19,7 +25,6 @@ Horizontal Tabs
 .horizontal-tabs {
   li {
     display: inline-block;
-    @include rem(padding, 10px 20px);
     border-bottom: 2px solid transparent;
 
     &.active {
@@ -29,11 +34,10 @@ Horizontal Tabs
 }
 
 /*-----------------------
-Veritcal Tabs
+Vertical Tabs
 -----------------------*/
 .vertical-tabs {
   li {
-    @include rem(padding, 10px 20px);
     border-left: 2px solid transparent;
 
     &.active {
