@@ -50,7 +50,6 @@ test('filters invalid props passed to span element', () => {
     <InputError
       error="Foo"
       test="test"
-      data-testid="mock-input-error"
       touched
       invalid
     />
