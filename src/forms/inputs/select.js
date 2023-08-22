@@ -113,7 +113,8 @@ function Select(props) {
     optionGroups,
     placeholder,
     ...rest
-  } = omitLabelProps(props)
+  } = props
+  const inputProps = filterInvalidDOMProps(omitLabelProps(rest))
   const optionObjects = serializeOptions(options)
   const optionGroupObjects = serializeOptionGroups(optionGroups)
   return (
@@ -129,7 +130,7 @@ function Select(props) {
           'aria-describedby': hasInputError(meta)
             ? generateInputErrorId(name)
             : null,
-          ...filterInvalidDOMProps(rest),
+          ...inputProps,
         }}
       >
         {placeholder && (

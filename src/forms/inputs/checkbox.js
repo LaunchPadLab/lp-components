@@ -42,7 +42,7 @@ import {
 
 const propTypes = {
   ...fieldPropTypesWithValue(PropTypes.bool),
-  label: PropTypes.node,
+  label: PropTypes.node, // eslint-disable-line react/no-unused-prop-types
 }
 
 function Checkbox(props) {
@@ -51,6 +51,7 @@ function Checkbox(props) {
     meta, // eslint-disable-line no-unused-vars
     ...rest
   } = omitLabelProps(props)
+
   return (
     <LabeledField className="checkbox" {...props}>
       <input
