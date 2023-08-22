@@ -59,7 +59,7 @@ function ColorPicker({ active, value, onChange, onOpen, onClose, ...rest }) {
         }}
       />
       {isExpanded && (
-        <div className="popover">
+        <div className="popover" role="dialog">
           <div
             className="cover"
             onClick={() => {

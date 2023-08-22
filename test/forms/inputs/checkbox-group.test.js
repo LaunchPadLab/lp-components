@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { CheckboxGroup } from '../../../src/'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { within } from '@testing-library/dom'
 
 const WrappedCheckboxGroup = (props) => {
   const [value, setValue] = useState([])
@@ -17,7 +16,7 @@ const WrappedCheckboxGroup = (props) => {
     input: {
       name: 'test',
       value: value,
-      onChange: (e) => setValue(e),
+      onChange: setValue,
     },
     meta: {},
     options: options,
@@ -27,16 +26,16 @@ const WrappedCheckboxGroup = (props) => {
 }
 
 test('CheckboxGroup adds value to array when unselected option clicked', async () => {
+  const user = userEvent.setup()
 
   render(<WrappedCheckboxGroup />)
 
   const checkbox1 = screen.getByRole('checkbox', { name: 'First Option' })
   const checkbox2 = screen.getByRole('checkbox', { name: 'Second Option' })
   const checkbox3 = screen.getByRole('checkbox', { name: 'Third Option' })
-  const user = userEvent.setup()
 
-  await user.click(checkbox2);
-  await user.click(checkbox3);
+  await user.click(checkbox2)
+  await user.click(checkbox3)
 
   expect(checkbox1).not.toBeChecked()
   expect(checkbox2).toBeChecked()
@@ -44,24 +43,16 @@ test('CheckboxGroup adds value to array when unselected option clicked', async (
 })
 
 test('CheckboxGroup removes value to array when selected option clicked', async () => {
-  // const props = {
-  //   input: {
-  //     name: 'testGroup',
-  //     value: ['2'],
-  //   },
-  //   meta: {},
-  // }
+  const user = userEvent.setup()
+
   render(<WrappedCheckboxGroup />)
 
   const checkbox2 = screen.getByRole('checkbox', { name: 'Second Option' })
-
-  const user = userEvent.setup()
-
-  await user.click(checkbox2);
+  await user.click(checkbox2)
 
   expect(checkbox2).toBeChecked()
 
-  await user.click(checkbox2);
+  await user.click(checkbox2)
 
   expect(checkbox2).not.toBeChecked()
 })
@@ -75,7 +66,8 @@ test("CheckboxGroup has a legend with the group's name by default", () => {
     meta: {},
   }
   render(<CheckboxGroup {...props} />)
-  expect(within(screen.getByRole('group')).getByText('Test Group')).toBeTruthy()
+
+  expect(screen.getByText('Test Group')).toBeInTheDocument()
 })
 
 test("CheckboxGroup has a legend with the group's label (when provided)", () => {
@@ -88,7 +80,8 @@ test("CheckboxGroup has a legend with the group's label (when provided)", () => 
     meta: {},
   }
   render(<CheckboxGroup {...props} />)
-  expect(within(screen.getByRole('group')).getByText('Checkbox Group')).toBeTruthy()
+
+  expect(screen.getByText('Checkbox Group')).toBeInTheDocument()
 })
 
 test('CheckboxGroup does not pass class to children', () => {
@@ -101,14 +94,13 @@ test('CheckboxGroup does not pass class to children', () => {
     options: ['TOGGLED_OPTION'],
     className: 'custom-class',
   }
-  const { container } = render(<CheckboxGroup {...props} />)
+  render(<CheckboxGroup {...props} />)
 
-  // make sure fieldset has custom-class
   const checkboxGroup = screen.getByRole('group', { name: 'Test Group' })
-  expect(checkboxGroup).toHaveClass('custom-class')
+  const checkbox = screen.getByRole('checkbox')
 
-  // make sure there is no class of custom-class within fieldset
-  expect(container.getElementsByClassName('custom-class').length).toBe(1)
+  expect(checkboxGroup).toHaveClass('custom-class')
+  expect(checkbox).not.toHaveClass('custom-class')
 })
 
 test('CheckboxGroup passes down props to children', () => {
@@ -124,12 +116,12 @@ test('CheckboxGroup passes down props to children', () => {
       className: 'custom-input-class',
     },
   }
-  const { container } = render(<CheckboxGroup {...props} />)
+  render(<CheckboxGroup {...props} />)
 
-  // make sure fieldset has custom-class
   const checkboxGroup = screen.getByRole('group', { name: 'Test Group' })
-  expect(checkboxGroup).toHaveClass('custom-group-class')
+  const checkbox = screen.getByRole('checkbox')
 
-  // make sure there is no class of custom-class within fieldset
-  expect(container.getElementsByClassName('custom-input-class').length).toBe(2)
+  expect(checkboxGroup).toHaveClass('custom-group-class')
+  expect(checkbox).not.toHaveClass('custom-group-class')
+  expect(checkbox).toHaveClass('custom-input-class')
 })

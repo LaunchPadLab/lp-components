@@ -18,15 +18,37 @@ const WrappedCheckbox = () => {
   return <Checkbox {...props} />
 }
 
-test('Checkbox is checked with true value', async () => {
+test('Checkbox toggles value when clicked', async () => {
+  const user = userEvent.setup()
 
   render(<WrappedCheckbox />)
 
-  const user = userEvent.setup()
+  const checkbox = screen.getByRole('checkbox')
 
-  await user.click(screen.getByRole("checkbox"));
+  expect(checkbox).not.toBeChecked()
 
-  expect(screen.getByRole("checkbox")).toBeChecked();
+  await user.click(checkbox)
+
+  expect(checkbox).toBeChecked()
+
+  await user.click(checkbox)
+
+  expect(checkbox).not.toBeChecked()
+})
+
+test('Checkbox is checked with true value', async () => {
+  const props = {
+    input: {
+      name: 'test',
+      value: true,
+      onChange: jest.fn(),
+    },
+    meta: {},
+  }
+  render(<Checkbox {...props} />)
+  const checkbox = screen.getByRole('checkbox')
+
+  expect(checkbox).toBeChecked()
 })
 
 test('Checkbox is not checked with false value', () => {
@@ -46,26 +68,6 @@ test('Checkbox is not checked with false value', () => {
   expect(checkbox).not.toBeChecked()
 })
 
-test('Checkbox fires onChange when clicked', async () => {
-  const onChange = jest.fn()
-  const props = {
-    input: {
-      name: 'test',
-      value: false,
-      onChange,
-    },
-    meta: {},
-  }
-  render(<Checkbox {...props} />);
-  const checkbox = screen.getByRole('checkbox')
-
-  const user = userEvent.setup()
-
-  await user.click(screen.getByRole("checkbox"));
-
-  expect(onChange).toHaveBeenCalledTimes(1);
-})
-
 test('Checkbox is given an aria-describedby attribute when there is an input error', () => {
   const name = 'test'
   const props = {
@@ -80,7 +82,8 @@ test('Checkbox is given an aria-describedby attribute when there is an input err
   }
   render(<Checkbox {...props} />)
   const checkbox = screen.getByRole('checkbox')
-  expect(checkbox.getAttribute('aria-describedby')).toContain(name)
+
+  expect(checkbox).toHaveAttribute('aria-describedby', 'testError')
 })
 
 test('Checkbox does not receive invalid dom attributes', () => {
@@ -95,5 +98,6 @@ test('Checkbox does not receive invalid dom attributes', () => {
 
   render(<Checkbox {...props} />)
   const checkbox = screen.getByRole('checkbox')
+
   expect(checkbox).not.toHaveAttribute('onClickLabel')
 })

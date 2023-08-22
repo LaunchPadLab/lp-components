@@ -1,6 +1,6 @@
 {
   "name": "@launchpadlab/lp-components",
-  "version": "9.0.0",
+  "version": "8.2.0",
   "engines": {
     "node": "^18.12"
   },
@@ -29,7 +29,7 @@
     "prepare": "husky install",
     "prepublishOnly": "yarn run clean && yarn run build",
     "storybook": "yarn && start-storybook -p 6006",
-    "test": "jest --coverage=false",
+    "test": "jest --coverage",
     "size": "yarn build && size-limit",
     "storybook:build": "build-storybook -o .storybook/static/storybook",
     "heroku-postbuild": "yarn run storybook:build"
@@ -46,7 +46,6 @@
     "date-fns": "^2.28.0",
     "filter-invalid-dom-props": "^2.1.0",
     "lodash": "^4.17.21",
-    "moment": "^2.29.4",
     "prop-types": "^15.8.1",
     "react-color": "^2.19.3",
     "react-datepicker": "^4.8.0",
@@ -71,6 +70,7 @@
     "@storybook/builder-webpack5": "^6.5.14",
     "@storybook/manager-webpack5": "^6.5.14",
     "@storybook/react": "^6.4.22",
+    "@testing-library/dom": "^9.3.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",
@@ -90,7 +90,6 @@
     "prettier": "^2.7.1",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
-    "recompose": "^0.30.0",
     "redux": "^4.1.2",
     "regenerator-runtime": "^0.13.9",
     "sass": "^1.56.1",

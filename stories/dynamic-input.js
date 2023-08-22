@@ -1,9 +1,5 @@
 import React, { Component } from 'react'
-import wrapDisplayName from 'recompose/wrapDisplayName'
-import set from 'lodash/fp/set'
-import get from 'lodash/fp/get'
-import noop from 'lodash/noop'
-import compose from 'lodash/fp/compose'
+import { wrapDisplayName, set, get, noop, compose } from '../src/utils'
 
 // From redux-form
 const isEvent = (obj) => !!(obj && obj.stopPropagation && obj.preventDefault)

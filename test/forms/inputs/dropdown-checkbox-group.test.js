@@ -16,46 +16,49 @@ const WrappedDropdownCheckboxGroup = (props) => {
     input: {
       name: 'test',
       value: value,
-      onChange: (e) => setValue(e)
+      onChange: setValue,
     },
     meta: {},
-    options: options,
+    options,
   }
 
   return <DropdownCheckboxGroup {...defaultProps} {...props} />
 }
 
-test('DropdownCheckboxGroup adds checkbox value to select array when unselected option clicked', async () => {
-  render(<WrappedDropdownCheckboxGroup />)
-
-  const input = screen.getAllByRole('group')[0]
+test('DropdownCheckboxGroup adds value to array when unselected option clicked', async () => {
   const user = userEvent.setup()
 
-  await user.click(input)
+  render(<WrappedDropdownCheckboxGroup />)
+
+  const select = screen.getAllByRole('group')[0]
+  await user.click(select)
 
   const firstCheckbox = screen.getByLabelText('First Option')
-
   await user.click(firstCheckbox)
 
-  expect(firstCheckbox).toBeChecked()
+  const thirdCheckbox = screen.getByLabelText('Third Option')
+  await user.click(thirdCheckbox)
 
-  const selectValueLabel = screen.getByText('1')
-  expect(selectValueLabel).toBeTruthy
+  expect(firstCheckbox).toBeChecked()
+  expect(thirdCheckbox).toBeChecked()
+
+  const selectValueLabel = screen.getByText('3, 1')
+  expect(selectValueLabel).toBeInTheDocument()
 })
 
-test('DropdownCheckboxGroup removes value to array when selected option clicked', async () => {
+test('DropdownCheckboxGroup removes value from array when selected option clicked', async () => {
+  const user = userEvent.setup()
 
   render(<WrappedDropdownCheckboxGroup value={['1']} />)
 
-  const input = screen.getAllByRole('group')[0]
-  const user = userEvent.setup()
-
-  await user.click(input)
+  const select = screen.getAllByRole('group')[0]
+  await user.click(select)
 
   const firstCheckbox = screen.getByLabelText('First Option')
-
   await user.click(firstCheckbox)
+
   expect(firstCheckbox).not.toBeChecked()
+
   const selectValueLabel = screen.getByText('None')
-  expect(selectValueLabel).toBeTruthy()
+  expect(selectValueLabel).toBeInTheDocument()
 })
