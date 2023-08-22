@@ -92,6 +92,7 @@ test('Page control is triggered via click or enter', async () => {
   render(
     <Paginator value={5} min={1} max={10} onChange={onChange} />
   )
+
   await user.click(screen.getByLabelText('Go to page 1'))
   await user.keyboard('{Enter}')
   expect(onChange).toHaveBeenNthCalledWith(1, 1)
