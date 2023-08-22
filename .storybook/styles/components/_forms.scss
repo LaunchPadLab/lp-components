@@ -159,15 +159,15 @@ Checkbox
     display: inline-block;
     width: calc(100% - 32px);
   }
+}
 
-  .tooltip-trigger {
-    float: initial;
-    width: auto;
-    padding: 0;
-    border: none;
-    background: none;
-    margin-left: 10px;
-  }
+.tooltip-trigger {
+  float: initial;
+  width: auto;
+  padding: 0;
+  border: none;
+  background: none;
+  margin-left: 10px;
 }
 
 input[type='checkbox'] {
