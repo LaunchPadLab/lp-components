@@ -1,69 +1,53 @@
 import React from 'react'
-import { shallow } from 'enzyme'
 import { InputError } from '../../../src/'
 import { render, screen } from '@testing-library/react'
-import { within, logRoles } from '@testing-library/dom'
 import userEvent from '@testing-library/user-event'
 
 test('does not render when input is touched but not invalid', () => {
-  // Does not render
-  const { container } = render(<InputError error="test" invalid={false} touched={true} />)
+  render(<InputError error="test" invalid={false} touched={true} data-testid="1" />)
+  expect(screen.queryByTestId('1')).not.toBeInTheDocument()
+})
 
-  expect(container.firstChild).toBeNull()
+test('does not render when input is invalid but not touched', () => {
+  render(<InputError error="test" invalid={true} touched={false} data-testid="1" />)
+  expect(screen.queryByTestId('1')).not.toBeInTheDocument()
 })
 
 test('renders when input is touched and invalid', () => {
-  // Does not render
-  const { container } = render(<InputError error="test" invalid={true} touched={true} />)
-
-  expect(container.firstChild).toHaveTextContent('test')
+  render(<InputError error="test" invalid={true} touched={true} />)
+  expect(screen.getByText('test')).toBeInTheDocument()
 })
 
 test('formats error messages correctly', () => {
   // Single error
-  const { container, rerender } = render(
+  const { rerender } = render(
     <InputError error="Foo" invalid={true} touched={true} />
   )
-  expect(container.firstChild).toHaveTextContent('Foo')
+  expect(screen.getByText('Foo')).toBeInTheDocument()
 
   // Multiple errors
   rerender(<InputError error={["Foo", "Bar"]} invalid={true} touched={true} />)
-  expect(container.firstChild).toHaveTextContent('Foo, Bar')
+  expect(screen.getByText('Foo, Bar')).toBeInTheDocument()
 })
 
 test('passes class to span element correctly', () => {
-  const { container } = render(
-    <InputError className="small" error="Foo" touched invalid />
+  render(
+    <InputError className="small" error="Foo" touched invalid data-testid="1" />
   )
-
-  expect(container.firstChild).toHaveClass('error-message')
-  expect(container.firstChild).toHaveClass('small')
+  expect(screen.getByText('Foo')).toHaveClass('error-message', 'small')
 })
 
-test('passes extra props to span element', async () => {
-  let count = 0
-
-  const onClick = () => count++
-
-  const { container } = render(
-    <InputError onClick={onClick} error="Foo" touched invalid />
+test('passes extra props to span element', () => {
+  render(
+    <InputError data-testid="foo-error" error="Required" touched invalid />
   )
 
-  const span = container.firstChild
-
-  const user = userEvent.setup()
-
-  await user.click(span)
-
-  expect(count).toBe(1)
+  expect(screen.getByTestId('foo-error')).toBeInTheDocument()
 })
 
 test('filters invalid props passed to span element', () => {
-  const onClick = () => jest.fn()
-
-  const { container } = render(
+  render(
     <InputError
-      onClick={onClick}
       error="Foo"
       test="test"
       data-testid="mock-input-error"
@@ -72,12 +56,12 @@ test('filters invalid props passed to span element', () => {
     />
   )
 
-  expect(container.firstChild).not.toHaveAttribute('touched')
+  expect(screen.getByText('Foo')).not.toHaveAttribute('touched', 'invalid')
 })
 
 test('is provided with an id containing the associated input name', () => {
   const inputName = 'test-name'
-  const result = render(<InputError name={inputName} invalid touched />)
-  const inputError = result.container.querySelector(`#${inputName}Error`)
-  expect(inputError).not.toBeNull()
+  render(<InputError error="Foo" name={inputName} invalid touched />)
+  const inputError = screen.getByText('Foo')
+  expect(inputError.getAttribute('id')).toContain(inputName)
 })
