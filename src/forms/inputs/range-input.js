@@ -70,7 +70,8 @@ function RangeInput(props) {
     max,
     step,
     ...rest
-  } = omitLabelProps(props)
+  } = props
+  const inputProps = filterInvalidDOMProps(omitLabelProps(rest))
   return (
     <LabeledField {...props}>
       <div>
@@ -90,7 +91,7 @@ function RangeInput(props) {
           'aria-describedby': hasInputError(meta)
             ? generateInputErrorId(name)
             : null,
-          ...filterInvalidDOMProps(rest),
+          ...inputProps,
         }}
       />
     </LabeledField>
