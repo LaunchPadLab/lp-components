@@ -1,36 +1,52 @@
 import { blurDirty } from '../../../src/'
-import { noop } from '../../../src/utils'
 import React from 'react'
-import { mount } from 'enzyme'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+
+const InputToWrap = ({ input: { value, onBlur }}) => (
+  <input value={value} onBlur={onBlur} />
+)
 
 test('has correct displayName', () => {
-  const MyInput = () => <input />
-  const WrappedInput = blurDirty()(MyInput)
-  expect(WrappedInput.displayName).toEqual('blurDirty(MyInput)')
+  const WrappedInput = blurDirty()(InputToWrap)
+  expect(WrappedInput.displayName).toEqual('blurDirty(InputToWrap)')
 })
 
-test('when input is pristine, blurDirty replaces onBlur with empty function', () => {
-  const MyInput = () => <input />
-  const WrappedInput = blurDirty()(MyInput)
-  const onBlur = () => console.log('I blurred!')
-  const wrapper = mount(
+test('when input is pristine, blurDirty replaces onBlur with empty function', async () => {
+  const user = userEvent.setup()
+  const WrappedInput = blurDirty()(InputToWrap)
+  const onBlur = jest.fn()
+  const { container, rerender } = render(
     <WrappedInput {...{ input: { onBlur }, meta: { pristine: true } }} />
   )
-  expect(wrapper.find(MyInput).props().input.onBlur).toEqual(noop)
-  wrapper.setProps({ meta: { pristine: false } })
-  expect(wrapper.find(MyInput).props().input.onBlur).toEqual(onBlur)
+
+  await user.click(screen.getByRole('textbox'))
+  await user.click(container)
+
+  expect(onBlur).not.toHaveBeenCalled()
+
+  rerender(
+    <WrappedInput {...{ input: { onBlur }, meta: { pristine: false } }} />
+  )
+
+  await user.click(screen.getByRole('textbox'))
+  await user.click(container)
+
+  expect(onBlur).toHaveBeenCalledTimes(1)
 })
 
-test('when alwaysBlur is set to true, blurDirty does not replace onBlur', () => {
-  const MyInput = () => <input />
-  const WrappedInput = blurDirty()(MyInput)
-  const onBlur = () => console.log('I blurred!')
-  const wrapper = mount(
+test('when alwaysBlur is set to true, blurDirty does not replace onBlur', async () => {
+  const user = userEvent.setup()
+  const WrappedInput = blurDirty()(InputToWrap)
+  const onBlur = jest.fn()
+  const { container } = render(
     <WrappedInput
       {...{ input: { onBlur }, meta: { pristine: true }, alwaysBlur: true }}
     />
   )
-  expect(wrapper.find(MyInput).props().input.onBlur).toEqual(onBlur)
-  wrapper.setProps({ meta: { pristine: false } })
-  expect(wrapper.find(MyInput).props().input.onBlur).toEqual(onBlur)
+
+  await user.click(screen.getByRole('textbox'))
+  await user.click(container)
+
+  expect(onBlur).toHaveBeenCalled()
 })

@@ -1,62 +1,66 @@
 import React from 'react'
-import { shallow } from 'enzyme'
 import { InputError } from '../../../src/'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
-test('only renders when input is touched and invalid', () => {
-  // Does not render
-  const wrapper = shallow(<InputError invalid={false} touched={true} />)
-  expect(wrapper.find('span').exists()).toEqual(false)
-  wrapper.setProps({ invalid: true, touched: false })
-  expect(wrapper.find('span').exists()).toEqual(false)
-  // Does render
-  wrapper.setProps({ invalid: true, touched: true })
-  expect(wrapper.find('span').exists()).toEqual(true)
-  expect(wrapper.find('span').hasClass('error-message')).toEqual(true)
+test('does not render when input is touched but not invalid', () => {
+  render(<InputError error="test" invalid={false} touched={true} data-testid="1" />)
+  expect(screen.queryByTestId('1')).not.toBeInTheDocument()
+})
+
+test('does not render when input is invalid but not touched', () => {
+  render(<InputError error="test" invalid={true} touched={false} data-testid="1" />)
+  expect(screen.queryByTestId('1')).not.toBeInTheDocument()
+})
+
+test('renders when input is touched and invalid', () => {
+  render(<InputError error="test" invalid={true} touched={true} />)
+  expect(screen.getByText('test')).toBeInTheDocument()
 })
 
 test('formats error messages correctly', () => {
   // Single error
-  const wrapper = shallow(
+  const { rerender } = render(
     <InputError error="Foo" invalid={true} touched={true} />
   )
-  expect(wrapper.find('span').text()).toEqual('Foo')
+  expect(screen.getByText('Foo')).toBeInTheDocument()
+
   // Multiple errors
-  wrapper.setProps({ error: ['Foo', 'Bar'] })
-  expect(wrapper.find('span').text()).toEqual('Foo, Bar')
+  rerender(<InputError error={["Foo", "Bar"]} invalid={true} touched={true} />)
+  expect(screen.getByText('Foo, Bar')).toBeInTheDocument()
 })
 
 test('passes class to span element correctly', () => {
-  const wrapper = shallow(
-    <InputError className="small" error="Foo" touched invalid />
+  render(
+    <InputError className="small" error="Foo" touched invalid data-testid="1" />
   )
-  expect(wrapper.hasClass('error-message')).toBe(true)
-  expect(wrapper.hasClass('small')).toBe(true)
+  expect(screen.getByText('Foo')).toHaveClass('error-message', 'small')
 })
 
 test('passes extra props to span element', () => {
-  const onClick = () => 'More info'
-  const wrapper = shallow(
-    <InputError onClick={onClick} error="Foo" touched invalid />
+  render(
+    <InputError data-testid="foo-error" error="Required" touched invalid />
   )
-  expect(wrapper.props().onClick).toBe(onClick)
+
+  expect(screen.getByTestId('foo-error')).toBeInTheDocument()
 })
 
 test('filters invalid props passed to span element', () => {
-  const onClick = () => 'More info'
-  const wrapper = shallow(
+  render(
     <InputError
-      onClick={onClick}
-      onFancyClick={onClick}
       error="Foo"
+      test="test"
       touched
       invalid
     />
   )
-  expect(wrapper.props().onFancyClick).toBe(undefined)
+
+  expect(screen.getByText('Foo')).not.toHaveAttribute('test')
 })
 
 test('is provided with an id containing the associated input name', () => {
   const inputName = 'test-name'
-  const wrapper = shallow(<InputError name={inputName} invalid touched />)
-  expect(wrapper.find('span').prop('id')).toContain(inputName)
+  render(<InputError error="Foo" name={inputName} invalid touched />)
+  const inputError = screen.getByText('Foo')
+  expect(inputError.getAttribute('id')).toContain(inputName)
 })

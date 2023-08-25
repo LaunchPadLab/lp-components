@@ -44,7 +44,7 @@ import { compose, generateInputErrorId } from '../../utils'
 
 const propTypes = {
   ...fieldPropTypesWithValue(PropTypes.bool),
-  label: PropTypes.node,
+  label: PropTypes.node, // eslint-disable-line react/no-unused-prop-types
 }
 
 function Switch(props) {

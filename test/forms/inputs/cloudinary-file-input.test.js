@@ -2,10 +2,12 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { CloudinaryFileInput } from '../../../src/'
+import { mockFileReader, flushPromises } from './file-input.test'
+import { act } from 'react-dom/test-utils'
 
 const name = 'name.of.field'
 const value = { name: 'existingFileName', url: 'value of field' }
-const onChange = () => {}
+const onChange = () => { }
 const input = { name, value, onChange }
 const PUBLIC_URL = 'url-of-uploaded-file'
 const uploadResponse = { url: PUBLIC_URL }

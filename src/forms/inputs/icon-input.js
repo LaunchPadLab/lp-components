@@ -48,7 +48,7 @@ function IconInput(props) {
         className: classnames('icon-label', className),
       }}
     >
-      <i className={`${icon}-icon`} />
+      <i className={`${icon}-icon`} data-testid="icon" />
     </Input>
   )
 }
