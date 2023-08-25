@@ -55,7 +55,7 @@ test('filters invalid props passed to span element', () => {
     />
   )
 
-  expect(screen.getByText('Foo')).not.toHaveAttribute('touched', 'invalid')
+  expect(screen.getByText('Foo')).not.toHaveAttribute('test')
 })
 
 test('is provided with an id containing the associated input name', () => {
