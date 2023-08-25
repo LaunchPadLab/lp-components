@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { FileInput } from '../../../src/'
@@ -100,6 +100,7 @@ describe('FileInput', () => {
   })
 
   test('reads files and calls change handler correctly', async () => {
+    const user = userEvent.setup()
     const file = new File(['content'], 'fileName.png', { type: 'image/png' })
     const filedata = 'my file data'
     mockFileReader(filedata)
@@ -109,7 +110,6 @@ describe('FileInput', () => {
     render(<FileInput {...props} />)
 
     const input = screen.getByLabelText(/select file/i)
-    const user = userEvent.setup()
     await user.upload(input, file)
 
     expect(input.files).toHaveLength(1)
@@ -120,6 +120,7 @@ describe('FileInput', () => {
   })
 
   test('does not re-read existing files', async () => {
+    const user = userEvent.setup()
     const lastModified = Date.now()
     const firstFile = { name: 'first', url: 'data:,', lastModified }
     const readFiles = jest.fn()
@@ -131,7 +132,6 @@ describe('FileInput', () => {
     }
     render(<FileInput {...props} />)
 
-    const user = userEvent.setup()
     const input = screen.getByLabelText(/select file/i)
     await user.upload(input, firstFile)
 
@@ -142,6 +142,7 @@ describe('FileInput', () => {
   })
 
   test('only allows one file by default', async () => {
+    const user = userEvent.setup()
     const firstFile = new File(['content'], 'first', { type: 'image/png' })
     const secondFile = new File(['content'], 'second', { type: 'image/png' })
     const readFiles = jest.fn((arr) =>
@@ -155,7 +156,6 @@ describe('FileInput', () => {
     }
     render(<FileInput {...props} />)
 
-    const user = userEvent.setup()
     const input = screen.getByLabelText(/select file/i)
 
     await user.upload(input, firstFile)
@@ -192,6 +192,7 @@ describe('FileInput', () => {
   })
 
   test('shows error messages that occur from reading', async () => {
+    const user = userEvent.setup()
     const ERROR_MESSAGE = 'cannot read'
     const file = new File(['content'], 'fileName.png', { type: 'image/png' })
     const readFiles = jest.fn(() => Promise.reject(ERROR_MESSAGE))
@@ -202,14 +203,14 @@ describe('FileInput', () => {
     }
     render(<FileInput {...props} />)
 
-    const user = userEvent.setup()
     const input = screen.getByLabelText(/select file/i)
-    await user.upload(input, file)
+    await act(() => user.upload(input, file))
 
     expect(screen.getByText(ERROR_MESSAGE)).toBeInTheDocument()
   })
 
   test('shows error that occurs from reading', async () => {
+    const user = userEvent.setup()
     const ERROR_MESSAGE = 'cannot read'
     const file = new File(['content'], 'fileName.png', { type: 'image/png' })
     const readFiles = jest.fn(() => {
@@ -222,15 +223,15 @@ describe('FileInput', () => {
     }
     render(<FileInput {...props} />)
 
-    const user = userEvent.setup()
     const input = screen.getByLabelText(/select file/i)
-    await user.upload(input, file)
+    await act(() => user.upload(input, file))
 
     expect(screen.getByText(ERROR_MESSAGE)).toBeInTheDocument()
   })
 
   describe('with "multiple" enabled', () => {
     test('allows multiple files to be added incrementally', async () => {
+      const user = userEvent.setup()
       const lastModified = Date.now()
       const firstFile = { name: 'first', url: 'data:,', lastModified }
       const secondFile = { name: 'second', url: 'data:,', lastModified }
@@ -243,7 +244,6 @@ describe('FileInput', () => {
       }
       render(<FileInput {...props} />)
 
-      const user = userEvent.setup()
       const input = screen.getByLabelText(/select file/i)
       await user.upload(input, secondFile)
 
@@ -251,7 +251,7 @@ describe('FileInput', () => {
       expect(onChange.mock.calls[0][0]).toHaveLength(2)
     })
 
-    test('selects first file when prop changes from true to false', async () => {
+    test('selects first file when prop changes from true to false', () => {
       const lastModified = Date.now()
       const firstFile = { name: 'first', url: 'data:,', lastModified }
       const secondFile = { name: 'second', url: 'data:,', lastModified }
@@ -364,6 +364,7 @@ describe('FileInput', () => {
     })
 
     test('removes correct file', async () => {
+      const user = userEvent.setup()
       const firstFile = { name: 'firstFile', url: 'data:,', type: 'image/png' }
       const secondFile = {
         name: 'secondFile',
@@ -379,7 +380,6 @@ describe('FileInput', () => {
       }
       render(<FileInput {...props} />)
 
-      const user = userEvent.setup()
       const removeButton = screen.getByRole('button', {
         name: /remove secondFile/i,
       })
@@ -393,6 +393,7 @@ describe('FileInput', () => {
     })
 
     test('shows error when remove fails', async () => {
+      const user = userEvent.setup()
       const ERROR_MESSAGE = 'cannot read'
       const file = { name: 'fileName', url: 'data:,' }
       const readFiles = jest.fn()
@@ -409,8 +410,7 @@ describe('FileInput', () => {
 
       expect(screen.queryByText(ERROR_MESSAGE)).not.toBeInTheDocument()
 
-      const user = userEvent.setup()
-      await user.click(screen.getByRole('button', { name: /remove filename/i }))
+      await act(() => user.click(screen.getByRole('button', { name: /remove filename/i })))
 
       expect(screen.getByText(ERROR_MESSAGE)).toBeInTheDocument()
     })
