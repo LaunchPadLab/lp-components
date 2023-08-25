@@ -100,5 +100,5 @@ test('Textarea passes down forwardedRef to input correctly', () => {
   }
 
   render(<Textarea {...props} />)
-  expect(screen.getByLabelText('Test').id).toEqual(inputRef.current.id)
+  expect(screen.getByLabelText('Test')).toHaveAttribute('id', inputRef.current.id)
 })

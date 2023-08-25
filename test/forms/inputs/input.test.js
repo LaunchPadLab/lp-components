@@ -39,13 +39,13 @@ test('Input is given an aria-describedby attribute when there is an input error'
 test('Input id defaults to name when no id is provided', () => {
   const props = { input, meta: {} }
   render(<Input {...props} />)
-  expect(screen.getByLabelText('Field')).toHaveAttribute('id', 'name')
+  expect(screen.getByLabelText('Field')).toHaveAttribute('id', name)
 })
 
 test('Input id is set when id is provided', () => {
   const props = { input, meta: {} }
   render(<Input {...props} id="testId" />)
-  expect(screen.getByLabelText('Field').id).toBe('testId')
+  expect(screen.getByLabelText('Field')).toHaveAttribute('id', 'testId')
 })
 
 test('Input does not receive invalid dom attributes', () => {
