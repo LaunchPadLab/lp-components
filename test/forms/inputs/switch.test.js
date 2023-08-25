@@ -1,9 +1,11 @@
 import React from 'react'
-import { mount } from 'enzyme'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { Switch } from '../../../src'
 
-test('Switch toggles value when clicked', () => {
+test('Switch toggles value when clicked', async () => {
   const onChange = jest.fn()
+  const user = userEvent.setup()
   const props = {
     input: {
       name: 'test',
@@ -12,8 +14,8 @@ test('Switch toggles value when clicked', () => {
     },
     meta: {},
   }
-  const wrapper = mount(<Switch {...props} />)
-  wrapper.find('input').simulate('change')
+  render(<Switch {...props} />)
+  await user.click(screen.getByLabelText('Test'))
   const newValue = onChange.mock.calls[0][0]
   expect(newValue).toEqual(true)
 })
@@ -30,6 +32,6 @@ test('Switch is given an aria-describedby attribute when there is an input error
       invalid: true,
     },
   }
-  const wrapper = mount(<Switch {...props} />)
-  expect(wrapper.find('input').prop('aria-describedby')).toContain(name)
+  render(<Switch {...props} />)
+  expect(screen.getByLabelText('Test').getAttribute('aria-describedby')).toContain(name)
 })

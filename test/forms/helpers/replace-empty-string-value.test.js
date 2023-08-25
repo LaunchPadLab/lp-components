@@ -1,27 +1,26 @@
 import { replaceEmptyStringValue } from '../../../src/'
 import React from 'react'
-import { mount } from 'enzyme'
+import { render, screen } from '@testing-library/react'
+
+const InputToWrap = ({ input: { value } }) => (
+  <input value={value} readOnly={true} />
+)
 
 test('has correct displayName', () => {
-  const MyInput = () => <input />
-  const WrappedInput = replaceEmptyStringValue()(MyInput)
-  expect(WrappedInput.displayName).toEqual('replaceEmptyStringValue(MyInput)')
+  const WrappedInput = replaceEmptyStringValue()(InputToWrap)
+  expect(WrappedInput.displayName).toEqual('replaceEmptyStringValue(InputToWrap)')
 })
 
 test('replaces empty string with given value', () => {
-  const MyInput = () => <input />
-  const WrappedInput = replaceEmptyStringValue('foo')(MyInput)
-  const wrapper = mount(
-    <WrappedInput {...{ input: { value: '' }, meta: {} }} />
-  )
-  expect(wrapper.find(MyInput).props().input.value).toEqual('foo')
+  const WrappedInput = replaceEmptyStringValue('foo')(InputToWrap)
+  render(<WrappedInput {...{ input: { value: '' }, meta: {} }} />)
+  expect(screen.getByRole('textbox')).toHaveValue('foo')
 })
 
 test("doesn't replace other values", () => {
-  const MyInput = () => <input />
-  const WrappedInput = replaceEmptyStringValue('foo')(MyInput)
-  const wrapper = mount(
+  const WrappedInput = replaceEmptyStringValue('foo')(InputToWrap)
+  render(
     <WrappedInput {...{ input: { value: 'other' }, meta: {} }} />
   )
-  expect(wrapper.find(MyInput).props().input.value).toEqual('other')
+  expect(screen.getByRole('textbox')).toHaveValue('other')
 })

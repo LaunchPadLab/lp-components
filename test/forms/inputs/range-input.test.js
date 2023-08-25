@@ -1,5 +1,5 @@
 import React from 'react'
-import { mount } from 'enzyme'
+import { render, screen } from '@testing-library/react'
 import { RangeInput } from '../../../src/'
 
 const name = 'name.of.field'
@@ -9,22 +9,29 @@ const input = { name, value, onChange }
 
 test('RangeInput hides the value label when `hideRangeValue` is `true`', () => {
   const props = { input, hideRangeValue: true, meta: {} }
-  const wrapper = mount(<RangeInput {...props} />)
-  expect(wrapper.find('.range-value').exists()).toBe(false)
+  render(<RangeInput {...props} />)
+  expect(screen.queryByText(input.value)).not.toBeInTheDocument()
+})
+
+test('RangeInput shows the value label when `hideRangeValue` is `false`', () => {
+  const props = { input, hideRangeValue: false, meta: {} }
+  render(<RangeInput {...props} />)
+  expect(screen.queryByText(input.value)).toBeInTheDocument()
 })
 
 test('RangeInput sets the `min`, `max`, and `step` correctly', () => {
   const props = { input, min: 5, max: 50, step: 10, meta: {} }
-  const wrapper = mount(<RangeInput {...props} />)
-  expect(wrapper.find('input').props().min).toEqual(5)
-  expect(wrapper.find('input').props().max).toEqual(50)
-  expect(wrapper.find('input').props().step).toEqual(10)
+  render(<RangeInput {...props} />)
+  const rangeInput = screen.getByLabelText('Field')
+  expect(rangeInput.getAttribute('min')).toEqual('5')
+  expect(rangeInput.getAttribute('max')).toEqual('50')
+  expect(rangeInput.getAttribute('step')).toEqual('10')
 })
 
 test('RangeInput has aria-describedby attribute when there is an input error', () => {
   const props = { input, meta: { touched: true, invalid: true } }
-  const wrapper = mount(<RangeInput {...props} />)
-  expect(wrapper.find('input').prop('aria-describedby')).toContain(name)
+  render(<RangeInput {...props} />)
+  expect(screen.getByLabelText('Field').getAttribute('aria-describedby')).toContain(name)
 })
 
 test('RangeInput does not receive invalid dom attributes', () => {
@@ -34,6 +41,6 @@ test('RangeInput does not receive invalid dom attributes', () => {
     onClickLabel: () => 'foo',
   }
 
-  const wrapper = mount(<RangeInput {...props} />)
-  expect(wrapper.find('input').prop('onClickLabel')).toBe(undefined)
+  render(<RangeInput {...props} />)
+  expect(screen.getByLabelText('Field')).not.toHaveAttribute('onClickLabel')
 })
