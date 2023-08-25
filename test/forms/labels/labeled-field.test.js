@@ -1,17 +1,18 @@
 import React from 'react'
-import { mount } from 'enzyme'
+import { render, screen } from '@testing-library/react'
 import { LabeledField } from '../../../src/'
 
 test('wraps children in fieldset', () => {
   const Wrapped = () => <input name="test" />
   const props = { input: { name: 'foo' }, meta: {} }
-  const wrapper = mount(
+  render(
     <LabeledField {...props}>
       <Wrapped />
     </LabeledField>
   )
-  expect(wrapper.find('fieldset').exists()).toEqual(true)
-  expect(wrapper.find('fieldset').hasClass('error')).toEqual(false)
+  const fieldset = screen.getByRole('group')
+  expect(fieldset).toBeInTheDocument()
+  expect(fieldset).not.toHaveClass('error')
 })
 
 test('adds error class when touched and invalid', () => {
@@ -20,23 +21,23 @@ test('adds error class when touched and invalid', () => {
     input: { name: 'foo' },
     meta: { touched: true, invalid: true },
   }
-  const wrapper = mount(
+  render(
     <LabeledField {...props}>
       <Wrapped />
     </LabeledField>
   )
-  expect(wrapper.find('fieldset').hasClass('error')).toEqual(true)
+  expect(screen.getByRole('group')).toHaveClass('error')
 })
 
 test('adds disabled class when disabled', () => {
   const Wrapped = () => <input name="test" />
   const props = { input: { name: 'foo' }, meta: {}, disabled: true }
-  const wrapper = mount(
+  render(
     <LabeledField {...props}>
       <Wrapped />
     </LabeledField>
   )
-  expect(wrapper.find('fieldset').hasClass('disabled')).toEqual(true)
+  expect(screen.getByRole('group')).toHaveClass('disabled')
 })
 
 test('adds InputLabel and InputError', () => {
@@ -44,16 +45,17 @@ test('adds InputLabel and InputError', () => {
   const props = {
     input: { name: 'foo' },
     meta: { touched: true, invalid: true },
+    error: "Required"
   }
-  const wrapper = mount(
+  render(
     <LabeledField {...props}>
       <Wrapped />
     </LabeledField>
   )
   // InputLabel
-  expect(wrapper.find('label').text()).toEqual('Foo')
+  expect(screen.getByText('Foo')).toBeInTheDocument()
   // InputError
-  expect(wrapper.find('.error-message').exists()).toEqual(true)
+  expect(screen.getByText('Required')).toBeInTheDocument()
 })
 
 test('hides error label with hideErrorLabel option', () => {
@@ -61,15 +63,15 @@ test('hides error label with hideErrorLabel option', () => {
   const props = {
     input: { name: 'foo' },
     meta: { touched: true, invalid: true },
+    error: 'Required',
     hideErrorLabel: true,
   }
-  const wrapper = mount(
+  render(
     <LabeledField {...props}>
       <Wrapped />
     </LabeledField>
   )
-  // InputError
-  expect(wrapper.find('.error-message').exists()).toEqual(false)
+  expect(screen.queryByText('Required')).not.toBeInTheDocument()
 })
 
 test('adds a custom label component', () => {
@@ -83,12 +85,12 @@ test('adds a custom label component', () => {
     labelComponent: LabelComponent,
   }
 
-  const wrapper = mount(
+  render(
     <LabeledField {...props}>
       <Wrapped />
     </LabeledField>
   )
-  expect(wrapper.find('label').text()).toEqual('This is a custom label')
+  expect(screen.getByText('This is a custom label')).toBeInTheDocument()
 })
 
 test('passes custom props to a custom label component', () => {
@@ -108,12 +110,12 @@ test('passes custom props to a custom label component', () => {
     labelComponent: LabelComponent,
   }
 
-  const wrapper = mount(
+  render(
     <LabeledField {...props}>
       <Wrapped />
     </LabeledField>
   )
-  expect(wrapper.find('label > span').text()).toEqual('Hi!')
+  expect(screen.getByText(props.customHint)).toBeInTheDocument()
 })
 
 test('considers a custom label component to have higher precedence than a label prop', () => {
@@ -128,12 +130,13 @@ test('considers a custom label component to have higher precedence than a label 
     labelComponent: LabelComponent,
   }
 
-  const wrapper = mount(
+  render(
     <LabeledField {...props}>
       <Wrapped />
     </LabeledField>
   )
-  expect(wrapper.find('label').text()).toEqual('This is a custom label')
+  expect(screen.getByText('This is a custom label')).toBeInTheDocument()
+  expect(screen.queryByText('Standard Label')).not.toBeInTheDocument()
 })
 
 test('adds a custom error component', () => {
@@ -149,14 +152,12 @@ test('adds a custom error component', () => {
     errorComponent: ErrorComponent,
   }
 
-  const wrapper = mount(
+  render(
     <LabeledField {...props}>
       <Wrapped />
     </LabeledField>
   )
-  expect(wrapper.find('span.error').text()).toEqual(
-    'This is a custom error message'
-  )
+  expect(screen.getByText('This is a custom error message')).toBeInTheDocument()
 })
 
 test('passes custom props to a custom error component', () => {
@@ -176,10 +177,10 @@ test('passes custom props to a custom error component', () => {
     customHint: 'Hi!',
   }
 
-  const wrapper = mount(
+  render(
     <LabeledField {...props}>
       <Wrapped />
     </LabeledField>
   )
-  expect(wrapper.find('span > span').text()).toEqual('Hi!')
+  expect(screen.getByText(props.customHint)).toBeInTheDocument()
 })

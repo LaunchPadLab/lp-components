@@ -1,93 +1,109 @@
 import React from 'react'
-import { mount } from 'enzyme'
 import { InputLabel } from '../../../src/'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
 const name = 'person.firstName'
 const formattedName = 'First Name'
 
 test('when label is false - does not render a label', () => {
-  const wrapper = mount(<InputLabel name={name} label={false} />)
-  expect(wrapper.find('label').exists()).toEqual(false)
+  render(<InputLabel name={name} label={false} />)
+  expect(screen.queryByText(formattedName)).not.toBeInTheDocument()
 })
 
 test('when label not provided - renders a label with content equal to formatted input name', () => {
-  const wrapper = mount(<InputLabel name={name} />)
-  expect(wrapper.find('label').text()).toEqual(formattedName)
+  render(<InputLabel name={name} />)
+  expect(screen.getByText(formattedName)).toBeInTheDocument()
 })
 
 test('when label provided - renders a label with content equal to string', () => {
-  const wrapper = mount(<InputLabel name={name} label="foo" />)
-  expect(wrapper.find('label').text()).toEqual('foo')
+  render(<InputLabel name={name} label="foo" />)
+  expect(screen.getByText('foo')).toBeInTheDocument()
 })
 
 test('when children are provided, renders a label with content equal to children', () => {
-  const onClick = jest.fn()
-  const wrapper = mount(
+  render(
     <InputLabel name={name}>
-      Are you <span onClick={onClick}>sure</span>?
+      Are you sure?
     </InputLabel>
   )
-  expect(wrapper.find('label').text()).toEqual('Are you sure?')
+
+  expect(screen.getByText('Are you sure?')).toBeInTheDocument()
 })
 
-test('when children are provided, renders a label with custom interactions intact', () => {
+test('when children are provided, renders a label with custom interactions intact', async () => {
+  const user = userEvent.setup()
   const onClick = jest.fn()
-  const wrapper = mount(
+  render(
     <InputLabel name={name}>
       Are you{' '}
-      <span id="click" onClick={onClick}>
+      <span data-testid="click" onClick={onClick}>
         sure
       </span>
       ?
     </InputLabel>
   )
-  wrapper.find('#click').simulate('click')
+
+  await user.click(screen.getByTestId('click'))
+
   expect(onClick).toHaveBeenCalled()
 })
 
 test('when hint provided - shows hint', () => {
-  const wrapper = mount(<InputLabel name={name} hint="hint" />)
-  expect(wrapper.find('label > i').text()).toEqual('hint')
+  render(<InputLabel name={name} hint="hint" />)
+  expect(screen.getByText(formattedName)).toHaveTextContent('hint')
 })
 
 test('when tooltip provided - shows tooltip trigger', () => {
-  const wrapper = mount(<InputLabel name={name} tooltip="tooltip" />)
-  expect(wrapper.find('.tooltip-trigger').exists()).toEqual(true)
+  render(<InputLabel name={name} tooltip="tooltip" />)
+  expect(screen.getByText(formattedName).nextSibling).toHaveClass('tooltip-trigger')
 })
 
-test('when tooltip provided - toggle tooltip', () => {
-  const wrapper = mount(<InputLabel name={name} tooltip="tooltip" />)
-  expect(wrapper.find('div.tooltip-content.is-active').exists()).toEqual(false)
-  wrapper.find('.tooltip-trigger').simulate('click')
-  expect(wrapper.find('div.tooltip-content.is-active').exists()).toEqual(true)
-  wrapper.find('.tooltip-trigger').simulate('click')
-  expect(wrapper.find('div.tooltip-content.is-active').exists()).toEqual(false)
+test('when tooltip provided - toggle tooltip', async () => {
+  const user = userEvent.setup()
+  const tooltipText = 'tooltippy'
+  render(<InputLabel name={name} tooltip={tooltipText} />)
+  const trigger = screen.queryByText(formattedName).nextSibling
+  const content = screen.queryByText(tooltipText)
+
+  expect(content).not.toHaveClass('is-active')
+  await user.click(trigger)
+  expect(content).toHaveClass('is-active')
+  await user.click(trigger)
+  expect(content).not.toHaveClass('is-active')
 })
 
 test('when no custom required indicator provided, do not show required indicator', () => {
-  const wrapper = mount(<InputLabel name={name} required />)
-  expect(wrapper.find('span.required-indicator').exists()).toEqual(false)
+  render(<InputLabel name={name} required />)
+  expect(screen.getByText(formattedName).textContent).toEqual(formattedName)
 })
 
 test('when required true and custom requiredIndicator provided, show custom indicator', () => {
-  const wrapper = mount(
+  render(
     <InputLabel name={name} required requiredIndicator={'*'} />
   )
-  expect(wrapper.find('label > span').text()).toEqual('*')
+  expect(screen.getByText('*')).toBeInTheDocument()
+})
+
+test('when required false and custom requiredIndicator provided, hide custom indicator', () => {
+  render(
+    <InputLabel name={name} required={false} requiredIndicator={'*'} />
+  )
+  expect(screen.queryByText('*')).not.toBeInTheDocument()
 })
 
 test('when id is _not_ provided - renders a label associated to the input name', () => {
-  const wrapper = mount(<InputLabel name={name} label="foo" />)
-  expect(wrapper.find('label').prop('htmlFor')).toBe(name)
+  render(<InputLabel name={name} label="foo" />)
+  expect(screen.getByText('foo')).toHaveAttribute('for', name)
 })
 
 test('when id is provided - renders a label associated to the input id', () => {
   const id = 'testId'
-  const wrapper = mount(<InputLabel name={name} id={id} label="foo" />)
-  expect(wrapper.find('label').prop('htmlFor')).toBe(id)
+  render(<InputLabel name={name} id={id} label="foo" />)
+  expect(screen.getByText('foo')).toHaveAttribute('for', id)
 })
 
-test('can accept a custom classname', () => {
-  const wrapper = mount(<InputLabel name={name} className="foo" />)
-  expect(wrapper.find('label').hasClass('foo')).toBe(true)
+test('can accept a custom class name', () => {
+  render(<InputLabel name={name} className="foo" />)
+  expect(screen.getByText(formattedName)).toHaveClass('foo')
 })
