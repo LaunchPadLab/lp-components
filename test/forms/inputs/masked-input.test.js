@@ -16,7 +16,7 @@ test('MaskedInput applies comma-separated number mask', async () => {
   const maskedInput = screen.getByRole('textbox')
   maskedInput.focus()
   await user.keyboard('1234')
-  expect(maskedInput.value).toContain(',')
+  expect(maskedInput.value).toEqual('1,234')
 })
 
 test('MaskedInput accepts forwarded ref attribute', () => {
