@@ -39,7 +39,7 @@ test('Input is given an aria-describedby attribute when there is an input error'
 test('Input id defaults to name when no id is provided', () => {
   const props = { input, meta: {} }
   render(<Input {...props} />)
-  expect(screen.getByLabelText('Field').id).toBe(name)
+  expect(screen.getByLabelText('Field')).toHaveAttribute('id', 'name')
 })
 
 test('Input id is set when id is provided', () => {
