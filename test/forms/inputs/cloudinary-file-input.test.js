@@ -1,9 +1,7 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { CloudinaryFileInput } from '../../../src/'
-import { mockFileReader, flushPromises } from './file-input.test'
-import { act } from 'react-dom/test-utils'
 
 const name = 'name.of.field'
 const value = { name: 'existingFileName', url: 'value of field' }
@@ -52,13 +50,12 @@ test('CloudinaryFileInput sets returned url within value', async () => {
     cloudName,
     bucket,
   }
-
+  const user = userEvent.setup()
   render(<CloudinaryFileInput {...props} />)
 
-  const user = userEvent.setup()
   const input = screen.getByLabelText(/select file/i)
 
-  await user.upload(input, file)
+  await act(() => user.upload(input, file))
 
   expect(onChange).toHaveBeenCalledWith([
     expect.objectContaining({ url: PUBLIC_URL }),
@@ -79,11 +76,11 @@ test('CloudinaryFileInput calls success handler with response on successful uplo
     onUploadSuccess,
   }
 
+  const user = userEvent.setup()
   render(<CloudinaryFileInput {...props} />)
 
-  const user = userEvent.setup()
   const input = screen.getByLabelText(/select file/i)
-  await user.upload(input, file)
+  await act(() => user.upload(input, file))
 
   expect(onUploadSuccess).toHaveBeenCalledWith(
     expect.objectContaining({ url: PUBLIC_URL })
@@ -105,11 +102,11 @@ test('CloudinaryFileInput calls success handler with array of responses on succe
     multiple: true,
   }
 
+  const user = userEvent.setup()
   render(<CloudinaryFileInput {...props} />)
 
-  const user = userEvent.setup()
   const input = screen.getByLabelText(/select file/i)
-  await user.upload(input, file)
+  await act(() => user.upload(input, file))
 
   expect(onUploadSuccess).toHaveBeenCalledWith([
     expect.objectContaining({ url: PUBLIC_URL }),
@@ -132,11 +129,11 @@ test('CloudinaryFileInput calls error handler with error on failed upload', asyn
     onUploadFailure,
   }
 
+  const user = userEvent.setup()
   render(<CloudinaryFileInput {...props} />)
 
-  const user = userEvent.setup()
   const input = screen.getByLabelText(/select file/i)
-  await user.upload(input, file)
+  await act(() => user.upload(input, file))
 
   expect(onUploadFailure).toHaveBeenCalledWith(failureResponse)
 })
