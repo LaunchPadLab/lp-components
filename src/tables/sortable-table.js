@@ -150,12 +150,13 @@ function SortableTable({
     setSortFunc(() => newSortFunc)
     setValueGetter(() => newValueGetter)
 
-    if (onChange)
+    if (onChange) {
       onChange({
         ascending: newAscending,
         sortPath: newSortPath,
         sortFunc: newSortFunc,
       })
+    }
   }
 
   return (

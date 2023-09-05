@@ -68,6 +68,21 @@ describe('SortableTable', () => {
     })
   })
 
+  test('onChange is not invoked when `null`', async () => {
+    const user = userEvent.setup()
+
+    render(
+      <SortableTable data={tableData} onChange={null}>
+        <Column name="name" />
+      </SortableTable>
+    )
+
+    await user.click(screen.getByRole('columnheader'))
+    const cells = screen.getAllByRole('cell')
+    // Data remains unsorted
+    expect(cells.at(0).textContent).toEqual('Kim')
+  })
+
   test('Clicking on column header twice toggles ascending', async () => {
     const user = userEvent.setup()
     render(
@@ -245,6 +260,16 @@ describe('SortableTable', () => {
     // Data should now be sorted, descending, by name
     expect(cells.at(0).textContent).toEqual('Tommy')
     expect(cells.at(-1).textContent).toEqual('Kim')
+  })
+
+  test('will throw an error if specified `initialColumn` does not exist', () => {
+    jest.spyOn(console, 'error').mockImplementation(() => null) // avoid console bloat
+    expect(() => render(
+      <SortableTable data={tableData} initialColumn="missing-column">
+        <Column name="name" />
+      </SortableTable>
+    )).toThrow()
+    jest.restoreAllMocks()
   })
 
   test('`onClick` function is called on correct column cells', async () => {
