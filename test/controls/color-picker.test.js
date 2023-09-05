@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { ColorPicker } from '../../src/'
 
@@ -9,9 +9,9 @@ test('ColorPicker toggles expanded when swatch is clicked', async () => {
   const swatchControl = screen.getByRole('button')
 
   expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
-  await user.click(swatchControl)
+  await act(() => user.click(swatchControl))
   expect(screen.queryByRole('dialog')).toBeInTheDocument()
-  await user.click(swatchControl)
+  await act(() => user.click(swatchControl))
   expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
 })
 
@@ -21,4 +21,29 @@ test('ColorPicker can be externally controlled', () => {
   expect(screen.queryByRole('dialog')).toBeInTheDocument()
   rerender(<ColorPicker active={false} />)
   expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+})
+
+test('ColorPicker closes when a click is registered outside', async () => {
+  const user = userEvent.setup()
+  const { container } = render(<ColorPicker />)
+  const swatchControl = screen.getByRole('button')
+
+  await act(() => user.click(swatchControl))
+  expect(screen.queryByRole('dialog')).toBeInTheDocument()
+  await act(() => user.click(container))
+  expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+})
+
+test('ColorPicker calls on change with a hex value', async () => {
+  const user = userEvent.setup()
+  const mock = jest.fn()
+  render(<ColorPicker onChange={mock} />)
+  const swatchControl = screen.getByRole('button')
+
+  await act(() => user.click(swatchControl))
+  const input = screen.getByRole('textbox')
+  await user.clear(input)
+  await user.type(input, '639')
+
+  expect(mock).toHaveBeenCalledWith('#663399')
 })
