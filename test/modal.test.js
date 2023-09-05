@@ -1,8 +1,10 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { Modal } from '../src/'
+import { Modal, isServer } from '../src/'
 import { noop } from 'lodash'
+
+jest.mock('..//src/utils/local/is-server', () => jest.fn(() => false))
 
 // Wrap modal to avoid console bloat
 function MyModal(props) {
@@ -155,5 +157,17 @@ describe('Modal', () => {
       await user.keyboard('{Escape}')
       expect(onClose).toHaveBeenCalled()
     })
+  })
+
+  test('can render on the server', () => {
+    isServer.mockImplementation(() => true)
+
+    const content = Date.now()
+    render(
+      <MyModal onClose={noop}>
+        <span>{content}</span>
+      </MyModal>
+    )
+    expect(screen.getByText(content)).toBeInTheDocument()
   })
 })
