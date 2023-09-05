@@ -3,8 +3,8 @@ import { ColorInput } from '../../../src/'
 import { render, screen, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-const WrappedColorInput = (props) => {
-  const [value, setValue] = useState('')
+const WrappedColorInput = ({ defaultValue='', ...rest }) => {
+  const [value, setValue] = useState(defaultValue)
 
   const defaultProps = {
     input: {
@@ -16,7 +16,7 @@ const WrappedColorInput = (props) => {
     meta: {},
   }
 
-  return <ColorInput {...defaultProps} {...props} />
+  return <ColorInput {...defaultProps} {...rest} />
 }
 
 test('ColorInput hex input adds hash to value', async () => {
@@ -28,6 +28,17 @@ test('ColorInput hex input adds hash to value', async () => {
   await user.type(input, '000{Enter}')
 
   expect(input).toHaveValue('000')
+})
+
+test('ColorInput hex input does not add hash to empty value', async () => {
+  const user = userEvent.setup()
+
+  render(<WrappedColorInput defaultValue="#000000" />)
+
+  const input = screen.getByRole('textbox')
+  await act(() => user.clear(input))
+
+  expect(input).toHaveValue('')
 })
 
 test('ColorInput expands dropdown when hex input is focused', async () => {
