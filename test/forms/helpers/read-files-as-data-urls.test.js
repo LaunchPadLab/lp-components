@@ -1,4 +1,6 @@
-import { readFilesAsDataUrls } from '../../../src'
+import { readFilesAsDataUrls, isServer } from '../../../src'
+
+jest.mock('../../../src/utils/local/is-server', () => jest.fn(() => false))
 
 describe('readFilesAsDataUrls', () => {
   test('returns an array of file objects', async () => {
@@ -11,25 +13,11 @@ describe('readFilesAsDataUrls', () => {
   })
 
   test('returns an empty url when run on the server', async () => {
+    isServer.mockImplementation(() => true)
+
     const file = new File(['content'], 'fileName.png', { type: 'image/png' })
 
-    const originalWindow = setWindowValue(undefined)
     const result = await readFilesAsDataUrls([file])
     expect(result.at(0).url).toEqual('')
-
-    setWindowValue(originalWindow)
   })
 })
-
-// HELPERS
-
-function setWindowValue(value) {
-  // eslint-disable-next-line no-undef
-  const originalWindow = global.window
-  // eslint-disable-next-line no-undef
-  Object.defineProperty(global, 'window', {
-    value
-  })
-
-  return originalWindow
-}
