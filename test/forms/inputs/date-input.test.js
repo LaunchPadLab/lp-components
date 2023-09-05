@@ -80,3 +80,16 @@ test("DateInput defaults tabbable item to today's date", async () => {
 
   expect(current).toHaveProperty('tabIndex', 0)
 })
+
+test('DateInput sets empty input to an empty string', async () => {
+  const user = userEvent.setup()
+  const onChange = jest.fn()
+  const props = { input: { ...input, onChange, onBlur: noop }, meta: {} }
+
+  render(<WrappedDateInput {...props} />)
+
+  await user.clear(screen.getByRole('textbox'))
+
+  expect(onChange).toHaveBeenCalledTimes(1)
+  expect(onChange).toHaveBeenCalledWith('')
+})
