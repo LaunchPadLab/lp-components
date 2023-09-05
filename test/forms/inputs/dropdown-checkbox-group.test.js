@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { DropdownCheckboxGroup } from '../../../src/'
-import { render, screen } from '@testing-library/react'
+import { render, screen, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 const WrappedDropdownCheckboxGroup = (props) => {
@@ -29,8 +29,7 @@ test('DropdownCheckboxGroup adds value to array when unselected option clicked',
   const user = userEvent.setup()
 
   render(<WrappedDropdownCheckboxGroup />)
-
-  const select = screen.getAllByRole('group')[0]
+  const select = screen.getByRole('button')
   await user.click(select)
 
   const firstCheckbox = screen.getByLabelText('First Option')
@@ -51,7 +50,7 @@ test('DropdownCheckboxGroup removes value from array when selected option clicke
 
   render(<WrappedDropdownCheckboxGroup value={['1']} />)
 
-  const select = screen.getAllByRole('group')[0]
+  const select = screen.getByRole('button')
   await user.click(select)
 
   const firstCheckbox = screen.getByLabelText('First Option')
@@ -61,4 +60,20 @@ test('DropdownCheckboxGroup removes value from array when selected option clicke
 
   const selectValueLabel = screen.getByText('None')
   expect(selectValueLabel).toBeInTheDocument()
+})
+
+test('DropdownCheckboxGroup sets menu no longer active when clicked outside', async () => {
+  const user = userEvent.setup()
+
+  render(<WrappedDropdownCheckboxGroup value={['1']} />)
+
+  const select = screen.getByRole('button')
+  await act(() => user.click(select))
+
+  expect(select.nextSibling).toHaveClass('options', 'is-active')
+
+  const fieldset = screen.getAllByRole('group').at(0)
+  await act(() => user.click(fieldset))
+
+  expect(select.nextSibling).not.toHaveClass('is-active')
 })
