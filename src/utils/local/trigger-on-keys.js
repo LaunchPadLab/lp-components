@@ -16,6 +16,8 @@ import { castArray, compact } from 'lodash'
 function triggerOnKeys(fn, keyCodes) {
   const codes = compact(castArray(keyCodes))
   return function (e) {
+    // Key will be set to Unidentified if it cannot be mapped
+    // Source: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key#value
     const key = e.key === 'Unidentified' ? e.code : e.key
     if (!codes.some((keyCode) => keyCode == key)) return
 

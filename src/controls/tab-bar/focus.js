@@ -13,6 +13,8 @@ function manageFocus(e, { vertical }) {
   // If not activated while on a tab, then ignore
   if (!isTabControl(e.target)) return
 
+  // Key will be set to Unidentified if it cannot be mapped
+  // Source: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key#value
   const key = e.key === 'Unidentified' ? e.code : e.key
   switch (key) {
     case Keys.DOWN: {
