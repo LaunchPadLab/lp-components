@@ -66,4 +66,13 @@ describe('Trigger on Keys', () => {
 
     expect(fn).not.toHaveBeenCalled()
   })
+
+  test('defaults to code when key is Unidentified', () => {
+    const fn = jest.fn()
+    const e = { code: 'Enter', key: 'Unidentified' }
+    const triggerOnEnter = triggerOnKeys(fn, 'Enter')
+    triggerOnEnter(e)
+
+    expect(fn).toHaveBeenCalled()
+  })
 })

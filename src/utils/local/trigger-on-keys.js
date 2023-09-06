@@ -16,7 +16,7 @@ import { castArray, compact } from 'lodash'
 function triggerOnKeys(fn, keyCodes) {
   const codes = compact(castArray(keyCodes))
   return function (e) {
-    const key = e.key || e.code
+    const key = e.key === 'Unidentified' ? e.code : e.key
     if (!codes.some((keyCode) => keyCode == key)) return
 
     return fn(e)
