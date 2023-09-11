@@ -3,47 +3,38 @@ import { triggerOnKeys } from '../../src/utils'
 describe('Trigger on Keys', () => {
   test('returns a function', () => {
     const fn = jest.fn()
-    expect(triggerOnKeys(fn, 13)).toBeInstanceOf(Function)
+    expect(triggerOnKeys(fn, 'Enter')).toBeInstanceOf(Function)
   })
 
-  test('triggers the function when the key code matches', () => {
+  test('triggers the function when the key matches', () => {
     const fn = jest.fn()
-    const e = { keyCode: 13 }
-    const triggerOnEnter = triggerOnKeys(fn, 13)
+    const e = { key: 'Enter' }
+    const triggerOnEnter = triggerOnKeys(fn, 'Enter')
     triggerOnEnter(e)
     expect(fn).toHaveBeenCalled()
   })
 
   test('invokes the function with the event', () => {
     const fn = jest.fn()
-    const e = { keyCode: 13 }
-    const triggerOnEnter = triggerOnKeys(fn, 13)
+    const e = { key: 'Enter' }
+    const triggerOnEnter = triggerOnKeys(fn, 'Enter')
     triggerOnEnter(e)
     expect(fn).toHaveBeenCalledWith(e)
   })
 
-  test('accepts a string key code', () => {
+  test('accepts a string key', () => {
     const fn = jest.fn()
-    const e = { keyCode: 13 }
-    const triggerOnEnter = triggerOnKeys(fn, '13')
+    const e = { key: 'Enter' }
+    const triggerOnEnter = triggerOnKeys(fn, 'Enter')
     triggerOnEnter(e)
 
     expect(fn).toHaveBeenCalled()
   })
 
-  test('accepts a number key code', () => {
+  test('accepts an array of keys', () => {
     const fn = jest.fn()
-    const e = { keyCode: 13 }
-    const triggerOnEnter = triggerOnKeys(fn, 13)
-    triggerOnEnter(e)
-
-    expect(fn).toHaveBeenCalled()
-  })
-
-  test('accepts an array of key codes', () => {
-    const fn = jest.fn()
-    const e = { keyCode: 13 }
-    const triggerOnEnter = triggerOnKeys(fn, [13, 14, 15])
+    const e = { key: 'Space' }
+    const triggerOnEnter = triggerOnKeys(fn, ['Enter', 'Space'])
     triggerOnEnter(e)
 
     expect(fn).toHaveBeenCalled()
@@ -51,28 +42,37 @@ describe('Trigger on Keys', () => {
 
   test('does not trigger when invalid key is pressed', () => {
     const fn = jest.fn()
-    const e = { keyCode: 13 }
-    const triggerOnEnter = triggerOnKeys(fn, 15)
+    const e = { key: 'Enter' }
+    const triggerOnEnter = triggerOnKeys(fn, 'Space')
     triggerOnEnter(e)
 
     expect(fn).not.toHaveBeenCalled()
   })
 
-  test('ignores undefined key codes', () => {
+  test('ignores undefined keys', () => {
     const fn = jest.fn()
-    const e = { keyCode: undefined }
+    const e = { key: undefined }
     const triggerOnEnter = triggerOnKeys(fn)
     triggerOnEnter(e)
 
     expect(fn).not.toHaveBeenCalled()
   })
 
-  test('ignores null key codes', () => {
+  test('ignores null keys', () => {
     const fn = jest.fn()
-    const e = { keyCode: null }
+    const e = { key: null }
     const triggerOnEnter = triggerOnKeys(fn)
     triggerOnEnter(e)
 
     expect(fn).not.toHaveBeenCalled()
+  })
+
+  test('defaults to code when key is Unidentified', () => {
+    const fn = jest.fn()
+    const e = { code: 'Enter', key: 'Unidentified' }
+    const triggerOnEnter = triggerOnKeys(fn, 'Enter')
+    triggerOnEnter(e)
+
+    expect(fn).toHaveBeenCalled()
   })
 })

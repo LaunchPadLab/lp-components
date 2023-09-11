@@ -1,33 +1,42 @@
-import { KeyCodes } from '../../utils'
+const Keys = {
+  HOME: 'Home',
+  END: 'End',
+  LEFT: 'ArrowLeft',
+  RIGHT: 'ArrowRight',
+  UP: 'ArrowUp',
+  DOWN: 'ArrowDown',
+}
 
-// Funnction that can be passed to event handlers (e.g., onKeyPress) that manages which element should be focused
+// Function that can be passed to event handlers (e.g., onKeyPress) that manages which element should be focused
 // Note: Expected keyboard interaction with arrow keys changes depending on the orientation of the tab list
-function manageFocus(e, { vertical = false }) {
+function manageFocus(e, { vertical }) {
   // If not activated while on a tab, then ignore
   if (!isTabControl(e.target)) return
 
-  const key = (e.which || e.keyCode || '').toString()
+  // Key will be set to Unidentified if it cannot be mapped
+  // Source: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key#value
+  const key = e.key === 'Unidentified' ? e.code : e.key
   switch (key) {
-    case KeyCodes.DOWN: {
+    case Keys.DOWN: {
       if (!vertical) return
       return focusNextControl(e)
     }
-    case KeyCodes.UP: {
+    case Keys.UP: {
       if (!vertical) return
       return focusPreviousControl(e)
     }
-    case KeyCodes.LEFT: {
+    case Keys.LEFT: {
       if (vertical) return
       return focusPreviousControl(e)
     }
-    case KeyCodes.RIGHT: {
+    case Keys.RIGHT: {
       if (vertical) return
       return focusNextControl(e)
     }
-    case KeyCodes.HOME: {
+    case Keys.HOME: {
       return focusFirstControl(e)
     }
-    case KeyCodes.END: {
+    case Keys.END: {
       return focusLastControl(e)
     }
     default:
@@ -81,6 +90,7 @@ function getAdjacentControl(control, { previous = false } = {}) {
 
 // Recursively searches for the closest parent tab list
 function getClosestTabList(el) {
+  /* istanbul ignore next */
   if (!el) return
   return el.matches('[role="tablist"]')
     ? el

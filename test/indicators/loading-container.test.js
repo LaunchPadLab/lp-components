@@ -1,27 +1,28 @@
 import React from 'react'
-import { mount } from 'enzyme'
 import { LoadingContainer } from '../../src/'
+import { render, screen } from '@testing-library/react'
 
 test('LoadingContainer renders children', () => {
-  const wrapper = mount(
+  const text = 'This text IS loading.'
+  render(
     <LoadingContainer isLoading={true}>
-      <div id="loading">This text IS loading. </div>
+      <div id="loading">{text}</div>
     </LoadingContainer>
   )
-  expect(wrapper.find('div#loading').exists()).toBe(true)
+  expect(screen.getByText(text)).toBeInTheDocument()
 })
 
 test('LoadingContainer does not apply the is-loading class when isLoading is false', () => {
-  const wrapper = mount(<LoadingContainer isLoading={false} />)
-  expect(wrapper.find('div').props().className).toEqual('')
+  render(<LoadingContainer isLoading={false} data-testid="1" />)
+  expect(screen.getByTestId("1")).not.toHaveClass('is-loading')
 })
 
 test('LoadingContainer applies the is-loading class when isLoading is true', () => {
-  const wrapper = mount(<LoadingContainer isLoading={true} />)
-  expect(wrapper.find('div').props().className).toEqual('is-loading')
+  render(<LoadingContainer isLoading={true} data-testid="1" />)
+  expect(screen.getByTestId("1")).toHaveClass('is-loading')
 })
 
 test('LoadingContainer passes props', () => {
-  const wrapper = mount(<LoadingContainer isLoading={true} />)
-  expect(wrapper.find('div').props()).toEqual({ className: 'is-loading' })
+  render(<LoadingContainer isLoading={true} data-testid="1" aria-busy="true" />)
+  expect(screen.getByTestId("1")).toHaveAttribute('aria-busy')
 })

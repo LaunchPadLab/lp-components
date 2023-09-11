@@ -78,7 +78,7 @@ const DEFAULT_REQUEST_OPTIONS = {
 const FILE_NAME_PATTERN = /[\s?&#\\%<>]/gi
 
 // Throws an error when a required param is not found
-function requireParam(paramName, context = 'Error') {
+function requireParam(paramName, context) {
   throw new Error(`${context}: required param ${paramName} not provided`)
 }
 

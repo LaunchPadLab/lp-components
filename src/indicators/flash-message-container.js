@@ -47,7 +47,6 @@ function FlashMessageContainer({ messages, limit, onDismiss, ...rest }) {
         return (
           <FlashMessage
             key={message.id}
-            message={message}
             isError={message.isError}
             {...rest}
             {...message.props}

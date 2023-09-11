@@ -1,24 +1,21 @@
 import React from 'react'
-import { mount } from 'enzyme'
+import { render, screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+
 import { FileInput } from '../../../src/'
-import { act } from 'react-dom/test-utils'
 
 const name = 'my.file.input'
 const defaultOnChange = () => null
 
 describe('FileInput', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
-
-  test('renders thumbnail with value as src when file is an image', () => {
+  test('renders thumbnail with value as src when file is an image', async () => {
     const file = { name: 'fileName', type: 'image/png', url: 'foo' }
     const props = {
       input: { name, value: file, onChange: defaultOnChange },
       meta: {},
     }
-    const wrapper = mount(<FileInput {...props} />)
-    expect(wrapper.find('img').props().src).toEqual(file.url)
+    render(<FileInput {...props} />)
+    expect(screen.getByRole('img')).toHaveAttribute('src', file.url)
   })
 
   test('renders file name when file is non-image type or value is empty', () => {
@@ -27,8 +24,8 @@ describe('FileInput', () => {
       input: { name, value: file, onChange: defaultOnChange },
       meta: {},
     }
-    const wrapper = mount(<FileInput {...props} />)
-    expect(wrapper.find('p').text()).toEqual('fileName')
+    render(<FileInput {...props} />)
+    expect(screen.getByText('fileName')).toBeInTheDocument()
   })
 
   test('sets thumbnail placeholder', () => {
@@ -38,8 +35,8 @@ describe('FileInput', () => {
       meta: {},
       thumbnail,
     }
-    const wrapper = mount(<FileInput {...props} />)
-    expect(wrapper.find('img').props().src).toEqual(thumbnail)
+    render(<FileInput {...props} />)
+    expect(screen.getByRole('img')).toHaveAttribute('src', thumbnail)
   })
 
   test('hides preview correctly', () => {
@@ -48,22 +45,22 @@ describe('FileInput', () => {
       meta: {},
       hidePreview: true,
     }
-    const wrapper = mount(<FileInput {...props} />)
-    expect(wrapper.find('img').exists()).toEqual(false)
+    render(<FileInput {...props} />)
+    expect(screen.queryByRole('img')).not.toBeInTheDocument()
   })
 
   test('sets custom preview from children', () => {
-    const Preview = () => <p> My preview </p>
+    const Preview = () => <p>My preview</p>
     const props = {
       input: { name, value: '', onChange: defaultOnChange },
       meta: {},
     }
-    const wrapper = mount(
+    render(
       <FileInput {...props}>
         <Preview />
       </FileInput>
     )
-    expect(wrapper.find('p').exists()).toEqual(true)
+    expect(screen.getByText('My preview')).toBeInTheDocument()
   })
 
   test('sets custom preview from props', () => {
@@ -76,9 +73,8 @@ describe('FileInput', () => {
       },
       meta: {},
     }
-    const wrapper = mount(<FileInput previewComponent={Preview} {...props} />)
-    expect(wrapper.find('p').exists()).toEqual(true)
-    expect(wrapper.find('p').text()).toEqual('fileName')
+    render(<FileInput previewComponent={Preview} {...props} />)
+    expect(screen.getByText('fileName')).toBeInTheDocument()
   })
 
   test('passes extra props to custom preview', () => {
@@ -88,8 +84,8 @@ describe('FileInput', () => {
       meta: {},
       message: 'FOO',
     }
-    const wrapper = mount(<FileInput previewComponent={Preview} {...props} />)
-    expect(wrapper.find('p').text()).toEqual('FOO')
+    render(<FileInput previewComponent={Preview} {...props} />)
+    expect(screen.getByText('FOO')).toBeInTheDocument()
   })
 
   test('passes file to custom preview', () => {
@@ -99,26 +95,32 @@ describe('FileInput', () => {
       input: { name, value: file, onChange: defaultOnChange },
       meta: {},
     }
-    const wrapper = mount(<FileInput previewComponent={Preview} {...props} />)
-    expect(wrapper.find('p').exists()).toEqual(true)
-    expect(wrapper.find('p').text()).toEqual(file.url)
+    render(<FileInput previewComponent={Preview} {...props} />)
+    expect(screen.getByText(file.url)).toBeInTheDocument()
   })
 
   test('reads files and calls change handler correctly', async () => {
-    const FILE = { name: 'my file', url: 'data:,' }
-    const FILEDATA = 'my file data'
-    mockFileReader(FILEDATA)
+    const user = userEvent.setup()
+    const file = new File(['content'], 'fileName.png', { type: 'image/png' })
+    const filedata = 'my file data'
+    mockFileReader(filedata)
+
     const onChange = jest.fn()
     const props = { input: { name, value: [], onChange }, meta: {} }
-    const wrapper = mount(<FileInput {...props} />)
-    wrapper.find('input').simulate('change', { target: { files: [FILE] } })
-    // Needed since FileReader works asynchronously
-    await flushPromises()
-    expect(onChange).toHaveBeenCalled()
-    expect(onChange.mock.calls[0][0][0].url).toBe(FILEDATA)
+    render(<FileInput {...props} />)
+
+    const input = screen.getByLabelText(/select file/i)
+    await user.upload(input, file)
+
+    expect(input.files).toHaveLength(1)
+    expect(input.files[0]).toBe(file)
+    expect(onChange).toHaveBeenCalledWith([
+      expect.objectContaining({ url: filedata }),
+    ])
   })
 
   test('does not re-read existing files', async () => {
+    const user = userEvent.setup()
     const lastModified = Date.now()
     const firstFile = { name: 'first', url: 'data:,', lastModified }
     const readFiles = jest.fn()
@@ -128,35 +130,39 @@ describe('FileInput', () => {
       meta: {},
       readFiles,
     }
-    const wrapper = mount(<FileInput {...props} />)
+    render(<FileInput {...props} />)
 
-    wrapper.find('input').simulate('change', { target: { files: [firstFile] } })
-    await flushPromises()
+    const input = screen.getByLabelText(/select file/i)
+    await user.upload(input, firstFile)
+
+    expect(input.files).toHaveLength(1)
+    expect(input.files[0]).toBe(firstFile)
     expect(readFiles).toHaveBeenCalled()
-    expect(readFiles.mock.calls[0][0]).toStrictEqual([])
+    expect(readFiles).toHaveBeenCalledWith([])
   })
 
   test('only allows one file by default', async () => {
-    const lastModified = Date.now()
-    const firstFile = { name: 'first', url: 'data:,', lastModified }
-    const secondFile = { name: 'second', url: 'data:,', lastModified }
+    const user = userEvent.setup()
+    const firstFile = new File(['content'], 'first', { type: 'image/png' })
+    const secondFile = new File(['content'], 'second', { type: 'image/png' })
     const readFiles = jest.fn((arr) =>
       arr.map((file) => ({ ...file, url: 'my-data-url' }))
     )
     const onChange = jest.fn()
     const props = {
-      input: { name, value: [firstFile], onChange },
+      input: { name, value: '', onChange },
       meta: {},
       readFiles,
     }
-    const wrapper = mount(<FileInput {...props} />)
+    render(<FileInput {...props} />)
 
-    wrapper
-      .find('input')
-      .simulate('change', { target: { files: [secondFile] } })
-    await flushPromises()
+    const input = screen.getByLabelText(/select file/i)
 
-    expect(onChange.mock.calls[0][0][0].name).toBe(secondFile.name)
+    await user.upload(input, firstFile)
+    await user.upload(input, secondFile)
+
+    expect(input.files).toHaveLength(1)
+    expect(input.files[0]).toBe(secondFile)
   })
 
   test('passes accept attribute to input component', () => {
@@ -165,8 +171,10 @@ describe('FileInput', () => {
       meta: {},
       accept: 'image/*',
     }
-    const wrapper = mount(<FileInput {...props} />)
-    expect(wrapper.find('input').prop('accept')).toEqual('image/*')
+    render(<FileInput {...props} />)
+
+    const input = screen.getByLabelText(/select file/i)
+    expect(input).toHaveAttribute('accept', 'image/*')
   })
 
   test('is given an aria-describedby attribute when there is an input error', () => {
@@ -174,32 +182,38 @@ describe('FileInput', () => {
       input: { name, value: '', onChange: defaultOnChange },
       meta: { touched: true, invalid: true },
     }
-    const wrapper = mount(<FileInput {...props} />)
-    expect(wrapper.find('input').prop('aria-describedby')).toContain(name)
+    render(<FileInput {...props} />)
+
+    const input = screen.getByLabelText(/select file/i)
+    expect(input).toHaveAttribute(
+      'aria-describedby',
+      expect.stringContaining(name)
+    )
   })
 
   test('shows error messages that occur from reading', async () => {
+    const user = userEvent.setup()
     const ERROR_MESSAGE = 'cannot read'
-    const file = { name: 'fileName', url: 'data:,' }
+    const file = new File(['content'], 'fileName.png', { type: 'image/png' })
     const readFiles = jest.fn(() => Promise.reject(ERROR_MESSAGE))
     const props = {
       input: { name, value: '', onChange: defaultOnChange },
       meta: {},
       readFiles,
     }
-    const wrapper = mount(<FileInput {...props} />)
+    render(<FileInput {...props} />)
 
-    await act(() => {
-      wrapper.find('input').simulate('change', { target: { files: [file] } })
-      return flushPromises().then(() => wrapper.update())
+    const input = screen.getByLabelText(/select file/i)
+    user.upload(input, file)
+    await waitFor(() => {
+      expect(screen.getByText(ERROR_MESSAGE)).toBeInTheDocument()
     })
-
-    expect(wrapper.find('span.error-message').text()).toBe(ERROR_MESSAGE)
   })
 
   test('shows error that occurs from reading', async () => {
+    const user = userEvent.setup()
     const ERROR_MESSAGE = 'cannot read'
-    const file = { name: 'fileName', url: 'data:,' }
+    const file = new File(['content'], 'fileName.png', { type: 'image/png' })
     const readFiles = jest.fn(() => {
       throw new Error(ERROR_MESSAGE)
     })
@@ -208,40 +222,38 @@ describe('FileInput', () => {
       meta: {},
       readFiles,
     }
-    const wrapper = mount(<FileInput {...props} />)
+    render(<FileInput {...props} />)
 
-    await act(() => {
-      wrapper.find('input').simulate('change', { target: { files: [file] } })
-      return flushPromises().then(() => wrapper.update())
+    const input = screen.getByLabelText(/select file/i)
+    user.upload(input, file)
+    await waitFor(() => {
+      expect(screen.getByText(ERROR_MESSAGE)).toBeInTheDocument()
     })
-
-    expect(wrapper.find('span.error-message').text()).toBe(ERROR_MESSAGE)
   })
 
   describe('with "multiple" enabled', () => {
     test('allows multiple files to be added incrementally', async () => {
+      const user = userEvent.setup()
       const lastModified = Date.now()
       const firstFile = { name: 'first', url: 'data:,', lastModified }
       const secondFile = { name: 'second', url: 'data:,', lastModified }
-      const FILEDATA = 'my file data'
-      mockFileReader(FILEDATA)
+
       const onChange = jest.fn()
       const props = {
         input: { name, value: [firstFile], onChange },
         meta: {},
         multiple: true,
       }
-      const wrapper = mount(<FileInput {...props} />)
+      render(<FileInput {...props} />)
 
-      wrapper
-        .find('input')
-        .simulate('change', { target: { files: [secondFile] } })
-      await flushPromises()
+      const input = screen.getByLabelText(/select file/i)
+      await user.upload(input, secondFile)
+
       expect(onChange).toHaveBeenCalled()
       expect(onChange.mock.calls[0][0]).toHaveLength(2)
     })
 
-    test('selects first file when prop changes from true to false', async () => {
+    test('selects first file when prop changes from true to false', () => {
       const lastModified = Date.now()
       const firstFile = { name: 'first', url: 'data:,', lastModified }
       const secondFile = { name: 'second', url: 'data:,', lastModified }
@@ -251,10 +263,10 @@ describe('FileInput', () => {
         meta: {},
         multiple: true,
       }
-      const wrapper = mount(<FileInput {...props} />)
+      const { rerender } = render(<FileInput {...props} />)
 
-      wrapper.setProps({ multiple: false })
-      await flushPromises()
+      rerender(<FileInput {...props} multiple={false} />)
+
       expect(onChange).toHaveBeenCalled()
       expect(onChange.mock.calls[0][0][0]).toMatchObject(firstFile)
     })
@@ -269,8 +281,10 @@ describe('FileInput', () => {
         meta: {},
         multiple: true,
       }
-      const wrapper = mount(<FileInput {...props} />)
-      expect(wrapper.find('button.remove-file').exists()).toBe(true)
+      render(<FileInput {...props} />)
+      expect(
+        screen.getByRole('button', { name: /remove filename/i })
+      ).toBeInTheDocument()
     })
 
     test('shows a clear input button component when multiple prop is false and a file is selected', () => {
@@ -283,8 +297,10 @@ describe('FileInput', () => {
         meta: {},
         multiple: false,
       }
-      const wrapper = mount(<FileInput {...props} />)
-      expect(wrapper.find('button.remove-file').exists()).toBe(true)
+      render(<FileInput {...props} />)
+      expect(
+        screen.getByRole('button', { name: /remove filename/i })
+      ).toBeInTheDocument()
     })
 
     test('does not show a clear input button component when multiple prop is false and a file is not selected', () => {
@@ -293,8 +309,10 @@ describe('FileInput', () => {
         meta: {},
         multiple: false,
       }
-      const wrapper = mount(<FileInput {...props} />)
-      expect(wrapper.find('button.remove-file').exists()).toBe(false)
+      render(<FileInput {...props} />)
+      expect(
+        screen.queryByRole('button', { name: /remove/i })
+      ).not.toBeInTheDocument()
     })
 
     test('adds custom aria-label to default remove button', () => {
@@ -304,10 +322,8 @@ describe('FileInput', () => {
         meta: {},
         multiple: true,
       }
-      const wrapper = mount(<FileInput {...props} />)
-      expect(wrapper.find('button.remove-file').prop('aria-label')).toContain(
-        file.name
-      )
+      render(<FileInput {...props} />)
+      expect(screen.getByLabelText('Remove fileName.png')).toBeInTheDocument()
     })
 
     test('sets custom remove component from props', () => {
@@ -323,11 +339,14 @@ describe('FileInput', () => {
         meta: {},
         multiple: true,
       }
-      const wrapper = mount(
-        <FileInput removeComponent={RemoveComponent} {...props} />
-      )
-      expect(wrapper.find('button.remove-custom').exists()).toBe(true)
-      expect(wrapper.find('button.remove-file').exists()).toBe(false)
+      render(<FileInput removeComponent={RemoveComponent} {...props} />)
+
+      expect(
+        screen.getByRole('button', { name: 'Remove me!!!' })
+      ).toBeInTheDocument()
+      expect(
+        screen.queryByRole('button', { name: /remove filename/i })
+      ).not.toBeInTheDocument()
     })
 
     test('calls custom onRemove prop', async () => {
@@ -338,14 +357,16 @@ describe('FileInput', () => {
         meta: {},
         multiple: true,
       }
-      const wrapper = mount(<FileInput onRemove={onRemove} {...props} />)
-      wrapper.find('button.remove-file').simulate('click')
-      await flushPromises()
+      render(<FileInput onRemove={onRemove} {...props} />)
+
+      const user = userEvent.setup()
+      await user.click(screen.getByRole('button', { name: /remove filename/i }))
 
       expect(onRemove).toHaveBeenCalledWith(file)
     })
 
     test('removes correct file', async () => {
+      const user = userEvent.setup()
       const firstFile = { name: 'firstFile', url: 'data:,', type: 'image/png' }
       const secondFile = {
         name: 'secondFile',
@@ -359,9 +380,12 @@ describe('FileInput', () => {
         meta: {},
         multiple: true,
       }
-      const wrapper = mount(<FileInput {...props} />)
-      wrapper.find('button.remove-file').at(1).simulate('click') // note: at() is 0 indexed
-      await flushPromises()
+      render(<FileInput {...props} />)
+
+      const removeButton = screen.getByRole('button', {
+        name: /remove secondFile/i,
+      })
+      await user.click(removeButton)
 
       expect(onChange).toHaveBeenCalled()
       expect(onChange.mock.calls[0][0]).toHaveLength(2)
@@ -371,6 +395,7 @@ describe('FileInput', () => {
     })
 
     test('shows error when remove fails', async () => {
+      const user = userEvent.setup()
       const ERROR_MESSAGE = 'cannot read'
       const file = { name: 'fileName', url: 'data:,' }
       const readFiles = jest.fn()
@@ -383,15 +408,14 @@ describe('FileInput', () => {
         readFiles,
         onRemove,
       }
-      const wrapper = mount(<FileInput {...props} />)
-      expect(wrapper.find('span.error-message').exists()).toBe(false)
+      render(<FileInput {...props} />)
 
-      await act(() => {
-        wrapper.find('button.remove-file').simulate('click')
-        return flushPromises().then(() => wrapper.update())
+      expect(screen.queryByText(ERROR_MESSAGE)).not.toBeInTheDocument()
+
+      user.click(screen.getByRole('button', { name: /remove filename/i }))
+      await waitFor(() => {
+        expect(screen.getByText(ERROR_MESSAGE)).toBeInTheDocument()
       })
-
-      expect(wrapper.find('span.error-message').text()).toBe(ERROR_MESSAGE)
     })
   })
 })
@@ -411,10 +435,4 @@ export function mockFileReader(fileData) {
   const mockReader = createMockFileReader(fileData)
   // eslint-disable-next-line no-undef
   jest.spyOn(global, 'FileReader').mockImplementation(() => new mockReader())
-}
-
-// Resolves when other ongoing promises have resolved
-// https://stackoverflow.com/a/51045733
-export function flushPromises() {
-  return new Promise(window.setImmediate) // eslint-disable-line no-undef
 }

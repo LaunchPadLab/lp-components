@@ -1,136 +1,167 @@
 import React, { createRef } from 'react'
-import { mount, shallow } from 'enzyme'
 import { Button } from '../../../src/'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
 test('Button is aria-disabled when form is invalid', () => {
-  const wrapper = shallow(<Button invalid={true}> Hi</Button>)
-  expect(wrapper.props()['aria-disabled']).toBe(true)
+  render(<Button invalid={true}>Hi</Button>)
+  const button = screen.getByRole('button')
+
+  expect(button).toHaveAttribute('aria-disabled')
 })
 
 test('Button is aria-disabled when form is pristine', () => {
-  const wrapper = shallow(<Button pristine={true}> Hi</Button>)
-  expect(wrapper.props()['aria-disabled']).toBe(true)
+  render(<Button pristine={true}>Hi</Button>)
+  const button = screen.getByRole('button')
+
+  expect(button).toHaveAttribute('aria-disabled')
 })
 
-test('Button onClick is run when the form is not submitting, pristine, or invalid', () => {
+test('Button onClick is run when the form is not submitting, pristine, or invalid', async () => {
+  const user = userEvent.setup()
   const onClick = jest.fn()
+
   const formProps = {
     invalid: false,
     pristine: false,
     submitting: false,
   }
-  const wrapper = shallow(
+  render(
     <Button onClick={onClick} {...formProps}>
-      {' '}
       Hi
     </Button>
   )
-  wrapper.find('button').simulate('click')
+
+  const button = screen.getByRole('button')
+  await user.click(button)
 
   expect(onClick).toHaveBeenCalled()
 })
 
-test('Button onClick is not run when form is invalid', () => {
+test('Button onClick is not run when form is invalid', async () => {
+  const user = userEvent.setup()
   const onClick = jest.fn()
-  const wrapper = mount(
+
+  render(
     <Button onClick={onClick} invalid={true}>
-      {' '}
       Hi
     </Button>
   )
-  wrapper.find('button').simulate('click')
+
+  const button = screen.getByRole('button')
+  await user.click(button)
 
   expect(onClick).not.toHaveBeenCalled()
 })
 
-test('Button onClick is not run when form is pristine', () => {
+test('Button onClick is not run when form is pristine', async () => {
+  const user = userEvent.setup()
   const onClick = jest.fn()
-  const wrapper = mount(
+
+  render(
     <Button onClick={onClick} pristine={true}>
-      {' '}
       Hi
     </Button>
   )
-  wrapper.find('button').simulate('click')
+
+  const button = screen.getByRole('button')
+  await user.click(button)
 
   expect(onClick).not.toHaveBeenCalled()
 })
 
-test('Button onClick is not run when form is submitting', () => {
+test('Button onClick is not run when form is submitting', async () => {
+  const user = userEvent.setup()
   const onClick = jest.fn()
-  const wrapper = mount(
+
+  render(
     <Button onClick={onClick} submitting={true}>
-      {' '}
       Hi
     </Button>
   )
-  wrapper.find('button').simulate('click')
+
+  const button = screen.getByRole('button')
+  await user.click(button)
 
   expect(onClick).not.toHaveBeenCalled()
 })
 
 test('Button adds variant string to class', () => {
-  const wrapper = shallow(<Button variant="custom"> Hi</Button>)
-  expect(wrapper.hasClass('button-custom')).toBe(true)
+  render(<Button variant="custom">Hi</Button>)
+  const button = screen.getByRole('button')
+
+  expect(button).toHaveClass('button-custom')
 })
 
 test('Button adds type to button', () => {
-  const wrapper = shallow(<Button type="reset"> Hi</Button>)
-  expect(wrapper.props().type).toBe('reset')
+  render(<Button type="reset">Hi</Button>)
+  const button = screen.getByRole('button')
+
+  expect(button).toHaveAttribute('type', 'reset')
 })
 
 test('Button has class "in-progress" when form is submitting', () => {
-  const wrapper = shallow(<Button submitting={true}> Hi</Button>)
-  expect(wrapper.hasClass('in-progress')).toBe(true)
+  render(<Button submitting={true}>Hi</Button>)
+  const button = screen.getByRole('button')
+
+  expect(button).toHaveClass('in-progress')
 })
 
 test('Button passes extra props to button element', () => {
-  const onClick = () => 'yo'
-  const wrapper = shallow(<Button onClick={onClick}> Hi</Button>)
-  expect(wrapper.props().onClick).toBe(onClick)
+  render(<Button test="test">Hi</Button>)
+  const button = screen.getByRole('button')
+
+  expect(button).toHaveAttribute('test')
 })
 
 test('Specifying a class name prop does not override variant class', () => {
-  const wrapper = shallow(
+  render(
     <Button variant="primary" className="button-large">
       Click Me
     </Button>
   )
-  expect(wrapper.hasClass('button-primary')).toBe(true)
-  expect(wrapper.hasClass('button-large')).toBe(true)
+  const button = screen.getByRole('button')
+
+  expect(button).toHaveClass('button-primary', 'button-large')
 })
 
 test('Specifying a class name prop does not override is-disabled class', () => {
-  const wrapper = shallow(
+  render(
     <Button className="button-large" invalid>
       Click Me
     </Button>
   )
-  expect(wrapper.hasClass('is-disabled')).toBe(true)
-  expect(wrapper.hasClass('button-large')).toBe(true)
+  const button = screen.getByRole('button')
+
+  expect(button).toHaveClass('is-disabled', 'button-large')
 })
 
 test('Specifying a class name prop does not override in-progress class', () => {
-  const wrapper = shallow(
+  render(
     <Button className="button-large" submitting>
       Submit
     </Button>
   )
-  expect(wrapper.hasClass('in-progress')).toBe(true)
-  expect(wrapper.hasClass('button-large')).toBe(true)
-})
+  const button = screen.getByRole('button')
 
-test('Button can receive object style prop', () => {
-  const wrapper = shallow(<Button style={{ display: 'none' }}>Submit</Button>)
-  expect(wrapper.find('button').prop('style').display).toEqual('none')
+  expect(button).toHaveClass('in-progress', 'button-large')
 })
 
 test('Button passes down forwardedRef to button', () => {
   const ref = createRef()
-  const wrapper = mount(
+  render(
     <Button id="my-button" ref={ref}>
       Click Me
     </Button>
   )
-  expect(wrapper.find('button').prop('id')).toEqual(ref.current.id)
+  const button = screen.getByRole('button')
+
+  expect(button).toHaveProperty('id', ref.current.id)
+})
+
+test('Button can receive object style prop', () => {
+  render(<Button style={{ display: 'none' }}>Submit</Button>)
+  const button = screen.getByRole('button', { hidden: true })
+
+  expect(button).toHaveStyle('display: none;')
 })

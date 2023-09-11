@@ -1,41 +1,60 @@
-import React from 'react'
-import { mount } from 'enzyme'
+import React, { useState } from 'react'
 import { CheckboxGroup } from '../../../src/'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
-test('CheckboxGroup adds value to array when unselected option clicked', () => {
-  const onChange = jest.fn()
-  const TOGGLED_OPTION = 'TOGGLED_OPTION'
-  const props = {
+const WrappedCheckboxGroup = (props) => {
+  const [value, setValue] = useState([])
+
+  const options = [
+    { key: 'First Option', value: '1' },
+    { key: 'Second Option', value: '2' },
+    { key: 'Third Option', value: '3' },
+  ]
+
+  const defaultProps = {
     input: {
       name: 'test',
-      value: [],
-      onChange,
+      value: value,
+      onChange: setValue,
     },
     meta: {},
-    options: [TOGGLED_OPTION],
+    options: options,
   }
-  const wrapper = mount(<CheckboxGroup {...props} />)
-  wrapper.find('input').simulate('change')
-  const newValue = onChange.mock.calls[0][0]
-  expect(newValue).toEqual([TOGGLED_OPTION])
+
+  return <CheckboxGroup {...defaultProps} {...props} />
+}
+
+test('CheckboxGroup adds value to array when unselected option clicked', async () => {
+  const user = userEvent.setup()
+
+  render(<WrappedCheckboxGroup />)
+
+  const checkbox1 = screen.getByRole('checkbox', { name: 'First Option' })
+  const checkbox2 = screen.getByRole('checkbox', { name: 'Second Option' })
+  const checkbox3 = screen.getByRole('checkbox', { name: 'Third Option' })
+
+  await user.click(checkbox2)
+  await user.click(checkbox3)
+
+  expect(checkbox1).not.toBeChecked()
+  expect(checkbox2).toBeChecked()
+  expect(checkbox3).toBeChecked()
 })
 
-test('CheckboxGroup removes value to array when selected option clicked', () => {
-  const onChange = jest.fn()
-  const TOGGLED_OPTION = 'TOGGLED_OPTION'
-  const props = {
-    input: {
-      name: 'test',
-      value: [TOGGLED_OPTION],
-      onChange,
-    },
-    meta: {},
-    options: [TOGGLED_OPTION],
-  }
-  const wrapper = mount(<CheckboxGroup {...props} />)
-  wrapper.find('input').simulate('change')
-  const newValue = onChange.mock.calls[0][0]
-  expect(newValue).toEqual([])
+test('CheckboxGroup removes value to array when selected option clicked', async () => {
+  const user = userEvent.setup()
+
+  render(<WrappedCheckboxGroup />)
+
+  const checkbox2 = screen.getByRole('checkbox', { name: 'Second Option' })
+  await user.click(checkbox2)
+
+  expect(checkbox2).toBeChecked()
+
+  await user.click(checkbox2)
+
+  expect(checkbox2).not.toBeChecked()
 })
 
 test("CheckboxGroup has a legend with the group's name by default", () => {
@@ -45,12 +64,10 @@ test("CheckboxGroup has a legend with the group's name by default", () => {
       value: '',
     },
     meta: {},
-    options: ['TOGGLED_OPTION'],
   }
-  const wrapper = mount(<CheckboxGroup {...props} />)
-  const legend = wrapper.find('fieldset').first().find('legend')
-  expect(legend).toBeTruthy()
-  expect(legend.text()).toEqual('Test Group')
+  render(<CheckboxGroup {...props} />)
+
+  expect(screen.getByText('Test Group')).toBeInTheDocument()
 })
 
 test("CheckboxGroup has a legend with the group's label (when provided)", () => {
@@ -61,12 +78,10 @@ test("CheckboxGroup has a legend with the group's label (when provided)", () => 
     },
     label: 'Checkbox Group',
     meta: {},
-    options: ['TOGGLED_OPTION'],
   }
-  const wrapper = mount(<CheckboxGroup {...props} />)
-  const legend = wrapper.find('fieldset').first().find('legend')
-  expect(legend).toBeTruthy()
-  expect(legend.text()).toEqual('Checkbox Group')
+  render(<CheckboxGroup {...props} />)
+
+  expect(screen.getByText('Checkbox Group')).toBeInTheDocument()
 })
 
 test('CheckboxGroup does not pass class to children', () => {
@@ -79,8 +94,13 @@ test('CheckboxGroup does not pass class to children', () => {
     options: ['TOGGLED_OPTION'],
     className: 'custom-class',
   }
-  const wrapper = mount(<CheckboxGroup {...props} />)
-  expect(wrapper.find('.custom-class').hostNodes().length).toBe(1)
+  render(<CheckboxGroup {...props} />)
+
+  const checkboxGroup = screen.getByRole('group', { name: 'Test Group' })
+  const checkbox = screen.getByRole('checkbox')
+
+  expect(checkboxGroup).toHaveClass('custom-class')
+  expect(checkbox).not.toHaveClass('custom-class')
 })
 
 test('CheckboxGroup passes down props to children', () => {
@@ -96,7 +116,12 @@ test('CheckboxGroup passes down props to children', () => {
       className: 'custom-input-class',
     },
   }
-  const wrapper = mount(<CheckboxGroup {...props} />)
-  expect(wrapper.find('input.custom-group-class').exists()).toBe(false)
-  expect(wrapper.find('input.custom-input-class').exists()).toBe(true)
+  render(<CheckboxGroup {...props} />)
+
+  const checkboxGroup = screen.getByRole('group', { name: 'Test Group' })
+  const checkbox = screen.getByRole('checkbox')
+
+  expect(checkboxGroup).toHaveClass('custom-group-class')
+  expect(checkbox).not.toHaveClass('custom-group-class')
+  expect(checkbox).toHaveClass('custom-input-class')
 })

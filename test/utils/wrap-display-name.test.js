@@ -55,7 +55,7 @@ describe('Wrap Display Name', () => {
   })
 
   test("wraps 'Component' with the name of an HoC if the Component has no displayName or name values", () => {
-    expect(wrapDisplayName(React.Component, 'someHoC')).toBe(
+    expect(wrapDisplayName({}, 'someHoC')).toBe(
       'someHoC(Component)'
     )
   })

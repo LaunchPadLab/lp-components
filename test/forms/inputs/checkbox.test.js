@@ -1,8 +1,57 @@
-import React from 'react'
-import { mount } from 'enzyme'
+import React, { useState } from 'react'
 import { Checkbox } from '../../../src/'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
-test('Checkbox toggles value when clicked', () => {
+const WrappedCheckbox = () => {
+  const [value, setValue] = useState(false)
+
+  const props = {
+    input: {
+      name: 'test',
+      value: value,
+      onChange: () => setValue(!value),
+    },
+    meta: {},
+  }
+
+  return <Checkbox {...props} />
+}
+
+test('Checkbox toggles value when clicked', async () => {
+  const user = userEvent.setup()
+
+  render(<WrappedCheckbox />)
+
+  const checkbox = screen.getByRole('checkbox')
+
+  expect(checkbox).not.toBeChecked()
+
+  await user.click(checkbox)
+
+  expect(checkbox).toBeChecked()
+
+  await user.click(checkbox)
+
+  expect(checkbox).not.toBeChecked()
+})
+
+test('Checkbox is checked with true value', async () => {
+  const props = {
+    input: {
+      name: 'test',
+      value: true,
+      onChange: jest.fn(),
+    },
+    meta: {},
+  }
+  render(<Checkbox {...props} />)
+  const checkbox = screen.getByRole('checkbox')
+
+  expect(checkbox).toBeChecked()
+})
+
+test('Checkbox is not checked with false value', () => {
   const onChange = jest.fn()
   const props = {
     input: {
@@ -12,10 +61,11 @@ test('Checkbox toggles value when clicked', () => {
     },
     meta: {},
   }
-  const wrapper = mount(<Checkbox {...props} />)
-  wrapper.find('input').simulate('change')
-  const newValue = onChange.mock.calls[0][0]
-  expect(newValue).toEqual(true)
+
+  render(<Checkbox {...props} />)
+  const checkbox = screen.getByRole('checkbox')
+
+  expect(checkbox).not.toBeChecked()
 })
 
 test('Checkbox is given an aria-describedby attribute when there is an input error', () => {
@@ -30,8 +80,10 @@ test('Checkbox is given an aria-describedby attribute when there is an input err
       invalid: true,
     },
   }
-  const wrapper = mount(<Checkbox {...props} />)
-  expect(wrapper.find('input').prop('aria-describedby')).toContain(name)
+  render(<Checkbox {...props} />)
+  const checkbox = screen.getByRole('checkbox')
+
+  expect(checkbox).toHaveAttribute('aria-describedby', 'testError')
 })
 
 test('Checkbox does not receive invalid dom attributes', () => {
@@ -44,6 +96,8 @@ test('Checkbox does not receive invalid dom attributes', () => {
     onClickLabel: () => 'foo',
   }
 
-  const wrapper = mount(<Checkbox {...props} />)
-  expect(wrapper.find('input').prop('onClickLabel')).toBe(undefined)
+  render(<Checkbox {...props} />)
+  const checkbox = screen.getByRole('checkbox')
+
+  expect(checkbox).not.toHaveAttribute('onClickLabel')
 })

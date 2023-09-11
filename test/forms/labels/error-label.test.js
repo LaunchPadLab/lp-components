@@ -1,15 +1,14 @@
 import React from 'react'
-import { shallow } from 'enzyme'
 import { ErrorLabel } from '../../../src'
+import { render, screen } from '@testing-library/react'
 
 test('passes class to span element correctly', () => {
-  const wrapper = shallow(<ErrorLabel className="small">Error!</ErrorLabel>)
-  expect(wrapper.hasClass('error-message')).toBe(true)
-  expect(wrapper.hasClass('small')).toBe(true)
+  render(<ErrorLabel className="small">Error!</ErrorLabel>)
+  const label = screen.getByText('Error!')
+  expect(label).toHaveClass('error-message', 'small')
 })
 
 test('passes extra props to span element', () => {
-  const onClick = () => 'More info'
-  const wrapper = shallow(<ErrorLabel onClick={onClick}>Error!</ErrorLabel>)
-  expect(wrapper.props().onClick).toBe(onClick)
+  render(<ErrorLabel data-test="foo">Error!</ErrorLabel>)
+  expect(screen.getByText('Error!')).toHaveAttribute('data-test', 'foo')
 })

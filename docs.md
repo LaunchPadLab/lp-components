@@ -1700,12 +1700,12 @@ Returns **[String][142]** String with namespace removed
 ### Parameters
 
 *   `fn` **[Function][143]** The function to trigger
-*   `keyCodes` **([Number][145] | [String][142] | [Array][146]<([Number][145] | [String][142])>)** Number, String, or Array of key codes
+*   `keys` **([String][142] | [Array][146]<[String][142]>)** String or Array of keys
 
 ### Examples
 
 ```javascript
-const triggerOnEnter = triggerOnKeys(() => console.log('Hi'), [13])
+const triggerOnEnter = triggerOnKeys(() => console.log('Hi'), ['Enter'])
 function MyExample () { return <Example onKeyPress={triggerOnEnter} /> }
 ```
 

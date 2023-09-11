@@ -1,6 +1,6 @@
 {
   "name": "@launchpadlab/lp-components",
-  "version": "9.0.0",
+  "version": "9.1.0",
   "engines": {
     "node": "^18.12"
   },
@@ -70,14 +70,16 @@
     "@storybook/builder-webpack5": "^6.5.14",
     "@storybook/manager-webpack5": "^6.5.14",
     "@storybook/react": "^6.4.22",
-    "@wojtekmaj/enzyme-adapter-react-17": "^0.8.0",
+    "@testing-library/dom": "^9.3.1",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^12.1.5",
+    "@testing-library/user-event": "^14.4.3",
     "babel-loader": "^9.1.0",
     "bourbon": "^7.2.0",
     "bourbon-neat": "^4.0.0",
     "core-js": "^3.21.1",
     "css-loader": "^6.7.2",
     "documentation": "^14.0.2",
-    "enzyme": "^3.2.0",
     "eslint": "^8.46.0",
     "husky": "^8.0.3",
     "jest": "^29.6.2",

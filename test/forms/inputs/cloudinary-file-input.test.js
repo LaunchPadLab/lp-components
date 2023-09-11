@@ -1,12 +1,11 @@
 import React from 'react'
-import { mount } from 'enzyme'
+import { render, screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { CloudinaryFileInput } from '../../../src/'
-import { mockFileReader, flushPromises } from './file-input.test'
-import { act } from 'react-dom/test-utils'
 
 const name = 'name.of.field'
 const value = { name: 'existingFileName', url: 'value of field' }
-const onChange = () => {}
+const onChange = () => { }
 const input = { name, value, onChange }
 const PUBLIC_URL = 'url-of-uploaded-file'
 const uploadResponse = { url: PUBLIC_URL }
@@ -22,10 +21,6 @@ jest.mock(
 // These tests rely on the mock implementation of cloudinaryUploader in __mocks__,
 // which just passes all props through to its child.
 
-beforeEach(() => {
-  jest.clearAllMocks()
-})
-
 test('CloudinaryFileInput adds uploadStatus to className', () => {
   const className = 'foo'
   const props = {
@@ -37,41 +32,43 @@ test('CloudinaryFileInput adds uploadStatus to className', () => {
     cloudName,
     bucket,
   }
-  const wrapper = mount(<CloudinaryFileInput {...props} />)
-  expect(wrapper.find('fieldset.foo.upload-success').exists()).toEqual(true)
+  render(<CloudinaryFileInput {...props} />)
+
+  const fieldset = screen.getByRole('group')
+  expect(fieldset).toHaveClass(className)
+  expect(fieldset).toHaveClass(uploadStatus)
 })
 
 test('CloudinaryFileInput sets returned url within value', async () => {
-  const fakeFileEvent = {
-    target: { files: [{ name: 'fileName', type: 'image/png' }] },
-  }
-  mockFileReader('data')
+  const file = new File(['content'], 'fileName.png', { type: 'image/png' })
   const onChange = jest.fn()
   const props = {
-    input: { ...input, onChange },
+    input: { name, value, onChange },
     meta: {},
     upload,
     uploadStatus,
     cloudName,
     bucket,
   }
-  const wrapper = mount(<CloudinaryFileInput {...props} />)
-  const internalOnChange = wrapper.find('input').prop('onChange')
-  // internally calls upload, which resolves with file
-  internalOnChange(fakeFileEvent)
+  const user = userEvent.setup()
+  render(<CloudinaryFileInput {...props} />)
 
-  await flushPromises()
-  expect(onChange).toHaveBeenCalled()
-  expect(onChange.mock.calls[0][0][0].url).toBe(PUBLIC_URL)
+  const input = screen.getByLabelText(/select file/i)
+
+  user.upload(input, file)
+  await waitFor(() => {
+    expect(onChange).toHaveBeenCalledWith([
+      expect.objectContaining({ url: PUBLIC_URL }),
+    ])
+  })
 })
 
 test('CloudinaryFileInput calls success handler with response on successful upload of a single file', async () => {
-  const fakeFileEvent = { target: { files: [{ name: 'fileName' }] } }
+  const file = new File(['content'], 'fileName.png', { type: 'image/png' })
   const onUploadSuccess = jest.fn()
-  mockFileReader()
 
   const props = {
-    input: { ...input, onChange: jest.fn() },
+    input: { name, value, onChange: jest.fn() },
     meta: {},
     upload,
     uploadStatus,
@@ -79,22 +76,26 @@ test('CloudinaryFileInput calls success handler with response on successful uplo
     bucket,
     onUploadSuccess,
   }
-  const wrapper = mount(<CloudinaryFileInput {...props} />)
-  const internalOnChange = wrapper.find('input').prop('onChange')
-  internalOnChange(fakeFileEvent)
 
-  await flushPromises()
-  expect(onUploadSuccess).toHaveBeenCalled()
-  expect(onUploadSuccess.mock.calls[0][0].url).toBe(PUBLIC_URL)
+  const user = userEvent.setup()
+  render(<CloudinaryFileInput {...props} />)
+
+  const input = screen.getByLabelText(/select file/i)
+  user.upload(input, file)
+
+  await waitFor(() => {
+    expect(onUploadSuccess).toHaveBeenCalledWith(
+      expect.objectContaining({ url: PUBLIC_URL })
+    )
+  })
 })
 
 test('CloudinaryFileInput calls success handler with array of responses on successful uploads of multiple files', async () => {
-  const fakeFileEvent = { target: { files: [{ name: 'fileName' }] } }
+  const file = new File(['content'], 'fileName.png', { type: 'image/png' })
   const onUploadSuccess = jest.fn()
-  mockFileReader()
 
   const props = {
-    input: { ...input, onChange: jest.fn() },
+    input: { name, value, onChange: jest.fn() },
     meta: {},
     upload,
     uploadStatus,
@@ -103,24 +104,27 @@ test('CloudinaryFileInput calls success handler with array of responses on succe
     onUploadSuccess,
     multiple: true,
   }
-  const wrapper = mount(<CloudinaryFileInput {...props} />)
-  const internalOnChange = wrapper.find('input').prop('onChange')
-  internalOnChange(fakeFileEvent)
 
-  await flushPromises()
-  expect(onUploadSuccess).toHaveBeenCalled()
-  expect(onUploadSuccess.mock.calls[0][0][0].url).toBe(PUBLIC_URL)
+  const user = userEvent.setup()
+  render(<CloudinaryFileInput {...props} />)
+
+  const input = screen.getByLabelText(/select file/i)
+  user.upload(input, file)
+  await waitFor(() => {
+    expect(onUploadSuccess).toHaveBeenCalledWith([
+      expect.objectContaining({ url: PUBLIC_URL }),
+    ])
+  })
 })
 
 test('CloudinaryFileInput calls error handler with error on failed upload', async () => {
-  const fakeFileEvent = { target: { files: [{}] } }
+  const file = new File(['content'], '*&^*^(*&', { type: 'image/png' })
   const onUploadFailure = jest.fn()
   const failureResponse = { errors: 'Invalid filename' }
   const upload = () => Promise.reject(failureResponse)
-  mockFileReader()
 
   const props = {
-    input: { ...input, onChange: jest.fn() },
+    input: { name, value: '', onChange: jest.fn() },
     meta: {},
     upload,
     uploadStatus,
@@ -128,10 +132,13 @@ test('CloudinaryFileInput calls error handler with error on failed upload', asyn
     bucket,
     onUploadFailure,
   }
-  const wrapper = mount(<CloudinaryFileInput {...props} />)
-  const internalOnChange = wrapper.find('input').prop('onChange')
 
-  // Ensure that any state changes have occurred before asserting (e.g., setErrors(e))
-  await act(() => internalOnChange(fakeFileEvent))
-  expect(onUploadFailure).toHaveBeenCalledWith(failureResponse)
+  const user = userEvent.setup()
+  render(<CloudinaryFileInput {...props} />)
+
+  const input = screen.getByLabelText(/select file/i)
+  user.upload(input, file)
+  await waitFor(() => {
+    expect(onUploadFailure).toHaveBeenCalledWith(failureResponse)
+  })
 })

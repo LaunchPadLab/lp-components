@@ -1,20 +1,22 @@
 import React from 'react'
-import { shallow } from 'enzyme'
 import { SubmitButton } from '../../../src/'
+import { render, screen } from '@testing-library/react'
 
 test('SubmitButton adds type="submit" to button', () => {
-  const wrapper = shallow(<SubmitButton> Hi</SubmitButton>)
-  expect(wrapper.props().type).toBe('submit')
+  render(<SubmitButton>Hi</SubmitButton>)
+  const button = screen.getByRole('button')
+
+  expect(button).toHaveAttribute('type', 'submit')
 })
 
 test('SubmitButton passes down other props to button', () => {
-  const wrapper = shallow(
+  render(
     <SubmitButton pristine={true} variant="custom">
-      {' '}
       Hi
     </SubmitButton>
   )
-  const button = wrapper.dive()
-  expect(button.props()['aria-disabled']).toBe(true)
-  expect(button.hasClass('button-custom')).toBe(true)
+  const button = screen.getByRole('button')
+
+  expect(button).toHaveAttribute('aria-disabled')
+  expect(button).toHaveClass('button-custom')
 })

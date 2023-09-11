@@ -80,7 +80,7 @@ function ColorPicker({
           }}
         />
         {isExpanded && (
-          <div className="popover">
+          <div className="popover" role="dialog">
             <ChromePicker
               color={value}
               onChange={({ hex }) => onChange(hex)}
