@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { ColorInput } from '../../../src/'
-import { render, screen, act } from '@testing-library/react'
+import { render, screen, waitForElementToBeRemoved } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 const WrappedColorInput = ({ defaultValue='', ...rest }) => {
@@ -36,7 +36,7 @@ test('ColorInput hex input does not add hash to empty value', async () => {
   render(<WrappedColorInput defaultValue="#000000" />)
 
   const input = screen.getByRole('textbox')
-  await act(() => user.clear(input))
+  await user.clear(input)
 
   expect(input).toHaveValue('')
 })
@@ -69,9 +69,9 @@ test('ColorInput closes dropdown when clicked outside', async () => {
   const { container } = render(<WrappedColorInput />)
 
   const input = screen.getByRole('textbox')
-  await act(() => user.click(input))
+  await user.click(input)
   expect(screen.getByRole('dialog')).toBeInTheDocument()
 
-  await act(() => user.click(container))
-  expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+  user.click(container)
+  await waitForElementToBeRemoved(screen.queryByRole('dialog'))
 })

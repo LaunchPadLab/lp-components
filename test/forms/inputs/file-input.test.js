@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen, act } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { FileInput } from '../../../src/'
@@ -204,9 +204,10 @@ describe('FileInput', () => {
     render(<FileInput {...props} />)
 
     const input = screen.getByLabelText(/select file/i)
-    await act(() => user.upload(input, file))
-
-    expect(screen.getByText(ERROR_MESSAGE)).toBeInTheDocument()
+    user.upload(input, file)
+    await waitFor(() => {
+      expect(screen.getByText(ERROR_MESSAGE)).toBeInTheDocument()
+    })
   })
 
   test('shows error that occurs from reading', async () => {
@@ -224,9 +225,10 @@ describe('FileInput', () => {
     render(<FileInput {...props} />)
 
     const input = screen.getByLabelText(/select file/i)
-    await act(() => user.upload(input, file))
-
-    expect(screen.getByText(ERROR_MESSAGE)).toBeInTheDocument()
+    user.upload(input, file)
+    await waitFor(() => {
+      expect(screen.getByText(ERROR_MESSAGE)).toBeInTheDocument()
+    })
   })
 
   describe('with "multiple" enabled', () => {
@@ -410,9 +412,10 @@ describe('FileInput', () => {
 
       expect(screen.queryByText(ERROR_MESSAGE)).not.toBeInTheDocument()
 
-      await act(() => user.click(screen.getByRole('button', { name: /remove filename/i })))
-
-      expect(screen.getByText(ERROR_MESSAGE)).toBeInTheDocument()
+      user.click(screen.getByRole('button', { name: /remove filename/i }))
+      await waitFor(() => {
+        expect(screen.getByText(ERROR_MESSAGE)).toBeInTheDocument()
+      })
     })
   })
 })

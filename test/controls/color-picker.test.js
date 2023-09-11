@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen, act } from '@testing-library/react'
+import { render, screen, waitForElementToBeRemoved } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { ColorPicker } from '../../src/'
 
@@ -9,9 +9,9 @@ test('ColorPicker toggles expanded when swatch is clicked', async () => {
   const swatchControl = screen.getByRole('button')
 
   expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
-  await act(() => user.click(swatchControl))
+  await user.click(swatchControl)
   expect(screen.queryByRole('dialog')).toBeInTheDocument()
-  await act(() => user.click(swatchControl))
+  await user.click(swatchControl)
   expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
 })
 
@@ -28,10 +28,11 @@ test('ColorPicker closes when a click is registered outside', async () => {
   const { container } = render(<ColorPicker />)
   const swatchControl = screen.getByRole('button')
 
-  await act(() => user.click(swatchControl))
+  await user.click(swatchControl)
   expect(screen.queryByRole('dialog')).toBeInTheDocument()
-  await act(() => user.click(container))
-  expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+
+  user.click(container)
+  await waitForElementToBeRemoved(screen.queryByRole('dialog'))
 })
 
 test('ColorPicker calls on change with a hex value', async () => {
@@ -40,7 +41,7 @@ test('ColorPicker calls on change with a hex value', async () => {
   render(<ColorPicker onChange={mock} />)
   const swatchControl = screen.getByRole('button')
 
-  await act(() => user.click(swatchControl))
+  await user.click(swatchControl)
   const input = screen.getByRole('textbox')
   await user.clear(input)
   await user.type(input, '639')

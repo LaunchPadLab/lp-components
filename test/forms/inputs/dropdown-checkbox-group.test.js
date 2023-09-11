@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { DropdownCheckboxGroup } from '../../../src/'
-import { render, screen, act } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 const WrappedDropdownCheckboxGroup = (props) => {
@@ -68,12 +68,14 @@ test('DropdownCheckboxGroup sets menu no longer active when clicked outside', as
   render(<WrappedDropdownCheckboxGroup value={['1']} />)
 
   const select = screen.getByRole('button')
-  await act(() => user.click(select))
+  await user.click(select)
 
   expect(select.nextSibling).toHaveClass('options', 'is-active')
 
   const fieldset = screen.getAllByRole('group').at(0)
-  await act(() => user.click(fieldset))
 
-  expect(select.nextSibling).not.toHaveClass('is-active')
+  user.click(fieldset)
+  await waitFor(() => {
+    expect(select.nextSibling).not.toHaveClass('is-active')
+  })
 })
