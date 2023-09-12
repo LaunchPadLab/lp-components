@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import cloudinaryUploader from '../../../../src/forms/inputs/cloudinary-file-input/cloudinary-uploader'
 
@@ -372,7 +372,7 @@ describe('cloudinaryUploader', () => {
     spy.mockRestore()
   })
 
-  test('throws an error if request fails', () => {
+  test('throws an error if request fails', async () => {
     const Wrapped = jest.fn(() => <h1>Hi</h1>)
     const Wrapper = cloudinaryUploader({ ...props, endpoint: '/failure' })(
       Wrapped
@@ -382,7 +382,9 @@ describe('cloudinaryUploader', () => {
 
     expect.assertions(1)
 
-    return expect(upload(fileData, file)).rejects.toThrow()
+    await act(async () => {
+      await expect(upload(fileData, file)).rejects.toThrow()
+    })
   })
 
   test('updates the `uploadStatus` prop if request fails', async () => {
@@ -396,7 +398,10 @@ describe('cloudinaryUploader', () => {
     )
     const user = userEvent.setup()
     render(<Wrapper />)
-    user.click(screen.getByText('Upload'))
+    await act(async () => {
+      await user.click(screen.getByText('Upload'))
+    })
+
     await waitFor(() => {
       expect(screen.getByText('upload-failure')).toBeInTheDocument()
     })
