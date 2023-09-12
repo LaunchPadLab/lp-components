@@ -1,5 +1,6 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import cloudinaryUploader from '../../../../src/forms/inputs/cloudinary-file-input/cloudinary-uploader'
 
 class MockResponse {
@@ -32,7 +33,7 @@ class MockResponse {
 }
 
 const mockApi = {
-  post: jest.fn(function (url, body, options = {}) {
+  post: function (url, body, options = {}) {
     const response = new MockResponse(url, options, body)
     // Simulate server response
     return new Promise((resolve, reject) => {
@@ -41,7 +42,7 @@ const mockApi = {
         return resolve(response)
       }, 10)
     })
-  }),
+  },
 }
 
 const props = {
@@ -56,6 +57,15 @@ const file = {
 }
 
 const fileData = 'mockData'
+
+const AsyncWrapper = ({ onSuccess=() => {}, fileData, file, uploadStatus, upload }) => (
+  <div>
+    <p>{uploadStatus}</p>
+    <button onClick={async () => {
+      return onSuccess(await upload(fileData, file))
+    }}>Upload</button>
+  </div>
+)
 
 describe('cloudinaryUploader', () => {
   // eslint-disable-next-line no-undef
@@ -137,137 +147,151 @@ describe('cloudinaryUploader', () => {
     }), {})
   })
 
-  test('sends the api request with the correct options', () => {
-    const Wrapped = jest.fn(() => <h1>Hi</h1>)
+  test('sends the api request with the correct options', async () => {
+    let response
+    const Wrapped = (props) => <AsyncWrapper onSuccess={(res) => { response = res }} fileData={fileData} file={file} {...props} />
     const Wrapper = cloudinaryUploader(props)(Wrapped)
+    const user = userEvent.setup()
     render(<Wrapper />)
 
-    const { upload } = Wrapped.mock.calls[0][0]
-
-    return upload(fileData, file).then((response) => {
-      const { uploadStatus } = Wrapped.mock.calls[2][0]
-      expect(uploadStatus).toEqual('upload-success')
-      const responseJson = JSON.parse(response.body)
-      expect(responseJson.file).toEqual(fileData)
-      expect(responseJson.folder).toEqual(props.bucket)
-      expect(responseJson.public_id).toEqual('test')
-      expect(responseJson.upload_preset).toEqual('default')
+    await user.click(screen.getByText('Upload'))
+    await waitFor(() => {
+      expect(screen.getByText('upload-success')).toBeInTheDocument()
     })
+
+    const responseJson = JSON.parse(response.body)
+    expect(responseJson.file).toEqual(fileData)
+    expect(responseJson.folder).toEqual(props.bucket)
+    expect(responseJson.public_id).toEqual('test')
+    expect(responseJson.upload_preset).toEqual('default')
   })
 
-  test('sets `publicId`', () => {
-    const Wrapped = jest.fn(() => <h1>Hi</h1>)
+  test('sets `publicId`', async () => {
+    let response
+    const Wrapped = (props) => <AsyncWrapper onSuccess={(res) => { response = res }} fileData={fileData} file={file} {...props} />
     const Wrapper = cloudinaryUploader({
       ...props,
       cloudinaryPublicId: 'custom-name',
     })(Wrapped)
+    const user = userEvent.setup()
     render(<Wrapper />)
-    const { upload } = Wrapped.mock.calls[0][0]
-
-    return upload(fileData, file).then((response) => {
-      const responseJson = JSON.parse(response.body)
-      expect(responseJson.public_id).toEqual('custom-name')
+    await user.click(screen.getByText('Upload'))
+    await waitFor(() => {
+      expect(screen.getByText('upload-success')).toBeInTheDocument()
     })
+    const responseJson = JSON.parse(response.body)
+    expect(responseJson.public_id).toEqual('custom-name')
   })
 
-  test('allows custom `publicId` creator', () => {
-    const Wrapped = jest.fn(() => <h1>Hi</h1>)
+  test('allows custom `publicId` creator', async () => {
+    let response
+    const Wrapped = (props) => <AsyncWrapper onSuccess={(res) => { response = res }} fileData={fileData} file={file} {...props} />
     const createPublicId = (file) => 'foo-' + file.name
     const Wrapper = cloudinaryUploader({ ...props, createPublicId })(Wrapped)
+    const user = userEvent.setup()
     render(<Wrapper />)
-    const { upload } = Wrapped.mock.calls[0][0]
-
-    return upload(fileData, file).then((response) => {
-      const responseJson = JSON.parse(response.body)
-      expect(responseJson.public_id).toEqual('foo-test')
+    await user.click(screen.getByText('Upload'))
+    await waitFor(() => {
+      expect(screen.getByText('upload-success')).toBeInTheDocument()
     })
+    const responseJson = JSON.parse(response.body)
+    expect(responseJson.public_id).toEqual('foo-test')
   })
 
-  test('overrides custom `publicId` creator with `cloudinaryPublicId`', () => {
-    const Wrapped = jest.fn(() => <h1>Hi</h1>)
+  test('overrides custom `publicId` creator with `cloudinaryPublicId`', async () => {
+    let response
+    const Wrapped = (props) => <AsyncWrapper onSuccess={(res) => { response = res }} fileData={fileData} file={file} {...props} />
     const createPublicId = (file) => 'foo-' + file.name
     const Wrapper = cloudinaryUploader({
       ...props,
       createPublicId,
       cloudinaryPublicId: 'custom-name',
     })(Wrapped)
+    const user = userEvent.setup()
     render(<Wrapper />)
-    const { upload } = Wrapped.mock.calls[0][0]
-
-    return upload(fileData, file).then((response) => {
-      const responseJson = JSON.parse(response.body)
-      expect(responseJson.public_id).toEqual('custom-name')
+    await user.click(screen.getByText('Upload'))
+    await waitFor(() => {
+      expect(screen.getByText('upload-success')).toBeInTheDocument()
     })
+    const responseJson = JSON.parse(response.body)
+    expect(responseJson.public_id).toEqual('custom-name')
   })
 
-  test('adds extension to `publicId` of raw files', () => {
+  test('adds extension to `publicId` of raw files', async () => {
     const rawFile = { name: 'test.xls', type: 'application/xls' }
-    const Wrapped = jest.fn(() => <h1>Hi</h1>)
+    let response
+    const Wrapped = (props) => <AsyncWrapper onSuccess={(res) => { response = res }} fileData={fileData} file={rawFile} {...props} />
     const Wrapper = cloudinaryUploader({
       ...props,
       cloudinaryPublicId: 'custom-name',
     })(Wrapped)
+    const user = userEvent.setup()
     render(<Wrapper />)
-    const { upload } = Wrapped.mock.calls[0][0]
-
-    return upload(fileData, rawFile).then((response) => {
-      const responseJson = JSON.parse(response.body)
-      expect(responseJson.public_id).toEqual('custom-name.xls')
+    await user.click(screen.getByText('Upload'))
+    await waitFor(() => {
+      expect(screen.getByText('upload-success')).toBeInTheDocument()
     })
+    const responseJson = JSON.parse(response.body)
+    expect(responseJson.public_id).toEqual('custom-name.xls')
   })
 
-  test('does not set an empty `publicId`', () => {
+  test('does not set an empty `publicId`', async () => {
     const rawFile = { name: 'test.xls', type: 'application/xls' }
-    const Wrapped = jest.fn(() => <h1>Hi</h1>)
+    let response
+    const Wrapped = (props) => <AsyncWrapper onSuccess={(res) => { response = res }} fileData={fileData} file={rawFile} {...props} />
     const Wrapper = cloudinaryUploader({
       ...props,
       createPublicId: () => ''
     })(Wrapped)
+    const user = userEvent.setup()
     render(<Wrapper />)
-    const { upload } = Wrapped.mock.calls[0][0]
-
-    return upload(fileData, rawFile).then((response) => {
-      const responseJson = JSON.parse(response.body)
-      expect(responseJson.public_id).toBeUndefined()
+    await user.click(screen.getByText('Upload'))
+    await waitFor(() => {
+      expect(screen.getByText('upload-success')).toBeInTheDocument()
     })
+    const responseJson = JSON.parse(response.body)
+    expect(responseJson.public_id).toBeUndefined()
   })
 
-  test('removes invalid characters from the default `publicId`', () => {
+  test('removes invalid characters from the default `publicId`', async () => {
     const FORBIDDEN_PATTERN = /[\s?&#\\%<>]/gi
     const illegallyNamedFile = {
       name: 'Final \\ Master %20 Schedule? #S1&S2 <100%> & finished.pdf',
       type: 'application/pdf',
     }
-    const Wrapped = jest.fn(() => <h1>Howdy</h1>)
+    let response
+    const Wrapped = (props) => <AsyncWrapper onSuccess={(res) => { response = res }} fileData={fileData} file={illegallyNamedFile} {...props} />
     const Wrapper = cloudinaryUploader({ ...props })(Wrapped)
+    const user = userEvent.setup()
     render(<Wrapper />)
-    const { upload } = Wrapped.mock.calls[0][0]
-
-
-    return upload(fileData, illegallyNamedFile).then((response) => {
-      const responseJson = JSON.parse(response.body)
-      expect(responseJson.public_id).not.toMatch(FORBIDDEN_PATTERN)
-      expect(responseJson.public_id).toEqual('Final_Master_Schedule_S1_S2_100_finished')
+    await user.click(screen.getByText('Upload'))
+    await waitFor(() => {
+      expect(screen.getByText('upload-success')).toBeInTheDocument()
     })
+    const responseJson = JSON.parse(response.body)
+    expect(responseJson.public_id).not.toMatch(FORBIDDEN_PATTERN)
+    expect(responseJson.public_id).toEqual('Final_Master_Schedule_S1_S2_100_finished')
   })
 
-  test('removes html escaped characters from the default `publicId`', () => {
+  test('removes html escaped characters from the default `publicId`', async () => {
     const illegallyNamedFile = {
       name: 'SY%20S1%26S2.pdf',
       type: 'application/pdf',
     }
-    const Wrapped = jest.fn(() => <h1>Howdy</h1>)
+    let response
+    const Wrapped = (props) => <AsyncWrapper onSuccess={(res) => { response = res }} fileData={fileData} file={illegallyNamedFile} {...props} />
     const Wrapper = cloudinaryUploader({ ...props })(Wrapped)
+    const user = userEvent.setup()
     render(<Wrapper />)
-    const { upload } = Wrapped.mock.calls[0][0]
-
-    return upload(fileData, illegallyNamedFile).then((response) => {
-      const responseJson = JSON.parse(response.body)
-      expect(responseJson.public_id).toEqual('SY_S1_S2')
+    await user.click(screen.getByText('Upload'))
+    await waitFor(() => {
+      expect(screen.getByText('upload-success')).toBeInTheDocument()
     })
+    const responseJson = JSON.parse(response.body)
+    expect(responseJson.public_id).toEqual('SY_S1_S2')
   })
 
-  test('sanitizes the original `publicId` when decoding fails', () => {
+  test('sanitizes the original `publicId` when decoding fails', async () => {
     const illegallyNamedFile = {
       name: 'Final \\ Master %20 Schedule? #S1&S2 <100%> & finished.pdf',
       type: 'application/pdf',
@@ -277,67 +301,75 @@ describe('cloudinaryUploader', () => {
     const spy = jest.spyOn(window, 'decodeURIComponent').mockImplementation(() => {
       throw Error('Oops!')
     })
-    const Wrapped = jest.fn(() => <h1>Howdy</h1>)
+    let response
+    const Wrapped = (props) => <AsyncWrapper onSuccess={(res) => { response = res }} fileData={fileData} file={illegallyNamedFile} {...props} />
     const Wrapper = cloudinaryUploader({ ...props })(Wrapped)
+    const user = userEvent.setup()
     render(<Wrapper />)
-    const { upload } = Wrapped.mock.calls[0][0]
-
-    return upload(fileData, illegallyNamedFile).then((response) => {
-      const responseJson = JSON.parse(response.body)
-      expect(responseJson.public_id).toEqual('Final_Master_20_Schedule_S1_S2_100_finished')
-
-      spy.mockRestore()
+    await user.click(screen.getByText('Upload'))
+    await waitFor(() => {
+      expect(screen.getByText('upload-success')).toBeInTheDocument()
     })
+    const responseJson = JSON.parse(response.body)
+    expect(responseJson.public_id).toEqual('Final_Master_20_Schedule_S1_S2_100_finished')
+
+    spy.mockRestore()
   })
 
-  test('replaces spaces and removes superfluous underscores from the default `publicId`', () => {
+  test('replaces spaces and removes superfluous underscores from the default `publicId`', async () => {
     const illegallyNamedFile = {
       name: '     SY     S1___S2.pdf',
       type: 'application/pdf',
     }
-    const Wrapped = jest.fn(() => <h1>Howdy</h1>)
+    let response
+    const Wrapped = (props) => <AsyncWrapper onSuccess={(res) => { response = res }} fileData={fileData} file={illegallyNamedFile} {...props} />
     const Wrapper = cloudinaryUploader({ ...props })(Wrapped)
+    const user = userEvent.setup()
     render(<Wrapper />)
-    const { upload } = Wrapped.mock.calls[0][0]
-
-    return upload(fileData, illegallyNamedFile).then((response) => {
-      const responseJson = JSON.parse(response.body)
-      expect(responseJson.public_id).toEqual('SY_S1_S2')
+    await user.click(screen.getByText('Upload'))
+    await waitFor(() => {
+      expect(screen.getByText('upload-success')).toBeInTheDocument()
     })
+    const responseJson = JSON.parse(response.body)
+    expect(responseJson.public_id).toEqual('SY_S1_S2')
   })
 
-  test('trims spaces from the start of the default `publicId`', () => {
+  test('trims spaces from the start of the default `publicId`', async () => {
     const illegallyNamedFile = {
       name: '     Example.pdf',
       type: 'application/pdf',
     }
-    const Wrapped = jest.fn(() => <h1>Howdy</h1>)
+    let response
+    const Wrapped = (props) => <AsyncWrapper onSuccess={(res) => { response = res }} fileData={fileData} file={illegallyNamedFile} {...props} />
     const Wrapper = cloudinaryUploader({ ...props })(Wrapped)
+    const user = userEvent.setup()
     render(<Wrapper />)
-    const { upload } = Wrapped.mock.calls[0][0]
-
-    return upload(fileData, illegallyNamedFile).then((response) => {
-      const responseJson = JSON.parse(response.body)
-      expect(responseJson.public_id).toEqual('Example')
+    await user.click(screen.getByText('Upload'))
+    await waitFor(() => {
+      expect(screen.getByText('upload-success')).toBeInTheDocument()
     })
+    const responseJson = JSON.parse(response.body)
+    expect(responseJson.public_id).toEqual('Example')
   })
 
-  test('defaults file name if not provided when creating the default `publicId`', () => {
+  test('defaults file name if not provided when creating the default `publicId`', async () => {
     const fileWithNoName = { name: '', type: 'application/pdf' }
-    const Wrapped = jest.fn(() => <h1>Howdy</h1>)
+    let response
+    const Wrapped = (props) => <AsyncWrapper onSuccess={(res) => { response = res }} fileData={fileData} file={fileWithNoName} {...props} />
     const Wrapper = cloudinaryUploader({ ...props })(Wrapped)
+    const user = userEvent.setup()
     render(<Wrapper />)
-    const { upload } = Wrapped.mock.calls[0][0]
     // eslint-disable-next-line no-undef
     const spy = jest.spyOn(global.Date, 'now')
-
-    return upload(fileData, fileWithNoName).then((response) => {
-      const responseJson = JSON.parse(response.body)
-      expect(responseJson.public_id).toContain('file_upload')
-      expect(spy).toHaveBeenCalled()
-
-      spy.mockRestore()
+    await user.click(screen.getByText('Upload'))
+    await waitFor(() => {
+      expect(screen.getByText('upload-success')).toBeInTheDocument()
     })
+
+    const responseJson = JSON.parse(response.body)
+    expect(responseJson.public_id).toContain('file_upload')
+    expect(spy).toHaveBeenCalled()
+    spy.mockRestore()
   })
 
   test('throws an error if request fails', () => {
@@ -353,18 +385,20 @@ describe('cloudinaryUploader', () => {
     return expect(upload(fileData, file)).rejects.toThrow()
   })
 
-  test('updates the `uploadStatus` prop if request fails', () => {
-    const Wrapped = jest.fn(() => <h1>Hi</h1>)
+  test('updates the `uploadStatus` prop if request fails', async () => {
+    const Wrapped = (props) => <AsyncWrapper fileData={fileData} file={file} {...props} upload={(...args) => {
+      props.upload(...args).catch(() => {
+        // ignore thrown error
+      })
+    }} />
     const Wrapper = cloudinaryUploader({ ...props, endpoint: '/failure' })(
       Wrapped
     )
+    const user = userEvent.setup()
     render(<Wrapper />)
-    const { upload } = Wrapped.mock.calls[0][0]
-
-    expect.assertions(1)
-    return upload(fileData, file).catch(() => {
-      const { uploadStatus } = Wrapped.mock.calls[2][0]
-      expect(uploadStatus).toEqual('upload-failure')
+    user.click(screen.getByText('Upload'))
+    await waitFor(() => {
+      expect(screen.getByText('upload-failure')).toBeInTheDocument()
     })
   })
 })
