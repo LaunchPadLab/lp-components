@@ -58,12 +58,22 @@ const file = {
 
 const fileData = 'mockData'
 
-const AsyncWrapper = ({ onSuccess=() => {}, fileData, file, uploadStatus, upload }) => (
+const AsyncWrapper = ({
+  onSuccess = () => {},
+  fileData,
+  file,
+  uploadStatus,
+  upload,
+}) => (
   <div>
     <p>{uploadStatus}</p>
-    <button onClick={async () => {
-      return onSuccess(await upload(fileData, file))
-    }}>Upload</button>
+    <button
+      onClick={async () => {
+        return onSuccess(await upload(fileData, file))
+      }}
+    >
+      Upload
+    </button>
   </div>
 )
 
@@ -92,7 +102,9 @@ describe('cloudinaryUploader', () => {
     process.env.CLOUDINARY_CLOUD_NAME = 'foo'
     jest.spyOn(console, 'error').mockImplementation(() => null) // avoid console bloat
     const Wrapped = () => <h1>Hi</h1>
-    const Wrapper = cloudinaryUploader({ apiAdapter: props.apiAdapter })(Wrapped)
+    const Wrapper = cloudinaryUploader({ apiAdapter: props.apiAdapter })(
+      Wrapped
+    )
     expect(() => render(<Wrapper />)).toThrow()
     jest.restoreAllMocks()
   })
@@ -102,7 +114,9 @@ describe('cloudinaryUploader', () => {
     process.env.CLOUDINARY_BUCKET = 'bar'
     jest.spyOn(console, 'error').mockImplementation(() => null) // avoid console bloat
     const Wrapped = () => <h1>Hi</h1>
-    const Wrapper = cloudinaryUploader({ apiAdapter: props.apiAdapter })(Wrapped)
+    const Wrapper = cloudinaryUploader({ apiAdapter: props.apiAdapter })(
+      Wrapped
+    )
     expect(() => render(<Wrapper />)).toThrow()
     jest.restoreAllMocks()
   })
@@ -125,31 +139,45 @@ describe('cloudinaryUploader', () => {
     // eslint-disable-next-line no-undef
     process.env.CLOUDINARY_BUCKET = 'bar'
     const Wrapped = () => <h1>Hi</h1>
-    const Wrapper = cloudinaryUploader({ apiAdapter: props.apiAdapter })(Wrapped)
+    const Wrapper = cloudinaryUploader({ apiAdapter: props.apiAdapter })(
+      Wrapped
+    )
     expect(() => render(<Wrapper />)).not.toThrow()
   })
 
   test('can receive options as props', () => {
     const Wrapped = () => <h1>Hi</h1>
     const Wrapper = cloudinaryUploader()(Wrapped)
-    expect(() => render(
-      <Wrapper cloudName="foo" bucket="bar" apiAdapter={() => {}} />
-    )).not.toThrow()
+    expect(() =>
+      render(<Wrapper cloudName="foo" bucket="bar" apiAdapter={() => {}} />)
+    ).not.toThrow()
   })
 
   test('adds upload props to component', () => {
     const Wrapped = jest.fn(() => <h1>Hi</h1>)
     const Wrapper = cloudinaryUploader(props)(Wrapped)
     render(<Wrapper />)
-    expect(Wrapped).toHaveBeenCalledWith(expect.objectContaining({
-      upload: expect.any(Function),
-      uploadStatus: expect.any(String),
-    }), {})
+    expect(Wrapped).toHaveBeenCalledWith(
+      expect.objectContaining({
+        upload: expect.any(Function),
+        uploadStatus: expect.any(String),
+      }),
+      {}
+    )
   })
 
   test('sends the api request with the correct options', async () => {
     let response
-    const Wrapped = (props) => <AsyncWrapper onSuccess={(res) => { response = res }} fileData={fileData} file={file} {...props} />
+    const Wrapped = (props) => (
+      <AsyncWrapper
+        onSuccess={(res) => {
+          response = res
+        }}
+        fileData={fileData}
+        file={file}
+        {...props}
+      />
+    )
     const Wrapper = cloudinaryUploader(props)(Wrapped)
     const user = userEvent.setup()
     render(<Wrapper />)
@@ -168,7 +196,16 @@ describe('cloudinaryUploader', () => {
 
   test('sets `publicId`', async () => {
     let response
-    const Wrapped = (props) => <AsyncWrapper onSuccess={(res) => { response = res }} fileData={fileData} file={file} {...props} />
+    const Wrapped = (props) => (
+      <AsyncWrapper
+        onSuccess={(res) => {
+          response = res
+        }}
+        fileData={fileData}
+        file={file}
+        {...props}
+      />
+    )
     const Wrapper = cloudinaryUploader({
       ...props,
       cloudinaryPublicId: 'custom-name',
@@ -185,7 +222,16 @@ describe('cloudinaryUploader', () => {
 
   test('allows custom `publicId` creator', async () => {
     let response
-    const Wrapped = (props) => <AsyncWrapper onSuccess={(res) => { response = res }} fileData={fileData} file={file} {...props} />
+    const Wrapped = (props) => (
+      <AsyncWrapper
+        onSuccess={(res) => {
+          response = res
+        }}
+        fileData={fileData}
+        file={file}
+        {...props}
+      />
+    )
     const createPublicId = (file) => 'foo-' + file.name
     const Wrapper = cloudinaryUploader({ ...props, createPublicId })(Wrapped)
     const user = userEvent.setup()
@@ -200,7 +246,16 @@ describe('cloudinaryUploader', () => {
 
   test('overrides custom `publicId` creator with `cloudinaryPublicId`', async () => {
     let response
-    const Wrapped = (props) => <AsyncWrapper onSuccess={(res) => { response = res }} fileData={fileData} file={file} {...props} />
+    const Wrapped = (props) => (
+      <AsyncWrapper
+        onSuccess={(res) => {
+          response = res
+        }}
+        fileData={fileData}
+        file={file}
+        {...props}
+      />
+    )
     const createPublicId = (file) => 'foo-' + file.name
     const Wrapper = cloudinaryUploader({
       ...props,
@@ -220,7 +275,16 @@ describe('cloudinaryUploader', () => {
   test('adds extension to `publicId` of raw files', async () => {
     const rawFile = { name: 'test.xls', type: 'application/xls' }
     let response
-    const Wrapped = (props) => <AsyncWrapper onSuccess={(res) => { response = res }} fileData={fileData} file={rawFile} {...props} />
+    const Wrapped = (props) => (
+      <AsyncWrapper
+        onSuccess={(res) => {
+          response = res
+        }}
+        fileData={fileData}
+        file={rawFile}
+        {...props}
+      />
+    )
     const Wrapper = cloudinaryUploader({
       ...props,
       cloudinaryPublicId: 'custom-name',
@@ -238,10 +302,19 @@ describe('cloudinaryUploader', () => {
   test('does not set an empty `publicId`', async () => {
     const rawFile = { name: 'test.xls', type: 'application/xls' }
     let response
-    const Wrapped = (props) => <AsyncWrapper onSuccess={(res) => { response = res }} fileData={fileData} file={rawFile} {...props} />
+    const Wrapped = (props) => (
+      <AsyncWrapper
+        onSuccess={(res) => {
+          response = res
+        }}
+        fileData={fileData}
+        file={rawFile}
+        {...props}
+      />
+    )
     const Wrapper = cloudinaryUploader({
       ...props,
-      createPublicId: () => ''
+      createPublicId: () => '',
     })(Wrapped)
     const user = userEvent.setup()
     render(<Wrapper />)
@@ -260,7 +333,16 @@ describe('cloudinaryUploader', () => {
       type: 'application/pdf',
     }
     let response
-    const Wrapped = (props) => <AsyncWrapper onSuccess={(res) => { response = res }} fileData={fileData} file={illegallyNamedFile} {...props} />
+    const Wrapped = (props) => (
+      <AsyncWrapper
+        onSuccess={(res) => {
+          response = res
+        }}
+        fileData={fileData}
+        file={illegallyNamedFile}
+        {...props}
+      />
+    )
     const Wrapper = cloudinaryUploader({ ...props })(Wrapped)
     const user = userEvent.setup()
     render(<Wrapper />)
@@ -270,7 +352,9 @@ describe('cloudinaryUploader', () => {
     })
     const responseJson = JSON.parse(response.body)
     expect(responseJson.public_id).not.toMatch(FORBIDDEN_PATTERN)
-    expect(responseJson.public_id).toEqual('Final_Master_Schedule_S1_S2_100_finished')
+    expect(responseJson.public_id).toEqual(
+      'Final_Master_Schedule_S1_S2_100_finished'
+    )
   })
 
   test('removes html escaped characters from the default `publicId`', async () => {
@@ -279,7 +363,16 @@ describe('cloudinaryUploader', () => {
       type: 'application/pdf',
     }
     let response
-    const Wrapped = (props) => <AsyncWrapper onSuccess={(res) => { response = res }} fileData={fileData} file={illegallyNamedFile} {...props} />
+    const Wrapped = (props) => (
+      <AsyncWrapper
+        onSuccess={(res) => {
+          response = res
+        }}
+        fileData={fileData}
+        file={illegallyNamedFile}
+        {...props}
+      />
+    )
     const Wrapper = cloudinaryUploader({ ...props })(Wrapped)
     const user = userEvent.setup()
     render(<Wrapper />)
@@ -298,11 +391,22 @@ describe('cloudinaryUploader', () => {
     }
 
     // eslint-disable-next-line no-undef
-    const spy = jest.spyOn(window, 'decodeURIComponent').mockImplementation(() => {
-      throw Error('Oops!')
-    })
+    const spy = jest
+      .spyOn(window, 'decodeURIComponent')
+      .mockImplementation(() => {
+        throw Error('Oops!')
+      })
     let response
-    const Wrapped = (props) => <AsyncWrapper onSuccess={(res) => { response = res }} fileData={fileData} file={illegallyNamedFile} {...props} />
+    const Wrapped = (props) => (
+      <AsyncWrapper
+        onSuccess={(res) => {
+          response = res
+        }}
+        fileData={fileData}
+        file={illegallyNamedFile}
+        {...props}
+      />
+    )
     const Wrapper = cloudinaryUploader({ ...props })(Wrapped)
     const user = userEvent.setup()
     render(<Wrapper />)
@@ -311,7 +415,9 @@ describe('cloudinaryUploader', () => {
       expect(screen.getByText('upload-success')).toBeInTheDocument()
     })
     const responseJson = JSON.parse(response.body)
-    expect(responseJson.public_id).toEqual('Final_Master_20_Schedule_S1_S2_100_finished')
+    expect(responseJson.public_id).toEqual(
+      'Final_Master_20_Schedule_S1_S2_100_finished'
+    )
 
     spy.mockRestore()
   })
@@ -322,7 +428,16 @@ describe('cloudinaryUploader', () => {
       type: 'application/pdf',
     }
     let response
-    const Wrapped = (props) => <AsyncWrapper onSuccess={(res) => { response = res }} fileData={fileData} file={illegallyNamedFile} {...props} />
+    const Wrapped = (props) => (
+      <AsyncWrapper
+        onSuccess={(res) => {
+          response = res
+        }}
+        fileData={fileData}
+        file={illegallyNamedFile}
+        {...props}
+      />
+    )
     const Wrapper = cloudinaryUploader({ ...props })(Wrapped)
     const user = userEvent.setup()
     render(<Wrapper />)
@@ -340,7 +455,16 @@ describe('cloudinaryUploader', () => {
       type: 'application/pdf',
     }
     let response
-    const Wrapped = (props) => <AsyncWrapper onSuccess={(res) => { response = res }} fileData={fileData} file={illegallyNamedFile} {...props} />
+    const Wrapped = (props) => (
+      <AsyncWrapper
+        onSuccess={(res) => {
+          response = res
+        }}
+        fileData={fileData}
+        file={illegallyNamedFile}
+        {...props}
+      />
+    )
     const Wrapper = cloudinaryUploader({ ...props })(Wrapped)
     const user = userEvent.setup()
     render(<Wrapper />)
@@ -355,7 +479,16 @@ describe('cloudinaryUploader', () => {
   test('defaults file name if not provided when creating the default `publicId`', async () => {
     const fileWithNoName = { name: '', type: 'application/pdf' }
     let response
-    const Wrapped = (props) => <AsyncWrapper onSuccess={(res) => { response = res }} fileData={fileData} file={fileWithNoName} {...props} />
+    const Wrapped = (props) => (
+      <AsyncWrapper
+        onSuccess={(res) => {
+          response = res
+        }}
+        fileData={fileData}
+        file={fileWithNoName}
+        {...props}
+      />
+    )
     const Wrapper = cloudinaryUploader({ ...props })(Wrapped)
     const user = userEvent.setup()
     render(<Wrapper />)
@@ -388,11 +521,18 @@ describe('cloudinaryUploader', () => {
   })
 
   test('updates the `uploadStatus` prop if request fails', async () => {
-    const Wrapped = (props) => <AsyncWrapper fileData={fileData} file={file} {...props} upload={(...args) => {
-      props.upload(...args).catch(() => {
-        // ignore thrown error
-      })
-    }} />
+    const Wrapped = (props) => (
+      <AsyncWrapper
+        fileData={fileData}
+        file={file}
+        {...props}
+        upload={(...args) => {
+          props.upload(...args).catch(() => {
+            // ignore thrown error
+          })
+        }}
+      />
+    )
     const Wrapper = cloudinaryUploader({ ...props, endpoint: '/failure' })(
       Wrapped
     )
