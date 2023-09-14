@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { DateInput } from '../../../src/'
-import { render, screen } from '@testing-library/react'
+import { render, screen, act, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 const name = 'name.of.field'
@@ -8,6 +8,8 @@ const value = '2020-01-01'
 const noop = () => {}
 const input = { name, value }
 const error = 'input error'
+
+const sleep = () => new Promise((r) => setTimeout(() => r(), 5000))
 
 const WrappedDateInput = (props) => {
   const [value, setValue] = useState('')
@@ -38,9 +40,14 @@ test('DateInput updates the value on change', async () => {
   render(<WrappedDateInput />)
 
   const input = screen.getByRole('textbox', { name: 'Field' })
-  await user.type(input, '02/02/2023{Enter}')
 
-  expect(input).toHaveValue('02/02/2023')
+  await user.click(input)
+  await user.type(input, '02/02/2023')
+  await user.click(screen.getByRole('option', { selected: true }))
+  await waitFor(() => {
+    expect(screen.queryByLabelText('Next Month')).not.toBeInTheDocument()
+    expect(input).toHaveValue('02/02/2023')
+  })
 })
 
 test('DateInput sets the placeholder text correctly', () => {
