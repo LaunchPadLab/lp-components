@@ -140,7 +140,8 @@ function RadioGroup(props) {
     className,
     radioInputProps,
     ...rest
-  } = omitLabelProps(props)
+  } = props
+  const inputProps = omitLabelProps(rest)
   const optionObjects = serializeOptions(options)
   return (
     <LabeledField
@@ -164,7 +165,7 @@ function RadioGroup(props) {
               meta: {},
               checked: value === option.value,
               label: option.key,
-              ...rest,
+              ...inputProps,
               ...radioInputProps,
             }}
           />

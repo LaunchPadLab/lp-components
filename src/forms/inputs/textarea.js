@@ -72,7 +72,8 @@ function Textarea(props) {
     maxLength,
     forwardedRef,
     ...rest
-  } = omitLabelProps(props)
+  } = props
+  const inputProps = filterInvalidDOMProps(omitLabelProps(rest))
   return (
     <LabeledField
       className={classnames(className, {
@@ -97,7 +98,7 @@ function Textarea(props) {
           'aria-describedby': hasInputError(meta)
             ? generateInputErrorId(name)
             : null,
-          ...filterInvalidDOMProps(rest),
+          ...inputProps,
         }}
       />
     </LabeledField>

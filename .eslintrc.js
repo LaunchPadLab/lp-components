@@ -6,4 +6,7 @@ module.exports = {
     node: false,
     'shared-node-browser': true,
   },
+  globals: {
+    File: true,
+  },
 }

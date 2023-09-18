@@ -81,7 +81,8 @@ function MaskedInput(props) {
     onInit,
     htmlRef,
     ...rest
-  } = omitLabelProps(props)
+  } = props
+  const inputProps = filterInvalidDOMProps(omitLabelProps(rest))
 
   return (
     <LabeledField {...props}>
@@ -99,7 +100,7 @@ function MaskedInput(props) {
             options: maskOptions,
             onInit,
             htmlRef: createHtmlRefCallback(htmlRef),
-            ...filterInvalidDOMProps(rest),
+            ...inputProps,
           }}
         />
         {children}

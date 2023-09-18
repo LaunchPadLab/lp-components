@@ -1,99 +1,117 @@
 import React from 'react'
-import { mount } from 'enzyme'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { Paginator } from '../../../src/'
 
-test('Previous button renders unless value is min', () => {
-  const wrapper = mount(<Paginator value={5} min={1} max={10} />)
-  expect(wrapper.find('.prev').exists()).toBe(true)
-  wrapper.setProps({ value: 1 })
-  expect(wrapper.find('.prev').exists()).toBe(false)
-})
+describe('Paginator', () => {
+  test('Previous control renders unless value is min', () => {
+    const { rerender } = render(<Paginator value={5} min={1} max={10} />)
+    expect(screen.getByRole('link', { name: /previous page/i })).toBeInTheDocument()
+    rerender(<Paginator value={1} min={1} max={10} />)
+    expect(screen.queryByRole('link', { name: /previous page/i })).not.toBeInTheDocument()
+  })
 
-test('Next button renders unless value is max', () => {
-  const wrapper = mount(<Paginator value={5} min={1} max={10} />)
-  expect(wrapper.find('.next').exists()).toBe(true)
-  wrapper.setProps({ value: 10 })
-  expect(wrapper.find('.next').exists()).toBe(false)
-})
+  test('Next control renders unless value is max', () => {
+    const { rerender } = render(<Paginator value={5} min={1} max={10} />)
+    expect(screen.getByRole('link', { name: /next page/i })).toBeInTheDocument()
+    rerender(<Paginator value={10} min={1} max={10} />)
+    expect(screen.queryByRole('link', { name: /next page/i })).not.toBeInTheDocument()
+  })
 
-test('Button with current value is marked as active', () => {
-  const wrapper = mount(<Paginator value={5} min={1} max={10} />)
-  expect(wrapper.find('.active').text()).toBe('5')
-})
+  test('Control with current value is marked as active', () => {
+    render(<Paginator value={5} min={1} max={10} />)
+    expect(screen.getByText(5).parentElement).toHaveClass('active')
+  })
 
-test('Button click sets value', () => {
-  const onChange = jest.fn()
-  const wrapper = mount(
-    <Paginator value={5} min={1} max={10} onChange={onChange} />
-  )
-  wrapper.find('li > a').at(2).simulate('click')
-  expect(onChange).toHaveBeenCalledWith(4)
-})
+  test('Control click sets value', async () => {
+    const onChange = jest.fn()
+    const user = userEvent.setup()
 
-test('Previous button decrements value', () => {
-  const onChange = jest.fn()
-  const wrapper = mount(
-    <Paginator value={5} min={1} max={10} onChange={onChange} />
-  )
-  wrapper.find('li > a').first().simulate('click')
-  expect(onChange).toHaveBeenCalledWith(4)
-})
+    render(
+      <Paginator value={5} min={1} max={10} onChange={onChange} />
+    )
+    await user.click(screen.getAllByRole('link').at(2))
+    expect(onChange).toHaveBeenCalledWith(4)
+  })
 
-test('Next button increments value', () => {
-  const onChange = jest.fn()
-  const wrapper = mount(
-    <Paginator value={5} min={1} max={10} onChange={onChange} />
-  )
-  wrapper.find('li > a').last().simulate('click')
-  expect(onChange).toHaveBeenCalledWith(6)
-})
+  test('Previous control decrements value', async () => {
+    const onChange = jest.fn()
+    const user = userEvent.setup()
+    const currentValue = 5
+    render(
+      <Paginator value={currentValue} min={1} max={10} onChange={onChange} />
+    )
+    await user.click(screen.getByRole('link', { name: /previous page/i }))
+    expect(onChange).toHaveBeenCalledWith(currentValue - 1)
+  })
 
-test('Min button sets value to min', () => {
-  const onChange = jest.fn()
-  const wrapper = mount(
-    <Paginator value={5} min={1} max={10} onChange={onChange} />
-  )
-  wrapper.find('li > a').at(1).simulate('click')
-  expect(onChange).toHaveBeenCalledWith(1)
-})
+  test('Next control increments value', async () => {
+    const onChange = jest.fn()
+    const user = userEvent.setup()
+    const currentValue = 5
+    render(
+      <Paginator value={currentValue} min={1} max={10} onChange={onChange} />
+    )
+    await user.click(screen.getByRole('link', { name: /next page/i }))
+    expect(onChange).toHaveBeenCalledWith(currentValue + 1)
+  })
 
-test('Max button sets value to max', () => {
-  const onChange = jest.fn()
-  const wrapper = mount(
-    <Paginator value={5} min={1} max={10} onChange={onChange} />
-  )
-  wrapper.find('li > a').at(5).simulate('click')
-  expect(onChange).toHaveBeenCalledWith(10)
-})
+  test('Min control sets value to min', async () => {
+    const onChange = jest.fn()
+    const user = userEvent.setup()
+    render(
+      <Paginator value={5} min={1} max={10} onChange={onChange} />
+    )
+    await user.click(screen.getByRole('link', { name: /page 1$/ }))
+    expect(onChange).toHaveBeenCalledWith(1)
+  })
 
-test('Current page is indicated via aria-current', () => {
-  const wrapper = mount(<Paginator value={5} min={1} max={10} />)
-  expect(wrapper.find('.active > a').prop('aria-current')).toBe('page')
-  expect(wrapper.find('a').not('.active').first().prop('aria-current')).toBe(
-    false
-  )
-})
+  test('Max control sets value to max', async () => {
+    const onChange = jest.fn()
+    const user = userEvent.setup()
+    render(
+      <Paginator value={5} min={1} max={10} onChange={onChange} />
+    )
+    await user.click(screen.getByRole('link', { name: /page 10$/ }))
+    expect(onChange).toHaveBeenCalledWith(10)
+  })
 
-test('Destination is indicated via aria-label', () => {
-  const wrapper = mount(<Paginator value={5} min={1} max={10} />)
-  expect(wrapper.find('.active > a').prop('aria-label')).toBe('Go to page 5')
-})
+  test('Current page is indicated via aria-current', () => {
+    render(<Paginator value={5} min={1} max={10} />)
+    expect(screen.getByText(5)).toHaveAttribute('aria-current', 'page')
+    expect(screen.getByText(1)).toHaveAttribute('aria-current', 'false')
+  })
 
-test('Page button is triggered via click or enter', () => {
-  const onChange = jest.fn()
-  const wrapper = mount(
-    <Paginator value={5} min={1} max={10} onChange={onChange} />
-  )
-  const link = wrapper.find('li > a').at(2)
-  link.simulate('click')
-  link.simulate('keypress', { keyCode: 13 })
+  test('Destination is indicated via aria-label', () => {
+    render(<Paginator value={5} min={1} max={10} />)
+    expect(screen.getByLabelText('Go to page 5')).toBeInTheDocument()
+  })
 
-  expect(onChange).toHaveBeenCalledTimes(2)
-})
+  test('Page control is triggered via click or enter', async () => {
+    const onChange = jest.fn()
+    const user = userEvent.setup()
+    render(
+      <Paginator value={5} min={1} max={10} onChange={onChange} />
+    )
 
-test('Can accept custom delimiter', () => {
-  const wrapper = mount(
-    <Paginator value={1} min={1} max={10} delimiter="foo" />
-  )
-  expect(wrapper.find('.delimiter').contains('foo')).toBe(true)
+    await user.click(screen.getByLabelText('Go to page 1'))
+    await user.keyboard('{Enter}')
+    expect(onChange).toHaveBeenNthCalledWith(1, 1)
+    expect(onChange).toHaveBeenNthCalledWith(2, 1)
+  })
+
+  test('Can accept custom delimiter', () => {
+    render(
+      <Paginator value={1} min={1} max={10} delimiter="foo" />
+    )
+    expect(screen.getByText('foo')).toBeInTheDocument()
+  })
+
+  test('Renders empty state by default when only 1 page exists', () => {
+    render(
+      <Paginator value={1} min={1} max={1} />
+    )
+    expect(screen.getByRole('navigation')).toBeInTheDocument()
+    expect(screen.queryByRole('link', { name: /page 1$/ })).not.toBeInTheDocument()
+  })
 })

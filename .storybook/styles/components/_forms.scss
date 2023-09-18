@@ -159,11 +159,15 @@ Checkbox
     display: inline-block;
     width: calc(100% - 32px);
   }
+}
 
-  .tooltip-trigger {
-    float: initial;
-    width: auto;
-  }
+.tooltip-trigger {
+  float: initial;
+  width: auto;
+  padding: 0;
+  border: none;
+  background: none;
+  margin-left: 10px;
 }
 
 input[type='checkbox'] {
@@ -262,10 +266,8 @@ Input Tooltip
   display: inline-block;
   height: 18px;
   font-size: 12px;
-  margin-left: 10px;
   text-align: center;
   line-height: 1.4;
-  vertical-align: text-top;
   width: 18px;
 }
 
@@ -443,6 +445,8 @@ Custom Dropdown Select
     @include font-type($primary-sans-serif, normal, 400);
     @include s-base;
     @include rem(padding, 7px 13px);
+    width: 100%;
+    text-align: left;
 
     &:after {
       // background-image: asset-url('dropdown.svg');

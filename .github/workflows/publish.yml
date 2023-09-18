@@ -1,0 +1,23 @@
+name: Publish
+run-name: ${{ github.actor }} published a new release
+on:
+  release:
+    types: [published]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out latest code
+        uses: actions/checkout@v3
+      - name: Set up node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+          registry-url: 'https://registry.npmjs.org'
+          scope: '@launchpadlab'
+      - name: Install dependencies
+        run: HUSKY=0 yarn --frozen-lockfile
+      - name: Publish package on NPM
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

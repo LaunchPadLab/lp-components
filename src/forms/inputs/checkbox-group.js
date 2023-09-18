@@ -130,7 +130,9 @@ function CheckboxGroup(props) {
     checkboxInputProps,
     isDropdown,
     ...rest
-  } = omitLabelProps(props)
+  } = props
+  const inputProps = omitLabelProps(rest)
+
   const optionObjects = serializeOptions(options)
   // Build change handler
   const handleChange = function (option) {
@@ -156,7 +158,7 @@ function CheckboxGroup(props) {
             },
             meta: {},
             label: option.key,
-            ...rest,
+            ...inputProps,
             ...checkboxInputProps,
           }}
         />

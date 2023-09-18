@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { render } from '@testing-library/react'
 import cloudinaryUploader from '../../../../src/forms/inputs/cloudinary-file-input/cloudinary-uploader'
 
 class MockResponse {
@@ -57,239 +57,314 @@ const file = {
 
 const fileData = 'mockData'
 
-test('cloudinaryUploader has correct displayName', () => {
-  const Wrapped = () => <h1>Hi</h1>
-  const Wrapper = cloudinaryUploader(props)(Wrapped)
-  expect(Wrapper.displayName).toEqual('cloudinaryUploader(Wrapped)')
-})
+describe('cloudinaryUploader', () => {
+  // eslint-disable-next-line no-undef
+  const initialEnv = process.env
 
-test('cloudinaryUploader throws an error if `bucket`, `cloudName`, or `apiAdapter` are not provided', () => {
-  const Wrapped = () => <h1>Hi</h1>
-  const Wrapper = cloudinaryUploader()(Wrapped)
-  expect(() => shallow(<Wrapper />)).toThrow()
-})
-
-test('cloudinaryUploader can receive arguments via env vars', () => {
-  process.env.CLOUDINARY_CLOUD_NAME = 'foo'
-  process.env.CLOUDINARY_BUCKET = 'bar'
-  const Wrapped = () => <h1>Hi</h1>
-  const Wrapper = cloudinaryUploader({ apiAdapter: props.apiAdapter })(Wrapped)
-  expect(() => shallow(<Wrapper />)).not.toThrow()
-})
-
-test('cloudinaryUploader adds upload props to component', () => {
-  const Wrapped = () => <h1>Hi</h1>
-  const Wrapper = cloudinaryUploader(props)(Wrapped)
-  const component = shallow(<Wrapper />)
-  expect(component.props()).toMatchObject({
-    upload: expect.any(Function),
-    uploadStatus: expect.any(String),
+  beforeEach(() => {
+    // eslint-disable-next-line no-undef
+    process.env = { ...initialEnv }
   })
-})
 
-test('cloudinaryUploader can receive options as props', () => {
-  const Wrapped = () => <h1>Hi</h1>
-  const Wrapper = cloudinaryUploader()(Wrapped)
-  const component = shallow(
-    <Wrapper cloudName="foo" bucket="bar" apiAdapter={() => {}} />
-  )
-  expect(component.props()).toMatchObject({
-    upload: expect.any(Function),
-    uploadStatus: expect.any(String),
+  afterEach(() => {
+    // eslint-disable-next-line no-undef
+    process.env = initialEnv
   })
-})
 
-test('cloudinaryUploader sends the api request with the correct options', () => {
-  const Wrapped = () => <h1>Hi</h1>
-  const Wrapper = cloudinaryUploader(props)(Wrapped)
-  const component = shallow(<Wrapper />)
-  const { upload } = component.props()
-  return upload(fileData, file).then((response) => {
-    component.update()
-    const { uploadStatus } = component.props()
-    expect(uploadStatus).toEqual('upload-success')
-    const responseJson = JSON.parse(response.body)
-    expect(responseJson.file).toEqual(fileData)
-    expect(responseJson.folder).toEqual(props.bucket)
-    expect(responseJson.public_id).toEqual('test')
-    expect(responseJson.upload_preset).toEqual('default')
+  test('has correct displayName', () => {
+    const Wrapped = () => <h1>Hi</h1>
+    const Wrapper = cloudinaryUploader(props)(Wrapped)
+    expect(Wrapper.displayName).toEqual('cloudinaryUploader(Wrapped)')
   })
-})
 
-test('cloudinaryUploader sets `publicId`', () => {
-  const Wrapped = () => <h1>Hi</h1>
-  const Wrapper = cloudinaryUploader({
-    ...props,
-    cloudinaryPublicId: 'custom-name',
-  })(Wrapped)
-  const component = shallow(<Wrapper />)
-  const { upload } = component.props()
-  return upload(fileData, file).then((response) => {
-    component.update()
-    const responseJson = JSON.parse(response.body)
-    expect(responseJson.public_id).toEqual('custom-name')
+  test('throws an error if `bucket` is not provided', () => {
+    // eslint-disable-next-line no-undef
+    process.env.CLOUDINARY_CLOUD_NAME = 'foo'
+    jest.spyOn(console, 'error').mockImplementation(() => null) // avoid console bloat
+    const Wrapped = () => <h1>Hi</h1>
+    const Wrapper = cloudinaryUploader({ apiAdapter: props.apiAdapter })(Wrapped)
+    expect(() => render(<Wrapper />)).toThrow()
+    jest.restoreAllMocks()
   })
-})
 
-test('cloudinaryUploader allows custom `publicId` creator', () => {
-  const Wrapped = () => <h1>Hi</h1>
-  const createPublicId = (file) => 'foo-' + file.name
-  const Wrapper = cloudinaryUploader({ ...props, createPublicId })(Wrapped)
-  const component = shallow(<Wrapper />)
-  const { upload } = component.props()
-  return upload(fileData, file).then((response) => {
-    component.update()
-    const responseJson = JSON.parse(response.body)
-    expect(responseJson.public_id).toEqual('foo-test')
+  test('throws an error if `cloudName` is not provided', () => {
+    // eslint-disable-next-line no-undef
+    process.env.CLOUDINARY_BUCKET = 'bar'
+    jest.spyOn(console, 'error').mockImplementation(() => null) // avoid console bloat
+    const Wrapped = () => <h1>Hi</h1>
+    const Wrapper = cloudinaryUploader({ apiAdapter: props.apiAdapter })(Wrapped)
+    expect(() => render(<Wrapper />)).toThrow()
+    jest.restoreAllMocks()
   })
-})
 
-test('cloudinaryUploader overrides custom `publicId` creator with `cloudinaryPublicId`', () => {
-  const Wrapped = () => <h1>Hi</h1>
-  const createPublicId = (file) => 'foo-' + file.name
-  const Wrapper = cloudinaryUploader({
-    ...props,
-    createPublicId,
-    cloudinaryPublicId: 'custom-name',
-  })(Wrapped)
-  const component = shallow(<Wrapper />)
-  const { upload } = component.props()
-  return upload(fileData, file).then((response) => {
-    component.update()
-    const responseJson = JSON.parse(response.body)
-    expect(responseJson.public_id).toEqual('custom-name')
+  test('throws an error if `apiAdapter` is not provided', () => {
+    // eslint-disable-next-line no-undef
+    process.env.CLOUDINARY_CLOUD_NAME = 'foo'
+    // eslint-disable-next-line no-undef
+    process.env.CLOUDINARY_BUCKET = 'bar'
+    jest.spyOn(console, 'error').mockImplementation(() => null) // avoid console bloat
+    const Wrapped = () => <h1>Hi</h1>
+    const Wrapper = cloudinaryUploader()(Wrapped)
+    expect(() => render(<Wrapper />)).toThrow()
+    jest.restoreAllMocks()
   })
-})
 
-test('cloudinaryUploader adds extension to `publicId` of raw files', () => {
-  const rawFile = { name: 'test.xls', type: 'application/xls' }
-  const Wrapped = () => <h1>Hi</h1>
-  const Wrapper = cloudinaryUploader({
-    ...props,
-    cloudinaryPublicId: 'custom-name',
-  })(Wrapped)
-  const component = shallow(<Wrapper />)
-  const { upload } = component.props()
-  return upload(fileData, rawFile).then((response) => {
-    component.update()
-    const responseJson = JSON.parse(response.body)
-    expect(responseJson.public_id).toEqual('custom-name.xls')
+  test('can receive arguments via env vars', () => {
+    // eslint-disable-next-line no-undef
+    process.env.CLOUDINARY_CLOUD_NAME = 'foo'
+    // eslint-disable-next-line no-undef
+    process.env.CLOUDINARY_BUCKET = 'bar'
+    const Wrapped = () => <h1>Hi</h1>
+    const Wrapper = cloudinaryUploader({ apiAdapter: props.apiAdapter })(Wrapped)
+    expect(() => render(<Wrapper />)).not.toThrow()
   })
-})
 
-test('cloudinaryUploader removes invalid characters from the default `publicId`', () => {
-  const FORBIDDEN_PATTERN = /[\s?&#\\%<>]/gi
-  const illegallyNamedFile = {
-    name: 'Final \\ Master %20 Schedule? #S1&S2 <100%> & finished.pdf',
-    type: 'application/pdf',
-  }
-  const Wrapped = () => <h1>Howdy</h1>
-  const Wrapper = cloudinaryUploader({ ...props })(Wrapped)
-  const component = shallow(<Wrapper />)
-  const { upload } = component.props()
-
-  return upload(fileData, illegallyNamedFile).then((response) => {
-    component.update()
-    const responseJson = JSON.parse(response.body)
-    expect(responseJson.public_id).not.toMatch(FORBIDDEN_PATTERN)
+  test('can receive options as props', () => {
+    const Wrapped = () => <h1>Hi</h1>
+    const Wrapper = cloudinaryUploader()(Wrapped)
+    expect(() => render(
+      <Wrapper cloudName="foo" bucket="bar" apiAdapter={() => {}} />
+    )).not.toThrow()
   })
-})
 
-test('cloudinaryUploader removes html escaped characters from the default `publicId`', () => {
-  const illegallyNamedFile = {
-    name: 'SY%20S1%26S2.pdf',
-    type: 'application/pdf',
-  }
-  const Wrapped = () => <h1>Howdy</h1>
-  const Wrapper = cloudinaryUploader({ ...props })(Wrapped)
-  const component = shallow(<Wrapper />)
-  const { upload } = component.props()
-
-  return upload(fileData, illegallyNamedFile).then((response) => {
-    component.update()
-    const responseJson = JSON.parse(response.body)
-    expect(responseJson.public_id).toEqual('SY_S1_S2')
+  test('adds upload props to component', () => {
+    const Wrapped = jest.fn(() => <h1>Hi</h1>)
+    const Wrapper = cloudinaryUploader(props)(Wrapped)
+    render(<Wrapper />)
+    expect(Wrapped).toHaveBeenCalledWith(expect.objectContaining({
+      upload: expect.any(Function),
+      uploadStatus: expect.any(String),
+    }), {})
   })
-})
 
-test('cloudinaryUploader replaces spaces and removes superfluous underscores from the default `publicId`', () => {
-  const illegallyNamedFile = {
-    name: '     SY     S1___S2.pdf',
-    type: 'application/pdf',
-  }
-  const Wrapped = () => <h1>Howdy</h1>
-  const Wrapper = cloudinaryUploader({ ...props })(Wrapped)
-  const component = shallow(<Wrapper />)
-  const { upload } = component.props()
+  test('sends the api request with the correct options', () => {
+    const Wrapped = jest.fn(() => <h1>Hi</h1>)
+    const Wrapper = cloudinaryUploader(props)(Wrapped)
+    render(<Wrapper />)
 
-  return upload(fileData, illegallyNamedFile).then((response) => {
-    component.update()
-    const responseJson = JSON.parse(response.body)
-    expect(responseJson.public_id).toEqual('SY_S1_S2')
+    const { upload } = Wrapped.mock.calls[0][0]
+
+    return upload(fileData, file).then((response) => {
+      const { uploadStatus } = Wrapped.mock.calls[2][0]
+      expect(uploadStatus).toEqual('upload-success')
+      const responseJson = JSON.parse(response.body)
+      expect(responseJson.file).toEqual(fileData)
+      expect(responseJson.folder).toEqual(props.bucket)
+      expect(responseJson.public_id).toEqual('test')
+      expect(responseJson.upload_preset).toEqual('default')
+    })
   })
-})
 
-test('cloudinaryUploader trims spaces from the start of the default `publicId`', () => {
-  const illegallyNamedFile = {
-    name: '     Example.pdf',
-    type: 'application/pdf',
-  }
-  const Wrapped = () => <h1>Howdy</h1>
-  const Wrapper = cloudinaryUploader({ ...props })(Wrapped)
-  const component = shallow(<Wrapper />)
-  const { upload } = component.props()
+  test('sets `publicId`', () => {
+    const Wrapped = jest.fn(() => <h1>Hi</h1>)
+    const Wrapper = cloudinaryUploader({
+      ...props,
+      cloudinaryPublicId: 'custom-name',
+    })(Wrapped)
+    render(<Wrapper />)
+    const { upload } = Wrapped.mock.calls[0][0]
 
-  return upload(fileData, illegallyNamedFile).then((response) => {
-    component.update()
-    const responseJson = JSON.parse(response.body)
-    expect(responseJson.public_id).toEqual('Example')
+    return upload(fileData, file).then((response) => {
+      const responseJson = JSON.parse(response.body)
+      expect(responseJson.public_id).toEqual('custom-name')
+    })
   })
-})
 
-test('cloudinaryUploader defaults file name if not provided when creating the default `publicId`', () => {
-  const fileWithNoName = { name: '', type: 'application/pdf' }
-  const Wrapped = () => <h1>Howdy</h1>
-  const Wrapper = cloudinaryUploader({ ...props })(Wrapped)
-  const component = shallow(<Wrapper />)
-  const { upload } = component.props()
+  test('allows custom `publicId` creator', () => {
+    const Wrapped = jest.fn(() => <h1>Hi</h1>)
+    const createPublicId = (file) => 'foo-' + file.name
+    const Wrapper = cloudinaryUploader({ ...props, createPublicId })(Wrapped)
+    render(<Wrapper />)
+    const { upload } = Wrapped.mock.calls[0][0]
 
-  const spy = jest.spyOn(global.Date, 'now')
-
-  return upload(fileData, fileWithNoName).then((response) => {
-    component.update()
-    const responseJson = JSON.parse(response.body)
-    expect(responseJson.public_id).toContain('file_upload')
-    expect(spy).toHaveBeenCalled()
-
-    spy.mockRestore()
+    return upload(fileData, file).then((response) => {
+      const responseJson = JSON.parse(response.body)
+      expect(responseJson.public_id).toEqual('foo-test')
+    })
   })
-})
 
-test('cloudinaryUploader throws an error if request fails', () => {
-  const Wrapped = () => <h1>Hi</h1>
-  const Wrapper = cloudinaryUploader({ ...props, endpoint: '/failure' })(
-    Wrapped
-  )
-  const component = shallow(<Wrapper />)
-  const { upload } = component.props()
+  test('overrides custom `publicId` creator with `cloudinaryPublicId`', () => {
+    const Wrapped = jest.fn(() => <h1>Hi</h1>)
+    const createPublicId = (file) => 'foo-' + file.name
+    const Wrapper = cloudinaryUploader({
+      ...props,
+      createPublicId,
+      cloudinaryPublicId: 'custom-name',
+    })(Wrapped)
+    render(<Wrapper />)
+    const { upload } = Wrapped.mock.calls[0][0]
 
-  expect.assertions(1)
+    return upload(fileData, file).then((response) => {
+      const responseJson = JSON.parse(response.body)
+      expect(responseJson.public_id).toEqual('custom-name')
+    })
+  })
 
-  return expect(upload(fileData, file)).rejects.toThrow()
-})
+  test('adds extension to `publicId` of raw files', () => {
+    const rawFile = { name: 'test.xls', type: 'application/xls' }
+    const Wrapped = jest.fn(() => <h1>Hi</h1>)
+    const Wrapper = cloudinaryUploader({
+      ...props,
+      cloudinaryPublicId: 'custom-name',
+    })(Wrapped)
+    render(<Wrapper />)
+    const { upload } = Wrapped.mock.calls[0][0]
 
-test('cloudinaryUploader updates the `uploadStatus` prop if request fails', () => {
-  const Wrapped = () => <h1>Hi</h1>
-  const Wrapper = cloudinaryUploader({ ...props, endpoint: '/failure' })(
-    Wrapped
-  )
-  const component = shallow(<Wrapper />)
-  const { upload } = component.props()
+    return upload(fileData, rawFile).then((response) => {
+      const responseJson = JSON.parse(response.body)
+      expect(responseJson.public_id).toEqual('custom-name.xls')
+    })
+  })
 
-  expect.assertions(1)
-  return upload(fileData, file).catch(() => {
-    component.update()
-    const { uploadStatus } = component.props()
-    expect(uploadStatus).toEqual('upload-failure')
+  test('does not set an empty `publicId`', () => {
+    const rawFile = { name: 'test.xls', type: 'application/xls' }
+    const Wrapped = jest.fn(() => <h1>Hi</h1>)
+    const Wrapper = cloudinaryUploader({
+      ...props,
+      createPublicId: () => ''
+    })(Wrapped)
+    render(<Wrapper />)
+    const { upload } = Wrapped.mock.calls[0][0]
+
+    return upload(fileData, rawFile).then((response) => {
+      const responseJson = JSON.parse(response.body)
+      expect(responseJson.public_id).toBeUndefined()
+    })
+  })
+
+  test('removes invalid characters from the default `publicId`', () => {
+    const FORBIDDEN_PATTERN = /[\s?&#\\%<>]/gi
+    const illegallyNamedFile = {
+      name: 'Final \\ Master %20 Schedule? #S1&S2 <100%> & finished.pdf',
+      type: 'application/pdf',
+    }
+    const Wrapped = jest.fn(() => <h1>Howdy</h1>)
+    const Wrapper = cloudinaryUploader({ ...props })(Wrapped)
+    render(<Wrapper />)
+    const { upload } = Wrapped.mock.calls[0][0]
+
+
+    return upload(fileData, illegallyNamedFile).then((response) => {
+      const responseJson = JSON.parse(response.body)
+      expect(responseJson.public_id).not.toMatch(FORBIDDEN_PATTERN)
+      expect(responseJson.public_id).toEqual('Final_Master_Schedule_S1_S2_100_finished')
+    })
+  })
+
+  test('removes html escaped characters from the default `publicId`', () => {
+    const illegallyNamedFile = {
+      name: 'SY%20S1%26S2.pdf',
+      type: 'application/pdf',
+    }
+    const Wrapped = jest.fn(() => <h1>Howdy</h1>)
+    const Wrapper = cloudinaryUploader({ ...props })(Wrapped)
+    render(<Wrapper />)
+    const { upload } = Wrapped.mock.calls[0][0]
+
+    return upload(fileData, illegallyNamedFile).then((response) => {
+      const responseJson = JSON.parse(response.body)
+      expect(responseJson.public_id).toEqual('SY_S1_S2')
+    })
+  })
+
+  test('sanitizes the original `publicId` when decoding fails', () => {
+    const illegallyNamedFile = {
+      name: 'Final \\ Master %20 Schedule? #S1&S2 <100%> & finished.pdf',
+      type: 'application/pdf',
+    }
+
+    // eslint-disable-next-line no-undef
+    const spy = jest.spyOn(window, 'decodeURIComponent').mockImplementation(() => {
+      throw Error('Oops!')
+    })
+    const Wrapped = jest.fn(() => <h1>Howdy</h1>)
+    const Wrapper = cloudinaryUploader({ ...props })(Wrapped)
+    render(<Wrapper />)
+    const { upload } = Wrapped.mock.calls[0][0]
+
+    return upload(fileData, illegallyNamedFile).then((response) => {
+      const responseJson = JSON.parse(response.body)
+      expect(responseJson.public_id).toEqual('Final_Master_20_Schedule_S1_S2_100_finished')
+
+      spy.mockRestore()
+    })
+  })
+
+  test('replaces spaces and removes superfluous underscores from the default `publicId`', () => {
+    const illegallyNamedFile = {
+      name: '     SY     S1___S2.pdf',
+      type: 'application/pdf',
+    }
+    const Wrapped = jest.fn(() => <h1>Howdy</h1>)
+    const Wrapper = cloudinaryUploader({ ...props })(Wrapped)
+    render(<Wrapper />)
+    const { upload } = Wrapped.mock.calls[0][0]
+
+    return upload(fileData, illegallyNamedFile).then((response) => {
+      const responseJson = JSON.parse(response.body)
+      expect(responseJson.public_id).toEqual('SY_S1_S2')
+    })
+  })
+
+  test('trims spaces from the start of the default `publicId`', () => {
+    const illegallyNamedFile = {
+      name: '     Example.pdf',
+      type: 'application/pdf',
+    }
+    const Wrapped = jest.fn(() => <h1>Howdy</h1>)
+    const Wrapper = cloudinaryUploader({ ...props })(Wrapped)
+    render(<Wrapper />)
+    const { upload } = Wrapped.mock.calls[0][0]
+
+    return upload(fileData, illegallyNamedFile).then((response) => {
+      const responseJson = JSON.parse(response.body)
+      expect(responseJson.public_id).toEqual('Example')
+    })
+  })
+
+  test('defaults file name if not provided when creating the default `publicId`', () => {
+    const fileWithNoName = { name: '', type: 'application/pdf' }
+    const Wrapped = jest.fn(() => <h1>Howdy</h1>)
+    const Wrapper = cloudinaryUploader({ ...props })(Wrapped)
+    render(<Wrapper />)
+    const { upload } = Wrapped.mock.calls[0][0]
+    // eslint-disable-next-line no-undef
+    const spy = jest.spyOn(global.Date, 'now')
+
+    return upload(fileData, fileWithNoName).then((response) => {
+      const responseJson = JSON.parse(response.body)
+      expect(responseJson.public_id).toContain('file_upload')
+      expect(spy).toHaveBeenCalled()
+
+      spy.mockRestore()
+    })
+  })
+
+  test('throws an error if request fails', () => {
+    const Wrapped = jest.fn(() => <h1>Hi</h1>)
+    const Wrapper = cloudinaryUploader({ ...props, endpoint: '/failure' })(
+      Wrapped
+    )
+    render(<Wrapper />)
+    const { upload } = Wrapped.mock.calls[0][0]
+
+    expect.assertions(1)
+
+    return expect(upload(fileData, file)).rejects.toThrow()
+  })
+
+  test('updates the `uploadStatus` prop if request fails', () => {
+    const Wrapped = jest.fn(() => <h1>Hi</h1>)
+    const Wrapper = cloudinaryUploader({ ...props, endpoint: '/failure' })(
+      Wrapped
+    )
+    render(<Wrapper />)
+    const { upload } = Wrapped.mock.calls[0][0]
+
+    expect.assertions(1)
+    return upload(fileData, file).catch(() => {
+      const { uploadStatus } = Wrapped.mock.calls[2][0]
+      expect(uploadStatus).toEqual('upload-failure')
+    })
   })
 })

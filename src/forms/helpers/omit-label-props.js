@@ -10,6 +10,8 @@ import { omit } from '../../utils'
  * - `tooltip`
  * - `label`
  * - `requiredIndicator`
+ * - `errorComponent`
+ * - `labelComponent`
  *
  * @name omitLabelProps
  * @type Function
@@ -38,7 +40,8 @@ import { omit } from '../../utils'
  *      input: { name, value, onBlur, onChange },
  *      type,
  *      ...rest
- *    } = omitLabelProps(props)
+ *    } = props
+ *    const inputProps = omitLabelProps(rest)
  *    return (
  *      ...
  *    )

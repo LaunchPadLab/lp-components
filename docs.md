@@ -1288,6 +1288,8 @@ Omits the following props:
 *   `tooltip`
 *   `label`
 *   `requiredIndicator`
+*   `errorComponent`
+*   `labelComponent`
 
 ### Parameters
 
@@ -1317,7 +1319,8 @@ function Input (props) {
      input: { name, value, onBlur, onChange },
      type,
      ...rest
-   } = omitLabelProps(props)
+   } = props
+   const inputProps = omitLabelProps(rest)
    return (
      ...
    )
@@ -1683,12 +1686,12 @@ Returns **[String][141]** String with namespace removed
 ### Parameters
 
 *   `fn` **[Function][142]** The function to trigger
-*   `keyCodes` **([Number][144] | [String][141] | [Array][145]<([Number][144] | [String][141])>)** Number, String, or Array of key codes
+*   `keys` **([String][141] | [Array][145]<[String][141]>)** String or Array of keys
 
 ### Examples
 
 ```javascript
-const triggerOnEnter = triggerOnKeys(() => console.log('Hi'), [13])
+const triggerOnEnter = triggerOnKeys(() => console.log('Hi'), ['Enter'])
 function MyExample () { return <Example onKeyPress={triggerOnEnter} /> }
 ```
 

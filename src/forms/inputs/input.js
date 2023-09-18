@@ -62,7 +62,8 @@ function Input(props) {
     type,
     children,
     ...rest
-  } = omitLabelProps(props)
+  } = props
+  const inputProps = filterInvalidDOMProps(omitLabelProps(rest))
   return (
     <LabeledField {...props}>
       <div className="input-wrapper">
@@ -77,7 +78,7 @@ function Input(props) {
             'aria-describedby': hasInputError(meta)
               ? generateInputErrorId(name)
               : null,
-            ...filterInvalidDOMProps(rest),
+            ...inputProps,
           }}
         />
         {children}

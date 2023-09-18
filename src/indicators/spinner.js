@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { filterInvalidDOMProps } from '../utils'
 import classnames from 'classnames'
+import { filterInvalidDOMProps } from '../utils'
 
 /**
  *
@@ -38,6 +38,7 @@ const defaultProps = {
 function Spinner({ className, ...rest }) {
   return (
     <div
+      role="progressbar"
       className={classnames('spinner', className)}
       {...filterInvalidDOMProps(rest)}
     />
