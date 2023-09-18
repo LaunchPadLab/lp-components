@@ -1,7 +1,7 @@
 /*-----------------------
 Fieldset
 -----------------------*/
-fieldset {
+fieldset, .field-wrapper {
   display: inline-block;
   @include rem(margin-top, 15px);
   position: relative;
@@ -64,12 +64,17 @@ Input Icon
     @include rem(padding-left, 30px);
   }
 
-  i {
-    @include position(absolute, 1px null null 10px);
-    background-repeat: no-repeat;
-    background-size: 15px;
-    height: 20px;
-    width: 20px;
+  .input-wrapper {
+    position: relative;
+
+    i {
+      @include position(absolute, 3px null null 10px);
+      background-repeat: no-repeat;
+      background-size: 15px;
+      display: inline-block;
+      height: 20px;
+      width: 20px;
+    }
   }
 
   .mail-icon:after {
@@ -144,7 +149,7 @@ Radio
 /*-----------------------
 Checkbox
 -----------------------*/
-.checkbox {
+div.checkbox {
   @include rem(margin-top, 15px);
   width: auto;
 
@@ -405,29 +410,6 @@ Button Area
 }
 
 /*-----------------------
-Input Icon
------------------------*/
-.icon-label {
-  position: relative;
-  input {
-    @include rem(padding-left, 30px);
-  }
-
-  .input-wrapper {
-    position: relative;
-
-    i {
-      @include position(absolute, 3px null null 10px);
-      background-repeat: no-repeat;
-      background-size: 15px;
-      display: inline-block;
-      height: 20px;
-      width: 20px;
-    }
-  }
-}
-
-/*-----------------------
 Custom Dropdown Select
 -----------------------*/
 .dropdown-select,
@@ -570,14 +552,9 @@ Custom Dropdown Select
       line-height: 2;
     }
   }
-
-  fieldset.checkbox,
-  fieldset.CheckboxGroup {
-    width: 100% !important;
-
-    input {
-      border: 1px solid $white-med;
-    }
+  
+  .checkbox {
+    width: 100%
   }
 }
 

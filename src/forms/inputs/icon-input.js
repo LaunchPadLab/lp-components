@@ -10,7 +10,7 @@ import classnames from 'classnames'
  * This icon is rendered as an `<i>` tag, with a dynamic class based on the `icon` prop.
  * For example, given an `icon` prop of `"twitter"`, the component will render an {@link Input} with child `<i className="twitter-icon"/>`.
  *
- * Additionally, the fieldset of this {@link Input} will be given the class `"icon-label"` for styling purposes.
+ * Additionally, the wrapping div of this {@link Input} will be given the class `"icon-label"` for styling purposes.
  *
  * @name IconInput
  * @type Function
