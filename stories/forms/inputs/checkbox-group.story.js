@@ -75,3 +75,6 @@ storiesOf('CheckboxGroup', module)
       }}
     />
   ))
+  .add('with dropdown options', () => (
+    <CheckboxGroup input={inputProps} meta={{}} options={options} useDropdown />
+  )) 

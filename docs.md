@@ -636,7 +636,7 @@ A wrapper around the [Input][38] component that adds an icon to the input.
 This icon is rendered as an `<i>` tag, with a dynamic class based on the `icon` prop.
 For example, given an `icon` prop of `"twitter"`, the component will render an [Input][38] with child `<i className="twitter-icon"/>`.
 
-Additionally, the fieldset of this [Input][38] will be given the class `"icon-label"` for styling purposes.
+Additionally, the wrapping div of this [Input][38] will be given the class `"icon-label"` for styling purposes.
 
 ### Parameters
 
@@ -1065,9 +1065,9 @@ function EmailInput ({
 
 ## LabeledField
 
-A fieldset wrapper for redux-form controlled inputs. This wrapper adds a label component (defaults to [InputLabel][68])
+A container wrapper for redux-form controlled inputs. This wrapper adds a label component (defaults to [InputLabel][68])
 above the wrapped component and an error component below (defaults to [InputError][65]). Additionally, it adds the class `"error"`
-to the fieldset if the input is touched and invalid.
+to the container if the input is touched and invalid.
 
 In order to populate the `InputLabel` and `InputError` correctly, you should pass all the props of the corresponding input
 to this component. To prevent label-specific props from being passed to the input itself,
