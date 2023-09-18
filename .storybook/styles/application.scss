@@ -48,11 +48,9 @@ $output-bourbon-deprecation-warnings: false;
 @import 'components/progress-circle';
 @import 'components/login';
 @import 'components/pagination';
-@import 'components/sidebar-content';
 @import 'components/radio';
 @import 'components/tabs';
 @import 'components/visually-hidden';
 
 // Page Styles
 @import 'pages/main';
-@import 'pages/styleguide';
