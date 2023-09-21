@@ -9,8 +9,6 @@ const noop = () => {}
 const input = { name, value }
 const error = 'input error'
 
-const sleep = () => new Promise((r) => setTimeout(() => r(), 5000))
-
 const WrappedDateInput = (props) => {
   const [value, setValue] = useState('')
 
