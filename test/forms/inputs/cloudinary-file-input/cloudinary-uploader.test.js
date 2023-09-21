@@ -390,9 +390,8 @@ describe('cloudinaryUploader', () => {
       type: 'application/pdf',
     }
 
-    // eslint-disable-next-line no-undef
     const spy = jest
-      .spyOn(window, 'decodeURIComponent')
+      .spyOn(window, 'decodeURIComponent') // eslint-disable-line no-undef
       .mockImplementation(() => {
         throw Error('Oops!')
       })
@@ -515,9 +514,7 @@ describe('cloudinaryUploader', () => {
 
     expect.assertions(1)
 
-    await act(async () => {
-      await expect(upload(fileData, file)).rejects.toThrow()
-    })
+    await act(() => expect(upload(fileData, file)).rejects.toThrow())
   })
 
   test('updates the `uploadStatus` prop if request fails', async () => {
@@ -538,9 +535,7 @@ describe('cloudinaryUploader', () => {
     )
     const user = userEvent.setup()
     render(<Wrapper />)
-    await act(async () => {
-      await user.click(screen.getByText('Upload'))
-    })
+    await user.click(screen.getByText('Upload'))
 
     await waitFor(() => {
       expect(screen.getByText('upload-failure')).toBeInTheDocument()
