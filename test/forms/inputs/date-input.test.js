@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { DateInput } from '../../../src/'
-import { render, screen, act, waitFor } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 const name = 'name.of.field'
