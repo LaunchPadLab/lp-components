@@ -1,7 +1,6 @@
 import React from 'react'
 import { InputError } from '../../../src/'
 import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
 
 test('does not render when input is touched but not invalid', () => {
   render(<InputError error="test" invalid={false} touched={true} data-testid="1" />)
