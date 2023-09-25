@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
 import { CheckboxGroup } from '../../../src/'
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+
+const options = [
+  { key: 'First Option', value: '1' },
+  { key: 'Second Option', value: '2' },
+  { key: 'Third Option', value: '3' },
+]
 
 const WrappedCheckboxGroup = (props) => {
   const [value, setValue] = useState([])
-
-  const options = [
-    { key: 'First Option', value: '1' },
-    { key: 'Second Option', value: '2' },
-    { key: 'Third Option', value: '3' },
-  ]
 
   const defaultProps = {
     input: {
@@ -124,4 +124,22 @@ test('CheckboxGroup passes down props to children', () => {
   expect(checkboxGroup).toHaveClass('custom-group-class')
   expect(checkbox).not.toHaveClass('custom-group-class')
   expect(checkbox).toHaveClass('custom-input-class')
+})
+
+test('DropdownCheckboxGroup sets menu no longer active when clicked outside', async () => {
+  const user = userEvent.setup()
+
+  render(<WrappedCheckboxGroup value={['1']} useDropdown />)
+
+  const select = screen.getByRole('button')
+  await user.click(select)
+
+  expect(select.nextSibling).toHaveClass('options', 'is-active')
+
+  const fieldset = screen.getAllByRole('group').at(0)
+
+  user.click(fieldset)
+  await waitFor(() => {
+    expect(select.nextSibling).not.toHaveClass('is-active')
+  })
 })
