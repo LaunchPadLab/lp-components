@@ -98,11 +98,11 @@ function LabeledField({
   const { touched, invalid } = meta
   return (
     <Component
-      className={classnames(className, {
+      className={classnames(className, 'field-wrapper', {
         error: hasInputError({ touched, invalid }),
         disabled: rest.disabled,
-        'field-wrapper': Component === 'div',
       })}
+      role="group"
     >
       <LabelComponent {...{ name, id, label, ...rest }} />
       {children}

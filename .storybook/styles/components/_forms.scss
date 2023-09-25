@@ -1,7 +1,7 @@
 /*-----------------------
 Fieldset
 -----------------------*/
-fieldset, .field-wrapper {
+.field-wrapper {
   display: inline-block;
   @include rem(margin-top, 15px);
   position: relative;
@@ -552,9 +552,9 @@ Custom Dropdown Select
       line-height: 2;
     }
   }
-  
+
   .checkbox {
-    width: 100%
+    width: 100%;
   }
 }
 
