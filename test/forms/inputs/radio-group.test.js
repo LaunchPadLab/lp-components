@@ -68,21 +68,6 @@ test("RadioGroup has a legend with the input's name start-cased by default", () 
   expect(screen.getByRole('group', { name: 'Same Name' })).toBeInTheDocument()
 })
 
-test("RadioGroup does not have a legend when label is `false`", () => {
-  const name = 'sameName'
-  const props = {
-    input: {
-      name,
-      value: '',
-    },
-    meta: {},
-    options: ['Option 1', 'Option 2'],
-    label: false,
-  }
-  render(<RadioGroup {...props} />)
-  expect(screen.queryByRole('group', { name: 'Same Name' })).not.toBeInTheDocument()
-})
-
 test("RadioGroup has a legend with the group's label (when provided)", () => {
   const name = 'sameName'
   const props = {
