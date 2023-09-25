@@ -3,14 +3,14 @@ import { CheckboxGroup } from '../../../src/'
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-const options = [
-  { key: 'First Option', value: '1' },
-  { key: 'Second Option', value: '2' },
-  { key: 'Third Option', value: '3' },
-]
-
 const WrappedCheckboxGroup = (props) => {
   const [value, setValue] = useState([])
+
+  const options = [
+    { key: 'First Option', value: '1' },
+    { key: 'Second Option', value: '2' },
+    { key: 'Third Option', value: '3' },
+  ]
 
   const defaultProps = {
     input: {
