@@ -121,6 +121,17 @@ function CheckboxGroupLegend({
   )
 }
 
+function CheckboxOptionContainer({ children, useDropdown, value }) {
+  if (useDropdown)
+    return (
+      <DropdownSelect selectedValues={value} className="checkboxes">
+        {children}
+      </DropdownSelect>
+    )
+
+  return children
+}
+
 function CheckboxGroup(props) {
   const {
     input: { value, onChange, name },
@@ -145,26 +156,6 @@ function CheckboxGroup(props) {
     }
   }
 
-  const CheckboxOptions = () =>
-    optionObjects.map((option, i) => {
-      return (
-        <Checkbox // eslint-disable-line react/jsx-key
-          {...{
-            key: i,
-            input: {
-              name: `${name}.${option.value}`,
-              value: value.includes(option.value),
-              onChange: handleChange(option),
-            },
-            meta: {},
-            label: option.key,
-            ...inputProps,
-            ...checkboxInputProps,
-          }}
-        />
-      )
-    })
-
   return (
     <LabeledField
       className={className}
@@ -172,13 +163,24 @@ function CheckboxGroup(props) {
       as="fieldset"
       {...props}
     >
-      {useDropdown ? (
-        <DropdownSelect selectedValues={value} className="checkboxes">
-          <CheckboxOptions />
-        </DropdownSelect>
-      ) : (
-        <CheckboxOptions />
-      )}
+      <CheckboxOptionContainer useDropdown={useDropdown} value={value}>
+        {optionObjects.map((option) => (
+          <Checkbox // eslint-disable-line react/jsx-key
+            {...{
+              key: option.value,
+              input: {
+                name: `${name}.${option.value}`,
+                value: value.includes(option.value),
+                onChange: handleChange(option),
+              },
+              meta: {},
+              label: option.key,
+              ...inputProps,
+              ...checkboxInputProps,
+            }}
+          />
+        ))}
+      </CheckboxOptionContainer>
     </LabeledField>
   )
 }
