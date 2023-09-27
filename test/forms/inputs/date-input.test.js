@@ -103,7 +103,7 @@ test("DateInput invokes onBlur when focus changes", async () => {
   const user = userEvent.setup()
   const onBlur = jest.fn()
   const onChange = jest.fn()
-  const props = { input: { ...input, onChange, onBlur }, meta: { pristine: false } }
+  const props = { input: { ...input, onChange, onBlur }, meta: {} }
 
   render(<WrappedDateInput {...props} />)
 
