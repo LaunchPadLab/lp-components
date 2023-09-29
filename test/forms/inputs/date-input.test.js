@@ -86,7 +86,7 @@ test("DateInput defaults tabbable item to today's date", async () => {
   expect(current).toHaveProperty('tabIndex', 0)
 })
 
-test('DateInput sets empty input to an empty string', async () => {
+test("DateInput sets empty input to an empty string", async () => {
   const user = userEvent.setup()
   const onChange = jest.fn()
   const props = { input: { ...input, onChange, onBlur: noop }, meta: {} }
@@ -97,4 +97,23 @@ test('DateInput sets empty input to an empty string', async () => {
 
   expect(onChange).toHaveBeenCalledTimes(1)
   expect(onChange).toHaveBeenCalledWith('')
+})
+
+test("DateInput invokes onBlur when focus changes", async () => {
+  const user = userEvent.setup()
+  const onBlur = jest.fn()
+  const onChange = jest.fn()
+  const props = { input: { ...input, onChange, onBlur }, meta: {} }
+
+  render(<WrappedDateInput {...props} />)
+
+  await user.click(screen.getByRole('textbox'))
+
+  const option = screen
+    .getAllByRole('option', { selected: false, hidden: false })
+    .at(0)
+  await user.click(option)
+  await user.tab()
+
+  expect(onBlur).toHaveBeenCalledTimes(1)
 })
