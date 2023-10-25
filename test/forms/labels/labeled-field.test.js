@@ -10,9 +10,9 @@ test('wraps children in fieldset', () => {
       <Wrapped />
     </LabeledField>
   )
-  const fieldset = screen.getByRole('group')
-  expect(fieldset).toBeInTheDocument()
-  expect(fieldset).not.toHaveClass('error')
+  const fieldWrapper = screen.getByTestId('field-wrapper')
+  expect(fieldWrapper).toBeInTheDocument()
+  expect(fieldWrapper).not.toHaveClass('error')
 })
 
 test('adds error class when touched and invalid', () => {
@@ -26,18 +26,22 @@ test('adds error class when touched and invalid', () => {
       <Wrapped />
     </LabeledField>
   )
-  expect(screen.getByRole('group')).toHaveClass('error')
+  expect(screen.getByTestId('field-wrapper')).toHaveClass('error')
 })
 
 test('adds disabled class when disabled', () => {
   const Wrapped = () => <input name="test" />
-  const props = { input: { name: 'foo' }, meta: {}, disabled: true }
+  const props = {
+    input: { name: 'foo' },
+    meta: {},
+    disabled: true,
+  }
   render(
     <LabeledField {...props}>
       <Wrapped />
     </LabeledField>
   )
-  expect(screen.getByRole('group')).toHaveClass('disabled')
+  expect(screen.getByTestId('field-wrapper')).toHaveClass('disabled')
 })
 
 test('adds InputLabel and InputError', () => {
@@ -45,7 +49,7 @@ test('adds InputLabel and InputError', () => {
   const props = {
     input: { name: 'foo' },
     meta: { touched: true, invalid: true },
-    error: "Required"
+    error: 'Required',
   }
   render(
     <LabeledField {...props}>

@@ -5,7 +5,7 @@ import { CloudinaryFileInput } from '../../../src/'
 
 const name = 'name.of.field'
 const value = { name: 'existingFileName', url: 'value of field' }
-const onChange = () => { }
+const onChange = () => {}
 const input = { name, value, onChange }
 const PUBLIC_URL = 'url-of-uploaded-file'
 const uploadResponse = { url: PUBLIC_URL }
@@ -34,9 +34,9 @@ test('CloudinaryFileInput adds uploadStatus to className', () => {
   }
   render(<CloudinaryFileInput {...props} />)
 
-  const fieldset = screen.getByRole('group')
-  expect(fieldset).toHaveClass(className)
-  expect(fieldset).toHaveClass(uploadStatus)
+  const fieldWrapper = screen.getByTestId('field-wrapper')
+  expect(fieldWrapper).toHaveClass(className)
+  expect(fieldWrapper).toHaveClass(uploadStatus)
 })
 
 test('CloudinaryFileInput sets returned url within value', async () => {

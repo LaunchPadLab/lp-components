@@ -50,8 +50,14 @@ test("RadioGroup input has a value that matches the corresponding option's value
     options,
   }
   render(<RadioGroup {...props} />)
-  expect(screen.getByRole('radio', { name: options.at(0) })).toHaveAttribute('value', options.at(0))
-  expect(screen.getByRole('radio', { name: options.at(1) })).toHaveAttribute('value', options.at(1))
+  expect(screen.getByRole('radio', { name: options.at(0) })).toHaveAttribute(
+    'value',
+    options.at(0)
+  )
+  expect(screen.getByRole('radio', { name: options.at(1) })).toHaveAttribute(
+    'value',
+    options.at(1)
+  )
 })
 
 test("RadioGroup has a legend with the input's name start-cased by default", () => {
@@ -68,6 +74,21 @@ test("RadioGroup has a legend with the input's name start-cased by default", () 
   expect(screen.getByRole('group', { name: 'Same Name' })).toBeInTheDocument()
 })
 
+test('RadioGroup still has a legend when label is `false`', () => {
+  const name = 'sameName'
+  const props = {
+    input: {
+      name,
+      value: '',
+    },
+    meta: {},
+    options: ['Option 1', 'Option 2'],
+    label: false,
+  }
+  render(<RadioGroup {...props} />)
+  expect(screen.queryByRole('group', { name: 'Same Name' })).toBeInTheDocument()
+})
+
 test("RadioGroup has a legend with the group's label (when provided)", () => {
   const name = 'sameName'
   const props = {
@@ -80,7 +101,9 @@ test("RadioGroup has a legend with the group's label (when provided)", () => {
     options: ['Option 1', 'Option 2'],
   }
   render(<RadioGroup {...props} />)
-  expect(screen.getByRole('group', { name: 'Different Name' })).toBeInTheDocument()
+  expect(
+    screen.getByRole('group', { name: 'Different Name' })
+  ).toBeInTheDocument()
 })
 
 test('RadioGroup does not pass down class name', () => {
@@ -94,7 +117,9 @@ test('RadioGroup does not pass down class name', () => {
     className: 'custom-radio',
   }
   render(<RadioGroup {...props} />)
-  expect(screen.getByRole('group', { name: 'Test' })).toHaveClass('custom-radio')
+  expect(screen.getByRole('group', { name: 'Test' })).toHaveClass(
+    'custom-radio'
+  )
   expect(screen.getByRole('radio')).not.toHaveClass('custom-radio')
 })
 
