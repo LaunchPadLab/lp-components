@@ -1,5 +1,5 @@
 /*-----------------------
-Fieldset
+Field Wrappers
 -----------------------*/
 .field-wrapper {
   display: inline-block;
@@ -149,7 +149,7 @@ Radio
 /*-----------------------
 Checkbox
 -----------------------*/
-div.checkbox {
+.checkbox {
   @include rem(margin-top, 15px);
   width: auto;
 

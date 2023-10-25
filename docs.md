@@ -368,7 +368,7 @@ Clicking an unselected checkbox adds its value to this array, and clicking a sel
 *   `meta` **[Object][145]** A `redux-form` [meta][147] object
 *   `options` **[Array][143]** An array of checkbox values (strings, numbers, or key-value pairs)
 *   `checkboxInputProps` **[Object][145]** An object of key-value pairs representing props to pass down to all checkbox inputs (optional, default `{}`)
-*   `useDropdown` **[Boolean][141]?** A boolean that determines whether the checkbox options are displayed in a dropdown container or not (optional, default `false`)
+*   `useDropdown` **[Boolean][141]** A boolean that determines whether the checkbox options are displayed in a dropdown container or not (optional, default `false`)
 
 ### Examples
 
@@ -1065,7 +1065,7 @@ function EmailInput ({
 
 ## LabeledField
 
-A container wrapper for redux-form controlled inputs. This wrapper adds a label component (defaults to [InputLabel][68])
+A container for redux-form controlled inputs. This wrapper adds a label component (defaults to [InputLabel][68])
 above the wrapped component and an error component below (defaults to [InputError][65]). Additionally, it adds the class `"error"`
 to the container if the input is touched and invalid.
 

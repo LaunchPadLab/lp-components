@@ -7,7 +7,7 @@ import { hasInputError } from '../helpers'
 
 /**
  *
- * A container wrapper for redux-form controlled inputs. This wrapper adds a label component (defaults to {@link InputLabel})
+ * A container for redux-form controlled inputs. This wrapper adds a label component (defaults to {@link InputLabel})
  * above the wrapped component and an error component below (defaults to {@link InputError}). Additionally, it adds the class `"error"`
  * to the container if the input is touched and invalid.
  *
@@ -102,7 +102,7 @@ function LabeledField({
         error: hasInputError({ touched, invalid }),
         disabled: rest.disabled,
       })}
-      role="group"
+      data-testid="field-wrapper"
     >
       <LabelComponent {...{ name, id, label, ...rest }} />
       {children}

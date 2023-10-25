@@ -36,7 +36,7 @@ import classnames from 'classnames'
  * @param {Object} meta - A `redux-form` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @param {Array} options - An array of checkbox values (strings, numbers, or key-value pairs)
  * @param {Object} [checkboxInputProps={}] - An object of key-value pairs representing props to pass down to all checkbox inputs
- * @param {Boolean} [useDropdown] - A boolean that determines whether the checkbox options are displayed in a dropdown container or not (optional, default `false`)
+ * @param {Boolean} [useDropdown=false] - A boolean that determines whether the checkbox options are displayed in a dropdown container or not
  * @example
  *
  * function TodoForm ({ handleSubmit, pristine, invalid, submitting }) {
@@ -121,7 +121,7 @@ function CheckboxGroupLegend({
   )
 }
 
-function CheckboxOptionContainer({ children, useDropdown, value }) {
+function CheckboxOptionsContainer({ children, useDropdown, value }) {
   if (useDropdown)
     return (
       <DropdownSelect selectedValues={value} className="checkboxes">
@@ -163,11 +163,11 @@ function CheckboxGroup(props) {
       as="fieldset"
       {...props}
     >
-      <CheckboxOptionContainer useDropdown={useDropdown} value={value}>
+      <CheckboxOptionsContainer useDropdown={useDropdown} value={value}>
         {optionObjects.map((option) => (
-          <Checkbox // eslint-disable-line react/jsx-key
+          <Checkbox
+            key={option.value}
             {...{
-              key: option.value,
               input: {
                 name: `${name}.${option.value}`,
                 value: value.includes(option.value),
@@ -180,7 +180,7 @@ function CheckboxGroup(props) {
             }}
           />
         ))}
-      </CheckboxOptionContainer>
+      </CheckboxOptionsContainer>
     </LabeledField>
   )
 }
