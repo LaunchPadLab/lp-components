@@ -4,7 +4,7 @@ import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 const WrappedCheckboxGroup = (props) => {
-  const [value, setValue] = useState([])
+  const [value, setValue] = useState(props.value || [])
 
   const options = [
     { key: 'First Option', value: '1' },
@@ -42,7 +42,7 @@ test('CheckboxGroup adds value to array when unselected option clicked', async (
   expect(checkbox3).toBeChecked()
 })
 
-test('CheckboxGroup removes value to array when selected option clicked', async () => {
+test('CheckboxGroup removes value from array when selected option clicked', async () => {
   const user = userEvent.setup()
 
   render(<WrappedCheckboxGroup />)
@@ -124,6 +124,44 @@ test('CheckboxGroup passes down props to children', () => {
   expect(checkboxGroup).toHaveClass('custom-group-class')
   expect(checkbox).not.toHaveClass('custom-group-class')
   expect(checkbox).toHaveClass('custom-input-class')
+})
+
+test('CheckboxGroup with dropdown = true adds value to array when unselected option clicked', async () => {
+  const user = userEvent.setup()
+
+  render(<WrappedCheckboxGroup dropdown={true} />)
+
+  const select = screen.getByRole('button')
+  await user.click(select)
+
+  const firstCheckbox = screen.getByLabelText('First Option')
+  await user.click(firstCheckbox)
+
+  const thirdCheckbox = screen.getByLabelText('Third Option')
+  await user.click(thirdCheckbox)
+
+  expect(firstCheckbox).toBeChecked()
+  expect(thirdCheckbox).toBeChecked()
+
+  const selectValueLabel = screen.getByText('3, 1')
+  expect(selectValueLabel).toBeInTheDocument()
+})
+
+test('CheckboxGroup with dropdown = true removes value from array when selected option clicked', async () => {
+  const user = userEvent.setup()
+
+  render(<WrappedCheckboxGroup value={['1']} dropdown={true} />)
+
+  const select = screen.getByRole('button')
+  await user.click(select)
+
+  const firstCheckbox = screen.getByLabelText('First Option')
+  await user.click(firstCheckbox)
+
+  expect(firstCheckbox).not.toBeChecked()
+
+  const selectValueLabel = screen.getByText('None')
+  expect(selectValueLabel).toBeInTheDocument()
 })
 
 test('CheckboxGroup with dropdown = true sets menu no longer active when clicked outside', async () => {
