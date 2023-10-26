@@ -15,7 +15,7 @@ const defaultProps = {
   selectedValues: [],
 }
 
-// Wraps the `CheckboxGroup` component: this is only when useDropdown is true.
+// Wraps the `CheckboxGroup` component: this is only when dropdown is true.
 
 function DropdownSelect({ children, className, selectedValues }) {
   const [expanded, toggleExpanded] = useToggle()

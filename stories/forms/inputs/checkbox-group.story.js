@@ -80,6 +80,6 @@ storiesOf('CheckboxGroup', module)
       input={inputProps}
       meta={{}}
       options={options}
-      useDropdown={true}
+      dropdown={true}
     />
   ))
