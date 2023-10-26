@@ -8,7 +8,6 @@ import {
   fieldOptionsType,
   hasInputError,
   omitLabelProps,
-  convertNameToLabel,
 } from '../helpers'
 import { LabeledField } from '../labels'
 import {
@@ -104,20 +103,6 @@ const defaultProps = {
   placeholder: 'Select',
 }
 
-function SelectLegend({ label, name, required, requiredIndicator, hint }) {
-  return (
-    <legend className={classnames({ 'visually-hidden': label === false })}>
-      {label || convertNameToLabel(name)}
-      {required && requiredIndicator && (
-        <span className="required-indicator" aria-hidden="true">
-          {requiredIndicator}
-        </span>
-      )}
-      {hint && <i>{hint}</i>}
-    </legend>
-  )
-}
-
 function Select(props) {
   const {
     input: { name, value, onBlur, onChange },
@@ -133,7 +118,7 @@ function Select(props) {
   const optionObjects = serializeOptions(options)
   const optionGroupObjects = serializeOptionGroups(optionGroups)
   return (
-    <LabeledField {...props} labelComponent={SelectLegend} as="fieldset">
+    <LabeledField {...props}>
       <select
         {...{
           id: name,
