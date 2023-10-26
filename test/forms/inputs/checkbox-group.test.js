@@ -126,10 +126,10 @@ test('CheckboxGroup passes down props to children', () => {
   expect(checkbox).toHaveClass('custom-input-class')
 })
 
-test('DropdownCheckboxGroup sets menu no longer active when clicked outside', async () => {
+test('CheckboxGroup with dropdown = true sets menu no longer active when clicked outside', async () => {
   const user = userEvent.setup()
 
-  render(<WrappedCheckboxGroup value={['1']} useDropdown />)
+  render(<WrappedCheckboxGroup value={['1']} dropdown={true} />)
 
   const select = screen.getByRole('button')
   await user.click(select)
