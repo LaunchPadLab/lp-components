@@ -20,7 +20,7 @@ import { hasInputError } from '../helpers'
  * @param {Boolean} [hideErrorLabel] - A boolean determining whether to hide the error label on input error (optional, default `false`)
  * @param {Function} [labelComponent=InputLabel] - A custom label component for the input
  * @param {Function} [errorComponent=InputError] - A custom error component for the input
- * @param {Element Type} [as] - A string that determines the element type of the component (optional, default `div`)
+ * @param {Element Type} [as] - A string that determines the element type of the wrapper (optional, default `div`)
  *
  * @example
  *
@@ -91,13 +91,13 @@ function LabeledField({
   children,
   hideErrorLabel,
   label,
-  as: Component,
+  as: Wrapper,
   ...rest
 }) {
   const { name } = input
   const { touched, invalid } = meta
   return (
-    <Component
+    <Wrapper
       className={classnames(className, 'field-wrapper', {
         error: hasInputError({ touched, invalid }),
         disabled: rest.disabled,
@@ -109,7 +109,7 @@ function LabeledField({
       {!hideErrorLabel && (
         <ErrorComponent {...{ ...input, ...meta, ...rest }} />
       )}
-    </Component>
+    </Wrapper>
   )
 }
 
