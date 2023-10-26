@@ -150,11 +150,11 @@ function RadioGroup(props) {
       as="fieldset"
       {...props}
     >
-      {optionObjects.map((option, i) => {
+      {optionObjects.map((option) => {
         return (
-          <RadioButton // eslint-disable-line react/jsx-key
+          <RadioButton
+            key={option.value}
             {...{
-              key: i,
               type: 'radio',
               input: {
                 name, // all radio inputs must share the same name
