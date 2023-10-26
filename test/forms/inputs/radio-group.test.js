@@ -3,12 +3,15 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { RadioGroup } from '../../../src/'
 
+const name = 'testGroup'
+const formattedName = 'Test Group'
+
 test('RadioGroup changes value when buttons are clicked', async () => {
   const user = userEvent.setup()
   const onChange = jest.fn()
   const props = {
     input: {
-      name: 'test',
+      name,
       value: '',
       onChange,
     },
@@ -24,7 +27,6 @@ test('RadioGroup changes value when buttons are clicked', async () => {
 })
 
 test("RadioGroup's inputs all have the same name", () => {
-  const name = 'sameName'
   const props = {
     input: {
       name,
@@ -61,7 +63,6 @@ test("RadioGroup input has a value that matches the corresponding option's value
 })
 
 test("RadioGroup has a legend with the input's name start-cased by default", () => {
-  const name = 'sameName'
   const props = {
     input: {
       name,
@@ -71,11 +72,10 @@ test("RadioGroup has a legend with the input's name start-cased by default", () 
     options: ['Option 1', 'Option 2'],
   }
   render(<RadioGroup {...props} />)
-  expect(screen.getByRole('group', { name: 'Same Name' })).toBeInTheDocument()
+  expect(screen.getByRole('group', { name: formattedName })).toBeInTheDocument()
 })
 
 test('RadioGroup still has a legend when label is `false`', () => {
-  const name = 'sameName'
   const props = {
     input: {
       name,
@@ -86,11 +86,12 @@ test('RadioGroup still has a legend when label is `false`', () => {
     label: false,
   }
   render(<RadioGroup {...props} />)
-  expect(screen.queryByRole('group', { name: 'Same Name' })).toBeInTheDocument()
+  expect(
+    screen.queryByRole('group', { name: formattedName })
+  ).toBeInTheDocument()
 })
 
 test("RadioGroup has a legend with the group's label (when provided)", () => {
-  const name = 'sameName'
   const props = {
     input: {
       name,
@@ -126,7 +127,7 @@ test('RadioGroup does not pass down class name', () => {
 test('RadioGroup passes down props to children', () => {
   const props = {
     input: {
-      name: 'test',
+      name,
       value: '',
     },
     meta: {},
@@ -140,4 +141,59 @@ test('RadioGroup passes down props to children', () => {
     expect(el).toHaveClass('custom-radio-input')
     expect(el).toHaveAttribute('data-test', 'true')
   })
+})
+
+test('when no custom required indicator provided, do not show required indicator', () => {
+  const props = {
+    input: {
+      name,
+      value: '',
+    },
+    meta: {},
+    required: true,
+  }
+
+  render(<RadioGroup {...props} />)
+  expect(screen.getByText(formattedName).textContent).toEqual(formattedName)
+})
+
+test('when required true and custom requiredIndicator provided, show custom indicator', () => {
+  const props = {
+    input: {
+      name,
+      value: '',
+    },
+    meta: {},
+    required: true,
+    requiredIndicator: '*',
+  }
+  render(<RadioGroup {...props} />)
+  expect(screen.getByText('*')).toBeInTheDocument()
+})
+
+test('when required false and custom requiredIndicator provided, hide custom indicator', () => {
+  const props = {
+    input: {
+      name,
+      value: '',
+    },
+    meta: {},
+    required: false,
+    requiredIndicator: '*',
+  }
+  render(<RadioGroup {...props} />)
+  expect(screen.queryByText('*')).not.toBeInTheDocument()
+})
+
+test('when hint provided - shows hint', () => {
+  const props = {
+    input: {
+      name,
+      value: '',
+    },
+    meta: {},
+    hint: 'hint',
+  }
+  render(<RadioGroup {...props} />)
+  expect(screen.getByText(formattedName)).toHaveTextContent('hint')
 })

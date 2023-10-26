@@ -3,6 +3,9 @@ import { CheckboxGroup } from '../../../src/'
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
+const name = 'testGroup'
+const formattedName = 'Test Group'
+
 const WrappedCheckboxGroup = (props) => {
   const [value, setValue] = useState(props.value || [])
 
@@ -14,7 +17,7 @@ const WrappedCheckboxGroup = (props) => {
 
   const defaultProps = {
     input: {
-      name: 'test',
+      name: name,
       value: value,
       onChange: setValue,
     },
@@ -60,34 +63,34 @@ test('CheckboxGroup removes value from array when selected option clicked', asyn
 test("CheckboxGroup has a legend with the group's name by default", () => {
   const props = {
     input: {
-      name: 'testGroup',
+      name: name,
       value: '',
     },
     meta: {},
   }
   render(<CheckboxGroup {...props} />)
 
-  expect(screen.getByText('Test Group')).toBeInTheDocument()
+  expect(screen.getByText(formattedName)).toBeInTheDocument()
 })
 
 test("CheckboxGroup has a legend with the group's label (when provided)", () => {
   const props = {
     input: {
-      name: 'testGroup',
+      name: name,
       value: '',
     },
-    label: 'Checkbox Group',
+    label: 'Different Name',
     meta: {},
   }
   render(<CheckboxGroup {...props} />)
 
-  expect(screen.getByText('Checkbox Group')).toBeInTheDocument()
+  expect(screen.getByText('Different Name')).toBeInTheDocument()
 })
 
 test('CheckboxGroup does not pass class to children', () => {
   const props = {
     input: {
-      name: 'testGroup',
+      name: name,
       value: '',
     },
     meta: {},
@@ -96,7 +99,7 @@ test('CheckboxGroup does not pass class to children', () => {
   }
   render(<CheckboxGroup {...props} />)
 
-  const checkboxGroup = screen.getByRole('group', { name: 'Test Group' })
+  const checkboxGroup = screen.getByRole('group', { name: formattedName })
   const checkbox = screen.getByRole('checkbox')
 
   expect(checkboxGroup).toHaveClass('custom-class')
@@ -106,7 +109,7 @@ test('CheckboxGroup does not pass class to children', () => {
 test('CheckboxGroup passes down props to children', () => {
   const props = {
     input: {
-      name: 'testGroup',
+      name: name,
       value: '',
     },
     meta: {},
@@ -118,7 +121,7 @@ test('CheckboxGroup passes down props to children', () => {
   }
   render(<CheckboxGroup {...props} />)
 
-  const checkboxGroup = screen.getByRole('group', { name: 'Test Group' })
+  const checkboxGroup = screen.getByRole('group', { name: formattedName })
   const checkbox = screen.getByRole('checkbox')
 
   expect(checkboxGroup).toHaveClass('custom-group-class')
@@ -180,4 +183,24 @@ test('CheckboxGroup with dropdown = true sets menu no longer active when clicked
   await waitFor(() => {
     expect(select.nextSibling).not.toHaveClass('is-active')
   })
+})
+
+test('when no custom required indicator provided, do not show required indicator', () => {
+  render(<WrappedCheckboxGroup required />)
+  expect(screen.getByText(formattedName).textContent).toEqual(formattedName)
+})
+
+test('when required true and custom requiredIndicator provided, show custom indicator', () => {
+  render(<WrappedCheckboxGroup required requiredIndicator={'*'} />)
+  expect(screen.getByText('*')).toBeInTheDocument()
+})
+
+test('when required false and custom requiredIndicator provided, hide custom indicator', () => {
+  render(<WrappedCheckboxGroup required={false} requiredIndicator={'*'} />)
+  expect(screen.queryByText('*')).not.toBeInTheDocument()
+})
+
+test('when hint provided - shows hint', () => {
+  render(<WrappedCheckboxGroup hint="hint" />)
+  expect(screen.getByText(formattedName)).toHaveTextContent('hint')
 })
