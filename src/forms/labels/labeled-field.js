@@ -17,10 +17,10 @@ import { hasInputError } from '../helpers'
  *
  * @name LabeledField
  * @type Function
- * @param {Boolean} [hideErrorLabel] - A boolean determining whether to hide the error label on input error (optional, default `false`)
+ * @param {Boolean} [hideErrorLabel=false] - A boolean determining whether to hide the error label on input error
  * @param {Function} [labelComponent=InputLabel] - A custom label component for the input
  * @param {Function} [errorComponent=InputError] - A custom error component for the input
- * @param {Element Type} [as] - A string that determines the element type of the wrapper (optional, default `div`)
+ * @param {String} [as='div'] - A string that determines the element type of the wrapper
  *
  * @example
  *
@@ -73,7 +73,7 @@ const propTypes = {
   ...InputError.propTypes,
   children: PropTypes.node,
   hideErrorLabel: PropTypes.bool,
-  as: PropTypes.elementType,
+  as: PropTypes.string,
 }
 
 const defaultProps = {

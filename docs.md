@@ -1075,9 +1075,10 @@ use the [omitLabelProps][88] helper.
 
 ### Parameters
 
-*   `hideErrorLabel` **[Boolean][141]?** A boolean determining whether to hide the error label on input error (optional, default `false`)
+*   `hideErrorLabel` **[Boolean][141]** A boolean determining whether to hide the error label on input error (optional, default `false`)
 *   `labelComponent` **[Function][140]** A custom label component for the input (optional, default `InputLabel`)
 *   `errorComponent` **[Function][140]** A custom error component for the input (optional, default `InputError`)
+*   `as` **[String][139]** A string that determines the element type of the wrapper (optional, default `'div'`)
 
 ### Examples
 
