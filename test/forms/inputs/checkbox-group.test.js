@@ -17,12 +17,12 @@ const WrappedCheckboxGroup = (props) => {
 
   const defaultProps = {
     input: {
-      name: name,
-      value: value,
+      name,
+      value,
       onChange: setValue,
     },
     meta: {},
-    options: options,
+    options,
   }
 
   return <CheckboxGroup {...defaultProps} {...props} />
@@ -63,7 +63,7 @@ test('CheckboxGroup removes value from array when selected option clicked', asyn
 test("CheckboxGroup has a legend with the group's name by default", () => {
   const props = {
     input: {
-      name: name,
+      name,
       value: '',
     },
     meta: {},
@@ -76,7 +76,7 @@ test("CheckboxGroup has a legend with the group's name by default", () => {
 test("CheckboxGroup has a legend with the group's label (when provided)", () => {
   const props = {
     input: {
-      name: name,
+      name,
       value: '',
     },
     label: 'Different Name',
@@ -90,7 +90,7 @@ test("CheckboxGroup has a legend with the group's label (when provided)", () => 
 test('CheckboxGroup does not pass class to children', () => {
   const props = {
     input: {
-      name: name,
+      name,
       value: '',
     },
     meta: {},
@@ -109,7 +109,7 @@ test('CheckboxGroup does not pass class to children', () => {
 test('CheckboxGroup passes down props to children', () => {
   const props = {
     input: {
-      name: name,
+      name,
       value: '',
     },
     meta: {},

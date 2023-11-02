@@ -9,7 +9,7 @@ const WrappedCheckbox = () => {
   const props = {
     input: {
       name: 'test',
-      value: value,
+      value,
       onChange: () => setValue(!value),
     },
     meta: {},

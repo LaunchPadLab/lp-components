@@ -14,8 +14,8 @@ const WrappedDateInput = (props) => {
 
   const defaultProps = {
     input: {
-      name: name,
-      value: value,
+      name,
+      value,
       onChange: setValue,
       onBlur: noop,
     },
@@ -86,7 +86,7 @@ test("DateInput defaults tabbable item to today's date", async () => {
   expect(current).toHaveProperty('tabIndex', 0)
 })
 
-test("DateInput sets empty input to an empty string", async () => {
+test('DateInput sets empty input to an empty string', async () => {
   const user = userEvent.setup()
   const onChange = jest.fn()
   const props = { input: { ...input, onChange, onBlur: noop }, meta: {} }
@@ -99,7 +99,7 @@ test("DateInput sets empty input to an empty string", async () => {
   expect(onChange).toHaveBeenCalledWith('')
 })
 
-test("DateInput invokes onBlur when focus changes", async () => {
+test('DateInput invokes onBlur when focus changes', async () => {
   const user = userEvent.setup()
   const onBlur = jest.fn()
   const onChange = jest.fn()
