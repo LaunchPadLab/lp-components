@@ -143,57 +143,59 @@ test('RadioGroup passes down props to children', () => {
   })
 })
 
-test('when no custom required indicator provided, do not show required indicator', () => {
-  const props = {
-    input: {
-      name,
-      value: '',
-    },
-    meta: {},
-    required: true,
-  }
+describe('RadioGroup', () => {
+  test('does not show required indicator when no custom required indicator provided', () => {
+    const props = {
+      input: {
+        name,
+        value: '',
+      },
+      meta: {},
+      required: true,
+    }
 
-  render(<RadioGroup {...props} />)
-  expect(screen.getByText(formattedName).textContent).toEqual(formattedName)
-})
+    render(<RadioGroup {...props} />)
+    expect(screen.getByText(formattedName).textContent).toEqual(formattedName)
+  })
 
-test('when required true and custom requiredIndicator provided, show custom indicator', () => {
-  const props = {
-    input: {
-      name,
-      value: '',
-    },
-    meta: {},
-    required: true,
-    requiredIndicator: '*',
-  }
-  render(<RadioGroup {...props} />)
-  expect(screen.getByText('*')).toBeInTheDocument()
-})
+  test('shows custom indicator when required true and custom requiredIndicator provided', () => {
+    const props = {
+      input: {
+        name,
+        value: '',
+      },
+      meta: {},
+      required: true,
+      requiredIndicator: '*',
+    }
+    render(<RadioGroup {...props} />)
+    expect(screen.getByText('*')).toBeInTheDocument()
+  })
 
-test('when required false and custom requiredIndicator provided, hide custom indicator', () => {
-  const props = {
-    input: {
-      name,
-      value: '',
-    },
-    meta: {},
-    required: false,
-    requiredIndicator: '*',
-  }
-  render(<RadioGroup {...props} />)
-  expect(screen.queryByText('*')).not.toBeInTheDocument()
-})
+  test('hides custom indicator when required false and custom requiredIndicator provided', () => {
+    const props = {
+      input: {
+        name,
+        value: '',
+      },
+      meta: {},
+      required: false,
+      requiredIndicator: '*',
+    }
+    render(<RadioGroup {...props} />)
+    expect(screen.queryByText('*')).not.toBeInTheDocument()
+  })
 
-test('when hint provided - shows hint', () => {
-  const props = {
-    input: {
-      name,
-      value: '',
-    },
-    meta: {},
-    hint: 'hint',
-  }
-  render(<RadioGroup {...props} />)
-  expect(screen.getByText(formattedName)).toHaveTextContent('hint')
+  test('shows hint when hint provided', () => {
+    const props = {
+      input: {
+        name,
+        value: '',
+      },
+      meta: {},
+      hint: 'hint',
+    }
+    render(<RadioGroup {...props} />)
+    expect(screen.getByText(formattedName)).toHaveTextContent('hint')
+  })
 })

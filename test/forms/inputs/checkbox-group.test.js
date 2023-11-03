@@ -184,23 +184,24 @@ test('CheckboxGroup with dropdown = true sets menu no longer active when clicked
     expect(select.nextSibling).not.toHaveClass('is-active')
   })
 })
+describe('CheckboxGroup', () => {
+  test('does not show required indicator when no custom required indicator provided', () => {
+    render(<WrappedCheckboxGroup required />)
+    expect(screen.getByText(formattedName).textContent).toEqual(formattedName)
+  })
 
-test('when no custom required indicator provided, do not show required indicator', () => {
-  render(<WrappedCheckboxGroup required />)
-  expect(screen.getByText(formattedName).textContent).toEqual(formattedName)
-})
+  test('shows custom indicator when required true and custom requiredIndicator provided', () => {
+    render(<WrappedCheckboxGroup required requiredIndicator={'*'} />)
+    expect(screen.getByText('*')).toBeInTheDocument()
+  })
 
-test('when required true and custom requiredIndicator provided, show custom indicator', () => {
-  render(<WrappedCheckboxGroup required requiredIndicator={'*'} />)
-  expect(screen.getByText('*')).toBeInTheDocument()
-})
+  test('hides custom indicator when required false and custom requiredIndicator provided', () => {
+    render(<WrappedCheckboxGroup required={false} requiredIndicator={'*'} />)
+    expect(screen.queryByText('*')).not.toBeInTheDocument()
+  })
 
-test('when required false and custom requiredIndicator provided, hide custom indicator', () => {
-  render(<WrappedCheckboxGroup required={false} requiredIndicator={'*'} />)
-  expect(screen.queryByText('*')).not.toBeInTheDocument()
-})
-
-test('when hint provided - shows hint', () => {
-  render(<WrappedCheckboxGroup hint="hint" />)
-  expect(screen.getByText(formattedName)).toHaveTextContent('hint')
+  test('shows hint when hint provided', () => {
+    render(<WrappedCheckboxGroup hint="hint" />)
+    expect(screen.getByText(formattedName)).toHaveTextContent('hint')
+  })
 })
