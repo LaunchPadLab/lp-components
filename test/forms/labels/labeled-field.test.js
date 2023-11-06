@@ -19,17 +19,28 @@ describe('LabeledField', () => {
   })
 
   test('wraps children in fieldset when explicitly set', () => {
-    const Wrapped = () => <input name="test" />
-    const componentLegend = () => <legend>Foo</legend>
+    const CheckboxLegend = () => <legend>Foo</legend>
     const props = {
       input: { name: 'foo' },
       meta: {},
       as: 'fieldset',
-      labelComponent: componentLegend,
+      labelComponent: CheckboxLegend,
     }
+    const Options = () => (
+      <>
+        <div>
+          <input type="checkbox" id="first" name="first" />
+          <label htmlFor="first">First</label>
+        </div>
+        <div>
+          <input type="checkbox" id="second" name="second" />
+          <label htmlFor="second">Second</label>
+        </div>
+      </>
+    )
     render(
       <LabeledField {...props}>
-        <Wrapped />
+        <Options />
       </LabeledField>
     )
     const fieldset = screen.getByRole('group', { name: 'Foo' })

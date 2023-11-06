@@ -368,7 +368,7 @@ Clicking an unselected checkbox adds its value to this array, and clicking a sel
 *   `meta` **[Object][145]** A `redux-form` [meta][147] object
 *   `options` **[Array][143]** An array of checkbox values (strings, numbers, or key-value pairs)
 *   `checkboxInputProps` **[Object][145]** An object of key-value pairs representing props to pass down to all checkbox inputs (optional, default `{}`)
-*   `dropdown` **[Boolean][141]** A boolean that determines whether the checkbox options are displayed in a dropdown container or not (optional, default `false`)
+*   `dropdown` **[Boolean][141]** A flag indicating whether the checkbox options are displayed in a dropdown container or not (optional, default `false`)
 
 ### Examples
 
