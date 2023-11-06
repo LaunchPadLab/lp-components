@@ -32,11 +32,11 @@ test('CloudinaryFileInput adds uploadStatus to className', () => {
     cloudName,
     bucket,
   }
-  render(<CloudinaryFileInput {...props} />)
-
-  const fieldWrapper = screen.getByTestId('field-wrapper')
-  expect(fieldWrapper).toHaveClass(className)
-  expect(fieldWrapper).toHaveClass(uploadStatus)
+  const {
+    container: { firstChild: wrapper },
+  } = render(<CloudinaryFileInput {...props} />)
+  expect(wrapper).toHaveClass(className)
+  expect(wrapper).toHaveClass(uploadStatus)
 })
 
 test('CloudinaryFileInput sets returned url within value', async () => {

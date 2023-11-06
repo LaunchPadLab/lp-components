@@ -1,7 +1,7 @@
 /*-----------------------
-Field Wrappers
+Fieldsets and Field Wrappers
 -----------------------*/
-.field-wrapper {
+fieldset, .field-wrapper {
   display: inline-block;
   @include rem(margin-top, 15px);
   position: relative;

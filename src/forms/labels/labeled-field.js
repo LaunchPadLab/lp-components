@@ -98,11 +98,11 @@ function LabeledField({
   const { touched, invalid } = meta
   return (
     <Wrapper
-      className={classnames(className, 'field-wrapper', {
+      className={classnames(className, {
         error: hasInputError({ touched, invalid }),
         disabled: rest.disabled,
+        'field-wrapper': Wrapper !== 'fieldset',
       })}
-      data-testid="field-wrapper"
     >
       <LabelComponent {...{ name, id, label, ...rest }} />
       {children}
