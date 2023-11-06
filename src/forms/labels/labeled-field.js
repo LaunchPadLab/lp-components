@@ -73,7 +73,7 @@ const propTypes = {
   ...InputError.propTypes,
   children: PropTypes.node,
   hideErrorLabel: PropTypes.bool,
-  as: PropTypes.string,
+  as: PropTypes.oneOf(['div', 'fieldset']),
 }
 
 const defaultProps = {
