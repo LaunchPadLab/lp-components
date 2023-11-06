@@ -75,7 +75,7 @@ test("RadioGroup has a legend with the input's name start-cased by default", () 
   expect(screen.getByRole('group', { name: formattedName })).toBeInTheDocument()
 })
 
-test('RadioGroup still has a legend when label is `false`', () => {
+test('RadioGroup has a legend with visually-hidden class when label is `false`', () => {
   const props = {
     input: {
       name,
@@ -86,9 +86,9 @@ test('RadioGroup still has a legend when label is `false`', () => {
     label: false,
   }
   render(<RadioGroup {...props} />)
-  expect(
-    screen.queryByRole('group', { name: formattedName })
-  ).toBeInTheDocument()
+  const fieldset = screen.queryByRole('group', { name: formattedName })
+  expect(fieldset).toBeInTheDocument()
+  expect(fieldset.firstChild).toHaveClass('visually-hidden')
 })
 
 test("RadioGroup has a legend with the group's label (when provided)", () => {
