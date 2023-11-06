@@ -2,7 +2,7 @@
 
 This version contains the following breaking changes:
 
-1. All inputs, except for CheckboxGroup and RadioGroup, are now wrapped in a `div`
+1. All inputs, except for `CheckboxGroup` and `RadioGroup`, are now wrapped in a `div`
 2. The `LabeledField` component is now rendered as a `div` by default and accepts an optional prop `as` that can overwrite the HTML element
 3. The `DropdownCheckboxGroup` component is now `CheckboxGroup` with prop `dropdown`=`true`
 4. The `CheckboxGroup` and `RadioGroup` legends now rely on `visually-hidden` class styles to hide the label from the view
@@ -10,7 +10,7 @@ This version contains the following breaking changes:
 Further explanation of each item is detailed below.
 
 ---
-## 1. All inputs, except for CheckboxGroup and RadioGroup, are now wrapped in a 'div'
+## 1. All inputs, except for `CheckboxGroup` and `RadioGroup`, are now wrapped in a 'div'
 `fieldset` no longer wraps each input unless when grouping related form controls (i.e., `CheckboxGroup` and `RadioGroup`). This affects base styles in _forms.scss and any custom rules your code might have that rely on the outdated structure. 
 
 ```html
