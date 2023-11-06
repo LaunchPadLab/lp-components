@@ -36,7 +36,7 @@ import classnames from 'classnames'
  * @param {Object} meta - A `redux-form` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @param {Array} options - An array of checkbox values (strings, numbers, or key-value pairs)
  * @param {Object} [checkboxInputProps={}] - An object of key-value pairs representing props to pass down to all checkbox inputs
- * @param {Boolean} [dropdown=false] - A boolean that determines whether the checkbox options are displayed in a dropdown container or not
+ * @param {Boolean} [dropdown=false] - A flag indicating whether the checkbox options are displayed in a dropdown container or not
  * @example
  *
  * function TodoForm ({ handleSubmit, pristine, invalid, submitting }) {
