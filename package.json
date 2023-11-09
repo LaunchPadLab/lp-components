@@ -1,6 +1,6 @@
 {
   "name": "@launchpadlab/lp-components",
-  "version": "9.2.1",
+  "version": "9.2.2",
   "engines": {
     "node": "^18.12"
   },
