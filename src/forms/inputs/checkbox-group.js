@@ -121,10 +121,10 @@ function CheckboxGroupLegend({
   )
 }
 
-function CheckboxOptionsContainer({ children, dropdown, value }) {
+function CheckboxOptionsContainer({ children, dropdown, ...rest }) {
   if (dropdown)
     return (
-      <DropdownSelect selectedValues={value} className="checkboxes">
+      <DropdownSelect className="checkboxes" {...rest}>
         {children}
       </DropdownSelect>
     )
@@ -150,7 +150,7 @@ function CheckboxGroup(props) {
     return function (checked) {
       // Add or remove option value from array of values, depending on whether it's checked
       const newValueArray = checked
-        ? addToArray([option.value], value)
+        ? addToArray(value, [option.value])
         : removeFromArray([option.value], value)
       return onChange(newValueArray)
     }
@@ -163,7 +163,11 @@ function CheckboxGroup(props) {
       as="fieldset"
       {...props}
     >
-      <CheckboxOptionsContainer dropdown={dropdown} value={value}>
+      <CheckboxOptionsContainer
+        dropdown={dropdown}
+        selectedValues={value}
+        options={optionObjects}
+      >
         {optionObjects.map((option) => (
           <Checkbox
             key={option.value}
