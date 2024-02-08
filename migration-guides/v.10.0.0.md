@@ -5,7 +5,8 @@ This version contains the following breaking changes:
 1. All inputs, except for `CheckboxGroup` and `RadioGroup`, are now wrapped in a `div`
 2. The `LabeledField` component is now rendered as a `div` by default and accepts an optional prop `as` that can overwrite the HTML element
 3. The `DropdownCheckboxGroup` component is now `CheckboxGroup` with prop `dropdown`=`true`
-4. The `CheckboxGroup` and `RadioGroup` legends now rely on `visually-hidden` class styles to hide the label from the view
+4. The labels are now rendered correctly when dropdown options are selected for the `CheckboxGroup` component and they are sorted from oldest (left) to newest (right)
+5. The `CheckboxGroup` and `RadioGroup` legends now rely on `visually-hidden` class styles to hide the label from the view
 
 Further explanation of each item is detailed below.
 
@@ -64,7 +65,10 @@ import { CheckboxGroup } from 'lp-components'
 <CheckboxGroup input={inputProps} meta={{}} options={options} dropdown={true} />
 ```
 
-## 4. The `CheckboxGroup` and `RadioGroup` legends now rely on `visually-hidden` class styles to hide the label from the view
+## 4. The labels are now rendered correctly when dropdown options are selected for the `CheckboxGroup` component and they are sorted from oldest (left) to newest (right)
+Previously, the `DropdownCheckboxGroup` component displayed the `value` of the selected option rather than the `key` which corresponds to its label. Additionally, the selected options appeared from newest to oldest, contrary to the typical expected behavior. If you've implemented workarounds, please remove them.
+
+## 5. The `CheckboxGroup` and `RadioGroup` legends now rely on `visually-hidden` class styles to hide the label from the view
 To follow the accessibility guideline of `fieldset` having one `legend` as its direct child, changes have been made in `CheckboxGroup` and `RadioGroup` to always render the `legend` and if `label=false` is passed into the components, the class name "visually-hidden" is added to the legend in order to visually hide it. Please make sure the following class styles are included in your project's root stylesheet:
 
 ```css
