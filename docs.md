@@ -1065,9 +1065,9 @@ function EmailInput ({
 
 ## LabeledField
 
-A container for redux-form controlled inputs. This wrapper adds a label component (defaults to [InputLabel][68])
+A wrapper for redux-form controlled inputs. This wrapper adds a label component (defaults to [InputLabel][68])
 above the wrapped component and an error component below (defaults to [InputError][65]). Additionally, it adds the class `"error"`
-to the container if the input is touched and invalid.
+to the wrapper if the input is touched and invalid.
 
 In order to populate the `InputLabel` and `InputError` correctly, you should pass all the props of the corresponding input
 to this component. To prevent label-specific props from being passed to the input itself,
