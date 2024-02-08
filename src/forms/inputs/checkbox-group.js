@@ -179,6 +179,7 @@ function CheckboxGroup(props) {
               },
               meta: {},
               label: option.key,
+              id: `${name}.${option.value}`,
               ...inputProps,
               ...checkboxInputProps,
             }}
