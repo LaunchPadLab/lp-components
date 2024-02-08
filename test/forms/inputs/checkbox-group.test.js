@@ -147,7 +147,7 @@ describe('CheckboxGroup', () => {
     expect(firstCheckbox).toBeChecked()
     expect(thirdCheckbox).toBeChecked()
 
-    const selectValueLabel = screen.getByText('3, 1')
+    const selectValueLabel = screen.getByText('First Option, Third Option')
     expect(selectValueLabel).toBeInTheDocument()
   })
 
