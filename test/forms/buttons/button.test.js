@@ -7,14 +7,14 @@ test('Button is aria-disabled when form is invalid', () => {
   render(<Button invalid={true}>Hi</Button>)
   const button = screen.getByRole('button')
 
-  expect(button).toHaveAttribute('aria-disabled')
+  expect(button).toHaveAttribute('aria-disabled', 'true')
 })
 
 test('Button is aria-disabled when form is pristine', () => {
   render(<Button pristine={true}>Hi</Button>)
   const button = screen.getByRole('button')
 
-  expect(button).toHaveAttribute('aria-disabled')
+  expect(button).toHaveAttribute('aria-disabled', 'true')
 })
 
 test('Button onClick is run when the form is not submitting, pristine, or invalid', async () => {

@@ -15,11 +15,11 @@ storiesOf('Button', module)
       Click Me
     </Button>
   ))
-  .add('style: small', () => (
+  .add('variant: small', () => (
     <Button
       {...{
         onClick,
-        style: 'small',
+        variant: 'small',
       }}
     >
       Click Me
