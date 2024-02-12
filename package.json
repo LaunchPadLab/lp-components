@@ -2,7 +2,7 @@
   "name": "@launchpadlab/lp-components",
   "version": "10.0.0",
   "engines": {
-    "node": "^18.12"
+    "node": "^18.12 || ^20.0"
   },
   "description": "Our Components",
   "main": "lib/index.js",
@@ -76,7 +76,6 @@
     "babel-loader": "^9.1.0",
     "bourbon": "^7.2.0",
     "bourbon-neat": "^4.0.0",
-    "core-js": "^3.21.1",
     "css-loader": "^6.7.2",
     "documentation": "^14.0.2",
     "eslint": "^8.46.0",
