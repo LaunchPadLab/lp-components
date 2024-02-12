@@ -59,7 +59,7 @@ DropdownSelect.defaultProps = defaultProps
 
 function getLabel(values, options) {
   const labels = values.map((v) => options.find((o) => o.value === v).key)
-  return values.length ? labels.join(', ') : 'None'
+  return labels.length ? labels.join(', ') : 'None'
 }
 
 export default DropdownSelect
