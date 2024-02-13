@@ -29,6 +29,7 @@ Documentation and usage info can be found in [docs.md](docs.md).
 - [v7.0.0](migration-guides/v7.0.0.md)
 - [v8.0.0](migration-guides/v8.0.0.md)
 - [v9.0.0](migration-guides/v9.0.0.md)
+- [v10.0.0](migration-guides/v10.0.0.md)
 
 ## Contribution
 

@@ -8,27 +8,38 @@ const propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   selectedValues: PropTypes.arrayOf(PropTypes.string),
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+    })
+  ),
 }
 
 const defaultProps = {
   className: '',
   selectedValues: [],
+  options: [],
 }
 
-// Wraps the `DropdownCheckboxGroup` component
+// Wraps the `CheckboxGroup` component when dropdown is set to true.
 
-function DropdownSelect({ children, className, selectedValues }) {
+function DropdownSelect({ children, className, selectedValues, options }) {
   const [expanded, toggleExpanded] = useToggle()
 
   return (
     <OutsideClickHandler onOutsideClick={() => toggleExpanded(false)}>
-      <div className="dropdown-select">
+      <div
+        className={classnames('dropdown-select', {
+          'is-active': expanded,
+        })}
+      >
         <button
           type="button"
           className="select-input"
           onClick={() => toggleExpanded()}
         >
-          <p>{getLabel(selectedValues)}</p>
+          <p>{getLabel(selectedValues, options)}</p>
         </button>
         <div
           className={classnames(className, 'options', {
@@ -46,8 +57,9 @@ DropdownSelect.propTypes = propTypes
 
 DropdownSelect.defaultProps = defaultProps
 
-function getLabel(values) {
-  return values.length ? values.join(', ') : 'None'
+function getLabel(values, options) {
+  const labels = values.map((v) => options.find((o) => o.value === v).key)
+  return labels.length ? labels.join(', ') : 'None'
 }
 
 export default DropdownSelect

@@ -83,7 +83,9 @@ test('Select has a disabled placeholder by default', () => {
     meta: {},
   }
   render(<Select {...props} />)
-  expect(screen.getByRole('option', { name: DEFAULT_PLACEHOLDER })).toBeDisabled()
+  expect(
+    screen.getByRole('option', { name: DEFAULT_PLACEHOLDER })
+  ).toBeDisabled()
 })
 
 test('Select renders option groups correctly', () => {
@@ -100,7 +102,9 @@ test('Select renders option groups correctly', () => {
   }
   render(<Select {...props} />)
   const optionGroup = screen.getByRole('group', { name: options.name })
-  expect(within(optionGroup).getByRole('option', { name: 'testOption'})).toBeInTheDocument()
+  expect(
+    within(optionGroup).getByRole('option', { name: 'testOption' })
+  ).toBeInTheDocument()
 })
 
 test('Select adds an aria-describedby attribute when there is an input error', () => {
@@ -119,7 +123,9 @@ test('Select adds an aria-describedby attribute when there is an input error', (
     options: [OPTION],
   }
   render(<Select {...props} />)
-  expect(screen.getByRole('combobox').getAttribute('aria-describedby')).toContain(name)
+  expect(
+    screen.getByRole('combobox').getAttribute('aria-describedby')
+  ).toContain(name)
 })
 
 test('Select does not receive invalid dom attributes', () => {

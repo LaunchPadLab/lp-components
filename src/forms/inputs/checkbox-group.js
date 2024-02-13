@@ -7,6 +7,7 @@ import {
   omitLabelProps,
   replaceEmptyStringValue,
   convertNameToLabel,
+  DropdownSelect,
 } from '../helpers'
 import { LabeledField } from '../labels'
 import {
@@ -15,6 +16,7 @@ import {
   serializeOptions,
   compose,
 } from '../../utils'
+import classnames from 'classnames'
 
 /**
  *
@@ -34,6 +36,7 @@ import {
  * @param {Object} meta - A `redux-form` [meta](http://redux-form.com/6.5.0/docs/api/Field.md/#meta-props) object
  * @param {Array} options - An array of checkbox values (strings, numbers, or key-value pairs)
  * @param {Object} [checkboxInputProps={}] - An object of key-value pairs representing props to pass down to all checkbox inputs
+ * @param {Boolean} [dropdown=false] - A flag indicating whether the checkbox options are displayed in a dropdown container or not
  * @example
  *
  * function TodoForm ({ handleSubmit, pristine, invalid, submitting }) {
@@ -88,17 +91,45 @@ const propTypes = {
   className: PropTypes.string,
   checkboxInputProps: PropTypes.object,
   options: fieldOptionsType,
+  dropdown: PropTypes.bool,
 }
 
 const defaultProps = {
   className: 'CheckboxGroup',
   checkboxInputProps: {},
   options: [],
+  dropdown: false,
 }
 
-function CheckboxGroupLegend({ name, label }) {
-  if (label === false) return null
-  return <legend>{label || convertNameToLabel(name)}</legend>
+function CheckboxGroupLegend({
+  label,
+  name,
+  required,
+  requiredIndicator,
+  hint,
+}) {
+  return (
+    <legend className={classnames({ 'visually-hidden': label === false })}>
+      {label || convertNameToLabel(name)}
+      {required && requiredIndicator && (
+        <span className="required-indicator" aria-hidden="true">
+          {requiredIndicator}
+        </span>
+      )}
+      {hint && <i>{hint}</i>}
+    </legend>
+  )
+}
+
+function CheckboxOptionsContainer({ children, dropdown, ...rest }) {
+  if (dropdown)
+    return (
+      <DropdownSelect className="checkboxes" {...rest}>
+        {children}
+      </DropdownSelect>
+    )
+
+  return children
 }
 
 function CheckboxGroup(props) {
@@ -108,6 +139,7 @@ function CheckboxGroup(props) {
     options,
     className,
     checkboxInputProps,
+    dropdown,
     ...rest
   } = props
   const inputProps = omitLabelProps(rest)
@@ -118,22 +150,28 @@ function CheckboxGroup(props) {
     return function (checked) {
       // Add or remove option value from array of values, depending on whether it's checked
       const newValueArray = checked
-        ? addToArray([option.value], value)
+        ? addToArray(value, [option.value])
         : removeFromArray([option.value], value)
       return onChange(newValueArray)
     }
   }
+
   return (
     <LabeledField
       className={className}
       labelComponent={CheckboxGroupLegend}
+      as="fieldset"
       {...props}
     >
-      {optionObjects.map((option, i) => {
-        return (
-          <Checkbox // eslint-disable-line react/jsx-key
+      <CheckboxOptionsContainer
+        dropdown={dropdown}
+        selectedValues={value}
+        options={optionObjects}
+      >
+        {optionObjects.map((option) => (
+          <Checkbox
+            key={option.value}
             {...{
-              key: i,
               input: {
                 name: `${name}.${option.value}`,
                 value: value.includes(option.value),
@@ -141,12 +179,13 @@ function CheckboxGroup(props) {
               },
               meta: {},
               label: option.key,
+              id: `${name}.${option.value}`,
               ...inputProps,
               ...checkboxInputProps,
             }}
           />
-        )
-      })}
+        ))}
+      </CheckboxOptionsContainer>
     </LabeledField>
   )
 }

@@ -8,6 +8,7 @@ import {
 } from '../helpers'
 import { LabeledField } from '../labels'
 import { serializeOptions, filterInvalidDOMProps } from '../../utils'
+import classnames from 'classnames'
 
 /**
  *
@@ -89,9 +90,18 @@ const defaultProps = {
   radioInputProps: {},
 }
 
-function RadioGroupLegend({ label, name }) {
-  if (label === false) return null
-  return <legend>{label || convertNameToLabel(name)}</legend>
+function RadioGroupLegend({ label, name, required, requiredIndicator, hint }) {
+  return (
+    <legend className={classnames({ 'visually-hidden': label === false })}>
+      {label || convertNameToLabel(name)}
+      {required && requiredIndicator && (
+        <span className="required-indicator" aria-hidden="true">
+          {requiredIndicator}
+        </span>
+      )}
+      {hint && <i>{hint}</i>}
+    </legend>
+  )
 }
 
 // This should never be used by itself, so it does not exist as a separate export
@@ -137,13 +147,14 @@ function RadioGroup(props) {
     <LabeledField
       className={className}
       labelComponent={RadioGroupLegend}
+      as="fieldset"
       {...props}
     >
-      {optionObjects.map((option, i) => {
+      {optionObjects.map((option) => {
         return (
-          <RadioButton // eslint-disable-line react/jsx-key
+          <RadioButton
+            key={option.value}
             {...{
-              key: i,
               type: 'radio',
               input: {
                 name, // all radio inputs must share the same name

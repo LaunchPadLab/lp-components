@@ -7,9 +7,9 @@ import { hasInputError } from '../helpers'
 
 /**
  *
- * A fieldset wrapper for redux-form controlled inputs. This wrapper adds a label component (defaults to {@link InputLabel})
+ * A wrapper for redux-form controlled inputs. This wrapper adds a label component (defaults to {@link InputLabel})
  * above the wrapped component and an error component below (defaults to {@link InputError}). Additionally, it adds the class `"error"`
- * to the fieldset if the input is touched and invalid.
+ * to the wrapper if the input is touched and invalid.
  *
  * In order to populate the `InputLabel` and `InputError` correctly, you should pass all the props of the corresponding input
  * to this component. To prevent label-specific props from being passed to the input itself,
@@ -17,9 +17,10 @@ import { hasInputError } from '../helpers'
  *
  * @name LabeledField
  * @type Function
- * @param {Boolean} [hideErrorLabel] - A boolean determining whether to hide the error label on input error (optional, default `false`)
+ * @param {Boolean} [hideErrorLabel=false] - A boolean determining whether to hide the error label on input error
  * @param {Function} [labelComponent=InputLabel] - A custom label component for the input
  * @param {Function} [errorComponent=InputError] - A custom error component for the input
+ * @param {String} [as='div'] - A string that determines the element type of the wrapper
  *
  * @example
  *
@@ -72,10 +73,12 @@ const propTypes = {
   ...InputError.propTypes,
   children: PropTypes.node,
   hideErrorLabel: PropTypes.bool,
+  as: PropTypes.oneOf(['div', 'fieldset']),
 }
 
 const defaultProps = {
   hideErrorLabel: false,
+  as: 'div',
 }
 
 function LabeledField({
@@ -88,15 +91,17 @@ function LabeledField({
   children,
   hideErrorLabel,
   label,
+  as: Wrapper,
   ...rest
 }) {
   const { name } = input
   const { touched, invalid } = meta
   return (
-    <fieldset
+    <Wrapper
       className={classnames(className, {
         error: hasInputError({ touched, invalid }),
         disabled: rest.disabled,
+        'field-wrapper': Wrapper !== 'fieldset',
       })}
     >
       <LabelComponent {...{ name, id, label, ...rest }} />
@@ -104,7 +109,7 @@ function LabeledField({
       {!hideErrorLabel && (
         <ErrorComponent {...{ ...input, ...meta, ...rest }} />
       )}
-    </fieldset>
+    </Wrapper>
   )
 }
 

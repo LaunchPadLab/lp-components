@@ -128,7 +128,7 @@ export const radioGroupPropTypes = fieldPropTypesWithValue(
 
 /**
  *
- * A constant representing the `PropTypes` of the `input` prop for checkbox group components, e.g., {@link CheckboxGroup} and {@link DropdownCheckboxGroup}
+ * A constant representing the `PropTypes` of the `input` prop for checkbox group components, e.g., {@link CheckboxGroup}
  *
  * @constant {PropTypes} checkboxGroupPropTypes
  *

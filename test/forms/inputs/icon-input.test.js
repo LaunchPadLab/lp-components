@@ -7,11 +7,9 @@ const value = 'value of field'
 const onChange = () => {}
 const props = { input: { name, value, onChange }, meta: {}, icon: 'foo' }
 
-test('IconInput adds class "icon-label" to surrounding fieldset', () => {
-  render(<IconInput {...props} />)
-  const fieldset = screen.getByRole('group')
-
-  expect(fieldset).toHaveClass('icon-label')
+test('IconInput adds class "icon-label" to surrounding container', () => {
+  const { container } = render(<IconInput {...props} />)
+  expect(container.firstChild).toHaveClass('icon-label')
 })
 
 test('IconInput renders <i> tag with correct class', () => {
