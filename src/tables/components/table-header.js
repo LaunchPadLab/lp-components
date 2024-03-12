@@ -12,7 +12,7 @@ const propTypes = {
 }
 
 function TableHeader({
-  column: { name, label, disabled },
+  column: { className, name, label, disabled },
   sortPath,
   ascending,
   onClick,
@@ -22,7 +22,7 @@ function TableHeader({
   return (
     <th
       onClick={onClick}
-      className={classnames(arrowClass, { sortable: !disabled })}
+      className={classnames(arrowClass, { sortable: !disabled }, className)}
     >
       {label || startCase(name)}
     </th>
