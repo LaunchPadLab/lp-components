@@ -1,14 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  convertNameToLabel,
   radioGroupPropTypes,
   fieldOptionsType,
   omitLabelProps,
 } from '../helpers'
-import { LabeledField } from '../labels'
+import { LabeledField, FieldSetLegend } from '../labels'
 import { serializeOptions, filterInvalidDOMProps } from '../../utils'
-import classnames from 'classnames'
 
 /**
  *
@@ -90,20 +88,6 @@ const defaultProps = {
   radioInputProps: {},
 }
 
-function RadioGroupLegend({ label, name, required, requiredIndicator, hint }) {
-  return (
-    <legend className={classnames({ 'visually-hidden': label === false })}>
-      {label || convertNameToLabel(name)}
-      {required && requiredIndicator && (
-        <span className="required-indicator" aria-hidden="true">
-          {requiredIndicator}
-        </span>
-      )}
-      {hint && <i>{hint}</i>}
-    </legend>
-  )
-}
-
 // This should never be used by itself, so it does not exist as a separate export
 function RadioButton(props) {
   const {
@@ -146,7 +130,7 @@ function RadioGroup(props) {
   return (
     <LabeledField
       className={className}
-      labelComponent={RadioGroupLegend}
+      labelComponent={FieldSetLegend}
       as="fieldset"
       {...props}
     >
