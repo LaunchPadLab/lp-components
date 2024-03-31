@@ -6,25 +6,26 @@ import { action } from '@storybook/addon-actions'
 
 const StaticInput = (props) => <input {...props} />
 const Input = dynamicInput()(StaticInput)
+const inputName = 'inputName'
 
 storiesOf('LabeledField', module)
   .add('default', () => (
     <LabeledField
       {...{
         input: {
-          name: 'input name',
+          name: inputName,
         },
         meta: {},
       }}
     >
-      <Input />
+      <Input id={inputName} />
     </LabeledField>
   ))
   .add('with error', () => (
     <LabeledField
       {...{
         input: {
-          name: 'input name',
+          name: inputName,
         },
         meta: {
           touched: true,
@@ -33,14 +34,14 @@ storiesOf('LabeledField', module)
         },
       }}
     >
-      <Input />
+      <Input id={inputName} />
     </LabeledField>
   ))
   .add('hide error', () => (
     <LabeledField
       {...{
         input: {
-          name: 'input name',
+          name: inputName,
         },
         meta: {
           touched: true,
@@ -50,13 +51,13 @@ storiesOf('LabeledField', module)
         hideErrorLabel: true,
       }}
     >
-      <Input />
+      <Input id={inputName} />
     </LabeledField>
   ))
   .add('with custom label', () => {
     // eslint-disable-next-line
     const CustomLabel = ({ onClickLabel }) => (
-      <label onClick={onClickLabel} htmlFor="inputName">
+      <label onClick={onClickLabel} htmlFor={inputName}>
         This is a <b>custom</b> label
       </label>
     )
@@ -64,14 +65,14 @@ storiesOf('LabeledField', module)
       <LabeledField
         {...{
           input: {
-            name: 'inputName',
+            name: inputName,
           },
           meta: {},
           labelComponent: CustomLabel,
           onClickLabel: action('Custom Label Clicked'),
         }}
       >
-        <Input id="inputName" />
+        <Input id={inputName} />
       </LabeledField>
     )
   })
@@ -86,7 +87,7 @@ storiesOf('LabeledField', module)
       <LabeledField
         {...{
           input: {
-            name: 'inputName',
+            name: inputName,
           },
           meta: {
             touched: true,
@@ -96,7 +97,7 @@ storiesOf('LabeledField', module)
           errorComponent: CustomError,
         }}
       >
-        <Input id="inputName" aria-describedby="inputError" />
+        <Input id={inputName} aria-describedby="inputError" />
       </LabeledField>
     )
   })
