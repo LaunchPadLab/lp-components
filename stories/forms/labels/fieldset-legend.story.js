@@ -10,14 +10,11 @@ storiesOf('FieldSetLegend', module)
   .add('with no label', () => (
     <FieldSetLegend name="nameOfInput" label={false} />
   ))
-  .add('with required true default indicator', () => (
-    <FieldSetLegend name="nameOfInput" label="Custom Label" required />
-  ))
   .add('with required true custom indicator', () => (
     <FieldSetLegend
       name="nameOfInput"
       label="Custom Label"
-      required
+      required={true}
       requiredIndicator={'*'}
     />
   ))
