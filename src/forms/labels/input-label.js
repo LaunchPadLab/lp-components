@@ -95,11 +95,6 @@ function InputLabel({
 
   return (
     <span>
-      {/* {label === false && (
-        <label htmlFor={id || name} className="visually-hidden">
-          {labelToDisplay}
-        </label>
-      )} */}
       {label !== false && (
         <label htmlFor={id || name} className={className}>
           {labelToDisplay}
