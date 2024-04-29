@@ -21,8 +21,8 @@ import { convertNameToLabel } from '../helpers'
  * @param {String} name - The name of the associated group
  * @param {String} [hint] - A usage hint for the associated input
  * @param {String|Boolean} [label] - Custom text for the legend
- * @param {Boolean} [required] - A boolean value to indicate whether the field is required
- * @param {String} [requiredIndicator] - Custom character to denote a field is required (optional, default `''`)
+ * @param {Boolean} [required=false] - A boolean value to indicate whether the field is required
+ * @param {String} [requiredIndicator=''] - Custom character to denote a field is required
 
  * @example
  *
@@ -55,6 +55,7 @@ const defaultProps = {
   children: null,
   hint: '',
   label: '',
+  required: false,
   requiredIndicator: '',
   className: '',
 }

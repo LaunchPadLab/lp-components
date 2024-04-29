@@ -212,11 +212,11 @@ A control component for navigating among multiple tabs
 
 ### Parameters
 
-*   `vertical` **[Boolean][144]?** A boolean setting the `className` of the `ul` to 'horizontal' (default), or 'vertical', which determines the alignment of the tabs (optional, default `false`)
+*   `vertical` **[Boolean][144]** A boolean setting the `className` of the `ul` to 'horizontal' (default), or 'vertical', which determines the alignment of the tabs (optional, default `false`)
 *   `options` **[Array][146]** An array of tab values (strings or key-value pairs)
 *   `value` **([String][142] | [Number][145])** The value of the current tab
 *   `onChange` **[Function][143]?** A function called with the new value when a tab is clicked
-*   `activeClassName` **[String][142]?** The class of the active tab, (optional, default `active`)
+*   `activeClassName` **[String][142]** The class of the active tab (optional, default `'active'`)
 
 ### Examples
 
@@ -1035,12 +1035,12 @@ Note: When using third party form libraries (e.g., [Redux Form][162]), it's like
 ### Parameters
 
 *   `name` **[String][142]** The name of the associated input
-*   `id` **[String][142]** The id of the associated input (defaults to name) (optional, default `name`)
+*   `id` **[String][142]** The id of the associated input (optional, default `name`)
 *   `hint` **[String][142]?** A usage hint for the associated input
 *   `label` **([String][142] | [Boolean][144])?** Custom text for the label
 *   `tooltip` **[String][142]?** A message to display in a tooltip
-*   `required` **[Boolean][144]?** A boolean value to indicate whether the field is required
-*   `requiredIndicator` **[String][142]?** Custom character to denote a field is required (optional, default `''`)
+*   `required` **[Boolean][144]** A boolean value to indicate whether the field is required (optional, default `false`)
+*   `requiredIndicator` **[String][142]** Custom character to denote a field is required (optional, default `''`)
 
 ### Examples
 
@@ -1146,8 +1146,8 @@ The text of the legend is set using the following rules:
 *   `name` **[String][142]** The name of the associated group
 *   `hint` **[String][142]?** A usage hint for the associated input
 *   `label` **([String][142] | [Boolean][144])?** Custom text for the legend
-*   `required` **[Boolean][144]?** A boolean value to indicate whether the field is required
-*   `requiredIndicator` **[String][142]?** Custom character to denote a field is required (optional, default `''`)
+*   `required` **[Boolean][144]** A boolean value to indicate whether the field is required (optional, default `false`)
+*   `requiredIndicator` **[String][142]** Custom character to denote a field is required (optional, default `''`)
 
 ### Examples
 
