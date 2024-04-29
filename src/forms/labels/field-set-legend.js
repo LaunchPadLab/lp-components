@@ -11,7 +11,7 @@ import { convertNameToLabel } from '../helpers'
  * 
  *
  * The text of the legend is set using the following rules:
- * - If the `label` prop is set to `false`, the legend is hidden visually
+ * - If the `label` prop is set to `false`, the legend is hidden visually via a class. _Note: It's your responsibility to make sure your styling rules respect the `visually-hidden` class_
  * - Else If the `label` prop is set to a string, the label will display that text
  * - Otherwise, the label will be set using the `name` prop.
  *
