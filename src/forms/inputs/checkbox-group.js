@@ -8,7 +8,7 @@ import {
   replaceEmptyStringValue,
   DropdownSelect,
 } from '../helpers'
-import { LabeledField, FieldSetLegend } from '../labels'
+import { LabeledField, FieldsetLegend } from '../labels'
 import {
   addToArray,
   removeFromArray,
@@ -137,7 +137,7 @@ function CheckboxGroup(props) {
   return (
     <LabeledField
       className={className}
-      labelComponent={FieldSetLegend}
+      labelComponent={FieldsetLegend}
       as="fieldset"
       {...props}
     >

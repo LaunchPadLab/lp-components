@@ -75,7 +75,7 @@
 *   [LabeledField][71]
     *   [Parameters][72]
     *   [Examples][73]
-*   [FieldSetLegend][74]
+*   [FieldsetLegend][74]
     *   [Parameters][75]
     *   [Examples][76]
 *   [blurDirty][77]
@@ -1129,7 +1129,7 @@ function CustomLabelComponent ({ onClickLabel, ...rest }) {
 />
 ```
 
-## FieldSetLegend
+## FieldsetLegend
 
 A legend representing a caption for the content of its parent field set element
 
@@ -1156,7 +1156,7 @@ function ShippingAddress (props) {
   const name = 'shippingAddress'
   return (
      <fieldset>
-      <FieldSetLegend name={name} />
+      <FieldsetLegend name={name} />
       <Input id={`${name}.name`} input={{name: 'name'}} />
       <Input id={`${name}.street`} input={{name: 'street'}} />
       <Input id={`${name}.city`}" input={{name: 'city'}} />

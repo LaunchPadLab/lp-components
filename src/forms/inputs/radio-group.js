@@ -5,7 +5,7 @@ import {
   fieldOptionsType,
   omitLabelProps,
 } from '../helpers'
-import { LabeledField, FieldSetLegend } from '../labels'
+import { LabeledField, FieldsetLegend } from '../labels'
 import { serializeOptions, filterInvalidDOMProps } from '../../utils'
 
 /**
@@ -130,7 +130,7 @@ function RadioGroup(props) {
   return (
     <LabeledField
       className={className}
-      labelComponent={FieldSetLegend}
+      labelComponent={FieldsetLegend}
       as="fieldset"
       {...props}
     >

@@ -16,7 +16,7 @@ import { convertNameToLabel } from '../helpers'
  * - Otherwise, the label will be set using the `name` prop.
  *
  * 
- * @name FieldSetLegend
+ * @name FieldsetLegend
  * @type Function
  * @param {String} name - The name of the associated group
  * @param {String} [hint] - A usage hint for the associated input
@@ -31,7 +31,7 @@ import { convertNameToLabel } from '../helpers'
  *   const name = 'shippingAddress'
  *   return (
  *      <fieldset>
- *       <FieldSetLegend name={name} />
+ *       <FieldsetLegend name={name} />
  *       <Input id={`${name}.name`} input={{name: 'name'}} />
  *       <Input id={`${name}.street`} input={{name: 'street'}} />
  *       <Input id={`${name}.city`}" input={{name: 'city'}} />
@@ -60,7 +60,7 @@ const defaultProps = {
   className: '',
 }
 
-function FieldSetLegend({
+function FieldsetLegend({
   label,
   name,
   required,
@@ -83,7 +83,7 @@ function FieldSetLegend({
   )
 }
 
-FieldSetLegend.propTypes = propTypes
-FieldSetLegend.defaultProps = defaultProps
+FieldsetLegend.propTypes = propTypes
+FieldsetLegend.defaultProps = defaultProps
 
-export default FieldSetLegend
+export default FieldsetLegend
