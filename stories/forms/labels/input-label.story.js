@@ -8,14 +8,11 @@ storiesOf('InputLabel', module)
     <InputLabel name="nameOfInput" label="Custom Label" />
   ))
   .add('with no label', () => <InputLabel name="nameOfInput" label={false} />)
-  .add('with required true default indicator', () => (
-    <InputLabel name="nameOfInput" label="Custom Label" required />
-  ))
   .add('with required true custom indicator', () => (
     <InputLabel
       name="nameOfInput"
       label="Custom Label"
-      required
+      required={true}
       requiredIndicator={'*'}
     />
   ))

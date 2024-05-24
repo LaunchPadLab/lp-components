@@ -25,12 +25,12 @@ import { useToggle } from '../../utils'
  * @name InputLabel
  * @type Function
  * @param {String} name - The name of the associated input
- * @param {String} [id=name] - The id of the associated input (defaults to name)
+ * @param {String} [id=name] - The id of the associated input
  * @param {String} [hint] - A usage hint for the associated input
  * @param {String|Boolean} [label] - Custom text for the label
  * @param {String} [tooltip] - A message to display in a tooltip
- * @param {Boolean} [required] - A boolean value to indicate whether the field is required
- * @param {String} [requiredIndicator] - Custom character to denote a field is required (optional, default `''`)
+ * @param {Boolean} [required=false] - A boolean value to indicate whether the field is required
+ * @param {String} [requiredIndicator=''] - Custom character to denote a field is required
 
  * @example
  *
@@ -74,6 +74,7 @@ const defaultProps = {
   id: '',
   label: '',
   tooltip: '',
+  required: false,
   requiredIndicator: '',
   className: '',
 }

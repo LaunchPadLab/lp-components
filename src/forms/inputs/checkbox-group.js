@@ -6,17 +6,15 @@ import {
   fieldOptionsType,
   omitLabelProps,
   replaceEmptyStringValue,
-  convertNameToLabel,
   DropdownSelect,
 } from '../helpers'
-import { LabeledField } from '../labels'
+import { LabeledField, FieldsetLegend } from '../labels'
 import {
   addToArray,
   removeFromArray,
   serializeOptions,
   compose,
 } from '../../utils'
-import classnames from 'classnames'
 
 /**
  *
@@ -101,26 +99,6 @@ const defaultProps = {
   dropdown: false,
 }
 
-function CheckboxGroupLegend({
-  label,
-  name,
-  required,
-  requiredIndicator,
-  hint,
-}) {
-  return (
-    <legend className={classnames({ 'visually-hidden': label === false })}>
-      {label || convertNameToLabel(name)}
-      {required && requiredIndicator && (
-        <span className="required-indicator" aria-hidden="true">
-          {requiredIndicator}
-        </span>
-      )}
-      {hint && <i>{hint}</i>}
-    </legend>
-  )
-}
-
 function CheckboxOptionsContainer({ children, dropdown, ...rest }) {
   if (dropdown)
     return (
@@ -159,7 +137,7 @@ function CheckboxGroup(props) {
   return (
     <LabeledField
       className={className}
-      labelComponent={CheckboxGroupLegend}
+      labelComponent={FieldsetLegend}
       as="fieldset"
       {...props}
     >
