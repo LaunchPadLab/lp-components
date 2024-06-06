@@ -16,3 +16,5 @@ coverage
 .storybook/styles/.sass-cache
 
 .idea
+.yarn/
+.yarnrc.yml
