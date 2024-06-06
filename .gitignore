@@ -14,3 +14,5 @@ coverage
 .storybook/static/storybook
 .storybook/static/.sass-cache
 .storybook/styles/.sass-cache
+
+.idea
