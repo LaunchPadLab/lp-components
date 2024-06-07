@@ -1,9 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Checkbox from './checkbox'
+
 import {
   checkboxGroupPropTypes,
   fieldOptionsType,
+} from '../helpers/field-prop-types'
+import {
   omitLabelProps,
   replaceEmptyStringValue,
   DropdownSelect,

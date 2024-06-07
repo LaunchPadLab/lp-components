@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+
+import { fieldPropTypesWithValue } from '../helpers/field-prop-types'
 import {
   blurDirty,
   hasInputError,
-  fieldPropTypesWithValue,
   omitLabelProps,
   replaceEmptyStringValue,
 } from '../helpers'
