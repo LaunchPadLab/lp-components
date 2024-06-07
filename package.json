@@ -67,6 +67,7 @@
     "@storybook/addon-viewport": "^6.5.16",
     "@storybook/addons": "^6.5.16",
     "@storybook/builder-webpack5": "^6.5.16",
+    "@storybook/cli": "6.5.16",
     "@storybook/manager-webpack5": "^6.5.16",
     "@storybook/react": "^6.5.16",
     "@testing-library/dom": "^9.3.1",
