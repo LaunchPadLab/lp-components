@@ -1,12 +1,15 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { Button } from 'src'
 
 const onClick = action('clicked')
 
-storiesOf('Button', module)
-  .add('default', () => (
+export default {
+  title: 'Button',
+}
+
+export const Default = {
+  render: () => (
     <Button
       {...{
         onClick,
@@ -14,8 +17,13 @@ storiesOf('Button', module)
     >
       Click Me
     </Button>
-  ))
-  .add('variant: small', () => (
+  ),
+
+  name: 'default',
+}
+
+export const VariantSmall = {
+  render: () => (
     <Button
       {...{
         onClick,
@@ -24,8 +32,13 @@ storiesOf('Button', module)
     >
       Click Me
     </Button>
-  ))
-  .add('disabled', () => (
+  ),
+
+  name: 'variant: small',
+}
+
+export const Disabled = {
+  render: () => (
     <Button
       {...{
         onClick,
@@ -34,8 +47,13 @@ storiesOf('Button', module)
     >
       Click Me
     </Button>
-  ))
-  .add('submitting', () => (
+  ),
+
+  name: 'disabled',
+}
+
+export const Submitting = {
+  render: () => (
     <Button
       {...{
         onClick,
@@ -44,4 +62,7 @@ storiesOf('Button', module)
     >
       Click Me
     </Button>
-  ))
+  ),
+
+  name: 'submitting',
+}

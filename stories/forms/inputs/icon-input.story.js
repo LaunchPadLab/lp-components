@@ -1,5 +1,4 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { IconInput as StaticIconInput } from 'src'
 import dynamicInput from '../../dynamic-input'
@@ -14,17 +13,34 @@ const inputProps = {
   onChange: action('field changed'),
 }
 
-storiesOf('IconInput', module)
-  .add('with default label', () => (
-    <IconInput icon="mail" input={inputProps} meta={{}} />
-  ))
-  .add('with custom label', () => (
+export default {
+  title: 'IconInput',
+}
+
+export const WithDefaultLabel = {
+  render: () => <IconInput icon="mail" input={inputProps} meta={{}} />,
+
+  name: 'with default label',
+}
+
+export const WithCustomLabel = {
+  render: () => (
     <IconInput icon="mail" input={inputProps} meta={{}} label="Custom Label" />
-  ))
-  .add('with no label', () => (
+  ),
+
+  name: 'with custom label',
+}
+
+export const WithNoLabel = {
+  render: () => (
     <IconInput icon="mail" input={inputProps} meta={{}} label={false} />
-  ))
-  .add('with error', () => (
+  ),
+
+  name: 'with no label',
+}
+
+export const WithError = {
+  render: () => (
     <IconInput
       icon="mail"
       input={inputProps}
@@ -35,4 +51,7 @@ storiesOf('IconInput', module)
       }}
       value="0000"
     />
-  ))
+  ),
+
+  name: 'with error',
+}

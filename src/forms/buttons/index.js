@@ -1,3 +1,5 @@
-export Button from './button'
-export ButtonArea from './button-area'
-export SubmitButton from './submit-button'
+import Button from './button'
+import ButtonArea from './button-area'
+import SubmitButton from './submit-button'
+
+export { Button, ButtonArea, SubmitButton }

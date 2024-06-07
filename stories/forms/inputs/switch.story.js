@@ -1,5 +1,4 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { Switch as StaticSwitch } from 'src'
 import dynamicInput from '../../dynamic-input'
@@ -15,23 +14,42 @@ const inputProps = {
   onChange: action('switch clicked'),
 }
 
-storiesOf('Switch', module)
-  .add('with default label', () => <Switch input={inputProps} meta={{}} />)
-  .add('with custom label', () => (
-    <Switch input={inputProps} meta={{}} label="Custom Label" />
-  ))
-  .add('with no label', () => (
-    <Switch input={inputProps} meta={{}} label={false} />
-  ))
-  .add('with no icons', () => (
+export default {
+  title: 'Switch'
+}
+
+export const WithDefaultLabel = {
+  render: () => <Switch input={inputProps} meta={{}} />,
+  name: 'with default label',
+}
+
+export const WithCustomLabel = {
+  render: () => <Switch input={inputProps} meta={{}} label="Custom Label" />,
+
+  name: 'with custom label',
+}
+
+export const WithNoLabel = {
+  render: () => <Switch input={inputProps} meta={{}} label={false} />,
+
+  name: 'with no label',
+}
+
+export const WithNoIcons = {
+  render: () => (
     <Switch
       input={inputProps}
       meta={{}}
       checkedIcon={false}
       uncheckedIcon={false}
     />
-  ))
-  .add('with error', () => (
+  ),
+
+  name: 'with no icons',
+}
+
+export const WithError = {
+  render: () => (
     <Switch
       input={inputProps}
       meta={{
@@ -41,7 +59,15 @@ storiesOf('Switch', module)
       }}
       value="0000"
     />
-  ))
-  .add('with a tooltip', () => (
+  ),
+
+  name: 'with error',
+}
+
+export const WithATooltip = {
+  render: () => (
     <Switch input={inputProps} meta={{}} tooltip="I am a tooltip" />
-  ))
+  ),
+
+  name: 'with a tooltip',
+}

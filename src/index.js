@@ -3,4 +3,5 @@ export * from './forms'
 export * from './tables'
 export * from './indicators'
 export * from './utils/local'
-export Modal from './modal'
+import Modal from './modal'
+export { Modal }

@@ -1,5 +1,4 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { FlashMessageContainer } from 'src'
 
 const successMessage = {
@@ -15,15 +14,27 @@ const failureMessage = {
   props: {},
 }
 
-storiesOf('FlashMessageContainer', module)
-  .add('with one message', () => (
-    <FlashMessageContainer messages={[successMessage]} />
-  ))
-  .add('with many messages', () => (
+export default {
+  title: 'FlashMessageContainer',
+}
+
+export const WithOneMessage = {
+  render: () => <FlashMessageContainer messages={[successMessage]} />,
+
+  name: 'with one message',
+}
+
+export const WithManyMessages = {
+  render: () => (
     <FlashMessageContainer
       messages={[successMessage, failureMessage, successMessage]}
     />
-  ))
-  .add('with no messages (blank)', () => (
-    <FlashMessageContainer messages={[]} />
-  ))
+  ),
+
+  name: 'with many messages',
+}
+
+export const WithNoMessagesBlank = {
+  render: () => <FlashMessageContainer messages={[]} />,
+  name: 'with no messages (blank)',
+}

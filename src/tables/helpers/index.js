@@ -1,2 +1,4 @@
-export { columnPropTypes, Types } from './column-prop-types'
-export getColumnData from './get-column-data'
+import { columnPropTypes, Types } from './column-prop-types'
+import getColumnData from './get-column-data'
+
+export { columnPropTypes, Types, getColumnData }

@@ -1,4 +1,6 @@
-export FlashMessage from './flash-message'
-export FlashMessageContainer from './flash-message-container'
-export Spinner from './spinner'
-export LoadingContainer from './loading-container'
+import FlashMessage from './flash-message'
+import FlashMessageContainer from './flash-message-container'
+import Spinner from './spinner'
+import LoadingContainer from './loading-container'
+
+export { FlashMessage, FlashMessageContainer, Spinner, LoadingContainer }

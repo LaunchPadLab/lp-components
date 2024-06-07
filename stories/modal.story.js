@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
-import { storiesOf } from '@storybook/react'
 import { Modal } from 'src'
 
-storiesOf('Modal', module)
-  .add('default', () => {
+export default {
+  title: 'Modal',
+}
+
+export const Default = {
+  render: () => {
     const [modalShown, setModalShown] = useState(true)
     return (
       <div>
@@ -15,8 +18,13 @@ storiesOf('Modal', module)
         <button onClick={() => setModalShown(true)}>Show modal</button>
       </div>
     )
-  })
-  .add('with close prevented', () => {
+  },
+
+  name: 'default',
+}
+
+export const WithClosePrevented = {
+  render: () => {
     const [modalShown, setModalShown] = useState(true)
     return (
       <div>
@@ -28,8 +36,13 @@ storiesOf('Modal', module)
         <button onClick={() => setModalShown(true)}>Show modal</button>
       </div>
     )
-  })
-  .add('with custom class name configuration', () => {
+  },
+
+  name: 'with close prevented',
+}
+
+export const WithCustomClassNameConfiguration = {
+  render: () => {
     const [modalShown, setModalShown] = useState(true)
     return (
       <div>
@@ -48,4 +61,7 @@ storiesOf('Modal', module)
         <button onClick={() => setModalShown(true)}>Show modal</button>
       </div>
     )
-  })
+  },
+
+  name: 'with custom class name configuration',
+}

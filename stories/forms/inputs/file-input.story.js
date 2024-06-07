@@ -1,5 +1,4 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { FileInput as StaticFileInput } from 'src'
 import dynamicInput from '../../dynamic-input'
@@ -29,28 +28,53 @@ function FilenamePreview({ file }) {
   )
 }
 
-storiesOf('FileInput', module)
-  .add('with defaults', () => <FileInput input={inputProps} meta={{}} />)
-  .add('with hidden preview', () => (
-    <FileInput input={inputProps} meta={{}} hidePreview />
-  ))
-  .add('with custom preview', () => (
+export default {
+  title: 'FileInput',
+}
+
+export const WithDefaults = {
+  render: () => <FileInput input={inputProps} meta={{}} />,
+  name: 'with defaults',
+}
+
+export const WithHiddenPreview = {
+  render: () => <FileInput input={inputProps} meta={{}} hidePreview />,
+
+  name: 'with hidden preview',
+}
+
+export const WithCustomPreview = {
+  render: () => (
     <FileInput
       input={inputProps}
       meta={{}}
       previewComponent={FilenamePreview}
     />
-  ))
-  .add('with thumbnail', () => (
+  ),
+
+  name: 'with custom preview',
+}
+
+export const WithThumbnail = {
+  render: () => (
     <FileInput
       input={inputProps}
       meta={{}}
       thumbnail={'https://via.placeholder.com/150'}
     />
-  ))
-  .add('with accepting only images', () => (
-    <FileInput input={inputProps} meta={{}} accept="image/*" />
-  ))
-  .add('with multiple files', () => (
-    <FileInput input={inputProps} meta={{}} multiple={true} />
-  ))
+  ),
+
+  name: 'with thumbnail',
+}
+
+export const WithAcceptingOnlyImages = {
+  render: () => <FileInput input={inputProps} meta={{}} accept="image/*" />,
+
+  name: 'with accepting only images',
+}
+
+export const WithMultipleFiles = {
+  render: () => <FileInput input={inputProps} meta={{}} multiple={true} />,
+
+  name: 'with multiple files',
+}

@@ -17,9 +17,10 @@ export {
 
 export { compose, omit, set, get } from 'lodash/fp'
 
-export filterInvalidDOMProps from 'filter-invalid-dom-props'
+import filterInvalidDOMProps from 'filter-invalid-dom-props'
+import cloudinaryUploader from '../forms/inputs/cloudinary-file-input/cloudinary-uploader'
 
-export cloudinaryUploader from '../forms/inputs/cloudinary-file-input/cloudinary-uploader'
+export { filterInvalidDOMProps, cloudinaryUploader }
 
 // Local
 export * from './local'

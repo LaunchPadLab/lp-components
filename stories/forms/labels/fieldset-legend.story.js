@@ -1,21 +1,41 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { FieldsetLegend } from 'src'
 
-storiesOf('FieldsetLegend', module)
-  .add('with default label', () => <FieldsetLegend name="nameOfInput" />)
-  .add('with custom label', () => (
-    <FieldsetLegend name="nameOfInput" label="Custom Label" />
-  ))
-  .add('with no label', () => (
-    <FieldsetLegend name="nameOfInput" label={false} />
-  ))
-  .add('with required true custom indicator', () => (
+export default {
+  title: 'FieldsetLegend',
+}
+
+export const WithDefaultLabel = {
+  render: () => <FieldsetLegend name="nameOfInput" />,
+  name: 'with default label',
+}
+
+export const WithCustomLabel = {
+  render: () => <FieldsetLegend name="nameOfInput" label="Custom Label" />,
+
+  name: 'with custom label',
+}
+
+export const WithNoLabel = {
+  render: () => <FieldsetLegend name="nameOfInput" label={false} />,
+
+  name: 'with no label',
+}
+
+export const WithRequiredTrueCustomIndicator = {
+  render: () => (
     <FieldsetLegend
       name="nameOfInput"
       label="Custom Label"
       required={true}
       requiredIndicator={'*'}
     />
-  ))
-  .add('with hint', () => <FieldsetLegend name="nameOfInput" hint="hint" />)
+  ),
+
+  name: 'with required true custom indicator',
+}
+
+export const WithHint = {
+  render: () => <FieldsetLegend name="nameOfInput" hint="hint" />,
+  name: 'with hint',
+}

@@ -1,5 +1,4 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { Table, TableColumn as Column } from 'src'
 
 const tableData = [
@@ -14,36 +13,60 @@ function CustomCell({ value }) {
   return <td style={{ color }}>{value}</td>
 }
 
-storiesOf('Table', module)
-  .add('default', () => (
+export default {
+  title: 'Table',
+}
+
+export const Default = {
+  render: () => (
     <Table data={tableData}>
       <Column name="name" />
       <Column name="age" />
       <Column name="active" />
     </Table>
-  ))
-  .add('with custom labels', () => (
+  ),
+
+  name: 'default',
+}
+
+export const WithCustomLabels = {
+  render: () => (
     <Table data={tableData}>
       <Column name="name" label="FIRST NAME" />
       <Column name="age" label="AGE" />
       <Column name="active" label="IS ACTIVE" />
     </Table>
-  ))
-  .add('with custom component', () => (
+  ),
+
+  name: 'with custom labels',
+}
+
+export const WithCustomComponent = {
+  render: () => (
     <Table data={tableData}>
       <Column name="name" />
       <Column name="age" />
       <Column name="active" component={CustomCell} />
     </Table>
-  ))
-  .add('with caption', () => (
+  ),
+
+  name: 'with custom component',
+}
+
+export const WithCaption = {
+  render: () => (
     <Table data={tableData} caption="Participant Attributes">
       <Column name="name" />
       <Column name="age" />
       <Column name="active" />
     </Table>
-  ))
-  .add('with customized caption', () => (
+  ),
+
+  name: 'with caption',
+}
+
+export const WithCustomizedCaption = {
+  render: () => (
     <Table
       data={tableData}
       caption={<span className="custom-caption">Participant Attributes</span>}
@@ -52,4 +75,7 @@ storiesOf('Table', module)
       <Column name="age" />
       <Column name="active" />
     </Table>
-  ))
+  ),
+
+  name: 'with customized caption',
+}

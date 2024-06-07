@@ -1,5 +1,4 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { RangeInput as StaticRangeInput } from 'src'
 import dynamicInput from '../../dynamic-input'
@@ -14,17 +13,32 @@ const rangeInputProps = {
   onChange: action('field changed'),
 }
 
-storiesOf('RangeInput', module)
-  .add('with default `step`, `min`, and `max`', () => (
-    <RangeInput input={rangeInputProps} meta={{}} />
-  ))
-  .add('with custom `step`, `min`, and `max`', () => (
+export default {
+  title: 'RangeInput',
+}
+
+export const WithDefaultStepMinAndMax = {
+  render: () => <RangeInput input={rangeInputProps} meta={{}} />,
+
+  name: 'with default `step`, `min`, and `max`',
+}
+
+export const WithCustomStepMinAndMax = {
+  render: () => (
     <RangeInput input={rangeInputProps} meta={{}} min={20} max={80} step={5} />
-  ))
-  .add('with the value label hidden', () => (
-    <RangeInput input={rangeInputProps} meta={{}} hideRangeLabel />
-  ))
-  .add('with error', () => (
+  ),
+
+  name: 'with custom `step`, `min`, and `max`',
+}
+
+export const WithTheValueLabelHidden = {
+  render: () => <RangeInput input={rangeInputProps} meta={{}} hideRangeLabel />,
+
+  name: 'with the value label hidden',
+}
+
+export const WithError = {
+  render: () => (
     <RangeInput
       input={rangeInputProps}
       meta={{
@@ -33,4 +47,7 @@ storiesOf('RangeInput', module)
         error: 'Invalid input',
       }}
     />
-  ))
+  ),
+
+  name: 'with error',
+}

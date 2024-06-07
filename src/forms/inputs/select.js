@@ -2,10 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import {
-  blurDirty,
-  fieldPropTypes,
   fieldOptionGroupsType,
   fieldOptionsType,
+} from '../helpers/field-prop-types'
+import {
+  blurDirty,
+  fieldPropTypes,
   hasInputError,
   omitLabelProps,
 } from '../helpers'

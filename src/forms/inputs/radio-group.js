@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import {
   radioGroupPropTypes,
   fieldOptionsType,
-  omitLabelProps,
-} from '../helpers'
+} from '../helpers/field-prop-types'
+import { omitLabelProps } from '../helpers'
 import { LabeledField, FieldsetLegend } from '../labels'
 import { serializeOptions, filterInvalidDOMProps } from '../../utils'
 

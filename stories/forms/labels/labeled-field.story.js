@@ -1,5 +1,4 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { LabeledField } from 'src'
 import dynamicInput from '../../dynamic-input'
 import { action } from '@storybook/addon-actions'
@@ -8,8 +7,12 @@ const StaticInput = (props) => <input {...props} />
 const Input = dynamicInput()(StaticInput)
 const inputName = 'inputName'
 
-storiesOf('LabeledField', module)
-  .add('default', () => (
+export default {
+  title: 'LabeledField',
+}
+
+export const Default = {
+  render: () => (
     <LabeledField
       {...{
         input: {
@@ -20,8 +23,13 @@ storiesOf('LabeledField', module)
     >
       <Input id={inputName} />
     </LabeledField>
-  ))
-  .add('with error', () => (
+  ),
+
+  name: 'default',
+}
+
+export const WithError = {
+  render: () => (
     <LabeledField
       {...{
         input: {
@@ -36,8 +44,13 @@ storiesOf('LabeledField', module)
     >
       <Input id={inputName} />
     </LabeledField>
-  ))
-  .add('hide error', () => (
+  ),
+
+  name: 'with error',
+}
+
+export const HideError = {
+  render: () => (
     <LabeledField
       {...{
         input: {
@@ -53,8 +66,13 @@ storiesOf('LabeledField', module)
     >
       <Input id={inputName} />
     </LabeledField>
-  ))
-  .add('with custom label', () => {
+  ),
+
+  name: 'hide error',
+}
+
+export const WithCustomLabel = {
+  render: () => {
     // eslint-disable-next-line
     const CustomLabel = ({ onClickLabel }) => (
       <label onClick={onClickLabel} htmlFor={inputName}>
@@ -75,8 +93,13 @@ storiesOf('LabeledField', module)
         <Input id={inputName} />
       </LabeledField>
     )
-  })
-  .add('with custom error', () => {
+  },
+
+  name: 'with custom label',
+}
+
+export const WithCustomError = {
+  render: () => {
     // eslint-disable-next-line
     const CustomError = (props) => (
       <span id="inputError">
@@ -100,4 +123,7 @@ storiesOf('LabeledField', module)
         <Input id={inputName} aria-describedby="inputError" />
       </LabeledField>
     )
-  })
+  },
+
+  name: 'with custom error',
+}

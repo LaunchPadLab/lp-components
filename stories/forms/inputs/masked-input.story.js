@@ -1,5 +1,4 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { MaskedInput as StaticMaskedInput } from 'src'
 import dynamicInput from '../../dynamic-input'
@@ -14,11 +13,20 @@ const inputProps = {
   onChange: action('field changed'),
 }
 
-storiesOf('MaskedInput', module)
-  .add('comma-separated number', () => (
+export default {
+  title: 'MaskedInput',
+}
+
+export const CommaSeparatedNumber = {
+  render: () => (
     <MaskedInput input={inputProps} meta={{}} maskOptions={{ numeral: true }} />
-  ))
-  .add('phone number', () => (
+  ),
+
+  name: 'comma-separated number',
+}
+
+export const PhoneNumber = {
+  render: () => (
     <MaskedInput
       input={inputProps}
       meta={{}}
@@ -28,4 +36,7 @@ storiesOf('MaskedInput', module)
         delimiters: ['(', ')', ' ', '-'],
       }}
     />
-  ))
+  ),
+
+  name: 'phone number',
+}

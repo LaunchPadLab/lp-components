@@ -1,5 +1,4 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { DateInput as StaticDateInput } from 'src'
 import dynamicInput from '../../dynamic-input'
@@ -15,8 +14,19 @@ const inputProps = {
   onBlur: action('blurred'),
 }
 
-storiesOf('DateInput', module)
-  .add('default', () => <DateInput input={inputProps} meta={{}} />)
-  .add('custom placeholder', () => (
+export default {
+  title: 'DateInput',
+}
+
+export const Default = {
+  render: () => <DateInput input={inputProps} meta={{}} />,
+  name: 'default',
+}
+
+export const CustomPlaceholder = {
+  render: () => (
     <DateInput input={inputProps} meta={{}} placeholderText={'custom'} />
-  ))
+  ),
+
+  name: 'custom placeholder',
+}

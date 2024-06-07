@@ -1,5 +1,4 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { Select as StaticSelect } from 'src'
 import dynamicInput from '../../dynamic-input'
@@ -28,22 +27,39 @@ const optionGroups = [
   { name: 'Ice Cream Group', options: ['mint chocolate chip', 'cookie dough'] },
 ]
 
-storiesOf('Select', module)
-  .add('default', () => (
-    <Select input={inputProps} meta={{}} options={options} />
-  ))
-  .add('with custom placeholder', () => (
+export default {
+  title: 'Select',
+}
+
+export const Default = {
+  render: () => <Select input={inputProps} meta={{}} options={options} />,
+
+  name: 'default',
+}
+
+export const WithCustomPlaceholder = {
+  render: () => (
     <Select
       input={inputProps}
       meta={{}}
       options={options}
       placeholder="Placeholder"
     />
-  ))
-  .add('with empty placeholder', () => (
+  ),
+
+  name: 'with custom placeholder',
+}
+
+export const WithEmptyPlaceholder = {
+  render: () => (
     <Select input={inputProps} meta={{}} options={options} placeholder=" " />
-  ))
-  .add('with enabled placeholder option', () => (
+  ),
+
+  name: 'with empty placeholder',
+}
+
+export const WithEnabledPlaceholderOption = {
+  render: () => (
     <Select
       input={inputProps}
       meta={{}}
@@ -51,7 +67,15 @@ storiesOf('Select', module)
       placeholder="Placeholder"
       enablePlaceholderOption={true}
     />
-  ))
-  .add('with option groups', () => (
+  ),
+
+  name: 'with enabled placeholder option',
+}
+
+export const WithOptionGroups = {
+  render: () => (
     <Select input={inputProps} meta={{}} optionGroups={optionGroups} />
-  ))
+  ),
+
+  name: 'with option groups',
+}

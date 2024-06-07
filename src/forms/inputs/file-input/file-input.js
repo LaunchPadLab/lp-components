@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
 import PropTypes from 'prop-types'
+import { fileInputPropTypes } from '../../helpers/field-prop-types'
 import {
   castFormValueToArray,
-  fileInputPropTypes,
   hasInputError,
   isImageType,
   omitLabelProps,

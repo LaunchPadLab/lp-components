@@ -1,5 +1,4 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { Checkbox as StaticCheckbox } from 'src'
 import dynamicInput from '../../dynamic-input'
@@ -15,15 +14,29 @@ const inputProps = {
   onChange: action('checkbox clicked'),
 }
 
-storiesOf('Checkbox', module)
-  .add('with default label', () => <Checkbox input={inputProps} meta={{}} />)
-  .add('with custom label', () => (
-    <Checkbox input={inputProps} meta={{}} label="Custom Label" />
-  ))
-  .add('with no label', () => (
-    <Checkbox input={inputProps} meta={{}} label={false} />
-  ))
-  .add('with error', () => (
+export default {
+  title: 'Checkbox',
+}
+
+export const WithDefaultLabel = {
+  render: () => <Checkbox input={inputProps} meta={{}} />,
+  name: 'with default label',
+}
+
+export const WithCustomLabel = {
+  render: () => <Checkbox input={inputProps} meta={{}} label="Custom Label" />,
+
+  name: 'with custom label',
+}
+
+export const WithNoLabel = {
+  render: () => <Checkbox input={inputProps} meta={{}} label={false} />,
+
+  name: 'with no label',
+}
+
+export const WithError = {
+  render: () => (
     <Checkbox
       input={inputProps}
       meta={{
@@ -33,7 +46,15 @@ storiesOf('Checkbox', module)
       }}
       value="0000"
     />
-  ))
-  .add('with a tooltip', () => (
+  ),
+
+  name: 'with error',
+}
+
+export const WithATooltip = {
+  render: () => (
     <Checkbox input={inputProps} meta={{}} tooltip="I am a tooltip" />
-  ))
+  ),
+
+  name: 'with a tooltip',
+}

@@ -1,15 +1,33 @@
-export Checkbox from './checkbox'
-export CheckboxGroup from './checkbox-group'
-export CloudinaryFileInput from './cloudinary-file-input'
-export ColorInput from './color-input'
-export DateInput from './date-input'
-export FileInput from './file-input'
-export HiddenInput from './hidden-input'
-export Input from './input'
-export IconInput from './icon-input'
-export MaskedInput from './masked-input'
-export RangeInput from './range-input'
-export RadioGroup from './radio-group'
-export Select from './select'
-export Switch from './switch'
-export Textarea from './textarea'
+import Checkbox from './checkbox'
+import CheckboxGroup from './checkbox-group'
+import CloudinaryFileInput from './cloudinary-file-input'
+import ColorInput from './color-input'
+import DateInput from './date-input'
+import FileInput from './file-input'
+import HiddenInput from './hidden-input'
+import Input from './input'
+import IconInput from './icon-input'
+import MaskedInput from './masked-input'
+import RangeInput from './range-input'
+import RadioGroup from './radio-group'
+import Select from './select'
+import Switch from './switch'
+import Textarea from './textarea'
+
+export {
+  Checkbox,
+  CheckboxGroup,
+  CloudinaryFileInput,
+  ColorInput,
+  DateInput,
+  FileInput,
+  HiddenInput,
+  Input,
+  IconInput,
+  MaskedInput,
+  RangeInput,
+  RadioGroup,
+  Select,
+  Switch,
+  Textarea,
+}

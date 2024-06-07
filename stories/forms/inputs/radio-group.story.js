@@ -1,5 +1,4 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { RadioGroup as StaticRadioGroup } from 'src'
 import dynamicInput from '../../dynamic-input'
@@ -30,22 +29,39 @@ const SpecialLabel = ({ id, label }) => (
   </span>
 )
 
-storiesOf('RadioGroup', module)
-  .add('with default label', () => (
-    <RadioGroup input={inputProps} meta={{}} options={options} />
-  ))
-  .add('with custom label', () => (
+export default {
+  title: 'RadioGroup',
+}
+
+export const WithDefaultLabel = {
+  render: () => <RadioGroup input={inputProps} meta={{}} options={options} />,
+
+  name: 'with default label',
+}
+
+export const WithCustomLabel = {
+  render: () => (
     <RadioGroup
       input={inputProps}
       meta={{}}
       label="Custom Label"
       options={options}
     />
-  ))
-  .add('with no label', () => (
+  ),
+
+  name: 'with custom label',
+}
+
+export const WithNoLabel = {
+  render: () => (
     <RadioGroup input={inputProps} meta={{}} label={false} options={options} />
-  ))
-  .add('with error', () => (
+  ),
+
+  name: 'with no label',
+}
+
+export const WithError = {
+  render: () => (
     <RadioGroup
       input={inputProps}
       meta={{
@@ -56,17 +72,32 @@ storiesOf('RadioGroup', module)
       value="0000"
       options={options}
     />
-  ))
-  .add('with empty options', () => <RadioGroup input={inputProps} meta={{}} />)
-  .add('with disabled options', () => (
+  ),
+
+  name: 'with error',
+}
+
+export const WithEmptyOptions = {
+  render: () => <RadioGroup input={inputProps} meta={{}} />,
+
+  name: 'with empty options',
+}
+
+export const WithDisabledOptions = {
+  render: () => (
     <RadioGroup
       input={inputProps}
       meta={{}}
       options={options}
       disabled={true}
     />
-  ))
-  .add('with boolean options', () => (
+  ),
+
+  name: 'with disabled options',
+}
+
+export const WithBooleanOptions = {
+  render: () => (
     <RadioGroup
       input={inputProps}
       label="Are you sure?"
@@ -76,8 +107,13 @@ storiesOf('RadioGroup', module)
         { key: 'No', value: false },
       ]}
     />
-  ))
-  .add('with input props specified', () => (
+  ),
+
+  name: 'with boolean options',
+}
+
+export const WithInputPropsSpecified = {
+  render: () => (
     <RadioGroup
       input={inputProps}
       meta={{}}
@@ -86,4 +122,7 @@ storiesOf('RadioGroup', module)
         labelComponent: SpecialLabel,
       }}
     />
-  ))
+  ),
+
+  name: 'with input props specified',
+}

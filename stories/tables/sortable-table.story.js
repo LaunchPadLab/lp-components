@@ -1,5 +1,4 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { lowerCase } from 'lodash'
 import { SortableTable, TableColumn as Column, compareAtPath } from 'src'
 
@@ -51,15 +50,24 @@ function compareCustomValue(a, b) {
   return ageA > ageB ? 1 : -1
 }
 
-storiesOf('SortableTable', module)
-  .add('default', () => (
+export default {
+  title: 'SortableTable',
+}
+
+export const Default = {
+  render: () => (
     <SortableTable data={tableData}>
       <Column name="name" />
       <Column name="age" />
       <Column name="active" />
     </SortableTable>
-  ))
-  .add('with initial column', () => (
+  ),
+
+  name: 'default',
+}
+
+export const WithInitialColumn = {
+  render: () => (
     <div>
       <h2> Table is sorted by "age" by default. </h2>
       <SortableTable data={tableData} initialColumn="age">
@@ -68,8 +76,13 @@ storiesOf('SortableTable', module)
         <Column name="active" />
       </SortableTable>
     </div>
-  ))
-  .add('with initial column sorted descending', () => (
+  ),
+
+  name: 'with initial column',
+}
+
+export const WithInitialColumnSortedDescending = {
+  render: () => (
     <div>
       <h2> Table is sorted (descending) by "age" by default. </h2>
       <SortableTable
@@ -82,60 +95,97 @@ storiesOf('SortableTable', module)
         <Column name="active" />
       </SortableTable>
     </div>
-  ))
-  .add('with custom labels', () => (
+  ),
+
+  name: 'with initial column sorted descending',
+}
+
+export const WithCustomLabels = {
+  render: () => (
     <SortableTable data={tableData}>
       <Column name="name" label="FIRST NAME" />
       <Column name="age" label="AGE" />
       <Column name="active" label="IS ACTIVE" />
     </SortableTable>
-  ))
-  .add('with custom cell component', () => (
+  ),
+
+  name: 'with custom labels',
+}
+
+export const WithCustomCellComponent = {
+  render: () => (
     <SortableTable data={tableData}>
       <Column name="name" />
       <Column name="age" />
       <Column name="active" component={CustomCell} />
     </SortableTable>
-  ))
-  .add(
-    'with additional valid DOM properties on cell component (per column)',
-    () => (
-      <SortableTable data={tableData}>
-        <Column name="name" tabIndex="-1" />
-        <Column name="age" data-cy="age" />
-        <Column name="active" aria-label="Active" />
-      </SortableTable>
-    )
-  )
-  .add('with custom cell component and its row data', () => (
+  ),
+
+  name: 'with custom cell component',
+}
+
+export const WithAdditionalValidDomPropertiesOnCellComponentPerColumn = {
+  render: () => (
+    <SortableTable data={tableData}>
+      <Column name="name" tabIndex="-1" />
+      <Column name="age" data-cy="age" />
+      <Column name="active" aria-label="Active" />
+    </SortableTable>
+  ),
+
+  name: 'with additional valid DOM properties on cell component (per column)',
+}
+
+export const WithCustomCellComponentAndItsRowData = {
+  render: () => (
     <SortableTable data={tableData}>
       <Column name="name" />
       <Column name="age" />
       <Column name="active" component={CustomCellWithRowData} />
     </SortableTable>
-  ))
-  .add('with custom row component', () => (
+  ),
+
+  name: 'with custom cell component and its row data',
+}
+
+export const WithCustomRowComponent = {
+  render: () => (
     <SortableTable data={tableData} rowComponent={CustomRow}>
       <Column name="name" />
       <Column name="age" />
       <Column name="active" />
     </SortableTable>
-  ))
-  .add('with custom header component', () => (
+  ),
+
+  name: 'with custom row component',
+}
+
+export const WithCustomHeaderComponent = {
+  render: () => (
     <SortableTable data={tableData} headerComponent={CustomHeader}>
       <Column name="name" />
       <Column name="age" />
       <Column name="active" />
     </SortableTable>
-  ))
-  .add('with column-specific custom header component', () => (
+  ),
+
+  name: 'with custom header component',
+}
+
+export const WithColumnSpecificCustomHeaderComponent = {
+  render: () => (
     <SortableTable data={tableData}>
       <Column name="name" headerComponent={CustomHeader} />
       <Column name="age" />
       <Column name="active" />
     </SortableTable>
-  ))
-  .add('with disabled column', () => (
+  ),
+
+  name: 'with column-specific custom header component',
+}
+
+export const WithDisabledColumn = {
+  render: () => (
     <div>
       <h2> The "age" column is disabled and will not sort. </h2>
       <SortableTable data={tableData}>
@@ -144,15 +194,25 @@ storiesOf('SortableTable', module)
         <Column name="active" />
       </SortableTable>
     </div>
-  ))
-  .add('with formatted column values', () => (
+  ),
+
+  name: 'with disabled column',
+}
+
+export const WithFormattedColumnValues = {
+  render: () => (
     <SortableTable data={tableData}>
       <Column name="name" format={lowerCase} />
       <Column name="age" format={(val) => val.toFixed(1)} />
       <Column name="active" format={(val) => (val === 'yes' ? 'Y' : 'N')} />
     </SortableTable>
-  ))
-  .add('with custom value getter', () => (
+  ),
+
+  name: 'with formatted column values',
+}
+
+export const WithCustomValueGetter = {
+  render: () => (
     <div>
       <h2>"Name And Age" column combines name and age values</h2>
       <SortableTable data={tableData}>
@@ -162,8 +222,13 @@ storiesOf('SortableTable', module)
         <Column name="nameAndAge" valueGetter={createCustomValue} />
       </SortableTable>
     </div>
-  ))
-  .add('with custom value getter and custom sorter', () => (
+  ),
+
+  name: 'with custom value getter',
+}
+
+export const WithCustomValueGetterAndCustomSorter = {
+  render: () => (
     <div>
       <h2>
         "Name and Age" column combines name and age, sorted by age portion
@@ -179,8 +244,13 @@ storiesOf('SortableTable', module)
         />
       </SortableTable>
     </div>
-  ))
-  .add('with custom value getter, custom sorter, initial column', () => (
+  ),
+
+  name: 'with custom value getter and custom sorter',
+}
+
+export const WithCustomValueGetterCustomSorterInitialColumn = {
+  render: () => (
     <div>
       <h2>
         "Name and Age" column combines name and age, sorted by age portion,
@@ -197,4 +267,7 @@ storiesOf('SortableTable', module)
         />
       </SortableTable>
     </div>
-  ))
+  ),
+
+  name: 'with custom value getter, custom sorter, initial column',
+}

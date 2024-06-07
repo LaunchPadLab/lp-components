@@ -1,5 +1,4 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { CheckboxGroup as StaticCheckboxGroup } from 'src'
 import dynamicInput from '../../dynamic-input'
@@ -30,27 +29,46 @@ const SpecialLabel = ({ id, label }) => (
   </span>
 )
 
-storiesOf('CheckboxGroup', module)
-  .add('with default label', () => (
+export default {
+  title: 'CheckboxGroup',
+}
+
+export const WithDefaultLabel = {
+  render: () => (
     <CheckboxGroup input={inputProps} meta={{}} options={options} />
-  ))
-  .add('with custom label', () => (
+  ),
+
+  name: 'with default label',
+}
+
+export const WithCustomLabel = {
+  render: () => (
     <CheckboxGroup
       input={inputProps}
       meta={{}}
       label="Custom Label"
       options={options}
     />
-  ))
-  .add('with no label', () => (
+  ),
+
+  name: 'with custom label',
+}
+
+export const WithNoLabel = {
+  render: () => (
     <CheckboxGroup
       input={inputProps}
       meta={{}}
       label={false}
       options={options}
     />
-  ))
-  .add('with error', () => (
+  ),
+
+  name: 'with no label',
+}
+
+export const WithError = {
+  render: () => (
     <CheckboxGroup
       input={inputProps}
       meta={{
@@ -61,11 +79,19 @@ storiesOf('CheckboxGroup', module)
       value="0000"
       options={options}
     />
-  ))
-  .add('with empty options', () => (
-    <CheckboxGroup input={inputProps} meta={{}} />
-  ))
-  .add('with input props specified', () => (
+  ),
+
+  name: 'with error',
+}
+
+export const WithEmptyOptions = {
+  render: () => <CheckboxGroup input={inputProps} meta={{}} />,
+
+  name: 'with empty options',
+}
+
+export const WithInputPropsSpecified = {
+  render: () => (
     <CheckboxGroup
       input={inputProps}
       meta={{}}
@@ -74,12 +100,20 @@ storiesOf('CheckboxGroup', module)
         labelComponent: SpecialLabel,
       }}
     />
-  ))
-  .add('with dropdown', () => (
+  ),
+
+  name: 'with input props specified',
+}
+
+export const WithDropdown = {
+  render: () => (
     <CheckboxGroup
       input={inputProps}
       meta={{}}
       options={options}
       dropdown={true}
     />
-  ))
+  ),
+
+  name: 'with dropdown',
+}

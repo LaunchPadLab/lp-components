@@ -1,2 +1,4 @@
-export TableHeader from './table-header'
-export TableRow from './table-row'
+import TableHeader from './table-header'
+import TableRow from './table-row'
+
+export { TableHeader, TableRow }

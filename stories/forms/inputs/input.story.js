@@ -1,5 +1,4 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { Input as StaticInput } from 'src'
 import dynamicInput from '../../dynamic-input'
@@ -14,15 +13,29 @@ const inputProps = {
   onChange: action('field changed'),
 }
 
-storiesOf('Input', module)
-  .add('with default label', () => <Input input={inputProps} meta={{}} />)
-  .add('with custom label', () => (
-    <Input input={inputProps} meta={{}} label="Custom Label" />
-  ))
-  .add('with no label', () => (
-    <Input input={inputProps} meta={{}} label={false} />
-  ))
-  .add('with required true custom indicator', () => (
+export default {
+  title: 'Input',
+}
+
+export const WithDefaultLabel = {
+  render: () => <Input input={inputProps} meta={{}} />,
+  name: 'with default label',
+}
+
+export const WithCustomLabel = {
+  render: () => <Input input={inputProps} meta={{}} label="Custom Label" />,
+
+  name: 'with custom label',
+}
+
+export const WithNoLabel = {
+  render: () => <Input input={inputProps} meta={{}} label={false} />,
+
+  name: 'with no label',
+}
+
+export const WithRequiredTrueCustomIndicator = {
+  render: () => (
     <Input
       input={inputProps}
       meta={{}}
@@ -30,8 +43,13 @@ storiesOf('Input', module)
       required
       requiredIndicator={'*'}
     />
-  ))
-  .add('with error', () => (
+  ),
+
+  name: 'with required true custom indicator',
+}
+
+export const WithError = {
+  render: () => (
     <Input
       input={inputProps}
       meta={{
@@ -41,4 +59,7 @@ storiesOf('Input', module)
       }}
       value="0000"
     />
-  ))
+  ),
+
+  name: 'with error',
+}

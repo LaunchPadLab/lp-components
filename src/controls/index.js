@@ -1,3 +1,5 @@
-export ColorPicker from './color-picker'
-export Paginator from './paginator'
-export TabBar from './tab-bar'
+import ColorPicker from './color-picker'
+import Paginator from './paginator'
+import TabBar from './tab-bar'
+
+export { ColorPicker, Paginator, TabBar }
