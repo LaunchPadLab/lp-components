@@ -17,43 +17,41 @@ export default {
   title: 'IconInput',
 }
 
-export const WithDefaultLabel = () => (
-  <IconInput icon="mail" input={inputProps} meta={{}} />
-)
+export const WithDefaultLabel = {
+  render: () => <IconInput icon="mail" input={inputProps} meta={{}} />,
 
-WithDefaultLabel.story = {
   name: 'with default label',
 }
 
-export const WithCustomLabel = () => (
-  <IconInput icon="mail" input={inputProps} meta={{}} label="Custom Label" />
-)
+export const WithCustomLabel = {
+  render: () => (
+    <IconInput icon="mail" input={inputProps} meta={{}} label="Custom Label" />
+  ),
 
-WithCustomLabel.story = {
   name: 'with custom label',
 }
 
-export const WithNoLabel = () => (
-  <IconInput icon="mail" input={inputProps} meta={{}} label={false} />
-)
+export const WithNoLabel = {
+  render: () => (
+    <IconInput icon="mail" input={inputProps} meta={{}} label={false} />
+  ),
 
-WithNoLabel.story = {
   name: 'with no label',
 }
 
-export const WithError = () => (
-  <IconInput
-    icon="mail"
-    input={inputProps}
-    meta={{
-      invalid: true,
-      touched: true,
-      error: 'Invalid input',
-    }}
-    value="0000"
-  />
-)
+export const WithError = {
+  render: () => (
+    <IconInput
+      icon="mail"
+      input={inputProps}
+      meta={{
+        invalid: true,
+        touched: true,
+        error: 'Invalid input',
+      }}
+      value="0000"
+    />
+  ),
 
-WithError.story = {
   name: 'with error',
 }

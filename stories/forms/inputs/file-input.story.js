@@ -32,52 +32,49 @@ export default {
   title: 'FileInput',
 }
 
-export const WithDefaults = () => <FileInput input={inputProps} meta={{}} />
-
-WithDefaults.story = {
+export const WithDefaults = {
+  render: () => <FileInput input={inputProps} meta={{}} />,
   name: 'with defaults',
 }
 
-export const WithHiddenPreview = () => (
-  <FileInput input={inputProps} meta={{}} hidePreview />
-)
+export const WithHiddenPreview = {
+  render: () => <FileInput input={inputProps} meta={{}} hidePreview />,
 
-WithHiddenPreview.story = {
   name: 'with hidden preview',
 }
 
-export const WithCustomPreview = () => (
-  <FileInput input={inputProps} meta={{}} previewComponent={FilenamePreview} />
-)
+export const WithCustomPreview = {
+  render: () => (
+    <FileInput
+      input={inputProps}
+      meta={{}}
+      previewComponent={FilenamePreview}
+    />
+  ),
 
-WithCustomPreview.story = {
   name: 'with custom preview',
 }
 
-export const WithThumbnail = () => (
-  <FileInput
-    input={inputProps}
-    meta={{}}
-    thumbnail={'https://via.placeholder.com/150'}
-  />
-)
+export const WithThumbnail = {
+  render: () => (
+    <FileInput
+      input={inputProps}
+      meta={{}}
+      thumbnail={'https://via.placeholder.com/150'}
+    />
+  ),
 
-WithThumbnail.story = {
   name: 'with thumbnail',
 }
 
-export const WithAcceptingOnlyImages = () => (
-  <FileInput input={inputProps} meta={{}} accept="image/*" />
-)
+export const WithAcceptingOnlyImages = {
+  render: () => <FileInput input={inputProps} meta={{}} accept="image/*" />,
 
-WithAcceptingOnlyImages.story = {
   name: 'with accepting only images',
 }
 
-export const WithMultipleFiles = () => (
-  <FileInput input={inputProps} meta={{}} multiple={true} />
-)
+export const WithMultipleFiles = {
+  render: () => <FileInput input={inputProps} meta={{}} multiple={true} />,
 
-WithMultipleFiles.story = {
   name: 'with multiple files',
 }

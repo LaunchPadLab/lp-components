@@ -18,8 +18,7 @@ export default {
   title: 'ColorInput',
 }
 
-export const Default = () => <ColorInput input={inputProps} meta={{}} />
-
-Default.story = {
+export const Default = {
+  render: () => <ColorInput input={inputProps} meta={{}} />,
   name: 'default',
 }

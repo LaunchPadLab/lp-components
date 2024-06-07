@@ -11,18 +11,19 @@ export default {
   title: 'SubmitButton',
 }
 
-export const InsideForm = () => (
-  <form onSubmit={submit}>
-    <label>
-      {' '}
-      Clicking this button will NOT submit the form (ordinary Button component).{' '}
-    </label>
-    <Button> Test </Button>
-    <label> Clicking this button will submit the form. </label>
-    <SubmitButton> Submit </SubmitButton>
-  </form>
-)
+export const InsideForm = {
+  render: () => (
+    <form onSubmit={submit}>
+      <label>
+        {' '}
+        Clicking this button will NOT submit the form (ordinary Button
+        component).{' '}
+      </label>
+      <Button> Test </Button>
+      <label> Clicking this button will submit the form. </label>
+      <SubmitButton> Submit </SubmitButton>
+    </form>
+  ),
 
-InsideForm.story = {
   name: 'inside form',
 }

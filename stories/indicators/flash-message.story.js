@@ -6,22 +6,20 @@ export default {
   title: 'FlashMessage',
 }
 
-export const Success = () => <FlashMessage>Success!</FlashMessage>
-
-Success.story = {
+export const Success = {
+  render: () => <FlashMessage>Success!</FlashMessage>,
   name: 'success',
 }
 
-export const Failure = () => <FlashMessage isError>Failure!</FlashMessage>
-
-Failure.story = {
+export const Failure = {
+  render: () => <FlashMessage isError>Failure!</FlashMessage>,
   name: 'failure',
 }
 
-export const Dismissable = () => (
-  <FlashMessage onDismiss={action('Dismiss')}>Success!</FlashMessage>
-)
+export const Dismissable = {
+  render: () => (
+    <FlashMessage onDismiss={action('Dismiss')}>Success!</FlashMessage>
+  ),
 
-Dismissable.story = {
   name: 'dismissable',
 }

@@ -18,48 +18,43 @@ export default {
   title: 'Checkbox',
 }
 
-export const WithDefaultLabel = () => <Checkbox input={inputProps} meta={{}} />
-
-WithDefaultLabel.story = {
+export const WithDefaultLabel = {
+  render: () => <Checkbox input={inputProps} meta={{}} />,
   name: 'with default label',
 }
 
-export const WithCustomLabel = () => (
-  <Checkbox input={inputProps} meta={{}} label="Custom Label" />
-)
+export const WithCustomLabel = {
+  render: () => <Checkbox input={inputProps} meta={{}} label="Custom Label" />,
 
-WithCustomLabel.story = {
   name: 'with custom label',
 }
 
-export const WithNoLabel = () => (
-  <Checkbox input={inputProps} meta={{}} label={false} />
-)
+export const WithNoLabel = {
+  render: () => <Checkbox input={inputProps} meta={{}} label={false} />,
 
-WithNoLabel.story = {
   name: 'with no label',
 }
 
-export const WithError = () => (
-  <Checkbox
-    input={inputProps}
-    meta={{
-      invalid: true,
-      touched: true,
-      error: 'Invalid input',
-    }}
-    value="0000"
-  />
-)
+export const WithError = {
+  render: () => (
+    <Checkbox
+      input={inputProps}
+      meta={{
+        invalid: true,
+        touched: true,
+        error: 'Invalid input',
+      }}
+      value="0000"
+    />
+  ),
 
-WithError.story = {
   name: 'with error',
 }
 
-export const WithATooltip = () => (
-  <Checkbox input={inputProps} meta={{}} tooltip="I am a tooltip" />
-)
+export const WithATooltip = {
+  render: () => (
+    <Checkbox input={inputProps} meta={{}} tooltip="I am a tooltip" />
+  ),
 
-WithATooltip.story = {
   name: 'with a tooltip',
 }

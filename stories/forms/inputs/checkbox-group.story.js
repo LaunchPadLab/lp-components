@@ -33,84 +33,87 @@ export default {
   title: 'CheckboxGroup',
 }
 
-export const WithDefaultLabel = () => (
-  <CheckboxGroup input={inputProps} meta={{}} options={options} />
-)
+export const WithDefaultLabel = {
+  render: () => (
+    <CheckboxGroup input={inputProps} meta={{}} options={options} />
+  ),
 
-WithDefaultLabel.story = {
   name: 'with default label',
 }
 
-export const WithCustomLabel = () => (
-  <CheckboxGroup
-    input={inputProps}
-    meta={{}}
-    label="Custom Label"
-    options={options}
-  />
-)
+export const WithCustomLabel = {
+  render: () => (
+    <CheckboxGroup
+      input={inputProps}
+      meta={{}}
+      label="Custom Label"
+      options={options}
+    />
+  ),
 
-WithCustomLabel.story = {
   name: 'with custom label',
 }
 
-export const WithNoLabel = () => (
-  <CheckboxGroup input={inputProps} meta={{}} label={false} options={options} />
-)
+export const WithNoLabel = {
+  render: () => (
+    <CheckboxGroup
+      input={inputProps}
+      meta={{}}
+      label={false}
+      options={options}
+    />
+  ),
 
-WithNoLabel.story = {
   name: 'with no label',
 }
 
-export const WithError = () => (
-  <CheckboxGroup
-    input={inputProps}
-    meta={{
-      invalid: true,
-      touched: true,
-      error: 'Invalid input',
-    }}
-    value="0000"
-    options={options}
-  />
-)
+export const WithError = {
+  render: () => (
+    <CheckboxGroup
+      input={inputProps}
+      meta={{
+        invalid: true,
+        touched: true,
+        error: 'Invalid input',
+      }}
+      value="0000"
+      options={options}
+    />
+  ),
 
-WithError.story = {
   name: 'with error',
 }
 
-export const WithEmptyOptions = () => (
-  <CheckboxGroup input={inputProps} meta={{}} />
-)
+export const WithEmptyOptions = {
+  render: () => <CheckboxGroup input={inputProps} meta={{}} />,
 
-WithEmptyOptions.story = {
   name: 'with empty options',
 }
 
-export const WithInputPropsSpecified = () => (
-  <CheckboxGroup
-    input={inputProps}
-    meta={{}}
-    options={options}
-    checkboxInputProps={{
-      labelComponent: SpecialLabel,
-    }}
-  />
-)
+export const WithInputPropsSpecified = {
+  render: () => (
+    <CheckboxGroup
+      input={inputProps}
+      meta={{}}
+      options={options}
+      checkboxInputProps={{
+        labelComponent: SpecialLabel,
+      }}
+    />
+  ),
 
-WithInputPropsSpecified.story = {
   name: 'with input props specified',
 }
 
-export const WithDropdown = () => (
-  <CheckboxGroup
-    input={inputProps}
-    meta={{}}
-    options={options}
-    dropdown={true}
-  />
-)
+export const WithDropdown = {
+  render: () => (
+    <CheckboxGroup
+      input={inputProps}
+      meta={{}}
+      options={options}
+      dropdown={true}
+    />
+  ),
 
-WithDropdown.story = {
   name: 'with dropdown',
 }

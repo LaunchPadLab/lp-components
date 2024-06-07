@@ -5,43 +5,37 @@ export default {
   title: 'FieldsetLegend',
 }
 
-export const WithDefaultLabel = () => <FieldsetLegend name="nameOfInput" />
-
-WithDefaultLabel.story = {
+export const WithDefaultLabel = {
+  render: () => <FieldsetLegend name="nameOfInput" />,
   name: 'with default label',
 }
 
-export const WithCustomLabel = () => (
-  <FieldsetLegend name="nameOfInput" label="Custom Label" />
-)
+export const WithCustomLabel = {
+  render: () => <FieldsetLegend name="nameOfInput" label="Custom Label" />,
 
-WithCustomLabel.story = {
   name: 'with custom label',
 }
 
-export const WithNoLabel = () => (
-  <FieldsetLegend name="nameOfInput" label={false} />
-)
+export const WithNoLabel = {
+  render: () => <FieldsetLegend name="nameOfInput" label={false} />,
 
-WithNoLabel.story = {
   name: 'with no label',
 }
 
-export const WithRequiredTrueCustomIndicator = () => (
-  <FieldsetLegend
-    name="nameOfInput"
-    label="Custom Label"
-    required={true}
-    requiredIndicator={'*'}
-  />
-)
+export const WithRequiredTrueCustomIndicator = {
+  render: () => (
+    <FieldsetLegend
+      name="nameOfInput"
+      label="Custom Label"
+      required={true}
+      requiredIndicator={'*'}
+    />
+  ),
 
-WithRequiredTrueCustomIndicator.story = {
   name: 'with required true custom indicator',
 }
 
-export const WithHint = () => <FieldsetLegend name="nameOfInput" hint="hint" />
-
-WithHint.story = {
+export const WithHint = {
+  render: () => <FieldsetLegend name="nameOfInput" hint="hint" />,
   name: 'with hint',
 }

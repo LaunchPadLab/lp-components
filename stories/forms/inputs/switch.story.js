@@ -18,61 +18,56 @@ export default {
   title: 'Switch',
 }
 
-export const WithDefaultLabel = () => <Switch input={inputProps} meta={{}} />
-
-WithDefaultLabel.story = {
+export const WithDefaultLabel = {
+  render: () => <Switch input={inputProps} meta={{}} />,
   name: 'with default label',
 }
 
-export const WithCustomLabel = () => (
-  <Switch input={inputProps} meta={{}} label="Custom Label" />
-)
+export const WithCustomLabel = {
+  render: () => <Switch input={inputProps} meta={{}} label="Custom Label" />,
 
-WithCustomLabel.story = {
   name: 'with custom label',
 }
 
-export const WithNoLabel = () => (
-  <Switch input={inputProps} meta={{}} label={false} />
-)
+export const WithNoLabel = {
+  render: () => <Switch input={inputProps} meta={{}} label={false} />,
 
-WithNoLabel.story = {
   name: 'with no label',
 }
 
-export const WithNoIcons = () => (
-  <Switch
-    input={inputProps}
-    meta={{}}
-    checkedIcon={false}
-    uncheckedIcon={false}
-  />
-)
+export const WithNoIcons = {
+  render: () => (
+    <Switch
+      input={inputProps}
+      meta={{}}
+      checkedIcon={false}
+      uncheckedIcon={false}
+    />
+  ),
 
-WithNoIcons.story = {
   name: 'with no icons',
 }
 
-export const WithError = () => (
-  <Switch
-    input={inputProps}
-    meta={{
-      invalid: true,
-      touched: true,
-      error: 'Invalid input',
-    }}
-    value="0000"
-  />
-)
+export const WithError = {
+  render: () => (
+    <Switch
+      input={inputProps}
+      meta={{
+        invalid: true,
+        touched: true,
+        error: 'Invalid input',
+      }}
+      value="0000"
+    />
+  ),
 
-WithError.story = {
   name: 'with error',
 }
 
-export const WithATooltip = () => (
-  <Switch input={inputProps} meta={{}} tooltip="I am a tooltip" />
-)
+export const WithATooltip = {
+  render: () => (
+    <Switch input={inputProps} meta={{}} tooltip="I am a tooltip" />
+  ),
 
-WithATooltip.story = {
   name: 'with a tooltip',
 }

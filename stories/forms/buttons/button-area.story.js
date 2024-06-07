@@ -6,19 +6,18 @@ export default {
   title: 'ButtonArea',
 }
 
-export const WithButtons = () => (
-  <ButtonArea>
-    <Button onClick={action('clicked button one')}> Button One </Button>
-    <Button onClick={action('clicked button two ')}> Button Two </Button>
-  </ButtonArea>
-)
+export const WithButtons = {
+  render: () => (
+    <ButtonArea>
+      <Button onClick={action('clicked button one')}> Button One </Button>
+      <Button onClick={action('clicked button two ')}> Button Two </Button>
+    </ButtonArea>
+  ),
 
-WithButtons.story = {
   name: 'with buttons',
 }
 
-export const WithoutButtonsEmpty = () => <ButtonArea />
-
-WithoutButtonsEmpty.story = {
+export const WithoutButtonsEmpty = {
+  render: () => <ButtonArea />,
   name: 'without buttons (empty)',
 }

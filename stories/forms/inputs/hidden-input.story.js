@@ -9,10 +9,8 @@ export default {
   title: 'HiddenInput',
 }
 
-export const InDefaultStateHidden = () => (
-  <HiddenInput input={inputProps} meta={{}} />
-)
+export const InDefaultStateHidden = {
+  render: () => <HiddenInput input={inputProps} meta={{}} />,
 
-InDefaultStateHidden.story = {
   name: 'in default state (hidden)',
 }

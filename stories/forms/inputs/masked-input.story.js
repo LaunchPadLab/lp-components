@@ -17,26 +17,26 @@ export default {
   title: 'MaskedInput',
 }
 
-export const CommaSeparatedNumber = () => (
-  <MaskedInput input={inputProps} meta={{}} maskOptions={{ numeral: true }} />
-)
+export const CommaSeparatedNumber = {
+  render: () => (
+    <MaskedInput input={inputProps} meta={{}} maskOptions={{ numeral: true }} />
+  ),
 
-CommaSeparatedNumber.story = {
   name: 'comma-separated number',
 }
 
-export const PhoneNumber = () => (
-  <MaskedInput
-    input={inputProps}
-    meta={{}}
-    maskOptions={{
-      numericOnly: true,
-      blocks: [0, 3, 0, 3, 4],
-      delimiters: ['(', ')', ' ', '-'],
-    }}
-  />
-)
+export const PhoneNumber = {
+  render: () => (
+    <MaskedInput
+      input={inputProps}
+      meta={{}}
+      maskOptions={{
+        numericOnly: true,
+        blocks: [0, 3, 0, 3, 4],
+        delimiters: ['(', ')', ' ', '-'],
+      }}
+    />
+  ),
 
-PhoneNumber.story = {
   name: 'phone number',
 }

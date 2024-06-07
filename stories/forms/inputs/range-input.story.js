@@ -17,41 +17,37 @@ export default {
   title: 'RangeInput',
 }
 
-export const WithDefaultStepMinAndMax = () => (
-  <RangeInput input={rangeInputProps} meta={{}} />
-)
+export const WithDefaultStepMinAndMax = {
+  render: () => <RangeInput input={rangeInputProps} meta={{}} />,
 
-WithDefaultStepMinAndMax.story = {
   name: 'with default `step`, `min`, and `max`',
 }
 
-export const WithCustomStepMinAndMax = () => (
-  <RangeInput input={rangeInputProps} meta={{}} min={20} max={80} step={5} />
-)
+export const WithCustomStepMinAndMax = {
+  render: () => (
+    <RangeInput input={rangeInputProps} meta={{}} min={20} max={80} step={5} />
+  ),
 
-WithCustomStepMinAndMax.story = {
   name: 'with custom `step`, `min`, and `max`',
 }
 
-export const WithTheValueLabelHidden = () => (
-  <RangeInput input={rangeInputProps} meta={{}} hideRangeLabel />
-)
+export const WithTheValueLabelHidden = {
+  render: () => <RangeInput input={rangeInputProps} meta={{}} hideRangeLabel />,
 
-WithTheValueLabelHidden.story = {
   name: 'with the value label hidden',
 }
 
-export const WithError = () => (
-  <RangeInput
-    input={rangeInputProps}
-    meta={{
-      invalid: true,
-      touched: true,
-      error: 'Invalid input',
-    }}
-  />
-)
+export const WithError = {
+  render: () => (
+    <RangeInput
+      input={rangeInputProps}
+      meta={{
+        invalid: true,
+        touched: true,
+        error: 'Invalid input',
+      }}
+    />
+  ),
 
-WithError.story = {
   name: 'with error',
 }

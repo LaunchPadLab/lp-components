@@ -5,8 +5,7 @@ export default {
   title: 'Spinner',
 }
 
-export const Default = () => <Spinner />
-
-Default.story = {
+export const Default = {
+  render: () => <Spinner />,
   name: 'default',
 }

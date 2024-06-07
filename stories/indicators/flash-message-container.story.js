@@ -18,26 +18,23 @@ export default {
   title: 'FlashMessageContainer',
 }
 
-export const WithOneMessage = () => (
-  <FlashMessageContainer messages={[successMessage]} />
-)
+export const WithOneMessage = {
+  render: () => <FlashMessageContainer messages={[successMessage]} />,
 
-WithOneMessage.story = {
   name: 'with one message',
 }
 
-export const WithManyMessages = () => (
-  <FlashMessageContainer
-    messages={[successMessage, failureMessage, successMessage]}
-  />
-)
+export const WithManyMessages = {
+  render: () => (
+    <FlashMessageContainer
+      messages={[successMessage, failureMessage, successMessage]}
+    />
+  ),
 
-WithManyMessages.story = {
   name: 'with many messages',
 }
 
-export const WithNoMessagesBlank = () => <FlashMessageContainer messages={[]} />
-
-WithNoMessagesBlank.story = {
+export const WithNoMessagesBlank = {
+  render: () => <FlashMessageContainer messages={[]} />,
   name: 'with no messages (blank)',
 }

@@ -8,61 +8,61 @@ export default {
   title: 'Button',
 }
 
-export const Default = () => (
-  <Button
-    {...{
-      onClick,
-    }}
-  >
-    Click Me
-  </Button>
-)
+export const Default = {
+  render: () => (
+    <Button
+      {...{
+        onClick,
+      }}
+    >
+      Click Me
+    </Button>
+  ),
 
-Default.story = {
   name: 'default',
 }
 
-export const VariantSmall = () => (
-  <Button
-    {...{
-      onClick,
-      variant: 'small',
-    }}
-  >
-    Click Me
-  </Button>
-)
+export const VariantSmall = {
+  render: () => (
+    <Button
+      {...{
+        onClick,
+        variant: 'small',
+      }}
+    >
+      Click Me
+    </Button>
+  ),
 
-VariantSmall.story = {
   name: 'variant: small',
 }
 
-export const Disabled = () => (
-  <Button
-    {...{
-      onClick,
-      pristine: true,
-    }}
-  >
-    Click Me
-  </Button>
-)
+export const Disabled = {
+  render: () => (
+    <Button
+      {...{
+        onClick,
+        pristine: true,
+      }}
+    >
+      Click Me
+    </Button>
+  ),
 
-Disabled.story = {
   name: 'disabled',
 }
 
-export const Submitting = () => (
-  <Button
-    {...{
-      onClick,
-      submitting: true,
-    }}
-  >
-    Click Me
-  </Button>
-)
+export const Submitting = {
+  render: () => (
+    <Button
+      {...{
+        onClick,
+        submitting: true,
+      }}
+    >
+      Click Me
+    </Button>
+  ),
 
-Submitting.story = {
   name: 'submitting',
 }

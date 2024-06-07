@@ -9,8 +9,7 @@ export default {
   title: 'ColorPicker',
 }
 
-export const Default = () => <ColorPicker onChange={action('selected color')} />
-
-Default.story = {
+export const Default = {
+  render: () => <ColorPicker onChange={action('selected color')} />,
   name: 'default',
 }

@@ -31,53 +31,51 @@ export default {
   title: 'Select',
 }
 
-export const Default = () => (
-  <Select input={inputProps} meta={{}} options={options} />
-)
+export const Default = {
+  render: () => <Select input={inputProps} meta={{}} options={options} />,
 
-Default.story = {
   name: 'default',
 }
 
-export const WithCustomPlaceholder = () => (
-  <Select
-    input={inputProps}
-    meta={{}}
-    options={options}
-    placeholder="Placeholder"
-  />
-)
+export const WithCustomPlaceholder = {
+  render: () => (
+    <Select
+      input={inputProps}
+      meta={{}}
+      options={options}
+      placeholder="Placeholder"
+    />
+  ),
 
-WithCustomPlaceholder.story = {
   name: 'with custom placeholder',
 }
 
-export const WithEmptyPlaceholder = () => (
-  <Select input={inputProps} meta={{}} options={options} placeholder=" " />
-)
+export const WithEmptyPlaceholder = {
+  render: () => (
+    <Select input={inputProps} meta={{}} options={options} placeholder=" " />
+  ),
 
-WithEmptyPlaceholder.story = {
   name: 'with empty placeholder',
 }
 
-export const WithEnabledPlaceholderOption = () => (
-  <Select
-    input={inputProps}
-    meta={{}}
-    options={options}
-    placeholder="Placeholder"
-    enablePlaceholderOption={true}
-  />
-)
+export const WithEnabledPlaceholderOption = {
+  render: () => (
+    <Select
+      input={inputProps}
+      meta={{}}
+      options={options}
+      placeholder="Placeholder"
+      enablePlaceholderOption={true}
+    />
+  ),
 
-WithEnabledPlaceholderOption.story = {
   name: 'with enabled placeholder option',
 }
 
-export const WithOptionGroups = () => (
-  <Select input={inputProps} meta={{}} optionGroups={optionGroups} />
-)
+export const WithOptionGroups = {
+  render: () => (
+    <Select input={inputProps} meta={{}} optionGroups={optionGroups} />
+  ),
 
-WithOptionGroups.story = {
   name: 'with option groups',
 }

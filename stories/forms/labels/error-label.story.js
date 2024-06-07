@@ -5,8 +5,7 @@ export default {
   title: 'ErrorLabel',
 }
 
-export const WithASingleError = () => <ErrorLabel>An error occurred</ErrorLabel>
-
-WithASingleError.story = {
+export const WithASingleError = {
+  render: () => <ErrorLabel>An error occurred</ErrorLabel>,
   name: 'with a single error',
 }

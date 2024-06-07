@@ -5,49 +5,42 @@ export default {
   title: 'InputLabel',
 }
 
-export const WithDefaultLabel = () => <InputLabel name="nameOfInput" />
-
-WithDefaultLabel.story = {
+export const WithDefaultLabel = {
+  render: () => <InputLabel name="nameOfInput" />,
   name: 'with default label',
 }
 
-export const WithCustomLabel = () => (
-  <InputLabel name="nameOfInput" label="Custom Label" />
-)
+export const WithCustomLabel = {
+  render: () => <InputLabel name="nameOfInput" label="Custom Label" />,
 
-WithCustomLabel.story = {
   name: 'with custom label',
 }
 
-export const WithNoLabel = () => <InputLabel name="nameOfInput" label={false} />
-
-WithNoLabel.story = {
+export const WithNoLabel = {
+  render: () => <InputLabel name="nameOfInput" label={false} />,
   name: 'with no label',
 }
 
-export const WithRequiredTrueCustomIndicator = () => (
-  <InputLabel
-    name="nameOfInput"
-    label="Custom Label"
-    required={true}
-    requiredIndicator={'*'}
-  />
-)
+export const WithRequiredTrueCustomIndicator = {
+  render: () => (
+    <InputLabel
+      name="nameOfInput"
+      label="Custom Label"
+      required={true}
+      requiredIndicator={'*'}
+    />
+  ),
 
-WithRequiredTrueCustomIndicator.story = {
   name: 'with required true custom indicator',
 }
 
-export const WithHint = () => <InputLabel name="nameOfInput" hint="hint" />
-
-WithHint.story = {
+export const WithHint = {
+  render: () => <InputLabel name="nameOfInput" hint="hint" />,
   name: 'with hint',
 }
 
-export const WithTooltip = () => (
-  <InputLabel name="nameOfInput" tooltip="tooltip" />
-)
+export const WithTooltip = {
+  render: () => <InputLabel name="nameOfInput" tooltip="tooltip" />,
 
-WithTooltip.story = {
   name: 'with tooltip',
 }

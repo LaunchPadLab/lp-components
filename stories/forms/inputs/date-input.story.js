@@ -18,16 +18,15 @@ export default {
   title: 'DateInput',
 }
 
-export const Default = () => <DateInput input={inputProps} meta={{}} />
-
-Default.story = {
+export const Default = {
+  render: () => <DateInput input={inputProps} meta={{}} />,
   name: 'default',
 }
 
-export const CustomPlaceholder = () => (
-  <DateInput input={inputProps} meta={{}} placeholderText={'custom'} />
-)
+export const CustomPlaceholder = {
+  render: () => (
+    <DateInput input={inputProps} meta={{}} placeholderText={'custom'} />
+  ),
 
-CustomPlaceholder.story = {
   name: 'custom placeholder',
 }

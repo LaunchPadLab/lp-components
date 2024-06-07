@@ -11,37 +11,34 @@ export default {
   title: 'Paginator',
 }
 
-export const WithNoHiddenPages = () => (
-  <Paginator max={5} pagesShown={5} onChange={action('clicked on page')} />
-)
+export const WithNoHiddenPages = {
+  render: () => (
+    <Paginator max={5} pagesShown={5} onChange={action('clicked on page')} />
+  ),
 
-WithNoHiddenPages.story = {
   name: 'with no hidden pages',
 }
 
-export const WithHiddenPages = () => (
-  <Paginator max={5} onChange={action('clicked on page')} />
-)
+export const WithHiddenPages = {
+  render: () => <Paginator max={5} onChange={action('clicked on page')} />,
 
-WithHiddenPages.story = {
   name: 'with hidden pages',
 }
 
-export const WithCustomLabels = () => (
-  <Paginator
-    max={5}
-    previousLabel={'<'}
-    nextLabel={'>'}
-    onChange={action('clicked on page')}
-  />
-)
+export const WithCustomLabels = {
+  render: () => (
+    <Paginator
+      max={5}
+      previousLabel={'<'}
+      nextLabel={'>'}
+      onChange={action('clicked on page')}
+    />
+  ),
 
-WithCustomLabels.story = {
   name: 'with custom labels',
 }
 
-export const WithOnePageHidden = () => <Paginator max={1} />
-
-WithOnePageHidden.story = {
+export const WithOnePageHidden = {
+  render: () => <Paginator max={1} />,
   name: 'with one page (hidden)',
 }
