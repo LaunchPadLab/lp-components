@@ -6,7 +6,7 @@ import dynamicInput from '../dynamic-input'
 const ColorPicker = dynamicInput()(StaticColorPicker)
 
 export default {
-  title: 'ColorPicker',
+  title: 'ColorPicker'
 }
 
 export const Default = {

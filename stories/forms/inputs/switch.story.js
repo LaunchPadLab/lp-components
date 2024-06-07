@@ -15,7 +15,7 @@ const inputProps = {
 }
 
 export default {
-  title: 'Switch',
+  title: 'Switch'
 }
 
 export const WithDefaultLabel = {
