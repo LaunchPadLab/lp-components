@@ -1,5 +1,4 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { ColorInput as StaticColorInput } from 'src'
 import dynamicInput from '../../dynamic-input'
@@ -15,6 +14,12 @@ const inputProps = {
   onBlur: () => {},
 }
 
-storiesOf('ColorInput', module).add('default', () => (
-  <ColorInput input={inputProps} meta={{}} />
-))
+export default {
+  title: 'ColorInput',
+}
+
+export const Default = () => <ColorInput input={inputProps} meta={{}} />
+
+Default.story = {
+  name: 'default',
+}

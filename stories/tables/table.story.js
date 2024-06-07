@@ -1,5 +1,4 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { Table, TableColumn as Column } from 'src'
 
 const tableData = [
@@ -14,42 +13,69 @@ function CustomCell({ value }) {
   return <td style={{ color }}>{value}</td>
 }
 
-storiesOf('Table', module)
-  .add('default', () => (
-    <Table data={tableData}>
-      <Column name="name" />
-      <Column name="age" />
-      <Column name="active" />
-    </Table>
-  ))
-  .add('with custom labels', () => (
-    <Table data={tableData}>
-      <Column name="name" label="FIRST NAME" />
-      <Column name="age" label="AGE" />
-      <Column name="active" label="IS ACTIVE" />
-    </Table>
-  ))
-  .add('with custom component', () => (
-    <Table data={tableData}>
-      <Column name="name" />
-      <Column name="age" />
-      <Column name="active" component={CustomCell} />
-    </Table>
-  ))
-  .add('with caption', () => (
-    <Table data={tableData} caption="Participant Attributes">
-      <Column name="name" />
-      <Column name="age" />
-      <Column name="active" />
-    </Table>
-  ))
-  .add('with customized caption', () => (
-    <Table
-      data={tableData}
-      caption={<span className="custom-caption">Participant Attributes</span>}
-    >
-      <Column name="name" />
-      <Column name="age" />
-      <Column name="active" />
-    </Table>
-  ))
+export default {
+  title: 'Table',
+}
+
+export const Default = () => (
+  <Table data={tableData}>
+    <Column name="name" />
+    <Column name="age" />
+    <Column name="active" />
+  </Table>
+)
+
+Default.story = {
+  name: 'default',
+}
+
+export const WithCustomLabels = () => (
+  <Table data={tableData}>
+    <Column name="name" label="FIRST NAME" />
+    <Column name="age" label="AGE" />
+    <Column name="active" label="IS ACTIVE" />
+  </Table>
+)
+
+WithCustomLabels.story = {
+  name: 'with custom labels',
+}
+
+export const WithCustomComponent = () => (
+  <Table data={tableData}>
+    <Column name="name" />
+    <Column name="age" />
+    <Column name="active" component={CustomCell} />
+  </Table>
+)
+
+WithCustomComponent.story = {
+  name: 'with custom component',
+}
+
+export const WithCaption = () => (
+  <Table data={tableData} caption="Participant Attributes">
+    <Column name="name" />
+    <Column name="age" />
+    <Column name="active" />
+  </Table>
+)
+
+WithCaption.story = {
+  name: 'with caption',
+}
+
+export const WithCustomizedCaption = () => (
+  <Table
+    data={tableData}
+    caption={<span className="custom-caption">Participant Attributes</span>}
+  >
+    <Column name="name" />
+    <Column name="age" />
+    <Column name="active" />
+  </Table>
+)
+
+WithCustomizedCaption.story = {
+  name: 'with customized caption',
+}

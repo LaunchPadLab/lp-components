@@ -1,3 +1,5 @@
-export Table from './table'
-export SortableTable from './sortable-table'
-export TableColumn from './table-column'
+import Table from './table'
+import SortableTable from './sortable-table'
+import TableColumn from './table-column'
+
+export { Table, SortableTable, TableColumn }

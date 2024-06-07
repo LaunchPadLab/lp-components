@@ -1,5 +1,4 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { Select as StaticSelect } from 'src'
 import dynamicInput from '../../dynamic-input'
@@ -28,30 +27,57 @@ const optionGroups = [
   { name: 'Ice Cream Group', options: ['mint chocolate chip', 'cookie dough'] },
 ]
 
-storiesOf('Select', module)
-  .add('default', () => (
-    <Select input={inputProps} meta={{}} options={options} />
-  ))
-  .add('with custom placeholder', () => (
-    <Select
-      input={inputProps}
-      meta={{}}
-      options={options}
-      placeholder="Placeholder"
-    />
-  ))
-  .add('with empty placeholder', () => (
-    <Select input={inputProps} meta={{}} options={options} placeholder=" " />
-  ))
-  .add('with enabled placeholder option', () => (
-    <Select
-      input={inputProps}
-      meta={{}}
-      options={options}
-      placeholder="Placeholder"
-      enablePlaceholderOption={true}
-    />
-  ))
-  .add('with option groups', () => (
-    <Select input={inputProps} meta={{}} optionGroups={optionGroups} />
-  ))
+export default {
+  title: 'Select',
+}
+
+export const Default = () => (
+  <Select input={inputProps} meta={{}} options={options} />
+)
+
+Default.story = {
+  name: 'default',
+}
+
+export const WithCustomPlaceholder = () => (
+  <Select
+    input={inputProps}
+    meta={{}}
+    options={options}
+    placeholder="Placeholder"
+  />
+)
+
+WithCustomPlaceholder.story = {
+  name: 'with custom placeholder',
+}
+
+export const WithEmptyPlaceholder = () => (
+  <Select input={inputProps} meta={{}} options={options} placeholder=" " />
+)
+
+WithEmptyPlaceholder.story = {
+  name: 'with empty placeholder',
+}
+
+export const WithEnabledPlaceholderOption = () => (
+  <Select
+    input={inputProps}
+    meta={{}}
+    options={options}
+    placeholder="Placeholder"
+    enablePlaceholderOption={true}
+  />
+)
+
+WithEnabledPlaceholderOption.story = {
+  name: 'with enabled placeholder option',
+}
+
+export const WithOptionGroups = () => (
+  <Select input={inputProps} meta={{}} optionGroups={optionGroups} />
+)
+
+WithOptionGroups.story = {
+  name: 'with option groups',
+}

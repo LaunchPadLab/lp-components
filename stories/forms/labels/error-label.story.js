@@ -1,7 +1,12 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { ErrorLabel } from 'src'
 
-storiesOf('ErrorLabel', module).add('with a single error', () => (
-  <ErrorLabel>An error occurred</ErrorLabel>
-))
+export default {
+  title: 'ErrorLabel',
+}
+
+export const WithASingleError = () => <ErrorLabel>An error occurred</ErrorLabel>
+
+WithASingleError.story = {
+  name: 'with a single error',
+}

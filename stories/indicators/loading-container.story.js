@@ -1,19 +1,30 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { LoadingContainer } from 'src'
 
-storiesOf('LoadingContainer', module)
-  .add('is loading', () => (
-    <div>
-      <LoadingContainer isLoading={true}>
-        <div>This text IS loading. </div>
-      </LoadingContainer>
-    </div>
-  ))
-  .add('is not loading', () => (
-    <div>
-      <LoadingContainer isLoading={false}>
-        <div> This text IS NOT loading. </div>
-      </LoadingContainer>
-    </div>
-  ))
+export default {
+  title: 'LoadingContainer',
+}
+
+export const IsLoading = () => (
+  <div>
+    <LoadingContainer isLoading={true}>
+      <div>This text IS loading. </div>
+    </LoadingContainer>
+  </div>
+)
+
+IsLoading.story = {
+  name: 'is loading',
+}
+
+export const IsNotLoading = () => (
+  <div>
+    <LoadingContainer isLoading={false}>
+      <div> This text IS NOT loading. </div>
+    </LoadingContainer>
+  </div>
+)
+
+IsNotLoading.story = {
+  name: 'is not loading',
+}

@@ -1,5 +1,4 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { Button, SubmitButton } from 'src'
 
@@ -8,7 +7,11 @@ function submit(e) {
   action('form submitted')(e)
 }
 
-storiesOf('SubmitButton', module).add('inside form', () => (
+export default {
+  title: 'SubmitButton',
+}
+
+export const InsideForm = () => (
   <form onSubmit={submit}>
     <label>
       {' '}
@@ -18,4 +21,8 @@ storiesOf('SubmitButton', module).add('inside form', () => (
     <label> Clicking this button will submit the form. </label>
     <SubmitButton> Submit </SubmitButton>
   </form>
-))
+)
+
+InsideForm.story = {
+  name: 'inside form',
+}

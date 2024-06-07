@@ -1,11 +1,18 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { HiddenInput } from 'src'
 
 const inputProps = {
   name: 'person.firstName',
 }
 
-storiesOf('HiddenInput', module).add('in default state (hidden)', () => (
+export default {
+  title: 'HiddenInput',
+}
+
+export const InDefaultStateHidden = () => (
   <HiddenInput input={inputProps} meta={{}} />
-))
+)
+
+InDefaultStateHidden.story = {
+  name: 'in default state (hidden)',
+}

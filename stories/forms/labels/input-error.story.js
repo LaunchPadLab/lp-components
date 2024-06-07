@@ -1,15 +1,26 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { InputError } from 'src'
 
-storiesOf('InputError', module)
-  .add('with a single error', () => (
-    <InputError error="An error occurred" invalid={true} touched={true} />
-  ))
-  .add('with multiple errors', () => (
-    <InputError
-      error={['An error occurred', 'Another error occurred']}
-      invalid={true}
-      touched={true}
-    />
-  ))
+export default {
+  title: 'InputError',
+}
+
+export const WithASingleError = () => (
+  <InputError error="An error occurred" invalid={true} touched={true} />
+)
+
+WithASingleError.story = {
+  name: 'with a single error',
+}
+
+export const WithMultipleErrors = () => (
+  <InputError
+    error={['An error occurred', 'Another error occurred']}
+    invalid={true}
+    touched={true}
+  />
+)
+
+WithMultipleErrors.story = {
+  name: 'with multiple errors',
+}

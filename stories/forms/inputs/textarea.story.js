@@ -1,5 +1,4 @@
 import React, { createRef } from 'react'
-import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { Textarea as StaticTextarea } from 'src'
 import dynamicInput from '../../dynamic-input'
@@ -16,19 +15,41 @@ const inputProps = {
 
 const inputRef = createRef()
 
-storiesOf('Textarea', module)
-  .add('default', () => <Textarea input={inputProps} meta={{}} />)
-  .add('with custom max length', () => (
-    <Textarea input={inputProps} meta={{}} maxLength={50} />
-  ))
-  .add('with hidden character count', () => (
-    <Textarea
-      input={inputProps}
-      meta={{}}
-      maxLength={50}
-      hideCharacterCount={true}
-    />
-  ))
-  .add('with a forwardedRef', () => (
-    <Textarea input={inputProps} meta={{}} forwardedRef={inputRef} />
-  ))
+export default {
+  title: 'Textarea',
+}
+
+export const Default = () => <Textarea input={inputProps} meta={{}} />
+
+Default.story = {
+  name: 'default',
+}
+
+export const WithCustomMaxLength = () => (
+  <Textarea input={inputProps} meta={{}} maxLength={50} />
+)
+
+WithCustomMaxLength.story = {
+  name: 'with custom max length',
+}
+
+export const WithHiddenCharacterCount = () => (
+  <Textarea
+    input={inputProps}
+    meta={{}}
+    maxLength={50}
+    hideCharacterCount={true}
+  />
+)
+
+WithHiddenCharacterCount.story = {
+  name: 'with hidden character count',
+}
+
+export const WithAForwardedRef = () => (
+  <Textarea input={inputProps} meta={{}} forwardedRef={inputRef} />
+)
+
+WithAForwardedRef.story = {
+  name: 'with a forwardedRef',
+}

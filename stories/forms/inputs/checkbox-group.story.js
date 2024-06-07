@@ -1,5 +1,4 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { CheckboxGroup as StaticCheckboxGroup } from 'src'
 import dynamicInput from '../../dynamic-input'
@@ -30,56 +29,88 @@ const SpecialLabel = ({ id, label }) => (
   </span>
 )
 
-storiesOf('CheckboxGroup', module)
-  .add('with default label', () => (
-    <CheckboxGroup input={inputProps} meta={{}} options={options} />
-  ))
-  .add('with custom label', () => (
-    <CheckboxGroup
-      input={inputProps}
-      meta={{}}
-      label="Custom Label"
-      options={options}
-    />
-  ))
-  .add('with no label', () => (
-    <CheckboxGroup
-      input={inputProps}
-      meta={{}}
-      label={false}
-      options={options}
-    />
-  ))
-  .add('with error', () => (
-    <CheckboxGroup
-      input={inputProps}
-      meta={{
-        invalid: true,
-        touched: true,
-        error: 'Invalid input',
-      }}
-      value="0000"
-      options={options}
-    />
-  ))
-  .add('with empty options', () => (
-    <CheckboxGroup input={inputProps} meta={{}} />
-  ))
-  .add('with input props specified', () => (
-    <CheckboxGroup
-      input={inputProps}
-      meta={{}}
-      options={options}
-      checkboxInputProps={{
-        labelComponent: SpecialLabel,
-      }}
-    />
-  ))
-  .add('with dropdown', () => (
-    <CheckboxGroup
-      input={inputProps}
-      meta={{}}
-      options={options}
-      dropdown={true}
-    />
-  ))
+export default {
+  title: 'CheckboxGroup',
+}
+
+export const WithDefaultLabel = () => (
+  <CheckboxGroup input={inputProps} meta={{}} options={options} />
+)
+
+WithDefaultLabel.story = {
+  name: 'with default label',
+}
+
+export const WithCustomLabel = () => (
+  <CheckboxGroup
+    input={inputProps}
+    meta={{}}
+    label="Custom Label"
+    options={options}
+  />
+)
+
+WithCustomLabel.story = {
+  name: 'with custom label',
+}
+
+export const WithNoLabel = () => (
+  <CheckboxGroup input={inputProps} meta={{}} label={false} options={options} />
+)
+
+WithNoLabel.story = {
+  name: 'with no label',
+}
+
+export const WithError = () => (
+  <CheckboxGroup
+    input={inputProps}
+    meta={{
+      invalid: true,
+      touched: true,
+      error: 'Invalid input',
+    }}
+    value="0000"
+    options={options}
+  />
+)
+
+WithError.story = {
+  name: 'with error',
+}
+
+export const WithEmptyOptions = () => (
+  <CheckboxGroup input={inputProps} meta={{}} />
+)
+
+WithEmptyOptions.story = {
+  name: 'with empty options',
+}
+
+export const WithInputPropsSpecified = () => (
+  <CheckboxGroup
+    input={inputProps}
+    meta={{}}
+    options={options}
+    checkboxInputProps={{
+      labelComponent: SpecialLabel,
+    }}
+  />
+)
+
+WithInputPropsSpecified.story = {
+  name: 'with input props specified',
+}
+
+export const WithDropdown = () => (
+  <CheckboxGroup
+    input={inputProps}
+    meta={{}}
+    options={options}
+    dropdown={true}
+  />
+)
+
+WithDropdown.story = {
+  name: 'with dropdown',
+}

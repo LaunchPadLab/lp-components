@@ -1,5 +1,7 @@
-export ErrorLabel from './error-label'
-export InputError from './input-error'
-export InputLabel from './input-label'
-export LabeledField from './labeled-field'
-export FieldsetLegend from './fieldset-legend'
+import ErrorLabel from './error-label'
+import InputError from './input-error'
+import InputLabel from './input-label'
+import LabeledField from './labeled-field'
+import FieldsetLegend from './fieldset-legend'
+
+export { ErrorLabel, InputError, InputLabel, LabeledField, FieldsetLegend }

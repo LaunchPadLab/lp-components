@@ -1,21 +1,47 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { FieldsetLegend } from 'src'
 
-storiesOf('FieldsetLegend', module)
-  .add('with default label', () => <FieldsetLegend name="nameOfInput" />)
-  .add('with custom label', () => (
-    <FieldsetLegend name="nameOfInput" label="Custom Label" />
-  ))
-  .add('with no label', () => (
-    <FieldsetLegend name="nameOfInput" label={false} />
-  ))
-  .add('with required true custom indicator', () => (
-    <FieldsetLegend
-      name="nameOfInput"
-      label="Custom Label"
-      required={true}
-      requiredIndicator={'*'}
-    />
-  ))
-  .add('with hint', () => <FieldsetLegend name="nameOfInput" hint="hint" />)
+export default {
+  title: 'FieldsetLegend',
+}
+
+export const WithDefaultLabel = () => <FieldsetLegend name="nameOfInput" />
+
+WithDefaultLabel.story = {
+  name: 'with default label',
+}
+
+export const WithCustomLabel = () => (
+  <FieldsetLegend name="nameOfInput" label="Custom Label" />
+)
+
+WithCustomLabel.story = {
+  name: 'with custom label',
+}
+
+export const WithNoLabel = () => (
+  <FieldsetLegend name="nameOfInput" label={false} />
+)
+
+WithNoLabel.story = {
+  name: 'with no label',
+}
+
+export const WithRequiredTrueCustomIndicator = () => (
+  <FieldsetLegend
+    name="nameOfInput"
+    label="Custom Label"
+    required={true}
+    requiredIndicator={'*'}
+  />
+)
+
+WithRequiredTrueCustomIndicator.story = {
+  name: 'with required true custom indicator',
+}
+
+export const WithHint = () => <FieldsetLegend name="nameOfInput" hint="hint" />
+
+WithHint.story = {
+  name: 'with hint',
+}
