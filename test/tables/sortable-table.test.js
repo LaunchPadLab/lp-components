@@ -476,4 +476,15 @@ describe('SortableTable', () => {
     )
     expect(screen.getByText('My Table')).toHaveClass('custom-caption')
   })
+
+  test('Column with custom className is propagated to TableHeader', () => {
+    render(
+      <SortableTable data={tableData}>
+        <Column name="name" className="foo" />
+      </SortableTable>
+    )
+
+    const header = screen.getByText('Name').closest('th')
+    expect(header).toHaveClass('foo')
+  })
 })
