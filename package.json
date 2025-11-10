@@ -59,7 +59,7 @@
     "@launchpadlab/babel-preset": "^2.1.1",
     "@launchpadlab/eslint-config": "^3.0.1",
     "@launchpadlab/prettier-config": "^1.0.0",
-    "@size-limit/preset-small-lib": "^8.2.6",
+    "@size-limit/preset-small-lib": "^11.0.0",
     "@storybook/addon-a11y": "^6.4.22",
     "@storybook/addon-actions": "^6.4.22",
     "@storybook/addon-links": "^6.4.22",
