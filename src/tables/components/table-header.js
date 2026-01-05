@@ -18,20 +18,26 @@ function TableHeader({
   onClick,
 }) {
   const active = sortPath === name
-  const arrowClass = getArrowClass(active, ascending)
+  const sortOrder = getSortOrder(active, ascending)
+  const headerProps = {}
+
+  if (active) {
+    headerProps['aria-sort'] = sortOrder
+  }
+
   return (
     <th
-      onClick={onClick}
-      className={classnames(arrowClass, { sortable: !disabled })}
+      className={classnames(sortOrder, { sortable: !disabled })}
+      {...headerProps}
     >
-      {label || startCase(name)}
+      <button onClick={onClick}>{label || startCase(name)}</button>
     </th>
   )
 }
 
-function getArrowClass(active, ascending) {
-  if (!active) return ''
-  return ascending ? 'order-ascend' : 'order-descend'
+function getSortOrder(active, ascending) {
+  if (!active) return undefined
+  return ascending ? 'ascending' : 'descending'
 }
 
 TableHeader.propTypes = propTypes
