@@ -64,28 +64,32 @@ th {
     opacity: 0.4;
   }
 
-  &:hover:after {
-    content: '▼';
-  }
-}
-
-.order-ascend {
-  &:after {
-    content: '▲';
+  button {
+    width: 100%;
+    cursor: pointer;
+    &:hover:after {
+      content: '▼';
+    }
   }
 
-  &:hover:after {
-    content: '▼';
+  &.ascending {
+    button:after {
+      content: '▲';
+    }
+  
+    button:hover:after {
+      content: '▼';
+    }
   }
-}
-
-.order-descend {
-  &:after {
-    content: '▼';
-  }
-
-  &:hover:after {
-    content: '▲';
+  
+  &.descending {
+    button:after {
+      content: '▼';
+    }
+  
+    button:hover:after {
+      content: '▲';
+    }
   }
 }
 
