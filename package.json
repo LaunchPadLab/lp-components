@@ -1,8 +1,8 @@
 {
   "name": "@launchpadlab/lp-components",
-  "version": "10.1.0",
+  "version": "10.2.0",
   "engines": {
-    "node": "^18.12 || ^20.0"
+    "node": "^18.12 || ^20.0 || ^22.0 || ^24.0"
   },
   "description": "Our Components",
   "main": "lib/index.js",
