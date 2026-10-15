@@ -704,7 +704,7 @@ A range input that can be used in a `redux-form`-controlled form.
 
 *   `input` **[Object][148]** A `redux-form` [input][149] object
 *   `meta` **[Object][148]** A `redux-form` [meta][150] object
-*   `min` **[Number][145]** The minumum attribute of the slider control (optional, default `0`)
+*   `min` **[Number][145]** The minimum attribute of the slider control (optional, default `0`)
 *   `max` **[Number][145]** The maximum attribute of the slider control (optional, default `100`)
 *   `step` **[Number][145]** The step attribute of the slider control (optional, default `1`)
 *   `hideRangeValue` **[Boolean][144]** A boolean representing whether or not to display the range value (optional, default `false`)
