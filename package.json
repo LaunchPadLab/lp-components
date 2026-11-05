@@ -54,7 +54,7 @@
     "redux-flash": "^2.0.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.17.6",
+    "@babel/cli": "^8.0.0",
     "@babel/core": "^7.17.9",
     "@launchpadlab/babel-preset": "^2.1.1",
     "@launchpadlab/eslint-config": "^3.0.1",
